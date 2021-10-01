@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{73d66863-c176-41cd-8013-d4fea05efcab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{a49cdef2-609a-40ec-84ee-ef8babcb9bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{83d9811a-bef7-4d36-91fc-68182e6b0e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{b96d67a1-5b2e-4204-a14c-5eab46f7f6e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BaseObject">
+      <UniqueIdentifier>{50e5c1ec-8877-4ea8-85e3-10658eda66ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Process">
+      <UniqueIdentifier>{fcafafc6-d53a-4cf6-956b-436af8afce13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{4892f22f-e690-4aa3-ba44-325037eeacb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{367ec163-e708-4590-9717-a1ddd5901ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic">
+      <UniqueIdentifier>{947479b4-5850-41e7-972b-4cfefede0da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{da08d1c6-6bd8-4354-9ef6-7f0b5e3dfcad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{ad940dc2-2f22-4646-adcd-0e4e2a839fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{04d0eb10-8a6c-41e2-bdaa-2f0611dc87ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh">
+      <UniqueIdentifier>{bff5ce26-6930-486d-8ad1-a14feded3873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh\Cube">
+      <UniqueIdentifier>{ba1d7c60-779c-451f-97ee-68104bbf5738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{74b9d43d-d47e-4e13-94d7-21a7f2fcd8ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh\Cyilinder">
+      <UniqueIdentifier>{8a5f9a6a-c487-4b5d-a333-0876a829e765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh\Sphere">
+      <UniqueIdentifier>{f9d54df8-b4bf-41e1-9d5c-0cceba58ae79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh\Quad">
+      <UniqueIdentifier>{3c5114e1-622f-4309-9b0e-17e417c0753a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Light">
+      <UniqueIdentifier>{b906ddd6-000e-49dd-9d1f-8eb66a4d2f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{85903931-edf7-49ba-9d28-a54a8c9bcf17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructEx">
+      <UniqueIdentifier>{3c3e060a-0ef9-4a48-a37d-d4917202da0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{b98bd13b-7501-493f-8bcd-7ab47647b66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Line">
+      <UniqueIdentifier>{b0e8d5ad-fd10-4f30-9401-b314fa42dfbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Collider">
+      <UniqueIdentifier>{f510ee52-70c1-45e0-8d5d-6456c07fdd8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RefData.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Component.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Transform.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BaseObject.cpp">
+      <Filter>BaseObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ComponentExecutioner.cpp">
+      <Filter>Process</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TimeElement.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CentralTimeElement.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GlobalTime.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GraphicDevice.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EngineWorld.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SceneObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResourceObject.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResourceManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Vertex.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Index.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UserMesh.cpp">
+      <Filter>Resource\UserMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CubeUserMesh.cpp">
+      <Filter>Resource\UserMesh\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Renderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Camera.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UserMeshRenderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Resource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SphereUserMesh.cpp">
+      <Filter>Resource\UserMesh\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CyilinderUserMesh.cpp">
+      <Filter>Resource\UserMesh\Cyilinder</Filter>
+    </ClCompile>
+    <ClCompile Include="source\QuadUserMesh.cpp">
+      <Filter>Resource\UserMesh\Quad</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Light.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PointLight.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SpotLight.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DirectionalLight.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UserMeshBillboardRenderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Color.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mat3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mat4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathEx.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Noise.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Quat.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Vec2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Vec3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Vec4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsDevice.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Line.cpp">
+      <Filter>Render\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Rigidbody.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Collider.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SphereCollider.cpp">
+      <Filter>Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BoxCollider.cpp">
+      <Filter>Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LayerManager.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Object.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ObjectDefine.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Ref.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Ref.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RefData.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Types.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Templates.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Component.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ComponentDefine.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Transform.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="header\GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Defines.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="header\GameObject.hpp">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BaseObject.h">
+      <Filter>BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ComponentExecutioner.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ComponentExecutionerDefine.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="header\TimeElement.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="header\CentralTimeElement.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="header\GlobalTime.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="header\GraphicDevice.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="header\EngineBase.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="header\EngineWorld.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Texture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SceneObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ResourceObject.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ResourceManager.hpp">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ResourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Vertex.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Index.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserMesh.h">
+      <Filter>Resource\UserMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserMesh.hpp">
+      <Filter>Resource\UserMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="header\CubeUserMesh.h">
+      <Filter>Resource\UserMesh\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Renderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Camera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserMeshRenderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Resource.hpp">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SphereUserMesh.h">
+      <Filter>Resource\UserMesh\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="header\CyilinderUserMesh.h">
+      <Filter>Resource\UserMesh\Cyilinder</Filter>
+    </ClInclude>
+    <ClInclude Include="header\QuadUserMesh.h">
+      <Filter>Resource\UserMesh\Quad</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SpotLight.h">
+      <Filter>Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Light.h">
+      <Filter>Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PointLight.h">
+      <Filter>Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="header\DirectionalLight.h">
+      <Filter>Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UserMeshBillboardRenderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Color.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\D3DXMathEx.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Mat3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Mat4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\MathEx.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Noise.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Quat.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Vec2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Vec3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Vec4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="header\DataStructEx.h">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Delegate.h">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Delegate.hpp">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Function.h">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Function.hpp">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\FunctionConvert.h">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\IClonable.h">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PriorityQueue.h">
+      <Filter>DataStructEx</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsDevice.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Line.h">
+      <Filter>Render\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LibraryLink.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Rigidbody.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Collider.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SphereCollider.h">
+      <Filter>Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BoxCollider.h">
+      <Filter>Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LayerManager.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsDefines.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsBase.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="Engine.natvis" />
+    <Natvis Include="D3DXMathEx.natvis" />
+  </ItemGroup>
+</Project>

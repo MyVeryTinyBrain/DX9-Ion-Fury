@@ -1,0 +1,91 @@
+#pragma once
+
+#include "ResourceObject.h"
+
+class UserMesh abstract : public ResourceObject, public IClonable
+{
+	friend class ResourceManager;
+
+protected:
+
+	// Constructor for unmanaged resource
+	UserMesh();
+
+	// Construct for managed resource
+	UserMesh(const wstring& localPath, bool isShared);
+
+	virtual ~UserMesh();
+
+	virtual void InitializeNums(unsigned int& numVertices, unsigned int& numIncides) = 0;
+
+	virtual void InitializeVertices() = 0;
+
+	virtual void InitializeIndices() = 0;
+
+	// Return unmanaged user mesh
+	virtual IClonable* Clone() = 0;
+
+public:
+
+	template <class T>
+	static T* Create(const wstring& localPath, bool isShared);
+
+	template <class T>
+	static T* CreateUnmanaged();
+
+public:
+
+	void Draw();
+
+	unsigned int GetNumVertices() const;
+
+	unsigned int GetNumFaces() const;
+
+	Vertex* LockVertexBuffer();
+
+	Index* LockIndexBuffer();
+
+	void UnlockVertexBuffer();
+
+	void UnlockIndexBuffer();
+
+	void ResetStoredVertexBuffer();
+
+	void ResetStoredIndexBuffer();
+
+	bool Raycast(Vec3& hitPoint, const Vec3& worldRayPoint, const Vec3& worldRayDir, const Mat4& meshLocalToWorld);
+
+	__declspec(property (get = GetNumVertices)) unsigned int numVertices;
+
+	__declspec(property (get = GetNumIndices)) unsigned int numIndices;
+
+	__declspec(property (get = GetNumFaces)) unsigned int numFaces;
+
+protected:
+
+	void CreateVertexBuffer(unsigned int numVertices);
+
+	void CreateIndexBuffer(unsigned int numIndices);
+
+	void CreateStoredVertexBuffer(unsigned int numVertices);
+
+	void CreateStoredIndexBuffer(unsigned int numIndices);
+
+	void CopyFrom(UserMesh* other);
+
+private:
+
+	unsigned int m_numVertices = 0;
+
+	unsigned int m_numIndices = 0;
+
+	IDirect3DVertexBuffer9* m_vertices = nullptr;
+
+	IDirect3DIndexBuffer9* m_indices = nullptr;
+
+	Vertex* m_storedVertexBuffer = nullptr;
+
+	Index* m_storedIndexBuffer = nullptr;
+};
+
+#include "UserMesh.hpp"

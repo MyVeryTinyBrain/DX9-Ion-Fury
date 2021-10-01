@@ -1,0 +1,22 @@
+(@@는 86, 64등 실행 환경입니다)
+(##는 Debug, Release 빌드 설정입니다)
+
+구성 속성->VC++ 디렉터리->포함 디렉터리
+	$(WindowsSDK_IncludePath)
+	$(VC_IncludePath)
+	다이렉트X9 헤더 폴더
+	..\Physx4.1\include
+
+구성 속성->VC++ 디렉터리->라이브러리 디렉터리
+	$(WindowsSDK_LibraryPath_x@@)
+	$(VC_LibraryPath_x@@)
+	다이렉트X9 x@@ 라이브러리 폴더
+	..\Physx4.1\lib\##X@@
+
+구성 속성->디버깅->환경
+	PATH=..\Physx4.1\lib\##X@@;%PATH%
+
+C++->코드 생성->런타임 라이브러리
+	DebugX@@: Mtd
+	ReleaseX@@: MT
+	

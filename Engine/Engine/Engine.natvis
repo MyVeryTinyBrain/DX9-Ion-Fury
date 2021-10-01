@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name ="GameObject">
+		<DisplayString>Name = {m_name}</DisplayString>
+		<Expand>
+			<Item Name="Name"> m_name </Item>
+			<Item Name="Tag"> m_tag </Item>
+			<Item Name="Layer"> m_layer </Item>
+			<Item Name="[Components]">m_components</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

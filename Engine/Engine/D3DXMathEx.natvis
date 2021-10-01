@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name = "Vec2">
+		<DisplayString>Vector2 = [{x}, {y}]</DisplayString>
+	</Type>
+	<Type Name = "Vec3">
+		<DisplayString>Vector3 = [{x}, {y}, {z}]</DisplayString>
+	</Type>
+	<Type Name = "Vec4">
+		<DisplayString>Vector4 = [{x}, {y}, {z}, {w}]</DisplayString>
+	</Type>
+	<Type Name = "Mat3">
+		<Expand>
+			<ArrayItems>
+				<Size>3</Size>
+				<ValuePointer>m</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name = "Mat4">
+		<Expand>
+			<ArrayItems>
+				<Size>4</Size>
+				<ValuePointer>m</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name = "Quat">
+		<DisplayString>Quaternion = [{x}, {y}, {z}, {w}]</DisplayString>
+	</Type>
+	<Type Name = "Color">
+		<DisplayString>Color = [{r}, {g}, {b}, {a}]</DisplayString>
+	</Type>
+</AutoVisualizer>
