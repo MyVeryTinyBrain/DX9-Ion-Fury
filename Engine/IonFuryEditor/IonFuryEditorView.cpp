@@ -164,12 +164,18 @@ void CIonFuryEditorView::OnObject()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 	if (!m_dlgObjectTool.GetSafeHwnd())
 		m_dlgObjectTool.Create(IDD_DlgObjectTool);
 	m_dlgObjectTool.ShowWindow(SW_SHOW);
 
 
+=======
+	if (!m_dlgObjectTool.GetSafeHwnd())
+		m_dlgObjectTool.Create(IDD_DlgObjectTool);
+	m_dlgObjectTool.ShowWindow(SW_SHOW);
+>>>>>>> Stashed changes
 =======
 	if (!m_dlgObjectTool.GetSafeHwnd())
 		m_dlgObjectTool.Create(IDD_DlgObjectTool);
