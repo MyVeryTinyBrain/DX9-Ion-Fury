@@ -7,6 +7,13 @@
 
 class CIonFuryEditorView : public CView
 {
+private:
+	
+
+
+
+
+
 protected: // serialization에서만 만들어집니다.
 	CIonFuryEditorView() noexcept;
 	DECLARE_DYNCREATE(CIonFuryEditorView)
@@ -45,6 +52,7 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	virtual BOOL DestroyWindow();
+	afx_msg void OnObject();
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전

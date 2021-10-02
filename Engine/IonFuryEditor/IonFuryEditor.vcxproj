@@ -191,6 +191,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DlgObjectTool.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
     <ClInclude Include="framework.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DlgObjectTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />
     <ClCompile Include="EditorScene.cpp" />
     <ClCompile Include="FreePerspectiveCamera.cpp" />

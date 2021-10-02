@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_SIZE()
 	ON_WM_TIMER()
+	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -156,4 +157,11 @@ BOOL CIonFuryEditorView::DestroyWindow()
 	// 윈도우가 파괴되기 직전에 타이머를 파괴합니다.
 	KillTimer(0);
 	return CView::DestroyWindow();
+}
+
+
+void CIonFuryEditorView::OnObject()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+
 }
