@@ -22,6 +22,7 @@
 #include "Collider.h"
 #include "SphereCollider.h"
 #include "BoxCollider.h"
+#include "Rigidbody.h"
 
 // For SR
 #include "UserMesh.h"
