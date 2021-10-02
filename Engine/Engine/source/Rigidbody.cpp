@@ -3,6 +3,8 @@
 #include "PhysicsDevice.h"
 #include "PhysicsDefines.h"
 #include "Transform.h"
+#include "Collider.h"
+#include "GameObject.h"
 
 void Rigidbody::Awake()
 {
@@ -21,16 +23,18 @@ void Rigidbody::EndPhysicsSimulate()
 
 void Rigidbody::OnWake()
 {
-	m_body->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, true);
+	m_body->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, false);
 }
 
 void Rigidbody::OnSleep()
 {
-	m_body->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, false);
+	m_body->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, true);
 }
 
 void Rigidbody::OnDestroy()
 {
+	DetachAllColliders();
+
 	PxRelease(m_body);
 }
 
@@ -136,6 +140,14 @@ void Rigidbody::SetAngularVelocity(const Vec3& value)
 	m_body->setAngularVelocity(pxValue);
 }
 
+void Rigidbody::SetSleep(bool value)
+{
+	if (value)
+		m_body->wakeUp();
+	else
+		m_body->putToSleep();
+}
+
 void Rigidbody::SetupBody()
 {
 	auto device = PhysicsDevice::GetInstance();
@@ -146,6 +158,10 @@ void Rigidbody::SetupBody()
 
 	// 생성과 동시에 참조 카운터는 1로 설정됩니다.
 	m_body = device->physics->createRigidDynamic(initPose);
+	
+	m_body->userData = this;
+
+	device->scene->addActor(*m_body);
 }
 
 void Rigidbody::ToBody()
@@ -198,4 +214,46 @@ void Rigidbody::FromBody()
 	{
 		transform->rotation = bodyRot;
 	}
+}
+
+void Rigidbody::Attach(Collider* collider)
+{
+	m_body->attachShape(*collider->m_shape);
+
+	PxRigidBodyExt::updateMassAndInertia(*m_body, 10);
+}
+
+void Rigidbody::Detach(Collider* collider)
+{
+	m_body->detachShape(*collider->m_shape);
+}
+
+void Rigidbody::AttachAllColliders()
+{
+	DetachAllColliders();
+
+	std::vector<Collider*> colliders = gameObject->GetComponentsInChild<Collider>();
+	for (auto collider : colliders)
+	{
+		Attach(collider);
+	}
+}
+
+void Rigidbody::DetachAllColliders()
+{
+	PxU32 nbShapes = m_body->getNbShapes();
+
+	if (nbShapes == 0)
+		return;
+
+	PxShape** shapes = new PxShape * [nbShapes];
+	m_body->getShapes(shapes, sizeof(PxShape*) * nbShapes);
+
+	for (PxU32 i = 0; i < nbShapes; ++i)
+	{
+		Collider* collider = (Collider*)shapes[i]->userData;
+		Detach(collider);
+	}
+
+	SafeDeleteArray(shapes);
 }

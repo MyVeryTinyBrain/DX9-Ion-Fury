@@ -3,9 +3,14 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Custom
+Engine/.vs/Engine/v16/Browse.VC.db-shm
+Engine/.vs/Engine/v16/Solution.VC.db-shm
+Engine/.vs/Engine/v16/Solution.VC.db-wal
+
 # User-specific files
 *.rsuser
-*.suo
+#*.suo
 *.user
 *.userosscache
 *.sln.docstates
@@ -33,7 +38,7 @@ bld/
 [Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
-.vs/
+#.vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 

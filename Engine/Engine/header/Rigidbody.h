@@ -4,6 +4,8 @@
 
 class Rigidbody : public Component
 {
+	friend class Collider;
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(BeginPhysicsSimulate);
@@ -56,6 +58,8 @@ public:
 
 	void SetAngularVelocity(const Vec3& value);
 
+	void SetSleep(bool value);
+
 private:
 
 	void SetupBody();
@@ -63,6 +67,14 @@ private:
 	void ToBody();
 
 	void FromBody();
+
+	void Attach(class Collider* collider);
+
+	void Detach(class Collider* collider);
+
+	void AttachAllColliders();
+
+	void DetachAllColliders();
 
 private:
 

@@ -57,6 +57,20 @@ void CamController::Update()
 	{
 		OnSpace(L"hello");
 	}
+
+	if (Input::GetKeyDown(Key::RightMouse))
+	{
+		float scale = 1.0f;
+		GameObject* dynamic = CreateGameObject();
+		dynamic->transform->position = transform->position;
+		auto body = dynamic->AddComponent<Rigidbody>();
+		body->SetLinearVelocity(transform->forward * 15);
+		//dynamic->AddComponent<BoxCollider>()->extents = Vec3::one() * scale;
+		dynamic->AddComponent<SphereCollider>()->radius = scale;
+		auto renderer = dynamic->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
+		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+	}
 }
 
 void CamController::Func(const wstring& msg)
