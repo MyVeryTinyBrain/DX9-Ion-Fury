@@ -21,7 +21,7 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
     UserMesh::Create<QuadUserMesh>(L"../Resource/QuadUserMesh.mesh", true);
     Texture::CreateFromFile(L"../SharedResourced/Texture/Dev.png");
     Texture::CreateFromFile(L"../SharedResourced/Texture/DevAlpha.png");
-    Texture::CreateFromFile(L"../SharedResourced/Texture/DevTransparent.png");
+    Texture::CreateFromFile(L"../SharedResourced/Texture/DevTransparent.png"); 
 
     GraphicDevice::GetInstance()->GetDevice()->SetRenderState(D3DRS_LIGHTING, TRUE);
 
