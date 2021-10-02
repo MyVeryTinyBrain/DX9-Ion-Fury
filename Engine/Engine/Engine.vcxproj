@@ -22,6 +22,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SimpleBody.cpp" />
     <ClCompile Include="source\LayerManager.cpp" />
     <ClCompile Include="source\BoxCollider.cpp" />
     <ClCompile Include="source\Collider.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="header\SphereCollider.h" />
     <ClInclude Include="header\LayerManager.h" />
     <ClInclude Include="header\PhysicsBase.h" />
+    <ClInclude Include="SimpleBody.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

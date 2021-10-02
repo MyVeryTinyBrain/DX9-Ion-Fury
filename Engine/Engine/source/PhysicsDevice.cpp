@@ -24,11 +24,11 @@ void PhysicsDevice::Initialize()
 
 	m_physics = PxCreatePhysics(PX_PHYSICS_VERSION, *m_foundation, PxTolerancesScale(), true);
 
-	m_dispatcher = PxDefaultCpuDispatcherCreate(4);
+	m_dispatcher = PxDefaultCpuDispatcherCreate(2);
 
 	CreateScene();
 
-	m_layerManager = new LayerManager;
+	//m_layerManager = new LayerManager;
 }
 
 void PhysicsDevice::Release()
@@ -79,23 +79,21 @@ void PhysicsDevice::CreateScene()
 {
 	PxSceneDesc desc(m_physics->getTolerancesScale());
 
-	desc.gravity = PxVec3(0, -9.81f, 0);
-
+	desc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
 	desc.cpuDispatcher = m_dispatcher;
-
 	desc.filterShader = PxDefaultSimulationFilterShader;
 
-	desc.flags |=
-		PxSceneFlag::eMUTABLE_FLAGS |
-		PxSceneFlag::eENABLE_CCD |
-		PxSceneFlag::eADAPTIVE_FORCE |
-		PxSceneFlag::eENABLE_PCM |
-		PxSceneFlag::eENABLE_FRICTION_EVERY_ITERATION;
-
-	PxScene* scene = m_physics->createScene(desc);
+	auto scene = m_physics->createScene(desc);
 
 	if (!scene)
 		return;
+
+	//desc.flags |=
+	//	PxSceneFlag::eMUTABLE_FLAGS |
+	//	PxSceneFlag::eENABLE_CCD |
+	//	PxSceneFlag::eADAPTIVE_FORCE |
+	//	PxSceneFlag::eENABLE_PCM |
+	//	PxSceneFlag::eENABLE_FRICTION_EVERY_ITERATION;
 
 	//// 연속 충돌 감지(Continuous Contact Detection) 활성화
 	//// 아래 플래그를 사용할수 있습니다.

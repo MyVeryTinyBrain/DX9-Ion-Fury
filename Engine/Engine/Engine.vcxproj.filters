@@ -235,6 +235,7 @@
     <ClCompile Include="source\LayerManager.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="SimpleBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -471,6 +472,7 @@
     <ClInclude Include="header\PhysicsBase.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleBody.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />
