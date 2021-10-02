@@ -4,12 +4,12 @@
 
 float SphereCollider::GetRadius() const
 {
-	return m_radius;
+	return m_radius * 0.5f;
 }
 
 void SphereCollider::SetRadius(float value)
 {
-	m_radius = Abs(value);
+	m_radius = Abs(value) * 2;
 }
 
 PxGeometry* SphereCollider::CreateGeometry()

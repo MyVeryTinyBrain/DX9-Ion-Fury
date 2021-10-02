@@ -4,6 +4,8 @@
 
 class Collider : public Component
 {
+	friend class Rigidbody;
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Start);
@@ -58,6 +60,10 @@ public:
 
 	void SetLocalScale(const Vec3& localScale);
 
+	class Rigidbody* GetRigidbody() const;
+
+	__declspec(property(get = GetRigidbody)) class Rigidbody* rigidbody;
+
 public:
 
 	// 0 ~ 31 사이의 레이어 인덱스를 반환합니다.
@@ -97,6 +103,8 @@ private:
 	void ApplyCompatibleFlags();
 
 	void ApplyLayer();
+
+	void FindRigidbodyInTreeAndAttach();
 
 protected:
 

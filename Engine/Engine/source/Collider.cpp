@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "LayerManager.h"
+#include "Rigidbody.h"
 
 void Collider::Awake()
 {
@@ -21,11 +22,15 @@ void Collider::Awake()
 	ApplyTransform();
 
 	SafeDelete(geometry);
+
+	FindRigidbodyInTreeAndAttach();
 }
 
 void Collider::Start()
 {
 	ApplyTransform();
+
+	FindRigidbodyInTreeAndAttach();
 }
 
 void Collider::BeginPhysicsSimulate()
@@ -53,6 +58,13 @@ void Collider::OnSleep()
 
 void Collider::OnDestroy()
 {
+	Rigidbody* attachedBody = rigidbody;
+
+	if (attachedBody)
+	{
+		attachedBody->Detach(this);
+	}
+
 	PxRelease(m_material);
 	PxRelease(m_shape);
 }
@@ -151,6 +163,14 @@ void Collider::SetLocalScale(const Vec3& localScale)
 	ApplyScale();
 }
 
+Rigidbody* Collider::GetRigidbody() const
+{
+	PxRigidActor* actor = m_shape->getActor();
+	if (!actor)
+		return nullptr;
+	return (Rigidbody*)actor->userData;
+}
+
 uint8_t Collider::GetLayerIndex() const
 {
 	return m_layerIndex;
@@ -205,7 +225,8 @@ PxMaterial* Collider::CreateMaterial()
 	auto device = PhysicsDevice::GetInstance();
 
 	// 생성과 동시에 참조 카운터는 1로 설정됩니다.
-	return device->physics->createMaterial(0.5f, 0.5f, 0.5f);
+	return device->physics->createMaterial(0.5f, 0.5f, 0.0f);
+	//return device->physics->createMaterial(1, 1, 0);
 }
 
 PxShape* Collider::CreateShape(PxGeometry* geometry, PxMaterial* material)
@@ -257,4 +278,24 @@ void Collider::ApplyLayer()
 	filter.word1 = resultBits;
 
 	m_shape->setSimulationFilterData(filter);
+}
+
+void Collider::FindRigidbodyInTreeAndAttach()
+{
+	if (rigidbody)
+		return;
+
+	Transform* t = transform;
+
+	while (t)
+	{
+		auto body = t->gameObject->GetComponent<Rigidbody>();
+		if (body)
+		{
+			body->Attach(this);
+			ApplyTransform();
+			return;
+		}
+		t = t->parent;
+	}
 }
