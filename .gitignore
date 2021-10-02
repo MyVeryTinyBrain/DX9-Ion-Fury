@@ -4,8 +4,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Custom
-Browse.VC.*
-Solution.VC.*
+Engine/.vs/Engine/v16/Browse.VC.db-shm
+Engine/.vs/Engine/v16/Solution.VC.db-shm
+Engine/.vs/Engine/v16/Solution.VC.db-wal
 
 # User-specific files
 *.rsuser
