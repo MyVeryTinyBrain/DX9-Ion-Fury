@@ -42,6 +42,8 @@ public:
 
 	__declspec(property(get = IsActiveInTree)) bool activeInTree;
 
+	__declspec(property(get = GetRoot)) Transform* root;
+
 	__declspec(property(get = GetParent, put = SetParent)) Transform* parent;
 
 	__declspec(property(get = GetChildCount)) size_t childCount;

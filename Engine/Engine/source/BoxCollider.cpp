@@ -15,7 +15,7 @@ void BoxCollider::SetExtents(const Vec3& value)
 
 PxGeometry* BoxCollider::CreateGeometry()
 {
-	return new PxBoxGeometry(ToPxVec3(m_extents * 0.5f));
+	return new PxBoxGeometry(PxVec3(1, 1, 1));
 }
 
 void BoxCollider::OnBeginPhysicsSimulate()
@@ -32,7 +32,7 @@ void BoxCollider::UpdateScale(const Vec3& scale)
 		Abs(m_extents.x * scale.x),
 		Abs(m_extents.y * scale.y),
 		Abs(m_extents.z * scale.z)
-	) * 0.5f;
+	);
 
 	m_shape->setGeometry(box);
 }

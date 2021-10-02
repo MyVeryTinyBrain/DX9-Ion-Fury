@@ -24,7 +24,7 @@ void PhysicsDevice::Initialize()
 
 	m_physics = PxCreatePhysics(PX_PHYSICS_VERSION, *m_foundation, PxTolerancesScale(), true);
 
-	m_dispatcher = PxDefaultCpuDispatcherCreate(2);
+	m_dispatcher = PxDefaultCpuDispatcherCreate(4);
 
 	CreateScene();
 

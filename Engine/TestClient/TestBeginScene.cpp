@@ -25,10 +25,10 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
 
     GraphicDevice::GetInstance()->GetDevice()->SetRenderState(D3DRS_LIGHTING, TRUE);
 
-    //Light::SetAmbientLight(Color::white() * 0.1f);
+    Light::SetAmbientLight(Color::white());
 
     GameObject* cameraObj = CreateGameObject();
-    cameraObj->transform->position = Vec3(0, 0, -2);
+    cameraObj->transform->position = Vec3(0, 2, -2);
     cameraObj->AddComponent<Camera>();
     cameraObj->AddComponent<CamController>();
 
@@ -37,24 +37,17 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
     lightObj->AddComponent<SpotLight>()->color = Color::white();
     lightObj->transform->parent = cameraObj->transform;
 
-    //GameObject* obj1 = CreateGameObject();
-    //obj1->transform->position = Vec3(0, 0, 0.0f);
-    //auto cubeRenderer1 = obj1->AddComponent<UserMeshRenderer>();
-    //cubeRenderer1->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
-    //cubeRenderer1->SetTexture(0, Resource::Find(L"../SharedResourced/Texture/Dev.png")->GetReferenceTo<Texture>());
-
-    GameObject* obj1 = CreateGameObject();
-    obj1->transform->position = Vec3(0, 0, 0);
-    obj1->AddComponent<Player>();
-    obj1->name = L"obj1";
-
-    GameObject* obj2 = CreateGameObject();
-    obj2->transform->position = Vec3(10, 0, 0);
-    obj2->AddComponent<Player>()->SetArmLocalAngle(45);
-    obj2->name = L"obj2";
-
-    auto obj3 = CreateGameObject();
-    obj3->AddComponent<EventTest>();
+    //{
+    //    GameObject* kinematic = CreateGameObject();
+    //    kinematic->transform->position = Vec3(0, 1, 0);
+    //    kinematic->transform->scale = Vec3(10, 1, 10);
+    //    auto body = kinematic->AddComponent<Rigidbody>();
+    //    kinematic->AddComponent<BoxCollider>()->extents = Vec3(1, 1, 1);
+    //    auto renderer = kinematic->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+    //    body->SetKinematic(true);
+    //}
 }
 
 void TestBeginScene::OnUnload(Scene* nextScene)

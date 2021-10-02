@@ -81,10 +81,10 @@ HRESULT EngineWorld::Step()
 			sceneChanged = SceneManager::GetInstance()->TryChangeScene(nullptr);
 		}
 
-		if (sceneChanged)
-		{
-			centralTime->Reset();
-		}
+		//if (sceneChanged)
+		//{
+		//	centralTime->Reset();
+		//}
 
 		Scene* scene = SceneManager::GetCurrentScene();
 
