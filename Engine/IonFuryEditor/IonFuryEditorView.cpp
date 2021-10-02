@@ -168,4 +168,5 @@ void CIonFuryEditorView::OnObject()
 		m_dlgObjectTool.Create(IDD_DlgObjectTool);
 	m_dlgObjectTool.ShowWindow(SW_SHOW);
 
+
 }
