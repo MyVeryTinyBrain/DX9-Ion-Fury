@@ -1,5 +1,6 @@
 #include "IonFuryEditorBase.h"
 #include "FreePerspectiveCamera.h"
+#include "Gizmo.h"
 
 void FreePerspectiveCamera::Update()
 {
@@ -16,6 +17,9 @@ void FreePerspectiveCamera::Update()
 		pos += transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
 	if (Input::GetKey(Key::S))
 		pos += -transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
+	
+	if (Input::GetKey(Key::P))
+		AddObject();
 
 	if (Input::GetKey(Key::Left))
 		ang.y -= m_angularSpeed * Time::DeltaTime();
@@ -62,4 +66,14 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	GetCursorPos(&pos);
 	ScreenToClient(GraphicDevice::GetInstance()->GetWindowHandle(), &pos);
 	return pos;
+}
+
+void FreePerspectiveCamera::AddObject()
+{
+	GameObject* Obj = CreateGameObject();
+	Obj->AddComponent<Gizmo>();
+	Obj->transform->position = transform->position + transform->forward * 2;
+	auto Renderer = Obj->AddComponent<UserMeshRenderer>();
+	Renderer->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
+	Renderer->SetTexture(0, Resource::Find(L"../SharedResourced/Texture/Dev.png")->GetReferenceTo<Texture>());
 }

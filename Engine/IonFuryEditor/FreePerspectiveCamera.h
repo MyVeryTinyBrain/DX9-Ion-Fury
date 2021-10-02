@@ -10,6 +10,8 @@ private:
 
 	POINT GetMousePointInClient() const;
 
+	void AddObject();
+
 private:
 
 	float m_linearSpeed = 2;
