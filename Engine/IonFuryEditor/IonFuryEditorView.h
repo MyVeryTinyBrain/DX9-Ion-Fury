@@ -3,13 +3,12 @@
 //
 
 #pragma once
-
+#include "DlgObjectTool.h"
 
 class CIonFuryEditorView : public CView
 {
 private:
-	
-
+	DlgObjectTool m_dlgObjectTool;
 
 
 

@@ -3,6 +3,8 @@
 
 // DlgObjectTool 대화 상자
 
+
+
 class DlgObjectTool : public CDialog
 {
 	DECLARE_DYNAMIC(DlgObjectTool)
