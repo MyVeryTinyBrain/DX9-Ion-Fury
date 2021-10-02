@@ -51,6 +51,15 @@ GameObject * Component::CreateGameObject(const tag_t& tag)
 	return go;
 }
 
+GameObject* Component::CreateGameObjectToChild(Transform* parent, const tag_t& tag)
+{
+	GameObject* go = new GameObject(gameObject->regionScene, tag);
+	go->transform->parent = parent;
+	go->transform->localPosition = Vec3::zero();
+
+	return go;
+}
+
 GameObject* Component::FindGameObject(const wstring& name) const
 {
 	return gameObject->regionScene->FindGameObject(name);

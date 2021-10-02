@@ -9,35 +9,26 @@
 
 void Collider::Awake()
 {
-	PxGeometry* geometry = CreateGeometry();
+	auto device = PhysicsDevice::GetInstance();
 
-	m_material = CreateMaterial();
+	m_material = device->physics->createMaterial(0.5f, 0.5f, 0.0f);
 
-	m_shape = CreateShape(geometry, m_material);
+	m_shape = device->physics->createShape(CreateGeometry().any(), *m_material, true);
+	m_shape->userData = this;
+	
+	FindRigidbodyAndAttach();
 
-	ApplyCompatibleFlags();
+	ApplyFlags();
 
-	ApplyLayer();
+	ApplyTransform(true);
 
-	ApplyTransform();
-
-	SafeDelete(geometry);
-
-	FindRigidbodyInTreeAndAttach();
-}
-
-void Collider::Start()
-{
-	ApplyTransform();
-
-	FindRigidbodyInTreeAndAttach();
+	ApplyScale();
 }
 
 void Collider::BeginPhysicsSimulate()
 {
 	ApplyTransform();
-
-	OnBeginPhysicsSimulate();
+	ApplyScale();
 }
 
 void Collider::OnWake()
@@ -45,7 +36,7 @@ void Collider::OnWake()
 	if (!m_shape)
 		return;
 
-	ApplyCompatibleFlags();
+	ApplyFlags();
 }
 
 void Collider::OnSleep()
@@ -53,17 +44,14 @@ void Collider::OnSleep()
 	if (!m_shape)
 		return;
 
-	ApplyCompatibleFlags();
+	ApplyFlags();
 }
 
 void Collider::OnDestroy()
 {
-	Rigidbody* attachedBody = rigidbody;
-
-	if (attachedBody)
-	{
-		attachedBody->Detach(this);
-	}
+	Rigidbody* body = GetRigidbody();
+	if (body)
+		body->Detach(this);
 
 	PxRelease(m_material);
 	PxRelease(m_shape);
@@ -77,7 +65,7 @@ bool Collider::IsTrigger() const
 void Collider::SetTrigger(bool value)
 {
 	m_isTrigger = value;
-	ApplyCompatibleFlags();
+	ApplyFlags();
 }
 
 float Collider::GetFriction() const
@@ -99,68 +87,6 @@ float Collider::GetRestitution() const
 void Collider::SetRestitution(float value)
 {
 	return m_material->setRestitution(value);
-}
-
-void Collider::ApplyTransform()
-{
-	PxTransform pose;
-	pose.p = ToPxVec3(transform->localPosition);
-	pose.q = ToPxQuat(transform->localRotation);
-
-	m_shape->setLocalPose(pose);
-}
-
-void Collider::ApplyScale()
-{
-	UpdateScale(transform->scale);
-}
-
-void Collider::SetPosition(const Vec3& position)
-{
-	transform->position = position;
-	ApplyTransform();
-}
-
-void Collider::SetLocalPosition(const Vec3& localPosition)
-{
-	transform->localPosition = localPosition;
-	ApplyTransform();
-}
-
-void Collider::SetRotation(const Quat& rotation)
-{
-	transform->rotation = rotation;
-	ApplyTransform();
-}
-
-void Collider::SetLocalRotation(const Quat& localRotation)
-{
-	transform->localRotation = localRotation;
-	ApplyTransform();
-}
-
-void Collider::SetEulerAngle(const Vec3& eulerAngle)
-{
-	transform->eulerAngle = eulerAngle;
-	ApplyTransform();
-}
-
-void Collider::SetLocalEulerAngle(const Vec3& localEulerAngle)
-{
-	transform->localEulerAngle = localEulerAngle;
-	ApplyTransform();
-}
-
-void Collider::SetScale(const Vec3& scale)
-{
-	transform->scale = scale;
-	ApplyScale();
-}
-
-void Collider::SetLocalScale(const Vec3& localScale)
-{
-	transform->localScale = localScale;
-	ApplyScale();
 }
 
 Rigidbody* Collider::GetRigidbody() const
@@ -220,34 +146,59 @@ void Collider::SetIgnoreLayer(uint8_t layerIndex, bool ignore)
 	ApplyLayer();
 }
 
-PxMaterial* Collider::CreateMaterial()
+void Collider::ApplyTransform(bool unconditionally)
 {
-	auto device = PhysicsDevice::GetInstance();
+	Vec3 localPositionFromBody;
+	Quat localRotationFromBody;
 
-	// 생성과 동시에 참조 카운터는 1로 설정됩니다.
-	return device->physics->createMaterial(0.5f, 0.5f, 0.0f);
-	//return device->physics->createMaterial(1, 1, 0);
+	if (rigidbody)
+	{
+		localPositionFromBody = rigidbody->transform->worldToLocal.MultiplyPoint(transform->position);
+		localRotationFromBody = rigidbody->transform->rotation.inversed() * transform->rotation;
+	}
+	else
+	{
+		localPositionFromBody = Vec3::zero();
+		localRotationFromBody = Quat::Identity();
+	}
+	
+	if (unconditionally ||
+		Vec3::Distance(localPositionFromBody, m_beforeLocalPosition) > 0.01f ||
+		Quat::Radian(localRotationFromBody, m_beforeLocalRotation) > 0.01f)
+	{
+		float e = 0.01f;
+		float a = Vec3::Distance(localPositionFromBody, m_beforeLocalPosition);
+		float b = Quat::Radian(localRotationFromBody, m_beforeLocalRotation);
+
+		bool fa = a > e;
+		bool fb = b > e;
+
+		m_beforeLocalPosition = localPositionFromBody;
+		m_beforeLocalRotation = localRotationFromBody;
+
+		PxTransform pose;
+		pose.p = ToPxVec3(localPositionFromBody);
+		pose.q = ToPxQuat(localRotationFromBody) * ToPxQuat(m_defaultRotation);
+		m_shape->setLocalPose(pose);
+	}
 }
 
-PxShape* Collider::CreateShape(PxGeometry* geometry, PxMaterial* material)
+void Collider::ApplyScale(bool unconditionally)
 {
-	auto device = PhysicsDevice::GetInstance();
+	Vec3 worldScale;
 
-	// eSCENE_QUERY_SHAPE: 쿼리 관련 함수 호출을 위해서 필요한 플래그입니다.
-	// 생성과 동시에 참조 카운터는 1로 설정됩니다.
-	PxShape* shape = device->physics->createShape(
-		*geometry, *material, true,
-		PxShapeFlag::eSCENE_QUERY_SHAPE | PxShapeFlag::eSIMULATION_SHAPE
-	);
+	worldScale = transform->scale;
 
-	// 유저 커스텀 데이터에 이 컴포넌트를 저장합니다.
-	// PxShape <--> Collider 형태의 참조가 가능해집니다.
-	shape->userData = this;
+	if (unconditionally || 
+		worldScale != m_beforeWorldScale)
+	{
+		m_beforeWorldScale = worldScale;
 
-	return shape;
+		ResetShape();
+	}
 }
 
-void Collider::ApplyCompatibleFlags()
+void Collider::ApplyFlags()
 {
 	// 트리거 플래그: 트리거 모드이고 컴포넌트가 활성화 되어있으면 켜집니다.
 	// 시뮬레이션 플래그: 트리거 플래그가 꺼져 있어야 하며 컴포넌트가 활성화 되어있으면 켜집니다.
@@ -280,8 +231,21 @@ void Collider::ApplyLayer()
 	m_shape->setSimulationFilterData(filter);
 }
 
-void Collider::FindRigidbodyInTreeAndAttach()
+void Collider::ResetShape()
 {
+	m_shape->setGeometry(CreateGeometry().any());
+
+	Rigidbody* body = GetRigidbody();
+	if (body)
+	{
+		body->UpdateMassAndInertia();
+	}
+}
+
+void Collider::FindRigidbodyAndAttach()
+{
+	// 위쪽 트리에서 강체를 찾아 부착합니다.
+
 	if (rigidbody)
 		return;
 

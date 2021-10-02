@@ -26,9 +26,11 @@ void PhysicsDevice::Initialize()
 
 	m_dispatcher = PxDefaultCpuDispatcherCreate(2);
 
+	m_cooking = PxCreateCooking(PX_PHYSICS_VERSION, *m_foundation, PxCookingParams(m_physics->getTolerancesScale()));
+
 	CreateScene();
 
-	//m_layerManager = new LayerManager;
+	m_layerManager = new LayerManager;
 }
 
 void PhysicsDevice::Release()
@@ -36,6 +38,8 @@ void PhysicsDevice::Release()
 	SafeDeleteInline(m_layerManager);
 
 	PxRelease(m_scene);
+
+	PxRelease(m_cooking);
 
 	PxRelease(m_dispatcher);
 
@@ -63,6 +67,11 @@ void PhysicsDevice::Step(float deltaTime)
 PxPhysics* PhysicsDevice::GetPhysics() const
 {
 	return m_physics;
+}
+
+PxCooking* PhysicsDevice::GetCooking() const
+{
+	return m_cooking;
 }
 
 PxScene* PhysicsDevice::GetScene() const

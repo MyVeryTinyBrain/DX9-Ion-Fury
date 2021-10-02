@@ -188,3 +188,24 @@ void UserMesh::CopyFrom(UserMesh* other)
 	memcpy(m_indices, other->m_indices, sizeof(Index) * m_numIndices);
 	UnlockIndexBuffer();
 }
+
+void UserMesh::InitializeUserMesh(UserMesh* userMesh)
+{
+	userMesh->InitializeNums(userMesh->m_numVertices, userMesh->m_numIndices);
+	userMesh->CreateVertexBuffer(userMesh->m_numVertices);
+	userMesh->CreateIndexBuffer(userMesh->m_numIndices);
+	userMesh->CreateStoredVertexBuffer(userMesh->m_numVertices);
+	userMesh->CreateStoredIndexBuffer(userMesh->m_numIndices);
+
+	userMesh->InitializeVertices();
+	
+	userMesh->InitializeIndices();
+
+	userMesh->ResetStoredVertexBuffer();
+	userMesh->ResetStoredIndexBuffer();
+}
+
+void UserMesh::ReleaseUnmanagedUserMesh(UserMesh* userMesh)
+{
+	userMesh->ReleaseUnmanaged();
+}

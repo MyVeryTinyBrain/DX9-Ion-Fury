@@ -22,11 +22,15 @@ public:
 
 	PxPhysics* GetPhysics() const;
 
+	PxCooking* GetCooking() const;
+
 	PxScene* GetScene() const;
 
 	class LayerManager* GetLayerManager() const;
 
 	__declspec(property(get = GetPhysics)) PxPhysics* physics;
+
+	__declspec(property(get = GetCooking)) PxCooking* cooking;
 
 	__declspec(property(get = GetScene)) PxScene* scene;
 
@@ -47,6 +51,8 @@ private:
 	PxPhysics* m_physics = nullptr;
 
 	PxDefaultCpuDispatcher* m_dispatcher = nullptr;
+
+	PxCooking* m_cooking = nullptr;
 
 	PxScene* m_scene = nullptr;
 

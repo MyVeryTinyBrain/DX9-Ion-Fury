@@ -77,6 +77,18 @@
     <Filter Include="Physics\Collider">
       <UniqueIdentifier>{f510ee52-70c1-45e0-8d5d-6456c07fdd8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\UserMesh\Capsule">
+      <UniqueIdentifier>{f3adec51-2bec-47a7-9f71-99432bcb90f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh\RightTriangle">
+      <UniqueIdentifier>{e6c4b4dd-0bef-4e37-bf9b-535f53491dae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh\Triangle">
+      <UniqueIdentifier>{030c0176-3ff7-4716-8b2a-cbdfe213945c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{621a1c96-5ad5-4916-a426-98f2b23f7c38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -234,6 +246,27 @@
     </ClCompile>
     <ClCompile Include="source\LayerManager.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CapsuleUserMesh.cpp">
+      <Filter>Resource\UserMesh\Capsule</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CapsuleCollider.cpp">
+      <Filter>Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TriangleUserMesh.cpp">
+      <Filter>Resource\UserMesh\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RightTriangleUserMesh.cpp">
+      <Filter>Resource\UserMesh\RightTriangle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Material.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MaterialTypes.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MaterialParameter.cpp">
+      <Filter>Resource\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,6 +503,27 @@
     </ClInclude>
     <ClInclude Include="header\PhysicsBase.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\CapsuleUserMesh.h">
+      <Filter>Resource\UserMesh\Capsule</Filter>
+    </ClInclude>
+    <ClInclude Include="header\CapsuleCollider.h">
+      <Filter>Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="header\TriangleUserMesh.h">
+      <Filter>Resource\UserMesh\Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RightTriangleUserMesh.h">
+      <Filter>Resource\UserMesh\RightTriangle</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Material.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="header\MaterialTypes.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="header\MaterialParameter.h">
+      <Filter>Resource\Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

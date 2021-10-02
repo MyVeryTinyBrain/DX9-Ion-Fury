@@ -40,6 +40,7 @@ void LayerManager::SetLayerCollisions(unsigned int layerIndexA, unsigned int lay
 			m_filter[layerIndexA] &= !(1 << layerIndexB);
 			m_filter[layerIndexB] &= !(1 << layerIndexA);
 		}
+		UpdateActorFilters();
 	}
 }
 
@@ -88,11 +89,20 @@ void LayerManager::UpdateActorFilters()
 		if (!isRigidBody)
 			continue;
 
-		PxRigidActor* rigidbody = static_cast<PxRigidActor*>(actors[i]);
+		PxRigidActor* actor = static_cast<PxRigidActor*>(actors[i]);
 
-		PxU32 nbShapes = rigidbody->getNbShapes();
+		PxU32 nbShapes = actor->getNbShapes();
+		PxShape** shapes = new PxShape * [nbShapes];
+		actor->getShapes(shapes, sizeof(PxU32) * nbShapes);
 
-		// Todo...
+		for (PxU32 j = 0; j < nbShapes; ++j)
+		{
+			PxShape* shape = shapes[j];
+			Collider* collider = (Collider*)shape->userData;
+			collider->ApplyLayer();
+		}
+
+		SafeDeleteArray(shapes);
 	}
 
 	SafeDeleteArray(actors);

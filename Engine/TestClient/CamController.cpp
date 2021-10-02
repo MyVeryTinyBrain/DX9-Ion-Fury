@@ -50,12 +50,43 @@ void CamController::Update()
 		ang -= delta * sensitivity;
 	}
 
+	// angle lock
+	ang.x = MathEx::Clamp(ang.x, -90, +90);
+	ang.z = MathEx::Clamp(ang.z, -90, +90);
+
 	transform->position = pos;
 	transform->eulerAngle = ang;
 
-	if (Input::GetKeyDown(Key::Space))
+	if (Input::GetKeyDown(Key::RightMouse))
 	{
-		OnSpace(L"hello");
+		Vec3 rayPoint, rayDir;
+		Input::GetMouseWorldRay(rayPoint, rayDir);
+
+		GameObject* obj = CreateGameObject();
+		Collider* col = nullptr;
+		auto r = obj->AddComponent<UserMeshRenderer>();
+		r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+		int n = rand() % 3;
+		switch (n)
+		{
+			case 0: 
+				col = obj->AddComponent<BoxCollider>(); 
+				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
+				break;
+			case 1: 
+				col = obj->AddComponent<SphereCollider>(); 
+				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/SphereUserMesh.mesh");
+				break;
+			case 2:
+				col = obj->AddComponent<CapsuleCollider>();
+				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CapsuleUserMesh.mesh");
+				break;
+		}
+		auto body = obj->AddComponent<Rigidbody>();
+		body->SetPosition(transform->position);
+		body->SetVelocity(rayDir * 15);
+		
+		obj->transform->scale = Vec3::one() * (float(rand() % 100 + 1) * 0.01f + 0.5f);
 	}
 }
 

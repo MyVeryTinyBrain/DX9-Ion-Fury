@@ -197,6 +197,12 @@ float Vec3::Radian(const Vec3& from, const Vec3& to)
 
 	float dot = Dot(from, to);
 	float cos = dot / demoninator;
+
+	if (cos < -1)
+		cos = -1;
+	else if (cos > +1)
+		cos = +1;
+
 	return acosf(cos);
 }
 

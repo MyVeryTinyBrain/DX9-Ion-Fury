@@ -75,6 +75,12 @@ protected:
 
 private:
 
+	static void InitializeUserMesh(UserMesh* userMesh);
+
+	static void ReleaseUnmanagedUserMesh(UserMesh* userMesh);
+
+private:
+
 	unsigned int m_numVertices = 0;
 
 	unsigned int m_numIndices = 0;

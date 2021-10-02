@@ -21,3 +21,5 @@ enum class Axis { X, Y, Z };
 #include "Vertex.h"
 
 #include "Index.h"
+
+#include "MaterialTypes.h"

@@ -22,6 +22,7 @@
 #include "Collider.h"
 #include "SphereCollider.h"
 #include "BoxCollider.h"
+#include "CapsuleCollider.h"
 #include "Rigidbody.h"
 
 // For SR
@@ -32,6 +33,7 @@
 #include "CyilinderUserMesh.h"
 #include "SphereUserMesh.h"
 #include "QuadUserMesh.h"
+#include "CapsuleUserMesh.h"
 #include "Light.h"
 #include "PointLight.h"
 #include "SpotLight.h"
