@@ -203,6 +203,7 @@
     <ClInclude Include="IonFuryEditorDoc.h" />
     <ClInclude Include="IonFuryEditorView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="Pickable.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -218,6 +219,7 @@
     <ClCompile Include="IonFuryEditorDoc.cpp" />
     <ClCompile Include="IonFuryEditorView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="Pickable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFuryEditor.rc" />

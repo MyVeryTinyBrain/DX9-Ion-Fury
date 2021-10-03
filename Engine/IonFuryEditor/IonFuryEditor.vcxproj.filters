@@ -63,6 +63,8 @@
     <ClInclude Include="DlgObjectTool.h">
       <Filter>Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="Pickable.h">
+      <Filter>EditorCore</Filter>
     <ClInclude Include="DlgLightTool.h">
       <Filter>Dialog</Filter>
     </ClInclude>
@@ -98,6 +100,8 @@
     <ClCompile Include="DlgObjectTool.cpp">
       <Filter>Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="Pickable.cpp">
+      <Filter>EditorCore</Filter>
     <ClCompile Include="DlgLightTool.cpp">
       <Filter>Dialog</Filter>
     </ClCompile>
