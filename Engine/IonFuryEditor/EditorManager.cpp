@@ -17,10 +17,13 @@ void EditorManager::Awake()
 		cameraObj->AddComponent<Camera>();
 		m_perspectiveCamera = cameraObj->AddComponent<FreePerspectiveCamera>();
 	}
+
 	{
 		GameObject* gizmoObj = CreateGameObject(L"Gizmo");
 		gizmoObj->AddComponent<Gizmo>();
 	}
+
+	
 }
 
 FreePerspectiveCamera* EditorManager::GetPerspectiveCamera()
