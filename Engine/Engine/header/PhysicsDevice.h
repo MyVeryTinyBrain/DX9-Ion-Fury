@@ -58,6 +58,8 @@ private:
 
 	class LayerManager* m_layerManager = nullptr;
 
-	class PhysicsFilterShader* m_filterShader = nullptr;
+	class PhysicsFilterShaderCallback* m_filterShaderCallback = nullptr;
+
+	class PhysicsSimulationEventCallback* m_simulationEventCallback = nullptr;
 };
 

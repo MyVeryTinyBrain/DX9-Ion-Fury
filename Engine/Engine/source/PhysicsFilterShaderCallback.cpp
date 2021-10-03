@@ -1,15 +1,19 @@
 #include "EngineBase.h"
-#include "PhysicsFilterShader.h"
+#include "PhysicsFilterShaderCallback.h"
 #include "PhysicsDevice.h"
 #include "LayerManager.h"
 #include "Collider.h"
 
-PxFilterFlags PhysicsFilterShader::pairFound(
+using namespace PhysicsFilterShaderCallbackFilters;
+
+PxFilterFlags PhysicsFilterShaderCallback::pairFound(
 	PxU32 pairID, 
 	PxFilterObjectAttributes attributes0, PxFilterData filterData0, const PxActor* a0, const PxShape* s0, 
 	PxFilterObjectAttributes attributes1, PxFilterData filterData1, const PxActor* a1, const PxShape* s1, 
 	PxPairFlags& pairFlags)
 {
+	// 트리거를 제외한 충돌만을 처리합니다.
+
 	auto device = PhysicsDevice::GetInstance();
 	auto layerManager = device->layerManager;
 
@@ -32,18 +36,11 @@ PxFilterFlags PhysicsFilterShader::pairFound(
 		return PxFilterFlag::eSUPPRESS;
 	}
 
-	if (PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
-	{
-		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
-		return PxFilterFlag::eDEFAULT;
-	}
-
-	pairFlags = PxPairFlag::eCONTACT_DEFAULT;
-
+	pairFlags = eContactFlags;
 	return PxFilterFlag::eDEFAULT;
 }
 
-void PhysicsFilterShader::pairLost(
+void PhysicsFilterShaderCallback::pairLost(
 	PxU32 pairID, 
 	PxFilterObjectAttributes attributes0, PxFilterData filterData0,
 	PxFilterObjectAttributes attributes1, PxFilterData filterData1, 
@@ -51,16 +48,23 @@ void PhysicsFilterShader::pairLost(
 {
 }
 
-bool PhysicsFilterShader::statusChange(PxU32& pairID, PxPairFlags& pairFlags, PxFilterFlags& filterFlags)
+bool PhysicsFilterShaderCallback::statusChange(PxU32& pairID, PxPairFlags& pairFlags, PxFilterFlags& filterFlags)
 {
 	return false;
 }
 
-PxFilterFlags PhysicsFilterShader::PxSimulationFilterShader(
+PxFilterFlags PhysicsFilterShaderCallback::PxSimulationFilterShader(
 	PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
 	PxFilterObjectAttributes attributes1, PxFilterData filterData1, 
 	PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
-	// pairFound 를 호출합니다.
+	if (PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
+	{
+		// 트리거를 처리합니다.
+		pairFlags = eTriggerFlags;
+		return PxFilterFlag::eDEFAULT;
+	}
+
+	// pairFound 를 호출하는 플래그입니다.
 	return PxFilterFlag::eCALLBACK;
 }

@@ -1,5 +1,6 @@
 #include "IonFuryEditorBase.h"
 #include "Gizmo.h"
+#include "EditorManager.h"
 
 void Gizmo::Awake()
 {
@@ -40,7 +41,7 @@ void Gizmo::Update()
 	else if (HasSelect() && Input::GetKey(Key::LeftMouse))
 	{
 		Handling();
-	}	
+	}
 	if (Input::GetKeyUp(Key::LeftMouse))
 	{
 		PutHandle();
@@ -60,13 +61,13 @@ bool Gizmo::PickHandle()
 		if (m_renderer[i]->Raycast(hit, rayPoint, rayDir))
 		{
 			// 축이 선택되었다면
-			
+
 			// 선택된 축을 저장합니다.
 			m_select = (GIZMO_AXIS)i;
-			
+
 			// 마우스가 축을 선택한 위치를 저장합니다.
 			m_selectCoord = CalcGizmoHandlingCoord();
-			
+
 			// 축이 선택되었을때의 오브젝트 중심 위치를 저장합니다.
 			m_selectedPosition = transform->position;
 			return true;
@@ -126,6 +127,23 @@ void Gizmo::Detach()
 
 	gameObject->activeSelf = false;
 }
+
+Transform* Gizmo::GetSelectedObject() const
+{
+	return m_selectedTransform.GetPointer();
+}
+
+void Gizmo::DeleteAttachedObject()
+{
+	if (m_selectedTransform)
+	{
+		m_selectedTransform->gameObject->Destroy();
+		int test = 0;
+	}
+	m_selectedTransform.Reset();
+}
+
+
 
 void Gizmo::ResetGizmoTransform()
 {
@@ -207,7 +225,7 @@ Vec3 Gizmo::CalcGizmoHandlingCoord()
 
 	float t = RaycastOnPlane(planeNormal, planePoint, rayPoint, rayDir);
 	Vec3 pointOnPlane = rayPoint + rayDir * t;
-	
+
 	Vec3 pointOnSelectAxis = Vec3::ProjectOnVec3(pointOnPlane - center, cv1) + center;
 
 	return pointOnSelectAxis;

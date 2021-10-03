@@ -8,7 +8,7 @@ class DlgObjectTool : public CDialog
 	DECLARE_DYNAMIC(DlgObjectTool)
 
 public:
-	enum class COMBOBOX { CUBE, CYILINDER, QUAD, SPHERE, END};
+	enum class COMBOBOX { Cube, Cyilinder, Quad, Sphere, Capsule, RightTriangle, Triangle,  END};
 
 
 public:
@@ -32,6 +32,7 @@ public:
 	CComboBox m_comboBox;
 	virtual BOOL OnInitDialog();
 	CString m_objectName;
+	CString m_meshPath;
 	afx_msg void OnObjectName();
 	afx_msg void OnSelectMesh();
 	float m_fPosX;
@@ -44,4 +45,6 @@ public:
 	float m_fScaleY;
 	float m_fScaleZ;
 	afx_msg void OnEnChangeEditPosX();
+	CString m_objectTag;
+	afx_msg void OnObjectTag();
 };

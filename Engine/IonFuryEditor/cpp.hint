@@ -14,6 +14,20 @@ Name* Name::GetInstance()																			\
 	return &g_instance;																				\
 }
 
+#define DeclareStaticComponent(Name)																\
+private:																							\
+	static Name* g_instance;																		\
+public:																								\
+	static Name* GetInstance();																		\
+private:
+
+#define ImplementStaticComponent(Name)																\
+Name* Name::g_instance = nullptr;																	\
+Name* Name::GetInstance()																			\
+{																									\
+	return g_instance;																				\
+}
+
 // ObjectDefines.h
 
 #define DefineGetReferenceAs(T)																		\
