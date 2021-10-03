@@ -34,6 +34,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_WM_SIZE()
 	ON_WM_TIMER()
 	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
+	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -166,4 +167,13 @@ void CIonFuryEditorView::OnObject()
 	if (!m_dlgObjectTool.GetSafeHwnd())
 		m_dlgObjectTool.Create(IDD_DlgObjectTool);
 	m_dlgObjectTool.ShowWindow(SW_SHOW);
+}
+
+
+void CIonFuryEditorView::OnLight()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_dlgLightTool.GetSafeHwnd())
+		m_dlgLightTool.Create(IDD_DlgLightTool);
+	m_dlgLightTool.ShowWindow(SW_SHOW);
 }

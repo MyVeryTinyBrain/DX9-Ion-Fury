@@ -13,6 +13,8 @@ public:
 
 	class Gizmo* GetGizmo();
 
+
+
 private:
 
 	class FreePerspectiveCamera* m_perspectiveCamera;

@@ -29,6 +29,8 @@ void EditorScene::OnLoad(Scene* beforeScene)
     // 에디터 매니저 컴포넌트를 생성합니다.
     GameObject* editorManagerObj = CreateGameObject(L"EditorManager");
     editorManagerObj->AddComponent<EditorManager>();
+
+    
 }
 
 void EditorScene::OnUnload(Scene* nextScene)
