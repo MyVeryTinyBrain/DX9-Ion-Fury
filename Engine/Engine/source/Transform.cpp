@@ -472,10 +472,40 @@ void Transform::UpdateWorldScale(const UpdateTransformArgument& args)
 
 void Transform::OnDestroy()
 {
-	gameObject->Destroy();
+	// ===================================================================================================
+	// 이 트랜스폼이 파괴되는 경우에는
+	// 부모에서 탈퇴되어야 하며
+	// 자식들 역시 모두 떼어내야 합니다.
+	// 이때 자식들을 순회하며 파괴 함수를 호출해 주어야 하는데
+	// 자식 트랜스폼도 부모에서 탈퇴하는 작업을 진행하게 됩니다.
+	// 이 작업이 겹치기 때문에 컨테이너를 순회하며 동시에 컨테이너에서 제거하는 것은 문제가 발생할 수 있습니다.
+	// ===================================================================================================
 
-	for (auto& child : m_childs)
+	// Method 1
+	// 부모에게서 탈퇴한 후
+	// 벡터의 맨 뒤쪽 자식부터 하나씩 제거합니다.
+	// 이때 Destroy 함수 호출시 부모 벡터에서 제거되므로
+	// child->Destroy() 함수를 호출하는 것 만으로도 벡터에서 제거됩니다.
+
+	DetachFromParent();
+	gameObject->Destroy();
+	while (!m_childs.empty())
 	{
+		auto child = m_childs.back();
 		child->Destroy();
 	}
+
+	// Method 2
+	// 자식을 복사해두고 순회하며 파괴하는 방법입니다.
+	
+	// Transform** childs = new Transform * [m_childs.size()];
+	// std::copy(m_childs.begin(), m_childs.end(), childs);
+	// uint32_t size = m_childs.size();
+	// for (uint32_t i = 0; i < size; ++i)
+	// {
+	// 	 auto child = childs[i];
+	// 	 child->Destroy();
+	// }
+	// SafeDeleteArray(childs);
+	// gameObject->Destroy();
 }

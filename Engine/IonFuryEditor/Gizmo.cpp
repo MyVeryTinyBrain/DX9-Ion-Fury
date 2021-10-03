@@ -127,6 +127,26 @@ void Gizmo::Detach()
 	gameObject->activeSelf = false;
 }
 
+<<<<<<< Updated upstream
+=======
+Transform* Gizmo::GetSelectedObject() const
+{
+	return m_selectedTransform.GetPointer();
+}
+
+void Gizmo::DeleteAttachedObject()
+{
+	if (m_selectedTransform)
+	{
+		m_selectedTransform->gameObject->Destroy();
+		int test = 0;
+	}
+	m_selectedTransform.Reset();
+}
+
+
+
+>>>>>>> Stashed changes
 void Gizmo::ResetGizmoTransform()
 {
 	m_gizmoParentObj->transform->eulerAngle = Vec3::zero();

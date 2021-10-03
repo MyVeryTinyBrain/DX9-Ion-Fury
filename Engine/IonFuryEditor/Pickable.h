@@ -7,6 +7,10 @@ public:
 
 	OverrideComponentFunction(Update);
 
+<<<<<<< Updated upstream
+=======
+	OverrideComponentFunction(OnDestroy);
+>>>>>>> Stashed changes
 public:
 
 	void Settings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"

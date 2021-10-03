@@ -30,6 +30,13 @@ void Pickable::Update()
 	//걸린놈 있으면 삭제든 뭐든 명령을 내려라.
 }
 
+void Pickable::OnDestroy()
+{
+	auto it = FindInContainer(g_PickableVec, this);
+	if (it != g_PickableVec.end())
+		g_PickableVec.erase(it);
+}
+
 void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTexture)
 {
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
