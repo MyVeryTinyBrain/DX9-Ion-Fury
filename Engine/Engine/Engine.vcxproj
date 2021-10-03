@@ -22,8 +22,8 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhysicsQuery.cpp" />
-    <ClCompile Include="PhysicsQueryFilterCallback.cpp" />
+    <ClCompile Include="source\PhysicsQuery.cpp" />
+    <ClCompile Include="source\PhysicsQueryFilterCallback.cpp" />
     <ClCompile Include="source\Layer.cpp" />
     <ClCompile Include="source\PhysicsSimulationEventCallback.cpp" />
     <ClCompile Include="source\PhysicsFilterShaderCallback.cpp" />
@@ -182,8 +182,8 @@
     <ClInclude Include="header\PhysicsFilterShaderCallback.h" />
     <ClInclude Include="header\PhysicsSimulationEventCallback.h" />
     <ClInclude Include="header\Layer.h" />
-    <ClInclude Include="PhysicsQuery.h" />
-    <ClInclude Include="PhysicsQueryFilterCallback.h" />
+    <ClInclude Include="header\PhysicsQuery.h" />
+    <ClInclude Include="header\PhysicsQueryFilterCallback.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

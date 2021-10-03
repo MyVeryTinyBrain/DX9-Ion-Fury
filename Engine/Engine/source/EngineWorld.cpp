@@ -47,7 +47,7 @@ HRESULT EngineWorld::Initialize(HWND hWnd, UINT width, UINT height, BOOL windowe
 		return E_FAIL;
 	}
 
-	CentralTimeElement::GetInstance()->Initialize(144, 60);
+	CentralTimeElement::GetInstance()->Initialize(144, 50);
 
 	PhysicsDevice::GetInstance()->Initialize();
 
@@ -102,8 +102,8 @@ HRESULT EngineWorld::Step()
 
 		if (fixedUpdate > 0)
 		{
-			if (fixedUpdate > 5)
-				fixedUpdate = 5;
+			if (fixedUpdate > 3)
+				fixedUpdate = 3;
 
 			auto physicsDevice = PhysicsDevice::GetInstance();
 			for (unsigned int i = 0; i < fixedUpdate; ++i)
