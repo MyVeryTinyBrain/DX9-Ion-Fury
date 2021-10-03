@@ -4,10 +4,10 @@ struct Index
 {
 	Index();
 
-	Index(const unsigned int& V0, const unsigned int& V1, const unsigned int& V2);
+	Index(const uint32_t& V0, const uint32_t& V1, const uint32_t& V2);
 
-	unsigned int v0;
-	unsigned int v1;
-	unsigned int v2;
+	uint32_t v0;
+	uint32_t v1;
+	uint32_t v2;
 };
 

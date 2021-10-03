@@ -6,7 +6,7 @@ void PointLight::Awake()
 {
 	Light::Awake();
 
-	m_light.Range = 10.0f;
+	m_light.Range = 30.0f;
 }
 
 void PointLight::InitializeLightType(D3DLIGHTTYPE& lightType)
@@ -16,9 +16,9 @@ void PointLight::InitializeLightType(D3DLIGHTTYPE& lightType)
 
 void PointLight::UpdateLight(D3DLIGHT9& light)
 {
-	light.Attenuation0 = 0.90f;
-	light.Attenuation1 = 0.05f;
-	light.Attenuation2 = 0.05f;
+	light.Attenuation0 = 1.00f;
+	light.Attenuation1 = 0.00f;
+	light.Attenuation2 = 0.00f;
 
 	light.Position = transform->position;
 }

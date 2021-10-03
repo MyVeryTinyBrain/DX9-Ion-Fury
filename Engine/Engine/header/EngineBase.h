@@ -32,6 +32,12 @@ using std::endl;
 
 using std::wcout;
 
+#include <memory>
+
+using std::shared_ptr;
+
+using std::unique_ptr;
+
 #include <thread>
 
 #include <mutex>

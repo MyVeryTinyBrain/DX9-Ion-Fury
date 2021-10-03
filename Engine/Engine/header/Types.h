@@ -16,8 +16,16 @@ using GameObjectMap = std::unordered_map<tag_t, GameObjectList>;
 
 using ComponentVector = std::vector<class Component*>;
 
-enum class Axis { X, Y, Z };
+enum class Axis 
+{ 
+	NONE = 0, 
+	X = 1 << 0, 
+	Y = 1 << 1, 
+	Z = 1 << 2 
+};
 
 #include "Vertex.h"
 
 #include "Index.h"
+
+#include "MaterialTypes.h"

@@ -20,6 +20,15 @@ GameObject * Scene::CreateGameObject(const tag_t& tag)
 	return go;
 }
 
+GameObject* Scene::CreateGameObjectToChild(class Transform* parent, const tag_t& tag)
+{
+	GameObject* go = new GameObject(this, tag);
+	go->transform->parent = parent;
+	go->transform->localPosition = Vec3::zero();
+
+	return go;
+}
+
 GameObject * Scene::FindGameObject(const wstring & name) const
 {
 	for (auto& pair : m_gameObjects)

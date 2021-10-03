@@ -2,40 +2,33 @@
 #include "SphereCollider.h"
 #include "Transform.h"
 
+PxGeometryHolder SphereCollider::CreateGeometry()
+{
+    return CreateSphereGeometry();
+}
+
 float SphereCollider::GetRadius() const
 {
-	return m_radius * 0.5f;
+    return m_radius;
 }
 
 void SphereCollider::SetRadius(float value)
 {
-	m_radius = Abs(value) * 2;
+    m_radius = value;
+    ApplyScale();
 }
 
-PxGeometry* SphereCollider::CreateGeometry()
+PxSphereGeometry SphereCollider::CreateSphereGeometry() const
 {
-	return new PxSphereGeometry(m_radius);
+    PxSphereGeometry sphere;
+    sphere.radius = m_radius * GetBiggestLengthFromAbsVec3(transform->scale);
+    return sphere;
 }
 
-void SphereCollider::OnBeginPhysicsSimulate()
+float SphereCollider::GetBiggestLengthFromAbsVec3(const Vec3& value) const
 {
-	UpdateScale(transform->scale);
-}
-
-void SphereCollider::UpdateScale(const Vec3& scale)
-{
-	PxSphereGeometry sphere;
-	m_shape->getSphereGeometry(sphere);
-
-	sphere.radius = m_radius * GetBiggestAbsVec3(scale);
-
-	m_shape->setGeometry(sphere);
-}
-
-float SphereCollider::GetBiggestAbsVec3(const Vec3& value) const
-{
-	float max = Abs(value.x);
-	max = Max(max, Abs(value.y));
-	max = Max(max, Abs(value.z));
-	return max;
+    float max = Abs(value.x);
+    max = Max(max, Abs(value.y));
+    max = Max(max, Abs(value.z));
+    return max;
 }

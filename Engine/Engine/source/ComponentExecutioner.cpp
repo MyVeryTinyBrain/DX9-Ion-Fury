@@ -59,7 +59,7 @@ void ComponentExecutioner::ExecuteUpdate()
 
 	ExecuteByOrder(LateUpdate);
 }
-#include "GraphicDevice.h"
+
 void ComponentExecutioner::ExecuteRender()
 {
 	ExecuteByOrder(BeginRender);

@@ -8,7 +8,7 @@ Index::Index()
 {
 }
 
-Index::Index(const unsigned int& V0, const unsigned int& V1, const unsigned int& V2)
+Index::Index(const uint32_t& V0, const uint32_t& V1, const uint32_t& V2)
 	: v0(V0)
 	, v1(V1)
 	, v2(V2)

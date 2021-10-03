@@ -2,6 +2,7 @@
 #include "PhysicsDevice.h"
 #include "PhysicsDefines.h"
 #include "LayerManager.h"
+#include "PhysicsFilterShader.h"
 
 ImplementSingletone(PhysicsDevice);
 
@@ -16,6 +17,8 @@ PhysicsDevice::~PhysicsDevice()
 
 void PhysicsDevice::Initialize()
 {
+	m_filterShader = new PhysicsFilterShader;
+
 	m_allocater = new PxDefaultAllocator;
 
 	m_errorCallback = new PxDefaultErrorCallback;
@@ -26,9 +29,11 @@ void PhysicsDevice::Initialize()
 
 	m_dispatcher = PxDefaultCpuDispatcherCreate(2);
 
+	m_cooking = PxCreateCooking(PX_PHYSICS_VERSION, *m_foundation, PxCookingParams(m_physics->getTolerancesScale()));
+
 	CreateScene();
 
-	//m_layerManager = new LayerManager;
+	m_layerManager = new LayerManager;
 }
 
 void PhysicsDevice::Release()
@@ -36,6 +41,8 @@ void PhysicsDevice::Release()
 	SafeDeleteInline(m_layerManager);
 
 	PxRelease(m_scene);
+
+	PxRelease(m_cooking);
 
 	PxRelease(m_dispatcher);
 
@@ -46,6 +53,8 @@ void PhysicsDevice::Release()
 	SafeDelete(m_errorCallback);
 
 	SafeDelete(m_allocater);
+
+	SafeDelete(m_filterShader);
 }
 
 void PhysicsDevice::Step(float deltaTime)
@@ -65,6 +74,11 @@ PxPhysics* PhysicsDevice::GetPhysics() const
 	return m_physics;
 }
 
+PxCooking* PhysicsDevice::GetCooking() const
+{
+	return m_cooking;
+}
+
 PxScene* PhysicsDevice::GetScene() const
 {
 	return m_scene;
@@ -81,7 +95,8 @@ void PhysicsDevice::CreateScene()
 
 	desc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
 	desc.cpuDispatcher = m_dispatcher;
-	desc.filterShader = PxDefaultSimulationFilterShader;
+	desc.filterShader = PhysicsFilterShader::PxSimulationFilterShader;
+	desc.filterCallback = m_filterShader;
 
 	auto scene = m_physics->createScene(desc);
 

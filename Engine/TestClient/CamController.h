@@ -6,6 +6,8 @@ class CamController : public Component
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(Render);
+
 	void Func(const wstring& msg);
 
 	void Func2(const wstring& msg);

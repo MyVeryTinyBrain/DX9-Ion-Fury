@@ -2,13 +2,16 @@
 
 #include "Component.h"
 
-class Collider : public Component
+/*
+	PxFilterData.word0: 콜라이더에 설정된 레이어 인덱스의 비트 하나가 있습니다.
+	PxFilterData.word1: 무시하지 않을 레이어 인덱스의 비트들이 있습니다.
+*/
+
+class Collider abstract : public Component
 {
 	friend class Rigidbody;
 
 	OverrideComponentFunction(Awake);
-
-	OverrideComponentFunction(Start);
 
 	OverrideComponentFunction(BeginPhysicsSimulate);
 
@@ -20,47 +23,32 @@ class Collider : public Component
 
 public:
 
+	// 트리거 모드 상태를 반환합니다.
 	bool IsTrigger() const;
 
+	// 트리거 모드를 설정합니다.
 	void SetTrigger(bool value);
 
+	// 마찰을 반환합니다.
 	float GetFriction() const;
 
+	// 마찰을 설정합니다.
 	void SetFriction(float value);
 
+	// 반발력을 반환합니다.
 	float GetRestitution() const;
 
+	// 반발력을 설정합니다.
 	void SetRestitution(float value);
+
+	// 콜라이더가 부착된 강체를 반환합니다.
+	class Rigidbody* GetRigidbody() const;
 
 	__declspec(property(get = IsTrigger, put = SetTrigger)) bool isTrigger;
 
 	__declspec(property(get = GetFriction, put = SetFriction)) float friction;
 
 	__declspec(property(get = GetRestitution, put = SetRestitution)) float restitution;
-
-public:
-
-	void ApplyTransform();
-
-	void ApplyScale();
-
-	void SetPosition(const Vec3& position);
-
-	void SetLocalPosition(const Vec3& localPosition);
-
-	void SetRotation(const Quat& rotation);
-
-	void SetLocalRotation(const Quat& localRotation);
-
-	void SetEulerAngle(const Vec3& eulerAngle);
-
-	void SetLocalEulerAngle(const Vec3& localEulerAngle);
-
-	void SetScale(const Vec3& scale);
-
-	void SetLocalScale(const Vec3& localScale);
-
-	class Rigidbody* GetRigidbody() const;
 
 	__declspec(property(get = GetRigidbody)) class Rigidbody* rigidbody;
 
@@ -86,36 +74,48 @@ public:
 
 	__declspec(property(get = GetLayerIndex, put = SetLayerIndex)) uint8_t layerIndex;
 
+public:
+
+	// 변경된 위치와 회전을 콜라이더에 즉시 적용합니다.
+	void ApplyTransform(bool unconditionally = false);
+
+	// 변경된 스케일을 콜라이더에 즉시 적용합니다.
+	void ApplyScale(bool unconditionally = false);
+
+	// 콜라이더 플래그를 즉시 재설정합니다.
+	void ApplyFlags();
+
+	// 콜라이더의 레이어를 즉시 재설정합니다.
+	void ApplyLayer();
+
 protected:
 
-	virtual PxGeometry* CreateGeometry() = 0;
+	virtual PxGeometryHolder CreateGeometry() = 0;
 
-	virtual void OnBeginPhysicsSimulate() = 0;
-
-	virtual void UpdateScale(const Vec3& scale) = 0;
+	void ResetShape();
 
 private:
 
-	PxMaterial* CreateMaterial();
-
-	PxShape* CreateShape(PxGeometry* geometry, PxMaterial* material);
-
-	void ApplyCompatibleFlags();
-
-	void ApplyLayer();
-
-	void FindRigidbodyInTreeAndAttach();
+	void FindRigidbodyAndAttach();
 
 protected:
 
+	PxMaterial* m_material = nullptr;
+
 	PxShape* m_shape = nullptr;
 
-	PxMaterial* m_material = nullptr;
+	Vec3 m_beforeLocalPosition = Vec3::zero();
+
+	Quat m_beforeLocalRotation = Quat::Identity();
+
+	Vec3 m_beforeWorldScale = Vec3::zero();
 
 	bool m_isTrigger = false;
 
 	uint8_t m_layerIndex = 0;
 
 	uint32_t m_ignoreLayerBits = 0x00000000;
+
+	Quat m_defaultRotation = Quat::Identity();
 };
 

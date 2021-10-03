@@ -18,10 +18,16 @@
 #include "Texture.h"
 #include "EngineWorld.h"
 
+// Built In
+#include "BuiltInResources.h"
+
 // For Physics
 #include "Collider.h"
 #include "SphereCollider.h"
 #include "BoxCollider.h"
+#include "CapsuleCollider.h"
+#include "RightTriangleCollider.h"
+#include "TriangleCollider.h"
 #include "Rigidbody.h"
 
 // For SR
@@ -32,6 +38,7 @@
 #include "CyilinderUserMesh.h"
 #include "SphereUserMesh.h"
 #include "QuadUserMesh.h"
+#include "CapsuleUserMesh.h"
 #include "Light.h"
 #include "PointLight.h"
 #include "SpotLight.h"

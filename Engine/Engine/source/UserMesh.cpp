@@ -49,6 +49,16 @@ unsigned int UserMesh::GetNumFaces() const
 	return m_numIndices;
 }
 
+Vertex* UserMesh::GetStoredVertexBuffer() const
+{
+	return m_storedVertexBuffer;
+}
+
+Index* UserMesh::GetStoredIndexBuffer() const
+{
+	return m_storedIndexBuffer;
+}
+
 Vertex* UserMesh::LockVertexBuffer()
 {
 	Vertex* vertices = nullptr;
@@ -187,4 +197,25 @@ void UserMesh::CopyFrom(UserMesh* other)
 	Index* indices = LockIndexBuffer();
 	memcpy(m_indices, other->m_indices, sizeof(Index) * m_numIndices);
 	UnlockIndexBuffer();
+}
+
+void UserMesh::InitializeUserMesh(UserMesh* userMesh)
+{
+	userMesh->InitializeNums(userMesh->m_numVertices, userMesh->m_numIndices);
+	userMesh->CreateVertexBuffer(userMesh->m_numVertices);
+	userMesh->CreateIndexBuffer(userMesh->m_numIndices);
+	userMesh->CreateStoredVertexBuffer(userMesh->m_numVertices);
+	userMesh->CreateStoredIndexBuffer(userMesh->m_numIndices);
+
+	userMesh->InitializeVertices();
+	
+	userMesh->InitializeIndices();
+
+	userMesh->ResetStoredVertexBuffer();
+	userMesh->ResetStoredIndexBuffer();
+}
+
+void UserMesh::ReleaseUnmanagedUserMesh(UserMesh* userMesh)
+{
+	userMesh->ReleaseUnmanaged();
 }

@@ -19,4 +19,5 @@ virtual void Name() {}
 
 #define OverrideComponentFunction(Name)																\
 inline virtual void ComponentSetCallName(Name)() {}													\
+protected:																							\
 virtual void Name() override;

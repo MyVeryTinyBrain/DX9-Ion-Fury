@@ -12,69 +12,47 @@ class Rigidbody : public Component
 
 	OverrideComponentFunction(EndPhysicsSimulate);
 
-	OverrideComponentFunction(OnWake);
-
-	OverrideComponentFunction(OnSleep);
-
 	OverrideComponentFunction(OnDestroy);
 
 public:
-
-	bool GetUseGravity() const;
-
-	void SetUseGravity(bool value);
 
 	bool IsKinematic() const;
 
 	void SetKinematic(bool value);
 
-	bool IsFrozenRotate(Axis axis) const;
+	void UpdateMassAndInertia();
 
-	void SetFreezeRotate(Axis axis, bool freeze);
-
-	bool IsFrozenTranslate(Axis axis) const;
-
-	void SetFreezeTranslate(Axis axis, bool freeze);
+	__declspec(property(get = IsKinematic, put = SetKinematic)) bool isKinematic;
 
 public:
 
-	float GetMass() const;
+	void ApplyBodyTransformFromGameObject();
 
-	void SetMass(float value);
+	void ApplyGameObjectTransfromFromBody();
 
-	float GetLinearDamping() const;
+	void SetPosition(const Vec3& position);
 
-	void SetLinearDamping(float value);
+	void SetRotation(const Quat& rotation);
 
-	float GetAngularDamping() const;
+	void SetVelocity(const Vec3& velocity);
 
-	void SetAngularDamping(float value);
+	void SetRotationLockAxis(Axis axes, bool value);
 
-	Vec3 GetLinearVelocity() const;
+	bool GetRotationLockAxis(Axis axes) const;
 
-	void SetLinearVelocity(const Vec3& value);
+	void SetTranslationLockAxis(Axis axes, bool value);
 
-	Vec3 GetAngularVelocity() const;
-
-	void SetAngularVelocity(const Vec3& value);
-
-	void SetSleep(bool value);
+	bool GetTranslationLockAxis(Axis axes) const;
 
 private:
-
-	void SetupBody();
-
-	void ToBody();
-
-	void FromBody();
 
 	void Attach(class Collider* collider);
 
 	void Detach(class Collider* collider);
 
-	void AttachAllColliders();
+	void AttachAll();
 
-	void DetachAllColliders();
+	void DetachAll();
 
 private:
 

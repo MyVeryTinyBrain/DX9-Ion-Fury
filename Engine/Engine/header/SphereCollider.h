@@ -4,6 +4,8 @@
 
 class SphereCollider : public Collider
 {
+	virtual PxGeometryHolder CreateGeometry() override;
+
 public:
 
 	float GetRadius() const;
@@ -14,13 +16,9 @@ public:
 
 private:
 
-	virtual PxGeometry* CreateGeometry() override;
+	PxSphereGeometry CreateSphereGeometry() const;
 
-	virtual void OnBeginPhysicsSimulate() override;
-
-	virtual void UpdateScale(const Vec3& scale) override;
-
-	float GetBiggestAbsVec3(const Vec3& value) const;
+	float GetBiggestLengthFromAbsVec3(const Vec3& value) const;
 
 private:
 

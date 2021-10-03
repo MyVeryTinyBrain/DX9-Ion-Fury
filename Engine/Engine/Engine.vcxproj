@@ -22,6 +22,15 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\PhysicsFilterShader.cpp" />
+    <ClCompile Include="source\BuiltIn.cpp" />
+    <ClCompile Include="source\RightTriangleCollider.cpp" />
+    <ClCompile Include="source\MaterialParameter.cpp" />
+    <ClCompile Include="source\Material.cpp" />
+    <ClCompile Include="source\MaterialTypes.cpp" />
+    <ClCompile Include="source\CapsuleCollider.cpp" />
+    <ClCompile Include="source\RightTriangleUserMesh.cpp" />
+    <ClCompile Include="source\CapsuleUserMesh.cpp" />
     <ClCompile Include="source\LayerManager.cpp" />
     <ClCompile Include="source\BoxCollider.cpp" />
     <ClCompile Include="source\Collider.cpp" />
@@ -73,8 +82,14 @@
     <ClCompile Include="source\SpotLight.cpp" />
     <ClCompile Include="source\UserMeshBillboardRenderer.cpp" />
     <ClCompile Include="source\SphereCollider.cpp" />
+    <ClCompile Include="source\TriangleUserMesh.cpp" />
+    <ClCompile Include="source\TriangleCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\BuiltIn.h" />
+    <ClInclude Include="header\BuiltInResources.h" />
+    <ClInclude Include="header\CapsuleCollider.h" />
+    <ClInclude Include="header\CapsuleUserMesh.h" />
     <ClInclude Include="header\BoxCollider.h" />
     <ClInclude Include="header\Collider.h" />
     <ClInclude Include="header\DataStructEx.h" />
@@ -153,6 +168,14 @@
     <ClInclude Include="header\SphereCollider.h" />
     <ClInclude Include="header\LayerManager.h" />
     <ClInclude Include="header\PhysicsBase.h" />
+    <ClInclude Include="header\RightTriangleUserMesh.h" />
+    <ClInclude Include="header\TriangleUserMesh.h" />
+    <ClInclude Include="header\Material.h" />
+    <ClInclude Include="header\MaterialTypes.h" />
+    <ClInclude Include="header\MaterialParameter.h" />
+    <ClInclude Include="header\RightTriangleCollider.h" />
+    <ClInclude Include="header\TriangleCollider.h" />
+    <ClInclude Include="header\PhysicsFilterShader.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

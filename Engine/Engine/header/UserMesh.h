@@ -41,6 +41,10 @@ public:
 
 	unsigned int GetNumFaces() const;
 
+	Vertex* GetStoredVertexBuffer() const;
+
+	Index* GetStoredIndexBuffer() const;
+
 	Vertex* LockVertexBuffer();
 
 	Index* LockIndexBuffer();
@@ -72,6 +76,12 @@ protected:
 	void CreateStoredIndexBuffer(unsigned int numIndices);
 
 	void CopyFrom(UserMesh* other);
+
+private:
+
+	static void InitializeUserMesh(UserMesh* userMesh);
+
+	static void ReleaseUnmanagedUserMesh(UserMesh* userMesh);
 
 private:
 

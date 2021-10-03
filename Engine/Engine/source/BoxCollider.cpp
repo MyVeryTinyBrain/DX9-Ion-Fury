@@ -3,36 +3,31 @@
 #include "PhysicsDefines.h"
 #include "Transform.h"
 
+PxGeometryHolder BoxCollider::CreateGeometry()
+{
+	return CreateBoxGeometry();
+}
+
+void BoxCollider::SetExtents(const Vec3& extents)
+{
+	m_extents = extents;
+	ResetShape();
+}
+
 const Vec3& BoxCollider::GetExtents() const
 {
 	return m_extents;
 }
 
-void BoxCollider::SetExtents(const Vec3& value)
+PxBoxGeometry BoxCollider::CreateBoxGeometry() const
 {
-	m_extents = Vec3(Abs(value.x), Abs(value.y), Abs(value.z));
-}
-
-PxGeometry* BoxCollider::CreateGeometry()
-{
-	return new PxBoxGeometry(PxVec3(1, 1, 1));
-}
-
-void BoxCollider::OnBeginPhysicsSimulate()
-{
-	UpdateScale(transform->scale);
-}
-
-void BoxCollider::UpdateScale(const Vec3& scale)
-{
-	PxBoxGeometry box;
-	m_shape->getBoxGeometry(box);
-
-	box.halfExtents = PxVec3(
-		Abs(m_extents.x * scale.x),
-		Abs(m_extents.y * scale.y),
-		Abs(m_extents.z * scale.z)
+	Vec3 extentsWithScale = Vec3(
+		m_extents.x * transform->scale.x,
+		m_extents.y * transform->scale.y,
+		m_extents.z * transform->scale.z
 	);
 
-	m_shape->setGeometry(box);
+	PxBoxGeometry box;
+	box.halfExtents = ToPxVec3(extentsWithScale) * 0.5f;
+	return box;
 }

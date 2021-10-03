@@ -6,7 +6,7 @@ void SpotLight::Awake()
 {
 	Light::Awake();
 
-	m_light.Range = 20.0f;
+	m_light.Range = 30.0f;
 
 	SetOutsideAngle(90);
 

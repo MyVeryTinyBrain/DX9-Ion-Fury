@@ -19,7 +19,7 @@ void EditorManager::Awake()
 	}
 	{
 		GameObject* gizmoObj = CreateGameObject(L"Gizmo");
-		gizmoObj->AddComponent<Gizmo>();
+		m_gizmo = gizmoObj->AddComponent<Gizmo>();
 	}
 }
 

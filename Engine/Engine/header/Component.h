@@ -72,6 +72,8 @@ public:
 
 	class GameObject* CreateGameObject(const tag_t& tag = L"");
 
+	class GameObject* CreateGameObjectToChild(Transform* parent, const tag_t& tag = L"");
+
 	class GameObject* FindGameObject(const wstring& name) const;
 
 	std::vector<class GameObject*> FindGameObjects(const wstring& name) const;

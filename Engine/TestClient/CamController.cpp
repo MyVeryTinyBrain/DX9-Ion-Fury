@@ -46,17 +46,62 @@ void CamController::Update()
 		POINT prevPos = GetMousePointInClient();
 		MoveMouseToCenterPos();
 		POINT centerPos = GetMousePointInClient();
-		Vec3 delta = Vec3(centerPos.y - prevPos.y, centerPos.x - prevPos.x, 0);
+		Vec3 delta = Vec3(float(centerPos.y - prevPos.y), float(centerPos.x - prevPos.x), 0);
 		ang -= delta * sensitivity;
 	}
+
+	// angle lock
+	ang.x = MathEx::Clamp(ang.x, -90, +90);
+	ang.z = MathEx::Clamp(ang.z, -90, +90);
 
 	transform->position = pos;
 	transform->eulerAngle = ang;
 
-	if (Input::GetKeyDown(Key::Space))
+	if (Input::GetKeyDown(Key::RightMouse))
 	{
-		OnSpace(L"hello");
+		Vec3 rayPoint, rayDir;
+		Input::GetMouseWorldRay(rayPoint, rayDir);
+
+		GameObject* obj = CreateGameObject();
+		Collider* col = nullptr;
+		auto r = obj->AddComponent<UserMeshRenderer>();
+		r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+		int n = rand() % 5;
+		switch (n)
+		{
+			case 0: 
+				col = obj->AddComponent<BoxCollider>(); 
+				r->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+				break;
+			case 1: 
+				col = obj->AddComponent<SphereCollider>(); 
+				r->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+				break;
+			case 2:
+				col = obj->AddComponent<CapsuleCollider>();
+				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CapsuleUserMesh.mesh");
+				break;
+			case 3:
+				col = obj->AddComponent<RightTriangleCollider>();
+				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/RightTriangleUserMesh.mesh");
+				break;
+			case 4:
+				col = obj->AddComponent<TriangleCollider>();
+				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/TriangleUserMesh.mesh");
+				break;
+		}
+		auto body = obj->AddComponent<Rigidbody>();
+		body->SetVelocity(rayDir * 15);
+		
+		obj->transform->position = transform->position;
+		obj->transform->rotation = transform->rotation;
+		obj->transform->scale = Vec3::one() * (float(rand() % 100 + 1) * 0.01f + 0.5f);
 	}
+}
+
+void CamController::Render()
+{
+
 }
 
 void CamController::Func(const wstring& msg)
@@ -73,7 +118,7 @@ void CamController::MoveMouseToCenterPos()
 {
 	RECT rect;
 	GetClientRect(GraphicDevice::GetInstance()->GetWindowHandle(), &rect);
-	POINT center = { rect.right * 0.5f, rect.bottom * 0.5f };
+	POINT center = { LONG(rect.right * 0.5f), LONG(rect.bottom * 0.5f) };
 	ClientToScreen(GraphicDevice::GetInstance()->GetWindowHandle(), &center);
 	SetCursorPos(center.x, center.y);
 }
