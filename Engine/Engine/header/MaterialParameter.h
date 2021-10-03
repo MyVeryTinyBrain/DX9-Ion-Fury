@@ -2,6 +2,8 @@
 
 struct MaterialParameter
 {
+	bool m_wireFrame = false;
+
 	CullMode m_cullMode = CullMode::CW;
 
 	bool m_zWrite = true;

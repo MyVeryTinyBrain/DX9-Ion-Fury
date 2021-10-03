@@ -49,7 +49,7 @@ class Input
 
 public:
 
-	static const bool& GetKey(const Key& key);
+	static bool GetKey(const Key& key);
 
 	static const bool& GetKeyDown(const Key& key);
 

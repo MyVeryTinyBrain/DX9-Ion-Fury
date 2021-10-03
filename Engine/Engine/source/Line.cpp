@@ -6,14 +6,14 @@ void Line::DrawLine(const Vec3& start, const Vec3& end, const Color& color, floa
 {
 	auto line = GraphicDevice::GetInstance()->GetLine();
 	auto device = GraphicDevice::GetInstance()->GetDevice();
-
+	
 	Mat4 view, proj, transform;
 
 	device->GetTransform(D3DTS_VIEW, &view);
 	device->GetTransform(D3DTS_PROJECTION, &proj);
 
 	transform = view * proj;
-
+	
 	Vec3 points[2] = { start,end };
 
 	line->SetWidth(width);

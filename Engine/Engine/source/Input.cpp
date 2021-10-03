@@ -7,9 +7,10 @@
 
 ImplementSingletone(Input);
 
-const bool& Input::GetKey(const Key& key)
+bool Input::GetKey(const Key& key)
 {
-	return Instance.m_keyState[(unsigned char)key];
+	//return Instance.m_keyState[(unsigned char)key];
+	return GetAsyncKeyState((int)key);
 }
 
 const bool& Input::GetKeyDown(const Key& key)

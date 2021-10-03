@@ -286,9 +286,15 @@
     <ClCompile Include="source\Collider.cpp">
       <Filter>Physics\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="source\Layer.cpp" />
-    <ClCompile Include="PhysicsQueryFilterCallback.cpp" />
-    <ClCompile Include="PhysicsQuery.cpp" />
+    <ClCompile Include="source\Layer.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQueryFilterCallback.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQuery.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -564,9 +570,15 @@
     <ClInclude Include="header\Collider.h">
       <Filter>Physics\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="header\Layer.h" />
-    <ClInclude Include="PhysicsQueryFilterCallback.h" />
-    <ClInclude Include="PhysicsQuery.h" />
+    <ClInclude Include="header\Layer.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQueryFilterCallback.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQuery.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />
