@@ -63,6 +63,9 @@
     <ClInclude Include="DlgObjectTool.h">
       <Filter>Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="Pickable.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IonFuryEditor.cpp">
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="DlgObjectTool.cpp">
       <Filter>Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickable.cpp">
+      <Filter>EditorCore</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
