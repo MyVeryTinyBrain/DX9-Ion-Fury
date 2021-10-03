@@ -27,6 +27,10 @@ void FreePerspectiveCamera::Update()
 		ang.x += m_angularSpeed * Time::DeltaTime();
 	ang.z = 0;
 
+	// angle lock
+	ang.x = MathEx::Clamp(ang.x, -90, +90);
+	ang.z = MathEx::Clamp(ang.z, -90, +90);
+
 	if (Input::GetKeyDown(Key::RightMouse))
 	{
 		MoveMouseToCenterPos();
@@ -39,7 +43,7 @@ void FreePerspectiveCamera::Update()
 		POINT prevPos = GetMousePointInClient();
 		MoveMouseToCenterPos();
 		POINT centerPos = GetMousePointInClient();
-		Vec3 delta = Vec3(centerPos.y - prevPos.y, centerPos.x - prevPos.x, 0);
+		Vec3 delta = Vec3(float(centerPos.y - prevPos.y), float(centerPos.x - prevPos.x), 0);
 		ang -= delta * sensitivity;
 	}
 
@@ -51,7 +55,7 @@ void FreePerspectiveCamera::MoveMouseToCenterPos()
 {
 	RECT rect;
 	GetClientRect(GraphicDevice::GetInstance()->GetWindowHandle(), &rect);
-	POINT center = { rect.right * 0.5f, rect.bottom * 0.5f };
+	POINT center = { LONG(rect.right * 0.5f), LONG(rect.bottom * 0.5f) };
 	ClientToScreen(GraphicDevice::GetInstance()->GetWindowHandle(), &center);
 	SetCursorPos(center.x, center.y);
 }

@@ -8,6 +8,8 @@ class Rigidbody : public Component
 
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(BeginPhysicsSimulate);
+
 	OverrideComponentFunction(EndPhysicsSimulate);
 
 	OverrideComponentFunction(OnDestroy);
@@ -24,9 +26,23 @@ public:
 
 public:
 
+	void ApplyBodyTransformFromGameObject();
+
+	void ApplyGameObjectTransfromFromBody();
+
 	void SetPosition(const Vec3& position);
 
+	void SetRotation(const Quat& rotation);
+
 	void SetVelocity(const Vec3& velocity);
+
+	void SetRotationLockAxis(Axis axes, bool value);
+
+	bool GetRotationLockAxis(Axis axes) const;
+
+	void SetTranslationLockAxis(Axis axes, bool value);
+
+	bool GetTranslationLockAxis(Axis axes) const;
 
 private:
 

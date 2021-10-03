@@ -49,6 +49,16 @@ unsigned int UserMesh::GetNumFaces() const
 	return m_numIndices;
 }
 
+Vertex* UserMesh::GetStoredVertexBuffer() const
+{
+	return m_storedVertexBuffer;
+}
+
+Index* UserMesh::GetStoredIndexBuffer() const
+{
+	return m_storedIndexBuffer;
+}
+
 Vertex* UserMesh::LockVertexBuffer()
 {
 	Vertex* vertices = nullptr;

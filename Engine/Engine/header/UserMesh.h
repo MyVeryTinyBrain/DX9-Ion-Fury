@@ -41,6 +41,10 @@ public:
 
 	unsigned int GetNumFaces() const;
 
+	Vertex* GetStoredVertexBuffer() const;
+
+	Index* GetStoredIndexBuffer() const;
+
 	Vertex* LockVertexBuffer();
 
 	Index* LockIndexBuffer();

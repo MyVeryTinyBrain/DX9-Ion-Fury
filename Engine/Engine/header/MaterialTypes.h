@@ -3,7 +3,8 @@
 enum class CullMode
 {
 	CW = D3DCULL_CW, 
-	CCW = D3DCULL_CCW
+	CCW = D3DCULL_CCW,
+    None = D3DCULL_NONE
 };
 
 enum class CmpMode

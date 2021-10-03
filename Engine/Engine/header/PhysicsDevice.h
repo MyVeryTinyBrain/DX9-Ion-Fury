@@ -57,5 +57,7 @@ private:
 	PxScene* m_scene = nullptr;
 
 	class LayerManager* m_layerManager = nullptr;
+
+	class PhysicsFilterShader* m_filterShader = nullptr;
 };
 

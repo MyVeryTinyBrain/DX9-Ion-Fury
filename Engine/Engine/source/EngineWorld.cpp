@@ -8,6 +8,7 @@
 #include "ResourceManager.h"
 #include "Camera.h"
 #include "PhysicsDevice.h"
+#include "BuiltIn.h"
 
 HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int height, bool windowed, LPCWSTR title, WNDPROC wndProc)
 {
@@ -25,6 +26,8 @@ HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int he
 	CentralTimeElement::GetInstance()->Initialize(144, 60);
 
 	PhysicsDevice::GetInstance()->Initialize();
+
+	BuiltIn::MakeBuiltInResources();
 
 	m_initialized = true;
 
@@ -47,6 +50,8 @@ HRESULT EngineWorld::Initialize(HWND hWnd, UINT width, UINT height, BOOL windowe
 	CentralTimeElement::GetInstance()->Initialize(144, 60);
 
 	PhysicsDevice::GetInstance()->Initialize();
+
+	BuiltIn::MakeBuiltInResources();
 
 	m_initialized = true;
 

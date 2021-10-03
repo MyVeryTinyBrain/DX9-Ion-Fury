@@ -57,9 +57,14 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
 
     {
         GameObject* obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 0, -5);
+        obj->transform->scale = Vec3(1000, 1, 1000);
+        auto col = obj->AddComponent<BoxCollider>();
+        col->extents = Vec3(1, 1, 1);
+        auto body = obj->AddComponent<Rigidbody>();
+        body->SetKinematic(true);
+        body->SetPosition(Vec3(0, -10, 0));
         auto r = obj->AddComponent<UserMeshRenderer>();
-        r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/RightTriangleUserMesh.mesh");
+        r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
         r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
     }
 }

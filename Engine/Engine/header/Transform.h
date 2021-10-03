@@ -38,7 +38,7 @@ public:
 
 	std::vector<Transform*> GetChilds() const;
 
-	__declspec(property(get = IsActiveSelf, put = SetActive)) bool activeSelf;
+	__declspec(property(get = IsActiveSelf, put = SetActiveSelf)) bool activeSelf;
 
 	__declspec(property(get = IsActiveInTree)) bool activeInTree;
 

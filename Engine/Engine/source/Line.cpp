@@ -61,7 +61,7 @@ void Line::DrawLineVector(const std::vector<Vec3>& pointVector, const Color& col
 	line->Begin();
 	for (size_t i = 1; i < count; ++i)
 	{
-		DrawMultipleLinePart(transform, pointVector[i - 1] , pointVector[i], color);
+		DrawMultipleLinePart(transform, pointVector[i - 1], pointVector[i], color);
 	}
 	line->End();
 }

@@ -10,7 +10,7 @@
 void Collider::Awake()
 {
 	auto device = PhysicsDevice::GetInstance();
-
+	
 	m_material = device->physics->createMaterial(0.5f, 0.5f, 0.0f);
 
 	m_shape = device->physics->createShape(CreateGeometry().any(), *m_material, true);
@@ -23,6 +23,8 @@ void Collider::Awake()
 	ApplyTransform(true);
 
 	ApplyScale();
+
+	ApplyLayer();
 }
 
 void Collider::BeginPhysicsSimulate()
@@ -221,12 +223,16 @@ void Collider::ApplyLayer()
 	auto device = PhysicsDevice::GetInstance();
 	auto layerManager = device->layerManager;
 
-	uint32_t collisionBits = layerManager->GetCollisionBits(m_layerIndex);
-	uint32_t resultBits = collisionBits & (!m_ignoreLayerBits);
+	// 무시할 레이어를 제외한 모든 비트를 켭니다.
+	uint32_t unignoreBits = ~m_ignoreLayerBits;
 
 	PxFilterData filter{};
+
+	// 레이어 비트를 켭니다.
 	filter.word0 = (1 << m_layerIndex);
-	filter.word1 = resultBits;
+
+	// 무시하지 않는 비트들을 켭니다.
+	filter.word1 = unignoreBits;
 
 	m_shape->setSimulationFilterData(filter);
 }

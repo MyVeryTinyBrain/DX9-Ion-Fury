@@ -40,7 +40,6 @@ void LayerManager::SetLayerCollisions(unsigned int layerIndexA, unsigned int lay
 			m_filter[layerIndexA] &= !(1 << layerIndexB);
 			m_filter[layerIndexB] &= !(1 << layerIndexA);
 		}
-		UpdateActorFilters();
 	}
 }
 
@@ -67,43 +66,4 @@ PxU32 LayerManager::GetCollisionBits(unsigned int layerIndex) const
 	}
 
 	return 0x00000000;
-}
-
-void LayerManager::UpdateActorFilters()
-{
-	PxActorTypeFlags actorTypes = PxActorTypeFlag::eRIGID_STATIC | PxActorTypeFlag::eRIGID_DYNAMIC;
-
-	auto scene = PhysicsDevice::GetInstance()->GetScene();
-
-	PxU32 nbActors = scene->getNbActors(actorTypes);
-	PxActor** actors = new PxActor * [nbActors];
-
-	scene->getActors(actorTypes, actors, sizeof(PxActor*) * nbActors);
-
-	for (PxU32 i = 0; i < nbActors; ++i)
-	{
-		PxActorType::Enum type = actors[i]->getType();
-		
-		bool isRigidBody = type & (PxActorType::Enum::eRIGID_STATIC | PxActorType::Enum::eRIGID_DYNAMIC);
-
-		if (!isRigidBody)
-			continue;
-
-		PxRigidActor* actor = static_cast<PxRigidActor*>(actors[i]);
-
-		PxU32 nbShapes = actor->getNbShapes();
-		PxShape** shapes = new PxShape * [nbShapes];
-		actor->getShapes(shapes, sizeof(PxU32) * nbShapes);
-
-		for (PxU32 j = 0; j < nbShapes; ++j)
-		{
-			PxShape* shape = shapes[j];
-			Collider* collider = (Collider*)shape->userData;
-			collider->ApplyLayer();
-		}
-
-		SafeDeleteArray(shapes);
-	}
-
-	SafeDeleteArray(actors);
 }

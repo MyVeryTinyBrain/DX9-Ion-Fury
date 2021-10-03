@@ -268,6 +268,18 @@
     <ClCompile Include="source\MaterialParameter.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
+    <ClCompile Include="source\BuiltIn.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RightTriangleCollider.cpp">
+      <Filter>Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TriangleCollider.cpp">
+      <Filter>Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsFilterShader.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -524,6 +536,21 @@
     </ClInclude>
     <ClInclude Include="header\MaterialParameter.h">
       <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BuiltIn.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BuiltInResources.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RightTriangleCollider.h">
+      <Filter>Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="header\TriangleCollider.h">
+      <Filter>Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsFilterShader.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

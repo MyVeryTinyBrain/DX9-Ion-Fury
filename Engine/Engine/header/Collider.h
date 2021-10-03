@@ -2,6 +2,11 @@
 
 #include "Component.h"
 
+/*
+	PxFilterData.word0: 콜라이더에 설정된 레이어 인덱스의 비트 하나가 있습니다.
+	PxFilterData.word1: 무시하지 않을 레이어 인덱스의 비트들이 있습니다.
+*/
+
 class Collider abstract : public Component
 {
 	friend class Rigidbody;

@@ -2,6 +2,7 @@
 #include "PhysicsDevice.h"
 #include "PhysicsDefines.h"
 #include "LayerManager.h"
+#include "PhysicsFilterShader.h"
 
 ImplementSingletone(PhysicsDevice);
 
@@ -16,6 +17,8 @@ PhysicsDevice::~PhysicsDevice()
 
 void PhysicsDevice::Initialize()
 {
+	m_filterShader = new PhysicsFilterShader;
+
 	m_allocater = new PxDefaultAllocator;
 
 	m_errorCallback = new PxDefaultErrorCallback;
@@ -50,6 +53,8 @@ void PhysicsDevice::Release()
 	SafeDelete(m_errorCallback);
 
 	SafeDelete(m_allocater);
+
+	SafeDelete(m_filterShader);
 }
 
 void PhysicsDevice::Step(float deltaTime)
@@ -90,7 +95,8 @@ void PhysicsDevice::CreateScene()
 
 	desc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
 	desc.cpuDispatcher = m_dispatcher;
-	desc.filterShader = PxDefaultSimulationFilterShader;
+	desc.filterShader = PhysicsFilterShader::PxSimulationFilterShader;
+	desc.filterCallback = m_filterShader;
 
 	auto scene = m_physics->createScene(desc);
 

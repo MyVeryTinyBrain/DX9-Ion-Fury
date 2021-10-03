@@ -25,10 +25,6 @@ public:
 
 private:
 
-	void UpdateActorFilters();
-
-private:
-
 	PxU32 m_filter[PhysicsLayerMax];
 };
 
