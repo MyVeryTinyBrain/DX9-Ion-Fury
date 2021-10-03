@@ -11,9 +11,12 @@ void Rigidbody::Awake()
 	auto device = PhysicsDevice::GetInstance();
 
 	PxTransform initPose(PxIdentity);
+
 	m_body = device->physics->createRigidDynamic(initPose);
 	m_body->setMass(1);
 	m_body->userData = this;
+
+	ApplyFlags();
 
 	device->scene->addActor(*m_body);
 
@@ -38,6 +41,16 @@ void Rigidbody::OnDestroy()
 	PxRelease(m_body);
 }
 
+bool Rigidbody::UseGravity() const
+{
+	return m_body->getActorFlags().isSet(PxActorFlag::eDISABLE_GRAVITY);
+}
+
+void Rigidbody::SetUseGravity(bool value)
+{
+	m_body->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, value);
+}
+
 bool Rigidbody::IsKinematic() const
 {
 	return m_body->getRigidBodyFlags().isSet(PxRigidBodyFlag::eKINEMATIC);;
@@ -46,6 +59,22 @@ bool Rigidbody::IsKinematic() const
 void Rigidbody::SetKinematic(bool value)
 {
 	m_body->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, value);
+}
+
+bool Rigidbody::IsContinousDetection() const
+{
+	// 주의
+	// Kinematic Rigidbody는 Continous Detection이 동작하지 않습니다.
+	// 이 함수가 반환하는 값은 Continous Detection을 사용하려고 요청하는 플래그입니다.
+
+	return m_continous;
+}
+
+void Rigidbody::SetContinuousDetection(bool value)
+{
+	m_continous = value;
+
+	ApplyFlags();
 }
 
 void Rigidbody::UpdateMassAndInertia()
@@ -92,10 +121,73 @@ void Rigidbody::SetRotation(const Quat& rotation)
 	m_body->setGlobalPose(pose);
 }
 
+void Rigidbody::SetEulerAngle(const Vec3& eulerAngle)
+{
+	transform->eulerAngle = eulerAngle;
+	PxTransform pose = m_body->getGlobalPose();
+	pose.q = ToPxQuat(transform->rotation);
+	m_body->setGlobalPose(pose);
+}
+
+void Rigidbody::SetLocalPosition(const Vec3& localPosition)
+{
+	transform->localPosition = localPosition;
+	PxTransform pose = m_body->getGlobalPose();
+	pose.p = ToPxVec3(transform->position);
+	m_body->setGlobalPose(pose);
+}
+
+void Rigidbody::SetLocalRotation(const Quat& localRotation)
+{
+	transform->localRotation = localRotation;
+	PxTransform pose = m_body->getGlobalPose();
+	pose.q = ToPxQuat(transform->rotation);
+	m_body->setGlobalPose(pose);
+}
+
+void Rigidbody::SetLocalEulerAngle(const Vec3& localEulerAngle)
+{
+	transform->localEulerAngle = localEulerAngle;
+	PxTransform pose = m_body->getGlobalPose();
+	pose.q = ToPxQuat(transform->rotation);
+	m_body->setGlobalPose(pose);
+}
+
+float Rigidbody::GetMass() const
+{
+	return m_body->getMass();
+}
+
+void Rigidbody::SetMass(float value)
+{
+	if (value < 0)
+		value = 0;
+	m_body->setMass(value);
+	UpdateMassAndInertia();
+}
+
+Vec3 Rigidbody::GetVelocity() const
+{
+	PxVec3 pxVelocity = m_body->getLinearVelocity();
+	return FromPxVec3(pxVelocity);
+}
+
 void Rigidbody::SetVelocity(const Vec3& velocity)
 {
 	PxVec3 pxVelocity = ToPxVec3(velocity);
 	m_body->setLinearVelocity(pxVelocity);
+}
+
+Vec3 Rigidbody::GetAngularVelocity() const
+{
+	PxVec3 pxAVelocity = m_body->getAngularVelocity();
+	return FromPxVec3(pxAVelocity);
+}
+
+void Rigidbody::SetAngularVelocity(const Vec3& angularVelocity)
+{
+	PxVec3 pxAngularVelocity = ToPxVec3(angularVelocity);
+	m_body->setAngularVelocity(pxAngularVelocity);
 }
 
 void Rigidbody::SetRotationLockAxis(Axis axes, bool value)
@@ -165,4 +257,28 @@ void Rigidbody::DetachAll()
 	}
 
 	SafeDeleteArray(shapes);
+}
+
+void Rigidbody::ApplyFlags()
+{
+	// 연속 충돌 감지 모드를 설정합니다.
+	bool continousFlag = m_continous && !IsKinematic();
+	m_body->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_CCD, continousFlag);
+
+	// 연속 충돌 모드 사용시 마찰을 사용합니다.
+	m_body->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_CCD_FRICTION, continousFlag);
+
+	// A -- B 간의 충돌 알림을 강제 실행합니다.
+	// eFORCE_KINE_KINE_NOTIFICATIONS
+	// eFORCE_STATIC_KINE_NOTIFICATIONS 
+	m_body->setRigidBodyFlag(PxRigidBodyFlag::eFORCE_KINE_KINE_NOTIFICATIONS, true);
+	m_body->setRigidBodyFlag(PxRigidBodyFlag::eFORCE_STATIC_KINE_NOTIFICATIONS, true);
+
+	// 시뮬레이션 중에 Kinemtic Rigidbody를 쿼리할수 있게 됩니다.
+	// 이 프레임워크는 시뮬레이션이 끝난 후에 쿼리하게 됩니다.
+	m_body->setRigidBodyFlag(PxRigidBodyFlag::eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES, true);
+
+	// 시뮬레이션에 의한 Pose 변화를 보고합니다.
+	// PxSimulationEventCallback::onAdvance() 함수를 호출합니다.
+	// m_body->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_POSE_INTEGRATION_PREVIEW, true);
 }

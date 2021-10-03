@@ -204,11 +204,11 @@ void Collider::ApplyFlags()
 {
 	// 트리거 플래그: 트리거 모드이고 컴포넌트가 활성화 되어있으면 켜집니다.
 	// 시뮬레이션 플래그: 트리거 플래그가 꺼져 있어야 하며 컴포넌트가 활성화 되어있으면 켜집니다.
-	// 쿼리 플래그: 언제나 켜져 있습니다.
+	// 쿼리 플래그: 컴포넌트가 활성화 상태라면 언제나 켜져 있습니다.
 
 	bool triggerFlag = isTrigger && isWake;
 	bool simulationFlag = !triggerFlag && isWake;
-	bool queryFlag = true;
+	bool queryFlag = isWake;
 
 	// eTRIGGER_SHAPE 플래그를 활성화 하기 전에는 반드시 eSIMULATION_SHAPE 플래그가 비활성화 상태여야 합니다.
 	// 때문에 아래와 같은 순서로 플래그를 설정합니다.

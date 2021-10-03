@@ -22,7 +22,11 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\PhysicsFilterShader.cpp" />
+    <ClCompile Include="PhysicsQuery.cpp" />
+    <ClCompile Include="PhysicsQueryFilterCallback.cpp" />
+    <ClCompile Include="source\Layer.cpp" />
+    <ClCompile Include="source\PhysicsSimulationEventCallback.cpp" />
+    <ClCompile Include="source\PhysicsFilterShaderCallback.cpp" />
     <ClCompile Include="source\BuiltIn.cpp" />
     <ClCompile Include="source\RightTriangleCollider.cpp" />
     <ClCompile Include="source\MaterialParameter.cpp" />
@@ -175,7 +179,11 @@
     <ClInclude Include="header\MaterialParameter.h" />
     <ClInclude Include="header\RightTriangleCollider.h" />
     <ClInclude Include="header\TriangleCollider.h" />
-    <ClInclude Include="header\PhysicsFilterShader.h" />
+    <ClInclude Include="header\PhysicsFilterShaderCallback.h" />
+    <ClInclude Include="header\PhysicsSimulationEventCallback.h" />
+    <ClInclude Include="header\Layer.h" />
+    <ClInclude Include="PhysicsQuery.h" />
+    <ClInclude Include="PhysicsQueryFilterCallback.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

@@ -89,6 +89,9 @@
     <Filter Include="Resource\Material">
       <UniqueIdentifier>{621a1c96-5ad5-4916-a426-98f2b23f7c38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics\Rigidbody">
+      <UniqueIdentifier>{703fcb14-849a-4cc7-8dcc-35e95fdde37f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -232,12 +235,6 @@
     <ClCompile Include="source\Line.cpp">
       <Filter>Render\Line</Filter>
     </ClCompile>
-    <ClCompile Include="source\Rigidbody.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Collider.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="source\SphereCollider.cpp">
       <Filter>Physics\Collider</Filter>
     </ClCompile>
@@ -277,9 +274,21 @@
     <ClCompile Include="source\TriangleCollider.cpp">
       <Filter>Physics\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="source\PhysicsFilterShader.cpp">
+    <ClCompile Include="source\PhysicsFilterShaderCallback.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="source\PhysicsSimulationEventCallback.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Rigidbody.cpp">
+      <Filter>Physics\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Collider.cpp">
+      <Filter>Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Layer.cpp" />
+    <ClCompile Include="PhysicsQueryFilterCallback.cpp" />
+    <ClCompile Include="PhysicsQuery.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -495,12 +504,6 @@
     <ClInclude Include="header\LibraryLink.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="header\Rigidbody.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Collider.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="header\SphereCollider.h">
       <Filter>Physics\Collider</Filter>
     </ClInclude>
@@ -549,9 +552,21 @@
     <ClInclude Include="header\TriangleCollider.h">
       <Filter>Physics\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="header\PhysicsFilterShader.h">
+    <ClInclude Include="header\PhysicsFilterShaderCallback.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="header\PhysicsSimulationEventCallback.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Rigidbody.h">
+      <Filter>Physics\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Collider.h">
+      <Filter>Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Layer.h" />
+    <ClInclude Include="PhysicsQueryFilterCallback.h" />
+    <ClInclude Include="PhysicsQuery.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

@@ -29,6 +29,7 @@
 #include "RightTriangleCollider.h"
 #include "TriangleCollider.h"
 #include "Rigidbody.h"
+#include "Layer.h"
 
 // For SR
 #include "UserMesh.h"

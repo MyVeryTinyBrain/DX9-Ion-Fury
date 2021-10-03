@@ -2,7 +2,8 @@
 #include "PhysicsDevice.h"
 #include "PhysicsDefines.h"
 #include "LayerManager.h"
-#include "PhysicsFilterShader.h"
+#include "PhysicsFilterShaderCallback.h"
+#include "PhysicsSimulationEventCallback.h"
 
 ImplementSingletone(PhysicsDevice);
 
@@ -17,7 +18,9 @@ PhysicsDevice::~PhysicsDevice()
 
 void PhysicsDevice::Initialize()
 {
-	m_filterShader = new PhysicsFilterShader;
+	m_simulationEventCallback = new PhysicsSimulationEventCallback;
+
+	m_filterShaderCallback = new PhysicsFilterShaderCallback;
 
 	m_allocater = new PxDefaultAllocator;
 
@@ -54,7 +57,9 @@ void PhysicsDevice::Release()
 
 	SafeDelete(m_allocater);
 
-	SafeDelete(m_filterShader);
+	SafeDelete(m_filterShaderCallback);
+
+	SafeDelete(m_simulationEventCallback);
 }
 
 void PhysicsDevice::Step(float deltaTime)
@@ -95,20 +100,21 @@ void PhysicsDevice::CreateScene()
 
 	desc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
 	desc.cpuDispatcher = m_dispatcher;
-	desc.filterShader = PhysicsFilterShader::PxSimulationFilterShader;
-	desc.filterCallback = m_filterShader;
+	desc.filterShader = PhysicsFilterShaderCallback::PxSimulationFilterShader;
+	desc.filterCallback = m_filterShaderCallback;
+	desc.simulationEventCallback = m_simulationEventCallback;
+
+	desc.flags |=
+		PxSceneFlag::eMUTABLE_FLAGS |
+		PxSceneFlag::eENABLE_CCD |
+		PxSceneFlag::eADAPTIVE_FORCE |
+		PxSceneFlag::eENABLE_PCM |
+		PxSceneFlag::eENABLE_FRICTION_EVERY_ITERATION;
 
 	auto scene = m_physics->createScene(desc);
 
 	if (!scene)
 		return;
-
-	//desc.flags |=
-	//	PxSceneFlag::eMUTABLE_FLAGS |
-	//	PxSceneFlag::eENABLE_CCD |
-	//	PxSceneFlag::eADAPTIVE_FORCE |
-	//	PxSceneFlag::eENABLE_PCM |
-	//	PxSceneFlag::eENABLE_FRICTION_EVERY_ITERATION;
 
 	//// 연속 충돌 감지(Continuous Contact Detection) 활성화
 	//// 아래 플래그를 사용할수 있습니다.
