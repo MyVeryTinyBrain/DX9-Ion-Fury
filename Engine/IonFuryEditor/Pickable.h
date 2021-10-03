@@ -7,22 +7,22 @@ public:
 
 	OverrideComponentFunction(Update);
 
-<<<<<<< Updated upstream
-=======
 	OverrideComponentFunction(OnDestroy);
->>>>>>> Stashed changes
 public:
 
 	void Settings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"
 		, const wstring& localPathTexture = L"../SharedResourced/Texture/Dev.png");
 
-	static Pickable* Pick(); //vec순환해서 
+	static Pickable* Pick();	//vec순환해서 
+	//static void PickDelete();	//gizmo붙어있는 녀석은 삭제
 
-	UserMeshRenderer* Get_Renderer() { return m_Renderer; }
+
+public:
+	UserMeshRenderer* GetRenderer() { return m_Renderer; }
 
 private:
-	GameObject*				m_ChildObject;
-	UserMeshRenderer*		m_Renderer;
+	GameObject* m_ChildObject;
+	UserMeshRenderer* m_Renderer;
 
 	static std::vector<Pickable*>	g_PickableVec;
 };

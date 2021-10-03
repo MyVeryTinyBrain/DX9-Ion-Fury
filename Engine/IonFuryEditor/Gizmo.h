@@ -33,6 +33,11 @@ public:
 	// 오브젝트에서 기즈모를 뗍니다.
 	void Detach();
 
+	Transform* GetSelectedObject() const;
+
+public:
+	void DeleteAttachedObject();
+
 private:
 
 	void ResetGizmoTransform();
