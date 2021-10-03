@@ -56,6 +56,7 @@ public:
 	virtual BOOL DestroyWindow();
 	afx_msg void OnObject();
 	afx_msg void OnLight();
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전
