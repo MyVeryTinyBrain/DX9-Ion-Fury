@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "DlgLightTool.h"
 #include "DlgObjectTool.h"
 
 class CIonFuryEditorView : public CView
@@ -11,7 +12,7 @@ class CIonFuryEditorView : public CView
 
 private:
 	DlgObjectTool m_dlgObjectTool;
-
+	DlgLightTool	m_dlgLightTool;
 
 
 
@@ -54,6 +55,7 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	virtual BOOL DestroyWindow();
 	afx_msg void OnObject();
+	afx_msg void OnLight();
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전
