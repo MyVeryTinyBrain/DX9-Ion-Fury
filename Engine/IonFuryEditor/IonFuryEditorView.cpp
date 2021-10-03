@@ -12,6 +12,8 @@
 
 #include "IonFuryEditorDoc.h"
 #include "IonFuryEditorView.h"
+#include "EditorManager.h"
+#include "FreePerspectiveCamera.h"
 
 #include "EditorScene.h"
 
@@ -35,6 +37,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_WM_TIMER()
 	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -176,4 +179,24 @@ void CIonFuryEditorView::OnLight()
 	if (!m_dlgLightTool.GetSafeHwnd())
 		m_dlgLightTool.Create(IDD_DlgLightTool);
 	m_dlgLightTool.ShowWindow(SW_SHOW);
+}
+
+
+void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	
+	CView::OnKeyDown(nChar, nRepCnt, nFlags);
+	
+	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+	
+	switch (nChar)
+	{
+	case 'P':
+		camera->Add_Object_Sample(m_dlgObjectTool.m_objectTag.GetString(), m_dlgObjectTool.m_objectName.GetString(), m_dlgObjectTool.m_meshPath.GetString());
+		break;
+	default:
+		break;
+	}
+
 }

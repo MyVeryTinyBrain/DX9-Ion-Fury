@@ -6,7 +6,7 @@
 #include "DlgObjectTool.h"
 #include "afxdialogex.h"
 #include "EditorManager.h"
-
+#include "FreePerspectiveCamera.h"
 
 // DlgObjectTool 대화 상자
 
@@ -25,6 +25,8 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_fScaleX(1.f)
 	, m_fScaleY(1.f)
 	, m_fScaleZ(1.f)
+	, m_meshPath(L"")
+	, m_objectTag(_T(""))
 {
 
 }
@@ -47,6 +49,7 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT8, m_fScaleX);
 	DDX_Text(pDX, IDC_EDIT9, m_fScaleY);
 	DDX_Text(pDX, IDC_EDIT10, m_fScaleZ);
+	DDX_Text(pDX, IDC_EDIT17, m_objectTag);
 }
 
 
@@ -54,6 +57,7 @@ BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 	ON_EN_CHANGE(IDC_EDIT1, &DlgObjectTool::OnObjectName)
 	ON_CBN_SELCHANGE(IDC_COMBO1, &DlgObjectTool::OnSelectMesh)
 	ON_EN_CHANGE(IDC_EDIT2, &DlgObjectTool::OnEnChangeEditPosX)
+	ON_EN_CHANGE(IDC_EDIT17, &DlgObjectTool::OnObjectTag)
 END_MESSAGE_MAP()
 
 
@@ -70,7 +74,9 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_comboBox.AddString(_T("Cyilinder"));
 	m_comboBox.AddString(_T("Quad"));
 	m_comboBox.AddString(_T("Sphere"));
-
+	m_comboBox.AddString(_T("Capsule"));
+	m_comboBox.AddString(_T("RightTriangle"));
+	m_comboBox.AddString(_T("Triangle"));
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -83,17 +89,8 @@ void DlgObjectTool::OnObjectName()
 
 	UpdateData(TRUE);
 
-	// 오브 젝트 생성 시 입력하면 
-	// obj1->name = L"obj1";
-	// obj1->name = m_objectName; 이런식으로 하면 될 듯,..?
 
-
-	 m_objectName;
-
-	 
 	UpdateData(FALSE);
-
-
 }
 
 
@@ -104,30 +101,34 @@ void DlgObjectTool::OnSelectMesh()
 
 	m_eMesh = (COMBOBOX)m_comboBox.GetCurSel();
 	
-	// Object 생성할 때 
-	// ubeRenderer1->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
-	// 이 부분.
 
 	switch (m_eMesh)
 	{
-	case DlgObjectTool::COMBOBOX::CUBE:
-	
+	case DlgObjectTool::COMBOBOX::Cube:
+		m_meshPath = BuiltInCubeUserMesh;
 		break;
-	case DlgObjectTool::COMBOBOX::CYILINDER:
-
+	case DlgObjectTool::COMBOBOX::Cyilinder:
+		m_meshPath = BuiltInCyilinderUserMesh;
 		break;
-	case DlgObjectTool::COMBOBOX::QUAD:
-
+	case DlgObjectTool::COMBOBOX::Quad:
+		m_meshPath = BuiltInQuadUserMesh;
 		break;
-	case DlgObjectTool::COMBOBOX::SPHERE:
-
+	case DlgObjectTool::COMBOBOX::Sphere:
+		m_meshPath = BuiltInSphereUserMesh;
+		break;
+	case DlgObjectTool::COMBOBOX::Capsule:
+		m_meshPath = BuiltInCapsuleUserMesh;
+		break;
+	case DlgObjectTool::COMBOBOX::RightTriangle:
+		m_meshPath = BuiltInRightTriangleUserMesh;
+		break;
+	case DlgObjectTool::COMBOBOX::Triangle:
+		m_meshPath = BuiltInTriangleUserMesh;
 		break;
 	default:
 		break;
 	}
 
-
-	
 	UpdateData(FALSE);
 
 }
@@ -136,4 +137,14 @@ void DlgObjectTool::OnSelectMesh()
 void DlgObjectTool::OnEnChangeEditPosX()
 {
 
+}
+
+
+
+void DlgObjectTool::OnObjectTag()
+{
+	UpdateData(TRUE);
+
+
+	UpdateData(FALSE);
 }
