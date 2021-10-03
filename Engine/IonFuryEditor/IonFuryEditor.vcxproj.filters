@@ -1,133 +1,121 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Default">
-      <UniqueIdentifier>{0899d8ac-fe29-4fa0-9736-1ec5f8406f14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="EditorCore">
-      <UniqueIdentifier>{54d3f39d-0900-4d09-a74c-7062982dcded}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Dialog">
-      <UniqueIdentifier>{fd9b393a-ffd0-4632-85e9-6aad6bf69695}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="targetver.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="IonFuryEditor.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="IonFuryEditorDoc.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="IonFuryEditorView.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="MainFrm.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="IonFuryEditorBase.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorManager.h">
-      <Filter>EditorCore</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorScene.h">
-      <Filter>EditorCore</Filter>
-    </ClInclude>
-    <ClInclude Include="FreePerspectiveCamera.h">
-      <Filter>EditorCore</Filter>
-    </ClInclude>
-    <ClInclude Include="Gizmo.h">
-      <Filter>EditorCore</Filter>
-    </ClInclude>
-    <ClInclude Include="DlgObjectTool.h">
-      <Filter>Dialog</Filter>
-    </ClInclude>
-    <ClInclude Include="Pickable.h">
-      <Filter>EditorCore</Filter>
-    <ClInclude Include="DlgLightTool.h">
-      <Filter>Dialog</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="IonFuryEditor.cpp">
-      <Filter>Default</Filter>
-    </ClCompile>
-    <ClCompile Include="IonFuryEditorDoc.cpp">
+    <ClCompile Include="MainFrm.cpp">
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="IonFuryEditorView.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="MainFrm.cpp">
+    <ClCompile Include="IonFuryEditorDoc.cpp">
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="IonFuryEditorBase.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="EditorManager.cpp">
-      <Filter>EditorCore</Filter>
+    <ClCompile Include="IonFuryEditor.cpp">
+      <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="EditorScene.cpp">
-      <Filter>EditorCore</Filter>
-    </ClCompile>
-    <ClCompile Include="FreePerspectiveCamera.cpp">
+    <ClCompile Include="Pickable.cpp">
       <Filter>EditorCore</Filter>
     </ClCompile>
     <ClCompile Include="Gizmo.cpp">
       <Filter>EditorCore</Filter>
     </ClCompile>
-    <ClCompile Include="DlgObjectTool.cpp">
-      <Filter>Dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="Pickable.cpp">
+    <ClCompile Include="FreePerspectiveCamera.cpp">
       <Filter>EditorCore</Filter>
-    <ClCompile Include="DlgLightTool.cpp">
-      <Filter>Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="EditorScene.cpp">
+      <Filter>EditorCore</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorManager.cpp">
+      <Filter>EditorCore</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgLightTool.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgObjectTool.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="IonFuryEditorView.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="IonFuryEditorDoc.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="IonFuryEditorBase.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="IonFuryEditor.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickable.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Gizmo.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
+    <ClInclude Include="FreePerspectiveCamera.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorScene.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorManager.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgObjectTool.h">
+      <Filter>Dlg</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgLightTool.h">
+      <Filter>Dlg</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Default</Filter>
+    </Image>
+    <Image Include="res\IonFuryEditorDoc.ico">
+      <Filter>Default</Filter>
+    </Image>
+    <Image Include="res\IonFuryEditor.ico">
+      <Filter>Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+    <None Include="res\IonFuryEditor.rc2">
+      <Filter>Default</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Default">
+      <UniqueIdentifier>{cc1256ed-f165-4018-bc41-ae48e69a5cc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorCore">
+      <UniqueIdentifier>{e0eb609c-fcdd-4e42-94d5-53063a8d71c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dlg">
+      <UniqueIdentifier>{c1931ec0-0b18-441e-ae8e-49be9f78f092}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFuryEditor.rc">
-      <Filter>리소스 파일</Filter>
+      <Filter>Default</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\IonFuryEditor.rc2">
-      <Filter>리소스 파일</Filter>
-    </None>
-    <None Include="cpp.hint">
-      <Filter>헤더 파일</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\IonFuryEditorDoc.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="res\IonFuryEditor.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="res\Toolbar.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
   </ItemGroup>
 </Project>

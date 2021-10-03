@@ -30,3 +30,18 @@ Name* Name::GetInstance()																			\
 
 #define MsgBox(Caption, Text)																		\
 MessageBox(NULL, Text, Caption, MB_OK)
+
+#define DeclareStaticComponent(Name)																\
+private:																							\
+	static Name* g_instance;																		\
+public:																								\
+	static Name* GetInstance();																		\
+private:
+
+
+#define ImplementStaticComponent(Name)																\
+Name* Name::g_instance = nullptr;																	\
+Name* Name::GetInstance()																			\
+{																									\
+	return g_instance;																				\
+}

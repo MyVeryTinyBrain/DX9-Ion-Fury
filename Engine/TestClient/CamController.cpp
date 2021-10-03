@@ -79,15 +79,15 @@ void CamController::Update()
 				break;
 			case 2:
 				col = obj->AddComponent<CapsuleCollider>();
-				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CapsuleUserMesh.mesh");
+				r->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
 				break;
 			case 3:
 				col = obj->AddComponent<RightTriangleCollider>();
-				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/RightTriangleUserMesh.mesh");
+				r->userMesh = Resource::FindAs<UserMesh>(BuiltInRightTriangleUserMesh);
 				break;
 			case 4:
 				col = obj->AddComponent<TriangleCollider>();
-				r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/TriangleUserMesh.mesh");
+				r->userMesh = Resource::FindAs<UserMesh>(BuiltInTriangleUserMesh);
 				break;
 		}
 		auto body = obj->AddComponent<Rigidbody>();

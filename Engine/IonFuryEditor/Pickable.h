@@ -7,6 +7,8 @@ public:
 
 	OverrideComponentFunction(Update);
 
+public:
+
 	void Settings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"
 		, const wstring& localPathTexture = L"../SharedResourced/Texture/Dev.png");
 

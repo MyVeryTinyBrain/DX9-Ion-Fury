@@ -164,14 +164,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CamController.h" />
-    <ClInclude Include="EventTest.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="LinkByLine.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Releaser.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Rotater.h" />
-    <ClInclude Include="Stalking.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestBeginScene.h" />
@@ -179,12 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CamController.cpp" />
-    <ClCompile Include="EventTest.cpp" />
-    <ClCompile Include="LinkByLine.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Releaser.cpp" />
-    <ClCompile Include="Rotater.cpp" />
-    <ClCompile Include="Stalking.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestBeginScene.cpp" />
     <ClCompile Include="TestClient.cpp" />

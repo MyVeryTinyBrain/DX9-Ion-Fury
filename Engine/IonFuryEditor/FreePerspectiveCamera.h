@@ -9,11 +9,11 @@ private:
 	void MoveMouseToCenterPos();
 
 	POINT GetMousePointInClient() const;
-
+	
 	void Add_Object_Sample(const tag_t& tag = L"test"
 		, const wstring& ObjName = L"defaultName"
-		, const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"
-		, const wstring& localPathTexture = L"../SharedResourced/Texture/Dev.png");
+		, const wstring& localPathMesh = BuiltInCubeUserMesh
+		, const wstring& localPathTexture = BuiltInWhiteTexture);
 
 
 private:

@@ -24,7 +24,7 @@ void EditorScene::OnLoad(Scene* beforeScene)
     GraphicDevice::GetInstance()->SetBackgroundColor(Color(0.5f, 0.5f, 0.5f, 1.0f));
 
     // 자연광을 설정합니다.
-    Light::SetAmbientLight(Color::white());
+    // Light::SetAmbientLight(Color::white());
 
     // 에디터 매니저 컴포넌트를 생성합니다.
     GameObject* editorManagerObj = CreateGameObject(L"EditorManager");
