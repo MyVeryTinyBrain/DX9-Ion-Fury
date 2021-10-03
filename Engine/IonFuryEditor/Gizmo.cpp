@@ -102,10 +102,13 @@ bool Gizmo::HasAxisZ() const
 
 void Gizmo::Attach(Transform* root)
 {
+	Detach();
+
 	gameObject->activeSelf = true;
 
 	root = root->GetRoot();
 
+	transform->position = root->position;
 	root->parent = transform;
 	ResetGizmoTransform();
 

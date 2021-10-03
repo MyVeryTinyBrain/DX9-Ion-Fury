@@ -5,11 +5,14 @@
 #include "FreePerspectiveCamera.h"
 #include "Gizmo.h"
 
-// 싱글톤의 정의부분입니다.
-ImplementSingletone(EditorManager);
+// 정석 컴포넌트의 정의부분입니다.
+ImplementStaticComponent(EditorManager);
 
 void EditorManager::Awake()
 {
+	// 정적 변수에 대입합니다.
+	g_instance = this;
+
 	// 여기에서 님들이 만든 컴포넌트같은거 추가하셈.
 	{
 		GameObject* cameraObj = CreateGameObject(L"FreePerspectiveCamera");
@@ -23,7 +26,12 @@ void EditorManager::Awake()
 		m_gizmo = gizmoObj->AddComponent<Gizmo>();
 	}
 
-	
+	{	// 디렉셔널 라이트 생성
+		auto directionalLightObj = CreateGameObject();
+		auto dl = directionalLightObj->AddComponent<DirectionalLight>();
+		dl->color = Color::white() * 0.8f;
+		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+	}
 }
 
 FreePerspectiveCamera* EditorManager::GetPerspectiveCamera()

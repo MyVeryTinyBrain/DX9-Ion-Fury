@@ -2,8 +2,8 @@
 
 class EditorManager : public Component
 {
-	// 싱글톤 선언부분입니다.
-	DeclareSingletone(EditorManager);
+	// 정석 컴포넌트의 선언부분입니다.
+	DeclareStaticComponent(EditorManager);
 
 	OverrideComponentFunction(Awake);
 

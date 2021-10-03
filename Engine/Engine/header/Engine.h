@@ -39,6 +39,8 @@
 #include "SphereUserMesh.h"
 #include "QuadUserMesh.h"
 #include "CapsuleUserMesh.h"
+#include "RightTriangleUserMesh.h"
+#include "TriangleUserMesh.h"
 #include "Light.h"
 #include "PointLight.h"
 #include "SpotLight.h"

@@ -1,14 +1,6 @@
 #include "stdafx.h"
 #include "TestBeginScene.h"
 #include "CamController.h"
-#include "Rotater.h"
-#include "LinkByLine.h"
-#include "Releaser.h"
-#include "Stalking.h"
-#include "Player.h"
-#include "EventTest.h"
-#include "../Engine/header/RightTriangleUserMesh.h"
-#include "../Engine/header/TriangleUserMesh.h"
 
 IClonable* TestBeginScene::Clone()
 {
@@ -17,13 +9,6 @@ IClonable* TestBeginScene::Clone()
 
 void TestBeginScene::OnLoad(Scene* beforeScene)
 {
-    UserMesh::Create<CubeUserMesh>(L"../Resource/CubeUserMesh.mesh", true);
-    UserMesh::Create<SphereUserMesh>(L"../Resource/SphereUserMesh.mesh", true);
-    UserMesh::Create<CyilinderUserMesh>(L"../Resource/CyilinderUserMesh.mesh", true);
-    UserMesh::Create<QuadUserMesh>(L"../Resource/QuadUserMesh.mesh", true);
-    UserMesh::Create<CapsuleUserMesh>(L"../Resource/CapsuleUserMesh.mesh", true);
-    UserMesh::Create<RightTriangleUserMesh>(L"../Resource/RightTriangleUserMesh.mesh", true);
-    UserMesh::Create<TriangleUserMesh>(L"../Resource/TriangleUserMesh.mesh", true);
     Texture::CreateFromFile(L"../SharedResourced/Texture/Dev.png");
     Texture::CreateFromFile(L"../SharedResourced/Texture/DevAlpha.png");
     Texture::CreateFromFile(L"../SharedResourced/Texture/DevTransparent.png"); 
@@ -51,7 +36,7 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
         body->SetKinematic(true);
         body->SetPosition(Vec3(0, -3, 0));
         auto r = obj->AddComponent<UserMeshRenderer>();
-        r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
+        r->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
         r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
     }
 
@@ -64,7 +49,7 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
         body->SetKinematic(true);
         body->SetPosition(Vec3(0, -10, 0));
         auto r = obj->AddComponent<UserMeshRenderer>();
-        r->userMesh = Resource::FindAs<UserMesh>(L"../Resource/CubeUserMesh.mesh");
+        r->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
         r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
     }
 }

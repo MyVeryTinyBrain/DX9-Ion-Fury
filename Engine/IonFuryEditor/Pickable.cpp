@@ -15,9 +15,9 @@ void Pickable::Awake()
 	m_ChildObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
 	
 
-	m_ChildObject->AddComponent<Gizmo>();//추후 승욱이가 얘기하면 attach하는걸로
+	//m_ChildObject->AddComponent<Gizmo>();//추후 승욱이가 얘기하면 attach하는걸로
 
-	//EditorManager::GetInstance()->GetGizmo()->Attach(transform);
+	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 	
 	//Q : 이렇게 하면 카메라 위치 따라 못만든다. ?? 부모를 카메라 앞에 만들었는데?? 로컬포지션 000초기화를 못했나?
 	//m_ChildObject->AddComponent<Gizmo>();
