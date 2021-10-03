@@ -19,8 +19,8 @@ void FreePerspectiveCamera::Update()
 	if (Input::GetKey(Key::S))
 		pos += -transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
 
-	if (Input::GetKeyDown(Key::P))
-		Add_Object_Sample();	//테스트용, 이 함수를 tool에서 호출하면 됩니다. 인자 순서 : tag,name,meshpath,texturepath
+	//if (Input::GetKeyDown(Key::P))
+		//Add_Object_Sample();	//테스트용, 이 함수를 tool에서 호출하면 됩니다. 인자 순서 : tag,name,meshpath,texturepath
 	//if (Input::GetKeyDown(Key::O))
 	//	std::vector<Pickable*>* test = Pickable::Get_Pickable_Vec();
 
