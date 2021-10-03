@@ -19,6 +19,9 @@
     <Filter Include="EditorCore">
       <UniqueIdentifier>{54d3f39d-0900-4d09-a74c-7062982dcded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dialog">
+      <UniqueIdentifier>{fd9b393a-ffd0-4632-85e9-6aad6bf69695}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -57,6 +60,14 @@
     <ClInclude Include="Gizmo.h">
       <Filter>EditorCore</Filter>
     </ClInclude>
+    <ClInclude Include="DlgObjectTool.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickable.h">
+      <Filter>EditorCore</Filter>
+    <ClInclude Include="DlgLightTool.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IonFuryEditor.cpp">
@@ -85,6 +96,14 @@
     </ClCompile>
     <ClCompile Include="Gizmo.cpp">
       <Filter>EditorCore</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgObjectTool.cpp">
+      <Filter>Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickable.cpp">
+      <Filter>EditorCore</Filter>
+    <ClCompile Include="DlgLightTool.cpp">
+      <Filter>Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

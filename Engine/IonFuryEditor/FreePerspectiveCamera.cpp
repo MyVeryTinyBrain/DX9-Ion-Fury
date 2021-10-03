@@ -1,5 +1,7 @@
 #include "IonFuryEditorBase.h"
 #include "FreePerspectiveCamera.h"
+#include "Gizmo.h"
+#include "Pickable.h"
 
 void FreePerspectiveCamera::Update()
 {
@@ -16,6 +18,12 @@ void FreePerspectiveCamera::Update()
 		pos += transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
 	if (Input::GetKey(Key::S))
 		pos += -transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
+
+	if (Input::GetKeyDown(Key::P))
+		Add_Object_Sample();	//테스트용, 이 함수를 tool에서 호출하면 됩니다. 인자 순서 : tag,name,meshpath,texturepath
+	//if (Input::GetKeyDown(Key::O))
+	//	std::vector<Pickable*>* test = Pickable::Get_Pickable_Vec();
+
 
 	if (Input::GetKey(Key::Left))
 		ang.y -= m_angularSpeed * Time::DeltaTime();
@@ -67,3 +75,24 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	ScreenToClient(GraphicDevice::GetInstance()->GetWindowHandle(), &pos);
 	return pos;
 }
+
+void FreePerspectiveCamera::Add_Object_Sample(const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
+{
+	//GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject();
+	//Obj->AddComponent<Gizmo>();
+	//Obj->transform->position = transform->position + transform->forward * 2;
+	//auto Renderer = Obj->AddComponent<UserMeshRenderer>();
+	//Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
+	//Renderer->SetTexture(0, Resource::Find(localPathTexture)->GetReferenceTo<Texture>());
+	//신경쓰지마세요!
+
+	GameObject* Obj = CreateGameObject(tag);
+
+	Obj->name = ObjName;
+
+	Obj->transform->position = transform->position + transform->forward * 2;
+	
+	auto test = Obj->AddComponent<Pickable>();
+	test->Settings(localPathMesh, localPathTexture);
+}
+

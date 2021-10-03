@@ -191,6 +191,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DlgLightTool.h" />
+    <ClInclude Include="DlgObjectTool.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
     <ClInclude Include="framework.h" />
@@ -201,10 +203,13 @@
     <ClInclude Include="IonFuryEditorDoc.h" />
     <ClInclude Include="IonFuryEditorView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="Pickable.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DlgLightTool.cpp" />
+    <ClCompile Include="DlgObjectTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />
     <ClCompile Include="EditorScene.cpp" />
     <ClCompile Include="FreePerspectiveCamera.cpp" />
@@ -214,6 +219,7 @@
     <ClCompile Include="IonFuryEditorDoc.cpp" />
     <ClCompile Include="IonFuryEditorView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="Pickable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFuryEditor.rc" />
