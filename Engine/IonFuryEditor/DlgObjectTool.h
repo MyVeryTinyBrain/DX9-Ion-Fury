@@ -10,6 +10,10 @@ class DlgObjectTool : public CDialog
 public:
 	enum class COMBOBOX { Cube, Cyilinder, Quad, Sphere, Capsule, RightTriangle, Triangle,  END};
 
+public:
+	void SetPickableObject(GameObject* gameobject);
+
+
 
 public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
@@ -47,4 +51,6 @@ public:
 	afx_msg void OnEnChangeEditPosX();
 	CString m_objectTag;
 	afx_msg void OnObjectTag();
+
+	CString m_SelectName;
 };
