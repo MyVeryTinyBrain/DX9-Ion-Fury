@@ -513,7 +513,7 @@
     <ClInclude Include="header\Line.h">
       <Filter>Render\Line</Filter>
     </ClInclude>
-    <ClInclude Include="header\LibraryLink.h">
+    <ClInclude Include="source\LibraryLink.cpp">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="header\SphereCollider.h">
@@ -587,6 +587,12 @@
     </ClInclude>
     <ClInclude Include="header\PhysicsQueryTypes.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LibraryLink86.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LibraryLink64.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
