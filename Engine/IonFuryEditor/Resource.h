@@ -28,6 +28,7 @@
 #define IDC_EDIT16                      1017
 #define IDC_BUTTON1                     1018
 #define IDC_BUTTON2                     1019
+#define testBox                         1019
 #define IDC_EDIT17                      1020
 #define IDC_EDIT18                      1021
 #define ID_32771                        32771
@@ -39,7 +40,11 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
 #define _APS_NEXT_COMMAND_VALUE         32773
+<<<<<<< Updated upstream
 #define _APS_NEXT_CONTROL_VALUE         1022
+=======
+#define _APS_NEXT_CONTROL_VALUE         1020
+>>>>>>> Stashed changes
 #define _APS_NEXT_SYMED_VALUE           312
 #endif
 #endif
