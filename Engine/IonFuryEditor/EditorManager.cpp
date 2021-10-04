@@ -4,7 +4,6 @@
 // 여기에 님들이 만든 헤더 추가하셈.
 #include "FreePerspectiveCamera.h"
 #include "Gizmo.h"
-#include "Pickable.h"
 
 // 정석 컴포넌트의 정의부분입니다.
 ImplementStaticComponent(EditorManager);
@@ -27,21 +26,15 @@ void EditorManager::Awake()
 		m_gizmo = gizmoObj->AddComponent<Gizmo>();
 	}
 
-	//{	// 디렉셔널 라이트 생성
-	//	auto directionalLightObj = CreateGameObject();
-	//	auto dl = directionalLightObj->AddComponent<DirectionalLight>();
-	//	dl->color = Color::white() * 0.8f;
-	//	//dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
-	//	dl->transform->parent = GetPerspectiveCamera()->transform;
-	//}
+	{	
+		// 자연광을 설정합니다.
+		Light::SetGlobalAmbientLight(Color::white() * 0.2f);
 
-	{	// 스포트 라이트 생성
-		auto LightObj = CreateGameObject();
-		auto dl = LightObj->AddComponent<SpotLight>();
+		// 디렉셔널 라이트 생성
+		auto directionalLightObj = CreateGameObject();
+		auto dl = directionalLightObj->AddComponent<DirectionalLight>();
 		dl->color = Color::white() * 0.8f;
-		//dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
-		dl->transform->parent = GetPerspectiveCamera()->transform;
-		dl->transform->parent = GetPerspectiveCamera()->transform;
+		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
 	}
 }
 
