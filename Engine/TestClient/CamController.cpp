@@ -98,11 +98,6 @@ void CamController::Update()
 		obj->transform->rotation = transform->rotation;
 		obj->transform->scale = Vec3::one() * (float(rand() % 100 + 1) * 0.01f + 0.5f);
 	}
-
-	if (Input::GetKeyDown(Key::Space))
-	{
-
-	}
 }
 
 void CamController::Render()
