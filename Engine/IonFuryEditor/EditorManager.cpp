@@ -26,7 +26,11 @@ void EditorManager::Awake()
 		m_gizmo = gizmoObj->AddComponent<Gizmo>();
 	}
 
-	{	// 디렉셔널 라이트 생성
+	{	
+		// 자연광을 설정합니다.
+		Light::SetGlobalAmbientLight(Color::white() * 0.2f);
+
+		// 디렉셔널 라이트 생성
 		auto directionalLightObj = CreateGameObject();
 		auto dl = directionalLightObj->AddComponent<DirectionalLight>();
 		dl->color = Color::white() * 0.8f;
