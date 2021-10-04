@@ -164,7 +164,11 @@ protected:
 
 
 public:
+
+	afx_msg void OnBnClickedDef();
+
 	afx_msg void OnBnClickedAbc();
+
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -178,7 +182,11 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 	
+
+	ON_BN_CLICKED(DEF, &CAboutDlg::OnBnClickedDef)
+
 	ON_BN_CLICKED(ABC, &CAboutDlg::OnBnClickedAbc)
+
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
@@ -205,6 +213,11 @@ BOOL CIonFuryEditorApp::PreTranslateMessage(MSG* pMsg)
 
 
 
+
+
+void CAboutDlg::OnBnClickedDef()
+{ 
+	int i = 1;
 
 void CAboutDlg::OnBnClickedAbc()
 {

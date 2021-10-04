@@ -40,6 +40,7 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_meshPath(L"")
 	, m_objectTag(_T(""))
 	, m_SelectName(_T(""))
+	, m_btest(FALSE)
 {
 
 }
@@ -64,6 +65,7 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT10, m_fScaleZ);
 	DDX_Text(pDX, IDC_EDIT17, m_objectTag);
 	DDX_Text(pDX, IDC_EDIT18, m_SelectName);
+	DDX_Check(pDX, DEF, m_btest);
 }
 
 
