@@ -31,5 +31,9 @@ private:
 	PhysicsQueryType m_queryType;
 
 	PxQueryHitType::Enum m_hitType;
+
+public:
+
+	class Collider* m_ignoreCollider = nullptr;
 };
 
