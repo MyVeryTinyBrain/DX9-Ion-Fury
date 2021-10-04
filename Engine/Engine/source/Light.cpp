@@ -36,11 +36,10 @@ void Light::OnSleep()
 
 void Light::SetColor(const Color& color)
 {
-	float ambientFactor = 1.0f;
 	//if (m_light.Type == D3DLIGHT_SPOT)
 	//	ambientFactor = 0.0f;
 
-	m_light.Ambient = color * 0.6f * ambientFactor;
+	m_light.Ambient = color * m_ambientFactor;
 	m_light.Diffuse = color;
 	m_light.Specular = color * 0.6f;
 }
@@ -50,7 +49,19 @@ Color Light::GetColor() const
 	return m_light.Diffuse;
 }
 
-Color Light::GetAmbientLight()
+float Light::GetAmbientFactor() const
+{
+	return m_ambientFactor;
+}
+
+void Light::SetAmbientFactor(float factor)
+{
+	m_ambientFactor = factor;
+
+	SetColor(GetColor());
+}
+
+Color Light::GetGlobalAmbientLight()
 {
 	auto device = GraphicDevice::GetInstance()->GetDevice();
 
@@ -59,7 +70,7 @@ Color Light::GetAmbientLight()
 	return ambientColor;
 }
 
-void Light::SetAmbientLight(const Color& color)
+void Light::SetGlobalAmbientLight(const Color& color)
 {
 	auto device = GraphicDevice::GetInstance()->GetDevice();
 

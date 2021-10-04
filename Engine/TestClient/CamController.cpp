@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CamController.h"
+#include "../Engine/header/PhysicsQuery.h"
 
 void CamController::Awake()
 {
@@ -34,12 +35,12 @@ void CamController::Update()
 		ang.x += angSpeed * Time::DeltaTime();
 	ang.z = 0;
 
-	if (Input::GetKeyDown(Key::LeftMouse))
+	if (Input::GetKeyDown(Key::RightMouse))
 	{
 		MoveMouseToCenterPos();
 	}
 
-	if (Input::GetKey(Key::LeftMouse))
+	if (Input::GetKey(Key::RightMouse))
 	{
 		float sensitivity = 0.5f;
 
@@ -57,7 +58,7 @@ void CamController::Update()
 	transform->position = pos;
 	transform->eulerAngle = ang;
 
-	if (Input::GetKeyDown(Key::RightMouse))
+	if (Input::GetKeyDown(Key::LeftMouse))
 	{
 		Vec3 rayPoint, rayDir;
 		Input::GetMouseWorldRay(rayPoint, rayDir);
@@ -96,6 +97,25 @@ void CamController::Update()
 		obj->transform->position = transform->position;
 		obj->transform->rotation = transform->rotation;
 		obj->transform->scale = Vec3::one() * (float(rand() % 100 + 1) * 0.01f + 0.5f);
+	}
+
+	if (Input::GetKeyDown(Key::Space))
+	{
+		Vec3 rayPoint, rayDir;
+		Input::GetMouseWorldRay(rayPoint, rayDir);
+		Ray ray(rayPoint, rayDir);
+		//RaycastHit hit;
+		//bool res = PhysicsQuery::Raycast(hit, ray, (1 << 0), PhysicsQueryType::Collider);
+		//if (res)
+		//{
+		//	cout << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << endl;
+		//}
+		auto hits = PhysicsQuery::RaycastAll(ray, (1 << 0), PhysicsQueryType::Collider);
+		for (auto hit : hits)
+		{
+			cout << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << endl;
+		}
+		cout << "." << endl;
 	}
 }
 

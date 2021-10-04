@@ -1,14 +1,16 @@
 #pragma once
 
+#include "PhysicsQueryTypes.h"
+
 class PhysicsQueryFilterCallback : public PxQueryFilterCallback
 {
 public:
 
 	// Set all to target
-	PhysicsQueryFilterCallback(bool queryOnce);
+	PhysicsQueryFilterCallback(PhysicsQueryType queryType, bool queryOnce);
 
 	// Set specipic
-	PhysicsQueryFilterCallback(PxU32 targetLayerBits, bool queryOnce);
+	PhysicsQueryFilterCallback(PxU32 targetLayerBits, PhysicsQueryType queryType, bool queryOnce);
 
 private:
 
@@ -25,6 +27,8 @@ private:
 	) override;
 
 	PxU32 m_targets;
+
+	PhysicsQueryType m_queryType;
 
 	PxQueryHitType::Enum m_hitType;
 };
