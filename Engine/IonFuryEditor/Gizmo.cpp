@@ -51,6 +51,7 @@ void Gizmo::Update()
 
 bool Gizmo::PickHandle()
 {
+	int i = 1;
 	Vec3 rayPoint, rayDir;
 	Input::GetMouseWorldRay(rayPoint, rayDir);
 
