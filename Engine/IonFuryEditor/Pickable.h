@@ -23,6 +23,7 @@ public:
 private:
 	GameObject* m_ChildObject;
 	UserMeshRenderer* m_Renderer;
+	
 
 	static std::vector<Pickable*>	g_PickableVec;
 };
