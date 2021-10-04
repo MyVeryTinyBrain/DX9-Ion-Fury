@@ -146,7 +146,7 @@ Collider* PhysicsQuery::OverlapPoint(const Vec3& point, PxU32 layerMask, Physics
     return nullptr;
 }
 
-std::vector<Collider*> PhysicsQuery::OverlapPointAll(const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit = 64)
+std::vector<Collider*> PhysicsQuery::OverlapPointAll(const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit)
 {
     auto device = PhysicsDevice::GetInstance();
     auto scene = device->scene;
