@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef _WIN64
+#include "LibraryLink64.h"
+#else
+#include "LibraryLink86.h"
+#endif
+
 #include "EngineBase.h"
 #include "Ref.h"
 #include "Object.h"
