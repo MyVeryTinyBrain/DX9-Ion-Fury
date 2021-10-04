@@ -174,9 +174,19 @@ void Gizmo::Handling()
 	{
 		float gap = 0.2f;
 		Vec3 pos = transform->position;
-		pos.x = int(pos.x / gap) * gap;
-		pos.y = int(pos.y / gap) * gap;
-		pos.z = int(pos.z / gap) * gap;
+
+		switch (m_select)
+		{
+		case GIZMO_AXIS_X:
+			pos.x = int(pos.x / gap) * gap;
+			break;
+		case GIZMO_AXIS_Y:
+			pos.y = int(pos.y / gap) * gap;
+			break;
+		case GIZMO_AXIS_Z:
+			pos.z = int(pos.z / gap) * gap;
+			break;
+		}
 		transform->position = pos;
 	}
 }
