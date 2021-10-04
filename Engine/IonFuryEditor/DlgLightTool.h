@@ -8,6 +8,9 @@ class DlgLightTool : public CDialog
 	DECLARE_DYNAMIC(DlgLightTool)
 
 public:
+	enum class LIGHTTOOLCOMBOBOX { POINTLIGNT, SPOTLIGNT, DIRECTIONALLIGNT, AMBINENTLIGHT, END };
+
+public:
 	DlgLightTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~DlgLightTool();
 
@@ -20,4 +23,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CComboBox m_ComboBox;
+	virtual BOOL OnInitDialog();
 };
