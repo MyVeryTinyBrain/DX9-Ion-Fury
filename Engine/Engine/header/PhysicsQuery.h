@@ -2,37 +2,48 @@
 
 #include "PhysicsQueryTypes.h"
 
-namespace PhysicsQuery
+class Collider;
+
+class PhysicsQuery
 {
+public:
+
     // 빠른 레이캐스트입니다.
     // 충돌 정보를 반환하지 않습니다.
-	bool Raycast(const Ray& ray, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
+	bool RaycastTest(const Ray& ray, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
 
     // 가장 가까운 충돌 정보를 반환하는 레이캐스트입니다.
 	bool Raycast(RaycastHit& hit, const Ray& ray, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
 
     // 광선에 닿는 모든 충돌 정보를 반환하는 레이캐스트입니다.
-    std::vector<RaycastHit> RaycastAll(const Ray& ray, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
+    std::vector<RaycastHit> RaycastAll(const Ray& ray, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All, unsigned int maxHit = 64);
+    
+    // 빠른 점 겹침 테스트입니다.
+    // 겹침 정보를 반환하지 않습니다.
+    bool OverlapPointTest(const Vec3& point, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
 
-    const PxHitFlags bufferFlags =
-        PxHitFlag::ePOSITION |          // 충돌 위치를 저장합니다.
-        PxHitFlag::eNORMAL |            // 충돌 노멀을 저장합니다.
-        PxHitFlag::eFACE_INDEX |        // 충돌한 폴리곤의 인덱스를 저장합니다
-        PxHitFlag::eMESH_BOTH_SIDES;    // 삼각형의 양쪽에서 적중할 수 있습니다.
+    // 가장 가까운 겹치는 콜라이더를 반환하는 겹침 테스트입니다.
+    Collider* OverlapPoint(const Vec3& point, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
 
-    const PxQueryFilterData defaultFilterData
-    (
-        PxQueryFlag::eDYNAMIC |         // 동적 바디에 적중할수 있습니다.
-        PxQueryFlag::eSTATIC |          // 정적 바디에 적중할수 있습니다.
-        PxQueryFlag::ePREFILTER         // 사전 필터링만을 사용합니다.
-    );
+    // 점에 겹치는 모든 콜라이더들을 반환하는 겹침 테스트입니다.
+    std::vector<Collider*> OverlapPointAll(const Vec3& point, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All, unsigned int maxHit = 64);
 
-    const PxQueryFilterData fastFilterData
-    (
-        PxQueryFlag::eDYNAMIC |         // 동적 바디에 적중할수 있습니다.
-        PxQueryFlag::eSTATIC |          // 정적 바디에 적중할수 있습니다.
-        PxQueryFlag::ePREFILTER |       // 사전 필터링만을 사용합니다.
-        PxQueryFlag::eANY_HIT           // 거리에 상관없이 처음 적중하면 종료합니다.
-    );
+    // 빠른 콜라이더 겹침 테스트입니다.
+    // 겹침 정보를 반환하지 않습니다.
+    bool OverlapPointTest(Collider* collider, const Vec3& point, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
+
+    // 가장 가까운 겹치는 콜라이더를 반환하는 겹침 테스트입니다.
+    Collider* OverlapPoint(Collider* collider, const Vec3& point, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All);
+
+    // 콜라이더에 겹치는 모든 콜라이더들을 반환하는 겹침 테스트입니다.
+    std::vector<Collider*> OverlapPointAll(Collider* collider, const Vec3& point, PxU32 layerMask = 0xFFFFFFFF, PhysicsQueryType queryType = PhysicsQueryType::All, unsigned int maxHit = 64);
+
+private:
+
+    const static PxHitFlags bufferFlags;
+
+    const static PxQueryFilterData defaultFilterData;
+
+    const static PxQueryFilterData fastFilterData;
 };
 
