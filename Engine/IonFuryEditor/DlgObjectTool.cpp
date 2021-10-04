@@ -17,9 +17,11 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 	wcout << gameobject->transform->position.x << endl;
 	wcout << gameobject->name << endl;
 	
-	m_objectName = gameobject->name.c_str();
+	m_SelectName = gameobject->name.c_str();
 
 	m_fPosX = gameobject->transform->position.x;
+	m_fPosY = gameobject->transform->position.y;
+	m_fPosZ = gameobject->transform->position.z;
 
 	UpdateData(FALSE);
 }
@@ -72,6 +74,7 @@ BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 	ON_CBN_SELCHANGE(IDC_COMBO1, &DlgObjectTool::OnSelectMesh)
 	ON_EN_CHANGE(IDC_EDIT2, &DlgObjectTool::OnEnChangeEditPosX)
 	ON_EN_CHANGE(IDC_EDIT17, &DlgObjectTool::OnObjectTag)
+	ON_EN_CHANGE(IDC_EDIT18, &DlgObjectTool::OnSelectName)
 END_MESSAGE_MAP()
 
 
@@ -162,6 +165,15 @@ void DlgObjectTool::OnEnChangeEditPosX()
 
 
 void DlgObjectTool::OnObjectTag()
+{
+	UpdateData(TRUE);
+
+
+	UpdateData(FALSE);
+}
+
+
+void DlgObjectTool::OnSelectName()
 {
 	UpdateData(TRUE);
 

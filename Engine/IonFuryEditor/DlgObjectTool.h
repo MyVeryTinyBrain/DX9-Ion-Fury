@@ -53,4 +53,5 @@ public:
 	afx_msg void OnObjectTag();
 
 	CString m_SelectName;
+	afx_msg void OnSelectName();
 };
