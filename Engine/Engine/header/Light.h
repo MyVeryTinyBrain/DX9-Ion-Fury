@@ -20,13 +20,19 @@ public:
 
 	Color GetColor() const;
 
+	float GetAmbientFactor() const;
+
+	void SetAmbientFactor(float factor);
+
 	__declspec(property(get = GetColor, put = SetColor)) Color color;
+
+	__declspec(property(get = GetAmbientFactor, put = SetAmbientFactor)) float ambientFactor;
 
 public:
 
-	static Color GetAmbientLight();
+	static Color GetGlobalAmbientLight();
 
-	static void SetAmbientLight(const Color& color);
+	static void SetGlobalAmbientLight(const Color& color);
 
 protected:
 
@@ -53,5 +59,7 @@ protected:
 	bool m_isEnabled = false;
 
 	unsigned int m_lightIndex = 0;
+
+	float m_ambientFactor = 0.0f;
 };
 

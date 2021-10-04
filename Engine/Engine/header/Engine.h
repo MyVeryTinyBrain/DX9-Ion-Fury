@@ -30,6 +30,7 @@
 #include "TriangleCollider.h"
 #include "Rigidbody.h"
 #include "Layer.h"
+#include "PhysicsQueryTypes.h"
 
 // For SR
 #include "UserMesh.h"
