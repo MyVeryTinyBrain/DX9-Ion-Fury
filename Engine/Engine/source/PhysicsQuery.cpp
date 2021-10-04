@@ -4,6 +4,7 @@
 #include "PhysicsDefines.h"
 #include "PhysicsQueryFilterCallback.h"
 #include "Collider.h"
+#include "Transform.h"
 
 const PxHitFlags PhysicsQuery::bufferFlags =
 PxHitFlag::ePOSITION |          // 충돌 위치를 저장합니다.
@@ -177,17 +178,87 @@ std::vector<Collider*> PhysicsQuery::OverlapPointAll(const Vec3& point, PxU32 la
     return hits;
 }
 
-bool PhysicsQuery::OverlapPointTest(Collider* collider, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType)
+bool PhysicsQuery::OverlapGeometryTest(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Collider* ignoreCollider)
 {
-    return false;
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
+
+    PxTransform pose;
+    pose.p = ToPxVec3(point);
+    pose.q = ToPxQuat(rotation);
+
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, true);
+
+    PxOverlapBuffer overlapBuffer;
+
+    bool result = scene->overlap(geometry.any(), pose, overlapBuffer, fastFilterData, &filterCallback);
+
+    return result;
 }
 
-Collider* PhysicsQuery::OverlapPoint(Collider* collider, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType)
+Collider* PhysicsQuery::OverlapGeometry(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Collider* ignoreCollider)
 {
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
+
+    PxTransform pose;
+    pose.p = ToPxVec3(point);
+    pose.q = PxQuat(PxIdentity);
+
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, true);
+
+    PxOverlapBuffer overlapBuffer;
+
+    bool result = scene->overlap(geometry.any(), pose, overlapBuffer, fastFilterData, &filterCallback);
+
+    if (result)
+    {
+        const PxOverlapHit& hit = overlapBuffer.getAnyHit(0);
+        return (Collider*)hit.shape;
+    }
+
     return nullptr;
 }
 
-std::vector<Collider*> PhysicsQuery::OverlapPointAll(Collider* collider, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit)
+std::vector<Collider*> PhysicsQuery::OverlapGeometryAll(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Collider* ignoreCollider)
 {
-    return std::vector<Collider*>();
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
+
+    PxTransform pose;
+    pose.p = ToPxVec3(point);
+    pose.q = PxQuat(PxIdentity);
+
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, false);
+
+    PxOverlapHit* hitsBuffer = new PxOverlapHit[maxHit]{};
+    PxOverlapBuffer hitBuffer(hitsBuffer, maxHit);
+
+    bool result = scene->overlap(geometry.any(), pose, hitBuffer, defaultFilterData, &filterCallback);
+    PxU32 nbHits = hitBuffer.getNbAnyHits();
+
+    std::vector<Collider*> hits;
+    hits.resize(nbHits);
+    for (PxU32 i = 0; i < nbHits; ++i)
+    {
+        const PxOverlapHit& pxHit = hitsBuffer[i];
+        Collider* collider = (Collider*)pxHit.shape->userData;
+    }
+
+    return hits;
+}
+
+bool PhysicsQuery::OverlapColliderTest(Collider* collider, PxU32 layerMask, PhysicsQueryType queryType)
+{
+    return OverlapGeometryTest(collider->geometry, collider->transform->position, collider->transform->rotation, layerMask, queryType, collider);
+}
+
+Collider* PhysicsQuery::OverlapCollider(Collider* collider, PxU32 layerMask, PhysicsQueryType queryType)
+{
+    return OverlapGeometry(collider->geometry, collider->transform->position, collider->transform->rotation, layerMask, queryType, collider);
+}
+
+std::vector<Collider*> PhysicsQuery::OverlapColliderAll(Collider* collider, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit)
+{
+    return OverlapGeometryAll(collider->geometry, collider->transform->position, collider->transform->rotation, layerMask, queryType, maxHit, collider);
 }
