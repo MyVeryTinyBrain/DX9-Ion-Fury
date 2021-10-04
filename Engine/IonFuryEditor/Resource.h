@@ -33,6 +33,8 @@
 #define ABC                             1022
 #define LightToolTest                   1023
 #define mian                            1024
+#define IDC_CHECK2                      1025
+#define DEF                             1025
 #define ID_32771                        32771
 #define ID_32772                        32772
 
@@ -42,7 +44,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1025
+#define _APS_NEXT_CONTROL_VALUE         1026
 #define _APS_NEXT_SYMED_VALUE           312
 #endif
 #endif
