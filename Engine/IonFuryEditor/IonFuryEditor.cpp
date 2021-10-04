@@ -163,12 +163,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 
-public:
-
-	afx_msg void OnBnClickedDef();
-
-	afx_msg void OnBnClickedAbc();
-
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -182,11 +176,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 	
-
-	ON_BN_CLICKED(DEF, &CAboutDlg::OnBnClickedDef)
-
-	ON_BN_CLICKED(ABC, &CAboutDlg::OnBnClickedAbc)
-
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
@@ -212,15 +201,3 @@ BOOL CIonFuryEditorApp::PreTranslateMessage(MSG* pMsg)
 }
 
 
-
-
-
-void CAboutDlg::OnBnClickedDef()
-{ 
-	int i = 1;
-
-void CAboutDlg::OnBnClickedAbc()
-{
-	int i = 5;
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-}
