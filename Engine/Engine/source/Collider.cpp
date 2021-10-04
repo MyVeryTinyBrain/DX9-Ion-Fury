@@ -148,6 +148,11 @@ void Collider::SetIgnoreLayer(uint8_t layerIndex, bool ignore)
 	ApplyLayer();
 }
 
+PxGeometryHolder Collider::GetGeometry() const
+{
+	return m_shape->getGeometry();
+}
+
 void Collider::ApplyTransform(bool unconditionally)
 {
 	Vec3 localPositionFromBody;
