@@ -4,6 +4,7 @@
 // 여기에 님들이 만든 헤더 추가하셈.
 #include "FreePerspectiveCamera.h"
 #include "Gizmo.h"
+#include "Pickable.h"
 
 // 정석 컴포넌트의 정의부분입니다.
 ImplementStaticComponent(EditorManager);

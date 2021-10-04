@@ -16,7 +16,6 @@ public:
 		, const wstring& localPathMesh = BuiltInCubeUserMesh
 		, const wstring& localPathTexture = BuiltInWhiteTexture);
 
-
 private:
 
 	float m_linearSpeed = 2;
