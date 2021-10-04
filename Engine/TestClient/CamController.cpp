@@ -101,21 +101,7 @@ void CamController::Update()
 
 	if (Input::GetKeyDown(Key::Space))
 	{
-		Vec3 rayPoint, rayDir;
-		Input::GetMouseWorldRay(rayPoint, rayDir);
-		Ray ray(rayPoint, rayDir);
-		//RaycastHit hit;
-		//bool res = PhysicsQuery::Raycast(hit, ray, (1 << 0), PhysicsQueryType::Collider);
-		//if (res)
-		//{
-		//	cout << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << endl;
-		//}
-		auto hits = PhysicsQuery::RaycastAll(ray, (1 << 0), PhysicsQueryType::Collider);
-		for (auto hit : hits)
-		{
-			cout << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << endl;
-		}
-		cout << "." << endl;
+
 	}
 }
 
