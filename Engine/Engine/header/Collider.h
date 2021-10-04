@@ -76,6 +76,12 @@ public:
 
 public:
 
+	PxGeometryHolder GetGeometry() const;
+
+	__declspec(property(get = GetGeometry)) PxGeometryHolder geometry;
+
+public:
+
 	// 변경된 위치와 회전을 콜라이더에 즉시 적용합니다.
 	void ApplyTransform(bool unconditionally = false);
 
