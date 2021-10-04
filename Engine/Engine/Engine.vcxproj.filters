@@ -295,6 +295,12 @@
     <ClCompile Include="source\PhysicsQuery.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="source\PhysicsQueryTypes.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Types.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -577,6 +583,9 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="header\PhysicsQuery.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQueryTypes.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>

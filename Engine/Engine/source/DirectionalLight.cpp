@@ -14,5 +14,5 @@ void DirectionalLight::InitializeLightType(D3DLIGHTTYPE& lightType)
 
 void DirectionalLight::UpdateLight(D3DLIGHT9& light)
 {
-	light.Direction = -transform->up;
+	light.Direction = transform->forward;
 }

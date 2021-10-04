@@ -3,36 +3,75 @@
 #include "PhysicsDevice.h"
 #include "PhysicsDefines.h"
 #include "PhysicsQueryFilterCallback.h"
+#include "Collider.h"
 
-bool PhysicsQuery::Raycast(const Vec3& rayPoint, const Vec3& rayDir, float maxDistance, PxU32 layerMask)
+bool PhysicsQuery::Raycast(const Ray& ray, PxU32 layerMask, PhysicsQueryType queryType)
 {
     // https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/SceneQueries.html
 
     auto device = PhysicsDevice::GetInstance();
     auto scene = device->scene;
 
-    PxVec3 pxRayPoint = ToPxVec3(rayPoint);
-    PxVec3 pxRayDir = ToPxVec3(rayDir);
-    PxRaycastBuffer hit;
+    PxVec3 pxRayPoint = ToPxVec3(ray.point);
+    PxVec3 pxRayDir = ToPxVec3(ray.direction);
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, true);
+    PxRaycastBuffer hitBuffer;
 
-    // eMESH_BOTH_SIDES : 삼각형의 양쪽에서 적중할 수 있습니다.
-    PxHitFlags flags = 
-        PxHitFlag::ePOSITION |
-        PxHitFlag::eNORMAL |
-        PxHitFlag::eFACE_INDEX |
-        PxHitFlag::eMESH_BOTH_SIDES;
+    bool result = scene->raycast(pxRayPoint, pxRayDir, ray.distance, hitBuffer, bufferFlags, fastFilterData, &filterCallback);
+    return result;
+}
 
-    // eANY_HIT  : 거리에 상관없이 처음 적중하면 종료합니다.
-    // eNO_BLOCK : 모든 히트가 필터에 관계없이 터치로 보고됩니다.
-    PxQueryFilterData filterData;
-    filterData.flags =
-        PxQueryFlag::eDYNAMIC |
-        PxQueryFlag::eSTATIC |
-        PxQueryFlag::ePREFILTER;
+bool PhysicsQuery::Raycast(RaycastHit& hit, const Ray& ray, PxU32 layerMask, PhysicsQueryType queryType)
+{
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
 
-    PhysicsQueryFilterCallback filterCallback(layerMask, true);
+    PxVec3 pxRayPoint = ToPxVec3(ray.point);
+    PxVec3 pxRayDir = ToPxVec3(ray.direction);
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, true);
+    PxRaycastBuffer hitBuffer;
 
-    scene->raycast(pxRayPoint, pxRayDir, maxDistance, hit, flags, filterData, &filterCallback);
+    bool result = scene->raycast(pxRayPoint, pxRayDir, ray.distance, hitBuffer, bufferFlags, defaultFilterData, &filterCallback);
 
-    return false;
+    if (result)
+    {
+        const PxRaycastHit& pxHit = hitBuffer.getAnyHit(0);
+        hit.point = FromPxVec3(pxHit.position);
+        hit.normal = FromPxVec3(pxHit.normal);
+        hit.distance = pxHit.distance;
+        hit.collider = (Collider*)pxHit.shape->userData;
+    }
+
+    return result;
+}
+
+std::vector<RaycastHit> PhysicsQuery::RaycastAll(const Ray& ray, PxU32 layerMask, PhysicsQueryType queryType)
+{
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
+
+    PxVec3 pxRayPoint = ToPxVec3(ray.point);
+    PxVec3 pxRayDir = ToPxVec3(ray.direction);
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, false);
+
+    constexpr unsigned int hitsMax = 256;
+    PxRaycastHit hitsBuffer[hitsMax] = {};
+    PxRaycastBuffer hitBuffer(hitsBuffer, hitsMax);
+
+    bool result = scene->raycast(pxRayPoint, pxRayDir, ray.distance, hitBuffer, bufferFlags, defaultFilterData, &filterCallback);
+    PxU32 nbHits = hitBuffer.getNbAnyHits();
+
+    std::vector<RaycastHit> hits;
+    hits.resize(nbHits);
+    for (PxU32 i = 0; i < nbHits; ++i)
+    {
+        const PxRaycastHit& pxHit = hitsBuffer[i];
+        RaycastHit& hit = hits[i];
+        hit.point = FromPxVec3(pxHit.position);
+        hit.normal = FromPxVec3(pxHit.normal);
+        hit.distance = pxHit.distance;
+        hit.collider = (Collider*)pxHit.shape->userData;
+    }
+
+    return hits;
 }

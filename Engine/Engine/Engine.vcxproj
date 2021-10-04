@@ -22,6 +22,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\PhysicsQueryTypes.cpp" />
     <ClCompile Include="source\PhysicsQuery.cpp" />
     <ClCompile Include="source\PhysicsQueryFilterCallback.cpp" />
     <ClCompile Include="source\Layer.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="source\SphereCollider.cpp" />
     <ClCompile Include="source\TriangleUserMesh.cpp" />
     <ClCompile Include="source\TriangleCollider.cpp" />
+    <ClCompile Include="source\Types.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\BuiltIn.h" />
@@ -184,6 +186,7 @@
     <ClInclude Include="header\Layer.h" />
     <ClInclude Include="header\PhysicsQuery.h" />
     <ClInclude Include="header\PhysicsQueryFilterCallback.h" />
+    <ClInclude Include="header\PhysicsQueryTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

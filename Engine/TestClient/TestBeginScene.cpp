@@ -15,7 +15,7 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
 
     GraphicDevice::GetInstance()->GetDevice()->SetRenderState(D3DRS_LIGHTING, TRUE);
 
-    //Light::SetAmbientLight(Color::white());
+    Light::SetGlobalAmbientLight(Color::white() * 0.2f);
 
     GameObject* cameraObj = CreateGameObject();
     cameraObj->transform->position = Vec3(0, 0, -2);
