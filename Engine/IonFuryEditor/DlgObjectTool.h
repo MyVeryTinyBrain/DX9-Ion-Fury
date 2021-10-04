@@ -53,4 +53,5 @@ public:
 	afx_msg void OnObjectTag();
 
 	CString m_SelectName;
+	BOOL m_btest;
 };
