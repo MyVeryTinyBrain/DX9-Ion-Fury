@@ -22,10 +22,10 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
     cameraObj->AddComponent<Camera>();
     cameraObj->AddComponent<CamController>();
 
-    auto directionalLightObj = CreateGameObject();
-    auto dl = directionalLightObj->AddComponent<DirectionalLight>();
-    dl->color = Color::white() * 0.8f;
-    dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+    //auto directionalLightObj = CreateGameObject();
+    //auto dl = directionalLightObj->AddComponent<DirectionalLight>();
+    //dl->color = Color::white() * 0.8f;
+    //dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
 
     {
         GameObject* obj = CreateGameObject();

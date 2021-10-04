@@ -26,11 +26,21 @@ void EditorManager::Awake()
 		m_gizmo = gizmoObj->AddComponent<Gizmo>();
 	}
 
-	{	// 디렉셔널 라이트 생성
-		auto directionalLightObj = CreateGameObject();
-		auto dl = directionalLightObj->AddComponent<DirectionalLight>();
+	//{	// 디렉셔널 라이트 생성
+	//	auto directionalLightObj = CreateGameObject();
+	//	auto dl = directionalLightObj->AddComponent<DirectionalLight>();
+	//	dl->color = Color::white() * 0.8f;
+	//	//dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+	//	dl->transform->parent = GetPerspectiveCamera()->transform;
+	//}
+
+	{	// 스포트 라이트 생성
+		auto LightObj = CreateGameObject();
+		auto dl = LightObj->AddComponent<SpotLight>();
 		dl->color = Color::white() * 0.8f;
-		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+		//dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+		dl->transform->parent = GetPerspectiveCamera()->transform;
+		dl->transform->parent = GetPerspectiveCamera()->transform;
 	}
 }
 
