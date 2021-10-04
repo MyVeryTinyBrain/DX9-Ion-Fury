@@ -14,6 +14,7 @@
 #include "IonFuryEditorView.h"
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
+#include "Pickable.h"
 
 #include "EditorScene.h"
 
@@ -38,6 +39,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -193,10 +195,31 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	switch (nChar)
 	{
 	case 'P':
-		camera->Add_Object_Sample(m_dlgObjectTool.m_objectTag.GetString(), m_dlgObjectTool.m_objectName.GetString(), m_dlgObjectTool.m_meshPath.GetString());
+		camera->Add_Object_Sample(
+			m_dlgObjectTool.m_objectTag.GetString(),
+			m_dlgObjectTool.m_objectName.GetString(),
+			m_dlgObjectTool.m_meshPath.GetString());
+		m_strObjectName = m_dlgObjectTool.m_objectName.GetString();
 		break;
 	default:
 		break;
+	}
+
+}
+
+
+void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CView::OnLButtonDown(nFlags, point);
+
+	auto pickable = Pickable::Pick();
+
+	if (pickable)
+	{
+		auto pObj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_strObjectName.GetString());
+		m_dlgObjectTool.SetPickableObject(pObj);
 	}
 
 }
