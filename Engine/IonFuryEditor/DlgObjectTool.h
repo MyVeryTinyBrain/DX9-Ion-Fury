@@ -10,9 +10,6 @@ class DlgObjectTool : public CDialog
 public:
 	enum class COMBOBOX { Cube, Cyilinder, Quad, Sphere, Capsule, RightTriangle, Triangle,  END};
 
-public:
-	void SetObjectPosition(Transform* transform);
-	void SetCreate(bool create) { m_bCreate = create; }
 
 public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
@@ -50,10 +47,4 @@ public:
 	afx_msg void OnEnChangeEditPosX();
 	CString m_objectTag;
 	afx_msg void OnObjectTag();
-	Transform* object = nullptr;
-	CString	 m_name;
-	bool	m_bCreate = false;
-
-	afx_msg void OnSelectName();
-	CString m_selectName;
 };

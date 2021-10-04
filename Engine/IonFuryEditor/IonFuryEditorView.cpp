@@ -14,8 +14,6 @@
 #include "IonFuryEditorView.h"
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
-#include "Pickable.h"
-#include "Gizmo.h"
 
 #include "EditorScene.h"
 
@@ -40,7 +38,6 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
-	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -135,12 +132,6 @@ void CIonFuryEditorView::OnInitialUpdate()
 	// 매번 화면을 업데이트 하기 위해 타이머를 설정합니다.
 	// 설정한 타이머 번호는 0번입니다.
 	SetTimer(0, 0, 0);
-
-	//Gizmo* gizmo = EditorManager::GetInstance()->GetGizmo();
-	//gizmo->GetSelectedObject();
-//	m_dlgObjectTool.SetObjectPosition(gizmo->GetSelectedObject());
-
-
 }
 
 
@@ -156,9 +147,9 @@ void CIonFuryEditorView::OnTimer(UINT_PTR nIDEvent)
 	{
 		// 0번 타이머 틱이 오면
 		// 엔진의 한 단계를 수행합니다.
-	case 0:
-		engine.Step();
-		break;
+		case 0:
+			engine.Step();
+			break;
 	}
 
 	CView::OnTimer(nIDEvent);
@@ -194,39 +185,18 @@ void CIonFuryEditorView::OnLight()
 void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-
+	
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
-
+	
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-
+	
 	switch (nChar)
 	{
 	case 'P':
-		camera->Add_Object_Sample(
-			m_dlgObjectTool.m_objectTag.GetString(),
-			m_dlgObjectTool.m_objectName.GetString(),
-			m_dlgObjectTool.m_meshPath.GetString());
-		m_dlgObjectTool.SetCreate(true);
+		camera->Add_Object_Sample(m_dlgObjectTool.m_objectTag.GetString(), m_dlgObjectTool.m_objectName.GetString(), m_dlgObjectTool.m_meshPath.GetString());
 		break;
 	default:
 		break;
 	}
 
-}
-
-
-void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-
-	CView::OnLButtonDown(nFlags, point);
-
-	auto pickable = Pickable::Pick();
-
-	if (pickable)
-	{
-		m_dlgObjectTool.m_selectName = L"1";
-		m_dlgObjectTool.SetObjectPosition(pickable->transform);
-		UpdateData(FALSE);
-	}
 }

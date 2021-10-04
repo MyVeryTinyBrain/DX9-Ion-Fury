@@ -13,8 +13,8 @@ class CIonFuryEditorView : public CView
 private:
 	DlgObjectTool m_dlgObjectTool;
 	DlgLightTool	m_dlgLightTool;
-	CString			m_strName;
-	
+
+
 
 protected: // serialization에서만 만들어집니다.
 	CIonFuryEditorView() noexcept;
@@ -57,7 +57,6 @@ public:
 	afx_msg void OnObject();
 	afx_msg void OnLight();
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전
