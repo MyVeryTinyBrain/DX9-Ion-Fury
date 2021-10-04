@@ -169,6 +169,16 @@ void Gizmo::Handling()
 	Vec3 dragCoord = CalcGizmoHandlingCoord();
 	Vec3 delta = dragCoord - m_selectCoord;
 	transform->position = m_selectedPosition + delta;
+
+	if (Input::GetKey(Key::LCtrl))
+	{
+		float gap = 0.2f;
+		Vec3 pos = transform->position;
+		pos.x = int(pos.x / gap) * gap;
+		pos.y = int(pos.y / gap) * gap;
+		pos.z = int(pos.z / gap) * gap;
+		transform->position = pos;
+	}
 }
 
 Vec3 Gizmo::CalcGizmoHandlingCoord()
