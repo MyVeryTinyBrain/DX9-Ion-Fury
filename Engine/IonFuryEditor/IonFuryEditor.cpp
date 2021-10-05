@@ -162,7 +162,6 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 
-
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -176,6 +175,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 	
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
@@ -199,5 +199,4 @@ BOOL CIonFuryEditorApp::PreTranslateMessage(MSG* pMsg)
 	engine.WindowProcedure(pMsg->message, pMsg->wParam, pMsg->lParam);
 	return CWinApp::PreTranslateMessage(pMsg);
 }
-
 
