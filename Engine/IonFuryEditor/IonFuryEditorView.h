@@ -59,6 +59,7 @@ public:
 	afx_msg void OnLight();
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnTextureTool();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전

@@ -12,6 +12,21 @@
 
 IMPLEMENT_DYNAMIC(DlgObjectTool, CDialog)
 
+void DlgObjectTool::SetPickableObject(GameObject* gameobject)
+{
+
+	m_SelectName = gameobject->name.c_str();
+
+	m_fPosX = gameobject->transform->position.x;
+	m_fPosY = gameobject->transform->position.y;
+	m_fPosZ = gameobject->transform->position.z;
+
+	m_fScaleX = gameobject->transform->scale.x;
+	m_fScaleY = gameobject->transform->scale.y;
+	m_fScaleZ = gameobject->transform->scale.z;
+
+	UpdateData(FALSE);
+}
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
@@ -27,6 +42,17 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_fScaleZ(1.f)
 	, m_meshPath(L"")
 	, m_objectTag(_T(""))
+	, m_SelectName(_T(""))
+	, m_rPosX(0)
+	, m_rRotX(0)
+	, m_rScaleX(0)
+	, m_rPosY(0)
+	, m_rPosZ(0)
+	, m_rRotY(0)
+	, m_rRotZ(0)
+	, m_rRotZ(0)
+	, m_rScaleZ(0)
+	, m_rScaleY(0)
 {
 
 }
@@ -50,6 +76,17 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT9, m_fScaleY);
 	DDX_Text(pDX, IDC_EDIT10, m_fScaleZ);
 	DDX_Text(pDX, IDC_EDIT17, m_objectTag);
+	DDX_Text(pDX, OBJECT_1, m_SelectName);
+	DDX_Text(pDX, OBJECT_2, m_rPosX);
+	DDX_Text(pDX, OBJECT_8, m_rPosZ);
+	DDX_Text(pDX, OBJECT_5, m_rPosY);
+	DDX_Text(pDX, OBJECT_3, m_rRotX);
+	DDX_Text(pDX, OBJECT_6, m_rRotY);
+	DDX_Text(pDX, OBJECT_9, m_rRotZ);
+	DDX_Text(pDX, OBJECT_4, m_rScaleX);
+	DDX_Text(pDX, OBJECT_7, m_rScaleY);
+	DDX_Text(pDX, OBJECT_10, m_rScaleZ);
+	
 }
 
 
@@ -58,6 +95,11 @@ BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 	ON_CBN_SELCHANGE(IDC_COMBO1, &DlgObjectTool::OnSelectMesh)
 	ON_EN_CHANGE(IDC_EDIT2, &DlgObjectTool::OnEnChangeEditPosX)
 	ON_EN_CHANGE(IDC_EDIT17, &DlgObjectTool::OnObjectTag)
+	ON_EN_CHANGE(IDC_EDIT3, &DlgObjectTool::OnEnChangeEditPosY)
+	ON_EN_CHANGE(IDC_EDIT4, &DlgObjectTool::OnEnChangeEditPosZ)
+	ON_EN_CHANGE(IDC_EDIT8, &DlgObjectTool::OnEnChangeEditScaleX)
+	ON_EN_CHANGE(IDC_EDIT9, &DlgObjectTool::OnEnChangeEditScaleY)
+	ON_EN_CHANGE(IDC_EDIT10, &DlgObjectTool::OnEnChangeEditScaleZ)
 END_MESSAGE_MAP()
 
 
@@ -82,6 +124,10 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_comboBox.SetCurSel(0);
 
 	m_meshPath = BuiltInCubeUserMesh;
+
+
+
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -89,7 +135,6 @@ BOOL DlgObjectTool::OnInitDialog()
 
 void DlgObjectTool::OnObjectName()
 {
-
 	UpdateData(TRUE);
 
 
@@ -139,7 +184,10 @@ void DlgObjectTool::OnSelectMesh()
 
 void DlgObjectTool::OnEnChangeEditPosX()
 {
+	UpdateData(TRUE);
 
+
+	UpdateData(FALSE);
 }
 
 
@@ -150,4 +198,50 @@ void DlgObjectTool::OnObjectTag()
 
 
 	UpdateData(FALSE);
+}
+
+
+void DlgObjectTool::OnEnChangeEditPosY()
+{
+	UpdateData(TRUE);
+
+
+	UpdateData(FALSE);
+}
+
+
+void DlgObjectTool::OnEnChangeEditPosZ()
+{
+	UpdateData(TRUE);
+
+
+	//UpdateData(FALSE);
+}
+
+
+void DlgObjectTool::OnEnChangeEditScaleX()
+{
+	UpdateData(TRUE);
+
+	
+
+	//UpdateData(FALSE);
+}
+
+
+void DlgObjectTool::OnEnChangeEditScaleY()
+{
+	UpdateData(TRUE);
+
+
+	//UpdateData(FALSE);
+}
+
+
+void DlgObjectTool::OnEnChangeEditScaleZ()
+{
+	UpdateData(TRUE);
+
+
+	//UpdateData(FALSE);
 }

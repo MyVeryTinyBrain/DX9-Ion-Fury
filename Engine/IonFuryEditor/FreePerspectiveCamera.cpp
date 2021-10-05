@@ -75,13 +75,14 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	return pos;
 }
 
-void FreePerspectiveCamera::Add_Object_Sample(const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
+void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
 {
 	GameObject* Obj = CreateGameObject(tag);
 
 	Obj->name = ObjName;
 
 	Obj->transform->position = transform->position + transform->forward * 2;
+	
 
 	auto test = Obj->AddComponent<Pickable>();
 	test->Settings(localPathMesh, localPathTexture);

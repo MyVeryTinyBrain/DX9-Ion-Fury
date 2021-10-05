@@ -12,6 +12,9 @@ public:
 
 
 public:
+	void SetPickableObject(GameObject* gameobject);
+
+public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~DlgObjectTool();
 
@@ -47,4 +50,24 @@ public:
 	afx_msg void OnEnChangeEditPosX();
 	CString m_objectTag;
 	afx_msg void OnObjectTag();
+	CString m_SelectName;
+	
+	afx_msg void OnEnChangeEditPosY();
+	afx_msg void OnEnChangeEditPosZ();
+	afx_msg void OnEnChangeEditScaleX();
+	afx_msg void OnEnChangeEditScaleY();
+	afx_msg void OnEnChangeEditScaleZ();
+
+	
+	float m_rPosX;
+	float m_rPosY;
+	float m_rPosZ;
+
+	float m_rRotX;
+	float m_rRotY;
+	float m_rRotZ;
+
+	float m_rScaleX;
+	float m_rScaleZ;
+	float m_rScaleY;
 };

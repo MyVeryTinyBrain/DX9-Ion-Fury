@@ -14,6 +14,7 @@
 #include "IonFuryEditorView.h"
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
+#include "Pickable.h"
 
 #include "EditorScene.h"
 
@@ -39,6 +40,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
 	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -148,9 +150,9 @@ void CIonFuryEditorView::OnTimer(UINT_PTR nIDEvent)
 	{
 		// 0번 타이머 틱이 오면
 		// 엔진의 한 단계를 수행합니다.
-		case 0:
-			engine.Step();
-			break;
+	case 0:
+		engine.Step();
+		break;
 	}
 
 	CView::OnTimer(nIDEvent);
@@ -186,15 +188,20 @@ void CIonFuryEditorView::OnLight()
 void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-	
+
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
-	
+
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-	
+	Vec3 vPos = { m_dlgObjectTool.m_fPosX, m_dlgObjectTool.m_fPosY, m_dlgObjectTool.m_fPosZ };
+	Vec3 vScale = { m_dlgObjectTool.m_fScaleX, m_dlgObjectTool.m_fScaleY, m_dlgObjectTool.m_fScaleZ };
+
 	switch (nChar)
 	{
 	case 'P':
-		camera->Add_Object_Sample(m_dlgObjectTool.m_objectTag.GetString(), m_dlgObjectTool.m_objectName.GetString(), m_dlgObjectTool.m_meshPath.GetString());
+		camera->Add_Object_Sample(
+			m_dlgObjectTool.m_objectTag.GetString(),
+			m_dlgObjectTool.m_objectName.GetString(),
+			m_dlgObjectTool.m_meshPath.GetString());
 		break;
 	default:
 		break;
@@ -209,4 +216,26 @@ void CIonFuryEditorView::OnTextureTool()
 	if (!m_dlgTextureTool.GetSafeHwnd())
 		m_dlgTextureTool.Create(IDD_DlgTextureTool);
 	m_dlgTextureTool.ShowWindow(SW_SHOW);
+}
+
+
+void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CView::OnLButtonDown(nFlags, point);
+
+	Vec3 vScale = { m_dlgObjectTool.m_fScaleX, m_dlgObjectTool.m_fScaleY, m_dlgObjectTool.m_fScaleZ };
+
+	auto pickable = Pickable::Pick();
+
+	if (pickable)
+	{
+		auto pickObj = pickable->GetGameObject();
+
+		pickObj->transform->scale = vScale;
+
+		m_dlgObjectTool.SetPickableObject(pickObj);
+	}
+
 }
