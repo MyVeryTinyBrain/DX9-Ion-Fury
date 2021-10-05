@@ -38,6 +38,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
+	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -199,4 +200,13 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	}
 
+}
+
+
+void CIonFuryEditorView::OnTextureTool()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_dlgTextureTool.GetSafeHwnd())
+		m_dlgTextureTool.Create(IDD_DlgTextureTool);
+	m_dlgTextureTool.ShowWindow(SW_SHOW);
 }

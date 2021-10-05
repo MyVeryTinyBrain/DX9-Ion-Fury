@@ -37,6 +37,9 @@
     <ClCompile Include="DlgObjectTool.cpp">
       <Filter>Dlg</Filter>
     </ClCompile>
+    <ClCompile Include="DlgTextureTool.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -82,6 +85,9 @@
       <Filter>Dlg</Filter>
     </ClInclude>
     <ClInclude Include="DlgLightTool.h">
+      <Filter>Dlg</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTextureTool.h">
       <Filter>Dlg</Filter>
     </ClInclude>
   </ItemGroup>

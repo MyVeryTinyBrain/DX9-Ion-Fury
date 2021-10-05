@@ -193,6 +193,7 @@
   <ItemGroup>
     <ClInclude Include="DlgLightTool.h" />
     <ClInclude Include="DlgObjectTool.h" />
+    <ClInclude Include="DlgTextureTool.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
     <ClInclude Include="framework.h" />
@@ -210,6 +211,7 @@
   <ItemGroup>
     <ClCompile Include="DlgLightTool.cpp" />
     <ClCompile Include="DlgObjectTool.cpp" />
+    <ClCompile Include="DlgTextureTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />
     <ClCompile Include="EditorScene.cpp" />
     <ClCompile Include="FreePerspectiveCamera.cpp" />
