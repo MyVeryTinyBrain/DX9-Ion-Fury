@@ -17,15 +17,31 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 
 	m_SelectName = gameobject->name.c_str();
 
-	m_fPosX = gameobject->transform->position.x;
-	m_fPosY = gameobject->transform->position.y;
-	m_fPosZ = gameobject->transform->position.z;
+	m_rPosX = gameobject->transform->position.x;
+	m_rPosY = gameobject->transform->position.y;
+	m_rPosZ = gameobject->transform->position.z;
 
-	m_fScaleX = gameobject->transform->scale.x;
-	m_fScaleY = gameobject->transform->scale.y;
-	m_fScaleZ = gameobject->transform->scale.z;
+	m_rRotX = gameobject->transform->eulerAngle.x;
+	m_rRotY = gameobject->transform->eulerAngle.y;
+	m_rRotZ = gameobject->transform->eulerAngle.z;
+
+	m_rScaleX = gameobject->transform->scale.x;
+	m_rScaleY = gameobject->transform->scale.y;
+	m_rScaleZ = gameobject->transform->scale.z;
 
 	UpdateData(FALSE);
+}
+void DlgObjectTool::ResetObjectSize()
+{
+	m_objectName = L"";
+
+	m_fPosX = 0.f;
+	m_fPosY = 0.f;
+	m_fPosZ = 0.f;
+
+	m_fScaleX = 1.f;
+	m_fScaleY = 1.f;
+	m_fScaleZ = 1.f;
 }
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
@@ -44,15 +60,14 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_objectTag(_T(""))
 	, m_SelectName(_T(""))
 	, m_rPosX(0)
-	, m_rRotX(0)
-	, m_rScaleX(0)
 	, m_rPosY(0)
 	, m_rPosZ(0)
+	, m_rRotX(0)
 	, m_rRotY(0)
 	, m_rRotZ(0)
-	, m_rRotZ(0)
-	, m_rScaleZ(0)
+	, m_rScaleX(0)
 	, m_rScaleY(0)
+	, m_rScaleZ(0)
 {
 
 }
