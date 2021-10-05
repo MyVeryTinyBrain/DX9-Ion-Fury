@@ -192,7 +192,8 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-	
+	Vec3 vPos = { m_dlgObjectTool.m_fPosX, m_dlgObjectTool.m_fPosY, m_dlgObjectTool.m_fPosZ };
+	Vec3 vScale = { m_dlgObjectTool.m_fScaleX, m_dlgObjectTool.m_fScaleY, m_dlgObjectTool.m_fScaleZ };
 
 	switch (nChar)
 	{
@@ -201,8 +202,6 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_dlgObjectTool.m_objectTag.GetString(),
 			m_dlgObjectTool.m_objectName.GetString(),
 			m_dlgObjectTool.m_meshPath.GetString());
-		//m_dlgObjectTool.ResetObjectSize();
-		//UpdateData(FALSE);
 		break;
 	default:
 		break;
@@ -226,9 +225,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
-	Vec3 vPos = { m_dlgObjectTool.m_fPosX, m_dlgObjectTool.m_fPosY, m_dlgObjectTool.m_fPosZ };
 	Vec3 vScale = { m_dlgObjectTool.m_fScaleX, m_dlgObjectTool.m_fScaleY, m_dlgObjectTool.m_fScaleZ };
-	Vec3 vRot = { m_dlgObjectTool.m_fRotX, m_dlgObjectTool.m_fRotY, m_dlgObjectTool.m_fRotZ };
 
 	auto pickable = Pickable::Pick();
 
@@ -237,13 +234,8 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		auto pickObj = pickable->GetGameObject();
 
 		pickObj->transform->scale = vScale;
-		
-		pickObj->transform->eulerAngle = vRot;
 
 		m_dlgObjectTool.SetPickableObject(pickObj);
-
 	}
-
-
 
 }
