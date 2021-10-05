@@ -27,6 +27,7 @@ DlgLightTool::DlgLightTool(CWnd* pParent /*=nullptr*/)
 	, m_LTDirX(0)
 	, m_LTDirY(0)
 	, m_LTDirZ(0)
+	, iPos(0)
 {
 
 }
@@ -41,13 +42,16 @@ void DlgLightTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LT_SLIDER, m_SliderCtrl_Transparency);
 	DDX_Control(pDX, IDC_LT_COMBOBOX, m_LT_ComboBox);
 	DDX_Text(pDX, IDC_LT_LIGHTNAME, m_LightName);
+
 	DDX_Text(pDX, IDC_COLOR_R, m_ColorR);
 	DDX_Text(pDX, IDC_COLOR_G, m_ColorG);
 	DDX_Text(pDX, IDC_COLOR_B, m_ColorB);
 	DDX_Text(pDX, IDC_COLOR_A, m_ColorA);
+
 	DDX_Text(pDX, IDC_LT_POSX, m_PosX);
 	DDX_Text(pDX, IDC_LT_POSY, m_PosY);
 	DDX_Text(pDX, IDC_LT_POSZ, m_PosZ);
+
 	DDX_Text(pDX, IDC_LT_RADIUS, m_Radius);
 	DDX_Control(pDX, IDC_SLIDERCTRL_RAD, m_SliderCrtl_Radius);
 	DDX_Control(pDX, IDC_SLDER_DIRX, m_SliderDirX);
@@ -56,6 +60,7 @@ void DlgLightTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_LT_DIRX, m_LTDirX);
 	DDX_Text(pDX, IDC_LT_DIRY, m_LTDirY);
 	DDX_Text(pDX, IDC_LT_DIRZ, m_LTDirZ);
+	DDX_Control(pDX, IDC_LIST1, m_LT_ListBox);
 }
 
 
@@ -63,6 +68,7 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_WM_ERASEBKGND()
 	ON_WM_HSCROLL()
 	ON_CBN_SELCHANGE(IDC_COMBO1, &DlgLightTool::OnLightTool_ComboBox)
+	ON_LBN_SELCHANGE(IDC_LIST1, &DlgLightTool::OnListBoxCtrl)
 END_MESSAGE_MAP()
 
 
@@ -122,7 +128,6 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	CSliderCtrl* pSlider = (CSliderCtrl*)pScrollBar;
-
 	switch (pSlider->GetDlgCtrlID())
 	{
 	case IDC_LT_SLIDER:
@@ -131,7 +136,7 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		break;
 	case IDC_SLIDERCTRL_RAD:
 		m_SliderCrtl_Radius.SetPos(pSlider->GetPos());
-		int iPos = m_SliderCrtl_Radius.GetPos();
+		iPos = m_SliderCrtl_Radius.GetPos();
 		break;
 	case IDC_SLDER_DIRX:
 		m_SliderDirX.SetPos(pSlider->GetPos());
@@ -156,4 +161,10 @@ void DlgLightTool::OnLightTool_ComboBox()
 	UpdateData(TRUE);
 
 	UpdateData(FALSE);
+}
+
+
+void DlgLightTool::OnListBoxCtrl()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
