@@ -50,7 +50,6 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_rPosZ(0)
 	, m_rRotY(0)
 	, m_rRotZ(0)
-	, m_rRotZ(0)
 	, m_rScaleZ(0)
 	, m_rScaleY(0)
 {

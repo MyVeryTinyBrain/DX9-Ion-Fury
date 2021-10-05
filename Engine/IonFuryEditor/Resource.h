@@ -38,12 +38,16 @@
 #define IDC_SLIDER2                     1024
 #define OBJECT_5                        1024
 #define OBJECT_6                        1025
+#define IDC_SLIDER4                     1025
 #define OBJECT_7                        1026
+#define IDC_SLIDER5                     1026
 #define OBJECT_3                        1027
+#define IDC_SLIDER3                     1027
 #define OBJECT_4                        1028
+#define IDC_BUTTON3                     1028
+#define IDC_BUTTON4                     1029
 #define OBJECT_8                        1031
 #define OBJECT_9                        1032
-#define IDC_EDIT27                      1033
 #define OBJECT_10                       1033
 #define ID_32771                        32771
 #define ID_32772                        32772
@@ -55,7 +59,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1027
+#define _APS_NEXT_CONTROL_VALUE         1030
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif
