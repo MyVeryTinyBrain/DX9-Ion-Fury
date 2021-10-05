@@ -55,6 +55,7 @@ public:
 	//반지름 세팅
 	float m_Radius;
 	CSliderCtrl m_SliderCrtl_Radius;
+	int iPos;
 
 	//방향 세팅
 	CSliderCtrl m_SliderDirX;
@@ -63,4 +64,6 @@ public:
 	float m_LTDirX;
 	float m_LTDirY;
 	float m_LTDirZ;
+	CListBox m_LT_ListBox;
+	afx_msg void OnListBoxCtrl();
 };
