@@ -7,7 +7,6 @@
 #include "afxdialogex.h"
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
-#include "Pickable.h"
 
 // DlgObjectTool 대화 상자
 
@@ -18,13 +17,13 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 
 	m_SelectName = gameobject->name.c_str();
 
-	m_rPosX = gameobject->transform->position.x;
-	m_rPosY = gameobject->transform->position.y;
-	m_rPosZ = gameobject->transform->position.z;
+	m_fPosX = gameobject->transform->position.x;
+	m_fPosY = gameobject->transform->position.y;
+	m_fPosZ = gameobject->transform->position.z;
 
-	m_rScaleX = gameobject->transform->scale.x;
-	m_rScaleY = gameobject->transform->scale.y;
-	m_rScaleZ = gameobject->transform->scale.z;
+	m_fScaleX = gameobject->transform->scale.x;
+	m_fScaleY = gameobject->transform->scale.y;
+	m_fScaleZ = gameobject->transform->scale.z;
 
 	UpdateData(FALSE);
 }
@@ -45,12 +44,12 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_objectTag(_T(""))
 	, m_SelectName(_T(""))
 	, m_rPosX(0)
-	, m_rPosZ(0)
-	, m_rPosY(0)
 	, m_rRotX(0)
+	, m_rScaleX(0)
+	, m_rPosY(0)
+	, m_rPosZ(0)
 	, m_rRotY(0)
 	, m_rRotZ(0)
-	, m_rScaleX(0)
 	, m_rScaleZ(0)
 	, m_rScaleY(0)
 {
@@ -100,8 +99,6 @@ BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 	ON_EN_CHANGE(IDC_EDIT8, &DlgObjectTool::OnEnChangeEditScaleX)
 	ON_EN_CHANGE(IDC_EDIT9, &DlgObjectTool::OnEnChangeEditScaleY)
 	ON_EN_CHANGE(IDC_EDIT10, &DlgObjectTool::OnEnChangeEditScaleZ)
-	ON_BN_CLICKED(IDC_BUTTON1, &DlgObjectTool::OnBnClickedSave)
-	ON_BN_CLICKED(IDC_BUTTON2, &DlgObjectTool::OnBnClickedLoad)
 END_MESSAGE_MAP()
 
 
@@ -246,48 +243,4 @@ void DlgObjectTool::OnEnChangeEditScaleZ()
 
 
 	//UpdateData(FALSE);
-}
-
-
-void DlgObjectTool::OnBnClickedSave()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
-	CFileDialog Dlg(FALSE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
-
-	TCHAR szFilePath[MAX_PATH];
-	
-	GetCurrentDirectory(MAX_PATH, szFilePath);
-
-	PathRemoveFileSpec(szFilePath);
-
-	lstrcat(szFilePath, L"\\Data");
-
-	Dlg.m_ofn.lpstrInitialDir = szFilePath;
-
-	if (IDOK == Dlg.DoModal())
-	{
-		CString wstrFilePath = Dlg.GetPathName();
-
-		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-			FILE_ATTRIBUTE_NORMAL, nullptr);
-
-		if (INVALID_HANDLE_VALUE == hFile)
-			return;
-
-		DWORD dwByte = 0;
-
-		auto pick = Pickable::g_PickableVec;
-
-
-		CloseHandle(hFile);
-	}
-
-}
-
-
-void DlgObjectTool::OnBnClickedLoad()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
 }

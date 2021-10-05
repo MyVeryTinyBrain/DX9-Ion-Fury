@@ -70,6 +70,4 @@ public:
 	float m_rScaleX;
 	float m_rScaleZ;
 	float m_rScaleY;
-	afx_msg void OnBnClickedSave();
-	afx_msg void OnBnClickedLoad();
 };
