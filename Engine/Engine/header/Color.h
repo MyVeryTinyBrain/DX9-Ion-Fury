@@ -3,7 +3,7 @@
 class Color : public D3DXCOLOR
 {
 public:
-    Color() {}
+    Color() { r = g = b = a = 0; }
     Color(DWORD argb);
     Color(CONST FLOAT* pf);
     Color(CONST D3DXFLOAT16* pf);

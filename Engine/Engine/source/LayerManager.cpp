@@ -37,8 +37,8 @@ void LayerManager::SetLayerCollisions(unsigned int layerIndexA, unsigned int lay
 		}
 		else
 		{
-			m_filter[layerIndexA] &= !(1 << layerIndexB);
-			m_filter[layerIndexB] &= !(1 << layerIndexA);
+			m_filter[layerIndexA] &= ~(1 << layerIndexB);
+			m_filter[layerIndexB] &= ~(1 << layerIndexA);
 		}
 	}
 }

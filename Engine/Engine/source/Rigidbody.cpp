@@ -43,12 +43,12 @@ void Rigidbody::OnDestroy()
 
 bool Rigidbody::UseGravity() const
 {
-	return m_body->getActorFlags().isSet(PxActorFlag::eDISABLE_GRAVITY);
+	return !m_body->getActorFlags().isSet(PxActorFlag::eDISABLE_GRAVITY);
 }
 
 void Rigidbody::SetUseGravity(bool value)
 {
-	m_body->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, value);
+	m_body->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !value);
 }
 
 bool Rigidbody::IsKinematic() const
@@ -75,11 +75,6 @@ void Rigidbody::SetContinuousDetection(bool value)
 	m_continous = value;
 
 	ApplyFlags();
-}
-
-void Rigidbody::UpdateMassAndInertia()
-{
-	PxRigidBodyExt::setMassAndUpdateInertia(*m_body, m_body->getMass());
 }
 
 void Rigidbody::ApplyBodyTransformFromGameObject()
@@ -153,6 +148,11 @@ void Rigidbody::SetLocalEulerAngle(const Vec3& localEulerAngle)
 	m_body->setGlobalPose(pose);
 }
 
+void Rigidbody::UpdateMassAndInertia()
+{
+	PxRigidBodyExt::setMassAndUpdateInertia(*m_body, m_body->getMass());
+}
+
 float Rigidbody::GetMass() const
 {
 	return m_body->getMass();
@@ -164,6 +164,26 @@ void Rigidbody::SetMass(float value)
 		value = 0;
 	m_body->setMass(value);
 	UpdateMassAndInertia();
+}
+
+void Rigidbody::SetLinearDamping(float value)
+{
+	m_body->setLinearDamping(value);
+}
+
+float Rigidbody::GetLinearDamping() const
+{
+	return m_body->getLinearDamping();
+}
+
+void Rigidbody::SetAngularDamping(float value)
+{
+	m_body->setAngularDamping(value);
+}
+
+float Rigidbody::GetAngularDamping() const
+{
+	return m_body->getAngularDamping();
 }
 
 Vec3 Rigidbody::GetVelocity() const
@@ -190,48 +210,58 @@ void Rigidbody::SetAngularVelocity(const Vec3& angularVelocity)
 	m_body->setAngularVelocity(pxAngularVelocity);
 }
 
-void Rigidbody::SetRotationLockAxis(Axis axes, bool value)
+void Rigidbody::SetRotationLockAxis(PhysicsAxis axes, bool value)
 {
 	PxU32 flag = (PxU32)axes << 3;
 	m_body->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::Enum(flag), value);
 }
 
-bool Rigidbody::GetRotationLockAxis(Axis axes) const
+bool Rigidbody::GetRotationLockAxis(PhysicsAxis axes) const
 {
 	PxU32 flag = (PxU32)axes << 3;
 	PxU32 flags = (PxU32)m_body->getRigidDynamicLockFlags();
 	return flag & flags;
 }
 
-void Rigidbody::SetTranslationLockAxis(Axis axes, bool value)
+void Rigidbody::SetTranslationLockAxis(PhysicsAxis axes, bool value)
 {
 	PxU32 flag = (PxU32)axes << 0;
 	m_body->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::Enum(flag), value);
 }
 
-bool Rigidbody::GetTranslationLockAxis(Axis axes) const
+bool Rigidbody::GetTranslationLockAxis(PhysicsAxis axes) const
 {
 	PxU32 flag = (PxU32)axes << 0;
 	PxU32 flags = (PxU32)m_body->getRigidDynamicLockFlags();
 	return flag & flags;
 }
 
-void Rigidbody::Attach(Collider* collider)
+void Rigidbody::SetPositionIteration(uint8_t count)
 {
-	if (!collider->m_shape)
-		return;
-
-	m_body->attachShape(*(collider->m_shape));
-	UpdateMassAndInertia();
+	PxU32 pi, vi;
+	m_body->getSolverIterationCounts(pi, vi);
+	m_body->setSolverIterationCounts(count, vi);
 }
 
-void Rigidbody::Detach(Collider* collider)
+uint8_t Rigidbody::GetPositionIteration() const
 {
-	if (!collider->m_shape)
-		return;
+	PxU32 pi, vi;
+	m_body->getSolverIterationCounts(pi, vi);
+	return pi;
+}
 
-	m_body->detachShape(*(collider->m_shape));
-	UpdateMassAndInertia();
+void Rigidbody::SetVelocityIteration(uint8_t count)
+{
+	PxU32 pi, vi;
+	m_body->getSolverIterationCounts(pi, vi);
+	m_body->setSolverIterationCounts(pi, count);
+}
+
+uint8_t Rigidbody::GetVelocityIteration() const
+{
+	PxU32 pi, vi;
+	m_body->getSolverIterationCounts(pi, vi);
+	return vi;
 }
 
 void Rigidbody::AttachAll()
@@ -259,6 +289,24 @@ void Rigidbody::DetachAll()
 	SafeDeleteArray(shapes);
 }
 
+void Rigidbody::Attach(Collider* collider)
+{
+	if (!collider->m_shape)
+		return;
+
+	m_body->attachShape(*(collider->m_shape));
+	UpdateMassAndInertia();
+}
+
+void Rigidbody::Detach(Collider* collider)
+{
+	if (!collider->m_shape)
+		return;
+
+	m_body->detachShape(*(collider->m_shape));
+	UpdateMassAndInertia();
+}
+
 void Rigidbody::ApplyFlags()
 {
 	// 연속 충돌 감지 모드를 설정합니다.
@@ -271,8 +319,8 @@ void Rigidbody::ApplyFlags()
 	// A -- B 간의 충돌 알림을 강제 실행합니다.
 	// eFORCE_KINE_KINE_NOTIFICATIONS
 	// eFORCE_STATIC_KINE_NOTIFICATIONS 
-	m_body->setRigidBodyFlag(PxRigidBodyFlag::eFORCE_KINE_KINE_NOTIFICATIONS, true);
-	m_body->setRigidBodyFlag(PxRigidBodyFlag::eFORCE_STATIC_KINE_NOTIFICATIONS, true);
+	// m_body->setRigidBodyFlag(PxRigidBodyFlag::eFORCE_KINE_KINE_NOTIFICATIONS, true);
+	// m_body->setRigidBodyFlag(PxRigidBodyFlag::eFORCE_STATIC_KINE_NOTIFICATIONS, true);
 
 	// 시뮬레이션 중에 Kinemtic Rigidbody를 쿼리할수 있게 됩니다.
 	// 이 프레임워크는 시뮬레이션이 끝난 후에 쿼리하게 됩니다.

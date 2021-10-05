@@ -96,9 +96,10 @@ HRESULT EngineWorld::Step()
 		if (!scene)
 			return S_OK;
 
-		scene->Prepare();
+		bool withDestroyPrepare = fixedUpdate > 0;
+		scene->StepPrepare(withDestroyPrepare);
 
-		scene->StartStep();
+		scene->StepStart();
 
 		if (fixedUpdate > 0)
 		{
@@ -108,19 +109,23 @@ HRESULT EngineWorld::Step()
 			auto physicsDevice = PhysicsDevice::GetInstance();
 			for (unsigned int i = 0; i < fixedUpdate; ++i)
 			{
-				scene->BeginPhysicsSimulateStep();
+				scene->StepBeginPhysicsSimulate();
 
 				physicsDevice->Step(centralTime->GetFixedUpdateDeltaTime());
 
-				scene->FixedUpdateStep();
+				scene->StepEndPhysicsSimulate();
 
-				scene->EndPhysicsSimulateStep();
+				physicsDevice->Notify();
+
+				scene->StepDestroyObjects();
+
+				scene->StepFixedUpdate();
 			}
 		}
 
 		if (update > 0)
 		{
-			scene->UpdateStep();
+			scene->StepUpdate();
 
 			Input::GetInstance()->SetUsed();
 		}
@@ -139,7 +144,7 @@ HRESULT EngineWorld::Step()
 			Mat4 viewToProjection = mainCamera->viewToProjection;
 			device->SetTransform(D3DTS_PROJECTION, &viewToProjection);
 
-			scene->RenderStep();
+			scene->StepRender();
 		}
 
 		graphicDevice->EndRender();

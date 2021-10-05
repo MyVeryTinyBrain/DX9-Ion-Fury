@@ -73,7 +73,7 @@ void Input::GetMouseWorldRay(Vec3& rayPoint, Vec3& rayDir)
 
 	Vec3 mouse = GetMousePositionInViewSpace();
 
-	Vec3 viewRayPoint = Vec3::zero();
+	Vec3 viewRayPoint = Vec3(0, 0, 0);
 	Vec3 viewRayDir = mouse - viewRayPoint;
 	viewRayDir.Normalize();
 

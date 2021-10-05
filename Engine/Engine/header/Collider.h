@@ -1,11 +1,20 @@
 #pragma once
 
 #include "Component.h"
+#include "PhysicsCallbackTypes.h"
 
 /*
 	PxFilterData.word0: 콜라이더에 설정된 레이어 인덱스의 비트 하나가 있습니다.
 	PxFilterData.word1: 무시하지 않을 레이어 인덱스의 비트들이 있습니다.
 */
+
+enum class PhysicsCombineMode
+{
+	Average = PxCombineMode::eAVERAGE,
+	Min = PxCombineMode::eMIN,
+	Multiply = PxCombineMode::eMULTIPLY,
+	Max = PxCombineMode::eMAX,
+};
 
 class Collider abstract : public Component
 {
@@ -41,6 +50,18 @@ public:
 	// 반발력을 설정합니다.
 	void SetRestitution(float value);
 
+	// 마찰 결합 모드를 반환합니다.
+	PhysicsCombineMode GetFrictionCombineMode() const;
+
+	// 마찰 결합 모드를 설정합니다.
+	void SetFrictionCombineMode(PhysicsCombineMode value);
+
+	// 강한 마찰 모드 상태를 반환합니다.
+	bool IsStringFrictionMode() const;
+
+	// 강한 마찰 상태를 설정합니다.
+	void SetStringFrictionMode(bool value);
+
 	// 콜라이더가 부착된 강체를 반환합니다.
 	class Rigidbody* GetRigidbody() const;
 
@@ -49,6 +70,10 @@ public:
 	__declspec(property(get = GetFriction, put = SetFriction)) float friction;
 
 	__declspec(property(get = GetRestitution, put = SetRestitution)) float restitution;
+
+	__declspec(property(get = GetFrictionCombineMode, put = SetFrictionCombineMode)) PhysicsCombineMode frictionCombineMode;
+
+	__declspec(property(get = IsStringFrictionMode, put = SetStringFrictionMode)) bool isStringFrictionMode;
 
 	__declspec(property(get = GetRigidbody)) class Rigidbody* rigidbody;
 
@@ -100,7 +125,7 @@ protected:
 
 	void ResetShape();
 
-private:
+public:
 
 	void FindRigidbodyAndAttach();
 
@@ -123,5 +148,13 @@ protected:
 	uint32_t m_ignoreLayerBits = 0x00000000;
 
 	Quat m_defaultRotation = Quat::Identity();
+
+public:
+
+	Delegate<void(const CollisionEnter&)> OnCollisionEnter;
+
+	Delegate<void(const CollisionExit&)> OnCollisionExit;
+
+	Delegate<void(const CollisionStay&)> OnCollisionStay;
 };
 

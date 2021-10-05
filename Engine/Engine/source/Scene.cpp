@@ -10,6 +10,8 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	// Scene의 외부에서 DeleteAllGameObjects를 호출합니다.
+
 	SafeDelete(m_componentExecutioner);
 }
 
@@ -37,6 +39,9 @@ GameObject * Scene::FindGameObject(const wstring & name) const
 
 		for (auto& gameObject : list)
 		{
+			if (gameObject->IsShouldDestroy())
+				continue;
+
 			if (!gameObject->isWake)
 				continue;
 
@@ -58,6 +63,9 @@ std::vector<GameObject*> Scene::FindGameObjects(const wstring & name) const
 
 		for (auto& gameObject : list)
 		{
+			if (gameObject->IsShouldDestroy())
+				continue;
+
 			if (!gameObject->isWake)
 				continue;
 
@@ -67,6 +75,30 @@ std::vector<GameObject*> Scene::FindGameObjects(const wstring & name) const
 	}
 
 	return v;
+}
+
+class GameObject* Scene::FindGameObjectWithTag(const wstring& tag) const
+{
+	auto find_it = m_gameObjects.find(tag);
+
+	if (find_it == m_gameObjects.end())
+		return nullptr;
+
+	auto& list = find_it->second;
+
+	for (auto& gameObject : list)
+	{
+		if (gameObject->IsShouldDestroy())
+			continue;
+
+		if (!gameObject->isWake)
+			continue;
+
+		if (gameObject->tag == tag)
+			return gameObject;
+	}
+
+	return nullptr;
 }
 
 std::vector<GameObject*> Scene::FindGameObjectsWithTag(const wstring & tag) const
@@ -82,6 +114,9 @@ std::vector<GameObject*> Scene::FindGameObjectsWithTag(const wstring & tag) cons
 
 	for (auto& gameObject : list)
 	{
+		if (gameObject->IsShouldDestroy())
+			continue;
+
 		if (!gameObject->isWake)
 			continue;
 
@@ -129,6 +164,8 @@ void Scene::RemoveGameObject(GameObject* gameObject, const tag_t& tag)
 
 void Scene::DeleteAllGameObjects()
 {
+	// 모든 게임오브젝트에 Destroy를 우선 호출합니다.
+	// 이에 따라 모든 컴포넌트들이 Destroy를 호출합니다.
 	for (auto& pair : m_gameObjects)
 	{
 		auto& list = pair.second;
@@ -136,6 +173,17 @@ void Scene::DeleteAllGameObjects()
 		for (auto& gameObject : list)
 		{
 			gameObject->Destroy();
+		}
+	}
+
+	// 모든 컴포넌트들이 OnDestory 작업을 끝낸 이후에 실제로 게임오브젝트를 삭제하고 리스트를 비웁니다.
+	// 컴포넌트의 OnDestroy 구현에서 다른 컴포넌트나 게임오브젝트를 참조할 수 있기 때문입니다.
+	for (auto& pair : m_gameObjects)
+	{
+		auto& list = pair.second;
+
+		for (auto& gameObject : list)
+		{
 			SafeDeleteInline(gameObject);
 		}
 		list.clear();
@@ -143,37 +191,42 @@ void Scene::DeleteAllGameObjects()
 	m_gameObjects.clear();
 }
 
-void Scene::Prepare()
+void Scene::StepPrepare(bool withDestroyPrepare)
 {
-	m_componentExecutioner->Prepare();
+	m_componentExecutioner->ExecutePrepare(withDestroyPrepare);
 }
 
-void Scene::StartStep()
+void Scene::StepStart()
 {
 	m_componentExecutioner->ExecuteStart();
 }
 
-void Scene::BeginPhysicsSimulateStep()
+void Scene::StepBeginPhysicsSimulate()
 {
 	m_componentExecutioner->ExecuteBeginPhysicsSimulate();
 }
 
-void Scene::EndPhysicsSimulateStep()
+void Scene::StepEndPhysicsSimulate()
 {
 	m_componentExecutioner->ExecuteEndPhysicsSimulate();
 }
 
-void Scene::FixedUpdateStep()
+void Scene::StepDestroyObjects()
+{
+	m_componentExecutioner->ExecuteDestroy(m_gameObjects);
+}
+
+void Scene::StepFixedUpdate()
 {
 	m_componentExecutioner->ExecuteFixedUpdate();
 }
 
-void Scene::UpdateStep()
+void Scene::StepUpdate()
 {
 	m_componentExecutioner->ExecuteUpdate();
 }
 
-void Scene::RenderStep()
+void Scene::StepRender()
 {
 	m_componentExecutioner->ExecuteRender();
 }

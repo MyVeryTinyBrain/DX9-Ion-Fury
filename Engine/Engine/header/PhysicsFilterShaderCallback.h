@@ -17,13 +17,13 @@ class PhysicsFilterShaderCallback : public PxSimulationFilterCallback
 		PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
 		PxFilterObjectAttributes attributes1, PxFilterData filterData1, 
 		bool objectRemoved
-	) override;
+	) override {}
 	
-	virtual bool statusChange(
+	inline virtual bool statusChange(
 		PxU32& pairID, 
 		PxPairFlags& pairFlags, 
 		PxFilterFlags& filterFlags
-	) override;
+	) override {return false;}
 
 public:
 
@@ -50,6 +50,7 @@ namespace PhysicsFilterShaderCallbackFilters
 		PxPairFlag::eCONTACT_DEFAULT | 
 		(PxPairFlag::Enum)eNotifyFlags | 
 		PxPairFlag::eDETECT_CCD_CONTACT | 
+		PxPairFlag::eNOTIFY_TOUCH_CCD |
 		PxPairFlag::eNOTIFY_TOUCH_PERSISTS;
 
 	// 이 플래그들은 임계값을 기준으로 콜백을 호출합니다.

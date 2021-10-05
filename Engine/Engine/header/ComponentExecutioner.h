@@ -18,7 +18,7 @@ public:
 
 public:
 
-	void Prepare();
+	void ExecutePrepare(bool withDestroyPrepare);
 
 	void ExecuteStart();
 
@@ -26,25 +26,27 @@ public:
 
 	void ExecuteEndPhysicsSimulate();
 
+	void ExecuteDestroy(GameObjectMap& gameObjectMap);
+
 	void ExecuteFixedUpdate();
 
 	void ExecuteUpdate();
 
 	void ExecuteRender();
 
-	void ClearExecuteTargets();
+private:
 
-	void ClearDestroyTargets();
+	void ClearExecuteTargets();
 
 private:
 
-	PrepareResult PrepareGameObjectMap(GameObjectMap& gameObjectMap);
+	PrepareResult PrepareGameObjectMap(GameObjectMap& gameObjectMap, bool withDestroyPrepare);
 
-	PrepareResult PrepareGameObjectList(GameObjectList& gameObjectList);
+	PrepareResult PrepareGameObjectList(GameObjectList& gameObjectList, bool withDestroyPrepare);
 
-	PrepareResult PrepareGameObject(GameObject* gameObject);
+	PrepareResult PrepareGameObject(GameObject* gameObject, bool withDestroyPrepare);
 
-	PrepareResult PrepareComponent(Component* component);
+	PrepareResult PrepareComponent(Component* component, bool withDestroyPrepare);
 
 	void SortExecutionTargetsByExecutionOrder();
 

@@ -35,10 +35,10 @@ void CapsuleUserMesh::InitializeVertices()
 {
 	Vertex* vertices = LockVertexBuffer();
 
-	vertices[TOP_VERTEX_INDEX].position = Vec2::up() * 0.5f;
+	vertices[TOP_VERTEX_INDEX].position = Vec2::up() * m_radius;
 	vertices[TOP_VERTEX_INDEX].normal = Vec2::up();
 	vertices[TOP_VERTEX_INDEX].uv = Vec2(0, 0);
-	vertices[BOTTOM_VERTEX_INDEX].position = Vec2::down() * 0.5f;
+	vertices[BOTTOM_VERTEX_INDEX].position = Vec2::down() * m_radius;
 	vertices[BOTTOM_VERTEX_INDEX].normal = Vec2::down();
 	vertices[BOTTOM_VERTEX_INDEX].uv = Vec2(0, 1);
 
@@ -46,11 +46,11 @@ void CapsuleUserMesh::InitializeVertices()
 	for (DWORD i = 0; i < m_step; ++i)
 	{
 		float yPercent = float(i + 1) / float(m_step + 1);
-		if (yPercent < 0.5f)yPercent = 2.0f * yPercent * yPercent;
+		if (yPercent < 0.5f) yPercent = 2.0f * yPercent * yPercent;
 		else yPercent = -2.0f * powf(yPercent - 1, 2) + 1;
 		float y = 0.5f - yPercent;
-		Vec3 yPos = Vec3(0, y, 0);
-		float dist = sqrtf(1 - powf(2 * y, 2)) * 0.5f;
+		Vec3 yPos = Vec3(0, y, 0) * m_radius;
+		float dist = sqrtf(1 - powf(2 * y, 2)) * m_radius;
 
 		Mat4 translate = Mat4::Identity();
 		if (i < m_step / 2)

@@ -92,6 +92,15 @@
     <Filter Include="Physics\Rigidbody">
       <UniqueIdentifier>{703fcb14-849a-4cc7-8dcc-35e95fdde37f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics\Layer">
+      <UniqueIdentifier>{f086117b-93c5-4dda-909e-6f94afea1d3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Query">
+      <UniqueIdentifier>{7f654918-a666-4e42-b538-55aa8fca7be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\PhysX">
+      <UniqueIdentifier>{00f5feb6-e07d-4c5d-9afc-03d9e79718cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -229,9 +238,6 @@
     <ClCompile Include="source\Vec4.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="source\PhysicsDevice.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="source\Line.cpp">
       <Filter>Render\Line</Filter>
     </ClCompile>
@@ -240,9 +246,6 @@
     </ClCompile>
     <ClCompile Include="source\BoxCollider.cpp">
       <Filter>Physics\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LayerManager.cpp">
-      <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="source\CapsuleUserMesh.cpp">
       <Filter>Resource\UserMesh\Capsule</Filter>
@@ -274,32 +277,44 @@
     <ClCompile Include="source\TriangleCollider.cpp">
       <Filter>Physics\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="source\PhysicsFilterShaderCallback.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsSimulationEventCallback.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="source\Rigidbody.cpp">
       <Filter>Physics\Rigidbody</Filter>
     </ClCompile>
     <ClCompile Include="source\Collider.cpp">
       <Filter>Physics\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="source\Layer.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsQueryFilterCallback.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsQuery.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsQueryTypes.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="source\Types.cpp">
       <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LayerManager.cpp">
+      <Filter>Physics\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQueryTypes.cpp">
+      <Filter>Physics\Query</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQueryFilterCallback.cpp">
+      <Filter>Physics\Query</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQuery.cpp">
+      <Filter>Physics\Query</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Physics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsTriggerEvent.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsSimulationEventCallback.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsFilterShaderCallback.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsDevice.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsCallbackTypes.cpp">
+      <Filter>Physics\PhysX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -507,9 +522,6 @@
     <ClInclude Include="header\PriorityQueue.h">
       <Filter>DataStructEx</Filter>
     </ClInclude>
-    <ClInclude Include="header\PhysicsDevice.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="header\Line.h">
       <Filter>Render\Line</Filter>
     </ClInclude>
@@ -521,15 +533,6 @@
     </ClInclude>
     <ClInclude Include="header\BoxCollider.h">
       <Filter>Physics\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="header\LayerManager.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsDefines.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsBase.h">
-      <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="header\CapsuleUserMesh.h">
       <Filter>Resource\UserMesh\Capsule</Filter>
@@ -564,35 +567,53 @@
     <ClInclude Include="header\TriangleCollider.h">
       <Filter>Physics\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="header\PhysicsFilterShaderCallback.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsSimulationEventCallback.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="header\Rigidbody.h">
       <Filter>Physics\Rigidbody</Filter>
     </ClInclude>
     <ClInclude Include="header\Collider.h">
       <Filter>Physics\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="header\Layer.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsQueryFilterCallback.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsQuery.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsQueryTypes.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="header\LibraryLink86.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="header\LibraryLink64.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LayerManager.h">
+      <Filter>Physics\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQueryTypes.h">
+      <Filter>Physics\Query</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQueryFilterCallback.h">
+      <Filter>Physics\Query</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQuery.h">
+      <Filter>Physics\Query</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Physics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsTriggerEvent.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsSimulationEventCallback.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsFilterShaderCallback.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsDevice.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsDefines.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsCallbackTypes.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsBase.h">
+      <Filter>Physics\PhysX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,10 +22,12 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Physics.cpp" />
+    <ClCompile Include="source\PhysicsCallbackTypes.cpp" />
+    <ClCompile Include="source\PhysicsTriggerEvent.cpp" />
     <ClCompile Include="source\PhysicsQueryTypes.cpp" />
     <ClCompile Include="source\PhysicsQuery.cpp" />
     <ClCompile Include="source\PhysicsQueryFilterCallback.cpp" />
-    <ClCompile Include="source\Layer.cpp" />
     <ClCompile Include="source\PhysicsSimulationEventCallback.cpp" />
     <ClCompile Include="source\PhysicsFilterShaderCallback.cpp" />
     <ClCompile Include="source\BuiltIn.cpp" />
@@ -171,6 +173,9 @@
     <ClInclude Include="header\Line.h" />
     <ClInclude Include="header\LibraryLink86.h" />
     <ClInclude Include="header\LibraryLink64.h" />
+    <ClInclude Include="header\PhysicsTriggerEvent.h" />
+    <ClInclude Include="header\PhysicsCallbackTypes.h" />
+    <ClInclude Include="header\Physics.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />
@@ -185,7 +190,6 @@
     <ClInclude Include="header\TriangleCollider.h" />
     <ClInclude Include="header\PhysicsFilterShaderCallback.h" />
     <ClInclude Include="header\PhysicsSimulationEventCallback.h" />
-    <ClInclude Include="header\Layer.h" />
     <ClInclude Include="header\PhysicsQuery.h" />
     <ClInclude Include="header\PhysicsQueryFilterCallback.h" />
     <ClInclude Include="header\PhysicsQueryTypes.h" />

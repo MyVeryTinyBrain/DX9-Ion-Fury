@@ -35,8 +35,10 @@
 #include "RightTriangleCollider.h"
 #include "TriangleCollider.h"
 #include "Rigidbody.h"
-#include "Layer.h"
+#include "PhysicsDefines.h"
 #include "PhysicsQueryTypes.h"
+#include "PhysicsCallbackTypes.h"
+#include "Physics.h"
 
 // For SR
 #include "UserMesh.h"
