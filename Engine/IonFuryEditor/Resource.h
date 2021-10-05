@@ -22,7 +22,6 @@
 #define IDC_COMBO1                      1010
 #define IDC_CHECK1                      1011
 #define IDC_EDIT19                      1011
-#define IDC_DIRECTIONY                  1011
 #define IDC_EDIT11                      1012
 #define IDC_EDIT12                      1013
 #define IDC_EDIT13                      1014
@@ -36,17 +35,6 @@
 #define IDC_LIST1                       1022
 #define IDC_SLIDER1                     1023
 #define IDC_SLIDER2                     1024
-#define IDC_LT_COLORR                   1027
-#define IDC_LT_COLORG                   1028
-#define IDC_LT_COLORB                   1029
-#define IDC_LT_COLORA                   1030
-#define IDC_LT_POSITIONX                1031
-#define IDC_LT_POSITIONY                1032
-#define IDC_LT_POSITIONZ                1033
-#define IDC_LT_RADIUS                   1034
-#define IDC_DIRECTIONX                  1035
-#define IDC_DIRECTIONZ                  1036
-#define IDC_DIRX_SLIDERCTRL             1037
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -57,7 +45,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1038
+#define _APS_NEXT_CONTROL_VALUE         1027
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif
