@@ -63,6 +63,7 @@ public:
 	//방향 세팅
 	CSliderCtrl m_SliderDirX;
 	CSliderCtrl m_SliderDirY;
+
 	CSliderCtrl m_SliderDirZ;
 
 	CListBox m_LT_ListBox;
