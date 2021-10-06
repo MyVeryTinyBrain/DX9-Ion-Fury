@@ -36,7 +36,6 @@ void EditorManager::Awake()
 		dl->color = Color::white() * 0.8f;
 		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
 	}
-
 }
 
 FreePerspectiveCamera* EditorManager::GetPerspectiveCamera()
@@ -48,4 +47,3 @@ Gizmo* EditorManager::GetGizmo()
 {
 	return m_gizmo;
 }
-
