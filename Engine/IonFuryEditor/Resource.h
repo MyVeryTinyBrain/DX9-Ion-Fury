@@ -67,6 +67,7 @@
 #define IDC_LT_RADIUS                   1039
 #define IDC_LT_DIRX                     1040
 #define IDC_LT_DIRZ                     1041
+#define IDC_BUTTON5                     1042
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -77,7 +78,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1042
+#define _APS_NEXT_CONTROL_VALUE         1043
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

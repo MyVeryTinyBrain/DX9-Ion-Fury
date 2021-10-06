@@ -50,7 +50,7 @@ private:
 
 	static Camera* g_mainCamera;
 
-	static std::list<Camera*> g_cameras;
+	static std::vector<Camera*> g_cameras;
 
 };
 

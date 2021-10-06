@@ -7,7 +7,7 @@ std::mutex Camera::g_mutex;
 
 Camera* Camera::g_mainCamera = nullptr;
 
-std::list<Camera*> Camera::g_cameras;
+std::vector<Camera*> Camera::g_cameras;
 
 void Camera::Awake()
 {

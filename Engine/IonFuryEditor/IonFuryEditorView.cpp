@@ -192,8 +192,7 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-	Vec3 vPos = { m_dlgObjectTool.m_fPosX, m_dlgObjectTool.m_fPosY, m_dlgObjectTool.m_fPosZ };
-	Vec3 vScale = { m_dlgObjectTool.m_fScaleX, m_dlgObjectTool.m_fScaleY, m_dlgObjectTool.m_fScaleZ };
+
 
 	switch (nChar)
 	{
@@ -225,7 +224,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
-	Vec3 vScale = { m_dlgObjectTool.m_fScaleX, m_dlgObjectTool.m_fScaleY, m_dlgObjectTool.m_fScaleZ };
 
 	auto pickable = Pickable::Pick();
 
@@ -233,9 +231,9 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		auto pickObj = pickable->GetGameObject();
 
-		pickObj->transform->scale = vScale;
-
 		m_dlgObjectTool.SetPickableObject(pickObj);
+
+		m_dlgObjectTool.SelectObject();
 	}
 
 }
