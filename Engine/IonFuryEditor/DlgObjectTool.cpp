@@ -15,8 +15,8 @@ IMPLEMENT_DYNAMIC(DlgObjectTool, CDialog)
 
 void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 {
-
 	m_SelectName = gameobject->name.c_str();
+
 
 	m_rPosX = gameobject->transform->position.x;
 	m_rPosY = gameobject->transform->position.y;
@@ -25,6 +25,10 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 	m_rScaleX = gameobject->transform->scale.x;
 	m_rScaleY = gameobject->transform->scale.y;
 	m_rScaleZ = gameobject->transform->scale.z;
+
+	m_rRotX = gameobject->transform->eulerAngle.x;
+	m_rRotY = gameobject->transform->eulerAngle.y;
+	m_rRotZ = gameobject->transform->eulerAngle.z;
 
 	UpdateData(FALSE);
 }
@@ -93,15 +97,11 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 	ON_EN_CHANGE(IDC_EDIT1, &DlgObjectTool::OnObjectName)
 	ON_CBN_SELCHANGE(IDC_COMBO1, &DlgObjectTool::OnSelectMesh)
-	ON_EN_CHANGE(IDC_EDIT2, &DlgObjectTool::OnEnChangeEditPosX)
 	ON_EN_CHANGE(IDC_EDIT17, &DlgObjectTool::OnObjectTag)
-	ON_EN_CHANGE(IDC_EDIT3, &DlgObjectTool::OnEnChangeEditPosY)
-	ON_EN_CHANGE(IDC_EDIT4, &DlgObjectTool::OnEnChangeEditPosZ)
-	ON_EN_CHANGE(IDC_EDIT8, &DlgObjectTool::OnEnChangeEditScaleX)
-	ON_EN_CHANGE(IDC_EDIT9, &DlgObjectTool::OnEnChangeEditScaleY)
-	ON_EN_CHANGE(IDC_EDIT10, &DlgObjectTool::OnEnChangeEditScaleZ)
 	ON_BN_CLICKED(IDC_BUTTON1, &DlgObjectTool::OnBnClickedSave)
-	ON_BN_CLICKED(IDC_BUTTON2, &DlgObjectTool::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON4, &DlgObjectTool::OnBnClickedApply)
+	ON_BN_CLICKED(IDC_BUTTON2, &DlgObjectTool::OnBnClickedLoad)
+	ON_BN_CLICKED(IDC_BUTTON5, &DlgObjectTool::OnBnClickedClear)
 END_MESSAGE_MAP()
 
 
@@ -183,17 +183,6 @@ void DlgObjectTool::OnSelectMesh()
 
 }
 
-
-void DlgObjectTool::OnEnChangeEditPosX()
-{
-	UpdateData(TRUE);
-
-
-	UpdateData(FALSE);
-}
-
-
-
 void DlgObjectTool::OnObjectTag()
 {
 	UpdateData(TRUE);
@@ -202,52 +191,25 @@ void DlgObjectTool::OnObjectTag()
 	UpdateData(FALSE);
 }
 
-
-void DlgObjectTool::OnEnChangeEditPosY()
+void DlgObjectTool::OnBnClickedApply()
 {
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
 	UpdateData(TRUE);
 
+	if (m_SelectName)
+	{
+		auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_SelectName.GetString());
+
+		obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
+
+		obj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
+
+		obj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
+	}
 
 	UpdateData(FALSE);
 }
-
-
-void DlgObjectTool::OnEnChangeEditPosZ()
-{
-	UpdateData(TRUE);
-
-
-	//UpdateData(FALSE);
-}
-
-
-void DlgObjectTool::OnEnChangeEditScaleX()
-{
-	UpdateData(TRUE);
-
-	
-
-	//UpdateData(FALSE);
-}
-
-
-void DlgObjectTool::OnEnChangeEditScaleY()
-{
-	UpdateData(TRUE);
-
-
-	//UpdateData(FALSE);
-}
-
-
-void DlgObjectTool::OnEnChangeEditScaleZ()
-{
-	UpdateData(TRUE);
-
-
-	//UpdateData(FALSE);
-}
-
 
 void DlgObjectTool::OnBnClickedSave()
 {
@@ -284,7 +246,32 @@ void DlgObjectTool::OnBnClickedSave()
 }
 
 
-void DlgObjectTool::OnBnClickedButton2()
+void DlgObjectTool::OnBnClickedLoad()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+}
+
+
+void DlgObjectTool::OnBnClickedClear()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	UpdateData(TRUE);
+
+	m_objectName = L"";
+
+	m_fPosX = 0.f;
+	m_fPosY = 0.f;
+	m_fPosZ = 0.f;
+	  
+	m_fScaleX = 1.f;
+	m_fScaleY = 1.f;
+	m_fScaleZ = 1.f;
+	  
+	m_fRotX = 0.f;
+	m_fRotY = 0.f;
+	m_fRotZ = 0.f;
+
+	UpdateData(FALSE);
 }

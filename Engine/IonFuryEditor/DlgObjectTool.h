@@ -47,17 +47,9 @@ public:
 	float m_fScaleX;
 	float m_fScaleY;
 	float m_fScaleZ;
-	afx_msg void OnEnChangeEditPosX();
 	CString m_objectTag;
 	afx_msg void OnObjectTag();
 	CString m_SelectName;
-	
-	afx_msg void OnEnChangeEditPosY();
-	afx_msg void OnEnChangeEditPosZ();
-	afx_msg void OnEnChangeEditScaleX();
-	afx_msg void OnEnChangeEditScaleY();
-	afx_msg void OnEnChangeEditScaleZ();
-
 	
 	float m_rPosX;
 	float m_rPosY;
@@ -71,5 +63,8 @@ public:
 	float m_rScaleZ;
 	float m_rScaleY;
 	afx_msg void OnBnClickedSave();
-	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedApply();
+	afx_msg void OnBnClickedLoad();
+	afx_msg void OnBnClickedClear();
+
 };

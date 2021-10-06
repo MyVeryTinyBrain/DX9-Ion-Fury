@@ -39,7 +39,9 @@ void Camera::OnDestroy()
 {
 	g_mutex.lock();
 
-	auto find_it = FindInContainer(g_cameras, this);
+	//auto find_it = FindInContainer(g_cameras, this);
+
+	auto find_it = std::find(g_cameras.begin(), g_cameras.end(), this);
 
 	if (find_it != g_cameras.end())
 		g_cameras.erase(find_it);
