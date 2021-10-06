@@ -15,6 +15,7 @@
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
+#include "LightManager.h"
 
 #include "EditorScene.h"
 
@@ -194,6 +195,7 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
 
+
 	switch (nChar)
 	{
 	case 'P':
@@ -201,6 +203,11 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_dlgObjectTool.m_objectTag.GetString(),
 			m_dlgObjectTool.m_objectName.GetString(),
 			m_dlgObjectTool.m_meshPath.GetString());
+		break;
+	case 'U':
+		LightManager::GetInstance()->AddLight(
+			m_dlgLightTool.m_LightType.GetString(),
+			m_dlgLightTool.m_LightName.GetString()	);
 		break;
 	default:
 		break;
