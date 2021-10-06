@@ -36,6 +36,8 @@ public:
 
 	ID3DXLine* GetLine() const;
 
+	class RenderProcess* GetRenderProcess() const;
+
 private:
 
 	HRESULT CreateDirect3DPresendParamaters(HWND hWnd, UINT width, UINT height, D3DPRESENT_PARAMETERS* pD3DPP) const;
@@ -57,5 +59,7 @@ private:
 	Color m_bgColor = Color::blue();
 
 	ID3DXLine* m_line = nullptr;
+
+	class RenderProcess* m_renderProcess = nullptr;
 };
 

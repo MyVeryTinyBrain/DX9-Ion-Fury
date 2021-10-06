@@ -23,7 +23,6 @@ void Gizmo::Awake()
 		m_axisObj[i]->transform->parent = m_gizmoParentObj->transform;
 		m_renderer[i] = m_axisObj[i]->AddComponent<UserMeshRenderer>();
 		m_renderer[i]->userMesh = gizmoCubeMesh;
-		m_renderer[i]->allowLighting = false;
 	}
 
 	m_renderer[GIZMO_AXIS_X]->SetTexture(0, redTex);

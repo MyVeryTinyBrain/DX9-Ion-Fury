@@ -11,8 +11,6 @@ std::list<Camera*> Camera::g_cameras;
 
 void Camera::Awake()
 {
-	m_orderRender = LONG_MIN;
-
 	m_fovAngle = 90;
 
 	m_aspect = GraphicDevice::GetInstance()->GetAspect();
@@ -22,6 +20,10 @@ void Camera::Awake()
 	m_far = 1000.0f;
 
 	m_isPerspective = true;
+
+	m_width = GraphicDevice::GetInstance()->GetSize().x * 0.1f;
+
+	m_height = GraphicDevice::GetInstance()->GetSize().y * 0.1f;
 
 	g_mutex.lock();
 
@@ -64,7 +66,15 @@ Mat4 Camera::GetViewToProjectionMatrix() const
 {
 	Mat4 toProj;
 
-	D3DXMatrixPerspectiveFovLH(&toProj, m_fovAngle * Deg2Rad, m_aspect, m_near, m_far);
+	switch (m_projectionMode)
+	{
+		case ProjectionMode::Perspective:
+			D3DXMatrixPerspectiveFovLH(&toProj, m_fovAngle * Deg2Rad, m_aspect, m_near, m_far);
+			break;
+		case ProjectionMode::Orthographic:
+			D3DXMatrixOrthoLH(&toProj, m_width, m_height, m_near, m_far);
+			break;
+	}
 
 	return toProj;
 }
@@ -72,6 +82,16 @@ Mat4 Camera::GetViewToProjectionMatrix() const
 Mat4 Camera::GetProjectionToViewMatrix() const
 {
 	return GetViewToProjectionMatrix().inversed();
+}
+
+ProjectionMode Camera::GetProjectionMode() const
+{
+	return m_projectionMode;
+}
+
+void Camera::SetProjectionMode(ProjectionMode mode)
+{
+	m_projectionMode = mode;
 }
 
 Camera* Camera::GetMainCamera()

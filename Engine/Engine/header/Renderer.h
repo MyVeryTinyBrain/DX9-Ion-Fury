@@ -3,6 +3,7 @@
 #include "Component.h"
 
 class Texture;
+class Material;
 
 class Renderer : public Component
 {
@@ -14,6 +15,8 @@ protected:
 
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(BeginRender);
+
 	OverrideComponentFunction(Render);
 
 public:
@@ -22,20 +25,16 @@ public:
 
 	void SetTexture(unsigned int index, const Ref<Texture>& texture);
 
-	bool IsAllowLighting() const;
+	const Ref<Material>& GetMaterial() const;
 
-	void SetAllowLighting(bool value);
+	void SetMaterial(const Ref<Material>& material);
 
-	__declspec(property(get = IsAllowLighting, put = SetAllowLighting)) bool allowLighting;
+	__declspec(property(get = GetMaterial, put = SetMaterial))  const Ref<Material>& material;
 
 protected:
 
-	bool m_allowLighting;
-
-	bool m_specular;
-
 	Ref<Texture> m_textures[TEX_MAX];
 
-	D3DMATERIAL9 m_material;
+	Ref<Material> m_material = nullptr;
 };
 

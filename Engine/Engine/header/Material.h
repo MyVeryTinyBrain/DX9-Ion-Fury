@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ResourceObject.h"
-#include "MaterialParameter.h"
+#include "MaterialParameters.h"
 
 class Material : public ResourceObject, public IClonable
 {
@@ -9,11 +9,7 @@ class Material : public ResourceObject, public IClonable
 
 public:
 
-	void ApplyRenderStates();
-
-	bool IsAlphaBlend() const;
-
-	void SetAlphaBlend(bool value);
+	void Apply();
 
 protected:
 
@@ -27,11 +23,15 @@ protected:
 
 public:
 
+
+
+public:
+
 	virtual IClonable* Clone() override;
 
-private:
+public:
 
-	MaterialParameter m_param;
+	MaterialParameters params;
 
 };
 

@@ -1,5 +1,6 @@
 #include "EngineBase.h"
 #include "GraphicDevice.h"
+#include "RenderProcess.h"
 
 #define D3DRelease(x)		if(x)	{ x->Release(); x = NULL;	}
 
@@ -70,11 +71,15 @@ HRESULT GraphicDevice::Initialize(HWND hWnd, UINT width, UINT height, BOOL windo
 	res = SetupComponents();
 	IF_FAILED_RETURN(res);
 
+	m_renderProcess = new RenderProcess;
+
 	return S_OK;
 }
 
 void GraphicDevice::Release()
 {
+	SafeDelete(m_renderProcess);
+
 	ReleaseComponents();
 
 	D3DRelease(m_device);
@@ -103,6 +108,9 @@ HRESULT GraphicDevice::BeginRender()
 	IF_FAILED_RETURN(res);
 
 	res = m_device->BeginScene();
+	IF_FAILED_RETURN(res);
+
+	res = m_device->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	IF_FAILED_RETURN(res);
 
 	return S_OK;
@@ -167,6 +175,11 @@ void GraphicDevice::SetBackgroundColor(const Color& color)
 ID3DXLine* GraphicDevice::GetLine() const
 {
 	return m_line;
+}
+
+RenderProcess* GraphicDevice::GetRenderProcess() const
+{
+	return m_renderProcess;
 }
 
 HRESULT GraphicDevice::CreateDirect3DPresendParamaters(HWND hWnd, UINT width, UINT height, D3DPRESENT_PARAMETERS* pD3DPP) const

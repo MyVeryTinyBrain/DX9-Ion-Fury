@@ -29,9 +29,6 @@
     <Filter Include="Time">
       <UniqueIdentifier>{367ec163-e708-4590-9717-a1ddd5901ca3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic">
-      <UniqueIdentifier>{947479b4-5850-41e7-972b-4cfefede0da3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{da08d1c6-6bd8-4354-9ef6-7f0b5e3dfcad}</UniqueIdentifier>
     </Filter>
@@ -144,9 +141,6 @@
     </ClCompile>
     <ClCompile Include="source\GlobalTime.cpp">
       <Filter>Time</Filter>
-    </ClCompile>
-    <ClCompile Include="source\GraphicDevice.cpp">
-      <Filter>Graphic</Filter>
     </ClCompile>
     <ClCompile Include="source\EngineWorld.cpp">
       <Filter>Engine</Filter>
@@ -265,7 +259,7 @@
     <ClCompile Include="source\MaterialTypes.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="source\MaterialParameter.cpp">
+    <ClCompile Include="source\MaterialParameters.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
     <ClCompile Include="source\BuiltIn.cpp">
@@ -316,6 +310,10 @@
     <ClCompile Include="source\PhysicsCallbackTypes.cpp">
       <Filter>Physics\PhysX</Filter>
     </ClCompile>
+    <ClCompile Include="source\GraphicDevice.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -386,9 +384,6 @@
     </ClInclude>
     <ClInclude Include="header\GlobalTime.h">
       <Filter>Time</Filter>
-    </ClInclude>
-    <ClInclude Include="header\GraphicDevice.h">
-      <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="header\Engine.h">
       <Filter>Engine</Filter>
@@ -552,7 +547,7 @@
     <ClInclude Include="header\MaterialTypes.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="header\MaterialParameter.h">
+    <ClInclude Include="header\MaterialParameters.h">
       <Filter>Resource\Material</Filter>
     </ClInclude>
     <ClInclude Include="header\BuiltIn.h">
@@ -615,6 +610,10 @@
     <ClInclude Include="header\PhysicsBase.h">
       <Filter>Physics\PhysX</Filter>
     </ClInclude>
+    <ClInclude Include="header\GraphicDevice.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RenderProcess.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

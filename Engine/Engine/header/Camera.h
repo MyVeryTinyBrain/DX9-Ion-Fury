@@ -2,6 +2,12 @@
 
 #include "Component.h"
 
+enum class ProjectionMode
+{
+	Perspective,
+	Orthographic,
+};
+
 class Camera : public Component
 {
 	OverrideComponentFunction(Awake);
@@ -28,11 +34,25 @@ public:
 
 public:
 
+	ProjectionMode GetProjectionMode() const;
+
+	void SetProjectionMode(ProjectionMode mode);
+
+	__declspec(property(get = GetProjectionMode, put = SetProjectionMode)) ProjectionMode mode;
+
+public:
+
 	static Camera* GetMainCamera();
 
 	static void SetMainCamera(Camera* camera);
 
 private:
+
+	int m_cameraIndex = 0;
+
+	bool m_overlap = true;
+
+	// Perspective 
 
 	float m_fovAngle;
 
@@ -43,6 +63,20 @@ private:
 	float m_far;
 
 	bool m_isPerspective;
+
+	// Orthographic
+
+	float m_width;
+
+	float m_height;
+
+	// Mode
+
+	ProjectionMode m_projectionMode = ProjectionMode::Perspective;
+
+	// Render target
+
+	class Texture* m_rednerTexture = nullptr;
 
 private:
 

@@ -29,7 +29,7 @@ void TestScene::OnLoad(Scene* beforeScene)
     {   // Create ground
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, -3, 0);
-        obj->transform->scale = Vec3(20, 1, 20);
+        obj->transform->scale = Vec3(100, 1, 100);
 
         auto renderer = obj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);

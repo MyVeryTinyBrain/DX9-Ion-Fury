@@ -1,6 +1,17 @@
 #pragma once
 
-struct MaterialParameter
+enum class RenderQueue
+{
+	Background,
+	Geometry,
+	AlphaTest,
+	GeometryLast,
+	Transparent,
+	Overlay,
+	Max,
+};
+
+struct MaterialParameters
 {
 	bool m_wireFrame = false;
 
@@ -26,8 +37,24 @@ struct MaterialParameter
 
 	BlendFactor m_dstBlendFactor = BlendFactor::OneMinusSrcAlpha;
 
+	RenderQueue m_renderQueue = RenderQueue::Geometry;
+
+
+
+
+
 	bool m_light = true;
 
 	bool m_specular = false;
+
+	Color m_ambient = Color::white();
+
+	Color m_diffuse = Color::white();
+
+	Color m_emissive = Color::black();
+
+	Color m_specular = Color::black();
+
+	float m_power = 1.0f;
 };
 

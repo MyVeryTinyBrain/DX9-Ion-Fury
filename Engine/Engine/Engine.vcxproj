@@ -22,6 +22,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\RenderProcess.cpp" />
     <ClCompile Include="source\Physics.cpp" />
     <ClCompile Include="source\PhysicsCallbackTypes.cpp" />
     <ClCompile Include="source\PhysicsTriggerEvent.cpp" />
@@ -32,7 +33,7 @@
     <ClCompile Include="source\PhysicsFilterShaderCallback.cpp" />
     <ClCompile Include="source\BuiltIn.cpp" />
     <ClCompile Include="source\RightTriangleCollider.cpp" />
-    <ClCompile Include="source\MaterialParameter.cpp" />
+    <ClCompile Include="source\MaterialParameters.cpp" />
     <ClCompile Include="source\Material.cpp" />
     <ClCompile Include="source\MaterialTypes.cpp" />
     <ClCompile Include="source\CapsuleCollider.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="header\PhysicsTriggerEvent.h" />
     <ClInclude Include="header\PhysicsCallbackTypes.h" />
     <ClInclude Include="header\Physics.h" />
+    <ClInclude Include="header\RenderProcess.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />
@@ -185,7 +187,7 @@
     <ClInclude Include="header\TriangleUserMesh.h" />
     <ClInclude Include="header\Material.h" />
     <ClInclude Include="header\MaterialTypes.h" />
-    <ClInclude Include="header\MaterialParameter.h" />
+    <ClInclude Include="header\MaterialParameters.h" />
     <ClInclude Include="header\RightTriangleCollider.h" />
     <ClInclude Include="header\TriangleCollider.h" />
     <ClInclude Include="header\PhysicsFilterShaderCallback.h" />
