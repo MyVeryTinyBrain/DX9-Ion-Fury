@@ -196,6 +196,7 @@
     <ClInclude Include="DlgTextureTool.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
+    <ClInclude Include="FileInfo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FreePerspectiveCamera.h" />
     <ClInclude Include="Gizmo.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="DlgTextureTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />
     <ClCompile Include="EditorScene.cpp" />
+    <ClCompile Include="FileInfo.cpp" />
     <ClCompile Include="FreePerspectiveCamera.cpp" />
     <ClCompile Include="Gizmo.cpp" />
     <ClCompile Include="IonFuryEditorBase.cpp" />

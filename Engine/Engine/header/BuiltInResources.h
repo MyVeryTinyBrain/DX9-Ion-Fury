@@ -13,3 +13,7 @@
 #define BuiltInRedTexture				L"../BuiltIn/RedTexture.png"
 #define BuiltInGreenTexture				L"../BuiltIn/GreenTexture.png"
 #define BuiltInBlueTexture				L"../BuiltIn/BlueTexture.png"
+
+#define TabImagePath0					L"../SharedResourced/Texture/Category0/*"
+#define TabImagePath1					L"../SharedResourced/Texture/Category1/*"
+#define TabImagePath2					L"../SharedResourced/Texture/Category2/*"

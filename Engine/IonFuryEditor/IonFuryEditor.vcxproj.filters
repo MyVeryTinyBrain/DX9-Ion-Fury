@@ -43,6 +43,7 @@
     <ClCompile Include="LightManager.cpp">
       <Filter>EditorCore</Filter>
     </ClCompile>
+    <ClCompile Include="FileInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -96,6 +97,7 @@
     <ClInclude Include="LightManager.h">
       <Filter>EditorCore</Filter>
     </ClInclude>
+    <ClInclude Include="FileInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Toolbar.bmp">
