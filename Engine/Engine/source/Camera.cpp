@@ -7,7 +7,7 @@ std::mutex Camera::g_mutex;
 
 Camera* Camera::g_mainCamera = nullptr;
 
-std::list<Camera*> Camera::g_cameras;
+std::vector<Camera*> Camera::g_cameras;
 
 void Camera::Awake()
 {
@@ -39,9 +39,7 @@ void Camera::OnDestroy()
 {
 	g_mutex.lock();
 
-	//auto find_it = FindInContainer(g_cameras, this);
-
-	auto find_it = std::find(g_cameras.begin(), g_cameras.end(), this);
+	auto find_it = FindInContainer(g_cameras, this);
 
 	if (find_it != g_cameras.end())
 		g_cameras.erase(find_it);
