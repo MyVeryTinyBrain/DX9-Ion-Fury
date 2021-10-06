@@ -32,6 +32,24 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 
 	UpdateData(FALSE);
 }
+void DlgObjectTool::SelectObject()
+{
+	UpdateData(TRUE);
+
+	m_fPosX = m_rPosX;
+	m_fPosY = m_rPosY;
+	m_fPosZ = m_rPosZ;
+	  
+	m_fScaleX = m_rScaleX;
+	m_fScaleY = m_rScaleY;
+	m_fScaleZ = m_rScaleZ;
+	  
+	m_fRotX = m_rRotX;
+	m_fRotY = m_rRotY;
+	m_fRotZ = m_rRotZ;
+
+	UpdateData(FALSE);
+}
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
@@ -201,9 +219,9 @@ void DlgObjectTool::OnBnClickedApply()
 	{
 		auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_SelectName.GetString());
 
-		obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
-
 		obj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
+
+		obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
 
 		obj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
 	}
@@ -232,14 +250,33 @@ void DlgObjectTool::OnBnClickedSave()
 
 		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL, nullptr);
-
+		
 		if (INVALID_HANDLE_VALUE == hFile)
 			return;
 
 		DWORD dwByte = 0;
+		DWORD dwStrByte = 0;
 
-		auto pick = Pickable::g_PickableVec;
+		auto pickObj = Pickable::g_PickableVec;
+		
 
+		for (auto& pick : pickObj)
+		{
+			auto obj = pick->GetGameObject();
+
+			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
+			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
+			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
+
+			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
+			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
+			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
+
+			// Mesh
+			//auto renderer = pick->GetRenderer();
+			//renderer->userMesh;
+
+		}
 
 		CloseHandle(hFile);
 	}
@@ -249,6 +286,32 @@ void DlgObjectTool::OnBnClickedSave()
 void DlgObjectTool::OnBnClickedLoad()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH]{};
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+	if (IDOK == Dlg.DoModal())
+	{
+		CString wstrFilePath = Dlg.GetPathName();
+
+		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
+			FILE_ATTRIBUTE_NORMAL, nullptr);
+
+		if (INVALID_HANDLE_VALUE == hFile)
+			return;
+
+		// Release
+
+
+	}
 
 }
 

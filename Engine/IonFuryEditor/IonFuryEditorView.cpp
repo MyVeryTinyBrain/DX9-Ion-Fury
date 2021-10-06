@@ -232,6 +232,8 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		auto pickObj = pickable->GetGameObject();
 
 		m_dlgObjectTool.SetPickableObject(pickObj);
+
+		m_dlgObjectTool.SelectObject();
 	}
 
 }

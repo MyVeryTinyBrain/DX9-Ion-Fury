@@ -13,6 +13,7 @@ public:
 
 public:
 	void SetPickableObject(GameObject* gameobject);
+	void SelectObject();
 
 public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
