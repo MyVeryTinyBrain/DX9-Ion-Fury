@@ -27,6 +27,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
 
+        obj->transform->position = Vec3(0, 5, 0);
         obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
         auto light = obj->AddComponent<DirectionalLight>();
         light->ambientFactor = 0.5f;
@@ -39,10 +40,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(2, -1.5f, 0);
 
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
-        renderer->SetTexture(0, Resource::FindAs<RenderTexture>(L"RenderTexture"));
-        renderer->material = Resource::FindAs<Material>(BuiltInNolightPriorityMaterial);
+        //auto renderer = obj->AddComponent<UserMeshRenderer>();
+        //renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+        //renderer->SetTexture(0, Resource::FindAs<RenderTexture>(L"RenderTexture"));
+        //renderer->material = Resource::FindAs<Material>(BuiltInNolightPriorityMaterial);
     }
 
     {   // Create test player
@@ -112,6 +113,21 @@ void TestScene::OnLoad(Scene* beforeScene)
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
         auto collider = obj->AddComponent<BoxCollider>();
+    }
+
+    // Create transparent objects
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(float(i), 0, float(j));
+
+            auto renderer = obj->AddComponent<UserMeshRenderer>();
+            renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/DevAlpha.png"));
+            renderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
+        }
     }
 
     //{   // Create Orthographic projection camera
