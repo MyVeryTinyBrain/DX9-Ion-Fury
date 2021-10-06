@@ -5,8 +5,7 @@
 #include "IonFuryEditor.h"
 #include "DlgLightTool.h"
 #include "afxdialogex.h"
-#include "EditorManager.h"
-#include "FreePerspectiveCamera.h"
+
 
 // DlgLightTool 대화 상자
 
@@ -24,13 +23,11 @@ DlgLightTool::DlgLightTool(CWnd* pParent /*=nullptr*/)
 	, m_PosX(0.f)
 	, m_PosY(0.f)
 	, m_PosZ(0.f)
+	, m_Radius(0.f)
+	, m_LTDirX(0)
+	, m_LTDirY(0)
+	, m_LTDirZ(0)
 	, iPos(0)
-	, m_LightType(_T(""))
-	, sPos(_T(""))
-	, m_Dir(0.f, 0.f, 0.f)
-	, sPosX(_T(""))
-	, sPosY(_T(""))
-	, sPosZ(_T(""))
 {
 
 }
@@ -55,23 +52,23 @@ void DlgLightTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_LT_POSY, m_PosY);
 	DDX_Text(pDX, IDC_LT_POSZ, m_PosZ);
 
+	DDX_Text(pDX, IDC_LT_RADIUS, m_Radius);
 	DDX_Control(pDX, IDC_SLIDERCTRL_RAD, m_SliderCrtl_Radius);
 	DDX_Control(pDX, IDC_SLDER_DIRX, m_SliderDirX);
 	DDX_Control(pDX, IDC_SLDER_DIRY, m_SliderDirY);
 	DDX_Control(pDX, IDC_SLDER_DIRZ, m_SliderDirZ);
+	DDX_Text(pDX, IDC_LT_DIRX, m_LTDirX);
+	DDX_Text(pDX, IDC_LT_DIRY, m_LTDirY);
+	DDX_Text(pDX, IDC_LT_DIRZ, m_LTDirZ);
 	DDX_Control(pDX, IDC_LIST1, m_LT_ListBox);
-	DDX_CBString(pDX, IDC_LT_COMBOBOX, m_LightType);
-	DDX_Control(pDX, IDC_LT_RADIUS, m_Radius);
 }
 
 
 BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_WM_ERASEBKGND()
 	ON_WM_HSCROLL()
+	ON_CBN_SELCHANGE(IDC_COMBO1, &DlgLightTool::OnLightTool_ComboBox)
 	ON_LBN_SELCHANGE(IDC_LIST1, &DlgLightTool::OnListBoxCtrl)
-	ON_CBN_SELCHANGE(IDC_LT_COMBOBOX, &DlgLightTool::OnSelectLight)
-	ON_EN_CHANGE(IDC_LT_LIGHTNAME, &DlgLightTool::OnLightName)
-	ON_EN_CHANGE(IDC_LT_RADIUS, &DlgLightTool::OnEnChangeLtRadius)
 END_MESSAGE_MAP()
 
 
@@ -94,19 +91,15 @@ BOOL DlgLightTool::OnInitDialog()
 	m_LT_ComboBox.AddString(_T("Point"));
 	m_LT_ComboBox.AddString(_T("Spot"));
 	m_LT_ComboBox.AddString(_T("Directional"));
-	//m_LT_ComboBox.AddString(_T("Ambinent"));
+	m_LT_ComboBox.AddString(_T("Ambinent"));
 	m_LT_ComboBox.SetCurSel(3);
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
+	m_SliderCrtl_Radius.SetRange(0, 50);       // 사용영역 값 설정한다.
 	m_SliderCrtl_Radius.SetRangeMin(0);			//최소 값 설정
-	m_SliderCrtl_Radius.SetRangeMax(180);		//최대 값 설정
-	m_SliderCrtl_Radius.SetPos(0);				//위치 설정
+	m_SliderCrtl_Radius.SetRangeMax(50);		//최대 값 설정
+	m_SliderCrtl_Radius.SetPos(10);				//위치 설정
 	m_SliderCrtl_Radius.SetPageSize(0.1);		//눈금 간격 설정
-
-	iPos = m_SliderCrtl_Radius.GetPos();
-	sPos.Format(_T(" % d"), iPos);
-	m_Radius.SetWindowText(sPos);
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderDirX.SetRange(0, 300);
@@ -135,7 +128,6 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	CSliderCtrl* pSlider = (CSliderCtrl*)pScrollBar;
-
 	switch (pSlider->GetDlgCtrlID())
 	{
 	case IDC_LT_SLIDER:
@@ -145,9 +137,6 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	case IDC_SLIDERCTRL_RAD:
 		m_SliderCrtl_Radius.SetPos(pSlider->GetPos());
 		iPos = m_SliderCrtl_Radius.GetPos();
-
-		sPos.Format(_T("%d"), iPos);
-		m_Radius.SetWindowTextW(sPos);
 		break;
 	case IDC_SLDER_DIRX:
 		m_SliderDirX.SetPos(pSlider->GetPos());
@@ -165,63 +154,17 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 }
 
 
+void DlgLightTool::OnLightTool_ComboBox()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	UpdateData(TRUE);
+
+	UpdateData(FALSE);
+}
+
+
 void DlgLightTool::OnListBoxCtrl()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-}
-
-
-//조명 선택
-void DlgLightTool::OnSelectLight()
-{
-	UpdateData(TRUE);
-
-	m_comboBox = (COMBOBOX)m_LT_ComboBox.GetCurSel(); //선택한거
-
-	switch (m_comboBox)
-	{
-	case DlgLightTool::COMBOBOX::POINTLIGNT:
-		m_LightType = L"Point";
-		break;
-	case DlgLightTool::COMBOBOX::SPOTLIGNT:
-		m_LightType = L"Spot";
-		break;
-	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
-		m_LightType = L"Directional";
-		break;
-	default:
-		break;
-	}
-
-
-	UpdateData(FALSE);
-}
-
-
-void DlgLightTool::OnLightName()
-{
-	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
-	// CDialog::OnInitDialog() 함수를 재지정 
-	//하고 마스크에 OR 연산하여 설정된 ENM_CHANGE 플래그를 지정하여 CRichEditCtrl().SetEventMask()를 호출하지 않으면
-	// 이 알림 메시지를 보내지 않습니다.
-
-	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
-	UpdateData(TRUE);
-
-
-
-	UpdateData(FALSE);
-
-}
-
-
-void DlgLightTool::OnEnChangeLtRadius()
-{
-	//범위 반지름 슬라이더 조정
-
-	m_Radius.GetWindowText(sPos);
-	iPos = _ttoi(sPos);
-
-	m_SliderCrtl_Radius.SetPos(iPos);
 }
