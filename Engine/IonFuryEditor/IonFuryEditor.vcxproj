@@ -203,6 +203,7 @@
     <ClInclude Include="IonFuryEditor.h" />
     <ClInclude Include="IonFuryEditorDoc.h" />
     <ClInclude Include="IonFuryEditorView.h" />
+    <ClInclude Include="LightManager.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Pickable.h" />
     <ClInclude Include="Resource.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="IonFuryEditor.cpp" />
     <ClCompile Include="IonFuryEditorDoc.cpp" />
     <ClCompile Include="IonFuryEditorView.cpp" />
+    <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Pickable.cpp" />
   </ItemGroup>
