@@ -313,7 +313,12 @@
     <ClCompile Include="source\GraphicDevice.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="source\RenderProcess.cpp" />
+    <ClCompile Include="source\RenderProcess.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -613,7 +618,12 @@
     <ClInclude Include="header\GraphicDevice.h">
       <Filter>Render</Filter>
     </ClInclude>
-    <ClInclude Include="header\RenderProcess.h" />
+    <ClInclude Include="header\RenderProcess.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RenderTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Engine.natvis" />

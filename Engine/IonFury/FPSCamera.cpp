@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "FPSCamera.h"
 
-void FPSCamera::Start()
+void FPSCamera::Awake()
 {
 	ShowCursor(false);
 
 	m_camera = gameObject->AddComponent<Camera>();
+	m_camera->allowRenderLayers = (1 << 0);
 
 	MoveMouseToCenter();
 }

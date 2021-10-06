@@ -8,11 +8,9 @@ protected:
 
 	OverrideComponentFunction(Awake);
 
-	OverrideComponentFunction(BeginRender);
-
-	OverrideComponentFunction(EndRender);
-
 	OverrideComponentFunction(OnSleep);
+
+	OverrideComponentFunction(OnDestroy);
 
 public:
 
@@ -34,6 +32,18 @@ public:
 
 	static void SetGlobalAmbientLight(const Color& color);
 
+public:
+
+	static void BeginLight();
+
+	static void EndLight();
+
+private:
+
+	void ActiveLight();
+
+	void DeactiveLight();
+
 protected:
 
 	virtual void InitializeLightType(D3DLIGHTTYPE& lightType) = 0;
@@ -53,6 +63,8 @@ protected:
 	enum { LIGHT_MAX = 256 };
 
 	static bool g_lightEnables[LIGHT_MAX];
+
+	static std::vector<Light*> g_lights;
 
 	D3DLIGHT9 m_light = {};
 

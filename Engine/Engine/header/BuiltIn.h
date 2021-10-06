@@ -12,6 +12,8 @@ private:
 
 	static void MakeTextureResources();
 
+	static void MakeMaterialResources();
+
 private:
 
 	static bool g_made;

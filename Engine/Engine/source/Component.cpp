@@ -106,8 +106,6 @@ void Component::Initialize
 
 	ComponentSetCall(BeforeRender);
 
-	ComponentSetCall(Render);
-
 	ComponentSetCall(AfterRender);
 
 	ComponentSetCall(EndRender);

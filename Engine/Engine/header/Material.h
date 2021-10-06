@@ -14,18 +14,18 @@ public:
 protected:
 
 	// Constructor for unmanaged resource
-	Material();
+	Material(MaterialParameters& params);
 
 	// Construct for managed resource
-	Material(wstring localPath, bool isShared);
+	Material(MaterialParameters& params, wstring localPath, bool isShared);
 
 	virtual ~Material();
 
 public:
 
+	static Material* Create(MaterialParameters& params, const wstring& localPath, bool isShared);
 
-
-public:
+	static Material* CreateUnmanaged(MaterialParameters& params);
 
 	virtual IClonable* Clone() override;
 

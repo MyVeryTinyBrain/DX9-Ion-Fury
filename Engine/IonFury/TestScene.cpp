@@ -9,21 +9,53 @@ IClonable* TestScene::Clone()
 
 void TestScene::OnLoad(Scene* beforeScene)
 {
+    {
+        MaterialParameters params;
+        Material::Create(params, L"material", true);
+    }
+
     {   // Load textures
         Texture::CreateFromFile(L"../SharedResourced/Texture/Dev.png");
+        Texture::CreateFromFile(L"../SharedResourced/Texture/DevAlpha.png");
+        Texture::CreateFromFile(L"../SharedResourced/Texture/DevTransparent.png");
     }
 
     {   // Create directional light
         auto obj = CreateGameObject();
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+
         obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
         auto light = obj->AddComponent<DirectionalLight>();
-        light->ambientFactor = 0.2f;
+        light->ambientFactor = 0.5f;
+    }
+
+    // Craete render texture
+    auto renderTexture = RenderTexture::CreateRenderTexture(512, 512, Color::white(), L"RenderTexture", false);
+
+    {   // Create quad for render texture
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(2, -1.5f, 0);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<RenderTexture>(L"RenderTexture"));
+        renderer->material = Resource::FindAs<Material>(BuiltInNolightPriorityMaterial);
     }
 
     {   // Create test player
         auto obj = CreateGameObject();
         auto cameraObj = CreateGameObjectToChild(obj->transform);
-        cameraObj->AddComponent<FPSCharacterController>();
+        auto controller = cameraObj->AddComponent<FPSCharacterController>();
+
+        {   // Create camera for capture to render texture
+            auto subCam = controller->camera->gameObject->AddComponent<Camera>();
+            subCam->allowRenderLayers = (1 << 0);
+            subCam->cameraOrder = 100;
+            subCam->renderTexture = Resource::FindAs<RenderTexture>(L"RenderTexture");
+        }
     }
 
     {   // Create ground
@@ -81,6 +113,29 @@ void TestScene::OnLoad(Scene* beforeScene)
         body->isKinematic = true;
         auto collider = obj->AddComponent<BoxCollider>();
     }
+
+    //{   // Create Orthographic projection camera
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(-1000, -1000, -10);
+    //    
+    //    auto camera = obj->AddComponent<Camera>();
+    //    camera->cameraOrder = 10000;
+    //    camera->overlapMode = true;
+    //    camera->allowRenderLayers = (1 << 5);
+    //    camera->projectionMode = ProjectionMode::Orthographic;
+    //}
+
+    //{   // Create quat for Orthographic projection camera
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec2(-1000, -1000);
+    //    obj->transform->scale = Vec3::one();
+
+    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+    //    renderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
+    //    renderer->renderLayerIndex = 5;
+    //}
 }
 
 void TestScene::OnUnload(Scene* nextScene)

@@ -6,7 +6,7 @@ class UserMesh;
 
 class UserMeshRenderer : public Renderer
 {
-	OverrideComponentFunction(Render);
+	virtual void Render() override;
 
 public:
 

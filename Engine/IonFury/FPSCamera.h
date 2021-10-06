@@ -2,7 +2,7 @@
 
 class FPSCamera : public Component
 {
-	OverrideComponentFunction(Start);
+	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Update);
 

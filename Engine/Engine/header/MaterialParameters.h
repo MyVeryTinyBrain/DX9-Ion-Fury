@@ -3,6 +3,7 @@
 enum class RenderQueue
 {
 	Background,
+	Priority,
 	Geometry,
 	AlphaTest,
 	GeometryLast,
@@ -13,48 +14,47 @@ enum class RenderQueue
 
 struct MaterialParameters
 {
-	bool m_wireFrame = false;
+	bool wireFrame = false;
 
-	CullMode m_cullMode = CullMode::CW;
+	CullMode cullMode = CullMode::CCW;
 
-	bool m_zWrite = true;
+	bool zWrite = true;
 
-	bool m_zRead = true;
+	bool zRead = true;
 
-	CmpMode m_zReadMode = CmpMode::LessEqual;
+	CmpMode zReadMode = CmpMode::LessEqual;
 
-	bool m_alphaTest = false;
+	bool alphaTest = false;
 
-	DWORD m_alphaRef = 0; // 0x00 ~ 0xFF
+	DWORD alphaRef = 0; // 0x00 ~ 0xFF (0 ~ 255)
 
-	CmpMode m_alpahTestMode = CmpMode::Greater;
+	CmpMode alpahTestMode = CmpMode::Greater;
 
-	bool m_alphaBlend = false;
+	bool alphaBlend = false;
 
-	BlendOpMode m_blendOperation = BlendOpMode::Add;
+	BlendOpMode blendOperation = BlendOpMode::Add;
 
-	BlendFactor m_srcBlendFactor = BlendFactor::SrcAlpha;
+	BlendFactor srcBlendFactor = BlendFactor::SrcAlpha;
 
-	BlendFactor m_dstBlendFactor = BlendFactor::OneMinusSrcAlpha;
+	BlendFactor dstBlendFactor = BlendFactor::OneMinusSrcAlpha;
 
-	RenderQueue m_renderQueue = RenderQueue::Geometry;
-
-
+	RenderQueue renderQueue = RenderQueue::Geometry;
 
 
 
-	bool m_light = true;
 
-	bool m_specular = false;
+	bool useLight = true;
 
-	Color m_ambient = Color::white();
+	bool useSpecular = false;
 
-	Color m_diffuse = Color::white();
+	Color ambient = Color::white();
 
-	Color m_emissive = Color::black();
+	Color diffuse = Color::white();
 
-	Color m_specular = Color::black();
+	Color emissive = Color::black();
 
-	float m_power = 1.0f;
+	Color specular = Color::white();
+
+	float power = 1.0f;
 };
 

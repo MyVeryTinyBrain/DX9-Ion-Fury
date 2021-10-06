@@ -36,8 +36,6 @@ protected:
 
 	DefineComponentFunction(BeforeRender);
 
-	DefineComponentFunction(Render);
-
 	DefineComponentFunction(AfterRender);
 
 	DefineComponentFunction(EndRender);

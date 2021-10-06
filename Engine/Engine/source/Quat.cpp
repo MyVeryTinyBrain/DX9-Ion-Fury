@@ -184,50 +184,6 @@ D3DXVECTOR3 Quat::ToEuler() const
 	euler.z = fmodf(euler.z, 360.0f);
 
 	return euler;
-
-	//auto NormalizeAngle = [&](float angle) -> float
-	//{
-	//	while (angle > 360)
-	//		angle -= 360;
-	//	while (angle < 0)
-	//		angle += 360;
-	//	return angle;
-	//};
-	//auto NormalizeAngles = [&](D3DXVECTOR3 angles) -> D3DXVECTOR3
-	//{
-	//	angles.x = NormalizeAngle(angles.x);
-	//	angles.y = NormalizeAngle(angles.y);
-	//	angles.z = NormalizeAngle(angles.z);
-	//	return angles;
-	//};
-
-	//float sqw = w * w;
-	//float sqx = x * x;
-	//float sqy = y * y;
-	//float sqz = z * z;
-	//float unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
-	//float test = x * w - y * z;
-	//D3DXVECTOR3 v;
-
-	//if (test > 0.4995f * unit)
-	//{ // singularity at north pole
-	//	v.y = 2.0f * atan2f(y, x);
-	//	v.x = D3DX_PI / 2;
-	//	v.z = 0;
-	//	return NormalizeAngles(v * Rad2Deg);
-	//}
-	//if (test < -0.4995f * unit)
-	//{ // singularity at south pole
-	//	v.y = -2.0f * atan2f(y, x);
-	//	v.x = -D3DX_PI / 2;
-	//	v.z = 0;
-	//	return NormalizeAngles(v * Rad2Deg);
-	//}
-	//Quat q(w, z, x, y);
-	//v.y = atan2f(2.0f * q.x * q.w + 2.0f * q.y * q.z, 1 - 2.0f * (q.z * q.z + q.w * q.w));		// Yaw
-	//v.x = asinf(2.0f * (q.x * q.z - q.w * q.y));												// Pitch
-	//v.z = atan2f(2.0f * q.x * q.y + 2.0f * q.z * q.w, 1 - 2.0f * (q.y * q.y + q.z * q.z));      // Roll
-	//return NormalizeAngles(v * Rad2Deg);
 }
 
 float Quat::sqrMagnitude() const

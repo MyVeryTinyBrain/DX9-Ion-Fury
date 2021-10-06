@@ -106,8 +106,6 @@ void ComponentExecutioner::ExecuteRender()
 
 	ExecuteByOrder(BeforeRender);
 
-	ExecuteByOrder(Render);
-
 	ExecuteByOrder(AfterRender);
 
 	ExecuteByOrder(EndRender);
@@ -134,8 +132,6 @@ void ComponentExecutioner::ClearExecuteTargets()
 	ComponentCallFlag(BeginRender).clear();
 
 	ComponentCallFlag(BeforeRender).clear();
-
-	ComponentCallFlag(Render).clear();
 
 	ComponentCallFlag(AfterRender).clear();
 
@@ -252,8 +248,6 @@ ComponentExecutioner::PrepareResult ComponentExecutioner::PrepareComponent(Compo
 
 	TryAddToExecutionTarget(component, BeforeRender);
 
-	TryAddToExecutionTarget(component, Render);
-
 	TryAddToExecutionTarget(component, AfterRender);
 
 	TryAddToExecutionTarget(component, EndRender);
@@ -282,8 +276,6 @@ void ComponentExecutioner::SortExecutionTargetsByExecutionOrder()
 	SortByExecutionOrder(BeginRender);
 
 	SortByExecutionOrder(BeforeRender);
-
-	SortByExecutionOrder(Render);
 
 	SortByExecutionOrder(AfterRender);
 

@@ -16,9 +16,17 @@ public:
 
 	CapsuleCollider* GetCollider() const;
 
+	FPSCamera* GetFPSCamera() const;
+
+	Camera* GetCamera() const;
+
 	__declspec(property(get = GetRigidbody)) Rigidbody* rigidbody;
 
 	__declspec(property(get = GetCollider)) CapsuleCollider* collider;
+
+	__declspec(property(get = GetFPSCamera)) FPSCamera* fpsCamera;
+
+	__declspec(property(get = GetCamera)) Camera* camera;
 
 private:
 

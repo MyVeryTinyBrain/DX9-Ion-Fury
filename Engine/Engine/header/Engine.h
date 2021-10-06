@@ -22,6 +22,8 @@
 #include "ResourceObject.h"
 #include "Resource.h"
 #include "Texture.h"
+#include "RenderTexture.h"
+#include "Material.h"
 #include "EngineWorld.h"
 
 // Built In

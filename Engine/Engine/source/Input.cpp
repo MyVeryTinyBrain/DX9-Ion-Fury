@@ -42,7 +42,7 @@ Vec2 Input::GetMousePositionInViewport()
 Vec3 Input::GetMousePositionInProjSpace()
 {
 	auto device = GraphicDevice::GetInstance();
-	Vec2 wndSize = device->GetSize();
+	Vec2 wndSize = device->GetClientSize();
 	Vec2 mouse = GetMousePositionInViewport();
 
 	return Vec3(mouse.x / wndSize.x * 2 - 1, 1 - mouse.y / wndSize.y * 2, 0);

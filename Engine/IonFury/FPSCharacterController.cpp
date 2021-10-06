@@ -99,3 +99,13 @@ CapsuleCollider* FPSCharacterController::GetCollider() const
 {
     return m_collider;
 }
+
+FPSCamera* FPSCharacterController::GetFPSCamera() const
+{
+    return m_camera;
+}
+
+Camera* FPSCharacterController::GetCamera() const
+{
+    return m_camera->camera;
+}

@@ -73,6 +73,9 @@ HRESULT GraphicDevice::Initialize(HWND hWnd, UINT width, UINT height, BOOL windo
 
 	m_renderProcess = new RenderProcess;
 
+	m_initWidth = float(width);
+	m_initHeight = float(height);
+
 	return S_OK;
 }
 
@@ -97,6 +100,9 @@ HRESULT GraphicDevice::Reset(HWND hWnd, UINT width, UINT height, BOOL windowed)
 	res = m_device->Reset(&d3dpp);
 	IF_FAILED_RETURN(res);
 
+	m_initWidth = float(width);
+	m_initHeight = float(height);
+
 	return S_OK;
 }
 
@@ -107,11 +113,11 @@ HRESULT GraphicDevice::BeginRender()
 	res = m_device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, m_bgColor, 1.0f, 0);
 	IF_FAILED_RETURN(res);
 
-	res = m_device->BeginScene();
-	IF_FAILED_RETURN(res);
+	//res = m_device->BeginScene();
+	//IF_FAILED_RETURN(res);
 
-	res = m_device->SetRenderState(D3DRS_NORMALIZENORMALS, true);
-	IF_FAILED_RETURN(res);
+	//res = m_device->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+	//IF_FAILED_RETURN(res);
 
 	return S_OK;
 }
@@ -120,8 +126,8 @@ HRESULT GraphicDevice::EndRender(HWND hWnd)
 {
 	HRESULT res;
 
-	res = m_device->EndScene();
-	IF_FAILED_RETURN(res);
+	//res = m_device->EndScene();
+	//IF_FAILED_RETURN(res);
 
 	res = m_device->Present(0, 0, hWnd, 0);
 	IF_FAILED_RETURN(res);
@@ -141,7 +147,7 @@ HWND GraphicDevice::GetWindowHandle() const
 	return cp.hFocusWindow;
 }
 
-Vec2 GraphicDevice::GetSize() const
+Vec2 GraphicDevice::GetClientSize() const
 {
 	RECT rect;
 
@@ -150,11 +156,21 @@ Vec2 GraphicDevice::GetSize() const
 	return Vec2(float(rect.right - rect.left), float(rect.bottom - rect.top));
 }
 
-float GraphicDevice::GetAspect() const
+float GraphicDevice::GetClientAspect() const
 {
-	Vec2 size = GetSize();
+	Vec2 size = GetClientSize();
 
 	return size.x / size.y;
+}
+
+Vec2 GraphicDevice::GetDeviceSize() const
+{
+	return Vec2(m_initWidth, m_initHeight);
+}
+
+float GraphicDevice::GetDeviceAspect() const
+{
+	return m_initWidth / m_initHeight;
 }
 
 IDirect3DDevice9* GraphicDevice::GetDevice() const

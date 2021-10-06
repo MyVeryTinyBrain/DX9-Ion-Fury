@@ -101,19 +101,41 @@ Texture* Texture::CreateInDirectX(const UINT& width, const UINT& height, const D
 	return resource;
 }
 
-IDirect3DTexture9* Texture::GetTexture() const
+Texture* Texture::CreateUnmanagedInDirectX(const UINT& width, const UINT& height, const D3DXCOLOR& color)
 {
-	return m_texture;
-}
+	HRESULT res;
+	IDirect3DTexture9* texture;
+	D3DSURFACE_DESC desc;
 
-const D3DSURFACE_DESC& Texture::GetSourceDesc() const
-{
-	return m_srcDesc;
-}
+	res = D3DXCreateTexture(GraphicDevice::GetInstance()->GetDevice(), width, height, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &texture);
+	if (FAILED(res))
+	{
+		return nullptr;
+	}
 
-Vec2 Texture::GetSize() const
-{
-	return Vec2(float(m_srcDesc.Width), float(m_srcDesc.Height));
+	res = texture->GetLevelDesc(0, &desc);
+	if (FAILED(res))
+	{
+		texture->Release();
+		return nullptr;
+	}
+
+	D3DLOCKED_RECT pixels;
+	texture->LockRect(0, &pixels, 0, D3DLOCK_DISCARD);
+	DWORD* colors = (DWORD*)pixels.pBits;
+	for (size_t y = 0; y < height; ++y)
+	{
+		for (size_t x = 0; x < width; ++x)
+		{
+			size_t i = y * width + x;
+			colors[i] = color;
+		}
+	}
+	texture->UnlockRect(0);
+
+	Texture* resource = new Texture(texture, desc);
+
+	return resource;
 }
 
 IClonable* Texture::Clone()
@@ -138,8 +160,23 @@ IClonable* Texture::Clone()
 	m_texture->UnlockRect(0);
 
 	Texture* resource = new Texture(texture, m_srcDesc);
-	
+
 	return resource;
+}
+
+IDirect3DTexture9* Texture::GetTexture() const
+{
+	return m_texture;
+}
+
+const D3DSURFACE_DESC& Texture::GetSourceDesc() const
+{
+	return m_srcDesc;
+}
+
+Vec2 Texture::GetSize() const
+{
+	return Vec2(float(m_srcDesc.Width), float(m_srcDesc.Height));
 }
 
 Texture::operator IDirect3DTexture9* () const

@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "PhysicsDevice.h"
 #include "BuiltIn.h"
+#include "RenderProcess.h"
 
 HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int height, bool windowed, LPCWSTR title, WNDPROC wndProc)
 {
@@ -30,6 +31,8 @@ HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int he
 	BuiltIn::MakeBuiltInResources();
 
 	m_initialized = true;
+
+	srand(unsigned int(time(NULL)));
 
 	return S_OK;
 }
@@ -54,6 +57,8 @@ HRESULT EngineWorld::Initialize(HWND hWnd, UINT width, UINT height, BOOL windowe
 	BuiltIn::MakeBuiltInResources();
 
 	m_initialized = true;
+
+	srand(unsigned int(time(NULL)));
 
 	return S_OK;
 }
@@ -135,18 +140,9 @@ HRESULT EngineWorld::Step()
 		Camera* mainCamera = Camera::GetMainCamera();
 
 		graphicDevice->BeginRender();
-
-		if (mainCamera)
-		{
-			Mat4 worldToView = mainCamera->worldToView;
-			device->SetTransform(D3DTS_VIEW, &worldToView);
-
-			Mat4 viewToProjection = mainCamera->viewToProjection;
-			device->SetTransform(D3DTS_PROJECTION, &viewToProjection);
-
-			scene->StepRender();
-		}
-
+		graphicDevice->GetRenderProcess()->ClearRenderTargets();
+		scene->StepRender();
+		graphicDevice->GetRenderProcess()->Process();
 		graphicDevice->EndRender();
 	}
 

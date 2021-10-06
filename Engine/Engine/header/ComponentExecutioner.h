@@ -84,8 +84,6 @@ private:
 
 	ExecutionTargets ComponentCallFlag(BeforeRender);
 
-	ExecutionTargets ComponentCallFlag(Render);
-
 	ExecutionTargets ComponentCallFlag(AfterRender);
 
 	ExecutionTargets ComponentCallFlag(EndRender);

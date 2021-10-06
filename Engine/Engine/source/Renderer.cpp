@@ -3,10 +3,15 @@
 #include "GraphicDevice.h"
 #include "Texture.h"
 #include "RenderProcess.h"
+#include "Resource.h"
+#include "BuiltInResources.h"
+#include "Material.h"
 
 void Renderer::Awake()
 {
 	memset(m_textures, 0, sizeof(m_textures));
+
+	m_material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
 }
 
 void Renderer::BeginRender()
@@ -25,6 +30,16 @@ void Renderer::Render()
 
 		device->SetTexture(i, m_textures[i]->texture);
 	}
+}
+
+uint8_t Renderer::GetRenderLayerIndex() const
+{
+	return m_renderLayerIndex;
+}
+
+void Renderer::SetRenderLayerIndex(uint8_t value)
+{
+	m_renderLayerIndex = value;
 }
 
 Ref<Texture> Renderer::GetTexture(unsigned int index) const

@@ -22,6 +22,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\RenderTexture.cpp" />
     <ClCompile Include="source\RenderProcess.cpp" />
     <ClCompile Include="source\Physics.cpp" />
     <ClCompile Include="source\PhysicsCallbackTypes.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="header\PhysicsCallbackTypes.h" />
     <ClInclude Include="header\Physics.h" />
     <ClInclude Include="header\RenderProcess.h" />
+    <ClInclude Include="header\RenderTexture.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />

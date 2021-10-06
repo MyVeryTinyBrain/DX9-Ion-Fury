@@ -17,9 +17,15 @@ protected:
 
 	OverrideComponentFunction(BeginRender);
 
-	OverrideComponentFunction(Render);
+public:
+
+	virtual void Render() = 0;
 
 public:
+
+	uint8_t GetRenderLayerIndex() const;
+
+	void SetRenderLayerIndex(uint8_t value);
 
 	Ref<Texture> GetTexture(unsigned int index) const;
 
@@ -29,12 +35,19 @@ public:
 
 	void SetMaterial(const Ref<Material>& material);
 
-	__declspec(property(get = GetMaterial, put = SetMaterial))  const Ref<Material>& material;
+	__declspec(property(get = GetRenderLayerIndex, put = SetRenderLayerIndex)) uint8_t renderLayerIndex;
+
+	__declspec(property(get = GetMaterial, put = SetMaterial)) const Ref<Material>& material;
 
 protected:
 
+	// 카메라에서 이 레이어를 참조해 이 렌더러를 그릴지 말지를 정하게 됩니다.
+	// 0 ~ 31 까지의 값을 가집니다.
+	// 31를 초과하는 값을 설정하면 비트 연산에 의해서 그리지 않게 됩니다.
+	uint8_t m_renderLayerIndex = 0;
+
 	Ref<Texture> m_textures[TEX_MAX];
 
-	Ref<Material> m_material = nullptr;
+	Ref<Material> m_material;
 };
 
