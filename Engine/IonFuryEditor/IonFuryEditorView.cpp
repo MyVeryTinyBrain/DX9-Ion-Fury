@@ -202,7 +202,8 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		camera->Add_Object_Sample(
 			m_dlgObjectTool.m_objectTag.GetString(),
 			m_dlgObjectTool.m_objectName.GetString(),
-			m_dlgObjectTool.m_meshPath.GetString());
+			m_dlgObjectTool.m_meshPath.GetString(),
+			m_dlgTextureTool.m_texturePath.GetString());
 		break;
 	case 'U':
 		LightManager::GetInstance()->AddLight(

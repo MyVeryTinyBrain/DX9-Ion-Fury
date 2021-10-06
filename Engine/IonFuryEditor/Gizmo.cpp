@@ -1,6 +1,7 @@
 #include "IonFuryEditorBase.h"
 #include "Gizmo.h"
 #include "EditorManager.h"
+#include "Pickable.h"
 
 void Gizmo::Awake()
 {
@@ -144,6 +145,15 @@ void Gizmo::DeleteAttachedObject()
 	m_selectedTransform.Reset();
 }
 
+void Gizmo::ChangeTextureAttachedObject(CString texturePath)
+{
+	if (m_selectedTransform)
+	{
+		UserMeshRenderer* renderer = m_selectedTransform->gameObject->GetComponent<Pickable>()->GetRenderer();
+		renderer->SetTexture(0, Resource::Find(texturePath.GetString())->GetReferenceTo<Texture>());
+	};
+}
+
 
 
 void Gizmo::ResetGizmoTransform()
@@ -169,6 +179,25 @@ void Gizmo::Handling()
 	Vec3 dragCoord = CalcGizmoHandlingCoord();
 	Vec3 delta = dragCoord - m_selectCoord;
 	transform->position = m_selectedPosition + delta;
+
+	if (Input::GetKey(Key::LCtrl))
+	{
+		float gap = 0.2f;
+		Vec3 pos = transform->position;
+		switch (m_select)
+		{
+		case GIZMO_AXIS_X:
+			pos.x = int(pos.x / gap) * gap;
+			break;
+		case GIZMO_AXIS_Y:
+			pos.y = int(pos.y / gap) * gap;
+			break;
+		case GIZMO_AXIS_Z:
+			pos.z = int(pos.z / gap) * gap;
+			break;
+		}
+		transform->position = pos;
+	}
 }
 
 Vec3 Gizmo::CalcGizmoHandlingCoord()

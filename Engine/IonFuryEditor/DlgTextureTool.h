@@ -20,4 +20,22 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
+public:
+	CListBox m_ListBox;
+	CStatic m_PictureControl;
+	CTabCtrl m_TabControl;
+public:
+	CString m_texturePath;
+	CString m_DragList[100];
+	int		m_Cnt = 0;
+public:
+	afx_msg void OnTcnSelchangeTab(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void SelectImage();
+	afx_msg void SetTextureToPicked();
+	afx_msg void OnDropFiles(HDROP hDropInfo);
+public:
+	void AddFilesToListBox(CString RelativePath, CListBox& ListBox, bool pushTexture);
+
 };
