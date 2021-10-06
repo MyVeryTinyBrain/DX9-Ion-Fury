@@ -20,5 +20,6 @@ private:
 	class FreePerspectiveCamera* m_perspectiveCamera;
 
 	class Gizmo* m_gizmo;
+
 };
 

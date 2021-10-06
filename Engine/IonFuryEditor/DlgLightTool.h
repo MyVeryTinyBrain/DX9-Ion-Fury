@@ -29,9 +29,6 @@ protected:
 private:
 	virtual BOOL OnInitDialog();
 	CComboBox m_LT_ComboBox;
-	afx_msg void OnLightTool_ComboBox();
-	CString m_LightName;
-
 
 // 투명도 조절하는 함수입니다. 
 private:
@@ -41,6 +38,9 @@ private:
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 
 public:
+	CString m_LightName;
+	CString m_LightType;
+
 	//색상 세팅
 	float m_ColorR;
 	float m_ColorG;
@@ -53,18 +53,29 @@ public:
 	float m_PosZ;
 
 	//반지름 세팅
-	float m_Radius;
+	afx_msg void OnEnChangeLtRadius();
+	CEdit m_Radius;
 	CSliderCtrl m_SliderCrtl_Radius;
-	int iPos;
+	float iPos;
+	CString sPos;
+
 
 	//방향 세팅
 	CSliderCtrl m_SliderDirX;
 	CSliderCtrl m_SliderDirY;
 
 	CSliderCtrl m_SliderDirZ;
-	float m_LTDirX;
-	float m_LTDirY;
-	float m_LTDirZ;
+
 	CListBox m_LT_ListBox;
+	Vec3 m_Dir;
+	CString sPosX;
+	CString sPosY;
+	CString sPosZ;
+
+
+
 	afx_msg void OnListBoxCtrl();
+	afx_msg void OnSelectLight();
+	afx_msg void OnLightName();
+
 };

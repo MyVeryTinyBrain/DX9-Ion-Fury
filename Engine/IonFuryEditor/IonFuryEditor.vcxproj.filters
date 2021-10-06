@@ -40,6 +40,9 @@
     <ClCompile Include="DlgTextureTool.cpp">
       <Filter>Dlg</Filter>
     </ClCompile>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>EditorCore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -89,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="DlgTextureTool.h">
       <Filter>Dlg</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>EditorCore</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
