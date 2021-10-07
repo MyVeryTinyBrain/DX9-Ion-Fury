@@ -8,7 +8,7 @@ class DlgLightTool : public CDialog
 	DECLARE_DYNAMIC(DlgLightTool)
 
 public:
-	enum class COMBOBOX { DIRECTIONALLIGNT, POINTLIGNT, SPOTLIGNT, AMBINENTLIGHT, END };
+	enum class COMBOBOX { POINTLIGNT, SPOTLIGNT, DIRECTIONALLIGNT, AMBINENTLIGHT, END };
 
 public:
 	DlgLightTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.

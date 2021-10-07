@@ -40,13 +40,10 @@
     <ClCompile Include="DlgTextureTool.cpp">
       <Filter>Dlg</Filter>
     </ClCompile>
-    <ClCompile Include="FileInfo.cpp" />
     <ClCompile Include="LightManager.cpp">
-      <Filter>EditorCore\Light\Manager</Filter>
+      <Filter>EditorCore</Filter>
     </ClCompile>
-    <ClCompile Include="LightObject.cpp">
-      <Filter>EditorCore\Light</Filter>
-    </ClCompile>
+    <ClCompile Include="FileInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -97,13 +94,10 @@
     <ClInclude Include="DlgTextureTool.h">
       <Filter>Dlg</Filter>
     </ClInclude>
-    <ClInclude Include="FileInfo.h" />
     <ClInclude Include="LightManager.h">
-      <Filter>EditorCore\Light\Manager</Filter>
+      <Filter>EditorCore</Filter>
     </ClInclude>
-    <ClInclude Include="LightObject.h">
-      <Filter>EditorCore\Light</Filter>
-    </ClInclude>
+    <ClInclude Include="FileInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Toolbar.bmp">
@@ -131,12 +125,6 @@
     </Filter>
     <Filter Include="Dlg">
       <UniqueIdentifier>{c1931ec0-0b18-441e-ae8e-49be9f78f092}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="EditorCore\Light">
-      <UniqueIdentifier>{efe5222a-05eb-4ca3-80ac-2d77fd13e979}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="EditorCore\Light\Manager">
-      <UniqueIdentifier>{c2160b8f-394f-4982-9389-b626422c4a0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
