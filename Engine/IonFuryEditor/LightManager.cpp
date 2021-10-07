@@ -4,23 +4,21 @@
 #include "Gizmo.h"
 #include "../Engine/header/SpotLight.h"
 #include "../Engine/header/PointLight.h"
+#include "../Engine/header/Light.h"
 #include "FreePerspectiveCamera.h"
 
 // 정석 컴포넌트의 정의부분입니다.
 ImplementStaticComponent(LightManager);
 
-std::vector<LightManager*> LightManager::g_LightVec;
+std::vector<LightObject*> LightManager::g_LightVec;
 
 void LightManager::Awake()
 {
 	// 정적 변수에 대입합니다.
 	g_instance = this;
 
-	m_LightChildObject = CreateGameObject();
-	g_LightVec.push_back(this);
+//g_LightVec.push_back(this);
 
-	m_LightChildObject->transform->parent = GetGameObject()->transform;
-	m_LightChildObject->transform->localPosition = Vec3::zero();
 
 	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 }
@@ -38,11 +36,6 @@ void LightManager::OnDestroy()
 		g_LightVec.erase(it);
 }
 
-void LightManager::LightSettings(const wstring& localPathMesh)
-{
-	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
-	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
-}
 
 LightManager* LightManager::LightPick()
 {
@@ -51,13 +44,14 @@ LightManager* LightManager::LightPick()
 
 	Vec3 HitPoint;
 
+
 	for (auto pickable : g_LightVec)
 	{
-		UserMeshRenderer* Renderer = pickable->GetRenderer();
+		UserMeshRenderer* Renderer = pickable
 
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
-			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
+			EditorManager::GetInstance()->GetGizmo()->Attach(Get);
 			return pickable;
 		}
 	}
@@ -93,12 +87,3 @@ void LightManager::AddLight(const tag_t& tag, const wstring& LightName, const ws
 	}
 }
 
-PointLight* LightManager::GetPointLight()
-{
-	return m_PointLight;
-}
-
-SpotLight* LightManager::GetSpotLight()
-{
-	return m_SpotLight;
-}
