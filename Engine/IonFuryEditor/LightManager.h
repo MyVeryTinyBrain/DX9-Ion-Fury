@@ -2,7 +2,6 @@
 
 
 enum class LIGHT {AMBINENT, DIRECTIONAL, POINT, SPOT, END};
-class LightObject;
 
 class LightManager :  public Component
 {
@@ -17,23 +16,38 @@ public:
 
 	OverrideComponentFunction(OnDestroy);
 
+public:
+	void LightSettings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh");
 
 	static LightManager* LightPick();
 
 public:
 	UserMeshRenderer* GetRenderer() { return m_LightRenderer; }
 
-public:
-
 	void AddLight(const tag_t& tag = L"Light", 
 		const wstring& LightName = L"DefaultName", 
 		const wstring& localPathMesh = BuiltInCubeUserMesh);
+
+public:
+
+	class PointLight* GetPointLight();
+	
+	class SpotLight* GetSpotLight();
+
+private:
+	class PointLight* m_PointLight;
+
+	class SpotLight* m_SpotLight;
+
+private:
+	GameObject* m_LightChildObject;
+
+	LIGHT m_LightType;
 
 	UserMeshRenderer* m_LightRenderer;
 
 
 public:
-	//여기서 추가해서 관리하는것
-	static std::vector<LightObject*> g_LightVec;
+	static std::vector<LightManager*> g_LightVec;
 };
 
