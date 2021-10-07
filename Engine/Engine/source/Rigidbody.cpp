@@ -80,7 +80,7 @@ void Rigidbody::SetContinuousDetection(bool value)
 void Rigidbody::ApplyBodyTransformFromGameObject()
 {
 	PxTransform pose = m_body->getGlobalPose();
-
+	
 	pose.p = ToPxVec3(transform->position);
 
 	if (Quat::Radian(FromPxQuat(pose.q), transform->rotation) > 0.01f)

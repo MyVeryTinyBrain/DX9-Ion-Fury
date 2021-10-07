@@ -11,6 +11,7 @@ void Camera::Awake()
 {
 	m_fovAngle = 90;
 
+	// aspect = x / y
 	m_aspect = GraphicDevice::GetInstance()->GetDeviceAspect();
 
 	m_near = 0.1f;
@@ -100,6 +101,16 @@ float Camera::GetOrthographicSize() const
 void Camera::SetOrthographicSize(float value)
 {
 	m_orthographicSize = value;
+}
+
+float Camera::GetOrthographicWidth() const
+{
+	return (m_aspect / 1.0f) * m_orthographicSize;
+}
+
+float Camera::GetOrthographicHeight() const
+{
+	return 1.0f * m_orthographicSize;
 }
 
 int Camera::GetCameraOrder() const

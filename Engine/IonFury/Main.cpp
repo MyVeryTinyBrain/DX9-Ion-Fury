@@ -12,7 +12,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	world.InitializeWithShowWindow(hInstance, 800, 600, true, L"Ion Fury", WndProc);
+	world.InitializeWithShowWindow(hInstance, 1280, 720, true, L"Ion Fury", WndProc);
 
 	SceneManager::ChangeScene(new TestScene);
 

@@ -104,6 +104,16 @@ void Collider::SetFrictionCombineMode(PhysicsCombineMode value)
 	m_material->setFrictionCombineMode((PxCombineMode::Enum)value);
 }
 
+PhysicsCombineMode Collider::GetRestitutionCombineMode() const
+{
+	return (PhysicsCombineMode)m_material->getRestitutionCombineMode();
+}
+
+void Collider::SetRestitutionCombineMode(PhysicsCombineMode value)
+{
+	m_material->setRestitutionCombineMode((PxCombineMode::Enum)value);
+}
+
 bool Collider::IsStringFrictionMode() const
 {
 	return !m_material->getFlags().isSet(PxMaterialFlag::eDISABLE_STRONG_FRICTION);

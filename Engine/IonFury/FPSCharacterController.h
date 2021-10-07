@@ -10,6 +10,12 @@ class FPSCharacterController : public Component
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(OnDestroy);
+
+	void OnCollisionEnter(const CollisionEnter& collision);
+
+	void OnCollisionExit(const CollisionExit& collision);
+
 public:
 
 	Rigidbody* GetRigidbody() const;

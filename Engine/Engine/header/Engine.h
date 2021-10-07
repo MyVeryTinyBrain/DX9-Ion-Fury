@@ -21,6 +21,7 @@
 #include "Line.h"
 #include "ResourceObject.h"
 #include "Resource.h"
+#include "Path.h"
 #include "Texture.h"
 #include "RenderTexture.h"
 #include "Material.h"

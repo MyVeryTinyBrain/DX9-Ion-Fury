@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "PhysicsDevice.h"
 #include "BuiltIn.h"
+#include "SharedResourceLoader.h"
 #include "RenderProcess.h"
 
 HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int height, bool windowed, LPCWSTR title, WNDPROC wndProc)
@@ -29,6 +30,8 @@ HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int he
 	PhysicsDevice::GetInstance()->Initialize();
 
 	BuiltIn::MakeBuiltInResources();
+
+	SharedResourceLoader::LoadSharedResources();
 
 	m_initialized = true;
 

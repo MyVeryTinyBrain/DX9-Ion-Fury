@@ -22,6 +22,8 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Path.cpp" />
+    <ClCompile Include="source\SharedResourceLoader.cpp" />
     <ClCompile Include="source\RenderTexture.cpp" />
     <ClCompile Include="source\RenderProcess.cpp" />
     <ClCompile Include="source\Physics.cpp" />
@@ -180,6 +182,8 @@
     <ClInclude Include="header\Physics.h" />
     <ClInclude Include="header\RenderProcess.h" />
     <ClInclude Include="header\RenderTexture.h" />
+    <ClInclude Include="header\SharedResourceLoader.h" />
+    <ClInclude Include="header\Path.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />

@@ -56,6 +56,12 @@ public:
 	// 마찰 결합 모드를 설정합니다.
 	void SetFrictionCombineMode(PhysicsCombineMode value);
 
+	// 반발계수 결합 모드를 반환합니다.
+	PhysicsCombineMode GetRestitutionCombineMode() const;
+
+	// 반발계수 결합 모드를 설정합니다.
+	void SetRestitutionCombineMode(PhysicsCombineMode value);
+		
 	// 강한 마찰 모드 상태를 반환합니다.
 	bool IsStringFrictionMode() const;
 
@@ -72,6 +78,8 @@ public:
 	__declspec(property(get = GetRestitution, put = SetRestitution)) float restitution;
 
 	__declspec(property(get = GetFrictionCombineMode, put = SetFrictionCombineMode)) PhysicsCombineMode frictionCombineMode;
+
+	__declspec(property(get = GetRestitutionCombineMode, put = SetRestitutionCombineMode)) PhysicsCombineMode restitutionCombineMode;
 
 	__declspec(property(get = IsStringFrictionMode, put = SetStringFrictionMode)) bool isStringFrictionMode;
 

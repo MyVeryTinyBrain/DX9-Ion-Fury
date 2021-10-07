@@ -15,7 +15,7 @@ float SphereCollider::GetRadius() const
 void SphereCollider::SetRadius(float value)
 {
     m_radius = value;
-    ApplyScale();
+    ResetShape();
 }
 
 PxSphereGeometry SphereCollider::CreateSphereGeometry() const

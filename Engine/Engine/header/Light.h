@@ -60,7 +60,7 @@ private:
 
 protected:
 
-	enum { LIGHT_MAX = 256 };
+	enum { LIGHT_MAX = 10 };
 
 	static bool g_lightEnables[LIGHT_MAX];
 

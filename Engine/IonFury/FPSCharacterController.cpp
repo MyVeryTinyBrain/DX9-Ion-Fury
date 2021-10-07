@@ -12,6 +12,8 @@ void FPSCharacterController::Awake()
 
     m_colliderObj = CreateGameObjectToChild(m_subObj->transform);
     m_collider = m_colliderObj->AddComponent<CapsuleCollider>();
+    m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &FPSCharacterController::OnCollisionEnter);
+    m_collider->OnCollisionExit += Function<void(const CollisionExit&)>(this, &FPSCharacterController::OnCollisionExit);
 
     m_cameraObj = CreateGameObjectToChild(m_subObj->transform);
     m_camera = m_cameraObj->AddComponent<FPSCamera>();
@@ -21,6 +23,35 @@ void FPSCharacterController::Awake()
 
 void FPSCharacterController::FixedUpdate()
 {
+    PhysicsRay ray;
+    ray.point = m_collider->transform->position;
+    ray.direction = Vec3::down();
+    ray.distance = m_collider->halfHeight + m_collider->radius * sqrtf(2.5f);
+    m_hasGround = Physics::RaycastTest(ray, 0xFFFFFFFF, PhysicsQueryType::All, m_body);
+    
+    if (Input::GetKey(Key::Space))
+    {
+        if (m_hasGround)
+        {
+            Vec3 velocity = m_body->velocity;
+            velocity.y = m_jumpSpeed;
+            m_body->velocity = velocity;
+
+            transform->position += Vec3::up() * 0.05f;
+            m_body->ApplyBodyTransformFromGameObject();
+            m_hasGround = false;
+        }
+    }
+
+    if (!m_hasGround)
+    {
+        m_collider->friction = 0.0f;
+    }
+    else
+    {
+        m_collider->friction = 1.0f;
+    }
+
     Vec3 direction;
     if (Input::GetKey(Key::A))
         direction.x = -1;
@@ -56,38 +87,33 @@ void FPSCharacterController::FixedUpdate()
 
         m_body->velocity = velocity;
     }
+
+    if (Input::GetKey(Key::LCtrl))
+    {
+        m_collider->halfHeight = 0.01f;
+    }
+    else
+    {
+        m_collider->halfHeight = 0.5f;
+    }
 }
 
 void FPSCharacterController::Update()
 {
-    PhysicsRay ray;
-    ray.point = m_collider->transform->position;
-    ray.direction = Vec3::down();
-    ray.distance = m_collider->halfHeight + m_collider->radius * sqrtf(2.5f);
-    m_hasGround = Physics::RaycastTest(ray, 0xFFFFFFFF, PhysicsQueryType::All, m_body);
+}
 
-    if (Input::GetKey(Key::Space))
-    {
-        if (m_hasGround)
-        {
-            Vec3 velocity = m_body->velocity;
-            velocity.y = m_jumpSpeed;
-            m_body->velocity = velocity;
+void FPSCharacterController::OnDestroy()
+{
+    m_collider->OnCollisionEnter -= Function<void(const CollisionEnter&)>(this, &FPSCharacterController::OnCollisionEnter);
+    m_collider->OnCollisionExit -= Function<void(const CollisionExit&)>(this, &FPSCharacterController::OnCollisionExit);
+}
 
-            transform->position += Vec3::up() * 0.05f;
-            m_body->ApplyBodyTransformFromGameObject();
-            m_hasGround = false;
-        }
-    }
+void FPSCharacterController::OnCollisionEnter(const CollisionEnter& collision)
+{
+}
 
-    if (!m_hasGround)
-    {
-        m_collider->friction = 0.0f;
-    }
-    else
-    {
-        m_collider->friction = 1.0f;
-    }
+void FPSCharacterController::OnCollisionExit(const CollisionExit& collision)
+{
 }
 
 Rigidbody* FPSCharacterController::GetRigidbody() const

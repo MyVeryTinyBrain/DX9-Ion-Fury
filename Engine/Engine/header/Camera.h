@@ -47,9 +47,17 @@ public:
 
 	void SetOrthographicSize(float value);
 
-	__declspec(property(get = GetOrthographicSize, put = SetOrthographicSize)) float orthographicSize;
+	float GetOrthographicWidth() const;
+
+	float GetOrthographicHeight() const;
 
 	__declspec(property(get = GetFOV, put = SetFOV)) float fov;
+
+	__declspec(property(get = GetOrthographicSize, put = SetOrthographicSize)) float orthographicSize;
+
+	__declspec(property(get = GetOrthographicWidth)) float orthographicWidth;
+
+	__declspec(property(get = GetOrthographicHeight)) float orthographicHeight;
 
 public:
 
@@ -102,10 +110,11 @@ private:
 	// 카메라가 렌더링되는 순서입니다.
 	int m_cameraOrder = 0;
 
-	// 1 ~ 32 번째 비트 중 켜진 비트의 레이어에 대해서만 카메라에 담습니다.
+	// 0 ~ 31 번째 비트 중 켜진 비트의 레이어에 대해서만 카메라에 담습니다.
 	uint32_t m_allowRenderLayers = 0xFFFFFFFF;
 
 	// 활성화되면 메인 버퍼의 깊이 버퍼와 스텐실 버퍼를 초기화해 화면에 덮에 그리도록 합니다.
+	// 두 개
 	bool m_overlap = false;
 
 	ProjectionMode m_projectionMode = ProjectionMode::Perspective;
