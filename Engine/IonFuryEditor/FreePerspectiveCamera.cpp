@@ -4,6 +4,7 @@
 #include "Pickable.h"
 #include "EditorManager.h"
 
+
 void FreePerspectiveCamera::Update()
 {
 	Vec3 pos = transform->position;
@@ -87,4 +88,3 @@ void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& 
 	auto test = Obj->AddComponent<Pickable>();
 	test->Settings(localPathMesh, localPathTexture);
 }
-

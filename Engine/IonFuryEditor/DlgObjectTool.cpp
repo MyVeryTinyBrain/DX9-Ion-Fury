@@ -9,6 +9,7 @@
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
 
+
 // DlgObjectTool 대화 상자
 
 IMPLEMENT_DYNAMIC(DlgObjectTool, CDialog)
@@ -39,11 +40,11 @@ void DlgObjectTool::SelectObject()
 	m_fPosX = m_rPosX;
 	m_fPosY = m_rPosY;
 	m_fPosZ = m_rPosZ;
-	  
+
 	m_fScaleX = m_rScaleX;
 	m_fScaleY = m_rScaleY;
 	m_fScaleZ = m_rScaleZ;
-	  
+
 	m_fRotX = m_rRotX;
 	m_fRotY = m_rRotY;
 	m_fRotZ = m_rRotZ;
@@ -108,7 +109,7 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, OBJECT_4, m_rScaleX);
 	DDX_Text(pDX, OBJECT_7, m_rScaleY);
 	DDX_Text(pDX, OBJECT_10, m_rScaleZ);
-	
+
 }
 
 
@@ -168,7 +169,7 @@ void DlgObjectTool::OnSelectMesh()
 	UpdateData(TRUE);
 
 	m_eMesh = (COMBOBOX)m_comboBox.GetCurSel();
-	
+
 
 	switch (m_eMesh)
 	{
@@ -250,15 +251,16 @@ void DlgObjectTool::OnBnClickedSave()
 
 		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL, nullptr);
-		
+
 		if (INVALID_HANDLE_VALUE == hFile)
 			return;
 
 		DWORD dwByte = 0;
 		DWORD dwStrByte = 0;
+		DWORD dwStrByte2 = 0;
 
 		auto pickObj = Pickable::g_PickableVec;
-		
+
 
 		for (auto& pick : pickObj)
 		{
@@ -268,13 +270,11 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
 
+			WriteFile(hFile, &m_eMesh, sizeof(COMBOBOX), &dwByte, nullptr);					// mesh enum
+
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
-
-			// Mesh
-			//auto renderer = pick->GetRenderer();
-			//renderer->userMesh;
 
 		}
 
@@ -310,7 +310,81 @@ void DlgObjectTool::OnBnClickedLoad()
 
 		// Release
 
+		//
 
+		DWORD dwByte = 0;
+		DWORD dwStrByte = 0;
+		wchar_t* pBuff = nullptr;
+		GameObject* pObj = nullptr;
+		CString mesh = L"";
+		Vec3 vPos = {};
+		Vec3 vScale = {};
+		Vec3 vRot = {};
+		COMBOBOX eMesh = COMBOBOX::END;
+		auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+		while (true)
+		{
+
+			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
+
+			if (0 == dwByte)
+				break;
+
+			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"Test");
+			
+			pBuff = new wchar_t[dwStrByte];
+			ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
+			pObj->name = pBuff;
+
+			if (pBuff)
+			{
+				delete[] pBuff;
+				pBuff = nullptr;
+			}
+
+			ReadFile(hFile, &eMesh, sizeof(COMBOBOX), &dwByte, nullptr);
+
+			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);
+			ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);
+			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);
+
+			auto pickrender = pObj->AddComponent<UserMeshRenderer>();
+
+			switch (m_eMesh)
+			{
+			case DlgObjectTool::COMBOBOX::Cube:
+				mesh = BuiltInCubeUserMesh;
+				break;
+			case DlgObjectTool::COMBOBOX::Cyilinder:
+				mesh = BuiltInCyilinderUserMesh;
+				break;
+			case DlgObjectTool::COMBOBOX::Quad:
+				mesh = BuiltInQuadUserMesh;
+				break;
+			case DlgObjectTool::COMBOBOX::Sphere:
+				mesh = BuiltInSphereUserMesh;
+				break;
+			case DlgObjectTool::COMBOBOX::Capsule:
+				mesh = BuiltInCapsuleUserMesh;
+				break;
+			case DlgObjectTool::COMBOBOX::RightTriangle:
+				mesh = BuiltInRightTriangleUserMesh;
+				break;
+			case DlgObjectTool::COMBOBOX::Triangle:
+				mesh = BuiltInTriangleUserMesh;
+				break;
+			}
+
+			pObj->transform->position = vPos;
+			pObj->transform->scale = vScale;
+			pObj->transform->eulerAngle = vRot;
+
+			auto test = pObj->AddComponent<Pickable>();
+			test->Settings(mesh.GetString(), L"../SharedResourced/Texture/Category0/*");
+
+		}
+
+		CloseHandle(hFile);
 	}
 
 }
@@ -327,11 +401,11 @@ void DlgObjectTool::OnBnClickedClear()
 	m_fPosX = 0.f;
 	m_fPosY = 0.f;
 	m_fPosZ = 0.f;
-	  
+
 	m_fScaleX = 1.f;
 	m_fScaleY = 1.f;
 	m_fScaleZ = 1.f;
-	  
+
 	m_fRotX = 0.f;
 	m_fRotY = 0.f;
 	m_fRotZ = 0.f;
