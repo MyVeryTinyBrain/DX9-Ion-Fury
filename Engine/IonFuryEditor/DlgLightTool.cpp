@@ -91,11 +91,11 @@ BOOL DlgLightTool::OnInitDialog()
 	SetAttr(m_nOpa);
 
 	//Type 콤보박스 추가 작업입니다. 
+	m_LT_ComboBox.AddString(_T("Directional"));
 	m_LT_ComboBox.AddString(_T("Point"));
 	m_LT_ComboBox.AddString(_T("Spot"));
-	m_LT_ComboBox.AddString(_T("Directional"));
 	//m_LT_ComboBox.AddString(_T("Ambinent"));
-	m_LT_ComboBox.SetCurSel(3);
+	m_LT_ComboBox.SetCurSel(0);
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
@@ -178,16 +178,17 @@ void DlgLightTool::OnSelectLight()
 
 	m_comboBox = (COMBOBOX)m_LT_ComboBox.GetCurSel(); //선택한거
 
+
 	switch (m_comboBox)
 	{
+	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
+		m_LightType = L"Directional";
+		break;
 	case DlgLightTool::COMBOBOX::POINTLIGNT:
 		m_LightType = L"Point";
 		break;
 	case DlgLightTool::COMBOBOX::SPOTLIGNT:
 		m_LightType = L"Spot";
-		break;
-	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
-		m_LightType = L"Directional";
 		break;
 	default:
 		break;
