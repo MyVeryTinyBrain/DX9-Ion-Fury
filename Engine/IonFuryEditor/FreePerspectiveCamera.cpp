@@ -3,6 +3,8 @@
 #include "Gizmo.h"
 #include "Pickable.h"
 #include "EditorManager.h"
+#include "LightObj.h"
+
 
 void FreePerspectiveCamera::Update()
 {
@@ -22,6 +24,8 @@ void FreePerspectiveCamera::Update()
 
 	if (Input::GetKeyDown(Key::M))
 		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
+	if (Input::GetKeyDown(Key::L))
+		EditorManager::GetInstance()->GetGizmo()->GetInformation();
 
 
 	if (Input::GetKey(Key::Left))
@@ -75,15 +79,46 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	return pos;
 }
 
-void FreePerspectiveCamera::Add_Object_Sample(const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
+void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
 {
+	if (localPathMesh.length() < 1)
+		return;
 	GameObject* Obj = CreateGameObject(tag);
 
 	Obj->name = ObjName;
 
 	Obj->transform->position = transform->position + transform->forward * 2;
+	
 
 	auto test = Obj->AddComponent<Pickable>();
 	test->Settings(localPathMesh, localPathTexture);
 }
 
+void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& LightType )
+{
+	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+
+	if (LightType == L"Point")
+	{
+		GameObject* PointLightObj = CreateGameObject(L"Light");
+
+		PointLightObj->name = LightName;
+
+		//PointLightObj->Set
+
+		PointLightObj->transform->position = transform->position + transform->forward * 2;
+
+		PointLightObj->AddComponent<LightObj>();
+
+	}
+	else if (LightType == L"Spot")
+	{
+		GameObject* SpotLightObj = CreateGameObject(L"Light");
+
+		SpotLightObj->name = LightName;
+
+		SpotLightObj->transform->position = transform->position + transform->forward * 2;
+
+		SpotLightObj->AddComponent<LightObj>();
+	}
+}

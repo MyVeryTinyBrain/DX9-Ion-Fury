@@ -34,7 +34,8 @@ void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTe
 {
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
 	m_Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
-	m_Renderer->SetTexture(0, Resource::Find(localPathTexture)->GetReferenceTo<Texture>());
+	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
+	//m_Renderer->SetTexture(0, Resource::Find(localPathTexture)->GetReferenceTo<Texture>());
 }
 
 Pickable* Pickable::Pick()

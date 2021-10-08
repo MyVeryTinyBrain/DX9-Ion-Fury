@@ -37,6 +37,13 @@
     <ClCompile Include="DlgObjectTool.cpp">
       <Filter>Dlg</Filter>
     </ClCompile>
+    <ClCompile Include="DlgTextureTool.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObj.cpp">
+      <Filter>EditorCore</Filter>
+    </ClCompile>
+    <ClCompile Include="FileInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -84,6 +91,13 @@
     <ClInclude Include="DlgLightTool.h">
       <Filter>Dlg</Filter>
     </ClInclude>
+    <ClInclude Include="DlgTextureTool.h">
+      <Filter>Dlg</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObj.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Toolbar.bmp">

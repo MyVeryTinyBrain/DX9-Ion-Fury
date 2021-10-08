@@ -1,9 +1,17 @@
 #include "IonFuryEditorBase.h"
 #include "Gizmo.h"
 #include "EditorManager.h"
+#include "Pickable.h"
 
 void Gizmo::Awake()
 {
+	MaterialParameters param;
+	param.renderQueue = RenderQueue::GeometryLast;
+	param.zRead = false;
+	param.zWrite = false;
+	param.useLight = false;
+	m_gizmoMaterial = Material::CreateUnmanaged(param);
+
 	UserMesh::Create<CubeUserMesh>(L"../Resource/Gizmo/CubeUserMesh.mesh", true);
 	Texture::CreateInDirectX(128, 128, Color::red(), L"../Resource/RedTexture.png", true);
 	Texture::CreateInDirectX(128, 128, Color::green(), L"../Resource/GreenTexture.png", true);
@@ -17,12 +25,13 @@ void Gizmo::Awake()
 	m_gizmoParentObj = CreateGameObject();
 	m_gizmoParentObj->transform->parent = gameObject->transform;
 
-	for (int i = 0; i < 3; ++i)
+	for (int i = 2; i >= 0; --i)
 	{
 		m_axisObj[i] = CreateGameObject();
 		m_axisObj[i]->transform->parent = m_gizmoParentObj->transform;
 		m_renderer[i] = m_axisObj[i]->AddComponent<UserMeshRenderer>();
 		m_renderer[i]->userMesh = gizmoCubeMesh;
+		m_renderer[i]->material = m_gizmoMaterial;
 	}
 
 	m_renderer[GIZMO_AXIS_X]->SetTexture(0, redTex);
@@ -45,6 +54,15 @@ void Gizmo::Update()
 	if (Input::GetKeyUp(Key::LeftMouse))
 	{
 		PutHandle();
+	}
+}
+
+void Gizmo::OnDestroy()
+{
+	if (m_gizmoMaterial)
+	{
+		m_gizmoMaterial->ReleaseUnmanaged();
+		m_gizmoMaterial = nullptr;
 	}
 }
 
@@ -143,6 +161,25 @@ void Gizmo::DeleteAttachedObject()
 	m_selectedTransform.Reset();
 }
 
+void Gizmo::ChangeTextureAttachedObject(CString texturePath)
+{
+	if (m_selectedTransform)
+	{
+		UserMeshRenderer* renderer = m_selectedTransform->gameObject->GetComponent<Pickable>()->GetRenderer();
+		renderer->SetTexture(0, Resource::Find(texturePath.GetString())->GetReferenceTo<Texture>());
+	};
+}
+
+void Gizmo::GetInformation()
+{
+	if (m_selectedTransform)
+	{
+		UserMeshRenderer* renderer = m_selectedTransform->gameObject->GetComponent<Pickable>()->GetRenderer();
+		wstring meshPath = renderer->GetUserMesh()->GetLocalPath();
+		wstring texPath = renderer->GetTexture(0)->GetLocalPath();	//settexture할때도 0으로 잡았으니까
+	}
+}
+
 
 
 void Gizmo::ResetGizmoTransform()
@@ -168,6 +205,25 @@ void Gizmo::Handling()
 	Vec3 dragCoord = CalcGizmoHandlingCoord();
 	Vec3 delta = dragCoord - m_selectCoord;
 	transform->position = m_selectedPosition + delta;
+
+	if (Input::GetKey(Key::LCtrl))
+	{
+		float gap = 0.2f;
+		Vec3 pos = transform->position;
+		switch (m_select)
+		{
+		case GIZMO_AXIS_X:
+			pos.x = int(pos.x / gap) * gap;
+			break;
+		case GIZMO_AXIS_Y:
+			pos.y = int(pos.y / gap) * gap;
+			break;
+		case GIZMO_AXIS_Z:
+			pos.z = int(pos.z / gap) * gap;
+			break;
+		}
+		transform->position = pos;
+	}
 }
 
 Vec3 Gizmo::CalcGizmoHandlingCoord()
