@@ -259,7 +259,9 @@ void DlgObjectTool::OnBnClickedSave()
 		DWORD dwStrByte = 0;
 		DWORD dwStrByte2 = 0;
 		DWORD dwStrByte3 = 0;
+		DWORD dwStrByte4 = 0;
 		CString strMesh = L"";
+		CString tex = L"";
 
 		auto pickObj = Pickable::g_PickableVec;
 
@@ -276,12 +278,20 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 
-			auto meshrenderer = obj->AddComponent<Pickable>()->GetRenderer();
+			auto meshrenderer = pick->GetRenderer();
 			strMesh = meshrenderer->userMesh->GetLocalPath().c_str();
 			
 			dwStrByte3 = sizeof(wchar_t) * (strMesh.GetLength() + 1);
 			WriteFile(hFile, &dwStrByte3, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, strMesh, dwStrByte3, &dwByte, nullptr);				// mesh
+			
+			auto texture = meshrenderer->GetTexture(0);
+			tex = texture->GetLocalPath().c_str();
+
+			dwStrByte4 = sizeof(wchar_t) * (tex.GetLength() + 1);
+			WriteFile(hFile, &dwStrByte4, sizeof(DWORD), &dwByte, nullptr);
+			WriteFile(hFile, tex, dwStrByte4, &dwByte, nullptr);				// texture
+
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
@@ -320,83 +330,75 @@ void DlgObjectTool::OnBnClickedLoad()
 			return;
 
 		// Release
-
+	
 		//
 
 		DWORD dwByte = 0;
 		DWORD dwStrByte = 0;
 		DWORD dwStrByte2 = 0;
 		DWORD dwStrByte3 = 0;
+		DWORD dwStrByte4 = 0;
+
 		wchar_t* pBuff = nullptr;
+		wchar_t* pBuff2 = nullptr;
+		wchar_t* pBuff3 = nullptr;
+		wchar_t* pBuff4 = nullptr;
+
 		GameObject* pObj = nullptr;
-		CString mesh = L"";
 		Vec3 vPos = {};
 		Vec3 vScale = {};
 		Vec3 vRot = {};
-		COMBOBOX eMesh = COMBOBOX::END;
-		auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+
+	
 		while (true)
 		{
 
 			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
-			ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// 이름
-
-			if (0 == dwByte)
-				break;
-
-			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"Test");
-			
 			pBuff = new wchar_t[dwStrByte];
 			ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
-			pObj->name = pBuff;
 
-			if (pBuff)
+			ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
+			pBuff2 = new wchar_t[dwStrByte2];
+			ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
+
+			ReadFile(hFile, &dwStrByte3, sizeof(DWORD), &dwByte, nullptr);		// mesh
+			pBuff3 = new wchar_t[dwStrByte3];
+			ReadFile(hFile, pBuff3, dwStrByte3, &dwByte, nullptr);
+
+			ReadFile(hFile, &dwStrByte4, sizeof(DWORD), &dwByte, nullptr);		// texture
+			pBuff4 = new wchar_t[dwStrByte4];
+			ReadFile(hFile, pBuff4, dwStrByte4, &dwByte, nullptr);
+
+			if (0 == dwByte)
 			{
-				delete[] pBuff;
-				pBuff = nullptr;
+				SafeDeleteArray(pBuff);
+				SafeDeleteArray(pBuff2);
+				SafeDeleteArray(pBuff3);
+				SafeDeleteArray(pBuff4);
+				break;
 			}
 
-			
+			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
+			pObj->name = pBuff;
+
+
+			auto pickrender = pObj->AddComponent<UserMeshRenderer>();
+			pickrender->userMesh = Resource::FindAs<UserMesh>(pBuff3);
+			pickrender->SetTexture(0, Resource::FindAs<Texture>(pBuff4));
+
+			SafeDeleteArray(pBuff);
+			SafeDeleteArray(pBuff2);
+			SafeDeleteArray(pBuff3);
+			SafeDeleteArray(pBuff4);
 
 			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);			// pos
 			ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);		// scale
 			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);			// angle
 
-			auto pickrender = pObj->AddComponent<Pickable>()->GetRenderer();
-			pickrender->userMesh = Resource::FindAs<UserMesh>(mesh.GetString());
-
-
-			//switch (m_eMesh)
-			//{
-			//case DlgObjectTool::COMBOBOX::Cube:
-			//	mesh = BuiltInCubeUserMesh;
-			//	break;
-			//case DlgObjectTool::COMBOBOX::Cyilinder:
-			//	mesh = BuiltInCyilinderUserMesh;
-			//	break;
-			//case DlgObjectTool::COMBOBOX::Quad:
-			//	mesh = BuiltInQuadUserMesh;
-			//	break;
-			//case DlgObjectTool::COMBOBOX::Sphere:
-			//	mesh = BuiltInSphereUserMesh;
-			//	break;
-			//case DlgObjectTool::COMBOBOX::Capsule:
-			//	mesh = BuiltInCapsuleUserMesh;
-			//	break;
-			//case DlgObjectTool::COMBOBOX::RightTriangle:
-			//	mesh = BuiltInRightTriangleUserMesh;
-			//	break;
-			//case DlgObjectTool::COMBOBOX::Triangle:
-			//	mesh = BuiltInTriangleUserMesh;
-			//	break;
-			//}
-
 			pObj->transform->position = vPos;
 			pObj->transform->scale = vScale;
 			pObj->transform->eulerAngle = vRot;
 
-			auto test = pObj->AddComponent<Pickable>();
-			test->Settings(mesh.GetString(), L"../SharedResourced/Texture/Category0/*");
 
 		}
 
