@@ -32,6 +32,7 @@
 #define IDC_BUTTON1                     1018
 #define IDC_BUTTON2                     1019
 #define IDC_EDIT17                      1020
+<<<<<<< HEAD
 #define OBJECT_1                        1021
 #define IDC_LIST1                       1022
 #define OBJECT_2                        1022
@@ -70,6 +71,8 @@
 #define IDC_BUTTON5                     1042
 #define IDC_TAB1                        1043
 #define IDC_PIC                         1044
+=======
+>>>>>>> main
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -78,9 +81,16 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
+<<<<<<< HEAD
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32774
 #define _APS_NEXT_CONTROL_VALUE         1045
 #define _APS_NEXT_SYMED_VALUE           313
+=======
+#define _APS_NEXT_RESOURCE_VALUE        312
+#define _APS_NEXT_COMMAND_VALUE         32773
+#define _APS_NEXT_CONTROL_VALUE         1019
+#define _APS_NEXT_SYMED_VALUE           312
+>>>>>>> main
 #endif
 #endif

@@ -14,8 +14,12 @@
 #include "IonFuryEditorView.h"
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
+<<<<<<< HEAD
 #include "Pickable.h"
 #include "LightObj.h"
+=======
+
+>>>>>>> main
 #include "EditorScene.h"
 
 #ifdef new
@@ -39,8 +43,11 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
+<<<<<<< HEAD
 	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
 	ON_WM_LBUTTONDOWN()
+=======
+>>>>>>> main
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -198,6 +205,7 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	switch (nChar)
 	{
 	case 'P':
+<<<<<<< HEAD
 		camera->Add_Object_Sample(
 			m_dlgObjectTool.m_objectTag.GetString(),
 			m_dlgObjectTool.m_objectName.GetString(),
@@ -208,12 +216,16 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		camera->AddLight(m_dlgLightTool.m_LightName.GetString(),
 			m_dlgLightTool.m_LightType.GetString() 
 			); 
+=======
+		camera->Add_Object_Sample(m_dlgObjectTool.m_objectTag.GetString(), m_dlgObjectTool.m_objectName.GetString(), m_dlgObjectTool.m_meshPath.GetString());
+>>>>>>> main
 		break;
 	default:
 		break;
 	}
 
 }
+<<<<<<< HEAD
 
 
 void CIonFuryEditorView::OnTextureTool()
@@ -244,3 +256,5 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 
 }
+=======
+>>>>>>> main

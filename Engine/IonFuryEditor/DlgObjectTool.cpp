@@ -14,6 +14,7 @@
 
 IMPLEMENT_DYNAMIC(DlgObjectTool, CDialog)
 
+<<<<<<< HEAD
 void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 {
 	m_SelectName = gameobject->name.c_str();
@@ -51,6 +52,8 @@ void DlgObjectTool::SelectObject()
 
 	UpdateData(FALSE);
 }
+=======
+>>>>>>> main
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
@@ -66,6 +69,7 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_fScaleZ(1.f)
 	, m_meshPath(L"")
 	, m_objectTag(_T(""))
+<<<<<<< HEAD
 	, m_SelectName(_T(""))
 	, m_rPosX(0)
 	, m_rRotX(0)
@@ -76,6 +80,8 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_rRotZ(0)
 	, m_rScaleZ(0)
 	, m_rScaleY(0)
+=======
+>>>>>>> main
 {
 
 }
@@ -99,6 +105,7 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT9, m_fScaleY);
 	DDX_Text(pDX, IDC_EDIT10, m_fScaleZ);
 	DDX_Text(pDX, IDC_EDIT17, m_objectTag);
+<<<<<<< HEAD
 	DDX_Text(pDX, OBJECT_1, m_SelectName);
 	DDX_Text(pDX, OBJECT_2, m_rPosX);
 	DDX_Text(pDX, OBJECT_8, m_rPosZ);
@@ -110,6 +117,8 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, OBJECT_7, m_rScaleY);
 	DDX_Text(pDX, OBJECT_10, m_rScaleZ);
 
+=======
+>>>>>>> main
 }
 
 
@@ -141,10 +150,13 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_comboBox.AddString(_T("RightTriangle"));
 	m_comboBox.AddString(_T("Triangle"));
 
+<<<<<<< HEAD
 
 	m_comboBox.SetCurSel(0);
 
 	m_meshPath = BuiltInCubeUserMesh;
+=======
+>>>>>>> main
 
 
 
@@ -212,6 +224,7 @@ void DlgObjectTool::OnObjectTag()
 
 void DlgObjectTool::OnBnClickedApply()
 {
+<<<<<<< HEAD
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
 	UpdateData(TRUE);
@@ -238,6 +251,8 @@ void DlgObjectTool::OnBnClickedSave()
 	TCHAR szFilePath[MAX_PATH];
 
 	GetCurrentDirectory(MAX_PATH, szFilePath);
+=======
+>>>>>>> main
 
 	PathRemoveFileSpec(szFilePath);
 
