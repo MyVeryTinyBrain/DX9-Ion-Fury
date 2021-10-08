@@ -258,6 +258,8 @@ void DlgObjectTool::OnBnClickedSave()
 		DWORD dwByte = 0;
 		DWORD dwStrByte = 0;
 		DWORD dwStrByte2 = 0;
+		DWORD dwStrByte3 = 0;
+		CString strMesh = L"";
 
 		auto pickObj = Pickable::g_PickableVec;
 
@@ -270,7 +272,16 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
 
-			WriteFile(hFile, &m_eMesh, sizeof(COMBOBOX), &dwByte, nullptr);					// mesh enum
+			dwStrByte2 = sizeof(wchar_t) * (obj->tag.length() + 1);
+			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
+			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
+
+			auto meshrenderer = obj->AddComponent<Pickable>()->GetRenderer();
+			strMesh = meshrenderer->userMesh->GetLocalPath().c_str();
+			
+			dwStrByte3 = sizeof(wchar_t) * (strMesh.GetLength() + 1);
+			WriteFile(hFile, &dwStrByte3, sizeof(DWORD), &dwByte, nullptr);
+			WriteFile(hFile, strMesh, dwStrByte3, &dwByte, nullptr);				// mesh
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
@@ -314,6 +325,8 @@ void DlgObjectTool::OnBnClickedLoad()
 
 		DWORD dwByte = 0;
 		DWORD dwStrByte = 0;
+		DWORD dwStrByte2 = 0;
+		DWORD dwStrByte3 = 0;
 		wchar_t* pBuff = nullptr;
 		GameObject* pObj = nullptr;
 		CString mesh = L"";
@@ -325,7 +338,8 @@ void DlgObjectTool::OnBnClickedLoad()
 		while (true)
 		{
 
-			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
+			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
+			ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// 이름
 
 			if (0 == dwByte)
 				break;
@@ -342,38 +356,40 @@ void DlgObjectTool::OnBnClickedLoad()
 				pBuff = nullptr;
 			}
 
-			ReadFile(hFile, &eMesh, sizeof(COMBOBOX), &dwByte, nullptr);
+			
 
-			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);
-			ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);
-			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);
+			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);			// pos
+			ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);		// scale
+			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);			// angle
 
-			auto pickrender = pObj->AddComponent<UserMeshRenderer>();
+			auto pickrender = pObj->AddComponent<Pickable>()->GetRenderer();
+			pickrender->userMesh = Resource::FindAs<UserMesh>(mesh.GetString());
 
-			switch (m_eMesh)
-			{
-			case DlgObjectTool::COMBOBOX::Cube:
-				mesh = BuiltInCubeUserMesh;
-				break;
-			case DlgObjectTool::COMBOBOX::Cyilinder:
-				mesh = BuiltInCyilinderUserMesh;
-				break;
-			case DlgObjectTool::COMBOBOX::Quad:
-				mesh = BuiltInQuadUserMesh;
-				break;
-			case DlgObjectTool::COMBOBOX::Sphere:
-				mesh = BuiltInSphereUserMesh;
-				break;
-			case DlgObjectTool::COMBOBOX::Capsule:
-				mesh = BuiltInCapsuleUserMesh;
-				break;
-			case DlgObjectTool::COMBOBOX::RightTriangle:
-				mesh = BuiltInRightTriangleUserMesh;
-				break;
-			case DlgObjectTool::COMBOBOX::Triangle:
-				mesh = BuiltInTriangleUserMesh;
-				break;
-			}
+
+			//switch (m_eMesh)
+			//{
+			//case DlgObjectTool::COMBOBOX::Cube:
+			//	mesh = BuiltInCubeUserMesh;
+			//	break;
+			//case DlgObjectTool::COMBOBOX::Cyilinder:
+			//	mesh = BuiltInCyilinderUserMesh;
+			//	break;
+			//case DlgObjectTool::COMBOBOX::Quad:
+			//	mesh = BuiltInQuadUserMesh;
+			//	break;
+			//case DlgObjectTool::COMBOBOX::Sphere:
+			//	mesh = BuiltInSphereUserMesh;
+			//	break;
+			//case DlgObjectTool::COMBOBOX::Capsule:
+			//	mesh = BuiltInCapsuleUserMesh;
+			//	break;
+			//case DlgObjectTool::COMBOBOX::RightTriangle:
+			//	mesh = BuiltInRightTriangleUserMesh;
+			//	break;
+			//case DlgObjectTool::COMBOBOX::Triangle:
+			//	mesh = BuiltInTriangleUserMesh;
+			//	break;
+			//}
 
 			pObj->transform->position = vPos;
 			pObj->transform->scale = vScale;
