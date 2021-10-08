@@ -80,6 +80,8 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 
 void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
 {
+	if (localPathMesh.length() < 1)
+		return;
 	GameObject* Obj = CreateGameObject(tag);
 
 	Obj->name = ObjName;

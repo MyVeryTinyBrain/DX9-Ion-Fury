@@ -331,9 +331,13 @@ void DlgObjectTool::OnBnClickedLoad()
 
 		if (INVALID_HANDLE_VALUE == hFile)
 			return;
-
-		// Release
 	
+		// Release
+		int vecSize = Pickable::g_PickableVec.size();
+		for (int i = 0; i < vecSize; ++i)
+		{
+			Pickable::g_PickableVec[0]->gameObject->Destroy();
+		}
 		//
 
 		DWORD dwByte = 0;
@@ -355,7 +359,6 @@ void DlgObjectTool::OnBnClickedLoad()
 	
 		while (true)
 		{
-
 			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
 			pBuff = new wchar_t[dwStrByte];
 			ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
@@ -384,10 +387,8 @@ void DlgObjectTool::OnBnClickedLoad()
 			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
 			pObj->name = pBuff;
 
-
-			auto pickrender = pObj->AddComponent<UserMeshRenderer>();
-			pickrender->userMesh = Resource::FindAs<UserMesh>(pBuff3);
-			pickrender->SetTexture(0, Resource::FindAs<Texture>(pBuff4));
+			Pickable* pick = pObj->AddComponent<Pickable>();
+			pick->Settings(pBuff3, pBuff4);
 
 			SafeDeleteArray(pBuff);
 			SafeDeleteArray(pBuff2);
@@ -401,8 +402,6 @@ void DlgObjectTool::OnBnClickedLoad()
 			pObj->transform->position = vPos;
 			pObj->transform->scale = vScale;
 			pObj->transform->eulerAngle = vRot;
-
-
 		}
 
 		CloseHandle(hFile);
