@@ -7,6 +7,7 @@
 #include "afxdialogex.h"
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
+#include "LightObj.h"
 
 // DlgLightTool 대화 상자
 
@@ -82,6 +83,10 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_EN_CHANGE(IDC_LT_DIRX, &DlgLightTool::OnEnChangeLtDirx)
 	ON_EN_CHANGE(IDC_LT_DIRY, &DlgLightTool::OnEnChangeLtDiry)
 	ON_EN_CHANGE(IDC_LT_DIRZ, &DlgLightTool::OnEnChangeLtDirz)
+	ON_EN_CHANGE(IDC_COLOR_R, &DlgLightTool::OnEnChangeColorR)
+	ON_EN_CHANGE(IDC_COLOR_G, &DlgLightTool::OnEnChangeColorG)
+	ON_EN_CHANGE(IDC_COLOR_B, &DlgLightTool::OnEnChangeColorB)
+	ON_EN_CHANGE(IDC_COLOR_A, &DlgLightTool::OnEnChangeColorA)
 END_MESSAGE_MAP()
 
 
@@ -137,6 +142,7 @@ BOOL DlgLightTool::OnInitDialog()
 	iPosZ = m_SliderDirX.GetPos();
 	sPosZ.Format(_T(" % d"), iPosZ);
 	m_DirZ.SetWindowText(sPosZ);
+
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -195,6 +201,16 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 void DlgLightTool::OnListBoxCtrl()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	for (auto& light : LightObj::g_LightVec)
+	{
+		auto lightob = light->GetGameObject();
+
+		m_LT_ListBox.AddString(lightob->name.c_str());
+	}
+
+	UpdateData(FALSE);
 }
 
 
@@ -281,4 +297,28 @@ void DlgLightTool::OnEnChangeLtDirz()
 	iPosZ = _ttoi(sPosZ);
 
 	m_SliderDirZ.SetPos(iPosZ);
+}
+
+
+void DlgLightTool::OnEnChangeColorR()
+{
+
+}
+
+
+void DlgLightTool::OnEnChangeColorG()
+{
+
+}
+
+
+void DlgLightTool::OnEnChangeColorB()
+{
+
+}
+
+
+void DlgLightTool::OnEnChangeColorA()
+{
+
 }
