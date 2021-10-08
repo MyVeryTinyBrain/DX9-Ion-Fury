@@ -4,7 +4,7 @@
 
 class UserMeshBillboardRenderer : public UserMeshRenderer
 {
-	OverrideComponentFunction(Render);
+	virtual void Render() override;
 
 public:
 

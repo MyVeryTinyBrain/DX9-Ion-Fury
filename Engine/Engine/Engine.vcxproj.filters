@@ -29,9 +29,6 @@
     <Filter Include="Time">
       <UniqueIdentifier>{367ec163-e708-4590-9717-a1ddd5901ca3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic">
-      <UniqueIdentifier>{947479b4-5850-41e7-972b-4cfefede0da3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{da08d1c6-6bd8-4354-9ef6-7f0b5e3dfcad}</UniqueIdentifier>
     </Filter>
@@ -92,6 +89,15 @@
     <Filter Include="Physics\Rigidbody">
       <UniqueIdentifier>{703fcb14-849a-4cc7-8dcc-35e95fdde37f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics\Layer">
+      <UniqueIdentifier>{f086117b-93c5-4dda-909e-6f94afea1d3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Query">
+      <UniqueIdentifier>{7f654918-a666-4e42-b538-55aa8fca7be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\PhysX">
+      <UniqueIdentifier>{00f5feb6-e07d-4c5d-9afc-03d9e79718cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -135,9 +141,6 @@
     </ClCompile>
     <ClCompile Include="source\GlobalTime.cpp">
       <Filter>Time</Filter>
-    </ClCompile>
-    <ClCompile Include="source\GraphicDevice.cpp">
-      <Filter>Graphic</Filter>
     </ClCompile>
     <ClCompile Include="source\EngineWorld.cpp">
       <Filter>Engine</Filter>
@@ -229,9 +232,6 @@
     <ClCompile Include="source\Vec4.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="source\PhysicsDevice.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="source\Line.cpp">
       <Filter>Render\Line</Filter>
     </ClCompile>
@@ -240,9 +240,6 @@
     </ClCompile>
     <ClCompile Include="source\BoxCollider.cpp">
       <Filter>Physics\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LayerManager.cpp">
-      <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="source\CapsuleUserMesh.cpp">
       <Filter>Resource\UserMesh\Capsule</Filter>
@@ -262,7 +259,7 @@
     <ClCompile Include="source\MaterialTypes.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="source\MaterialParameter.cpp">
+    <ClCompile Include="source\MaterialParameters.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
     <ClCompile Include="source\BuiltIn.cpp">
@@ -274,32 +271,59 @@
     <ClCompile Include="source\TriangleCollider.cpp">
       <Filter>Physics\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="source\PhysicsFilterShaderCallback.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsSimulationEventCallback.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="source\Rigidbody.cpp">
       <Filter>Physics\Rigidbody</Filter>
     </ClCompile>
     <ClCompile Include="source\Collider.cpp">
       <Filter>Physics\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="source\Layer.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsQueryFilterCallback.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsQuery.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysicsQueryTypes.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="source\Types.cpp">
       <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LayerManager.cpp">
+      <Filter>Physics\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQueryTypes.cpp">
+      <Filter>Physics\Query</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQueryFilterCallback.cpp">
+      <Filter>Physics\Query</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsQuery.cpp">
+      <Filter>Physics\Query</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Physics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsTriggerEvent.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsSimulationEventCallback.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsFilterShaderCallback.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsDevice.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsCallbackTypes.cpp">
+      <Filter>Physics\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GraphicDevice.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderProcess.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SharedResourceLoader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Path.cpp">
+      <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,9 +395,6 @@
     </ClInclude>
     <ClInclude Include="header\GlobalTime.h">
       <Filter>Time</Filter>
-    </ClInclude>
-    <ClInclude Include="header\GraphicDevice.h">
-      <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="header\Engine.h">
       <Filter>Engine</Filter>
@@ -507,9 +528,6 @@
     <ClInclude Include="header\PriorityQueue.h">
       <Filter>DataStructEx</Filter>
     </ClInclude>
-    <ClInclude Include="header\PhysicsDevice.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="header\Line.h">
       <Filter>Render\Line</Filter>
     </ClInclude>
@@ -521,15 +539,6 @@
     </ClInclude>
     <ClInclude Include="header\BoxCollider.h">
       <Filter>Physics\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="header\LayerManager.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsDefines.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsBase.h">
-      <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="header\CapsuleUserMesh.h">
       <Filter>Resource\UserMesh\Capsule</Filter>
@@ -549,7 +558,7 @@
     <ClInclude Include="header\MaterialTypes.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="header\MaterialParameter.h">
+    <ClInclude Include="header\MaterialParameters.h">
       <Filter>Resource\Material</Filter>
     </ClInclude>
     <ClInclude Include="header\BuiltIn.h">
@@ -564,35 +573,68 @@
     <ClInclude Include="header\TriangleCollider.h">
       <Filter>Physics\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="header\PhysicsFilterShaderCallback.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsSimulationEventCallback.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="header\Rigidbody.h">
       <Filter>Physics\Rigidbody</Filter>
     </ClInclude>
     <ClInclude Include="header\Collider.h">
       <Filter>Physics\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="header\Layer.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsQueryFilterCallback.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsQuery.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="header\PhysicsQueryTypes.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="header\LibraryLink86.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="header\LibraryLink64.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LayerManager.h">
+      <Filter>Physics\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQueryTypes.h">
+      <Filter>Physics\Query</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQueryFilterCallback.h">
+      <Filter>Physics\Query</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsQuery.h">
+      <Filter>Physics\Query</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Physics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsTriggerEvent.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsSimulationEventCallback.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsFilterShaderCallback.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsDevice.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsDefines.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsCallbackTypes.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\PhysicsBase.h">
+      <Filter>Physics\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="header\GraphicDevice.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RenderProcess.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RenderTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SharedResourceLoader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Path.h">
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

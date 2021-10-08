@@ -22,13 +22,16 @@ public:
 
 	static Texture* CreateInDirectX(const UINT& width, const UINT& height, const D3DXCOLOR& color, const wstring& localPath, bool isShared = false);
 
+	static Texture* CreateUnmanagedInDirectX(const UINT& width, const UINT& height, const D3DXCOLOR& color);
+
+	// Return to unmanaged
+	virtual IClonable* Clone() override;
+
 	IDirect3DTexture9* GetTexture() const;
 
 	const D3DSURFACE_DESC& GetSourceDesc() const;
 
 	Vec2 GetSize() const;
-
-	virtual IClonable* Clone() override;
 
 	operator IDirect3DTexture9* () const;
 
@@ -38,7 +41,7 @@ public:
 
 	__declspec(property(get = GetSize)) Vec2 size;
 
-private:
+protected:
 
 	IDirect3DTexture9* m_texture;
 

@@ -1,11 +1,8 @@
 #include "stdafx.h"
 #include "CamController.h"
-#include "../Engine/header/PhysicsQuery.h"
 
 void CamController::Awake()
 {
-	OnSpace += Function<void(const wstring&)>(this, &CamController::Func);
-	OnSpace += Function<void(const wstring&)>(this, &CamController::Func2);
 }
 
 void CamController::Update()
@@ -64,6 +61,7 @@ void CamController::Update()
 		Input::GetMouseWorldRay(rayPoint, rayDir);
 
 		GameObject* obj = CreateGameObject();
+		obj->name = L"obj";
 		Collider* col = nullptr;
 		auto r = obj->AddComponent<UserMeshRenderer>();
 		r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
@@ -93,26 +91,11 @@ void CamController::Update()
 		}
 		auto body = obj->AddComponent<Rigidbody>();
 		body->SetVelocity(rayDir * 15);
-		
+
 		obj->transform->position = transform->position;
 		obj->transform->rotation = transform->rotation;
 		obj->transform->scale = Vec3::one() * (float(rand() % 100 + 1) * 0.01f + 0.5f);
 	}
-}
-
-void CamController::Render()
-{
-
-}
-
-void CamController::Func(const wstring& msg)
-{
-	wcout << msg << endl;
-}
-
-void CamController::Func2(const wstring& msg)
-{
-	wcout << L"2: " << msg << endl;
 }
 
 void CamController::MoveMouseToCenterPos()

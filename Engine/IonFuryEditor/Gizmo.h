@@ -6,6 +6,8 @@ class Gizmo : public Component
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(OnDestroy);
+
 public:
 
 	// 축을 선택하려고 시도합니다.
@@ -65,6 +67,8 @@ private:
 	Vec3 m_selectCoord = Vec3::zero();
 
 	Ref<Transform> m_selectedTransform;
+
+	Material* m_gizmoMaterial = nullptr;
 
 };
 

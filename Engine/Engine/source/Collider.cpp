@@ -11,7 +11,10 @@ void Collider::Awake()
 {
 	auto device = PhysicsDevice::GetInstance();
 	
-	m_material = device->physics->createMaterial(0.5f, 0.5f, 0.0f);
+	m_material = device->physics->createMaterial(1.0f, 1.0f, 0.0f);
+	m_material->setFrictionCombineMode(PxCombineMode::eMIN);
+	m_material->setFlag(PxMaterialFlag::eDISABLE_FRICTION, false);
+	m_material->setFlag(PxMaterialFlag::eDISABLE_STRONG_FRICTION, false);
 
 	m_shape = device->physics->createShape(CreateGeometry().any(), *m_material, true);
 	m_shape->userData = this;
@@ -89,6 +92,36 @@ float Collider::GetRestitution() const
 void Collider::SetRestitution(float value)
 {
 	return m_material->setRestitution(value);
+}
+
+PhysicsCombineMode Collider::GetFrictionCombineMode() const
+{
+	return (PhysicsCombineMode)m_material->getFrictionCombineMode();
+}
+
+void Collider::SetFrictionCombineMode(PhysicsCombineMode value)
+{
+	m_material->setFrictionCombineMode((PxCombineMode::Enum)value);
+}
+
+PhysicsCombineMode Collider::GetRestitutionCombineMode() const
+{
+	return (PhysicsCombineMode)m_material->getRestitutionCombineMode();
+}
+
+void Collider::SetRestitutionCombineMode(PhysicsCombineMode value)
+{
+	m_material->setRestitutionCombineMode((PxCombineMode::Enum)value);
+}
+
+bool Collider::IsStringFrictionMode() const
+{
+	return !m_material->getFlags().isSet(PxMaterialFlag::eDISABLE_STRONG_FRICTION);
+}
+
+void Collider::SetStringFrictionMode(bool value)
+{
+	m_material->setFlag(PxMaterialFlag::eDISABLE_STRONG_FRICTION, !value);
 }
 
 Rigidbody* Collider::GetRigidbody() const

@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#define TabImagePath0					L"../SharedResourced/Texture/obj/*"
-#define TabImagePath1					L"../SharedResourced/Texture/npc/*"
-#define TabImagePath2					L"../SharedResourced/Texture/sans/*"
+#define TabImagePath0					L"../SharedResource/Texture/obj/*"
+#define TabImagePath1					L"../SharedResource/Texture/npc/*"
+#define TabImagePath2					L"../SharedResource/Texture/sans/*"
 
 // DlgTextureTool 대화 상자
 
@@ -30,7 +30,7 @@ public:
 	CStatic m_PictureControl;
 	CTabCtrl m_TabControl;
 public:
-	CString m_texturePath;
+	CString m_texturePath = L"../SharedResourced/Texture/Category0/Dev.png";
 	CString m_DragList[100];
 	int		m_Cnt = 0;
 public:

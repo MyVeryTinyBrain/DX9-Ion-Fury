@@ -83,7 +83,6 @@ void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& 
 {
 	if (localPathMesh.length() < 1)
 		return;
-
 	GameObject* Obj = CreateGameObject(tag);
 
 	Obj->name = ObjName;

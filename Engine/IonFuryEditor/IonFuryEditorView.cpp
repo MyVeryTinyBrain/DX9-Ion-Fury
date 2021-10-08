@@ -39,10 +39,8 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
-
 	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
 	ON_WM_LBUTTONDOWN()
-
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -208,13 +206,15 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case 'U':
 		camera->AddLight(m_dlgLightTool.m_LightName.GetString(),
-			m_dlgLightTool.m_LightType.GetString()); 
+			m_dlgLightTool.m_LightType.GetString() 
+			); 
 		break;
 	default:
 		break;
 	}
 
 }
+
 
 void CIonFuryEditorView::OnTextureTool()
 {
@@ -230,6 +230,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
 	CView::OnLButtonDown(nFlags, point);
+
 
 	auto pickable = Pickable::Pick();
 

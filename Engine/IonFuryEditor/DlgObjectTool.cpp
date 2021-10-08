@@ -18,6 +18,7 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 {
 	m_SelectName = gameobject->name.c_str();
 
+
 	m_rPosX = gameobject->transform->position.x;
 	m_rPosY = gameobject->transform->position.y;
 	m_rPosZ = gameobject->transform->position.z;
@@ -50,7 +51,6 @@ void DlgObjectTool::SelectObject()
 
 	UpdateData(FALSE);
 }
-
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
@@ -66,7 +66,6 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_fScaleZ(1.f)
 	, m_meshPath(L"")
 	, m_objectTag(_T(""))
-
 	, m_SelectName(_T(""))
 	, m_rPosX(0)
 	, m_rRotX(0)
@@ -77,8 +76,6 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_rRotZ(0)
 	, m_rScaleZ(0)
 	, m_rScaleY(0)
-
-
 {
 
 }
@@ -102,7 +99,6 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT9, m_fScaleY);
 	DDX_Text(pDX, IDC_EDIT10, m_fScaleZ);
 	DDX_Text(pDX, IDC_EDIT17, m_objectTag);
-
 	DDX_Text(pDX, OBJECT_1, m_SelectName);
 	DDX_Text(pDX, OBJECT_2, m_rPosX);
 	DDX_Text(pDX, OBJECT_8, m_rPosZ);
@@ -145,9 +141,13 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_comboBox.AddString(_T("RightTriangle"));
 	m_comboBox.AddString(_T("Triangle"));
 
+
 	m_comboBox.SetCurSel(0);
 
 	m_meshPath = BuiltInCubeUserMesh;
+
+
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.

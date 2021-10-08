@@ -6,7 +6,7 @@ private:
     using Base = D3DXMATRIX;
 
 public:
-    Mat4() {};
+    Mat4() { memset(m, 0, sizeof(m)); };
     Mat4(CONST FLOAT* pf);
     Mat4(CONST D3DMATRIX& m);
     Mat4(CONST Mat4& m);

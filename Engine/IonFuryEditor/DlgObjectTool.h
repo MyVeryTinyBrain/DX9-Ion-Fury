@@ -50,7 +50,6 @@ public:
 	float m_fScaleZ;
 	CString m_objectTag;
 	afx_msg void OnObjectTag();
-
 	CString m_SelectName;
 	
 	float m_rPosX;
@@ -68,4 +67,5 @@ public:
 	afx_msg void OnBnClickedApply();
 	afx_msg void OnBnClickedLoad();
 	afx_msg void OnBnClickedClear();
+
 };

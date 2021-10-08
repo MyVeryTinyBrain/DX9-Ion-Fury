@@ -1,18 +1,17 @@
 #include "EngineBase.h"
 #include "Line.h"
 #include "GraphicDevice.h"
+#include "Camera.h"
 
 void Line::DrawLine(const Vec3& start, const Vec3& end, const Color& color, float width)
 {
+	Camera* camera = Camera::GetMainCamera();
+	if (!camera)
+		return;
+
 	auto line = GraphicDevice::GetInstance()->GetLine();
-	auto device = GraphicDevice::GetInstance()->GetDevice();
-	
-	Mat4 view, proj, transform;
 
-	device->GetTransform(D3DTS_VIEW, &view);
-	device->GetTransform(D3DTS_PROJECTION, &proj);
-
-	transform = view * proj;
+	Mat4 transform = camera->worldToView * camera->viewToProjection;
 	
 	Vec3 points[2] = { start,end };
 
@@ -24,15 +23,16 @@ void Line::DrawLine(const Vec3& start, const Vec3& end, const Color& color, floa
 
 void Line::DrawLineArray(const Vec3* pointArray, size_t pointCount, const Color& color, float width)
 {
+	if (pointCount < 2)
+		return;
+
+	Camera* camera = Camera::GetMainCamera();
+	if (!camera)
+		return;
+
 	auto line = GraphicDevice::GetInstance()->GetLine();
-	auto device = GraphicDevice::GetInstance()->GetDevice();
 
-	Mat4 view, proj, transform;
-
-	device->GetTransform(D3DTS_VIEW, &view);
-	device->GetTransform(D3DTS_PROJECTION, &proj);
-
-	transform = view * proj;
+	Mat4 transform = camera->worldToView * camera->viewToProjection;
 
 	line->SetWidth(width);
 	line->Begin();
@@ -42,20 +42,18 @@ void Line::DrawLineArray(const Vec3* pointArray, size_t pointCount, const Color&
 
 void Line::DrawLineVector(const std::vector<Vec3>& pointVector, const Color& color, float width)
 {
-	auto line = GraphicDevice::GetInstance()->GetLine();
-	auto device = GraphicDevice::GetInstance()->GetDevice();
-
 	const size_t count = pointVector.size();
 
 	if (count < 2)
 		return;
 
-	Mat4 view, proj, transform;
+	Camera* camera = Camera::GetMainCamera();
+	if (!camera)
+		return;
 
-	device->GetTransform(D3DTS_VIEW, &view);
-	device->GetTransform(D3DTS_PROJECTION, &proj);
+	auto line = GraphicDevice::GetInstance()->GetLine();
 
-	transform = view * proj;
+	Mat4 transform = camera->worldToView * camera->viewToProjection;
 
 	line->SetWidth(width);
 	line->Begin();
@@ -68,20 +66,16 @@ void Line::DrawLineVector(const std::vector<Vec3>& pointVector, const Color& col
 
 void Line::DrawLineList(const std::list<Vec3>& pointList, const Color& color, float width)
 {
-	auto line = GraphicDevice::GetInstance()->GetLine();
-	auto device = GraphicDevice::GetInstance()->GetDevice();
-
-	const size_t count = pointList.size();
-
-	if (count < 2)
+	if (pointList.size() < 2)
 		return;
 
-	Mat4 view, proj, transform;
+	Camera* camera = Camera::GetMainCamera();
+	if (!camera)
+		return;
 
-	device->GetTransform(D3DTS_VIEW, &view);
-	device->GetTransform(D3DTS_PROJECTION, &proj);
+	auto line = GraphicDevice::GetInstance()->GetLine();
 
-	transform = view * proj;
+	Mat4 transform = camera->worldToView * camera->viewToProjection;
 
 	auto it = pointList.begin();
 	++it;

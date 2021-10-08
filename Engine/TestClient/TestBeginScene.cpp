@@ -9,9 +9,9 @@ IClonable* TestBeginScene::Clone()
 
 void TestBeginScene::OnLoad(Scene* beforeScene)
 {
-    Texture::CreateFromFile(L"../SharedResourced/Texture/Dev.png");
-    Texture::CreateFromFile(L"../SharedResourced/Texture/DevAlpha.png");
-    Texture::CreateFromFile(L"../SharedResourced/Texture/DevTransparent.png"); 
+    Texture::CreateFromFile(L"../SharedResource/Texture/Dev.png");
+    Texture::CreateFromFile(L"../SharedResource/Texture/DevAlpha.png");
+    Texture::CreateFromFile(L"../SharedResource/Texture/DevTransparent.png"); 
 
     GraphicDevice::GetInstance()->GetDevice()->SetRenderState(D3DRS_LIGHTING, TRUE);
 
@@ -37,7 +37,7 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
         body->SetPosition(Vec3(0, -3, 0));
         auto r = obj->AddComponent<UserMeshRenderer>();
         r->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-        r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+        r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
     }
 
     {
@@ -50,7 +50,7 @@ void TestBeginScene::OnLoad(Scene* beforeScene)
         body->SetPosition(Vec3(0, -10, 0));
         auto r = obj->AddComponent<UserMeshRenderer>();
         r->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-        r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+        r->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
     }
 }
 

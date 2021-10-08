@@ -21,7 +21,10 @@
 #include "Line.h"
 #include "ResourceObject.h"
 #include "Resource.h"
+#include "Path.h"
 #include "Texture.h"
+#include "RenderTexture.h"
+#include "Material.h"
 #include "EngineWorld.h"
 
 // Built In
@@ -35,8 +38,10 @@
 #include "RightTriangleCollider.h"
 #include "TriangleCollider.h"
 #include "Rigidbody.h"
-#include "Layer.h"
+#include "PhysicsDefines.h"
 #include "PhysicsQueryTypes.h"
+#include "PhysicsCallbackTypes.h"
+#include "Physics.h"
 
 // For SR
 #include "UserMesh.h"

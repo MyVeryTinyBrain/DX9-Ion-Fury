@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ResourceObject.h"
-#include "MaterialParameter.h"
+#include "MaterialParameters.h"
 
 class Material : public ResourceObject, public IClonable
 {
@@ -9,29 +9,33 @@ class Material : public ResourceObject, public IClonable
 
 public:
 
-	void ApplyRenderStates();
-
-	bool IsAlphaBlend() const;
-
-	void SetAlphaBlend(bool value);
+	void Apply(bool ignoreCmp);
 
 protected:
 
 	// Constructor for unmanaged resource
-	Material();
+	Material(MaterialParameters& params);
 
 	// Construct for managed resource
-	Material(wstring localPath, bool isShared);
+	Material(MaterialParameters& params, wstring localPath, bool isShared);
 
 	virtual ~Material();
 
 public:
 
+	static Material* Create(MaterialParameters& params, const wstring& localPath, bool isShared);
+
+	static Material* CreateUnmanaged(MaterialParameters& params);
+
 	virtual IClonable* Clone() override;
+
+public:
+
+	MaterialParameters params;
 
 private:
 
-	MaterialParameter m_param;
+	static MaterialParameters g_beforeParams;
 
 };
 

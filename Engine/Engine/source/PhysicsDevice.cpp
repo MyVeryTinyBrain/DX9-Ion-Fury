@@ -4,6 +4,7 @@
 #include "LayerManager.h"
 #include "PhysicsFilterShaderCallback.h"
 #include "PhysicsSimulationEventCallback.h"
+#include "PhysicsTriggerEvent.h"
 
 ImplementSingletone(PhysicsDevice);
 
@@ -18,6 +19,8 @@ PhysicsDevice::~PhysicsDevice()
 
 void PhysicsDevice::Initialize()
 {
+	m_triggerEvent = new PhysicsTriggerEvent;
+
 	m_simulationEventCallback = new PhysicsSimulationEventCallback;
 
 	m_filterShaderCallback = new PhysicsFilterShaderCallback;
@@ -60,6 +63,8 @@ void PhysicsDevice::Release()
 	SafeDelete(m_filterShaderCallback);
 
 	SafeDelete(m_simulationEventCallback);
+
+	SafeDelete(m_triggerEvent);
 }
 
 void PhysicsDevice::Step(float deltaTime)
@@ -70,8 +75,15 @@ void PhysicsDevice::Step(float deltaTime)
 	if (deltaTime <= 0)
 		return;
 
+	m_simulationEventCallback->ClearBuffers();
+
 	m_scene->simulate(deltaTime);
 	m_scene->fetchResults(true);
+}
+
+void PhysicsDevice::Notify()
+{
+	m_simulationEventCallback->ExecuteNotify();
 }
 
 PxPhysics* PhysicsDevice::GetPhysics() const
@@ -110,6 +122,9 @@ void PhysicsDevice::CreateScene()
 		PxSceneFlag::eADAPTIVE_FORCE |
 		PxSceneFlag::eENABLE_PCM |
 		PxSceneFlag::eENABLE_FRICTION_EVERY_ITERATION;
+
+	desc.kineKineFilteringMode = PxPairFilteringMode::eDEFAULT;
+	desc.staticKineFilteringMode = PxPairFilteringMode::eDEFAULT;
 
 	auto scene = m_physics->createScene(desc);
 
