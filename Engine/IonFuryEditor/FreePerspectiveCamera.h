@@ -12,12 +12,16 @@ private:
 	
 public:
 	void Add_Object_Sample(
-		 const tag_t& tag = L"test"
+		const tag_t& tag = L"test"
 		, const wstring& ObjName = L"defaultName"
 		, const wstring& localPathMesh = BuiltInCubeUserMesh
 		, const wstring& localPathTexture = BuiltInWhiteTexture
-		);
+	);
 
+	void AddLight(
+		const wstring& LightName = L"DefaultName",
+		const tag_t & tag = L"Light",
+		const wstring& localPathMesh = BuiltInCubeUserMesh);
 
 private:
 
