@@ -203,7 +203,7 @@ void DlgLightTool::OnListBoxCtrl()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	UpdateData(TRUE);
 
-	for (auto& light : LightObj::g_LightVec)
+	for (auto& light : LightObj::g_vecLight)
 	{
 		auto lightob = light->GetGameObject();
 
