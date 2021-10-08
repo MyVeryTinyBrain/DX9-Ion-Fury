@@ -13,9 +13,8 @@ public:
 	void Settings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"
 		, const wstring& localPathTexture = L"../SharedResourced/Texture/Dev.png");
 
-	static Pickable* Pick();	//vec¼øÈ¯ÇØ¼­ 
-	//static void PickDelete();	//gizmoºÙ¾îÀÖ´Â ³à¼®Àº »èÁ¦
-
+	static Pickable* Pick();	//vecìˆœí™˜í•´ì„œ 
+	//static void PickDelete();	//gizmoë¶™ì–´ìˆëŠ” ë…€ì„ì€ ì‚­ì œ
 
 public:
 	UserMeshRenderer* GetRenderer() { return m_Renderer; }
@@ -24,6 +23,7 @@ private:
 	GameObject* m_ChildObject;
 	UserMeshRenderer* m_Renderer;
 
+public:
 	static std::vector<Pickable*>	g_PickableVec;
 };
 

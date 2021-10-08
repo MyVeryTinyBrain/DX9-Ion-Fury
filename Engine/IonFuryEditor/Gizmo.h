@@ -37,6 +37,8 @@ public:
 
 public:
 	void DeleteAttachedObject();
+	void ChangeTextureAttachedObject(CString texturePath);
+	void GetInformation();
 
 private:
 

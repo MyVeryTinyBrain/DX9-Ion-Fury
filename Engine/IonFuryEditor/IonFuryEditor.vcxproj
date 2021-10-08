@@ -193,8 +193,10 @@
   <ItemGroup>
     <ClInclude Include="DlgLightTool.h" />
     <ClInclude Include="DlgObjectTool.h" />
+    <ClInclude Include="DlgTextureTool.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
+    <ClInclude Include="FileInfo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FreePerspectiveCamera.h" />
     <ClInclude Include="Gizmo.h" />
@@ -202,6 +204,7 @@
     <ClInclude Include="IonFuryEditor.h" />
     <ClInclude Include="IonFuryEditorDoc.h" />
     <ClInclude Include="IonFuryEditorView.h" />
+    <ClInclude Include="LightObj.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Pickable.h" />
     <ClInclude Include="Resource.h" />
@@ -210,14 +213,17 @@
   <ItemGroup>
     <ClCompile Include="DlgLightTool.cpp" />
     <ClCompile Include="DlgObjectTool.cpp" />
+    <ClCompile Include="DlgTextureTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />
     <ClCompile Include="EditorScene.cpp" />
+    <ClCompile Include="FileInfo.cpp" />
     <ClCompile Include="FreePerspectiveCamera.cpp" />
     <ClCompile Include="Gizmo.cpp" />
     <ClCompile Include="IonFuryEditorBase.cpp" />
     <ClCompile Include="IonFuryEditor.cpp" />
     <ClCompile Include="IonFuryEditorDoc.cpp" />
     <ClCompile Include="IonFuryEditorView.cpp" />
+    <ClCompile Include="LightObj.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Pickable.cpp" />
   </ItemGroup>
