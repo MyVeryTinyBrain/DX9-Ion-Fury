@@ -24,9 +24,13 @@ public:
 
 	HWND GetWindowHandle() const;
 
-	Vec2 GetSize() const;
+	Vec2 GetClientSize() const;
 
-	float GetAspect() const;
+	float GetClientAspect() const;
+
+	Vec2 GetDeviceSize() const;
+
+	float GetDeviceAspect() const;
 
 	IDirect3DDevice9* GetDevice() const;
 
@@ -35,6 +39,8 @@ public:
 	void SetBackgroundColor(const Color& color);
 
 	ID3DXLine* GetLine() const;
+
+	class RenderProcess* GetRenderProcess() const;
 
 private:
 
@@ -57,5 +63,11 @@ private:
 	Color m_bgColor = Color::blue();
 
 	ID3DXLine* m_line = nullptr;
+
+	class RenderProcess* m_renderProcess = nullptr;
+
+	float m_initWidth;
+
+	float m_initHeight;
 };
 

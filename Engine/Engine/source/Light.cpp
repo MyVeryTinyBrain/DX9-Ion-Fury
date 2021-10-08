@@ -4,6 +4,8 @@
 
 bool Light::g_lightEnables[LIGHT_MAX] = {};
 
+std::vector<Light*> Light::g_lights;
+
 void Light::Awake()
 {
 	ZeroMemory(&m_light, sizeof(m_light));
@@ -13,25 +15,8 @@ void Light::Awake()
 	InitializeLightType(m_light.Type);
 
 	SetColor(m_light.Diffuse);
-}
 
-void Light::BeginRender()
-{
-	unsigned int lightIndex = GetDisabledLightIndex();
-	if (lightIndex < LIGHT_MAX)
-		EnableLight(lightIndex);
-}
-
-void Light::EndRender()
-{
-	if (m_isEnabled)
-		DisableLight(m_lightIndex);
-}
-
-void Light::OnSleep()
-{
-	if (m_isEnabled)
-		DisableLight(m_lightIndex);
+	g_lights.push_back(this);
 }
 
 void Light::SetColor(const Color& color)
@@ -133,4 +118,39 @@ void Light::DisableLight(unsigned int lightIndex)
 	g_lightEnables[m_lightIndex] = false;
 
 	device->LightEnable(m_lightIndex, FALSE);
+}
+
+void Light::ActiveLight()
+{
+	if (!isWake)
+		return;
+
+	unsigned int lightIndex = GetDisabledLightIndex();
+	if (lightIndex < LIGHT_MAX)
+		EnableLight(lightIndex);
+}
+
+void Light::DeactiveLight()
+{
+	if (!isWake)
+		return;
+
+	if (m_isEnabled)
+		DisableLight(m_lightIndex);
+}
+
+void Light::BeginLight()
+{
+	for (auto& light : g_lights)
+	{
+		light->ActiveLight();
+	}
+}
+
+void Light::EndLight()
+{
+	for (auto& light : g_lights)
+	{
+		light->DeactiveLight();
+	}
 }

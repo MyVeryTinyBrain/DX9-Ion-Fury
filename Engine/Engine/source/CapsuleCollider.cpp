@@ -17,7 +17,7 @@ float CapsuleCollider::GetRadius() const
 void CapsuleCollider::SetRadius(float value)
 {
     m_radius = value;
-    ApplyScale();
+    ResetShape();
 }
 
 float CapsuleCollider::GetHalfHeight() const
@@ -28,7 +28,7 @@ float CapsuleCollider::GetHalfHeight() const
 void CapsuleCollider::SetHalfHeight(float value)
 {
     m_halfHeight = value;
-    ApplyScale();
+    ResetShape();
 }
 
 PxCapsuleGeometry CapsuleCollider::CreateCapsuleGeometry() const

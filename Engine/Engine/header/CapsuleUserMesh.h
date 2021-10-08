@@ -32,5 +32,7 @@ private:
 	unsigned int m_step = 32;
 
 	float m_halfHeight = 0.5f;
+
+	float m_radius = 0.5f;
 };
 

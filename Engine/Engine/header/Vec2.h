@@ -6,7 +6,7 @@ private:
     using Base = D3DXVECTOR2;
 
 public:
-    Vec2();
+    Vec2() { x = y = 0; };
     Vec2(CONST FLOAT* pf);
     Vec2(const D3DXVECTOR2& v);
     Vec2(const D3DXVECTOR3& v);

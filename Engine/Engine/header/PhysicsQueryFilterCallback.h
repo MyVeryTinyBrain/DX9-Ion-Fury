@@ -7,10 +7,10 @@ class PhysicsQueryFilterCallback : public PxQueryFilterCallback
 public:
 
 	// Set all to target
-	PhysicsQueryFilterCallback(PhysicsQueryType queryType, bool queryOnce);
+	PhysicsQueryFilterCallback(PhysicsQueryType queryType, bool queryOnce, class Rigidbody* ignoreBody = nullptr);
 
 	// Set specipic
-	PhysicsQueryFilterCallback(PxU32 targetLayerBits, PhysicsQueryType queryType, bool queryOnce);
+	PhysicsQueryFilterCallback(PxU32 targetLayerBits, PhysicsQueryType queryType, bool queryOnce, class Rigidbody* ignoreBody = nullptr);
 
 private:
 
@@ -32,8 +32,6 @@ private:
 
 	PxQueryHitType::Enum m_hitType;
 
-public:
-
-	class Collider* m_ignoreCollider = nullptr;
+	class Rigidbody* m_ignoreBody = nullptr;
 };
 

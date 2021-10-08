@@ -18,6 +18,8 @@ public:
 
 	void Step(float deltaTime);
 
+	void Notify();
+
 public:
 
 	PxPhysics* GetPhysics() const;
@@ -60,6 +62,10 @@ private:
 
 	class PhysicsFilterShaderCallback* m_filterShaderCallback = nullptr;
 
+	// 충돌 콜백으로 충돌 정보들을 생성합니다.
 	class PhysicsSimulationEventCallback* m_simulationEventCallback = nullptr;
+
+	// 트리거 충돌 정보들을 저장합니다.
+	class PhysicsTriggerEvent* m_triggerEvent = nullptr;
 };
 

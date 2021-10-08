@@ -40,19 +40,6 @@ PxFilterFlags PhysicsFilterShaderCallback::pairFound(
 	return PxFilterFlag::eDEFAULT;
 }
 
-void PhysicsFilterShaderCallback::pairLost(
-	PxU32 pairID, 
-	PxFilterObjectAttributes attributes0, PxFilterData filterData0,
-	PxFilterObjectAttributes attributes1, PxFilterData filterData1, 
-	bool objectRemoved)
-{
-}
-
-bool PhysicsFilterShaderCallback::statusChange(PxU32& pairID, PxPairFlags& pairFlags, PxFilterFlags& filterFlags)
-{
-	return false;
-}
-
 PxFilterFlags PhysicsFilterShaderCallback::PxSimulationFilterShader(
 	PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
 	PxFilterObjectAttributes attributes1, PxFilterData filterData1, 
@@ -60,9 +47,11 @@ PxFilterFlags PhysicsFilterShaderCallback::PxSimulationFilterShader(
 {
 	if (PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
 	{
-		// 트리거를 처리합니다.
-		pairFlags = eTriggerFlags;
-		return PxFilterFlag::eDEFAULT;
+		// 트리거를 처리하지 않습니다.
+		return PxFilterFlag::eSUPPRESS;
+
+		// pairFlags = eTriggerFlags;
+		// return PxFilterFlag::eDEFAULT;
 	}
 
 	// pairFound 를 호출하는 플래그입니다.

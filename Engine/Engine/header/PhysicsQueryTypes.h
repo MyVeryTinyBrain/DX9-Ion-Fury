@@ -8,6 +8,17 @@ enum class PhysicsQueryType
 	All = Collider | Trigger,
 };
 
+struct PhysicsRay
+{
+	PhysicsRay() {};
+	PhysicsRay(const Vec3& point, const Vec3& direction);
+	PhysicsRay(const Vec3& point, const Vec3& direction, float distance);
+
+	Vec3 point;
+	Vec3 direction;
+	float distance = FLT_MAX;
+};
+
 struct RaycastHit
 {
 	Vec3 point;

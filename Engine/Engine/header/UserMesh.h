@@ -22,9 +22,6 @@ protected:
 
 	virtual void InitializeIndices() = 0;
 
-	// Return unmanaged user mesh
-	virtual IClonable* Clone() = 0;
-
 public:
 
 	template <class T>
@@ -32,6 +29,9 @@ public:
 
 	template <class T>
 	static T* CreateUnmanaged();
+
+	// Return to unmanaged
+	virtual IClonable* Clone() = 0;
 
 public:
 

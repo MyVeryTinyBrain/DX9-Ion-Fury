@@ -9,6 +9,8 @@
 #include "Camera.h"
 #include "PhysicsDevice.h"
 #include "BuiltIn.h"
+#include "SharedResourceLoader.h"
+#include "RenderProcess.h"
 
 HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int height, bool windowed, LPCWSTR title, WNDPROC wndProc)
 {
@@ -29,7 +31,11 @@ HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int he
 
 	BuiltIn::MakeBuiltInResources();
 
+	SharedResourceLoader::LoadSharedResources();
+
 	m_initialized = true;
+
+	srand(unsigned int(time(NULL)));
 
 	return S_OK;
 }
@@ -54,6 +60,8 @@ HRESULT EngineWorld::Initialize(HWND hWnd, UINT width, UINT height, BOOL windowe
 	BuiltIn::MakeBuiltInResources();
 
 	m_initialized = true;
+
+	srand(unsigned int(time(NULL)));
 
 	return S_OK;
 }
@@ -96,9 +104,10 @@ HRESULT EngineWorld::Step()
 		if (!scene)
 			return S_OK;
 
-		scene->Prepare();
+		bool withDestroyPrepare = fixedUpdate > 0;
+		scene->StepPrepare(withDestroyPrepare);
 
-		scene->StartStep();
+		scene->StepStart();
 
 		if (fixedUpdate > 0)
 		{
@@ -108,19 +117,23 @@ HRESULT EngineWorld::Step()
 			auto physicsDevice = PhysicsDevice::GetInstance();
 			for (unsigned int i = 0; i < fixedUpdate; ++i)
 			{
-				scene->BeginPhysicsSimulateStep();
+				scene->StepBeginPhysicsSimulate();
 
 				physicsDevice->Step(centralTime->GetFixedUpdateDeltaTime());
 
-				scene->FixedUpdateStep();
+				scene->StepEndPhysicsSimulate();
 
-				scene->EndPhysicsSimulateStep();
+				physicsDevice->Notify();
+
+				scene->StepDestroyObjects();
+
+				scene->StepFixedUpdate();
 			}
 		}
 
 		if (update > 0)
 		{
-			scene->UpdateStep();
+			scene->StepUpdate();
 
 			Input::GetInstance()->SetUsed();
 		}
@@ -130,19 +143,20 @@ HRESULT EngineWorld::Step()
 		Camera* mainCamera = Camera::GetMainCamera();
 
 		graphicDevice->BeginRender();
-
-		if (mainCamera)
-		{
-			Mat4 worldToView = mainCamera->worldToView;
-			device->SetTransform(D3DTS_VIEW, &worldToView);
-
-			Mat4 viewToProjection = mainCamera->viewToProjection;
-			device->SetTransform(D3DTS_PROJECTION, &viewToProjection);
-
-			scene->RenderStep();
-		}
-
+		graphicDevice->GetRenderProcess()->ClearRenderTargets();
+		scene->StepBeginRender();
+		graphicDevice->GetRenderProcess()->Process();
 		graphicDevice->EndRender();
+
+		++m_fpsCount;
+		m_fpsCheckElapsed += centralTime->GetUpdateDeltaTime();
+
+		if (m_fpsCheckElapsed > 1.0f)
+		{
+			cout << m_fpsCount << endl;
+			m_fpsCount = 0;
+			m_fpsCheckElapsed = 0;
+		}
 	}
 
 	return S_OK;

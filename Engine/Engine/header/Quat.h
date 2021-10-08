@@ -8,7 +8,7 @@ private:
 	using Base = D3DXQUATERNION;
 
 public:
-	Quat() {}
+	Quat() { x = y = z = w = 0; }
 	Quat(CONST FLOAT* pf);
 	Quat(CONST D3DXFLOAT16* pf);
 	Quat(CONST D3DXQUATERNION& q);

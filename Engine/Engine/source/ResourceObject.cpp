@@ -5,15 +5,13 @@
 
 namespace fs = std::filesystem;
 
-using path = fs::path;
-
 ResourceObject::ResourceObject() : Object()
 {
 	m_isUnmanaged = true;
 }
 
 ResourceObject::ResourceObject(wstring localPath, bool isShared)
-	: Object(path(localPath).filename())
+	: Object(fs::path(localPath).filename())
 {
 	m_localPath = localPath;
 

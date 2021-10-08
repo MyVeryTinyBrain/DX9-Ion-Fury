@@ -5,18 +5,20 @@
 #include "PhysicsDevice.h"
 #include "LayerManager.h"
 
-PhysicsQueryFilterCallback::PhysicsQueryFilterCallback(PhysicsQueryType queryType, bool queryOnce)
+PhysicsQueryFilterCallback::PhysicsQueryFilterCallback(PhysicsQueryType queryType, bool queryOnce, Rigidbody* ignoreBody)
 {
     m_targets = 0xFFFFFFFF;
     m_queryType = queryType;
     m_hitType = queryOnce ? PxQueryHitType::eBLOCK : PxQueryHitType::eTOUCH;
+    m_ignoreBody = ignoreBody;
 }
 
-PhysicsQueryFilterCallback::PhysicsQueryFilterCallback(PxU32 targetLayerBits, PhysicsQueryType queryType, bool queryOnce)
+PhysicsQueryFilterCallback::PhysicsQueryFilterCallback(PxU32 targetLayerBits, PhysicsQueryType queryType, bool queryOnce, Rigidbody* ignoreBody)
 {
     m_targets = targetLayerBits;
     m_queryType = queryType;
     m_hitType = queryOnce ? PxQueryHitType::eBLOCK : PxQueryHitType::eTOUCH;
+    m_ignoreBody = ignoreBody;
 }
 
 PxQueryHitType::Enum PhysicsQueryFilterCallback::preFilter(
@@ -31,7 +33,7 @@ PxQueryHitType::Enum PhysicsQueryFilterCallback::preFilter(
     Collider* collider = (Collider*)shape->userData;
     Rigidbody* rigidbody = (Rigidbody*)actor->userData;
 
-    if (collider == m_ignoreCollider)
+    if (rigidbody == m_ignoreBody)
         return PxQueryHitType::eNONE;
 
     bool allowTrigger = int(m_queryType) & int(PhysicsQueryType::Trigger);

@@ -1,0 +1,184 @@
+#include "stdafx.h"
+#include "SpriteAnimator.h"
+#include "SpriteAnimation.h"
+
+void SpriteAnimator::Start()
+{
+	if (!m_renderer)
+	{
+		auto renderer = gameObject->GetComponent<Renderer>();
+		SetRenderer(renderer);
+	}
+}
+
+void SpriteAnimator::AnimationUpdate()
+{
+	// 경과된 시간에 알맞는 텍스쳐를 렌더러에 올립니다.
+	UpdateTexture();
+}
+
+void SpriteAnimator::Update()
+{
+	if (!m_renderer) return;
+	if (!m_current) return;
+
+	// 경과 시간에 누적합니다.
+	if (!m_pause)
+		m_elapsed += Time::DeltaTime() * m_speed;
+
+	// 루프 애니메이션이 아닌데, 애니메이션의 끝인 경우
+	if (!m_current->isLoop && m_current->IsEnd(m_elapsed))
+	{
+		SpriteAnimation* current = m_current;
+		m_current = nullptr;
+
+		// 애니메이션 종료 이벤트함수를 호출합니다.
+		OnAnimationEnd();
+
+		// OnAnimationEnd() 에서 다른 애니메이션이 설정되지 않은 경우에
+		if (m_current == nullptr)
+		{
+			// 애니메이션을 변경하지 않는 조건이면 이전 애니메이션을 그대로 유지하고 종료합니다.
+			if (!m_transition)
+			{
+				m_current = current;
+				return;
+			}
+
+			// 기본 애니메이션으로 전환합니다.
+			PlayAnimation(m_default, true);
+
+			// 기본 애니메이션도 존재하지 않는다면 종료합니다.
+			if (!m_current)
+			{
+				return;
+			}
+
+			// 변경된 애니메이션의 텍스쳐를 적용합니다.
+			UpdateTexture();
+		}
+	}
+}
+
+const Ref<Renderer>& SpriteAnimator::GetRenderer() const
+{
+	return m_renderer;
+}
+
+void SpriteAnimator::SetRenderer(const Ref<Renderer>& renderer)
+{
+	m_renderer = renderer;
+}
+
+void SpriteAnimator::PlayAnimation(SpriteAnimation* animation, bool overlap)
+{
+	Resume();
+
+	// 이미 재생중인 애니메이션을 재생하려고 할때 overlap 플래그가 꺼져있다면 종료합니다.
+	if (!overlap && animation == m_current)
+	{
+		return;
+	}
+
+	// 애니메이션 변경 이벤트함수를 호출합니다.
+	OnAnimationChange(m_current, &animation);
+
+	m_elapsed = 0;
+	m_current = animation;
+
+	// 텍스쳐를 업데이트합니다.
+	UpdateTexture();
+}
+
+void SpriteAnimator::SetDefaultAnimation(SpriteAnimation* animation, bool play)
+{
+	if (m_default == animation)
+	{
+		return;
+	}
+
+	// 기본 애니메이션 변경 이벤트함수를 호출합니다.
+	OnDefaultAnimationChange(m_default, &animation);
+
+	m_default = animation;
+
+	if (play)
+	{
+		PlayAnimation(animation, false);
+	}
+}
+
+void SpriteAnimator::PlayDefaultAnimation(bool overlap)
+{
+	PlayAnimation(m_default, overlap);
+}
+
+SpriteAnimation* SpriteAnimator::GetCurrentAnimation() const
+{
+	return m_current;
+}
+
+SpriteAnimation* SpriteAnimator::GetDefautlAnimation() const
+{
+	return m_default;
+}
+
+bool SpriteAnimator::GetTransitionMode() const
+{
+	return m_transition;
+}
+
+void SpriteAnimator::SetTransitionMode(bool value)
+{
+	m_transition = value;
+}
+
+void SpriteAnimator::Pause()
+{
+	m_pause = true;
+}
+
+void SpriteAnimator::Resume()
+{
+	m_pause = false;
+}
+
+float SpriteAnimator::GetSpeed() const
+{
+	return m_speed;
+}
+
+void SpriteAnimator::SetSpeed(float value)
+{
+	m_speed = value;
+}
+
+float SpriteAnimator::GetElapsedTime() const
+{
+	return m_elapsed;
+}
+
+float SpriteAnimator::GetPercent() const
+{
+	if (!m_current)
+	{
+		return 0.0f;
+	}
+
+	return m_elapsed / m_current->maxTime;
+}
+
+unsigned int SpriteAnimator::GetFrameIndex() const
+{
+	return GetPercent() * m_current->textureCount;
+}
+
+void SpriteAnimator::UpdateTexture()
+{
+	if (!m_renderer) return;
+	if (!m_current) return;
+
+	Texture* texture = nullptr;
+	bool endOfAnimation = !m_current->TimeOf(m_elapsed, &texture);
+	m_renderer->SetTexture(0, texture);
+}

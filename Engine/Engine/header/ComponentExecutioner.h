@@ -18,7 +18,7 @@ public:
 
 public:
 
-	void Prepare();
+	void ExecutePrepare(bool withDestroyPrepare);
 
 	void ExecuteStart();
 
@@ -26,25 +26,27 @@ public:
 
 	void ExecuteEndPhysicsSimulate();
 
+	void ExecuteDestroy(GameObjectMap& gameObjectMap);
+
 	void ExecuteFixedUpdate();
 
 	void ExecuteUpdate();
 
-	void ExecuteRender();
-
-	void ClearExecuteTargets();
-
-	void ClearDestroyTargets();
+	void ExecuteBeginRender();
 
 private:
 
-	PrepareResult PrepareGameObjectMap(GameObjectMap& gameObjectMap);
+	void ClearExecuteTargets();
 
-	PrepareResult PrepareGameObjectList(GameObjectList& gameObjectList);
+private:
 
-	PrepareResult PrepareGameObject(GameObject* gameObject);
+	PrepareResult PrepareGameObjectMap(GameObjectMap& gameObjectMap, bool withDestroyPrepare);
 
-	PrepareResult PrepareComponent(Component* component);
+	PrepareResult PrepareGameObjectList(GameObjectList& gameObjectList, bool withDestroyPrepare);
+
+	PrepareResult PrepareGameObject(GameObject* gameObject, bool withDestroyPrepare);
+
+	PrepareResult PrepareComponent(Component* component, bool withDestroyPrepare);
 
 	void SortExecutionTargetsByExecutionOrder();
 
@@ -79,13 +81,5 @@ private:
 	ExecutionTargets ComponentCallFlag(LateUpdate);
 
 	ExecutionTargets ComponentCallFlag(BeginRender);
-
-	ExecutionTargets ComponentCallFlag(BeforeRender);
-
-	ExecutionTargets ComponentCallFlag(Render);
-
-	ExecutionTargets ComponentCallFlag(AfterRender);
-
-	ExecutionTargets ComponentCallFlag(EndRender);
 };
 

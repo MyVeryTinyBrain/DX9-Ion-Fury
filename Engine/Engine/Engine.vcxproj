@@ -22,15 +22,21 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Path.cpp" />
+    <ClCompile Include="source\SharedResourceLoader.cpp" />
+    <ClCompile Include="source\RenderTexture.cpp" />
+    <ClCompile Include="source\RenderProcess.cpp" />
+    <ClCompile Include="source\Physics.cpp" />
+    <ClCompile Include="source\PhysicsCallbackTypes.cpp" />
+    <ClCompile Include="source\PhysicsTriggerEvent.cpp" />
     <ClCompile Include="source\PhysicsQueryTypes.cpp" />
     <ClCompile Include="source\PhysicsQuery.cpp" />
     <ClCompile Include="source\PhysicsQueryFilterCallback.cpp" />
-    <ClCompile Include="source\Layer.cpp" />
     <ClCompile Include="source\PhysicsSimulationEventCallback.cpp" />
     <ClCompile Include="source\PhysicsFilterShaderCallback.cpp" />
     <ClCompile Include="source\BuiltIn.cpp" />
     <ClCompile Include="source\RightTriangleCollider.cpp" />
-    <ClCompile Include="source\MaterialParameter.cpp" />
+    <ClCompile Include="source\MaterialParameters.cpp" />
     <ClCompile Include="source\Material.cpp" />
     <ClCompile Include="source\MaterialTypes.cpp" />
     <ClCompile Include="source\CapsuleCollider.cpp" />
@@ -171,6 +177,13 @@
     <ClInclude Include="header\Line.h" />
     <ClInclude Include="header\LibraryLink86.h" />
     <ClInclude Include="header\LibraryLink64.h" />
+    <ClInclude Include="header\PhysicsTriggerEvent.h" />
+    <ClInclude Include="header\PhysicsCallbackTypes.h" />
+    <ClInclude Include="header\Physics.h" />
+    <ClInclude Include="header\RenderProcess.h" />
+    <ClInclude Include="header\RenderTexture.h" />
+    <ClInclude Include="header\SharedResourceLoader.h" />
+    <ClInclude Include="header\Path.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />
@@ -180,12 +193,11 @@
     <ClInclude Include="header\TriangleUserMesh.h" />
     <ClInclude Include="header\Material.h" />
     <ClInclude Include="header\MaterialTypes.h" />
-    <ClInclude Include="header\MaterialParameter.h" />
+    <ClInclude Include="header\MaterialParameters.h" />
     <ClInclude Include="header\RightTriangleCollider.h" />
     <ClInclude Include="header\TriangleCollider.h" />
     <ClInclude Include="header\PhysicsFilterShaderCallback.h" />
     <ClInclude Include="header\PhysicsSimulationEventCallback.h" />
-    <ClInclude Include="header\Layer.h" />
     <ClInclude Include="header\PhysicsQuery.h" />
     <ClInclude Include="header\PhysicsQueryFilterCallback.h" />
     <ClInclude Include="header\PhysicsQueryTypes.h" />
@@ -311,7 +323,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>EngineBase.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -329,7 +341,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>EngineBase.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

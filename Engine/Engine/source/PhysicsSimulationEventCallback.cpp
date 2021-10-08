@@ -1,32 +1,56 @@
 #include "EngineBase.h"
 #include "PhysicsSimulationEventCallback.h"
-
-void PhysicsSimulationEventCallback::onConstraintBreak(PxConstraintInfo* constraints, PxU32 count)
-{
-	//cout << "onConstraintBreak" << endl;
-}
-
-void PhysicsSimulationEventCallback::onWake(PxActor** actors, PxU32 count)
-{
-	//cout << "onWake" << endl;
-}
-
-void PhysicsSimulationEventCallback::onSleep(PxActor** actors, PxU32 count)
-{
-	//cout << "onSleep" << endl;
-}
+#include "Collider.h"
+#include "Rigidbody.h"
 
 void PhysicsSimulationEventCallback::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
 {
-	//cout << "onContact" << endl;
+	if (pairs->events & PxPairFlag::eNOTIFY_TOUCH_FOUND)
+	{
+		CollisionEnter enterB2A(pairs, false);
+		CollisionEnter enterA2B(pairs, true);
+		m_enterings.push_back(std::move(enterB2A));
+		m_enterings.push_back(std::move(enterA2B));
+	}
+	else if (pairs->events & PxPairFlag::eNOTIFY_TOUCH_LOST)
+	{
+		CollisionExit exitAB(pairs->shapes[0], pairs->shapes[1]);
+		CollisionExit exitBA(pairs->shapes[1], pairs->shapes[0]);
+		m_exitings.push_back(std::move(exitAB));
+		m_exitings.push_back(std::move(exitBA));
+	}
+	else if (pairs->events & PxPairFlag::eNOTIFY_TOUCH_PERSISTS)
+	{
+		CollisionStay stayB2A(pairs, false);
+		CollisionStay stayA2B(pairs, true);
+		m_stayings.push_back(std::move(stayB2A));
+		m_stayings.push_back(std::move(stayA2B));
+	}
 }
 
-void PhysicsSimulationEventCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)
+void PhysicsSimulationEventCallback::ClearBuffers()
 {
-	//cout << "onTrigger" << endl;
+	m_enterings.clear();
+	m_exitings.clear();
+	m_stayings.clear();
 }
 
-void PhysicsSimulationEventCallback::onAdvance(const PxRigidBody* const* bodyBuffer, const PxTransform* poseBuffer, const PxU32 count)
+void PhysicsSimulationEventCallback::ExecuteNotify()
 {
-	//cout << "onAdvance" << endl;
+	for (auto& pair : m_enterings)
+	{
+		pair.toCollider->OnCollisionEnter(pair);
+	}
+
+	for (auto& pair : m_exitings)
+	{
+		pair.fromCollider->OnCollisionExit(pair);
+	}
+
+	for (auto& pair : m_stayings)
+	{
+		pair.toCollider->OnCollisionStay(pair);
+	}
+
+	ClearBuffers();
 }

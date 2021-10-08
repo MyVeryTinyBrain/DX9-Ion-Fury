@@ -10,6 +10,8 @@ public:
 
 	friend class SceneManager;
 
+	friend class EngineWorld;
+
 protected:
 
 	Scene();
@@ -30,11 +32,13 @@ public:
 
 	class GameObject* CreateGameObject(const tag_t& tag = L"");
 
-	class GameObject* CreateGameObjectToChild(class Transform* parent, const tag_t& tag);
+	class GameObject* CreateGameObjectToChild(class Transform* parent, const tag_t& tag = L"");
 
 	class GameObject* FindGameObject(const wstring& name) const;
 
 	std::vector<class GameObject*> FindGameObjects(const wstring& name) const;
+
+	class GameObject* FindGameObjectWithTag(const wstring& tag) const;
 
 	std::vector<class GameObject*> FindGameObjectsWithTag(const wstring& tag) const;
 
@@ -50,21 +54,23 @@ private:
 
 	void DeleteAllGameObjects();
 
-public: // Should change to private
+private: // Should change to private
 
-	void Prepare();
+	void StepPrepare(bool withDestroyPrepare);
 
-	void StartStep();
+	void StepStart();
 
-	void BeginPhysicsSimulateStep();
+	void StepBeginPhysicsSimulate();
 
-	void EndPhysicsSimulateStep();
+	void StepEndPhysicsSimulate();
 
-	void FixedUpdateStep();
+	void StepDestroyObjects();
 
-	void UpdateStep();
+	void StepFixedUpdate();
 
-	void RenderStep();
+	void StepUpdate();
+
+	void StepBeginRender();
 
 private:
 
