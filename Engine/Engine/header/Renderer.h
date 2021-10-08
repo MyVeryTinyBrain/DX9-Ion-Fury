@@ -5,7 +5,7 @@
 class Texture;
 class Material;
 
-class Renderer : public Component
+class Renderer abstract : public Component
 {
 protected:
 
@@ -35,9 +35,15 @@ public:
 
 	void SetMaterial(const Ref<Material>& material);
 
+	int GetOverlayRenderOrder() const;
+
+	void SetOverlayRenderOrder(int value);
+
 	__declspec(property(get = GetRenderLayerIndex, put = SetRenderLayerIndex)) uint8_t renderLayerIndex;
 
 	__declspec(property(get = GetMaterial, put = SetMaterial)) const Ref<Material>& material;
+
+	__declspec(property(get = GetOverlayRenderOrder, put = SetOverlayRenderOrder)) int overlayRenderOrder;
 
 protected:
 
@@ -49,5 +55,8 @@ protected:
 	Ref<Texture> m_textures[TEX_MAX];
 
 	Ref<Material> m_material;
+
+	// 오버레이 렌더 큐 설정일때의 그리기 순서입니다.
+	int m_overlayRenderOrder = 0;
 };
 

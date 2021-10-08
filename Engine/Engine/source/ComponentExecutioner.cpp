@@ -100,15 +100,9 @@ void ComponentExecutioner::ExecuteUpdate()
 	ExecuteByOrder(LateUpdate);
 }
 
-void ComponentExecutioner::ExecuteRender()
+void ComponentExecutioner::ExecuteBeginRender()
 {
 	ExecuteByOrder(BeginRender);
-
-	ExecuteByOrder(BeforeRender);
-
-	ExecuteByOrder(AfterRender);
-
-	ExecuteByOrder(EndRender);
 }
 
 void ComponentExecutioner::ClearExecuteTargets()
@@ -130,12 +124,6 @@ void ComponentExecutioner::ClearExecuteTargets()
 	ComponentCallFlag(LateUpdate).clear();
 
 	ComponentCallFlag(BeginRender).clear();
-
-	ComponentCallFlag(BeforeRender).clear();
-
-	ComponentCallFlag(AfterRender).clear();
-
-	ComponentCallFlag(EndRender).clear();
 }
 
 ComponentExecutioner::PrepareResult ComponentExecutioner::PrepareGameObjectMap(GameObjectMap & gameObjectMap, bool withDestroyPrepare)
@@ -246,12 +234,6 @@ ComponentExecutioner::PrepareResult ComponentExecutioner::PrepareComponent(Compo
 
 	TryAddToExecutionTarget(component, BeginRender);
 
-	TryAddToExecutionTarget(component, BeforeRender);
-
-	TryAddToExecutionTarget(component, AfterRender);
-
-	TryAddToExecutionTarget(component, EndRender);
-
 	return PrepareResult::Execution;
 }
 
@@ -274,10 +256,4 @@ void ComponentExecutioner::SortExecutionTargetsByExecutionOrder()
 	SortByExecutionOrder(LateUpdate);
 
 	SortByExecutionOrder(BeginRender);
-
-	SortByExecutionOrder(BeforeRender);
-
-	SortByExecutionOrder(AfterRender);
-
-	SortByExecutionOrder(EndRender);
 }

@@ -104,12 +104,6 @@ void Component::Initialize
 
 	ComponentSetCall(BeginRender);
 
-	ComponentSetCall(BeforeRender);
-
-	ComponentSetCall(AfterRender);
-
-	ComponentSetCall(EndRender);
-
 	//ComponentSetCall(OnWake);
 
 	//ComponentSetCall(OnSleep);

@@ -19,19 +19,6 @@ void Light::Awake()
 	g_lights.push_back(this);
 }
 
-void Light::OnSleep()
-{
-	if (m_isEnabled)
-		DisableLight(m_lightIndex);
-}
-
-void Light::OnDestroy()
-{
-	auto it = FindInContainer(g_lights, this);
-	if (it != g_lights.end())
-		g_lights.erase(it);
-}
-
 void Light::SetColor(const Color& color)
 {
 	//if (m_light.Type == D3DLIGHT_SPOT)
@@ -135,6 +122,9 @@ void Light::DisableLight(unsigned int lightIndex)
 
 void Light::ActiveLight()
 {
+	if (!isWake)
+		return;
+
 	unsigned int lightIndex = GetDisabledLightIndex();
 	if (lightIndex < LIGHT_MAX)
 		EnableLight(lightIndex);
@@ -142,6 +132,9 @@ void Light::ActiveLight()
 
 void Light::DeactiveLight()
 {
+	if (!isWake)
+		return;
+
 	if (m_isEnabled)
 		DisableLight(m_lightIndex);
 }

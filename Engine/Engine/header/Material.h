@@ -9,7 +9,7 @@ class Material : public ResourceObject, public IClonable
 
 public:
 
-	void Apply();
+	void Apply(bool ignoreCmp);
 
 protected:
 
@@ -32,6 +32,10 @@ public:
 public:
 
 	MaterialParameters params;
+
+private:
+
+	static MaterialParameters g_beforeParams;
 
 };
 

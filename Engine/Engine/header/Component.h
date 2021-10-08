@@ -34,12 +34,6 @@ protected:
 
 	DefineComponentFunction(BeginRender);
 
-	DefineComponentFunction(BeforeRender);
-
-	DefineComponentFunction(AfterRender);
-
-	DefineComponentFunction(EndRender);
-
 	// 컴포넌트가 활성화 상태로 변경되었을 때 호출됩니다.
 	// 컴포넌트가 생성되어 Awake 호출이 완료된 후에도 호출됩니다.
 	DefineComponentFunction(OnWake);

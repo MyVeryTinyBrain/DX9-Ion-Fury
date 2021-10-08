@@ -32,7 +32,7 @@ public:
 
 	void ExecuteUpdate();
 
-	void ExecuteRender();
+	void ExecuteBeginRender();
 
 private:
 
@@ -81,11 +81,5 @@ private:
 	ExecutionTargets ComponentCallFlag(LateUpdate);
 
 	ExecutionTargets ComponentCallFlag(BeginRender);
-
-	ExecutionTargets ComponentCallFlag(BeforeRender);
-
-	ExecutionTargets ComponentCallFlag(AfterRender);
-
-	ExecutionTargets ComponentCallFlag(EndRender);
 };
 

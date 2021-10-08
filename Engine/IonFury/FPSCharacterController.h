@@ -1,6 +1,7 @@
 #pragma once
 
 class FPSCamera;
+class FPSOrthoCamera;
 
 class FPSCharacterController : public Component
 {
@@ -47,6 +48,8 @@ private:
 	GameObject* m_cameraObj = nullptr;
 
 	FPSCamera* m_camera = nullptr;
+
+	FPSOrthoCamera* m_orthoCamera = nullptr;
 
 	float m_speed = 5.0f;
 

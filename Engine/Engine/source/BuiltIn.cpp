@@ -134,4 +134,14 @@ void BuiltIn::MakeMaterialResources()
         params.renderQueue = RenderQueue::Overlay;
         Material::Create(params, BuiltInOverlayMaterial, true);
     }
+    {
+        MaterialParameters params;
+        params.zRead = false;
+        params.zWrite = false;
+        params.alphaTest = true;
+        params.alphaBlend = true;
+        params.useLight = true;
+        params.renderQueue = RenderQueue::Overlay;
+        Material::Create(params, BuiltInLightOverlayMaterial, true);
+    }
 }

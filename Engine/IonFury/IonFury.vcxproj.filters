@@ -19,6 +19,9 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{424967a5-5ee1-435d-8d95-c04efb834323}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SpriteAnimation">
+      <UniqueIdentifier>{c7d1ec07-34c8-45fe-bf56-424c96ee6ce3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -43,6 +46,21 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="FPSCharacterController.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimator.h">
+      <Filter>SpriteAnimation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
+      <Filter>SpriteAnimation</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSOrthoCamera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftHandAnimator.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RightHandAnimator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -73,6 +91,21 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="FPSCharacterController.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimator.cpp">
+      <Filter>SpriteAnimation</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimation.cpp">
+      <Filter>SpriteAnimation</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSOrthoCamera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="LeftHandAnimator.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="RightHandAnimator.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

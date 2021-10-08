@@ -65,3 +65,13 @@ void Renderer::SetMaterial(const Ref<Material>& material)
 {
 	m_material = material;
 }
+
+int Renderer::GetOverlayRenderOrder() const
+{
+	return m_overlayRenderOrder;
+}
+
+void Renderer::SetOverlayRenderOrder(int value)
+{
+	m_overlayRenderOrder = value;
+}

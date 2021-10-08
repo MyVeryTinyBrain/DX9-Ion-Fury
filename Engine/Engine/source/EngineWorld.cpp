@@ -144,9 +144,19 @@ HRESULT EngineWorld::Step()
 
 		graphicDevice->BeginRender();
 		graphicDevice->GetRenderProcess()->ClearRenderTargets();
-		scene->StepRender();
+		scene->StepBeginRender();
 		graphicDevice->GetRenderProcess()->Process();
 		graphicDevice->EndRender();
+
+		++m_fpsCount;
+		m_fpsCheckElapsed += centralTime->GetUpdateDeltaTime();
+
+		if (m_fpsCheckElapsed > 1.0f)
+		{
+			cout << m_fpsCount << endl;
+			m_fpsCount = 0;
+			m_fpsCheckElapsed = 0;
+		}
 	}
 
 	return S_OK;

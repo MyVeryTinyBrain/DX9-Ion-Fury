@@ -8,6 +8,17 @@
 #include "Transform.h"
 #include "Light.h"
 
+RenderProcess::RenderProcess()
+{
+	MaterialParameters param;
+	m_initMaterial = Material::CreateUnmanaged(param);
+}
+
+RenderProcess::~RenderProcess()
+{
+	m_initMaterial->ReleaseUnmanaged();
+}
+
 void RenderProcess::ClearRenderTargets()
 {
 	for (auto& renderTargets : m_renderTargets)
@@ -15,6 +26,7 @@ void RenderProcess::ClearRenderTargets()
 		renderTargets.clear();
 	}
 	m_transparentRenderTargets.clear();
+	m_overlayRenderTargets.clear();
 }
 
 void RenderProcess::AddRenderTarget(Renderer* renderer)
@@ -35,6 +47,12 @@ void RenderProcess::AddRenderTarget(Renderer* renderer)
 		transparentRenderTarget.distanceFromCamera = 0;
 		m_transparentRenderTargets.push_back(std::move(transparentRenderTarget));
 	}
+	else if (material->params.renderQueue == RenderQueue::Overlay)
+	{
+		// 오버레이 렌더 타겟에 추가합니다.
+
+		m_overlayRenderTargets.push_back(renderer);
+	}
 	else
 	{
 		// 투명 렌더 타겟이 아니라면
@@ -42,7 +60,6 @@ void RenderProcess::AddRenderTarget(Renderer* renderer)
 
 		auto& renderTargets = m_renderTargets[unsigned int(material->params.renderQueue)];
 		renderTargets[material].push_back(renderer);
-		int ff = 0;
 	}
 }
 
@@ -51,6 +68,10 @@ void RenderProcess::Process()
 	auto device = GraphicDevice::GetInstance()->GetDevice();
 
 	size_t cameraCount = Camera::GetCameraCount();
+
+	m_initMaterial->Apply(true);
+
+	SortOverlay();
 
 	for (unsigned int i = 0; i < cameraCount; ++i)
 	{
@@ -121,7 +142,7 @@ void RenderProcess::Render(Camera* baseCamera)
 
 	RenderTransparent(baseCamera);
 
-	RenderTo(baseCamera, RenderQueue::Overlay);
+	RenderOverlay(baseCamera);
 }
 
 void RenderProcess::RenderTo(Camera* baseCamera, RenderQueue renderQueue)
@@ -133,7 +154,7 @@ void RenderProcess::RenderTo(Camera* baseCamera, RenderQueue renderQueue)
 		auto& material = mapElement.first;
 		auto& renderTargetList = mapElement.second;
 
-		material->Apply();
+		material->Apply(false);
 
 		for (auto& renderer : renderTargetList)
 		{
@@ -178,7 +199,33 @@ void RenderProcess::RenderTransparent(Camera* baseCamera)
 		if (!draw)
 			continue;
 
-		material->Apply();
+		material->Apply(false);
 		renderer->Render();
 	}
+}
+
+void RenderProcess::RenderOverlay(Camera* baseCamera)
+{
+	for (auto& renderer : m_overlayRenderTargets)
+	{
+		bool draw = baseCamera->allowRenderLayers & (1 << renderer->renderLayerIndex);
+
+		if (!draw)
+			continue;
+
+		renderer->material->Apply(false);
+		renderer->Render();
+	}
+}
+
+void RenderProcess::SortOverlay()
+{
+	std::sort(
+		m_overlayRenderTargets.begin(),
+		m_overlayRenderTargets.end(),
+		[](Renderer* lhs, Renderer* rhs)
+		{
+			return lhs->overlayRenderOrder < rhs->overlayRenderOrder;
+		}
+	);
 }

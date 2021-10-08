@@ -21,5 +21,9 @@ public:
 private:
 
 	bool m_initialized = false;
+
+	float m_fpsCheckElapsed = 0;
+
+	unsigned int m_fpsCount = 0;
 };
 

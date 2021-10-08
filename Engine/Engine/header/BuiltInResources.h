@@ -27,3 +27,4 @@
 #define BuiltInTransparentMaterial					L"../BuiltIn/TransparentMaterial.material"
 #define BuiltInNolightTransparentMaterial			L"../BuiltIn/NolightTransparentMaterial.material"
 #define BuiltInOverlayMaterial						L"../BuiltIn/OverlayMaterial.material"
+#define BuiltInLightOverlayMaterial					L"../BuiltIn/LightOverlayMaterial.material"

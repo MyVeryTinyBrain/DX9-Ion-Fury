@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "FPSCharacterController.h"
 #include "FPSCamera.h"
+#include "FPSOrthoCamera.h"
+#include "LeftHandAnimator.h"
+#include "RightHandAnimator.h"
 
 void FPSCharacterController::Awake()
 {
@@ -17,8 +20,7 @@ void FPSCharacterController::Awake()
 
     m_cameraObj = CreateGameObjectToChild(m_subObj->transform);
     m_camera = m_cameraObj->AddComponent<FPSCamera>();
-
-    Physics::SetGravity(Vec3(0.0f, -9.81f, 0.0f));
+    m_orthoCamera = m_cameraObj->AddComponent<FPSOrthoCamera>();
 }
 
 void FPSCharacterController::FixedUpdate()
@@ -100,6 +102,10 @@ void FPSCharacterController::FixedUpdate()
 
 void FPSCharacterController::Update()
 {
+    if (Input::GetKeyDown(Key::LeftMouse))
+    {
+        m_orthoCamera->rightHandAnimator->PlayShoot();
+    }
 }
 
 void FPSCharacterController::OnDestroy()

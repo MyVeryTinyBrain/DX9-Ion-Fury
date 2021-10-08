@@ -114,8 +114,7 @@ private:
 	uint32_t m_allowRenderLayers = 0xFFFFFFFF;
 
 	// 활성화되면 메인 버퍼의 깊이 버퍼와 스텐실 버퍼를 초기화해 화면에 덮에 그리도록 합니다.
-	// 두 개
-	bool m_overlap = false;
+	bool m_overlap = true;
 
 	ProjectionMode m_projectionMode = ProjectionMode::Perspective;
 

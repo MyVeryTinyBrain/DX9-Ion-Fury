@@ -104,32 +104,6 @@ void TestScene::OnLoad(Scene* beforeScene)
             renderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
         }
     }
-
-    {   // Create Orthographic projection camera
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(-1000, -1000, -10);
-
-        auto camChild = CreateGameObjectToChild(obj->transform);
-        camChild->transform->localPosition = Vec3(0, 0, +10);
-
-        auto camera = obj->AddComponent<Camera>();
-        camera->cameraOrder = 10000;
-        camera->overlapMode = true;
-        camera->allowRenderLayers = (1 << 5);
-        camera->projectionMode = ProjectionMode::Orthographic;
-
-        {   // Create quat for Orthographic projection camera
-            auto quadObj = CreateGameObjectToChild(camChild->transform);
-            quadObj->transform->localPosition = Vec2(0, 0);
-            quadObj->transform->scale = Vec3::one();
-
-            auto renderer = quadObj->AddComponent<UserMeshRenderer>();
-            renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
-            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/revolver/revolver0.png"));
-            renderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
-            renderer->renderLayerIndex = 5;
-        }
-    }
 }
 
 void TestScene::OnUnload(Scene* nextScene)

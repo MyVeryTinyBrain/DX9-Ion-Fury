@@ -226,7 +226,7 @@ void Scene::StepUpdate()
 	m_componentExecutioner->ExecuteUpdate();
 }
 
-void Scene::StepRender()
+void Scene::StepBeginRender()
 {
-	m_componentExecutioner->ExecuteRender();
+	m_componentExecutioner->ExecuteBeginRender();
 }

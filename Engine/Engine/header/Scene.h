@@ -70,7 +70,7 @@ private: // Should change to private
 
 	void StepUpdate();
 
-	void StepRender();
+	void StepBeginRender();
 
 private:
 
