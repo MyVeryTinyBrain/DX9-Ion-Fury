@@ -18,7 +18,11 @@ public:
 
 	float GetInverval() const;
 
+	void SetInterval(float value);
+
 	bool IsLoop() const;
+
+	void SetLoop(bool value);
 
 	bool IndexOf(unsigned int index, Texture** ppTexture) const;
 
@@ -30,11 +34,11 @@ public:
 
 	__declspec(property(get = GetMaxTime)) float maxTime;
 
-	__declspec(property(get = GetInverval)) float interval;
+	__declspec(property(get = GetInverval, put = SetInterval)) float interval;
 
-	__declspec(property(get = IsLoop)) bool isLoop;
+	__declspec(property(get = IsLoop, put = SetLoop)) bool isLoop;
 
-public:
+private:
 
 	std::vector<Ref<Texture>> m_textures;
 

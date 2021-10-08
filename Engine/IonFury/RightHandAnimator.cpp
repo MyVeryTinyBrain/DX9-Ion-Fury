@@ -8,7 +8,7 @@ void RightHandAnimator::Awake()
 
 	m_default = new SpriteAnimation;
 	m_default->AddTexture(L"../SharedResource/Texture/revolver/revolver0.png");
-	m_default->m_loop = true;
+	m_default->isLoop = true;
 
 	m_shoot = new SpriteAnimation;
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver1.png");
@@ -25,9 +25,15 @@ void RightHandAnimator::Awake()
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
-	m_shoot->m_interval = 0.01f;
+	m_shoot->interval = 0.01f;
 
 	SetDefaultAnimation(m_default);
+}
+
+void RightHandAnimator::OnDestroy()
+{
+	SafeDelete(m_default);
+	SafeDelete(m_shoot);
 }
 
 void RightHandAnimator::OnAnimationEnd()

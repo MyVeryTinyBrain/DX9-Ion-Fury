@@ -37,9 +37,19 @@ float SpriteAnimation::GetInverval() const
 	return m_interval;
 }
 
+void SpriteAnimation::SetInterval(float value)
+{
+	m_interval = value;
+}
+
 bool SpriteAnimation::IsLoop() const
 {
 	return m_loop;
+}
+
+void SpriteAnimation::SetLoop(bool value)
+{
+	m_loop = value;
 }
 
 bool SpriteAnimation::IndexOf(unsigned int index, Texture** ppTexture) const
