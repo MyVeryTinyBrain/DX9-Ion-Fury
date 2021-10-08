@@ -9,7 +9,7 @@
 // 정석 컴포넌트의 정의부분입니다.
 ImplementStaticComponent(LightObj);
 
-std::vector<LightObj*> LightObj::g_LightVec;
+std::vector<LightObj*> LightObj::g_vecLight;
 
 void LightObj::Awake()
 {
@@ -17,6 +17,7 @@ void LightObj::Awake()
 	g_instance = this;
 
 	m_LightChildObject = CreateGameObject();
+	g_vecLight.push_back(this);
 
 	m_LightChildObject->transform->parent = GetGameObject()->transform;
 	m_LightChildObject->transform->localPosition = Vec3::zero();
@@ -32,9 +33,9 @@ void LightObj::Update()
 
 void LightObj::OnDestroy()
 {
-	auto it = FindInContainer(g_LightVec, this);
-	if (it != g_LightVec.end())
-		g_LightVec.erase(it);
+	auto it = FindInContainer(g_vecLight, this);
+	if (it != g_vecLight.end())
+		g_vecLight.erase(it);
 }
 
 void LightObj::LightSettings(const wstring& localPathMesh)
@@ -49,8 +50,7 @@ LightObj* LightObj::LightPick()
 	Input::GetMouseWorldRay(rayPoint, rayDir);
 
 	Vec3 HitPoint;
-
-	for (auto pickable : g_LightVec)
+	for (auto pickable : g_vecLight)
 	{
 		UserMeshRenderer* Renderer = pickable->GetRenderer();
 
@@ -63,32 +63,15 @@ LightObj* LightObj::LightPick()
 
 	return nullptr;
 }
-//
-//void LightObj::AddLight(const tag_t& tag, const wstring& LightName, const wstring& localPathMesh)
-//{
-//	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-//
-//	if (tag == L"Point")
-//	{
-//		GameObject* PointLightObj = CreateGameObject(tag);
-//
-//		PointLightObj->name = LightName;
-//
-//
-//		//이게 맞을까낭... 음!!
-//		PointLightObj->transform->position = transform->position + transform->forward * 2;
-//
-//		auto LightObj = PointLightObj->AddComponent<PointLight>();
-//	}
-//	else if (tag == L"Spot")
-//	{
-//		GameObject* SpotLightObj = CreateGameObject(tag);
-//
-//		SpotLightObj->name = LightName;
-//
-//		SpotLightObj->transform->parent = camera->transform;
-//
-//		auto LightObj = SpotLightObj->AddComponent<SpotLight>();
-//	}
-//}
-//
+
+void LightObj::AddLightObject()
+{
+	for (auto pickable : g_vecLight)
+	{
+		//wstring type = pickable->m_LightType;
+		//if (pickable->m_LightType == L"Point")
+		//{
+
+		//}
+	}
+}
