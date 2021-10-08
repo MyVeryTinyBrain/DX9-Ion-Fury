@@ -23,6 +23,8 @@ void FreePerspectiveCamera::Update()
 
 	if (Input::GetKeyDown(Key::M))
 		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
+	if (Input::GetKeyDown(Key::L))
+		EditorManager::GetInstance()->GetGizmo()->GetInformation();
 
 
 	if (Input::GetKey(Key::Left))

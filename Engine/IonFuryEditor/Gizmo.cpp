@@ -154,6 +154,16 @@ void Gizmo::ChangeTextureAttachedObject(CString texturePath)
 	};
 }
 
+void Gizmo::GetInformation()
+{
+	if (m_selectedTransform)
+	{
+		UserMeshRenderer* renderer = m_selectedTransform->gameObject->GetComponent<Pickable>()->GetRenderer();
+		wstring meshPath = renderer->GetUserMesh()->GetLocalPath();
+		wstring texPath = renderer->GetTexture(0)->GetLocalPath();	//settexture할때도 0으로 잡았으니까
+	}
+}
+
 
 
 void Gizmo::ResetGizmoTransform()

@@ -16,9 +16,6 @@ public:
 	static Pickable* Pick();	//vec순환해서 
 	//static void PickDelete();	//gizmo붙어있는 녀석은 삭제
 
-	
-
-
 public:
 	UserMeshRenderer* GetRenderer() { return m_Renderer; }
 

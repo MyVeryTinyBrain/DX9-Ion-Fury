@@ -266,6 +266,8 @@ void DlgObjectTool::OnBnClickedSave()
 		{
 			auto obj = pick->GetGameObject();
 
+			//pick->GetRenderer()->
+
 			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
 			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
@@ -275,6 +277,7 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
+			
 
 		}
 
