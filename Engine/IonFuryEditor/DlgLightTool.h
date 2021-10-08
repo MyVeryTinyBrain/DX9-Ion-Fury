@@ -88,4 +88,8 @@ public:
 	afx_msg void OnEnChangeLtDirx();
 	afx_msg void OnEnChangeLtDiry();
 	afx_msg void OnEnChangeLtDirz();
+	afx_msg void OnEnChangeColorR();
+	afx_msg void OnEnChangeColorG();
+	afx_msg void OnEnChangeColorB();
+	afx_msg void OnEnChangeColorA();
 };
