@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#define TabImagePath0					L"../SharedResourced/Texture/Category0/*"
-#define TabImagePath1					L"../SharedResourced/Texture/Category1/*"
-#define TabImagePath2					L"../SharedResourced/Texture/Category2/*"
+#define TabImagePath0					L"../SharedResourced/Texture/obj/*"
+#define TabImagePath1					L"../SharedResourced/Texture/npc/*"
+#define TabImagePath2					L"../SharedResourced/Texture/sans/*"
 
 // DlgTextureTool 대화 상자
 

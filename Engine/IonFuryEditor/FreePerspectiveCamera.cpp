@@ -24,6 +24,8 @@ void FreePerspectiveCamera::Update()
 
 	if (Input::GetKeyDown(Key::M))
 		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
+	if (Input::GetKeyDown(Key::L))
+		EditorManager::GetInstance()->GetGizmo()->GetInformation();
 
 
 	if (Input::GetKey(Key::Left))
@@ -79,6 +81,8 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 
 void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
 {
+	if (localPathMesh.length() < 1)
+		return;
 	GameObject* Obj = CreateGameObject(tag);
 
 	Obj->name = ObjName;
