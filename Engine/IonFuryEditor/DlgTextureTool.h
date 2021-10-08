@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define TabImagePath0					L"../SharedResource/Texture/obj/*"
+#define TabImagePath0					L"../SharedResource/Texture/object/*"
 #define TabImagePath1					L"../SharedResource/Texture/npc/*"
 #define TabImagePath2					L"../SharedResource/Texture/sans/*"
 
