@@ -27,10 +27,12 @@ DlgLightTool::DlgLightTool(CWnd* pParent /*=nullptr*/)
 	, iPos(0)
 	, m_LightType(_T(""))
 	, sPos(_T(""))
-	, m_Dir(0.f, 0.f, 0.f)
 	, sPosX(_T(""))
 	, sPosY(_T(""))
 	, sPosZ(_T(""))
+	,iPosX(0)
+	,iPosY(0)
+	,iPosZ(0)
 {
 
 }
@@ -56,12 +58,17 @@ void DlgLightTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_LT_POSZ, m_PosZ);
 
 	DDX_Control(pDX, IDC_SLIDERCTRL_RAD, m_SliderCrtl_Radius);
+	DDX_Control(pDX, IDC_LT_RADIUS, m_Radius);
+
 	DDX_Control(pDX, IDC_SLDER_DIRX, m_SliderDirX);
 	DDX_Control(pDX, IDC_SLDER_DIRY, m_SliderDirY);
 	DDX_Control(pDX, IDC_SLDER_DIRZ, m_SliderDirZ);
 	DDX_Control(pDX, IDC_LIST1, m_LT_ListBox);
 	DDX_CBString(pDX, IDC_LT_COMBOBOX, m_LightType);
-	DDX_Control(pDX, IDC_LT_RADIUS, m_Radius);
+
+	DDX_Control(pDX, IDC_LT_DIRX, m_DirX);
+	DDX_Control(pDX, IDC_LT_DIRY, m_DirY);
+	DDX_Control(pDX, IDC_LT_DIRZ, m_DirZ);
 }
 
 
@@ -72,6 +79,9 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_CBN_SELCHANGE(IDC_LT_COMBOBOX, &DlgLightTool::OnSelectLight)
 	ON_EN_CHANGE(IDC_LT_LIGHTNAME, &DlgLightTool::OnLightName)
 	ON_EN_CHANGE(IDC_LT_RADIUS, &DlgLightTool::OnEnChangeLtRadius)
+	ON_EN_CHANGE(IDC_LT_DIRX, &DlgLightTool::OnEnChangeLtDirx)
+	ON_EN_CHANGE(IDC_LT_DIRY, &DlgLightTool::OnEnChangeLtDiry)
+	ON_EN_CHANGE(IDC_LT_DIRZ, &DlgLightTool::OnEnChangeLtDirz)
 END_MESSAGE_MAP()
 
 
@@ -100,25 +110,33 @@ BOOL DlgLightTool::OnInitDialog()
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
-	m_SliderCrtl_Radius.SetRangeMin(0);			//최소 값 설정
-	m_SliderCrtl_Radius.SetRangeMax(180);		//최대 값 설정
 	m_SliderCrtl_Radius.SetPos(0);				//위치 설정
-	m_SliderCrtl_Radius.SetPageSize(0.1);		//눈금 간격 설정
+	m_SliderCrtl_Radius.SetLineSize(1);		//방향키로 움질일 때 사이즈 
+	m_SliderCrtl_Radius.SetPageSize(1);		//눈금 간격 설정
 
 	iPos = m_SliderCrtl_Radius.GetPos();
 	sPos.Format(_T(" % d"), iPos);
 	m_Radius.SetWindowText(sPos);
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderDirX.SetRange(0, 300);
+	m_SliderDirX.SetRange(0, 360);
 	m_SliderDirX.SetPos(0);
-	m_SliderDirY.SetRange(0, 300);
+	m_SliderDirY.SetRange(0, 360);
 	m_SliderDirY.SetPos(0);
-	m_SliderDirZ.SetRange(0, 300);
+	m_SliderDirZ.SetRange(0, 360);
 	m_SliderDirZ.SetPos(0);
 
+	iPosX = m_SliderDirX.GetPos();
+	sPosX.Format(_T(" % d"), iPosX);
+	m_DirX.SetWindowText(sPosX);
 
+	iPosY = m_SliderDirY.GetPos();
+	sPosY.Format(_T(" % d"), iPosY);
+	m_DirY.SetWindowText(sPosY);
 
+	iPosZ = m_SliderDirX.GetPos();
+	sPosZ.Format(_T(" % d"), iPosZ);
+	m_DirZ.SetWindowText(sPosZ);
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -146,18 +164,26 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	case IDC_SLIDERCTRL_RAD:
 		m_SliderCrtl_Radius.SetPos(pSlider->GetPos());
 		iPos = m_SliderCrtl_Radius.GetPos();
-
 		sPos.Format(_T("%d"), iPos);
-		m_Radius.SetWindowTextW(sPos);
+		m_Radius.SetWindowText(sPos);
 		break;
 	case IDC_SLDER_DIRX:
 		m_SliderDirX.SetPos(pSlider->GetPos());
+		iPosX = m_SliderDirX.GetPos();
+		sPosX.Format(_T("%d"), iPosX);
+		m_DirX.SetWindowText(sPosX);
 		break;
 	case IDC_SLDER_DIRY:
 		m_SliderDirY.SetPos(pSlider->GetPos());
+		iPosY = m_SliderDirY.GetPos();
+		sPosY.Format(_T("%d"), iPosY);
+		m_DirY.SetWindowText(sPosY);
 		break;
 	case IDC_SLDER_DIRZ:
 		m_SliderDirZ.SetPos(pSlider->GetPos());
+		iPosZ = m_SliderDirZ.GetPos();
+		sPosZ.Format(_T("%d"), iPosZ);
+		m_DirZ.SetWindowText(sPosZ);
 		break;
 	}
 
@@ -225,4 +251,34 @@ void DlgLightTool::OnEnChangeLtRadius()
 	iPos = _ttoi(sPos);
 
 	m_SliderCrtl_Radius.SetPos(iPos);
+}
+
+
+void DlgLightTool::OnEnChangeLtDirx()
+{
+	//방향 X 축 슬라이더 에디터박스 조정
+	m_DirX.GetWindowText(sPosX);
+	iPosX = _ttoi(sPosX);
+
+	m_SliderDirX.SetPos(iPosX);
+}
+
+
+void DlgLightTool::OnEnChangeLtDiry()
+{
+	//방향 X 축 슬라이더 에디터박스 조정
+	m_DirY.GetWindowText(sPosY);
+	iPosY = _ttoi(sPosY);
+
+	m_SliderDirY.SetPos(iPosY);
+}
+
+
+void DlgLightTool::OnEnChangeLtDirz()
+{
+	//방향 X 축 슬라이더 에디터박스 조정
+	m_DirZ.GetWindowText(sPosZ);
+	iPosZ = _ttoi(sPosZ);
+
+	m_SliderDirZ.SetPos(iPosZ);
 }

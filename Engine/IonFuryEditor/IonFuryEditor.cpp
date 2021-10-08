@@ -196,3 +196,4 @@ BOOL CIonFuryEditorApp::PreTranslateMessage(MSG* pMsg)
 	engine.WindowProcedure(pMsg->message, pMsg->wParam, pMsg->lParam);
 	return CWinApp::PreTranslateMessage(pMsg);
 }
+

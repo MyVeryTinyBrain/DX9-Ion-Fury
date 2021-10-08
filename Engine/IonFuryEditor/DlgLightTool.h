@@ -56,7 +56,7 @@ public:
 	afx_msg void OnEnChangeLtRadius();
 	CEdit m_Radius;
 	CSliderCtrl m_SliderCrtl_Radius;
-	float iPos;
+	int iPos;
 	CString sPos;
 
 
@@ -67,7 +67,10 @@ public:
 	CSliderCtrl m_SliderDirZ;
 
 	CListBox m_LT_ListBox;
-	Vec3 m_Dir;
+
+	int iPosX;
+	int iPosY;
+	int iPosZ;
 	CString sPosX;
 	CString sPosY;
 	CString sPosZ;
@@ -78,4 +81,11 @@ public:
 	afx_msg void OnSelectLight();
 	afx_msg void OnLightName();
 
+	CEdit m_DirX;
+	CEdit m_DirY;
+	CEdit m_DirZ;
+
+	afx_msg void OnEnChangeLtDirx();
+	afx_msg void OnEnChangeLtDiry();
+	afx_msg void OnEnChangeLtDirz();
 };
