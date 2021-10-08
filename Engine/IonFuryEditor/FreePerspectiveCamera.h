@@ -18,11 +18,7 @@ public:
 		, const wstring& localPathTexture = BuiltInWhiteTexture
 	);
 
-	void AddLight(
-		const wstring& LightName = L"DefaultName",
-		const wstring& LightType = L"Spot",
-		const tag_t & tag = L"Light",
-		const wstring& localPathMesh = BuiltInCubeUserMesh);
+	void AddLight( const wstring& LightName , const wstring& LightType );
 
 private:
 
