@@ -279,7 +279,7 @@ void DlgObjectTool::OnBnClickedSave()
 			dwStrByte2 = sizeof(wchar_t) * (obj->tag.length() + 1);
 			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
-
+			
 			auto meshrenderer = pick->GetRenderer();
 			strMesh = meshrenderer->userMesh->GetLocalPath().c_str();
 			

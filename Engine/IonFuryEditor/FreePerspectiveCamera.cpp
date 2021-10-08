@@ -3,6 +3,7 @@
 #include "Gizmo.h"
 #include "Pickable.h"
 #include "EditorManager.h"
+#include "LightObj.h"
 
 
 void FreePerspectiveCamera::Update()
@@ -91,4 +92,30 @@ void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& 
 
 	auto test = Obj->AddComponent<Pickable>();
 	test->Settings(localPathMesh, localPathTexture);
+}
+
+void FreePerspectiveCamera::AddLight(const wstring& LightName, const tag_t& tag, const wstring& localPathMesh)
+{
+	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+
+	if (tag == L"Point")
+	{
+		GameObject* PointLightObj = CreateGameObject(tag);
+
+		PointLightObj->name = LightName;
+
+		PointLightObj->transform->position = transform->position + transform->forward * 2;
+
+		auto LightObj = PointLightObj->AddComponent<PointLight>();
+	}
+	else if (tag == L"Spot")
+	{
+		GameObject* SpotLightObj = CreateGameObject(tag);
+
+		SpotLightObj->name = LightName;
+
+		SpotLightObj->transform->parent = camera->transform;
+
+		auto LightObj = SpotLightObj->AddComponent<SpotLight>();
+	}
 }
