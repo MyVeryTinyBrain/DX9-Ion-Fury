@@ -16,13 +16,28 @@ void LightObj::Awake()
 	// 정적 변수에 대입합니다.
 	g_instance = this;
 
-	m_LightChildObject = CreateGameObject();
+}
+
+void LightObj::Start()
+{
+	switch (m_LightType)
+	{
+	case LIGHT::POINT:
+		m_LightChildObject = CreateGameObject();
+		m_LightChildObject->AddComponent<PointLight>();
+		break;
+	case LIGHT::SPOT:
+		m_LightChildObject = CreateGameObject();
+		m_LightChildObject->AddComponent<SpotLight>();
+		break;
+	}
+
 	g_vecLight.push_back(this);
 
 	m_LightChildObject->transform->parent = GetGameObject()->transform;
 	m_LightChildObject->transform->localPosition = Vec3::zero();
 
-	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
+	//EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 }
 
 void LightObj::Update()
@@ -44,34 +59,34 @@ void LightObj::LightSettings(const wstring& localPathMesh)
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
 }
 
-LightObj* LightObj::LightPick()
+void LightObj::SetLightType(const wstring& lightType)
 {
-	Vec3 rayPoint, rayDir;
-	Input::GetMouseWorldRay(rayPoint, rayDir);
-
-	Vec3 HitPoint;
-	for (auto pickable : g_vecLight)
+	if (lightType == L"Point")
 	{
-		UserMeshRenderer* Renderer = pickable->GetRenderer();
-
-		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
-		{
-			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
-			return pickable;
-		}
+		m_LightType = LIGHT::POINT;
 	}
-
-	return nullptr;
+	else if (lightType == L"Spot")
+	{
+		m_LightType = LIGHT::SPOT;
+	}
 }
 
-void LightObj::AddLightObject()
+LightObj* LightObj::LightPick()
 {
-	for (auto pickable : g_vecLight)
-	{
-		//wstring type = pickable->m_LightType;
-		//if (pickable->m_LightType == L"Point")
-		//{
+	//Vec3 rayPoint, rayDir;
+	//Input::GetMouseWorldRay(rayPoint, rayDir);
 
-		//}
-	}
+	//Vec3 HitPoint;
+	//for (auto pickable : g_vecLight)
+	//{
+	//	UserMeshRenderer* Renderer = pickable->GetRenderer();
+
+	//	if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+	//	{
+	//		EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
+	//		return pickable;
+	//	}
+	//}
+
+	return nullptr;
 }

@@ -12,6 +12,8 @@ public:
 
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(OnDestroy);
@@ -19,20 +21,21 @@ public:
 public:
 	void LightSettings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh");
 
-	static LightObj* LightPick();
+	void SetLightType(const wstring& lightType);
 
-	void AddLightObject();
+	static LightObj* LightPick();
 
 
 public:
 	UserMeshRenderer* GetRenderer() { return m_LightRenderer; }
 
 private:
-	LIGHT m_LightType;		// enum 
+	LIGHT m_LightType = LIGHT::END;		// enum 
 	
 	GameObject* m_LightChildObject; //addcomponet 로 타입을 넣어주면된다. 
 
 	UserMeshRenderer* m_LightRenderer;
+
 
 public:
 	static std::vector<LightObj*> g_vecLight;
