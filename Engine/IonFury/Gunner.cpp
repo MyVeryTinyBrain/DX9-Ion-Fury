@@ -11,7 +11,7 @@ void Gunner::Awake()
     m_hp = 10;
     m_moveSpeed = 4.0f;
 
-    m_body->mass = 5.0f;
+    m_body->mass = 1.0f;
 
     m_rendererObj->transform->scale = Vec3::one() * 3.0f;
     m_animator = m_rendererChildObj->AddComponent<GunnerSpriteAnimator>();
@@ -20,8 +20,6 @@ void Gunner::Awake()
 void Gunner::FixedUpdate()
 {
     Monster::FixedUpdate();
-
-    m_body->velocity *= 0.9f;
 
 	const Vec3& playerPos = Player::GetInstance()->transform->position;
 	const Vec3& gunnerPos = transform->position;
