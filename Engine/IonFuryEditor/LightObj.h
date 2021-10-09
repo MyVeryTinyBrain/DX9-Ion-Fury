@@ -25,6 +25,8 @@ public:
 
 	static LightObj* LightPick();
 
+	CString& GetName() { return m_strType; }
+
 
 public:
 	UserMeshRenderer* GetRenderer() { return m_LightRenderer; }
@@ -36,6 +38,7 @@ private:
 
 	UserMeshRenderer* m_LightRenderer;
 
+	CString m_strType;
 
 public:
 	static std::vector<LightObj*> g_vecLight;

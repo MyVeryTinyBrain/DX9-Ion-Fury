@@ -14,6 +14,9 @@ public:
 	DlgLightTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~DlgLightTool();
 
+public:
+	void SetListBox();
+
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_DlgLightTool };

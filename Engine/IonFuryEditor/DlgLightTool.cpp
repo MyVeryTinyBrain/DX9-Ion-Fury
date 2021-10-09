@@ -42,6 +42,22 @@ DlgLightTool::~DlgLightTool()
 {
 }
 
+void DlgLightTool::SetListBox()
+{
+	UpdateData(TRUE);
+
+	for (auto& light : LightObj::g_vecLight)
+	{
+		//auto lightobj = light->GetGameObject();
+
+		//auto temp = lightobj->GetComponent<LightObj>();
+
+		m_LT_ListBox.AddString(light->GetName());
+
+	}
+	UpdateData(FALSE);
+}
+
 void DlgLightTool::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -145,7 +161,7 @@ BOOL DlgLightTool::OnInitDialog()
 	m_DirZ.SetWindowText(sPosZ);
 
 
-
+	
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -204,16 +220,6 @@ void DlgLightTool::OnListBoxCtrl()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	UpdateData(TRUE);
 
-	for (auto& light : LightObj::g_vecLight)
-	{
-		auto lightobj = light->GetGameObject();
-
-
-		auto temp = lightobj->GetComponent<LightObj>();
-
-		m_LT_ListBox.AddString(temp->name.c_str());
-
-	}
 
 	UpdateData(FALSE);
 }
