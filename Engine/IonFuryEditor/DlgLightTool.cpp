@@ -205,9 +205,11 @@ void DlgLightTool::OnListBoxCtrl()
 
 	for (auto& light : LightObj::g_vecLight)
 	{
-		auto lightob = light->GetGameObject();
+		auto lightobj = light->GetGameObject();
 
-		m_LT_ListBox.AddString(lightob->name.c_str());
+		auto temp = lightobj->GetComponent<LightObj>();
+
+		m_LT_ListBox.AddString(temp->name.c_str());
 	}
 
 	UpdateData(FALSE);
