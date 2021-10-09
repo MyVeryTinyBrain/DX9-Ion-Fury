@@ -109,6 +109,7 @@ BOOL DlgLightTool::OnInitDialog()
 	m_LT_ComboBox.AddString(_T("Point"));
 	m_LT_ComboBox.AddString(_T("Spot"));
 	m_LT_ComboBox.AddString(_T("Directional"));
+	m_LT_ComboBox.AddString(_T("Ambinent"));
 	//m_LT_ComboBox.AddString(_T("Ambinent"));
 	m_LT_ComboBox.SetCurSel(0);
 	m_LightType = L"Point";
@@ -205,9 +206,9 @@ void DlgLightTool::OnListBoxCtrl()
 
 	for (auto& light : LightObj::g_vecLight)
 	{
-		auto lightob = light->GetGameObject();
+		auto lightobj = light->GetGameObject();
 
-		m_LT_ListBox.AddString(lightob->name.c_str());
+		m_LT_ListBox.AddString(lightobj->name.c_str());
 	}
 
 	UpdateData(FALSE);
@@ -231,6 +232,9 @@ void DlgLightTool::OnSelectLight()
 		break;
 	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
 		m_LightType = L"Directional";
+		break;
+	case DlgLightTool::COMBOBOX::AMBINENTLIGHT:
+		m_LightType = L"Ambinent";
 		break;
 	default:
 		break;
