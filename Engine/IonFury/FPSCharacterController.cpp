@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FPSCharacterController.h"
 #include "FPSCamera.h"
+#include "PhysicsLayers.h"
 
 void FPSCharacterController::Awake()
 {
@@ -12,6 +13,7 @@ void FPSCharacterController::Awake()
 
     m_colliderObj = CreateGameObjectToChild(m_subObj->transform);
     m_collider = m_colliderObj->AddComponent<CapsuleCollider>();
+    m_collider->layerIndex = (uint8_t)PhysicsLayers::Player;
     m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &FPSCharacterController::OnCollisionEnter);
     m_collider->OnCollisionExit += Function<void(const CollisionExit&)>(this, &FPSCharacterController::OnCollisionExit);
 
