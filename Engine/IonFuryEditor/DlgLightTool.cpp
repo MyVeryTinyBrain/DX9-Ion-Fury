@@ -230,6 +230,7 @@ void DlgLightTool::OnListBoxCtrl()
 
 	for (auto& light : LightObj::g_vecLight)
 	{
+
 		auto lightobj = light->GetGameObject();
 
 		auto test =  lightobj->GetComponent<LightObj>();
@@ -250,6 +251,7 @@ void DlgLightTool::OnListBoxCtrl()
 			}
 			// 불러올때 LightObj에서 이름을 가져오면 될듯
 		}
+
 	}
 	
 
