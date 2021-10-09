@@ -55,6 +55,8 @@ Vec3 RigidbodyInterpolationer::CalcInterpolatePosition() const
 	auto centralTime = CentralTimeElement::GetInstance();
 	float accumulated = centralTime->GetFixedUpdateAccumulated();
 
+	//accumulated = Clamp(accumulated, 0, centralTime->GetFixedUpdateInterval());
+
 	return m_backupPosition + m_body->velocity * accumulated;
 }
 
@@ -62,6 +64,8 @@ Vec3 RigidbodyInterpolationer::CalcInterpolateEulerAngle() const
 {
 	auto centralTime = CentralTimeElement::GetInstance();
 	float accumulated = centralTime->GetFixedUpdateAccumulated();
+
+	//accumulated = Clamp(accumulated, 0, centralTime->GetFixedUpdateInterval());
 
 	return m_backupEulerAngle + m_body->angularVelocity * accumulated;
 }
