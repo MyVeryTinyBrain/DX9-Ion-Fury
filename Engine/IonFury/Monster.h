@@ -7,7 +7,7 @@ enum class MonsterDamageType
 	Explosion,
 };
 
-class Monster abstract : public Component
+class Monster : public Component
 {
 	OverrideComponentFunction(Awake);
 

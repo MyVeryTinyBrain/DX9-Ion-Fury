@@ -11,8 +11,6 @@ class SpriteAnimator abstract : public Component
 
 	OverrideComponentFunction(AnimationUpdate);
 
-	OverrideComponentFunction(Update);
-
 protected:
 
 	// 루프 플래그가 없는 애니메이션이 종료될 때 호출됩니다.
@@ -65,6 +63,8 @@ public:
 private:
 
 	void UpdateTexture();
+
+	void Transition();
 
 private:
 

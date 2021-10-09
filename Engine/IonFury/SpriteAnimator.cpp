@@ -15,49 +15,9 @@ void SpriteAnimator::AnimationUpdate()
 {
 	// 경과된 시간에 알맞는 텍스쳐를 렌더러에 올립니다.
 	UpdateTexture();
-}
 
-void SpriteAnimator::Update()
-{
-	if (!m_renderer) return;
-	if (!m_current) return;
-
-	// 경과 시간에 누적합니다.
-	if (!m_pause)
-		m_elapsed += Time::DeltaTime() * m_speed;
-
-	// 루프 애니메이션이 아닌데, 애니메이션의 끝인 경우
-	if (!m_current->isLoop && m_current->IsEnd(m_elapsed))
-	{
-		SpriteAnimation* current = m_current;
-		m_current = nullptr;
-
-		// 애니메이션 종료 이벤트함수를 호출합니다.
-		OnAnimationEnd();
-
-		// OnAnimationEnd() 에서 다른 애니메이션이 설정되지 않은 경우에
-		if (m_current == nullptr)
-		{
-			// 애니메이션을 변경하지 않는 조건이면 이전 애니메이션을 그대로 유지하고 종료합니다.
-			if (!m_transition)
-			{
-				m_current = current;
-				return;
-			}
-
-			// 기본 애니메이션으로 전환합니다.
-			PlayAnimation(m_default, true);
-
-			// 기본 애니메이션도 존재하지 않는다면 종료합니다.
-			if (!m_current)
-			{
-				return;
-			}
-
-			// 변경된 애니메이션의 텍스쳐를 적용합니다.
-			UpdateTexture();
-		}
-	}
+	// 애니메이션이 변경되어야 하면 변경합니다.
+	Transition();
 }
 
 const Ref<Renderer>& SpriteAnimator::GetRenderer() const
@@ -186,4 +146,47 @@ void SpriteAnimator::UpdateTexture()
 	Texture* texture = nullptr;
 	bool endOfAnimation = !m_current->TimeOf(m_elapsed, &texture);
 	m_renderer->SetTexture(0, texture);
+}
+
+void SpriteAnimator::Transition()
+{
+	if (!m_renderer) return;
+	if (!m_current) return;
+
+	// 경과 시간에 누적합니다.
+	if (!m_pause)
+		m_elapsed += Time::DeltaTime() * m_speed;
+
+	// 루프 애니메이션이 아닌데, 애니메이션의 끝인 경우
+	if (!m_current->isLoop && m_current->IsEnd(m_elapsed))
+	{
+		SpriteAnimation* current = m_current;
+		m_current = nullptr;
+
+		// 애니메이션 종료 이벤트함수를 호출합니다.
+		OnAnimationEnd();
+
+		// OnAnimationEnd() 에서 다른 애니메이션이 설정되지 않은 경우에
+		if (m_current == nullptr)
+		{
+			// 애니메이션을 변경하지 않는 조건이면 이전 애니메이션을 그대로 유지하고 종료합니다.
+			if (!m_transition)
+			{
+				m_current = current;
+				return;
+			}
+
+			// 기본 애니메이션으로 전환합니다.
+			PlayAnimation(m_default, true);
+
+			// 기본 애니메이션도 존재하지 않는다면 종료합니다.
+			if (!m_current)
+			{
+				return;
+			}
+
+			// 변경된 애니메이션의 텍스쳐를 적용합니다.
+			UpdateTexture();
+		}
+	}
 }
