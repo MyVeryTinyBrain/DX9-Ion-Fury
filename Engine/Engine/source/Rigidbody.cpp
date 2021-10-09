@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "Collider.h"
 #include "GameObject.h"
+#include "RigidbodyInterpolationer.h"
 
 void Rigidbody::Awake()
 {
@@ -23,22 +24,56 @@ void Rigidbody::Awake()
 	AttachAll();
 
 	ApplyBodyTransformFromGameObject();
+
+	m_interpolationer = new RigidbodyInterpolationer(this);
+}
+
+void Rigidbody::Start()
+{
+	m_interpolationer->BackupPose();
 }
 
 void Rigidbody::BeginPhysicsSimulate()
 {
+	if (m_interpolate)
+	{
+		m_interpolationer->RollbackPose();
+	}
+
 	ApplyBodyTransformFromGameObject();
 }
 
 void Rigidbody::EndPhysicsSimulate()
 {
 	ApplyGameObjectTransfromFromBody();
+
+	if (m_interpolate)
+	{
+		m_interpolationer->BackupPose();
+	}
+}
+
+void Rigidbody::Update()
+{
+	if (m_interpolate)
+	{
+		m_interpolationer->InterpolatePose();
+	}
+}
+
+void Rigidbody::UpdateCheck()
+{
+	if (m_interpolate)
+	{
+		m_interpolationer->CheckPoseChange();
+	}
 }
 
 void Rigidbody::OnDestroy()
 {
 	DetachAll();
 	PxRelease(m_body);
+	SafeDelete(m_interpolationer);
 }
 
 bool Rigidbody::UseGravity() const
@@ -151,6 +186,26 @@ void Rigidbody::SetLocalEulerAngle(const Vec3& localEulerAngle)
 void Rigidbody::UpdateMassAndInertia()
 {
 	PxRigidBodyExt::setMassAndUpdateInertia(*m_body, m_body->getMass());
+}
+
+bool Rigidbody::IsInterpolateMode() const
+{
+	return m_interpolate;
+}
+
+void Rigidbody::SetInterpolate(bool value)
+{
+	if (m_interpolate == value)
+	{
+		return;
+	}
+
+	m_interpolate = value;
+
+	if (m_interpolate)
+	{
+		m_interpolationer->BackupPose();
+	}
 }
 
 float Rigidbody::GetMass() const

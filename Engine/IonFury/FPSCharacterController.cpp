@@ -8,6 +8,7 @@ void FPSCharacterController::Awake()
     m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
     m_body->linearDamping = 1.0f;
+    m_body->interpolate = true;
 
     m_subObj = CreateGameObjectToChild(transform);
 

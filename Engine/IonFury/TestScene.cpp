@@ -46,6 +46,22 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->friction = 1.0f;
     }
 
+    {   // Create obstacle
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, -2, -3);
+        obj->transform->scale = Vec3(1, 1, 1);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+
+        auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+    }
+
     {   // Create triangle
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(10, 0, 0);

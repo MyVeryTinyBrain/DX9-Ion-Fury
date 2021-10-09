@@ -98,6 +98,8 @@ void ComponentExecutioner::ExecuteUpdate()
 	ExecuteByOrder(Update);
 
 	ExecuteByOrder(LateUpdate);
+
+	ExecuteByOrder(UpdateCheck);
 }
 
 void ComponentExecutioner::ExecuteBeginRender()
@@ -122,6 +124,8 @@ void ComponentExecutioner::ClearExecuteTargets()
 	ComponentCallFlag(Update).clear();
 
 	ComponentCallFlag(LateUpdate).clear();
+
+	ComponentCallFlag(UpdateCheck).clear();
 
 	ComponentCallFlag(BeginRender).clear();
 }
@@ -232,6 +236,8 @@ ComponentExecutioner::PrepareResult ComponentExecutioner::PrepareComponent(Compo
 
 	TryAddToExecutionTarget(component, LateUpdate);
 
+	TryAddToExecutionTarget(component, UpdateCheck);
+
 	TryAddToExecutionTarget(component, BeginRender);
 
 	return PrepareResult::Execution;
@@ -254,6 +260,8 @@ void ComponentExecutioner::SortExecutionTargetsByExecutionOrder()
 	SortByExecutionOrder(Update);
 
 	SortByExecutionOrder(LateUpdate);
+
+	SortByExecutionOrder(UpdateCheck);
 
 	SortByExecutionOrder(BeginRender);
 }

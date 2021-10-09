@@ -80,6 +80,8 @@ private:
 
 	ExecutionTargets ComponentCallFlag(LateUpdate);
 
+	ExecutionTargets ComponentCallFlag(UpdateCheck);
+
 	ExecutionTargets ComponentCallFlag(BeginRender);
 };
 

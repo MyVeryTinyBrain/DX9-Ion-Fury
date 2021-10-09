@@ -112,3 +112,64 @@ void GunnerSpriteAnimator::PlayWalk(DIR direction)
 {
 	PlayAnimation(m_walk[unsigned int(direction)]);
 }
+
+void GunnerSpriteAnimator::PlayShoot()
+{
+	PlayAnimation(m_shoot, true);
+}
+
+void GunnerSpriteAnimator::PlayDie(DIE type)
+{
+	PlayAnimation(m_die[unsigned int(type)]);
+}
+
+void GunnerSpriteAnimator::PlayDamage(DAMAGE type)
+{
+	PlayAnimation(m_damage[unsigned int(type)]);
+}
+
+bool GunnerSpriteAnimator::IsPlayingIdle() const
+{
+	return currentAnimation == m_idle;
+}
+
+bool GunnerSpriteAnimator::IsPlayingWalk() const
+{
+	for (auto walk : m_walk)
+	{
+		if (currentAnimation == walk)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool GunnerSpriteAnimator::IsPlayingShoot() const
+{
+	return currentAnimation == m_shoot;
+}
+
+bool GunnerSpriteAnimator::IsPlayingDie() const
+{
+	for (auto die : m_die)
+	{
+		if (currentAnimation == die)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool GunnerSpriteAnimator::IsPlayingDamage() const
+{
+	for (auto damage : m_damage)
+	{
+		if (currentAnimation == damage)
+		{
+			return true;
+		}
+	}
+	return false;
+}

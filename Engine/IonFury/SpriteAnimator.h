@@ -38,7 +38,7 @@ public:
 
 	SpriteAnimation* GetCurrentAnimation() const;
 
-	SpriteAnimation* GetDefautlAnimation() const;
+	SpriteAnimation* GetDefaultAnimation() const;
 
 	bool GetTransitionMode() const;
 
@@ -59,6 +59,10 @@ public:
 	float GetPercent() const;
 
 	unsigned int GetFrameIndex() const;
+
+	__declspec(property(get = GetCurrentAnimation)) SpriteAnimation* currentAnimation;
+
+	__declspec(property(get = GetDefaultAnimation)) SpriteAnimation* defaultAnimation;
 
 private:
 

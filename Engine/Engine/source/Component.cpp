@@ -102,6 +102,8 @@ void Component::Initialize
 
 	ComponentSetCall(LateUpdate);
 
+	ComponentSetCall(UpdateCheck);
+
 	ComponentSetCall(BeginRender);
 
 	//ComponentSetCall(OnWake);

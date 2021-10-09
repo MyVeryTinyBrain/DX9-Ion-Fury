@@ -30,6 +30,24 @@ public:
 
 	void PlayWalk(DIR direction);
 
+	void PlayShoot();
+
+	void PlayDie(DIE type);
+
+	void PlayDamage(DAMAGE type);
+
+	bool IsPlayingIdle() const;
+
+	bool IsPlayingWalk() const;
+
+	bool IsPlayingShoot() const;
+
+	bool IsPlayingDie() const;
+
+	bool IsPlayingDamage() const;
+
+private:
+
 	SpriteAnimation* m_idle;
 
 	SpriteAnimation* m_walk[(unsigned int)DIR::MAX];
