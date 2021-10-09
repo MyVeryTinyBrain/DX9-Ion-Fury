@@ -231,6 +231,7 @@ void DlgLightTool::OnListBoxCtrl()
 	for (auto& light : LightObj::g_vecLight)
 	{
 		SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(name.GetString());
+		/
 	}
 	
 
