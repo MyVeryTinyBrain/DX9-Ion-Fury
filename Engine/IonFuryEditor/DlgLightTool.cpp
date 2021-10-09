@@ -42,14 +42,6 @@ DlgLightTool::~DlgLightTool()
 {
 }
 
-void DlgLightTool::SetListBox()
-{
-	UpdateData(TRUE);
-
-	m_LT_ListBox.AddString(LightObj::GetInstance()->GetName());
-
-	UpdateData(FALSE);
-}
 
 void DlgLightTool::DoDataExchange(CDataExchange* pDX)
 {
@@ -208,10 +200,40 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 }
 
 
+//조명 리스트 박스 컨트럴
+void DlgLightTool::SetListBox()
+{
+	UpdateData(TRUE);
+
+	m_LT_ListBox.AddString(LightObj::GetInstance()->GetName());
+
+	UpdateData(FALSE);
+}
+
 void DlgLightTool::OnListBoxCtrl()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	UpdateData(TRUE);
+
+	int iIndex = m_LT_ListBox.GetCurSel();
+	CString wstrFindName;
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
+	
+
+	for (int i = 0; i<wstrFindName.GetLength();++i)
+	{
+		if (iIndex < 0)
+			return;
+	}
+
+	CString name = wstrFindName.GetString();
+
+	for (auto& light : LightObj::g_vecLight)
+	{
+		SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(name.GetString());
+	}
+	
+
 
 
 	UpdateData(FALSE);
