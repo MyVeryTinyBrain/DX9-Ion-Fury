@@ -106,7 +106,6 @@ void TestScene::OnLoad(Scene* beforeScene)
     {
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, 2, -5);
-
         obj->AddComponent<Gunner>();
     }
 

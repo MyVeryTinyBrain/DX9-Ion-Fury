@@ -9,7 +9,7 @@ void Gunner::Awake()
     Monster::Awake();
 
     m_hp = 10;
-    m_moveSpeed = 5.0f;
+    m_moveSpeed = 4.0f;
 
     m_body->mass = 5.0f;
 
@@ -21,15 +21,21 @@ void Gunner::FixedUpdate()
 {
     Monster::FixedUpdate();
 
-	//const Vec3& playerPos = Player::GetInstance()->transform->position;
-	//const Vec3& gunnerPos = transform->position;
-	//Vec3 gunnerToPlayer = playerPos - gunnerPos;
-	//gunnerToPlayer.Normalize();
+    m_body->velocity *= 0.9f;
 
-	//Vec3 acceleration = gunnerToPlayer * m_moveSpeed;
-	//Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
-	//velocity.y = m_body->velocity.y;
-	//m_body->velocity = velocity;
+	const Vec3& playerPos = Player::GetInstance()->transform->position;
+	const Vec3& gunnerPos = transform->position;
+	Vec3 gunnerToPlayer = playerPos - gunnerPos;
+    float distance = gunnerToPlayer.magnitude();
+	gunnerToPlayer.Normalize();
+
+	if (distance > 2)
+	{
+        Vec3 acceleration = gunnerToPlayer * m_moveSpeed;
+        Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
+        velocity.y = m_body->velocity.y;
+        m_body->velocity = velocity;
+	}
 }
 
 void Gunner::Update()
@@ -42,17 +48,21 @@ void Gunner::Update()
     float distance = gunnerToPlayer.magnitude();
     gunnerToPlayer.Normalize();
 
-    if (distance > 2)
-    {
-        gunnerToPlayer.y = 0;
-        transform->position += gunnerToPlayer * m_moveSpeed * Time::DeltaTime();
-    }
+    //if (distance > 2)
+    //{
+    //    gunnerToPlayer.y = 0;
+    //    transform->position += gunnerToPlayer * m_moveSpeed * Time::DeltaTime();
+    //}
 
-    m_animator->PlayWalk(GunnerSpriteAnimator::DIR::FRONT);
+    if (distance > 2)
+        m_animator->PlayWalk(GunnerSpriteAnimator::DIR::FRONT);
+    else
+        m_animator->PlayIdle();
 }
 
 void Gunner::OnDestroy()
 {
+    Monster::OnDestroy();
 }
 
 Collider* Gunner::InitializeCollider(GameObject* colliderObj)

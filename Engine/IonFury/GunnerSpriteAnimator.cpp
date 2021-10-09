@@ -7,7 +7,7 @@ void GunnerSpriteAnimator::Awake()
 	SpriteAnimator::Awake();
 
 	m_idle = new SpriteAnimation;
-	m_idle->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk0.png");
+	m_idle->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire0.png");
 	m_idle->isLoop = true;
 
 	m_walk[(unsigned int)DIR::FRONT] = new SpriteAnimation;
