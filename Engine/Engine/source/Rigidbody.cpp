@@ -115,15 +115,27 @@ void Rigidbody::SetContinuousDetection(bool value)
 void Rigidbody::ApplyBodyTransformFromGameObject()
 {
 	PxTransform pose = m_body->getGlobalPose();
-	
-	pose.p = ToPxVec3(transform->position);
+
+	bool hasChanged = false;
+
+	Vec3 deltaPos = transform->position - FromPxVec3(pose.p);
+
+	if (deltaPos.magnitude() > 0.001f)
+	{
+		hasChanged = true;
+		pose.p = ToPxVec3(transform->position);
+	}
 
 	if (Quat::Radian(FromPxQuat(pose.q), transform->rotation) > 0.01f)
 	{
+		hasChanged = true;
 		pose.q = ToPxQuat(transform->rotation);
 	}
 
-	m_body->setGlobalPose(pose);
+	if (hasChanged)
+	{
+		m_body->setGlobalPose(pose);
+	}
 }
 
 void Rigidbody::ApplyGameObjectTransfromFromBody()
