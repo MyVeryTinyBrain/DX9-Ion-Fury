@@ -25,7 +25,7 @@ HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int he
 		return E_FAIL;
 	}
 
-	CentralTimeElement::GetInstance()->Initialize(144, 30);
+	CentralTimeElement::GetInstance()->Initialize(144, 50);
 
 	PhysicsDevice::GetInstance()->Initialize();
 

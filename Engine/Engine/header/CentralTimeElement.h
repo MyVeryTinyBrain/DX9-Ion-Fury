@@ -46,6 +46,10 @@ public:
 
 	float GetFixedUpdateAccumulated() const;
 
+	float GetUpdateInterval() const;
+
+	float GetFixedUpdateInterval() const;
+
 private:
 
 	float m_updateTargetFPS;
