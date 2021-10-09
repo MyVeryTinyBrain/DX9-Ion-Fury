@@ -12,6 +12,7 @@ void Gunner::Awake()
     m_moveSpeed = 4.0f;
 
     m_body->mass = 1.0f;
+    m_body->interpolate = true;
 
     m_rendererObj->transform->scale = Vec3::one() * 3.0f;
     m_animator = m_rendererChildObj->AddComponent<GunnerSpriteAnimator>();
@@ -27,7 +28,7 @@ void Gunner::FixedUpdate()
     float distance = gunnerToPlayer.magnitude();
 	gunnerToPlayer.Normalize();
 
-	if (distance > 2)
+	if (distance > 2.1f)
 	{
         Vec3 acceleration = gunnerToPlayer * m_moveSpeed;
         Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));

@@ -32,6 +32,8 @@ protected:
 
 	DefineComponentFunction(LateUpdate);
 
+	DefineComponentFunction(UpdateCheck);
+
 	DefineComponentFunction(BeginRender);
 
 	// 컴포넌트가 활성화 상태로 변경되었을 때 호출됩니다.

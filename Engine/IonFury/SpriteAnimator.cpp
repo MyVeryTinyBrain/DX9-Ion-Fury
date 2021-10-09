@@ -78,7 +78,7 @@ SpriteAnimation* SpriteAnimator::GetCurrentAnimation() const
 	return m_current;
 }
 
-SpriteAnimation* SpriteAnimator::GetDefautlAnimation() const
+SpriteAnimation* SpriteAnimator::GetDefaultAnimation() const
 {
 	return m_default;
 }

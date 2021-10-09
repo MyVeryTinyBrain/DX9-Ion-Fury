@@ -24,9 +24,15 @@ class Rigidbody : public Component
 
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(BeginPhysicsSimulate);
 
 	OverrideComponentFunction(EndPhysicsSimulate);
+
+	OverrideComponentFunction(Update);
+
+	OverrideComponentFunction(UpdateCheck);
 
 	OverrideComponentFunction(OnDestroy);
 
@@ -72,6 +78,10 @@ public:
 
 	void UpdateMassAndInertia();
 
+	bool IsInterpolateMode() const;
+
+	void SetInterpolate(bool value);
+
 	float GetMass() const;
 
 	void SetMass(float value);
@@ -110,6 +120,8 @@ public:
 
 	uint8_t GetVelocityIteration() const;
 
+	__declspec(property(get = IsInterpolateMode, put = SetInterpolate)) bool interpolate;
+
 	__declspec(property(get = GetMass, put = SetMass)) float mass;
 
 	__declspec(property(get = GetLinearDamping, put = SetLinearDamping)) float linearDamping;
@@ -143,5 +155,9 @@ private:
 	PxRigidDynamic* m_body;
 
 	bool m_continous = false;
+
+	class RigidbodyInterpolationer* m_interpolationer = nullptr;
+
+	bool m_interpolate = false;
 };
 

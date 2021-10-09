@@ -340,6 +340,9 @@
     <ClCompile Include="source\RightTriangleFrontSide.cpp">
       <Filter>Resource\UserMesh\RightTriangleSide</Filter>
     </ClCompile>
+    <ClCompile Include="source\RigidbodyInterpolationer.cpp">
+      <Filter>Physics\Rigidbody</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -659,6 +662,9 @@
     </ClInclude>
     <ClInclude Include="header\RightTriangleFrontSide.h">
       <Filter>Resource\UserMesh\RightTriangleSide</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RigidbodyInterpolationer.h">
+      <Filter>Physics\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
