@@ -230,11 +230,28 @@ void DlgLightTool::OnListBoxCtrl()
 
 	for (auto& light : LightObj::g_vecLight)
 	{
-		SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(name.GetString());
+		auto lightobj = light->GetGameObject();
+
+		auto test =  lightobj->GetComponent<LightObj>();
+		
+		if (test->name == name.GetString())
+		{
+			if (lightobj->tag == L"PointLight")
+			{
+				auto com = lightobj->GetComponent<PointLight>();
+
+				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+			}
+			else if (lightobj->tag == L"SpotLight")
+			{
+				auto com = lightobj->GetComponent<SpotLight>();
+
+				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+			}
+			// 불러올때 LightObj에서 이름을 가져오면 될듯
+		}
 	}
 	
-
-
 
 	UpdateData(FALSE);
 }
