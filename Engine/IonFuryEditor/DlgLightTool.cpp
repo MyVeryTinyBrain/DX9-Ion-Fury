@@ -310,18 +310,33 @@ void DlgLightTool::OnEnChangeLtDirz()
 void DlgLightTool::OnEnChangeColorR()
 {
 
+	UpdateData(TRUE);
+
+
+
+	UpdateData(FALSE);
 }
 
 
 void DlgLightTool::OnEnChangeColorG()
 {
 
+	UpdateData(TRUE);
+
+
+
+	UpdateData(FALSE);
 }
 
 
 void DlgLightTool::OnEnChangeColorB()
 {
 
+	UpdateData(TRUE);
+
+
+
+	UpdateData(FALSE);
 }
 
 
