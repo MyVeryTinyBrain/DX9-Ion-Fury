@@ -72,6 +72,7 @@ void CIonFuryEditorView::OnDraw(CDC* /*pDC*/)
 	if (!pDoc)
 		return;
 
+	
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 }
 
@@ -208,6 +209,7 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		camera->AddLight(m_dlgLightTool.m_LightName.GetString(),
 			m_dlgLightTool.m_LightType.GetString() 
 			); 
+		m_dlgLightTool.SetListBox();
 		break;
 	default:
 		break;
