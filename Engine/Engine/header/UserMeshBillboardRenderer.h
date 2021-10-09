@@ -28,10 +28,10 @@ public:
 
 private:
 
-	bool m_freezeX;
+	bool m_freezeX = false;
 
-	bool m_freezeY;
+	bool m_freezeY = false;
 
-	bool m_freezeZ;
+	bool m_freezeZ = false;
 };
 

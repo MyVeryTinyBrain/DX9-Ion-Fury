@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FPSCamera.h"
+#include "FPSOrthoCamera.h"
 
 void FPSCamera::Awake()
 {
@@ -7,6 +8,9 @@ void FPSCamera::Awake()
 
 	m_camera = gameObject->AddComponent<Camera>();
 	m_camera->allowRenderLayers = (1 << 0);
+	Camera::SetMainCamera(m_camera);
+
+	m_orthoCamera = gameObject->AddComponent<FPSOrthoCamera>();
 
 	MoveMouseToCenter();
 }
@@ -16,6 +20,7 @@ void FPSCamera::Update()
 	if (m_aimming)
 	{
 		Vec3 angle = transform->eulerAngle;
+		Vec3 beforeAngle = angle;
 
 		Vec2 beforeMouse = Input::GetMousePositionInViewport();
 		MoveMouseToCenter();
@@ -27,6 +32,11 @@ void FPSCamera::Update()
 		angle -= rotateAngle;
 		angle.x = MathEx::Clamp(angle.x, -90, +90);
 		angle.z = MathEx::Clamp(angle.z, -90, +90);
+		
+		{
+			Vec3 realDeltaAngle = angle - beforeAngle;
+			m_orthoCamera->MoveHands(realDeltaAngle);
+		}
 
 		transform->eulerAngle = angle;
 	}

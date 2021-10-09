@@ -11,6 +11,13 @@ enum class PhysicsAxis
 	All = X | Y | Z,
 };
 
+enum class ForceMode
+{
+	Impulse = PxForceMode::eIMPULSE,
+	Force = PxForceMode::eFORCE,
+	Acceleration = PxForceMode::eACCELERATION,
+};
+
 class Rigidbody : public Component
 {
 	friend class Collider;
@@ -80,6 +87,8 @@ public:
 	Vec3 GetVelocity() const;
 
 	void SetVelocity(const Vec3& velocity);
+
+	void AddForce(const Vec3& force, ForceMode forceMode);
 
 	Vec3 GetAngularVelocity() const;
 

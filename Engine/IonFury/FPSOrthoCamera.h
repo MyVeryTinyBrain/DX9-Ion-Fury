@@ -7,6 +7,8 @@ class FPSOrthoCamera : public Component
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Update);
+
 public:
 
 	Camera* GetCamera() const;
@@ -25,9 +27,17 @@ public:
 
 	__declspec(property(get = GetRightHandAnimator)) RightHandAnimator* rightHandAnimator;
 
+public:
+
+	void MoveHands(const Vec3& deltaAngle);
+
 private:
 
 	Camera* m_camera = nullptr;
+
+	GameObject* m_hudObject = nullptr;
+
+	GameObject* m_handsObject = nullptr;
 
 	GameObject* m_forwardGameObject = nullptr;
 

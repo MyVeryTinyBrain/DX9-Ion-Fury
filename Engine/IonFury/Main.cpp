@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Main.h"
+#include "PhysicsInitialize.h"
 #include "TestScene.h"
 
 HINSTANCE hInst;
@@ -13,6 +14,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	world.InitializeWithShowWindow(hInstance, 1280, 720, true, L"Ion Fury", WndProc);
+	PhysicsInitialize::Initialize();
 
 	SceneManager::ChangeScene(new TestScene);
 

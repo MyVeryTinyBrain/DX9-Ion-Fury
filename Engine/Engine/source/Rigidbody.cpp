@@ -198,6 +198,12 @@ void Rigidbody::SetVelocity(const Vec3& velocity)
 	m_body->setLinearVelocity(pxVelocity);
 }
 
+void Rigidbody::AddForce(const Vec3& force, ForceMode forceMode)
+{
+	PxVec3 pxForce = ToPxVec3(force);
+	m_body->addForce(pxForce, (PxForceMode::Enum)forceMode);
+}
+
 Vec3 Rigidbody::GetAngularVelocity() const
 {
 	PxVec3 pxAVelocity = m_body->getAngularVelocity();

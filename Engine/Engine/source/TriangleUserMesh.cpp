@@ -48,9 +48,9 @@ void TriangleUserMesh::InitializeVertices()
 	vertices[0].normal = Vec3(0.0f, 0.0f, -1.0f);
 	vertices[1].normal = Vec3(0.0f, 0.0f, -1.0f);
 	vertices[2].normal = Vec3(0.0f, 0.0f, -1.0f);
-	vertices[0].uv = Vec2(0, 1);
-	vertices[1].uv = Vec2(0.5f, 0);
-	vertices[2].uv = Vec2(1, 1);
+	vertices[0].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+	vertices[1].uv = Vec2(0.5f * uvScale.x, 0 * uvScale.y);
+	vertices[2].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
 
 	// forward
 	vertices[3].position = Vec3(-1.0f, -1.0f, +1.0f) * 0.5f;
@@ -59,9 +59,9 @@ void TriangleUserMesh::InitializeVertices()
 	vertices[3].normal = Vec3(0.0f, 0.0f, +1.0f);
 	vertices[4].normal = Vec3(0.0f, 0.0f, +1.0f);
 	vertices[5].normal = Vec3(0.0f, 0.0f, +1.0f);
-	vertices[3].uv = Vec2(1, 1);
-	vertices[4].uv = Vec2(0.5f, 0);
-	vertices[5].uv = Vec2(0, 1);
+	vertices[3].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
+	vertices[4].uv = Vec2(0.5f * uvScale.x, 0 * uvScale.y);
+	vertices[5].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
 
 	// left
 	vertices[6].position = vertices[0].position;
@@ -72,10 +72,10 @@ void TriangleUserMesh::InitializeVertices()
 	vertices[7].normal = Quat::FromEuler(0, 0, 45) * Vec3::up();
 	vertices[8].normal = Quat::FromEuler(0, 0, 45) * Vec3::up();
 	vertices[9].normal = Quat::FromEuler(0, 0, 45) * Vec3::up();
-	vertices[6].uv = Vec2(0, 0);
-	vertices[7].uv = Vec2(1, 0);
-	vertices[8].uv = Vec2(0, 1);
-	vertices[9].uv = Vec2(1, 1);
+	vertices[6].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+	vertices[7].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+	vertices[8].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+	vertices[9].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
 
 	// right
 	vertices[10].position = vertices[1].position;
@@ -86,10 +86,10 @@ void TriangleUserMesh::InitializeVertices()
 	vertices[11].normal = Quat::FromEuler(0, 0, -45) * Vec3::up();
 	vertices[12].normal = Quat::FromEuler(0, 0, -45) * Vec3::up();
 	vertices[13].normal = Quat::FromEuler(0, 0, -45) * Vec3::up();
-	vertices[10].uv = Vec2(0, 0);
-	vertices[11].uv = Vec2(1, 0);
-	vertices[12].uv = Vec2(0, 1);
-	vertices[13].uv = Vec2(1, 1);
+	vertices[10].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+	vertices[11].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+	vertices[12].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+	vertices[13].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
 
 	// bottom
 	vertices[14].position = vertices[0].position;
@@ -100,10 +100,10 @@ void TriangleUserMesh::InitializeVertices()
 	vertices[15].normal = Vec3(0.0f, -1.0f, 0.0f);
 	vertices[16].normal = Vec3(0.0f, -1.0f, 0.0f);
 	vertices[17].normal = Vec3(0.0f, -1.0f, 0.0f);
-	vertices[14].uv = Vec2(0, 0);
-	vertices[15].uv = Vec2(1, 0);
-	vertices[16].uv = Vec2(0, 1);
-	vertices[17].uv = Vec2(1, 1);
+	vertices[14].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+	vertices[15].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+	vertices[16].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+	vertices[17].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
 
 	UnlockVertexBuffer();
 }

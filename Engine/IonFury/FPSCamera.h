@@ -1,5 +1,7 @@
 #pragma once
 
+class FPSOrthoCamera;
+
 class FPSCamera : public Component
 {
 	OverrideComponentFunction(Awake);
@@ -20,7 +22,9 @@ private:
 
 	Camera* m_camera = nullptr;
 
-	float m_sensitivity = 0.5f;
+	FPSOrthoCamera* m_orthoCamera = nullptr;
+
+	float m_sensitivity = 0.2f;
 
 	bool m_aimming = true;
 };

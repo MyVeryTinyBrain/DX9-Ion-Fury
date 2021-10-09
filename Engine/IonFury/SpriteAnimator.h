@@ -56,6 +56,8 @@ public:
 
 	float GetElapsedTime() const;
 
+	void SetElapsedTime(float value);
+
 	float GetPercent() const;
 
 	unsigned int GetFrameIndex() const;

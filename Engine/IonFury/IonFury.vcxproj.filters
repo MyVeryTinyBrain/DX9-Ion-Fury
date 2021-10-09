@@ -22,6 +22,27 @@
     <Filter Include="SpriteAnimation">
       <UniqueIdentifier>{c7d1ec07-34c8-45fe-bf56-424c96ee6ce3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{faeaece0-c880-4ad2-82cb-8b7e73420f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MixUserMesh">
+      <UniqueIdentifier>{9c5c51f5-d5e9-471a-a192-8ca57608f7e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{e9b50697-9852-4d87-a91f-a79caeb2c4b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Gunner">
+      <UniqueIdentifier>{d820f875-fbb3-40af-9134-6e3ea78e51bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MixUserMesh\Cube">
+      <UniqueIdentifier>{fe4ad100-a0d7-4417-a0da-8aaf32c82727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MixUserMesh\TriangleStair">
+      <UniqueIdentifier>{9b6f4c15-a80f-4369-b29c-f562ceb7ee76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Initialize">
+      <UniqueIdentifier>{cdb4b80e-a991-4c63-aefb-6c077d7b5fe2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -42,26 +63,53 @@
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="FPSCamera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCharacterController.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteAnimator.h">
       <Filter>SpriteAnimation</Filter>
     </ClInclude>
     <ClInclude Include="SpriteAnimation.h">
       <Filter>SpriteAnimation</Filter>
     </ClInclude>
+    <ClInclude Include="FPSCamera.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCharacterController.h">
+      <Filter>Player</Filter>
+    </ClInclude>
     <ClInclude Include="FPSOrthoCamera.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="LeftHandAnimator.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="RightHandAnimator.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Gunner.h">
+      <Filter>Monster\Gunner</Filter>
+    </ClInclude>
+    <ClInclude Include="UserMixMesh.h">
+      <Filter>MixUserMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>MixUserMesh\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleStair.h">
+      <Filter>MixUserMesh\TriangleStair</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsLayers.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsInitialize.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="GunnerSpriteAnimator.h">
+      <Filter>Monster\Gunner</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,26 +135,50 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="FPSCamera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCharacterController.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteAnimator.cpp">
       <Filter>SpriteAnimation</Filter>
     </ClCompile>
     <ClCompile Include="SpriteAnimation.cpp">
       <Filter>SpriteAnimation</Filter>
     </ClCompile>
-    <ClCompile Include="FPSOrthoCamera.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="RightHandAnimator.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="LeftHandAnimator.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="RightHandAnimator.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="FPSOrthoCamera.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCharacterController.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCamera.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Gunner.cpp">
+      <Filter>Monster\Gunner</Filter>
+    </ClCompile>
+    <ClCompile Include="UserMixMesh.cpp">
+      <Filter>MixUserMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>MixUserMesh\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleStair.cpp">
+      <Filter>MixUserMesh\TriangleStair</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsInitialize.cpp">
+      <Filter>Initialize</Filter>
+    </ClCompile>
+    <ClCompile Include="GunnerSpriteAnimator.cpp">
+      <Filter>Monster\Gunner</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

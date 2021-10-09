@@ -22,6 +22,9 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\RightTriangleBackSide.cpp" />
+    <ClCompile Include="source\RightTriangleFrontSide.cpp" />
+    <ClCompile Include="source\RightTriangleEmptySideUserMesh.cpp" />
     <ClCompile Include="source\Path.cpp" />
     <ClCompile Include="source\SharedResourceLoader.cpp" />
     <ClCompile Include="source\RenderTexture.cpp" />
@@ -184,6 +187,9 @@
     <ClInclude Include="header\RenderTexture.h" />
     <ClInclude Include="header\SharedResourceLoader.h" />
     <ClInclude Include="header\Path.h" />
+    <ClInclude Include="header\RightTriangleEmptySideUserMesh.h" />
+    <ClInclude Include="header\RightTriangleBackSide.h" />
+    <ClInclude Include="header\RightTriangleFrontSide.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />

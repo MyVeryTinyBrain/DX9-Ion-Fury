@@ -158,6 +158,11 @@ float SpriteAnimator::GetElapsedTime() const
 	return m_elapsed;
 }
 
+void SpriteAnimator::SetElapsedTime(float value)
+{
+	m_elapsed = value;
+}
+
 float SpriteAnimator::GetPercent() const
 {
 	if (!m_current)
@@ -170,7 +175,7 @@ float SpriteAnimator::GetPercent() const
 
 unsigned int SpriteAnimator::GetFrameIndex() const
 {
-	return GetPercent() * m_current->textureCount;
+	return unsigned int(GetPercent() * m_current->textureCount);
 }
 
 void SpriteAnimator::UpdateTexture()

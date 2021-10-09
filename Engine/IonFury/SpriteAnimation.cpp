@@ -6,6 +6,7 @@ void SpriteAnimation::AddTexture(const wstring& textureLocalPath)
 	Texture* texture = Resource::FindAs<Texture>(textureLocalPath);
 	if (!texture)
 	{
+		wcout << L"Error(SpriteAnimation::AddTexture): " << textureLocalPath << endl;
 		return;
 	}
 
@@ -62,7 +63,7 @@ bool SpriteAnimation::IndexOf(unsigned int index, Texture** ppTexture) const
 	}
 	else
 	{
-		*ppTexture = m_textures[Clamp(index, 0, textureCount)].GetPointer();
+		*ppTexture = m_textures[unsigned int(Clamp(float(index), 0, float(textureCount)))].GetPointer();
 	}
 
 	if (!m_loop && index >= textureCount)

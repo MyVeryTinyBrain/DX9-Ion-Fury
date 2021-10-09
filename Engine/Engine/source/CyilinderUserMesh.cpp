@@ -37,39 +37,39 @@ void CyilinderUserMesh::InitializeVertices()
 {
 	Vertex* vertices = LockVertexBuffer();
 
-	vertices[CAP_TOP_CENTER].position = Vec2::up() * 0.5f;
+	vertices[CAP_TOP_CENTER].position = Vec2::up() * m_halfHeight;
 	vertices[CAP_TOP_CENTER].normal = Vec2::up();
-	vertices[CAP_TOP_CENTER].uv = Vec2::one() * 0.5f;
-	vertices[CAP_BOTTOM_CENTER].position = Vec2::down() * 0.5f;
+	vertices[CAP_TOP_CENTER].uv = Vec2(0.5f * uvScale.x, 0.5f * uvScale.y);
+	vertices[CAP_BOTTOM_CENTER].position = Vec2::down() * m_halfHeight;
 	vertices[CAP_BOTTOM_CENTER].normal = Vec2::down();
-	vertices[CAP_BOTTOM_CENTER].uv = Vec2::one() * 0.5f;
+	vertices[CAP_BOTTOM_CENTER].uv = Vec2(0.5f * uvScale.x, 0.5f * uvScale.y);
 
 	for (DWORD i = 0; i <= 1; ++i)
 	{
 		float yPercent = float(i);
 		float y = 0.5f - yPercent;
-		Vec3 yPos = Vec3(0, y, 0);
+		Vec3 yPos = Vec3(0, y, 0) * m_halfHeight;
 
 		for (DWORD j = 0; j < m_slice; ++j)
 		{
 			float anglePercent = float(j) / float(m_slice - 1);
 			float angle = anglePercent * 360.0f;
 			float radian = angle * Deg2Rad;
-			Vec3 direction = Vec3(cosf(radian), 0, sinf(radian)) * 0.5f;
+			Vec3 direction = Vec3(cosf(radian), 0, sinf(radian)) * m_radius;
 
 			DWORD idx = i * m_slice + j;
 			vertices[idx].position = direction + yPos;
 			vertices[idx].normal = direction.normalized();
-			vertices[idx].uv.x = float(j) / float(m_slice - 1);
-			vertices[idx].uv.y = yPercent;
+			vertices[idx].uv.x = float(j) / float(m_slice - 1) * uvScale.x;
+			vertices[idx].uv.y = yPercent * uvScale.y;
 
 			DWORD capIdx;
 			if (i == 0) capIdx = CAP_TOP + j;
 			else capIdx = CAP_BOTTOM + j;
 			vertices[capIdx].position = direction + yPos;
 			vertices[capIdx].normal = (i == 0 ? Vec3::up() : Vec3::down());
-			vertices[capIdx].uv.x = vertices[capIdx].position.x + 0.5f;
-			vertices[capIdx].uv.y = vertices[capIdx].position.z + 0.5f;
+			vertices[capIdx].uv.x = (vertices[capIdx].position.x + 0.5f) * uvScale.x;
+			vertices[capIdx].uv.y = (vertices[capIdx].position.z + 0.5f) * uvScale.y;
 		}
 	}
 
@@ -126,4 +126,38 @@ IClonable* CyilinderUserMesh::Clone()
 	clone->CopyFrom(this);
 
 	return clone;
+}
+
+float CyilinderUserMesh::GetHalfHeight() const
+{
+	return m_halfHeight;
+}
+
+void CyilinderUserMesh::SetHalfHeight(float value)
+{
+	if (Abs(value - m_halfHeight) <= FLT_EPSILON)
+	{
+		return;
+	}
+
+	m_halfHeight = value;
+
+	InitializeVertices();
+	ResetStoredVertexBuffer();
+}
+
+float CyilinderUserMesh::GetRadius() const
+{
+	return m_radius;
+}
+
+void CyilinderUserMesh::SetRaidus(float value)
+{
+	if (Abs(value - m_radius) > FLT_EPSILON)
+	{
+		m_radius = value;
+
+		InitializeVertices();
+		ResetStoredVertexBuffer();
+	}
 }
