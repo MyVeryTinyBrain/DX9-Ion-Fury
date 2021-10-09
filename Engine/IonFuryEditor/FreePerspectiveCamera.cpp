@@ -100,7 +100,7 @@ void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& L
 
 	if (LightType == L"Point")
 	{
-		GameObject* PointLightObj = CreateGameObject(L"Light");
+		GameObject* PointLightObj = CreateGameObject(L"PointLight");
 
 
 		PointLightObj->name = LightName;
@@ -112,7 +112,7 @@ void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& L
 	}
 	else if (LightType == L"Spot")
 	{
-		GameObject* SpotLightObj = CreateGameObject(L"Light");
+		GameObject* SpotLightObj = CreateGameObject(L"SpotLight");
 
 		SpotLightObj->name = LightName;
 

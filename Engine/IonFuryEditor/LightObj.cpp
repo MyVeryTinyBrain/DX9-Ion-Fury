@@ -18,17 +18,16 @@ void LightObj::Awake()
 
 	auto obj = this->GetGameObject();
 
-	m_strType = obj->name.c_str();
+	m_strName = obj->name.c_str();
+	m_strTag = obj->tag.c_str();
 	
-	if (m_strType == L"Point")
+	if (m_strTag == L"PointLight")
 	{
-		//m_LightType = LIGHT::POINT;
 		m_LightChildObject = CreateGameObject();
 		m_LightChildObject->AddComponent<PointLight>();
 	}
-	else if (m_strType == L"Spot")
+	else if (m_strTag == L"SpotLight")
 	{
-		//m_LightType = LIGHT::SPOT;
 		m_LightChildObject = CreateGameObject();
 		m_LightChildObject->AddComponent<SpotLight>();
 	}
@@ -39,27 +38,6 @@ void LightObj::Awake()
 	m_LightChildObject->transform->localPosition = Vec3::zero();
 }
 
-void LightObj::Start()
-{
-	//switch (m_LightType)
-	//{
-	//case LIGHT::POINT:
-	//	m_LightChildObject = CreateGameObject();
-	//	m_LightChildObject->AddComponent<PointLight>();
-	//	break;
-	//case LIGHT::SPOT:
-	//	m_LightChildObject = CreateGameObject();
-	//	m_LightChildObject->AddComponent<SpotLight>();
-	//	break;
-	//}
-
-	//g_vecLight.push_back(this);
-
-	//m_LightChildObject->transform->parent = GetGameObject()->transform;
-	//m_LightChildObject->transform->localPosition = Vec3::zero();
-
-	//EditorManager::GetInstance()->GetGizmo()->Attach(transform);
-}
 
 void LightObj::Update()
 {
@@ -80,18 +58,6 @@ void LightObj::LightSettings(const wstring& localPathMesh)
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
 }
 
-void LightObj::SetLightType(const wstring& lightType)
-{
-	m_strType = lightType.c_str();
-	//if (lightType == L"Point")
-	//{
-	//	m_LightType = LIGHT::POINT;
-	//}
-	//else if (lightType == L"Spot")
-	//{
-	//	m_LightType = LIGHT::SPOT;
-	//}
-}
 
 LightObj* LightObj::LightPick()
 {

@@ -12,8 +12,6 @@ public:
 
 	OverrideComponentFunction(Awake);
 
-	OverrideComponentFunction(Start);
-
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(OnDestroy);
@@ -21,11 +19,9 @@ public:
 public:
 	void LightSettings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh");
 
-	void SetLightType(const wstring& lightType);
-
 	static LightObj* LightPick();
 
-	CString& GetName() { return m_strType; }
+	CString& GetName() { return m_strName; }
 
 
 public:
@@ -38,7 +34,9 @@ private:
 
 	UserMeshRenderer* m_LightRenderer;
 
-	CString m_strType;
+	CString m_strName;
+	CString m_strTag;
+
 
 public:
 	static std::vector<LightObj*> g_vecLight;

@@ -46,15 +46,8 @@ void DlgLightTool::SetListBox()
 {
 	UpdateData(TRUE);
 
-	for (auto& light : LightObj::g_vecLight)
-	{
-		//auto lightobj = light->GetGameObject();
+	m_LT_ListBox.AddString(LightObj::GetInstance()->GetName());
 
-		//auto temp = lightobj->GetComponent<LightObj>();
-
-		m_LT_ListBox.AddString(light->GetName());
-
-	}
 	UpdateData(FALSE);
 }
 
