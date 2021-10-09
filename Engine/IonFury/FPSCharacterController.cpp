@@ -106,6 +106,18 @@ void FPSCharacterController::Update()
     if (Input::GetKeyDown(Key::LeftMouse))
     {
         //m_orthoCamera->rightHandAnimator->PlayShoot();
+
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = m_camera->transform->position + m_camera->transform->forward * 2.0f;
+            auto body = obj->AddComponent<Rigidbody>();
+            body->interpolate = true;
+            auto collider = obj->AddComponent<BoxCollider>();
+            auto renderer = obj->AddComponent<UserMeshRenderer>();
+            renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+
+            body->velocity = m_camera->transform->forward * 15;
+        }
     }
 }
 
