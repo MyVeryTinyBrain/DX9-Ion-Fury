@@ -24,6 +24,7 @@ void FreePerspectiveCamera::Update()
 
 	if (Input::GetKeyDown(Key::M))
 		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
+
 	if (Input::GetKeyDown(Key::L))
 		EditorManager::GetInstance()->GetGizmo()->GetInformation();
 
@@ -94,7 +95,7 @@ void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& 
 	test->Settings(localPathMesh, localPathTexture);
 }
 
-void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& LightType )
+void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& LightType)
 {
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
@@ -108,7 +109,7 @@ void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& L
 		PointLightObj->transform->position = transform->position + transform->forward * 2;
 
 		auto point = PointLightObj->AddComponent<LightObj>();
-	//	point->SetLightType(LightType);
+		//point->LightSettings(localPathMesh, localPathTexture);
 	}
 	else if (LightType == L"Spot")
 	{
@@ -119,6 +120,6 @@ void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& L
 		SpotLightObj->transform->position = transform->position + transform->forward * 2;
 
 		auto spot = SpotLightObj->AddComponent<LightObj>();
-		//spot->SetLightType(LightType);
+		//spot->LightSettings(localPathMesh, localPathTexture);
 	}
 }
