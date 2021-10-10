@@ -17,7 +17,8 @@ public:
 	OverrideComponentFunction(OnDestroy);
 
 public:
-	void LightSettings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh");
+	void LightSettings(const wstring& localPathMesh = BuiltInCubeUserMesh
+		, const wstring& localPathTexture = L"../SharedResource/Texture/Dev.png");
 
 	static LightObj* LightPick();
 

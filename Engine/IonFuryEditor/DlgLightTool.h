@@ -95,4 +95,6 @@ public:
 	afx_msg void OnEnChangeColorG();
 	afx_msg void OnEnChangeColorB();
 	afx_msg void OnEnChangeColorA();
+	afx_msg void OnBnClickedDeleteButton();
+	afx_msg void OnBnClickedApplyButton();
 };

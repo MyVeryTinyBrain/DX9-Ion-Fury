@@ -18,7 +18,7 @@ public:
 		, const wstring& localPathTexture = BuiltInWhiteTexture
 	);
 
-	void AddLight( const wstring& LightName , const wstring& LightType );
+	void AddLight( const wstring& LightName , const wstring& LightType);
 
 private:
 

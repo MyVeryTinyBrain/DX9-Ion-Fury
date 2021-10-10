@@ -52,29 +52,30 @@ void LightObj::OnDestroy()
 		g_vecLight.erase(it);
 }
 
-void LightObj::LightSettings(const wstring& localPathMesh)
+void LightObj::LightSettings(const wstring& localPathMesh, const wstring& localPathTexture)
 {
 	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
+	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
 }
 
 
 LightObj* LightObj::LightPick()
 {
-	//Vec3 rayPoint, rayDir;
-	//Input::GetMouseWorldRay(rayPoint, rayDir);
+	/*Vec3 rayPoint, rayDir;
+	Input::GetMouseWorldRay(rayPoint, rayDir);
 
-	//Vec3 HitPoint;
-	//for (auto pickable : g_vecLight)
-	//{
-	//	UserMeshRenderer* Renderer = pickable->GetRenderer();
+	Vec3 HitPoint;
+	for (auto pickable : g_vecLight)
+	{
+		UserMeshRenderer* Renderer = pickable->GetRenderer();
 
-	//	if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
-	//	{
-	//		EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
-	//		return pickable;
-	//	}
-	//}
+		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+		{
+			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
+			return pickable;
+		}
+	}*/
 
 	return nullptr;
 }

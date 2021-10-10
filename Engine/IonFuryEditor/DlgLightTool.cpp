@@ -31,9 +31,9 @@ DlgLightTool::DlgLightTool(CWnd* pParent /*=nullptr*/)
 	, sPosX(_T(""))
 	, sPosY(_T(""))
 	, sPosZ(_T(""))
-	,iPosX(0)
-	,iPosY(0)
-	,iPosZ(0)
+	, iPosX(0)
+	, iPosY(0)
+	, iPosZ(0)
 {
 
 }
@@ -88,6 +88,8 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_EN_CHANGE(IDC_COLOR_G, &DlgLightTool::OnEnChangeColorG)
 	ON_EN_CHANGE(IDC_COLOR_B, &DlgLightTool::OnEnChangeColorB)
 	ON_EN_CHANGE(IDC_COLOR_A, &DlgLightTool::OnEnChangeColorA)
+	ON_BN_CLICKED(IDC_BUTTON2, &DlgLightTool::OnBnClickedDeleteButton)
+	ON_BN_CLICKED(IDC_BUTTON1, &DlgLightTool::OnBnClickedApplyButton)
 END_MESSAGE_MAP()
 
 
@@ -146,7 +148,7 @@ BOOL DlgLightTool::OnInitDialog()
 	m_DirZ.SetWindowText(sPosZ);
 
 
-	
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -218,9 +220,9 @@ void DlgLightTool::OnListBoxCtrl()
 	int iIndex = m_LT_ListBox.GetCurSel();
 	CString wstrFindName;
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
-	
 
-	for (int i = 0; i<wstrFindName.GetLength();++i)
+
+	for (int i = 0; i < wstrFindName.GetLength(); ++i)
 	{
 		if (iIndex < 0)
 			return;
@@ -233,8 +235,8 @@ void DlgLightTool::OnListBoxCtrl()
 
 		auto lightobj = light->GetGameObject();
 
-		auto test =  lightobj->GetComponent<LightObj>();
-		
+		auto test = lightobj->GetComponent<LightObj>();
+
 		if (test->name == name.GetString())
 		{
 			if (lightobj->tag == L"PointLight")
@@ -253,7 +255,7 @@ void DlgLightTool::OnListBoxCtrl()
 		}
 
 	}
-	
+
 
 	UpdateData(FALSE);
 }
@@ -269,16 +271,16 @@ void DlgLightTool::OnSelectLight()
 	switch (m_comboBox)
 	{
 	case DlgLightTool::COMBOBOX::POINTLIGNT:
-		m_LightType = L"Point";
+		m_LightType = L"PointLight";
 		break;
 	case DlgLightTool::COMBOBOX::SPOTLIGNT:
-		m_LightType = L"Spot";
+		m_LightType = L"SpotLight";
 		break;
 	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
-		m_LightType = L"Directional";
+		m_LightType = L"DirectionalLight";
 		break;
 	case DlgLightTool::COMBOBOX::AMBINENTLIGHT:
-		m_LightType = L"Ambinent";
+		m_LightType = L"AmbinentLight";
 		break;
 	default:
 		break;
@@ -383,5 +385,107 @@ void DlgLightTool::OnEnChangeColorB()
 
 void DlgLightTool::OnEnChangeColorA()
 {
+
+}
+
+
+void DlgLightTool::OnBnClickedDeleteButton()
+{
+	UpdateData(TRUE);
+
+	//int iIndex = m_LT_ListBox.GetCurSel(); // 몇번째 인덱스 선택햇는지 체크
+	//CString wstrFindName;
+	//m_LT_ListBox.GetText(iIndex, wstrFindName);
+
+
+	////예외처리
+	//for (int i = 0; i < wstrFindName.GetLength(); ++i)
+	//{
+	//	if (iIndex < 0)
+	//		return;
+	//}
+
+	//CString name = wstrFindName.GetString();
+
+
+	//auto lightobj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(wstrFindName.GetString());
+	//auto component = lightobj->GetComponent<LightObj>();
+
+
+	//component->
+
+	////auto obj = LightObj::GetInstance()->FindGameObject(wstrFindName.GetString());
+
+	////
+
+	////if (obj->GetTag().c_str() == L"PointLight")
+	////{
+	////	obj->GetComponent<LightObj>()->Destroy();
+	////}
+	////else if (obj->GetTag().c_str() == L"SpotLight")
+	////{
+	////	obj->GetComponent<SpotLight>()->Destroy();
+	////}
+
+
+	int iIndex = m_LT_ListBox.GetCurSel();
+	CString wstrFindName;
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
+
+
+	for (int i = 0; i < wstrFindName.GetLength(); ++i)
+	{
+		if (iIndex < 0)
+			return;
+	}
+
+	CString name = wstrFindName.GetString();
+
+	for (auto& light : LightObj::g_vecLight)
+	{
+
+		auto lightobj = light->GetGameObject();
+
+		auto test = lightobj->GetComponent<LightObj>();
+
+
+		if (test->name == name.GetString())
+		{
+			if (lightobj->tag == L"PointLight")
+			{
+				auto com = lightobj->GetComponent<PointLight>();
+
+				com->Destroy();
+			}
+			else if (lightobj->tag == L"SpotLight")
+			{
+				auto com = lightobj->GetComponent<SpotLight>();
+
+				com->Destroy();
+			}
+		}
+
+	}
+
+
+	//m_LT_ListBox.DeleteString(iIndex);
+	UpdateData(FALSE);
+}
+
+
+void DlgLightTool::OnBnClickedApplyButton()
+{
+	UpdateData(TRUE);
+
+	int iSelct = m_LT_ListBox.GetCurSel();
+	CString wstrFindName;
+
+	m_LT_ListBox.GetText(iSelct, wstrFindName);
+
+	auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(wstrFindName.GetString());
+
+	obj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+
+	UpdateData(FALSE);
 
 }

@@ -207,9 +207,9 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case 'U':
 		camera->AddLight(m_dlgLightTool.m_LightName.GetString(),
-			m_dlgLightTool.m_LightType.GetString() 
-			); 
+			m_dlgLightTool.m_LightType.GetString());
 		m_dlgLightTool.SetListBox();
+		cout << "Light Create" << endl;
 		break;
 	default:
 		break;

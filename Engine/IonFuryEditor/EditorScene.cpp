@@ -20,6 +20,8 @@ void EditorScene::OnLoad(Scene* beforeScene)
     Texture::CreateFromFile(L"../SharedResourced/Texture/DevAlpha.png");
     Texture::CreateFromFile(L"../SharedResourced/Texture/DevTransparent.png");
 
+    Texture::CreateFromFile(L"../SharedResource/Texture/Light.png");
+
     // 백버퍼의 색상을 설정합니다.
     GraphicDevice::GetInstance()->SetBackgroundColor(Color(0.5f, 0.5f, 0.5f, 1.0f));
 
