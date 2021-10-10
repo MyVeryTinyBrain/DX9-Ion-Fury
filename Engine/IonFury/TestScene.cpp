@@ -122,6 +122,42 @@ void TestScene::OnLoad(Scene* beforeScene)
     {
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, 2, -5);
+        obj->transform->eulerAngle = Vec3(0, 90, 0);
+        obj->AddComponent<Gunner>();
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -7);
+        obj->transform->eulerAngle = Vec3(0, 90, 0);
+        obj->AddComponent<Gunner>();
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -9);
+        obj->transform->eulerAngle = Vec3(0, 90, 0);
+        obj->AddComponent<Gunner>();
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(2, 2, -5);
+        obj->transform->eulerAngle = Vec3(0, 90, 0);
+        obj->AddComponent<Gunner>();
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(2, 2, -7);
+        obj->transform->eulerAngle = Vec3(0, 90, 0);
+        obj->AddComponent<Gunner>();
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(2, 2, -9);
+        obj->transform->eulerAngle = Vec3(0, 90, 0);
         obj->AddComponent<Gunner>();
     }
 

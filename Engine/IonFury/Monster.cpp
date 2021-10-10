@@ -2,13 +2,12 @@
 #include "Monster.h"
 #include "PhysicsLayers.h"
 #include "Player.h"
+#include "FPSCharacterController.h"
 
 void Monster::Awake()
 {
 	m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
-    m_body->positionIteration = 30;
-    m_body->velocityIteration = 30;
 
 	m_colliderObj = CreateGameObjectToChild(transform);
 	m_collider = InitializeCollider(m_colliderObj);
@@ -45,6 +44,11 @@ void Monster::FixedUpdate()
 void Monster::Update()
 {
     DamageEffectProcessing();
+}
+
+void Monster::LateUpdate()
+{
+    m_rendererObj->transform->rotation = Quat::Identity();
 }
 
 void Monster::OnDestroy()
@@ -105,9 +109,12 @@ float Monster::AngleToPlayer() const
     const Vec3& monsterPos = transform->position;
 
     Vec3 monsterToPlayer = playerPos - monsterPos;
+    monsterToPlayer.y = 0;
     monsterToPlayer.Normalize();
 
-    const Vec3& monsterForward = transform->forward;
+    Vec3 monsterForward = transform->forward;
+    monsterForward.y = 0;
+    monsterForward.Normalize();
 
     return Vec3::Angle(monsterToPlayer, monsterForward);
 }
@@ -118,9 +125,12 @@ float Monster::AngleToPlayerWithSign() const
     const Vec3& monsterPos = transform->position;
 
     Vec3 monsterToPlayer = playerPos - monsterPos;
+    monsterToPlayer.y = 0;
     monsterToPlayer.Normalize();
 
-    const Vec3& monsterForward = transform->forward;
+    Vec3 monsterForward = transform->forward;
+    monsterForward.y = 0;
+    monsterForward.Normalize();
 
     float unsignedAngle = Vec3::Angle(monsterToPlayer, monsterForward);
 

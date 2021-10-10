@@ -26,11 +26,11 @@ protected:
 
 public:
 
-	const Ref<Renderer>& GetRenderer() const;
+	const Ref<UserMeshRenderer>& GetRenderer() const;
 
-	void SetRenderer(const Ref<Renderer>& renderer);
+	void SetRenderer(const Ref<UserMeshRenderer>& renderer);
 
-	void PlayAnimation(SpriteAnimation* animation, bool overlap = false);
+	void PlayAnimation(SpriteAnimation* animation, bool overlap = false, bool keepElapsed = false);
 
 	void SetDefaultAnimation(SpriteAnimation* animation, bool play = true);
 
@@ -72,7 +72,7 @@ private:
 
 private:
 
-	Ref<Renderer> m_renderer;
+	Ref<UserMeshRenderer> m_renderer;
 
 	float m_elapsed = 0;
 

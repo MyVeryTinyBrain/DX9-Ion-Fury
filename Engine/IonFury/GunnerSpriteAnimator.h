@@ -8,6 +8,8 @@ class GunnerSpriteAnimator : public SpriteAnimator
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(LateUpdate);
+
 	OverrideComponentFunction(OnDestroy);
 
 	virtual void OnAnimationEnd() override;
@@ -18,7 +20,7 @@ class GunnerSpriteAnimator : public SpriteAnimator
 
 public:
 
-	enum class DIR { FRONT, SIDE, BACK, MAX };
+	enum class DIR { FRONT, FRONT_DIAGONAL, SIDE, BACK_DIAGONAL, BACK, MAX };
 
 	enum class DIE { DIE_HEADSHOT, DIE_BODYSHOT, DIE_EXPLOSION, MAX };
 
@@ -26,9 +28,11 @@ public:
 
 public:
 
+	void SetAngle(float angle);
+
 	void PlayIdle();
 
-	void PlayWalk(DIR direction);
+	void PlayWalk();
 
 	void PlayShoot();
 
@@ -48,7 +52,13 @@ public:
 
 private:
 
-	SpriteAnimation* m_idle;
+	void ChangeUVDirection();
+
+	void ResetUVDirection();
+
+private:
+
+	SpriteAnimation* m_idle[(unsigned int)DIR::MAX];
 
 	SpriteAnimation* m_walk[(unsigned int)DIR::MAX];
 
@@ -57,6 +67,8 @@ private:
 	SpriteAnimation* m_die[(unsigned int)DIE::MAX];
 
 	SpriteAnimation* m_damage[(unsigned int)DAMAGE::MAX];
+
+	float m_angle = 0;
 
 };
 

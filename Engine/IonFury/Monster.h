@@ -15,6 +15,8 @@ class Monster : public Component
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(LateUpdate);
+
 	OverrideComponentFunction(OnDestroy);
 
 protected:

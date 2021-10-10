@@ -6,7 +6,7 @@ void SpriteAnimator::Start()
 {
 	if (!m_renderer)
 	{
-		auto renderer = gameObject->GetComponent<Renderer>();
+		auto renderer = gameObject->GetComponent<UserMeshRenderer>();
 		SetRenderer(renderer);
 	}
 }
@@ -20,17 +20,17 @@ void SpriteAnimator::AnimationUpdate()
 	Transition();
 }
 
-const Ref<Renderer>& SpriteAnimator::GetRenderer() const
+const Ref<UserMeshRenderer>& SpriteAnimator::GetRenderer() const
 {
 	return m_renderer;
 }
 
-void SpriteAnimator::SetRenderer(const Ref<Renderer>& renderer)
+void SpriteAnimator::SetRenderer(const Ref<UserMeshRenderer>& renderer)
 {
 	m_renderer = renderer;
 }
 
-void SpriteAnimator::PlayAnimation(SpriteAnimation* animation, bool overlap)
+void SpriteAnimator::PlayAnimation(SpriteAnimation* animation, bool overlap, bool keepElapsed)
 {
 	Resume();
 
@@ -43,7 +43,10 @@ void SpriteAnimator::PlayAnimation(SpriteAnimation* animation, bool overlap)
 	// 애니메이션 변경 이벤트함수를 호출합니다.
 	OnAnimationChange(m_current, &animation);
 
-	m_elapsed = 0;
+	if (!keepElapsed)
+	{
+		m_elapsed = 0;
+	}
 	m_current = animation;
 
 	// 텍스쳐를 업데이트합니다.

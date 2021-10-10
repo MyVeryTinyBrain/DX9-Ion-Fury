@@ -21,10 +21,16 @@ void UserMeshBillboardRenderer::Render()
     if (m_freezeY) camEulerAngle.y = 0;
     if (m_freezeZ) camEulerAngle.z = 0;
 
+    Vec3 gameObjectEulerAngle = transform->eulerAngle;
+
+    if (m_ignoreRotationX) gameObjectEulerAngle.x = 0;
+    if (m_ignoreRotationY) gameObjectEulerAngle.y = 0;
+    if (m_ignoreRotationZ) gameObjectEulerAngle.z = 0;
+
     const Mat4& localToWorld = 
         Mat4::SRT(
             transform->scale, 
-            (transform->eulerAngle + camEulerAngle) * Deg2Rad,
+            (gameObjectEulerAngle + camEulerAngle) * Deg2Rad,
             transform->position);
 
     GraphicDevice::GetInstance()->GetDevice()->SetTransform(D3DTS_WORLD, &localToWorld);
@@ -60,4 +66,34 @@ bool UserMeshBillboardRenderer::IsYFrozen() const
 bool UserMeshBillboardRenderer::IsZFrozen() const
 {
     return m_freezeZ;
+}
+
+void UserMeshBillboardRenderer::SetIgnoreRotationX(bool value)
+{
+    m_ignoreRotationX = value;
+}
+
+void UserMeshBillboardRenderer::SetIgnoreRotationY(bool value)
+{
+    m_ignoreRotationY = value;
+}
+
+void UserMeshBillboardRenderer::SetIgnoreRotationZ(bool value)
+{
+    m_ignoreRotationZ = value;
+}
+
+bool UserMeshBillboardRenderer::IsIgnoreRotationX() const
+{
+    return m_ignoreRotationX;
+}
+
+bool UserMeshBillboardRenderer::IsIgnoreRotationY() const
+{
+    return m_ignoreRotationY;
+}
+
+bool UserMeshBillboardRenderer::IsIgnoreRotationZ() const
+{
+    return m_ignoreRotationZ;
 }
