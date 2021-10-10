@@ -288,22 +288,25 @@ Mat4 Transform::GetWorldToLocalMatrix() const
 void Transform::SetRightDirection(const Vec3& right)
 {
 	Vec3 x = right.normalized();
-	Vec3 rotatedEulerAngle = Quat::FromToRotation(Vec3::right(), x).ToEuler();
-	eulerAngle = rotatedEulerAngle;
+	SetRotation(Quat::FromToRotation(Vec3::right(), x));
+	//Vec3 rotatedEulerAngle = Quat::FromToRotation(Vec3::right(), x).ToEuler();
+	//eulerAngle = rotatedEulerAngle;
 }
 
 void Transform::SetUpDirection(const Vec3& up)
 {
 	Vec3 y = up.normalized();
-	Vec3 rotatedEulerAngle = Quat::FromToRotation(Vec3::up(), y).ToEuler();
-	eulerAngle = rotatedEulerAngle;
+	SetRotation(Quat::FromToRotation(Vec3::up(), y));
+	//Vec3 rotatedEulerAngle = Quat::FromToRotation(Vec3::up(), y).ToEuler();
+	//eulerAngle = rotatedEulerAngle;
 }
 
 void Transform::SetForwardDirection(const Vec3& forward)
 {
 	Vec3 z = forward.normalized();
-	Vec3 rotatedEulerAngle = Quat::FromToRotation(Vec3::forawrd(), z).ToEuler();
-	eulerAngle = rotatedEulerAngle;
+	SetRotation(Quat::LookRotation(z, Vec3::up()));
+	//Vec3 rotatedEulerAngle = Quat::FromToRotation(Vec3::forawrd(), z).ToEuler();
+	//eulerAngle = rotatedEulerAngle;
 }
 
 Vec3 Transform::GetRightDirection() const

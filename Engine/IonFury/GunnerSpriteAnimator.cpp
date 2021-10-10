@@ -6,30 +6,65 @@ void GunnerSpriteAnimator::Awake()
 {
 	SpriteAnimator::Awake();
 
-	m_idle = new SpriteAnimation;
-	m_idle->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire0.png");
-	m_idle->isLoop = true;
+	m_idle[(unsigned int)DIR::FRONT] = new SpriteAnimation;
+	m_idle[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_idle_front.png");
+	m_idle[(unsigned int)DIR::FRONT]->isLoop = true;
+
+	m_idle[(unsigned int)DIR::FRONT_DIAGONAL] = new SpriteAnimation;
+	m_idle[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_idle_front_diagonal.png");
+	m_idle[(unsigned int)DIR::FRONT_DIAGONAL]->isLoop = true;
+
+	m_idle[(unsigned int)DIR::SIDE] = new SpriteAnimation;
+	m_idle[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_idle_side.png");
+	m_idle[(unsigned int)DIR::SIDE]->isLoop = true;
+
+	m_idle[(unsigned int)DIR::BACK_DIAGONAL] = new SpriteAnimation;
+	m_idle[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_idle_back_diagonal.png");
+	m_idle[(unsigned int)DIR::BACK_DIAGONAL]->isLoop = true;
+
+	m_idle[(unsigned int)DIR::BACK] = new SpriteAnimation;
+	m_idle[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_idle_back.png");
+	m_idle[(unsigned int)DIR::BACK]->isLoop = true;
 
 	m_walk[(unsigned int)DIR::FRONT] = new SpriteAnimation;
-	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk0.png");
-	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk1.png");
-	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk2.png");
-	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk3.png");
+	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front0.png");
+	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front1.png");
+	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front2.png");
+	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front3.png");
 	m_walk[(unsigned int)DIR::FRONT]->interval = 0.1f;
+	m_walk[(unsigned int)DIR::FRONT]->isLoop = true;
+
+	m_walk[(unsigned int)DIR::FRONT_DIAGONAL] = new SpriteAnimation;
+	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front_diagonal0.png");
+	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front_diagonal1.png");
+	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front_diagonal2.png");
+	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_front_diagonal3.png");
+	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->interval = 0.1f;
+	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->isLoop = true;
 
 	m_walk[(unsigned int)DIR::SIDE] = new SpriteAnimation;
-	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_side_walk0.png");
-	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_side_walk1.png");
-	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_side_walk2.png");
-	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_side_walk3.png");
+	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_side0.png");
+	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_side1.png");
+	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_side2.png");
+	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_side3.png");
 	m_walk[(unsigned int)DIR::SIDE]->interval = 0.1f;
+	m_walk[(unsigned int)DIR::SIDE]->isLoop = true;
+
+	m_walk[(unsigned int)DIR::BACK_DIAGONAL] = new SpriteAnimation;
+	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back_diagonal0.png");
+	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back_diagonal1.png");
+	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back_diagonal2.png");
+	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back_diagonal3.png");
+	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->interval = 0.1f;
+	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->isLoop = true;
 
 	m_walk[(unsigned int)DIR::BACK] = new SpriteAnimation;
-	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_back_walk0.png");
-	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_back_walk1.png");
-	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_back_walk2.png");
-	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_back_walk3.png");
+	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back0.png");
+	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back1.png");
+	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back2.png");
+	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back3.png");
 	m_walk[(unsigned int)DIR::BACK]->interval = 0.1f;
+	m_walk[(unsigned int)DIR::BACK]->isLoop = true;
 
 	m_shoot = new SpriteAnimation;
 	m_shoot->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire0.png");
@@ -70,14 +105,118 @@ void GunnerSpriteAnimator::Awake()
 	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC] = new SpriteAnimation;
 	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC]->AddTexture(L"../SharedResource/Texture/gunner/gunner_explosion8.png");
 
-	SetDefaultAnimation(m_idle);
+	SetDefaultAnimation(m_walk[(unsigned int)DIR::FRONT]);
+}
+
+void GunnerSpriteAnimator::LateUpdate()
+{
+	SpriteAnimator::LateUpdate();
+	
+	if (IsPlayingIdle())
+	{
+		if (Abs(m_angle) < 22.5f + 45 * 0)
+		{
+			if (currentAnimation != m_idle[(unsigned int)DIR::FRONT])
+			{
+				PlayAnimation(m_idle[(unsigned int)DIR::FRONT], false, true);
+			}
+
+			ResetUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 1)
+		{
+			if (currentAnimation != m_idle[(unsigned int)DIR::FRONT_DIAGONAL])
+			{
+				PlayAnimation(m_idle[(unsigned int)DIR::FRONT_DIAGONAL], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 2)
+		{
+			if (currentAnimation != m_idle[(unsigned int)DIR::SIDE])
+			{
+				PlayAnimation(m_idle[(unsigned int)DIR::SIDE], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 3)
+		{
+			if (currentAnimation != m_idle[(unsigned int)DIR::BACK_DIAGONAL])
+			{
+				PlayAnimation(m_idle[(unsigned int)DIR::BACK_DIAGONAL], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else
+		{
+			if (currentAnimation != m_idle[(unsigned int)DIR::BACK])
+			{
+				PlayAnimation(m_idle[(unsigned int)DIR::BACK], false, true);
+			}
+
+			ResetUVDirection();
+		}
+
+	}
+	else if (IsPlayingWalk())
+	{
+		if (Abs(m_angle) < 22.5f + 45 * 0)
+		{
+			if (currentAnimation != m_walk[(unsigned int)DIR::FRONT])
+			{
+				PlayAnimation(m_walk[(unsigned int)DIR::FRONT], false, true);
+			}
+
+			ResetUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 1)
+		{
+			if (currentAnimation != m_walk[(unsigned int)DIR::FRONT_DIAGONAL])
+			{
+				PlayAnimation(m_walk[(unsigned int)DIR::FRONT_DIAGONAL], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 2)
+		{
+			if (currentAnimation != m_walk[(unsigned int)DIR::SIDE])
+			{
+				PlayAnimation(m_walk[(unsigned int)DIR::SIDE], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 3)
+		{
+			if (currentAnimation != m_walk[(unsigned int)DIR::BACK_DIAGONAL])
+			{
+				PlayAnimation(m_walk[(unsigned int)DIR::BACK_DIAGONAL], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else
+		{
+			if (currentAnimation != m_walk[(unsigned int)DIR::BACK])
+			{
+				PlayAnimation(m_walk[(unsigned int)DIR::BACK], false, true);
+			}
+
+			ResetUVDirection();
+		}
+	}
 }
 
 void GunnerSpriteAnimator::OnDestroy()
 {
 	SpriteAnimator::OnDestroy();
 
-	SafeDelete(m_idle);
+	for (int i = 0; i < (int)DIR::MAX; ++i)
+		SafeDelete(m_idle[i]);
 
 	for(int i = 0; i < (int)DIR::MAX; ++i)
 		SafeDelete(m_walk[i]);
@@ -103,14 +242,19 @@ void GunnerSpriteAnimator::OnDefaultAnimationChange(const SpriteAnimation* curre
 {
 }
 
-void GunnerSpriteAnimator::PlayIdle()
+void GunnerSpriteAnimator::SetAngle(float angle)
 {
-	PlayAnimation(m_idle);
+	m_angle = angle;
 }
 
-void GunnerSpriteAnimator::PlayWalk(DIR direction)
+void GunnerSpriteAnimator::PlayIdle()
 {
-	PlayAnimation(m_walk[unsigned int(direction)]);
+	PlayAnimation(m_idle[(unsigned int)DIR::FRONT]);
+}
+
+void GunnerSpriteAnimator::PlayWalk()
+{
+	PlayAnimation(m_walk[(unsigned int)DIR::FRONT]);
 }
 
 void GunnerSpriteAnimator::PlayShoot()
@@ -130,7 +274,14 @@ void GunnerSpriteAnimator::PlayDamage(DAMAGE type)
 
 bool GunnerSpriteAnimator::IsPlayingIdle() const
 {
-	return currentAnimation == m_idle;
+	for (auto idle : m_idle)
+	{
+		if (currentAnimation == idle)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 bool GunnerSpriteAnimator::IsPlayingWalk() const
@@ -172,4 +323,15 @@ bool GunnerSpriteAnimator::IsPlayingDamage() const
 		}
 	}
 	return false;
+}
+
+void GunnerSpriteAnimator::ChangeUVDirection()
+{
+	float direction = m_angle > 0 ? -1.0f : +1.0f;
+	GetRenderer()->userMesh->uvScale = Vec2(direction, 1.0f);
+}
+
+void GunnerSpriteAnimator::ResetUVDirection()
+{
+	GetRenderer()->userMesh->uvScale = Vec2(1.0f, 1.0f);
 }

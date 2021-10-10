@@ -10,3 +10,13 @@ void Player::Awake()
 
 	m_controller = gameObject->AddComponent<FPSCharacterController>();
 }
+
+FPSCharacterController* Player::GetController() const
+{
+	return m_controller;
+}
+
+Camera* Player::GetPerspectiveCamera() const
+{
+	return m_controller->camera;
+}
