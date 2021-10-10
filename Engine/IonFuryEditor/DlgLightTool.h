@@ -97,4 +97,5 @@ public:
 	afx_msg void OnEnChangeColorA();
 	afx_msg void OnBnClickedDeleteButton();
 	afx_msg void OnBnClickedApplyButton();
+	afx_msg void OnBnClickedAddButton();
 };

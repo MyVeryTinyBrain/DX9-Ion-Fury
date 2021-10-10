@@ -12,12 +12,12 @@ void LightObj::Awake()
 {
 	auto obj = this->GetGameObject();
 	
-	if (obj->tag == L"PointLight")
+	if (obj->tag == L"Point")
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<PointLight>();
 	}
-	else if (obj->tag == L"SpotLight")
+	else if (obj->tag == L"Spot")
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<SpotLight>();
@@ -44,13 +44,6 @@ void LightObj::OnDestroy()
 	auto it = FindInContainer(g_vecLight, this);
 	if (it != g_vecLight.end())
 		g_vecLight.erase(it);
-}
-
-void LightObj::LightSettings(const wstring& localPathMesh, const wstring& localPathTexture)
-{
-	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
-	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
-	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
 }
 
 

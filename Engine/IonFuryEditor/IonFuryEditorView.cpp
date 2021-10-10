@@ -15,7 +15,6 @@
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
-#include "LightObj.h"
 #include "EditorScene.h"
 
 #ifdef new
@@ -204,12 +203,6 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_dlgObjectTool.m_objectName.GetString(),
 			m_dlgObjectTool.m_meshPath.GetString(),
 			m_dlgTextureTool.m_texturePath.GetString());
-		break;
-	case 'U':
-		camera->AddLight(m_dlgLightTool.m_LightName.GetString(),
-			m_dlgLightTool.m_LightType.GetString());
-		m_dlgLightTool.SetListBox(m_dlgLightTool.m_LightName.GetString());
-		cout << "Light Create" << endl;
 		break;
 	default:
 		break;

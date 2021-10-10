@@ -90,6 +90,7 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_EN_CHANGE(IDC_COLOR_A, &DlgLightTool::OnEnChangeColorA)
 	ON_BN_CLICKED(IDC_BUTTON2, &DlgLightTool::OnBnClickedDeleteButton)
 	ON_BN_CLICKED(IDC_BUTTON1, &DlgLightTool::OnBnClickedApplyButton)
+	ON_BN_CLICKED(IDC_BUTTON6, &DlgLightTool::OnBnClickedAddButton)
 END_MESSAGE_MAP()
 
 
@@ -115,7 +116,7 @@ BOOL DlgLightTool::OnInitDialog()
 	m_LT_ComboBox.AddString(_T("Ambinent"));
 	//m_LT_ComboBox.AddString(_T("Ambinent"));
 	m_LT_ComboBox.SetCurSel(0);
-	m_LightType = L"Point";
+	//m_LightType = L"Point";
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
@@ -234,13 +235,13 @@ void DlgLightTool::OnListBoxCtrl()
 
 		if (lightobj->name == name.GetString())
 		{
-			if (lightobj->tag == L"PointLight")
+			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
 
 				//com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
 			}
-			else if (lightobj->tag == L"SpotLight")
+			else if (lightobj->tag == L"Spot")
 			{
 				auto com = lightobj->GetComponentInChild<SpotLight>();
 
@@ -266,16 +267,16 @@ void DlgLightTool::OnSelectLight()
 	switch (m_comboBox)
 	{
 	case DlgLightTool::COMBOBOX::POINTLIGNT:
-		m_LightType = L"PointLight";
+		m_LightType = L"Point";
 		break;
 	case DlgLightTool::COMBOBOX::SPOTLIGNT:
-		m_LightType = L"SpotLight";
+		m_LightType = L"Spot";
 		break;
 	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
-		m_LightType = L"DirectionalLight";
+		m_LightType = L"Directional";
 		break;
 	case DlgLightTool::COMBOBOX::AMBINENTLIGHT:
-		m_LightType = L"AmbinentLight";
+		m_LightType = L"Ambinent";
 		break;
 	default:
 		break;
@@ -388,41 +389,6 @@ void DlgLightTool::OnBnClickedDeleteButton()
 {
 	UpdateData(TRUE);
 
-	//int iIndex = m_LT_ListBox.GetCurSel(); // 몇번째 인덱스 선택햇는지 체크
-	//CString wstrFindName;
-	//m_LT_ListBox.GetText(iIndex, wstrFindName);
-
-
-	////예외처리
-	//for (int i = 0; i < wstrFindName.GetLength(); ++i)
-	//{
-	//	if (iIndex < 0)
-	//		return;
-	//}
-
-	//CString name = wstrFindName.GetString();
-
-
-	//auto lightobj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(wstrFindName.GetString());
-	//auto component = lightobj->GetComponent<LightObj>();
-
-
-	//component->
-
-	////auto obj = LightObj::GetInstance()->FindGameObject(wstrFindName.GetString());
-
-	////
-
-	////if (obj->GetTag().c_str() == L"PointLight")
-	////{
-	////	obj->GetComponent<LightObj>()->Destroy();
-	////}
-	////else if (obj->GetTag().c_str() == L"SpotLight")
-	////{
-	////	obj->GetComponent<SpotLight>()->Destroy();
-	////}
-
-
 	int iIndex = m_LT_ListBox.GetCurSel();
 	CString wstrFindName;
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
@@ -474,4 +440,43 @@ void DlgLightTool::OnBnClickedApplyButton()
 
 	UpdateData(FALSE);
 
+}
+
+
+void DlgLightTool::OnBnClickedAddButton()
+{
+	UpdateData(TRUE);
+	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+
+
+	CString temp = m_LightType.GetString();
+
+	if(m_LightType == L"Point")
+	{
+		GameObject* PointLightObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(m_LightType.GetString());
+
+		PointLightObj->name = m_LightName.GetString();
+
+		//PointLightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+
+		PointLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
+
+		PointLightObj->AddComponent<LightObj>();
+
+		m_LT_ListBox.AddString(m_LightName.GetString());
+	}
+	else if (m_LightType == L"Spot")
+	{
+		GameObject* SpotLightObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(m_LightType.GetString());
+
+		SpotLightObj->name = m_LightName.GetString();
+
+		SpotLightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+
+		SpotLightObj->AddComponent<LightObj>();
+
+		m_LT_ListBox.AddString(m_LightName.GetString());
+	}
+
+	UpdateData(FALSE);
 }
