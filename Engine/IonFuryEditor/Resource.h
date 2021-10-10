@@ -70,6 +70,9 @@
 #define IDC_BUTTON5                     1042
 #define IDC_TAB1                        1043
 #define IDC_PIC                         1044
+#define IDC_RotSlider                   1047
+#define IDC_RotSlider2                  1052
+#define IDC_RotSlider3                  1053
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -80,7 +83,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1046
+#define _APS_NEXT_CONTROL_VALUE         1049
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif
