@@ -27,6 +27,7 @@ public:
 private:
 	COMBOBOX m_eMesh;
 
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
@@ -66,9 +67,5 @@ public:
 	afx_msg void OnBnClickedApply();
 	afx_msg void OnBnClickedLoad();
 	afx_msg void OnBnClickedClear();
-	afx_msg void OnNMCustomdrawRotslider(NMHDR* pNMHDR, LRESULT* pResult);
-	CSliderCtrl m_SliderControlX;
-	CSliderCtrl m_SliderControlY;
-	CSliderCtrl m_SliderControlZ;
-	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+
 };

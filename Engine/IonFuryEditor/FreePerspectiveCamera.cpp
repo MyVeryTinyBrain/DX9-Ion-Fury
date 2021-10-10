@@ -95,31 +95,3 @@ void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& 
 	test->Settings(localPathMesh, localPathTexture);
 }
 
-void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& LightType)
-{
-	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-
-	if (LightType == L"Point")
-	{
-		GameObject* PointLightObj = CreateGameObject(L"PointLight");
-
-
-		PointLightObj->name = LightName;
-
-		PointLightObj->transform->position = transform->position + transform->forward * 2;
-
-		auto point = PointLightObj->AddComponent<LightObj>();
-		//point->LightSettings(localPathMesh, localPathTexture);
-	}
-	else if (LightType == L"Spot")
-	{
-		GameObject* SpotLightObj = CreateGameObject(L"SpotLight");
-
-		SpotLightObj->name = LightName;
-
-		SpotLightObj->transform->position = transform->position + transform->forward * 2;
-
-		auto spot = SpotLightObj->AddComponent<LightObj>();
-		//spot->LightSettings(localPathMesh, localPathTexture);
-	}
-}

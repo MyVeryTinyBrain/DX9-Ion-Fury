@@ -15,9 +15,7 @@
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
-#include "LightObj.h"
 #include "EditorScene.h"
-#include "Gizmo.h"
 
 #ifdef new
 #undef new
@@ -42,8 +40,6 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_WM_KEYDOWN()
 	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
 	ON_WM_LBUTTONDOWN()
-	ON_WM_LBUTTONUP()
-	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -208,12 +204,6 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_dlgObjectTool.m_meshPath.GetString(),
 			m_dlgTextureTool.m_texturePath.GetString());
 		break;
-	case 'U':
-		camera->AddLight(m_dlgLightTool.m_LightName.GetString(),
-			m_dlgLightTool.m_LightType.GetString());
-		m_dlgLightTool.SetListBox();
-		cout << "Light Create" << endl;
-		break;
 	default:
 		break;
 	}
@@ -237,47 +227,15 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	CView::OnLButtonDown(nFlags, point);
 
 
-	//auto pickable = Pickable::Pick();
+	auto pickable = Pickable::Pick();
 
-	//if (pickable)
-	//{
-	//	auto pickObj = pickable->GetGameObject();
-	//	m_dlgObjectTool.SetPickableObject(pickObj);
-	//	m_dlgObjectTool.SelectObject();
-	//}
-
-	Pickable* pick = Pickable::Pick();
-
-	if (pick)
+	if (pickable)
 	{
-		auto pickObj = pick->GetGameObject();
+		auto pickObj = pickable->GetGameObject();
 
 		m_dlgObjectTool.SetPickableObject(pickObj);
 
 		m_dlgObjectTool.SelectObject();
 	}
-}
 
-void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
-{
-	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-
-	CView::OnMouseMove(nFlags, point);
-
-	EditorManager* test = EditorManager::GetInstance();
-	
-	if (!test)
-		return;
-
-	Gizmo* m_giz = EditorManager::GetInstance()->GetGizmo();
-	bool Handling = m_giz->GetHandlingState();
-
-	if (Handling)
-	{
-		auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
-	
-		m_dlgObjectTool.SetPickableObject(pickObj);
-	
-		m_dlgObjectTool.SelectObject();
-	}
 }
