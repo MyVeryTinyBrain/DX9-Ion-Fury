@@ -48,7 +48,6 @@ void Monster::Update()
 
 void Monster::LateUpdate()
 {
-    m_rendererObj->transform->rotation = Quat::Identity();
 }
 
 void Monster::OnDestroy()
