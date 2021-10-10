@@ -43,6 +43,9 @@
     <Filter Include="Initialize">
       <UniqueIdentifier>{cdb4b80e-a991-4c63-aefb-6c077d7b5fe2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monster\Spider">
+      <UniqueIdentifier>{fc9ac770-3ebc-4283-aa75-17c2739044d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -110,6 +113,12 @@
     </ClInclude>
     <ClInclude Include="GunnerSpriteAnimator.h">
       <Filter>Monster\Gunner</Filter>
+    </ClInclude>
+    <ClInclude Include="Spider.h">
+      <Filter>Monster\Spider</Filter>
+    </ClInclude>
+    <ClInclude Include="SpiderSpriteAnimator.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +188,12 @@
     </ClCompile>
     <ClCompile Include="GunnerSpriteAnimator.cpp">
       <Filter>Monster\Gunner</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
+      <Filter>Monster\Spider</Filter>
+    </ClCompile>
+    <ClCompile Include="SpiderSpriteAnimator.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
