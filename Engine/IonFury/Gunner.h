@@ -35,11 +35,20 @@ private:
 
 private:
 
+	CapsuleCollider* m_capsuleCollider = nullptr;
+
 	GunnerSpriteAnimator* m_animator = nullptr;
 
+	// 목표 지점이 있는 경우에 활성화되는 플래그입니다.
 	bool m_hasTargetCoord = false;
 
 	// y = 0으로 설정됩니다.
 	Vec3 m_targetCoord;
+
+	// y = 0으로 설정됩니다.
+	Vec3 m_beforeCoord;
+
+	// 동작을 잠시 정지하는데 쓰이는 타이머입니다.
+	float m_breakTime = 0;
 };
 

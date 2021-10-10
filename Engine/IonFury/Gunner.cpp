@@ -9,31 +9,48 @@ void Gunner::Awake()
     Monster::Awake();
 
     m_hp = 10;
-    m_moveSpeed = 4.0f;
+    m_moveSpeed = 3.0f;
 
     m_body->mass = 1.0f;
     m_body->interpolate = true;
 
+    // 렌더링되는 쿼드의 스케일을 키웁니다.
     m_rendererObj->transform->scale = Vec3::one() * 3.0f;
-    m_animator = m_rendererChildObj->AddComponent<GunnerSpriteAnimator>();
 
-    SetTargetCoord(Vec3(0, 0, -5));
+    m_animator = m_rendererChildObj->AddComponent<GunnerSpriteAnimator>();
 }
 
 void Gunner::FixedUpdate()
 {
     Monster::FixedUpdate();
 
+    // 목표 지점으로 이동하는 로직입니다.
     MoveToTarget();
+
+    // 몬스터의 forward 방향과 플레이어를 바라보는 방향을 계산해서 애니메이터에 전달합니다.
     m_animator->SetAngle(AngleToPlayerWithSign());
+
+    // 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
+    if (!m_hasTargetCoord)
+    {
+        float randomRadian = (rand() % 360) * Deg2Rad;
+        float randomDistance = (rand() % 15) + 2.1f + 0.1f;
+        Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
+        SetTargetCoord(targetCoord);
+    }
 }
 
 void Gunner::Update()
 {
     Monster::Update();
 
-    //MoveToTarget();
-    //m_animator->SetAngle(AngleToPlayerWithSign());
+    // 현재 속도가 지정속도 이상이면 걷는 애니메이션을 출력합니다.
+    // 아니라면 정지 애니메이션을 출력합니다.
+
+    if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
+        m_animator->PlayWalk();
+    else
+        m_animator->PlayIdle();
 }
 
 void Gunner::OnDestroy()
@@ -50,7 +67,8 @@ Collider* Gunner::InitializeCollider(GameObject* colliderObj)
     //    renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
     //}
 
-    return colliderObj->AddComponent<CapsuleCollider>();
+    m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
+    return m_capsuleCollider;
 }
 
 void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
@@ -85,40 +103,84 @@ bool Gunner::PlayerInSite() const
 
 void Gunner::MoveToTarget()
 {
+    // 목표 지점이 없다면 종료합니다.
     if (!m_hasTargetCoord)
     {
         return;
     }
 
     const Vec3& gunnerPos = transform->position;
+
+    // xz 평면에서의 목표까지의 방향 벡터를 설정합니다.
     Vec3 forward = m_targetCoord - gunnerPos;
     forward.y = 0;
     forward.Normalize();
+
+    // 바라보는 방향을 설정합니다.
     transform->forward = forward;
 
+    // 몬스터의 위치를 xz 평면위의 좌표로 계산합니다.
     Vec3 xzGunnerPos = Vec3(gunnerPos.x, 0, gunnerPos.z);
+
+    // xz 평면위에서의 목표지점까지의 거리를 계산합니다.
     float distance = Vec3::Distance(xzGunnerPos, m_targetCoord);
 
     if (distance > 2.1f)
     {
+        // 지정한 거리보다 먼 경우에 실행됩니다.
+
+        // 몬스터가 바라보는 방향으로 레이를 발사합니다.
+        PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
+        RaycastHit hit;
+
+        // (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster): Terrain, Monster 레이어만 쿼리합니다.
+        if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
+        {
+            // 충돌한 콜라이더 면의 노멀 벡터와 업 벡터와의 각도를 구합니다.
+            float angle = Vec3::Angle(hit.normal, Vec3::up());
+
+            if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain && angle > 85 && angle < 95)
+            {
+                // 충돌한 콜라이더가 Terrain인 경우에
+                // 각도가 지정 각도 이내이면 벽이라고 판단하여 목표 지점을 없앱니다.
+
+                m_hasTargetCoord = false;
+                return;
+            }
+            else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
+            {
+                // 충돌한 콜라이더가 몬스터 콜라이더면
+                // 목표 지점을 없앱니다.
+
+                m_hasTargetCoord = false;
+                return;
+            }
+        }
+
+        // 속도를 설정합니다.
         Vec3 acceleration = forward * m_moveSpeed;
         Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
         velocity.y = m_body->velocity.y;
         m_body->velocity = velocity;
 
-        //Vec3 acceleration = forward * m_moveSpeed;
-        //Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
-        //velocity.y = 0;
-        //transform->position += velocity * Time::DeltaTime();
+        if (Vec3::Distance(xzGunnerPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 0.5f)
+        {
+            // 이전 몬스터 좌표와 현재 몬스터 좌표의 거리를 비교해서
+            // 지정한 거리 이내이면
+            // 몬스터가 걸려서 움직이지 못한다고 판단하여 목표 지점을 없앱니다.
+
+            m_hasTargetCoord = false;
+            return;
+        }
+
+        // 현재 위치를 저장합니다.
+        m_beforeCoord = transform->position;
+        m_beforeCoord.y = 0;
     }
     else
     {
+        // 저정한 거리보다 가까운 경우에는 목표 지점을 없앱니다.
         m_hasTargetCoord = false;
-
-        float randomAngle = float(rand() % 360);
-        Vec3 randomDir = Vec3(cosf(randomAngle * Deg2Rad), 0, sinf(randomAngle * Deg2Rad));
-        float randomDist = float(rand() % 10 + 1);
-        SetTargetCoord(transform->position + randomDir * randomDist);
     }
 }
 
