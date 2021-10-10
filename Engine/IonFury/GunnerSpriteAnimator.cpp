@@ -105,7 +105,7 @@ void GunnerSpriteAnimator::Awake()
 	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC] = new SpriteAnimation;
 	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC]->AddTexture(L"../SharedResource/Texture/gunner/gunner_explosion8.png");
 
-	SetDefaultAnimation(m_walk[(unsigned int)DIR::FRONT]);
+	SetDefaultAnimation(m_idle[(unsigned int)DIR::FRONT]);
 }
 
 void GunnerSpriteAnimator::LateUpdate()
@@ -249,11 +249,19 @@ void GunnerSpriteAnimator::SetAngle(float angle)
 
 void GunnerSpriteAnimator::PlayIdle()
 {
+	if (IsPlayingIdle())
+	{
+		return;
+	}
 	PlayAnimation(m_idle[(unsigned int)DIR::FRONT]);
 }
 
 void GunnerSpriteAnimator::PlayWalk()
 {
+	if (IsPlayingWalk())
+	{
+		return;
+	}
 	PlayAnimation(m_walk[(unsigned int)DIR::FRONT]);
 }
 

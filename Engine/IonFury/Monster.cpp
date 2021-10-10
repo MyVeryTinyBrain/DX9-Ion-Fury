@@ -24,6 +24,7 @@ void Monster::Awake()
 
     m_rendererObj = CreateGameObjectToChild(transform);
     m_rendererObj->transform->localPosition = Vec3(0, -1.0f, 0);
+    m_rendererObj->transform->name = L"test";
 
     m_rendererChildObj = CreateGameObjectToChild(m_rendererObj->transform);
     m_rendererChildObj->transform->localPosition = Vec3(0, 0.5f, 0);

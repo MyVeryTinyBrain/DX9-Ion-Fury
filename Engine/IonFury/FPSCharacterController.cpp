@@ -21,7 +21,7 @@ void FPSCharacterController::Awake()
     m_cameraObj = CreateGameObjectToChild(m_subObj->transform);
     m_camera = m_cameraObj->AddComponent<FPSCamera>();
     m_cameraObj->transform->localPosition = Vec3(0, 0.5f, 0);
-    m_cameraObj->transform->eulerAngle = Vec3(0, 90, 0);
+    m_cameraObj->transform->eulerAngle = Vec3(0, 0, 0);
 }
 
 void FPSCharacterController::FixedUpdate()

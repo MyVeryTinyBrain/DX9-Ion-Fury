@@ -50,7 +50,7 @@ void TestScene::OnLoad(Scene* beforeScene)
     {   // Create obstacle
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, -2, -3);
-        obj->transform->scale = Vec3(1, 1, 1);
+        obj->transform->scale = Vec3(15, 1, 1);
 
         auto renderer = obj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
@@ -81,7 +81,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, 0, 10);
         obj->transform->eulerAngle = Vec3(-20, 0, 0);
-        obj->transform->scale = Vec3(20, 1, 20);
+        obj->transform->scale = Vec3(30, 1, 30);
 
         auto renderer = obj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
@@ -93,9 +93,51 @@ void TestScene::OnLoad(Scene* beforeScene)
 
     {   // Create wall
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(-10, 0, 0);
+        obj->transform->position = Vec3(-15, 0, 0);
         obj->transform->eulerAngle = Vec3(0, 0, 90);
-        obj->transform->scale = Vec3(20, 1, 20);
+        obj->transform->scale = Vec3(40, 1, 40);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+        auto collider = obj->AddComponent<BoxCollider>();
+    }
+
+    {   // Create wall
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(+15, 0, 0);
+        obj->transform->eulerAngle = Vec3(0, 0, 90);
+        obj->transform->scale = Vec3(40, 1, 40);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+        auto collider = obj->AddComponent<BoxCollider>();
+    }
+
+    {   // Create wall
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 0, -15);
+        obj->transform->eulerAngle = Vec3(0, 90, 90);
+        obj->transform->scale = Vec3(40, 1, 40);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+        auto collider = obj->AddComponent<BoxCollider>();
+    }
+
+    {   // Create wall
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 0, +15);
+        obj->transform->eulerAngle = Vec3(0, 90, 90);
+        obj->transform->scale = Vec3(40, 1, 40);
 
         auto renderer = obj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
@@ -120,58 +162,22 @@ void TestScene::OnLoad(Scene* beforeScene)
         }
     }
     
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(0, 2, -5);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
-    //    obj->AddComponent<Gunner>();
-    //}
-
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(0, 2, -7);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
-    //    obj->AddComponent<Gunner>();
-    //}
-
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(0, 2, -9);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
-    //    obj->AddComponent<Gunner>();
-    //}
-
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(2, 2, -5);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
-    //    obj->AddComponent<Gunner>();
-    //}
-
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(2, 2, -7);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
-    //    obj->AddComponent<Gunner>();
-    //}
-
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(2, 2, -9);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
-    //    obj->AddComponent<Gunner>();
-    //}
-
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(i, 2, j);
+            obj->transform->eulerAngle = Vec3(0, 90, 0);
+            obj->AddComponent<Gunner>();
+        }
+    }
 
     {
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, 2, -5);
         obj->AddComponent<Spider>();
-        //auto renderer = obj->AddComponent<UserMeshRenderer>();
-        //renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-
     }
-
 
     /*
     {   // Monster example
