@@ -4,6 +4,7 @@
 #include "Cube.h"
 #include "TriangleStair.h"
 #include "Gunner.h"
+#include "Spider.h"
 
 IClonable* TestScene::Clone()
 {
@@ -119,47 +120,58 @@ void TestScene::OnLoad(Scene* beforeScene)
         }
     }
     
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -5);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //    obj->AddComponent<Gunner>();
+    //}
+
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -7);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //    obj->AddComponent<Gunner>();
+    //}
+
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -9);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //    obj->AddComponent<Gunner>();
+    //}
+
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(2, 2, -5);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //    obj->AddComponent<Gunner>();
+    //}
+
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(2, 2, -7);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //    obj->AddComponent<Gunner>();
+    //}
+
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(2, 2, -9);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //    obj->AddComponent<Gunner>();
+    //}
+
+
     {
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, 2, -5);
-        obj->transform->eulerAngle = Vec3(0, 90, 0);
-        obj->AddComponent<Gunner>();
+        obj->AddComponent<Spider>();
+        //auto renderer = obj->AddComponent<UserMeshRenderer>();
+        //renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+
     }
 
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -7);
-        obj->transform->eulerAngle = Vec3(0, 90, 0);
-        obj->AddComponent<Gunner>();
-    }
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -9);
-        obj->transform->eulerAngle = Vec3(0, 90, 0);
-        obj->AddComponent<Gunner>();
-    }
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(2, 2, -5);
-        obj->transform->eulerAngle = Vec3(0, 90, 0);
-        obj->AddComponent<Gunner>();
-    }
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(2, 2, -7);
-        obj->transform->eulerAngle = Vec3(0, 90, 0);
-        obj->AddComponent<Gunner>();
-    }
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(2, 2, -9);
-        obj->transform->eulerAngle = Vec3(0, 90, 0);
-        obj->AddComponent<Gunner>();
-    }
 
     /*
     {   // Monster example

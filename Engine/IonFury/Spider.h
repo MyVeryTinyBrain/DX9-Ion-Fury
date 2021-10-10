@@ -22,7 +22,16 @@ class Spider : public Monster
 
 private:
 
+	void MoveToTarget();
+
+	void SetTargetCoord(Vec3 xzCoord);
+
+private:
+
 	SpiderSpriteAnimator* m_animator = nullptr;
 	
+	bool m_hasTargetCoord = false;
+
+	Vec3 m_targetCoord;
 };
 
