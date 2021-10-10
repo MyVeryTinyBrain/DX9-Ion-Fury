@@ -31,6 +31,9 @@ void Gunner::FixedUpdate()
 void Gunner::Update()
 {
     Monster::Update();
+
+    //MoveToTarget();
+    //m_animator->SetAngle(AngleToPlayerWithSign());
 }
 
 void Gunner::OnDestroy()
@@ -102,6 +105,11 @@ void Gunner::MoveToTarget()
         Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
         velocity.y = m_body->velocity.y;
         m_body->velocity = velocity;
+
+        //Vec3 acceleration = forward * m_moveSpeed;
+        //Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
+        //velocity.y = 0;
+        //transform->position += velocity * Time::DeltaTime();
     }
     else
     {
