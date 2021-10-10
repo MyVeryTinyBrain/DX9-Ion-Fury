@@ -264,15 +264,20 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 
 	CView::OnMouseMove(nFlags, point);
 
+	EditorManager* test = EditorManager::GetInstance();
+	
+	if (!test)
+		return;
+
 	Gizmo* m_giz = EditorManager::GetInstance()->GetGizmo();
 	bool Handling = m_giz->GetHandlingState();
 
 	if (Handling)
 	{
 		auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
-
+	
 		m_dlgObjectTool.SetPickableObject(pickObj);
-
+	
 		m_dlgObjectTool.SelectObject();
 	}
 }

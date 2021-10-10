@@ -28,7 +28,7 @@ void EditorManager::Awake()
 
 	{	
 		// 자연광을 설정합니다.
-		Light::SetGlobalAmbientLight(Color::white() * 0.2f);
+		Light::SetGlobalAmbientLight(Color::white() * 0.7f);
 
 		// 디렉셔널 라이트 생성
 		auto directionalLightObj = CreateGameObject(L"DirectonalLight");
