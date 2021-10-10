@@ -4,6 +4,7 @@
 #include "Cube.h"
 #include "TriangleStair.h"
 #include "Gunner.h"
+#include "Spider.h"
 
 IClonable* TestScene::Clone()
 {
@@ -170,6 +171,12 @@ void TestScene::OnLoad(Scene* beforeScene)
             obj->transform->eulerAngle = Vec3(0, 90, 0);
             obj->AddComponent<Gunner>();
         }
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -5);
+        obj->AddComponent<Spider>();
     }
 
     /*
