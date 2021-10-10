@@ -8,6 +8,8 @@
 #include "DlgObjectTool.h"
 #include "DlgTextureTool.h"
 
+class CIonFuryEditorDoc;
+
 class CIonFuryEditorView : public CView
 {
 
