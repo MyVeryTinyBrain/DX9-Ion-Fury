@@ -6,41 +6,35 @@
 #include "../Engine/header/PointLight.h"
 #include "FreePerspectiveCamera.h"
 
-// 정석 컴포넌트의 정의부분입니다.
-ImplementStaticComponent(LightObj);
-
 std::vector<LightObj*> LightObj::g_vecLight;
 
 void LightObj::Awake()
 {
-	// 정적 변수에 대입합니다.
-	g_instance = this;
-
 	auto obj = this->GetGameObject();
-
-	m_strName = obj->name.c_str();
-	m_strTag = obj->tag.c_str();
 	
-	if (m_strTag == L"PointLight")
+	if (obj->tag == L"PointLight")
 	{
-		m_LightChildObject = CreateGameObject();
+		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<PointLight>();
 	}
-	else if (m_strTag == L"SpotLight")
+	else if (obj->tag == L"SpotLight")
 	{
-		m_LightChildObject = CreateGameObject();
+		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<SpotLight>();
 	}
 
 	g_vecLight.push_back(this);
-
-	m_LightChildObject->transform->parent = GetGameObject()->transform;
-	m_LightChildObject->transform->localPosition = Vec3::zero();
 }
 
 
 void LightObj::Update()
 {
+	if (m_destroyRequire)
+	{
+		gameObject->Destroy();
+		return;
+	}
+
 	if (Input::GetKeyDown(Key::LeftMouse))
 		LightPick();
 }
@@ -78,4 +72,9 @@ LightObj* LightObj::LightPick()
 	}*/
 
 	return nullptr;
+}
+
+void LightObj::RequireDestroy()
+{
+	m_destroyRequire = true;
 }

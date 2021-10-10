@@ -15,7 +15,7 @@ public:
 	virtual ~DlgLightTool();
 
 public:
-	void SetListBox();
+	void SetListBox(const wstring& lightObjName);
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME

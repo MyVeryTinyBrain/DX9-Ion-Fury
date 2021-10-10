@@ -7,9 +7,6 @@ class LightObj :  public Component
 {
 public:
 
-	// 정석 컴포넌트의 선언부분입니다.
-	DeclareStaticComponent(LightObj);
-
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Update);
@@ -22,8 +19,7 @@ public:
 
 	static LightObj* LightPick();
 
-	CString& GetName() { return m_strName; }
-
+	void RequireDestroy();
 
 public:
 	UserMeshRenderer* GetRenderer() { return m_LightRenderer; }
@@ -35,13 +31,11 @@ private:
 
 	UserMeshRenderer* m_LightRenderer;
 
-	CString m_strName;
-	CString m_strTag;
-
 
 public:
 	static std::vector<LightObj*> g_vecLight;
 
-
+private:
+	bool m_destroyRequire = false;
 };
 

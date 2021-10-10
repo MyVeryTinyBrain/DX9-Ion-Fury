@@ -203,11 +203,11 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 
 //조명 리스트 박스 컨트럴
-void DlgLightTool::SetListBox()
+void DlgLightTool::SetListBox(const wstring& lightObjName)
 {
 	UpdateData(TRUE);
 
-	m_LT_ListBox.AddString(LightObj::GetInstance()->GetName());
+	m_LT_ListBox.AddString(lightObjName.c_str());
 
 	UpdateData(FALSE);
 }
@@ -222,11 +222,8 @@ void DlgLightTool::OnListBoxCtrl()
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
 
-	for (int i = 0; i < wstrFindName.GetLength(); ++i)
-	{
-		if (iIndex < 0)
-			return;
-	}
+	if (iIndex < 0)
+		return;
 
 	CString name = wstrFindName.GetString();
 
@@ -235,21 +232,19 @@ void DlgLightTool::OnListBoxCtrl()
 
 		auto lightobj = light->GetGameObject();
 
-		auto test = lightobj->GetComponent<LightObj>();
-
-		if (test->name == name.GetString())
+		if (lightobj->name == name.GetString())
 		{
 			if (lightobj->tag == L"PointLight")
 			{
-				auto com = lightobj->GetComponent<PointLight>();
+				auto com = lightobj->GetComponentInChild<PointLight>();
 
-				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+				//com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
 			}
 			else if (lightobj->tag == L"SpotLight")
 			{
-				auto com = lightobj->GetComponent<SpotLight>();
+				auto com = lightobj->GetComponentInChild<SpotLight>();
 
-				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+				//com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
 			}
 			// 불러올때 LightObj에서 이름을 가져오면 될듯
 		}
@@ -433,11 +428,8 @@ void DlgLightTool::OnBnClickedDeleteButton()
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
 
-	for (int i = 0; i < wstrFindName.GetLength(); ++i)
-	{
-		if (iIndex < 0)
-			return;
-	}
+	if (iIndex < 0)
+		return;
 
 	CString name = wstrFindName.GetString();
 
@@ -449,26 +441,15 @@ void DlgLightTool::OnBnClickedDeleteButton()
 		auto test = lightobj->GetComponent<LightObj>();
 
 
-		if (test->name == name.GetString())
+		if (lightobj->name == name.GetString())
 		{
-			if (lightobj->tag == L"PointLight")
-			{
-				auto com = lightobj->GetComponent<PointLight>();
-
-				com->Destroy();
-			}
-			else if (lightobj->tag == L"SpotLight")
-			{
-				auto com = lightobj->GetComponent<SpotLight>();
-
-				com->Destroy();
-			}
+			light->RequireDestroy();
+			break;
 		}
-
 	}
 
 
-	//m_LT_ListBox.DeleteString(iIndex);
+	m_LT_ListBox.DeleteString(iIndex);
 	UpdateData(FALSE);
 }
 
@@ -482,9 +463,14 @@ void DlgLightTool::OnBnClickedApplyButton()
 
 	m_LT_ListBox.GetText(iSelct, wstrFindName);
 
-	auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(wstrFindName.GetString());
-
-	obj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+	for (auto& lightObj : LightObj::g_vecLight)
+	{
+		if (lightObj->gameObject->name == wstrFindName.GetString())
+		{
+			lightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+			break;
+		}
+	}
 
 	UpdateData(FALSE);
 
