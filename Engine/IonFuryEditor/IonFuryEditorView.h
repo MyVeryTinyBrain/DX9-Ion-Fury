@@ -16,7 +16,6 @@ private:
 	DlgLightTool	m_dlgLightTool;
 	DlgTextureTool m_dlgTextureTool;
 
-
 protected: // serialization에서만 만들어집니다.
 	CIonFuryEditorView() noexcept;
 	DECLARE_DYNCREATE(CIonFuryEditorView)
@@ -60,6 +59,7 @@ public:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnTextureTool();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전
