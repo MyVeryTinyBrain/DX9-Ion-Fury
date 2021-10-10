@@ -51,7 +51,7 @@ Pickable* Pickable::Pick()
 
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
-			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
+			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
 			return pickable;
 		}
 	}

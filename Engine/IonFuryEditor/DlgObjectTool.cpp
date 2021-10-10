@@ -8,7 +8,6 @@
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
-#include "Gizmo.h"
 
 
 // DlgObjectTool 대화 상자
@@ -18,8 +17,7 @@ IMPLEMENT_DYNAMIC(DlgObjectTool, CDialog)
 void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 {
 	m_SelectName = gameobject->name.c_str();
-	m_objectName = gameobject->name.c_str();
-	m_objectTag = gameobject->tag.c_str();
+
 
 	m_rPosX = gameobject->transform->position.x;
 	m_rPosY = gameobject->transform->position.y;
@@ -112,9 +110,6 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, OBJECT_7, m_rScaleY);
 	DDX_Text(pDX, OBJECT_10, m_rScaleZ);
 
-	DDX_Control(pDX, IDC_RotSlider, m_SliderControlX);
-	DDX_Control(pDX, IDC_RotSlider2, m_SliderControlY);
-	DDX_Control(pDX, IDC_RotSlider3, m_SliderControlZ);
 }
 
 
@@ -126,8 +121,6 @@ BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON4, &DlgObjectTool::OnBnClickedApply)
 	ON_BN_CLICKED(IDC_BUTTON2, &DlgObjectTool::OnBnClickedLoad)
 	ON_BN_CLICKED(IDC_BUTTON5, &DlgObjectTool::OnBnClickedClear)
-	ON_NOTIFY(NM_CUSTOMDRAW, IDC_RotSlider, &DlgObjectTool::OnNMCustomdrawRotslider)
-	ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
@@ -153,19 +146,7 @@ BOOL DlgObjectTool::OnInitDialog()
 
 	m_meshPath = BuiltInCubeUserMesh;
 
-	/////////////////////////////////////////////
 
-	m_SliderControlX.SetRange(0, 360);
-	m_SliderControlX.SetPos(0);
-	m_SliderControlX.SetLineSize(10);
-
-	m_SliderControlY.SetRange(0, 360);
-	m_SliderControlY.SetPos(0);
-	m_SliderControlY.SetLineSize(10);
-
-	m_SliderControlZ.SetRange(0, 360);
-	m_SliderControlZ.SetPos(0);
-	m_SliderControlZ.SetLineSize(10);
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -184,6 +165,7 @@ void DlgObjectTool::OnObjectName()
 
 void DlgObjectTool::OnSelectMesh()
 {
+
 	UpdateData(TRUE);
 
 	m_eMesh = (COMBOBOX)m_comboBox.GetCurSel();
@@ -234,37 +216,16 @@ void DlgObjectTool::OnBnClickedApply()
 
 	UpdateData(TRUE);
 
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	auto trans = giz->GetSelectedObject();
-
-	if (trans)
+	if (m_SelectName)
 	{
-		//auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_SelectName.GetString());
-		//obj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
-		//obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
-		//obj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
+		auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_SelectName.GetString());
 
-		GameObject* parentObj = trans->GetGameObject();
+		obj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
 
-		parentObj->SetName(m_objectName.GetString());
-		parentObj->SetTag(m_objectTag.GetString());
+		obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
 
-		Pickable* pick = trans->GetGameObject()->GetComponent<Pickable>();
-		GameObject* ChildObj = pick->GetChildObject();
-		GameObject* ParentObj = pick->GetGameObject();
-
-		giz->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
-
-		parentObj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
-		parentObj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
-		parentObj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
-
-		m_SelectName = m_objectName;
+		obj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
 	}
-
-	m_SliderControlX.SetPos(0);
-	m_SliderControlY.SetPos(0);
-	m_SliderControlZ.SetPos(0);
 
 	UpdateData(FALSE);
 }
@@ -309,6 +270,8 @@ void DlgObjectTool::OnBnClickedSave()
 		{
 			auto obj = pick->GetGameObject();
 
+			//pick->GetRenderer()->
+
 			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
 			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
@@ -335,12 +298,14 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
+			
 
 		}
 
 		CloseHandle(hFile);
 	}
 }
+
 
 void DlgObjectTool::OnBnClickedLoad()
 {
@@ -444,6 +409,7 @@ void DlgObjectTool::OnBnClickedLoad()
 
 }
 
+
 void DlgObjectTool::OnBnClickedClear()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -465,40 +431,4 @@ void DlgObjectTool::OnBnClickedClear()
 	m_fRotZ = 0.f;
 
 	UpdateData(FALSE);
-}
-
-
-void DlgObjectTool::OnNMCustomdrawRotslider(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	*pResult = 0;
-}
-
-
-void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
-{
-	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-
-	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
-
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	if (!giz->GetSelectedObject())
-		return;
-
-	if (IDC_RotSlider == pScrollBar->GetDlgCtrlID())
-	{
-		m_fRotX = m_SliderControlX.GetPos();
-		giz->GetGameObject()->transform->SetEulerAngle(Vec3(m_fRotX, 0, 0));
-	}
-	else if (IDC_RotSlider2 == pScrollBar->GetDlgCtrlID())
-	{
-		m_fRotY = m_SliderControlY.GetPos();
-		giz->GetGameObject()->transform->SetEulerAngle(Vec3(m_fRotY, 0, 0));
-	}
-	else if (IDC_RotSlider3 == pScrollBar->GetDlgCtrlID())
-	{
-		m_fRotZ = m_SliderControlZ.GetPos();
-		giz->GetGameObject()->transform->SetEulerAngle(Vec3(m_fRotZ, 0, 0));
-	}
 }

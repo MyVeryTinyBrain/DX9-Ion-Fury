@@ -17,8 +17,7 @@ public:
 	//static void PickDelete();	//gizmo붙어있는 녀석은 삭제
 
 public:
-	UserMeshRenderer*	GetRenderer() { return m_Renderer; }
-	GameObject* GetChildObject() { return m_ChildObject; }
+	UserMeshRenderer* GetRenderer() { return m_Renderer; }
 
 private:
 	GameObject* m_ChildObject;

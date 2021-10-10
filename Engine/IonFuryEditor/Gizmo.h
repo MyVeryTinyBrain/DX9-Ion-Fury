@@ -41,7 +41,6 @@ public:
 	void DeleteAttachedObject();
 	void ChangeTextureAttachedObject(CString texturePath);
 	void GetInformation();
-	bool GetHandlingState();
 
 private:
 
@@ -71,6 +70,5 @@ private:
 
 	Material* m_gizmoMaterial = nullptr;
 
-	bool	m_Handling = false;
 };
 
