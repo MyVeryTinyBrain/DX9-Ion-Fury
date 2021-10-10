@@ -8,6 +8,8 @@ class SpiderSpriteAnimator :  public SpriteAnimator
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(LateUpdate);
+
 	OverrideComponentFunction(OnDestroy);
 
 	virtual void OnAnimationEnd() override;
@@ -16,11 +18,19 @@ class SpiderSpriteAnimator :  public SpriteAnimator
 
 	virtual void OnDefaultAnimationChange(const SpriteAnimation* current, SpriteAnimation** next) override;
 
+public:
 
+	enum class DIR_SPIDER { FRONT, FRONT_DIAGONAL, SIDE, BACK_DIAGONAL, BACK, MAX};
+
+public:
+
+	void PlayWalk();
+
+	bool IsPlayingWalk() const;
 
 private:
 
-	SpriteAnimation* m_idle;
+	SpriteAnimation* m_walk[(unsigned int)DIR_SPIDER::MAX];
 
 
 };

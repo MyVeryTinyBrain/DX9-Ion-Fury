@@ -118,7 +118,7 @@
       <Filter>Monster\Spider</Filter>
     </ClInclude>
     <ClInclude Include="SpiderSpriteAnimator.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Monster\Spider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +193,7 @@
       <Filter>Monster\Spider</Filter>
     </ClCompile>
     <ClCompile Include="SpiderSpriteAnimator.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Monster\Spider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
