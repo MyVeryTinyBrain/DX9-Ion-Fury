@@ -8,6 +8,7 @@
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
+#include "Gizmo.h"
 
 
 // DlgObjectTool 대화 상자
@@ -17,7 +18,8 @@ IMPLEMENT_DYNAMIC(DlgObjectTool, CDialog)
 void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 {
 	m_SelectName = gameobject->name.c_str();
-
+	m_objectName = gameobject->name.c_str();
+	m_objectTag = gameobject->tag.c_str();
 
 	m_rPosX = gameobject->transform->position.x;
 	m_rPosY = gameobject->transform->position.y;
@@ -165,7 +167,6 @@ void DlgObjectTool::OnObjectName()
 
 void DlgObjectTool::OnSelectMesh()
 {
-
 	UpdateData(TRUE);
 
 	m_eMesh = (COMBOBOX)m_comboBox.GetCurSel();
@@ -216,15 +217,28 @@ void DlgObjectTool::OnBnClickedApply()
 
 	UpdateData(TRUE);
 
-	if (m_SelectName)
+	auto trans = EditorManager::GetInstance()->GetGizmo()->GetSelectedObject();
+
+	if (trans)
 	{
-		auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_SelectName.GetString());
+		//auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_SelectName.GetString());
+		//obj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
+		//obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
+		//obj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
+
+		GameObject* parentObj = trans->GetGameObject();
+
+		parentObj->SetName(m_objectName.GetString());
+		parentObj->SetTag(m_objectTag.GetString());
+
+		Pickable* pick = trans->GetGameObject()->GetComponent<Pickable>();
+		GameObject* obj = pick->GetChildObject();
 
 		obj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
-
 		obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
-
 		obj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
+
+		m_SelectName = m_objectName;
 	}
 
 	UpdateData(FALSE);
@@ -270,8 +284,6 @@ void DlgObjectTool::OnBnClickedSave()
 		{
 			auto obj = pick->GetGameObject();
 
-			//pick->GetRenderer()->
-
 			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
 			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
@@ -298,7 +310,6 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
-			
 
 		}
 
