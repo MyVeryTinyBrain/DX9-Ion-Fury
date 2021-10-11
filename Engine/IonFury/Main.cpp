@@ -2,6 +2,7 @@
 #include "Main.h"
 #include "PhysicsInitialize.h"
 #include "TestScene.h"
+#include "TestScene2.h"
 
 HINSTANCE hInst;
 EngineWorld world;

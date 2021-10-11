@@ -111,7 +111,7 @@ void Spider::MoveToTarget()
 
 		// 플레이어만 해놓으면 플레이어를 인식 못하는듯?
 
-		m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
+		m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
 
 
 		if (m_hasJump)		// 점프
@@ -126,10 +126,6 @@ void Spider::MoveToTarget()
 		}
 		else
 		{
-<<<<<<< HEAD
-=======
-
->>>>>>> 214ff00a4d4830e33990e9b2c51c4ee6f17c24fd
 			Vec3 acceleration = forward * m_moveSpeed;
 			Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
 			velocity.y = m_body->velocity.y;
