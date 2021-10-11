@@ -73,6 +73,7 @@
 #define IDC_PIC                         1044
 #define IDC_RotSlider                   1047
 #define IDC_BUTTON6                     1049
+#define IDC_BUTTON7                     1050
 #define IDC_RotSlider2                  1052
 #define IDC_RotSlider3                  1053
 #define ID_32771                        32771
@@ -86,7 +87,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1050
+#define _APS_NEXT_CONTROL_VALUE         1051
 #define _APS_NEXT_SYMED_VALUE           314
 #endif
 #endif
