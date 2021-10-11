@@ -50,10 +50,12 @@ void Gizmo::Update()
 	else if (HasSelect() && Input::GetKey(Key::LeftMouse))
 	{
 		Handling();
+		m_Handling = true;
 	}
 	if (Input::GetKeyUp(Key::LeftMouse))
 	{
 		PutHandle();
+		m_Handling = false;
 	}
 }
 
@@ -88,6 +90,8 @@ bool Gizmo::PickHandle()
 
 			// 축이 선택되었을때의 오브젝트 중심 위치를 저장합니다.
 			m_selectedPosition = transform->position;
+
+
 			return true;
 		}
 	}
@@ -178,6 +182,11 @@ void Gizmo::GetInformation()
 		wstring meshPath = renderer->GetUserMesh()->GetLocalPath();
 		wstring texPath = renderer->GetTexture(0)->GetLocalPath();	//settexture할때도 0으로 잡았으니까
 	}
+}
+
+bool Gizmo::GetHandlingState()
+{
+	return m_Handling;
 }
 
 

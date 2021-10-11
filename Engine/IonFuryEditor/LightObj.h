@@ -7,6 +7,9 @@ class LightObj :  public Component
 {
 public:
 
+	// 정석 컴포넌트의 선언부분입니다.
+	DeclareStaticComponent(LightObj);
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Update);
@@ -14,10 +17,13 @@ public:
 	OverrideComponentFunction(OnDestroy);
 
 public:
+	void LightSettings(const wstring& localPathMesh = BuiltInCubeUserMesh
+		, const wstring& localPathTexture = L"../SharedResource/Texture/Dev.png");
 
 	static LightObj* LightPick();
 
-	void RequireDestroy();
+	CString& GetName() { return m_strName; }
+
 
 public:
 	UserMeshRenderer* GetRenderer() { return m_LightRenderer; }
@@ -29,11 +35,13 @@ private:
 
 	UserMeshRenderer* m_LightRenderer;
 
+	CString m_strName;
+	CString m_strTag;
+
 
 public:
 	static std::vector<LightObj*> g_vecLight;
 
-private:
-	bool m_destroyRequire = false;
+
 };
 

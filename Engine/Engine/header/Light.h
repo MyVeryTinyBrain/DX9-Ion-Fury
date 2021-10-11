@@ -8,8 +8,6 @@ protected:
 
 	OverrideComponentFunction(Awake);
 
-	OverrideComponentFunction(OnDestroy);
-
 public:
 
 	void SetColor(const Color& color);

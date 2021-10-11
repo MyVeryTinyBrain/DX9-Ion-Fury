@@ -15,9 +15,10 @@ public:
 		const tag_t& tag = L"test"
 		, const wstring& ObjName = L"defaultName"
 		, const wstring& localPathMesh = BuiltInCubeUserMesh
-		, const wstring& localPathTexture = BuiltInWhiteTexture
+		, const wstring& localPathTexture = L"../SharedResource/Texture/object/brick.jpg"
 	);
 
+	void AddLight( const wstring& LightName , const wstring& LightType);
 
 private:
 

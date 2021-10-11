@@ -19,13 +19,6 @@ void Light::Awake()
 	g_lights.push_back(this);
 }
 
-void Light::OnDestroy()
-{
-	auto find_it = FindInContainer(g_lights, this);
-	if (find_it != g_lights.end())
-		g_lights.erase(find_it);
-}
-
 void Light::SetColor(const Color& color)
 {
 	//if (m_light.Type == D3DLIGHT_SPOT)
