@@ -247,7 +247,7 @@ void DlgLightTool::OnListBoxCtrl()
 
 	CString name = wstrFindName.GetString();
 
-	LightObj::LightPick(name);
+	//LightObj::LightPick(name);
 
 	if (m_LightType == L"Point" || m_LightType == L"Spot")
 	{

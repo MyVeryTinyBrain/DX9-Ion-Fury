@@ -104,6 +104,9 @@
     <ClInclude Include="DlgMonsterTool.h">
       <Filter>Dlg</Filter>
     </ClInclude>
+    <ClInclude Include="EnumDefine.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Toolbar.bmp">

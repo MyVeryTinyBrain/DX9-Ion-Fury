@@ -4,6 +4,7 @@
 #include "Pickable.h"
 #include "EditorManager.h"
 #include "LightObj.h"
+#include "EnumDefine.h"
 
 
 void FreePerspectiveCamera::Update()
@@ -77,10 +78,8 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	return pos;
 }
 
-void FreePerspectiveCamera::Add_MapObject(const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
+void FreePerspectiveCamera::Add_MapObject(bool ColiderExistence, const tag_t& tag, const wstring& ObjName, COMBOBOX comboBox, const wstring& localPathTexture)
 {
-	if (localPathMesh.length() < 1)
-		return;
 	GameObject* Obj = CreateGameObject(tag);
 
 	Obj->name = ObjName;
@@ -88,7 +87,8 @@ void FreePerspectiveCamera::Add_MapObject(const tag_t& tag, const wstring& ObjNa
 	Obj->transform->position = transform->position + transform->forward * 2;
 
 	auto test = Obj->AddComponent<Pickable>();
-	//test->PushInVector(Type::Map);
-	test->Settings(localPathMesh, localPathTexture);
+	test->PushInVector(Type::Map);
+	test->Settings(ColiderExistence, combobox, localPathTexture);
+	//맵벡터로 집어넣고 저장로드하느중
 }
 

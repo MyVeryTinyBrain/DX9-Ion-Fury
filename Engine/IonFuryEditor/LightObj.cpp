@@ -25,6 +25,8 @@ void LightObj::Awake()
 
 	g_vecLight.push_back(this);
 
+	//
+	
 	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 }
 
