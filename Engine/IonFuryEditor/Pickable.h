@@ -1,8 +1,7 @@
 #pragma once
 
-enum class MeshType { Cube, Cyilinder, Quad, Sphere, Capsule, RightTriangle, Triangle, END };
 enum class Type { Monster, Trigger, Map, TypeEnd };
-enum class MonsterType {Monster0, Monster1, Monster2, Monster3, Monster4, MonsterEnd};	//추후 몬스터가 정해지면 수정
+enum class Monster_Type {Monster0, Monster1, Monster2, Monster3, Monster4, MonsterEnd};	//추후 몬스터가 정해지면 수정
 
 class Pickable : public Component
 {
@@ -14,13 +13,10 @@ public:
 	OverrideComponentFunction(OnDestroy);
 public:
 	void Settings(bool ColliderExistence
-		, COMBOBOX comboBox
+		, const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"
 		, const wstring& localPathTexture = L"../SharedResourced/Texture/Dev.png");
 
 	static Pickable* Pick();	//vec순환해서 
-
-	void CreateMesh(COMBOBOX combobox);
-	void DeleteMesh();
 
 public:
 	void PushInVector(Type type);
@@ -36,12 +32,11 @@ public:
 	void SetColliderExistence(bool set) { m_ColliderExistence = set; }
 
 private:
-	GameObject*			m_ChildObject = nullptr;
-	UserMeshRenderer*	m_Renderer = nullptr;
-	UserMesh*			m_Mesh = nullptr;
-
+	GameObject*			m_ChildObject;
+	UserMeshRenderer*	m_Renderer;
 	Type				m_Type = Type::TypeEnd;
-	MonsterType			m_MonsterType = MonsterType::MonsterEnd;
+	Monster_Type		m_MonsterType = Monster_Type::MonsterEnd;
+
 	bool				m_ColliderExistence = false;
 	
 public:

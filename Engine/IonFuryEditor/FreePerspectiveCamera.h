@@ -15,7 +15,7 @@ public:
 		bool ColiderExistence
 		, const tag_t& tag = L"test"
 		, const wstring& ObjName = L"defaultName"
-		, COMBOBOX comboBox = COMBOBOX::Cube
+		, const wstring& localPathMesh = BuiltInCubeUserMesh
 		, const wstring& localPathTexture = L"../SharedResource/Texture/object/brick.jpg"
 	);
 
