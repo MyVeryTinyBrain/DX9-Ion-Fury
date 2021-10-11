@@ -18,7 +18,6 @@ public:
 		, const wstring& localPathTexture = L"../SharedResource/Texture/object/brick.jpg"
 	);
 
-	void AddLight( const wstring& LightName , const wstring& LightType);
 
 private:
 
