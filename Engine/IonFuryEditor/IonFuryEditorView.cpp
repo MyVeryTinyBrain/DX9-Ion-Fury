@@ -234,6 +234,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 
 	Pickable* pick = Pickable::Pick();
+	//LightObj* light = LightObj::LightPick();
 
 	if (pick)
 	{
@@ -248,6 +249,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgObjectTool.ResetScroll();
 	}
+
 }
 
 void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
