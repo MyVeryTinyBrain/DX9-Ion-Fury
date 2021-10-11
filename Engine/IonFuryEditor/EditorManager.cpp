@@ -35,13 +35,10 @@ void EditorManager::Awake()
 		auto directionalLightObj = CreateGameObject(L"Directional");
 		directionalLightObj->name = L"Directional";
 		auto dl = directionalLightObj->AddComponent<LightObj>();
-
-		/// <summary>
-		/// ////////////여기서부터 하면돼
-		/// </summary>
-		auto dll = dl->GetGameObject()->GetComponent<DirectionalLight>();
+		auto dll = directionalLightObj->GetComponentInChild<DirectionalLight>();
 		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
 		dll->color = Color::white() * 0.8f;
+		
 	}
 	///////////////////////////////////////
 }

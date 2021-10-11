@@ -168,6 +168,8 @@ BOOL DlgLightTool::OnInitDialog()
 	sPosZ.Format(_T(" % d"), iPosZ);
 	m_DirZ.SetWindowText(sPosZ);
 
+	m_LT_ListBox.AddString(L"Directional");
+
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -306,16 +308,16 @@ void DlgLightTool::OnListBoxCtrl()
 				//m_dirz = lightobj->GetTransform()->forward.z;
 				m_ambinentFactor = com->ambientFactor;
 			}
-			else if (m_LightType == L"Directional")
+			else if (lightobj->tag == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
-				auto light = directionallight->GetComponent<DirectionalLight>();
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 
 				//if (light)
 				//{
 				//	m_LT_ListBox.AddString(L"Directional");
 				//}
-				m_LightName = light->GetName().c_str();
+				m_LightName = directionallight->GetName().c_str();
 
 				m_LightType = L"Directional";
 
@@ -445,7 +447,7 @@ void DlgLightTool::OnEnChangeLtDirx()
 
 	CString name = wstrFindName.GetString();
 
-
+	
 
 	for (auto& light : LightObj::g_vecLight)
 	{
@@ -469,7 +471,7 @@ void DlgLightTool::OnEnChangeLtDirx()
 			else if (m_LightType == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
-				auto light = directionallight->GetComponent<DirectionalLight>();
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 				m_dirx = (float)iPosX;
 				light->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
@@ -522,7 +524,7 @@ void DlgLightTool::OnEnChangeLtDiry()
 			else if (m_LightType == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
-				auto light = directionallight->GetComponent<DirectionalLight>();
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 				//m_DirX.GetWindowText(sdirX);
 				//m_dirx = (float)_ttoi(sdirX);
 
@@ -581,7 +583,7 @@ void DlgLightTool::OnEnChangeLtDirz()
 			else if (m_LightType == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
-				auto light = directionallight->GetComponent<DirectionalLight>();
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 				//m_DirX.GetWindowText(sdirX);
 				//m_dirx = (float)_ttoi(sdirX);
 
@@ -699,7 +701,7 @@ void DlgLightTool::OnBnClickedApplyButton()
 			else if (m_LightType == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
-				auto light = directionallight->GetComponent<DirectionalLight>();
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 				light->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
 
 				m_DirX.GetWindowText(sdirX);
@@ -824,7 +826,7 @@ void DlgLightTool::OnBnClickedAmbinentFactorSet()
 			else if (m_LightType == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
-				auto light = directionallight->GetComponent<DirectionalLight>();
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 				light->SetAmbientFactor(m_ambinentFactor);
 			}
 
