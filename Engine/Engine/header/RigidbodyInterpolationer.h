@@ -24,11 +24,21 @@ public:
 	// 보간 중에 위치가 변경되었을 경우에 저장된 포즈를 수정합니다.
 	void CheckPoseChange();
 
+public:
+
+	bool IsInterpolatePosition() const;
+
+	bool IsInterpolateRotation() const;
+
+	void SetInterpolatePositionMode(bool value);
+
+	void SetInterpolateRotationMode(bool value);
+
 private:
 
 	Vec3 CalcInterpolatePosition() const;
 
-	Vec3 CalcInterpolateEulerAngle() const;
+	Quat CalcInterpolateRotation() const;
 
 private:
 
@@ -36,6 +46,10 @@ private:
 
 	Vec3 m_backupPosition;
 
-	Vec3 m_backupEulerAngle;
+	Quat m_backupRotation;
+
+	bool m_interpolatePoisiton = true;
+
+	bool m_interpolateRotation = false;
 };
 

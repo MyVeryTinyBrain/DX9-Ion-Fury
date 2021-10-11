@@ -30,7 +30,11 @@ class Rigidbody : public Component
 
 	OverrideComponentFunction(EndPhysicsSimulate);
 
-	OverrideComponentFunction(Update);
+	OverrideComponentFunction(BeginFixedUpdate);
+
+	OverrideComponentFunction(FixedUpdateCheck);
+
+	OverrideComponentFunction(BeginUpdate);
 
 	OverrideComponentFunction(UpdateCheck);
 
@@ -68,19 +72,33 @@ public:
 
 	void SetEulerAngle(const Vec3& eulerAngle);
 
-	void SetLocalPosition(const Vec3& localPosition);
-
-	void SetLocalRotation(const Quat& localRotation);
-
-	void SetLocalEulerAngle(const Vec3& localEulerAngle);
-
 public:
 
 	void UpdateMassAndInertia();
 
+	bool IsRigidbodySleep() const;
+
+	void SetRigidbodySleep(bool value);
+
+	float GetSleepThresholder() const;
+
+	void SetSleepThresholder(float value);
+
 	bool IsInterpolateMode() const;
 
 	void SetInterpolate(bool value);
+
+	// 보간이 활성화 되었을 때 위치를 보간하는지에 대한 플래그입니다.
+	bool IsInterpolatePosition() const;
+
+	// 보간이 활성화 되었을 때 위치를 보간하는지에 대한 플래그를 설정합니다.
+	void SetInterpolatePosition(bool value);
+
+	// 보간이 활성화 되었을 때 회전을 보간하는지에 대한 플래그입니다.
+	bool IsInterpolateRotation() const;
+
+	// 보간이 활성화 되었을 때 회전을 보간하는지에 대한 플래그를 설정합니다.
+	void SetInterpolateRotation(bool value);
 
 	float GetMass() const;
 
@@ -119,6 +137,10 @@ public:
 	void SetVelocityIteration(uint8_t count);
 
 	uint8_t GetVelocityIteration() const;
+
+	__declspec(property(get = IsRigidbodySleep, put = SetRigidbodySleep)) bool rigidbodySleep;
+
+	__declspec(property(get = GetSleepThresholder, put = SetSleepThresholder)) float sleepThresholder;
 
 	__declspec(property(get = IsInterpolateMode, put = SetInterpolate)) bool interpolate;
 

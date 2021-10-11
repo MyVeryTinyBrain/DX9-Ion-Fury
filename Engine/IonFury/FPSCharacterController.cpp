@@ -7,8 +7,8 @@ void FPSCharacterController::Awake()
 {
     m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
-    m_body->linearDamping = 1.0f;
     m_body->interpolate = true;
+    m_body->sleepThresholder = 0.5f;
 
     m_subObj = CreateGameObjectToChild(transform);
 
@@ -106,6 +106,18 @@ void FPSCharacterController::Update()
     if (Input::GetKeyDown(Key::LeftMouse))
     {
         //m_orthoCamera->rightHandAnimator->PlayShoot();
+
+        auto obj = CreateGameObject();
+        obj->transform->position = m_camera->transform->position;
+        auto body = obj->AddComponent<Rigidbody>();
+        body->interpolate = true;
+        body->SetInterpolateRotation(true);
+        body->AddForce(m_camera->transform->forward * 15, ForceMode::Impulse);
+        body->angularVelocity = Vec3(0, 180, 90);
+        auto collider = obj->AddComponent<BoxCollider>();
+        collider->SetIgnoreLayer(1, true);
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
     }
 }
 

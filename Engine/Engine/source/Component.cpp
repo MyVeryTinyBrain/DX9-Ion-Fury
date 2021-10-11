@@ -92,9 +92,15 @@ void Component::Initialize
 
 	ComponentSetCall(EndPhysicsSimulate);
 
+	ComponentSetCall(BeginFixedUpdate);
+
 	ComponentSetCall(FixedUpdate);
 
 	ComponentSetCall(LateFixedUpdate);
+
+	ComponentSetCall(FixedUpdateCheck);
+
+	ComponentSetCall(BeginUpdate);
 
 	ComponentSetCall(AnimationUpdate);
 

@@ -33,6 +33,17 @@ private:
 	// y = 0 으로 설정됩니다.
 	void SetTargetCoord(Vec3 xzCoord);
 
+	void Attack();
+
+private:
+
+	enum class BehaviorType
+	{
+		Idle, WalkToRandomCoord, WalkToPlayerDirection, Attack, Max
+	};
+
+	void SetBehavior(BehaviorType type);
+
 private:
 
 	CapsuleCollider* m_capsuleCollider = nullptr;
@@ -50,5 +61,8 @@ private:
 
 	// 동작을 잠시 정지하는데 쓰이는 타이머입니다.
 	float m_breakTime = 0;
+
+	// 공격할 때 이 카운터가 0보다 크다면 카운터를 1 감소시키고 공격을 합니다.
+	unsigned int m_attackCount = 0;
 };
 

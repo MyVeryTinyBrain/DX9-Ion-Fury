@@ -11,8 +11,9 @@ void Gunner::Awake()
     m_hp = 10;
     m_moveSpeed = 3.0f;
 
-    m_body->mass = 1.0f;
+    m_body->mass = 2.0f;
     m_body->interpolate = true;
+    m_body->sleepThresholder = 0.5f;
 
     // 렌더링되는 쿼드의 스케일을 키웁니다.
     m_rendererObj->transform->scale = Vec3::one() * 3.0f;
@@ -26,31 +27,43 @@ void Gunner::FixedUpdate()
 
     // 목표 지점으로 이동하는 로직입니다.
     MoveToTarget();
-
-    // 몬스터의 forward 방향과 플레이어를 바라보는 방향을 계산해서 애니메이터에 전달합니다.
-    m_animator->SetAngle(AngleToPlayerWithSign());
-
-    // 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
-    if (!m_hasTargetCoord)
-    {
-        float randomRadian = (rand() % 360) * Deg2Rad;
-        float randomDistance = (rand() % 15) + 2.1f + 0.1f;
-        Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
-        SetTargetCoord(targetCoord);
-    }
 }
 
 void Gunner::Update()
 {
     Monster::Update();
 
+    if (m_breakTime <= 0)
+    {
+        BehaviorType behaviorType = (BehaviorType)(rand() % unsigned int(BehaviorType::Max));
+        SetBehavior(behaviorType);
+    }
+
+    // 정지 상태일때만 휴식시간을 감소시킵니다.
+    if (m_breakTime > 0 &&
+        m_animator->IsPlayingIdle())
+    {
+        m_breakTime -= Time::DeltaTime();
+    }
+
     // 현재 속도가 지정속도 이상이면 걷는 애니메이션을 출력합니다.
     // 아니라면 정지 애니메이션을 출력합니다.
-
-    if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
+    if (m_animator->IsPlayingIdle() && 
+        m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
+    {
         m_animator->PlayWalk();
-    else
-        m_animator->PlayIdle();
+    }
+    else if (m_animator->IsPlayingWalk() &&
+        m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
+    {
+        m_animator->PlayDefaultAnimation();
+    }
+
+    // 공격해야하는 경우에 공격합니다.
+    Attack();
+
+    // 몬스터의 forward 방향과 플레이어를 바라보는 방향을 계산해서 애니메이터에 전달합니다.
+    m_animator->SetAngle(AngleToPlayerWithSign());
 }
 
 void Gunner::OnDestroy()
@@ -189,4 +202,61 @@ void Gunner::SetTargetCoord(Vec3 xzCoord)
     m_hasTargetCoord = true;
     m_targetCoord = xzCoord;
     m_targetCoord.y = 0;
+}
+
+void Gunner::Attack()
+{
+    if (m_animator->IsPlayingShoot())
+    {
+        return;
+    }
+    if (m_attackCount > 0)
+    {
+        --m_attackCount;
+        m_animator->PlayShoot();
+
+        // 플레이어를 바라봅니다.
+        Vec3 forward = Player::GetInstance()->transform->position - transform->position;
+        forward.y = 0;
+        forward.Normalize();
+        transform->forward = forward;
+    }
+}
+
+void Gunner::SetBehavior(BehaviorType type)
+{
+    m_hasTargetCoord = false;
+    m_attackCount = 0;
+    m_breakTime = 1.0f;
+
+    switch (type)
+    {
+        case BehaviorType::Idle:
+            {
+            }
+            break;
+        case BehaviorType::WalkToRandomCoord:
+            {
+                float randomRadian = (rand() % 360) * Deg2Rad;
+                float randomDistance = (rand() % 15) + 2.1f + 0.1f;
+                Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
+                SetTargetCoord(targetCoord);
+            }
+            break;
+        case BehaviorType::WalkToPlayerDirection:
+            {
+                const Vec3& monsterPos = transform->position;
+                const Vec3& playerPos = Player::GetInstance()->transform->position;
+                Vec3 relative = playerPos - monsterPos;
+                float distance = Clamp(relative.magnitude(), 0, 8.0f);
+                Vec3 direction = relative.normalized();
+                SetTargetCoord(monsterPos + direction * distance);
+            }
+            break;
+        case BehaviorType::Attack:
+            {
+                m_attackCount = 1;
+            }
+            break;
+    }
 }
