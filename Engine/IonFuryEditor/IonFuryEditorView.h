@@ -7,6 +7,7 @@
 #include "DlgLightTool.h"
 #include "DlgObjectTool.h"
 #include "DlgTextureTool.h"
+#include "DlgMonsterTool.h"
 
 class CIonFuryEditorView : public CView
 {
@@ -15,6 +16,8 @@ private:
 	DlgObjectTool m_dlgObjectTool;
 	DlgLightTool	m_dlgLightTool;
 	DlgTextureTool m_dlgTextureTool;
+	DlgMonsterTool m_dlgMonsterTool;
+
 
 protected: // serialization에서만 만들어집니다.
 	CIonFuryEditorView() noexcept;
@@ -60,6 +63,7 @@ public:
 	afx_msg void OnTextureTool();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnMonsterTool();
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전

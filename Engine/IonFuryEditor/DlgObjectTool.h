@@ -32,6 +32,8 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	void ResetScroll();
+public:
 	CComboBox m_comboBox;
 	virtual BOOL OnInitDialog();
 	CString m_objectName;

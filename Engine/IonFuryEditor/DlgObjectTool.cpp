@@ -134,6 +134,13 @@ END_MESSAGE_MAP()
 // DlgObjectTool 메시지 처리기
 
 
+void DlgObjectTool::ResetScroll()
+{
+	m_SliderControlX.SetPos(0);
+	m_SliderControlY.SetPos(0);
+	m_SliderControlZ.SetPos(0);
+}
+
 BOOL DlgObjectTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
@@ -262,9 +269,7 @@ void DlgObjectTool::OnBnClickedApply()
 		m_SelectName = m_objectName;
 	}
 
-	m_SliderControlX.SetPos(0);
-	m_SliderControlY.SetPos(0);
-	m_SliderControlZ.SetPos(0);
+	ResetScroll();
 
 	UpdateData(FALSE);
 }
@@ -307,6 +312,9 @@ void DlgObjectTool::OnBnClickedSave()
 
 		for (auto& pick : pickObj)
 		{
+			if (Type::Map != pick->GetType())
+				break;
+
 			auto obj = pick->GetGameObject();
 
 			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
@@ -480,25 +488,19 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
-	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
-
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 	if (!giz->GetSelectedObject())
 		return;
 
-	if (IDC_RotSlider == pScrollBar->GetDlgCtrlID())
-	{
-		m_fRotX = m_SliderControlX.GetPos();
-		giz->GetGameObject()->transform->SetEulerAngle(Vec3(m_fRotX, 0, 0));
-	}
-	else if (IDC_RotSlider2 == pScrollBar->GetDlgCtrlID())
-	{
-		m_fRotY = m_SliderControlY.GetPos();
-		giz->GetGameObject()->transform->SetEulerAngle(Vec3(0, m_fRotY, 0));
-	}
-	else if (IDC_RotSlider3 == pScrollBar->GetDlgCtrlID())
-	{
-		m_fRotZ = m_SliderControlZ.GetPos();
-		giz->GetGameObject()->transform->SetEulerAngle(Vec3(0, 0, m_fRotZ));
-	}
+	m_rRotX = m_SliderControlX.GetPos();
+	m_rRotY = m_SliderControlY.GetPos();
+	m_rRotZ = m_SliderControlZ.GetPos();
+
+	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(m_rRotX, m_rRotY, m_rRotZ));
+
+	m_fRotX = m_rRotX;
+	m_fRotY = m_rRotY;
+	m_fRotZ = m_rRotZ;
+
+	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 }

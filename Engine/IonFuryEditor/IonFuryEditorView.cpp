@@ -44,6 +44,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
+	ON_COMMAND(ID_32774, &CIonFuryEditorView::OnMonsterTool)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -51,7 +52,6 @@ END_MESSAGE_MAP()
 CIonFuryEditorView::CIonFuryEditorView() noexcept
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-
 }
 
 CIonFuryEditorView::~CIonFuryEditorView()
@@ -197,18 +197,16 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
-
-
 	switch (nChar)
 	{
 	case 'P':
-		if (!m_dlgObjectTool)
-			camera->Add_Object_Sample(
+		if (!m_dlgObjectTool || !m_dlgTextureTool)
+			camera->Add_MapObject(
 				L"",
 				L""
 				);
 		else
-			camera->Add_Object_Sample(
+			camera->Add_MapObject(
 				m_dlgObjectTool.m_objectTag.GetString(),
 				m_dlgObjectTool.m_objectName.GetString(),
 				m_dlgObjectTool.m_meshPath.GetString(),
@@ -220,7 +218,6 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 }
 
-
 void CIonFuryEditorView::OnTextureTool()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
@@ -229,7 +226,6 @@ void CIonFuryEditorView::OnTextureTool()
 	m_dlgTextureTool.ShowWindow(SW_SHOW);
 }
 
-
 void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
@@ -237,24 +233,20 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	CView::OnLButtonDown(nFlags, point);
 
 
-	//auto pickable = Pickable::Pick();
-
-	//if (pickable)
-	//{
-	//	auto pickObj = pickable->GetGameObject();
-	//	m_dlgObjectTool.SetPickableObject(pickObj);
-	//	m_dlgObjectTool.SelectObject();
-	//}
-
 	Pickable* pick = Pickable::Pick();
 
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
 
+		if (!m_dlgObjectTool)
+			return;
+
 		m_dlgObjectTool.SetPickableObject(pickObj);
 
 		m_dlgObjectTool.SelectObject();
+
+		m_dlgObjectTool.ResetScroll();
 	}
 }
 
@@ -280,4 +272,12 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	
 		m_dlgObjectTool.SelectObject();
 	}
+}
+
+void CIonFuryEditorView::OnMonsterTool()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_dlgMonsterTool.GetSafeHwnd())
+		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
+	m_dlgMonsterTool.ShowWindow(SW_SHOW);
 }

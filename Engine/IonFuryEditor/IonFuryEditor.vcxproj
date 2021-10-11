@@ -192,6 +192,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DlgLightTool.h" />
+    <ClInclude Include="DlgMonsterTool.h" />
     <ClInclude Include="DlgObjectTool.h" />
     <ClInclude Include="DlgTextureTool.h" />
     <ClInclude Include="EditorManager.h" />
@@ -212,6 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DlgLightTool.cpp" />
+    <ClCompile Include="DlgMonsterTool.cpp" />
     <ClCompile Include="DlgObjectTool.cpp" />
     <ClCompile Include="DlgTextureTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />

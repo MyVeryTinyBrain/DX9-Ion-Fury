@@ -11,12 +11,17 @@ private:
 	POINT GetMousePointInClient() const;
 	
 public:
-	void Add_Object_Sample(
+	void Add_MapObject(
 		const tag_t& tag = L"test"
 		, const wstring& ObjName = L"defaultName"
 		, const wstring& localPathMesh = BuiltInCubeUserMesh
 		, const wstring& localPathTexture = L"../SharedResource/Texture/object/brick.jpg"
 	);
+
+	//void Add_Trigger(
+	//	const tag_t& tag = L"trigger"
+	//	, const wstring& ObjName = L""
+	//)
 
 
 private:

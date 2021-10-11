@@ -5,6 +5,10 @@
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
+std::vector<Pickable*> Pickable::g_MapVec;
+std::vector<Pickable*> Pickable::g_TriggerVec;
+std::vector<Pickable*> Pickable::g_MonsterVec;
+
 void Pickable::Awake()
 {
 	m_ChildObject = CreateGameObject();
@@ -28,6 +32,25 @@ void Pickable::OnDestroy()
 	auto it = FindInContainer(g_PickableVec, this);
 	if (it != g_PickableVec.end())
 		g_PickableVec.erase(it);
+
+	switch (m_Type)
+	{
+	case Type::Map:
+		it = FindInContainer(g_MapVec, this);
+		if (it != g_MapVec.end())
+			g_MapVec.erase(it);
+		break;
+	case Type::Monster:
+		it = FindInContainer(g_MonsterVec, this);
+		if (it != g_MonsterVec.end())
+			g_MonsterVec.erase(it);
+		break;
+	case Type::Trigger:
+		it = FindInContainer(g_TriggerVec, this);
+		if (it != g_TriggerVec.end())
+			g_TriggerVec.erase(it);
+		break;
+	}
 }
 
 void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTexture)
@@ -35,7 +58,6 @@ void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTe
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
 	m_Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
-	//m_Renderer->SetTexture(0, Resource::Find(localPathTexture)->GetReferenceTo<Texture>());
 }
 
 Pickable* Pickable::Pick()
@@ -59,9 +81,19 @@ Pickable* Pickable::Pick()
 	return nullptr;
 }
 
-//void Pickable::PickDelete()
-//{
-	//Gizmo* Giz = EditorManager::GetInstance()->GetGizmo();
-	//GameObject* Obj = Giz->GetSelectedObject()
-	//	->gameObject->Destroy();
-//}
+void Pickable::PushInVector(Type type)
+{
+	m_Type = type;
+	switch (m_Type)
+	{
+	case Type::Map:
+		g_MapVec.push_back(this);
+		break;
+	case Type::Monster:
+		g_MonsterVec.push_back(this);
+		break;
+	case Type::Trigger:
+		g_TriggerVec.push_back(this);
+		break;
+	}
+}
