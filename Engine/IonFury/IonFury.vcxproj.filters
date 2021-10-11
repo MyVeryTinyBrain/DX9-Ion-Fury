@@ -129,6 +129,9 @@
     <ClInclude Include="DroneSpriteAnimator.h">
       <Filter>Monster\Drone</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc">
@@ -209,6 +212,9 @@
     </ClCompile>
     <ClCompile Include="DroneSpriteAnimator.cpp">
       <Filter>Monster\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene2.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

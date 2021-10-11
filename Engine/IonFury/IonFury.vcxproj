@@ -175,6 +175,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TriangleStair.h" />
     <ClInclude Include="UserMixMesh.h" />
   </ItemGroup>
@@ -199,6 +200,7 @@
     <ClCompile Include="SpriteAnimator.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TriangleStair.cpp" />
     <ClCompile Include="UserMixMesh.cpp" />
   </ItemGroup>
