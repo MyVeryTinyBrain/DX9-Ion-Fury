@@ -112,6 +112,7 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON5, &DlgLightTool::OnBnClickedAmbinentFactorSet)
 	ON_BN_CLICKED(IDC_BUTTON3, &DlgLightTool::OnBnClickedSave)
 	ON_BN_CLICKED(IDC_BUTTON4, &DlgLightTool::OnBnClickedLoad)
+	ON_BN_CLICKED(IDC_BUTTON7, &DlgLightTool::OnBnClickedClear)
 END_MESSAGE_MAP()
 
 
@@ -142,12 +143,7 @@ BOOL DlgLightTool::OnInitDialog()
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
 	m_SliderCrtl_Radius.SetPos(0);				//위치 설정
-<<<<<<< HEAD
-	m_SliderCrtl_Radius.SetLineSize(5);		//방향키로 움질일 때 사이즈 
-	m_SliderCrtl_Radius.SetPageSize(5);		//눈금 간격 설정
-=======
 	m_SliderCrtl_Radius.SetLineSize(1);		//방향키로 움질일 때 사이즈 
->>>>>>> SeongYeon_Tool
 
 	iPos = m_SliderCrtl_Radius.GetPos();
 	sPos.Format(_T(" % d"), iPos);
@@ -229,6 +225,16 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
+void DlgLightTool::SetPos(Vec3 _mouse)
+{
+	mouse = _mouse;
+}
+
+Vec3 DlgLightTool::GetPos()
+{
+	return mouse;
+}
+
 
 //조명 리스트 박스 컨트럴
 void DlgLightTool::SetListBox(const wstring& lightObjName)
@@ -268,24 +274,28 @@ void DlgLightTool::OnListBoxCtrl()
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
-
+				
 				m_LightType = lightobj->tag.c_str();
 				m_LightName = lightobj->GetName().c_str();
 
-				m_ColorR = com->GetColor().r;
-				m_ColorG = com->GetColor().g;
-				m_ColorB = com->GetColor().b;
-				m_ColorA = com->GetColor().a;
+				m_ColorR = com->color.r;
+				m_ColorG = com->color.g;
+				m_ColorB = com->color.b;
+				m_ColorA = com->color.a;
 
-				m_PosX = lightobj->GetTransform()->position.x;
-				m_PosY = lightobj->GetTransform()->position.y;
-				m_PosZ = lightobj->GetTransform()->position.z;
+				/// <summary>
+				/// /////////여기서부터!!!
+				/// </summary>
+				m_PosX = lightobj->GetComponentInChild<PointLight>()->transform->position.x;
+				m_PosY = com->transform->position.x;
+				m_PosZ = com->transform->position.x;
 
 				m_radius = com->range;
 
-				//m_dirx = lightobj->GetTransform()->forward.x;
-				//m_diry = lightobj->GetTransform()->forward.y;
-				//m_dirz = lightobj->GetTransform()->forward.z;
+				m_dirx = lightobj->transform->forward.x;
+				m_diry = lightobj->transform->forward.y;
+
+				m_dirz = lightobj->GetTransform()->forward.z;
 				m_ambinentFactor = com->ambientFactor;
 				//m_Radius.SetWindowText();
 
@@ -297,20 +307,20 @@ void DlgLightTool::OnListBoxCtrl()
 				m_LightType = lightobj->tag.c_str();
 				m_LightName = lightobj->GetName().c_str();
 
-				m_ColorR = com->GetColor().r;
-				m_ColorG = com->GetColor().g;
-				m_ColorB = com->GetColor().b;
-				m_ColorA = com->GetColor().a;
+				m_ColorR = com->color.r;
+				m_ColorG = com->color.g;
+				m_ColorB = com->color.b;
+				m_ColorA = com->color.a;
 
-				m_PosX = lightobj->GetTransform()->position.x;
-				m_PosY = lightobj->GetTransform()->position.y;
-				m_PosZ = lightobj->GetTransform()->position.z;
+				m_PosX = lightobj->transform->position.x;
+				m_PosY = lightobj->transform->position.y;
+				m_PosZ = lightobj->transform->position.z;
 
 				m_radius = com->range;
 
-				//m_dirx = lightobj->GetTransform()->forward.x;
-				//m_diry = lightobj->GetTransform()->forward.y;
-				//m_dirz = lightobj->GetTransform()->forward.z;
+				m_dirx = lightobj->transform->position.x;
+				m_diry = lightobj->transform->position.y;
+				m_dirz = lightobj->transform->position.z;
 				m_ambinentFactor = com->ambientFactor;
 			}
 			else if (lightobj->tag == L"Directional")
@@ -326,18 +336,18 @@ void DlgLightTool::OnListBoxCtrl()
 
 				m_LightType = L"Directional";
 
-				m_ColorR = light->GetColor().r;
-				m_ColorG = light->GetColor().g;
-				m_ColorB = light->GetColor().b;
-				m_ColorA = light->GetColor().a;
+				m_ColorR = light->color.r;
+				m_ColorG = light->color.g;
+				m_ColorB = light->color.b;
+				m_ColorA = light->color.a;
 
-				m_PosX = directionallight->GetTransform()->position.x;
-				m_PosY = directionallight->GetTransform()->position.y;
-				m_PosZ = directionallight->GetTransform()->position.z;
+				m_PosX = directionallight->transform->position.x;
+				m_PosY = directionallight->transform->position.y;
+				m_PosZ = directionallight->transform->position.z;
 
-				m_dirx = directionallight->GetTransform()->forward.x;
-				m_diry = directionallight->GetTransform()->forward.y;
-				m_dirz = directionallight->GetTransform()->forward.z;
+				m_dirx = directionallight->transform->position.x;
+				m_diry = directionallight->transform->position.y;
+				m_dirz = directionallight->transform->position.z;
 
 				m_ambinentFactor = light->ambientFactor;
 			}
@@ -452,7 +462,7 @@ void DlgLightTool::OnEnChangeLtDirx()
 
 	CString name = wstrFindName.GetString();
 
-	
+
 
 	for (auto& light : LightObj::g_vecLight)
 	{
@@ -767,6 +777,10 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		PointLightObj->name = m_LightName.GetString();
 
+		m_PosX = GetPos().x;
+		m_PosY = GetPos().y;
+
+
 		PointLightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
 
 		//PointLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
@@ -782,6 +796,7 @@ void DlgLightTool::OnBnClickedAddButton()
 		SpotLightObj->name = m_LightName.GetString();
 
 		SpotLightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+		//SpotLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
 
 		SpotLightObj->AddComponent<LightObj>();
 
@@ -1093,4 +1108,25 @@ void DlgLightTool::OnBnClickedLoad()
 		CloseHandle(hFile);
 	}
 
+}
+
+
+void DlgLightTool::OnBnClickedClear()
+{
+	UpdateData(TRUE);
+
+
+	m_LightName = (_T(""));
+	m_ColorR = 0;
+	m_ColorG = 0;
+	m_ColorB = 0;
+	m_ColorA = 0;
+	m_PosX = 0.f;
+	m_PosY = 0.f;
+	m_PosZ = 0.f;
+	m_dirx = 0.f;
+	m_diry = 0.f;
+	m_dirz = 0.f;
+
+	UpdateData(FALSE);
 }

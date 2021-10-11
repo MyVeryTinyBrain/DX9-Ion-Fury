@@ -40,6 +40,11 @@ private:
 	void SetAttr(int iOpa);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 
+
+public:
+	void SetPos(Vec3 _mouse);
+	Vec3 GetPos();
+	Vec3 mouse;
 public:
 	CString m_LightName;
 	CString m_LightType;
@@ -117,4 +122,5 @@ public:
 	float m_radius;
 
 	Light* lightcom;
+	afx_msg void OnBnClickedClear();
 };
