@@ -10,6 +10,8 @@ std::vector<LightObj*> LightObj::g_vecLight;
 
 void LightObj::Awake()
 {
+	//Light::Awake();
+
 	auto obj = this->GetGameObject();
 
 	if (obj->tag == L"Point")
@@ -25,14 +27,14 @@ void LightObj::Awake()
 
 	g_vecLight.push_back(this);
 
-	//
-	
 	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 }
 
 
 void LightObj::Update()
 {
+	//Light::Update();
+
 	if (m_destroyRequire)
 	{
 		gameObject->Destroy();

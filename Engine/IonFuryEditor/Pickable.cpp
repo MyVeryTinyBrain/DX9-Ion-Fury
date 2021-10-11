@@ -53,9 +53,8 @@ void Pickable::OnDestroy()
 	}
 }
 
-void Pickable::Settings(bool ColliderExistence, const wstring& localPathMesh, const wstring& localPathTexture)
+void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTexture)
 {
-	m_ColliderExistence = ColliderExistence;
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
 	m_Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));

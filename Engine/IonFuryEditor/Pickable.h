@@ -12,8 +12,8 @@ public:
 
 	OverrideComponentFunction(OnDestroy);
 public:
-	void Settings(bool ColliderExistence
-		, const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"
+
+	void Settings( const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh"
 		, const wstring& localPathTexture = L"../SharedResourced/Texture/Dev.png");
 
 	static Pickable* Pick();	//vec순환해서 
@@ -26,18 +26,12 @@ public:
 	GameObject* GetChildObject() { return m_ChildObject; }
 
 	Type GetType() { return m_Type; }
-	bool GetColliderExistence() { return m_ColliderExistence; }
-
-	void SetType(Type type) { m_Type = type; }
-	void SetColliderExistence(bool set) { m_ColliderExistence = set; }
 
 private:
 	GameObject*			m_ChildObject;
 	UserMeshRenderer*	m_Renderer;
 	Type				m_Type = Type::TypeEnd;
 	Monster_Type		m_MonsterType = Monster_Type::MonsterEnd;
-
-	bool				m_ColliderExistence = false;
 	
 public:
 	static std::vector<Pickable*>	g_PickableVec;	//pick함수를 사용하기 위해 있다
