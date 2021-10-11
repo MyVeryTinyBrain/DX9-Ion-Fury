@@ -16,6 +16,9 @@ void Renderer::Awake()
 
 void Renderer::BeginRender()
 {
+	if (!isWake)
+		return;
+
 	GraphicDevice::GetInstance()->GetRenderProcess()->AddRenderTarget(this);
 }
 
@@ -26,7 +29,10 @@ void Renderer::Render()
 	for (unsigned int i = 0; i < TEX_MAX; ++i)
 	{
 		if (!m_textures[i])
+		{
+			device->SetTexture(i, 0);
 			continue;
+		}
 
 		device->SetTexture(i, m_textures[i]->texture);
 	}

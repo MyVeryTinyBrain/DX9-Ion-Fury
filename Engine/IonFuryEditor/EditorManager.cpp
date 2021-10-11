@@ -31,8 +31,9 @@ void EditorManager::Awake()
 		Light::SetGlobalAmbientLight(Color::white() * 0.7f);
 
 		// 디렉셔널 라이트 생성
-		auto directionalLightObj = CreateGameObject(L"DirectonalLight");
+		auto directionalLightObj = CreateGameObject(L"DirectionalLight");
 		auto dl = directionalLightObj->AddComponent<DirectionalLight>();
+		dl->name = L"directionalLight";
 		dl->color = Color::white() * 0.8f;
 		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
 	}

@@ -74,9 +74,14 @@ public:
 	int iPosX;
 	int iPosY;
 	int iPosZ;
+
 	CString sPosX;
 	CString sPosY;
 	CString sPosZ;
+
+	CString sdirX;
+	CString sdirY;
+	CString sdirZ;
 
 
 
@@ -98,6 +103,16 @@ public:
 	afx_msg void OnBnClickedDeleteButton();
 	afx_msg void OnBnClickedApplyButton();
 	afx_msg void OnBnClickedAddButton();
+
+
 	float m_OutSideAngle;
 	float m_InsideAngleRatio;
+	afx_msg void OnBnClickedAmbinentFactorSet();
+	afx_msg void OnBnClickedSave();
+	afx_msg void OnBnClickedButton4();
+	float m_dirx;
+	float m_diry;
+	float m_dirz;
+	float m_ambinentFactor;
+	float m_radius;
 };

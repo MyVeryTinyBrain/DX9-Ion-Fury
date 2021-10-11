@@ -24,6 +24,8 @@ void LightObj::Awake()
 	}
 
 	g_vecLight.push_back(this);
+
+	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 }
 
 
@@ -35,8 +37,6 @@ void LightObj::Update()
 		return;
 	}
 
-	if (Input::GetKeyDown(Key::LeftMouse))
-		LightPick();
 }
 
 void LightObj::OnDestroy()
@@ -47,24 +47,19 @@ void LightObj::OnDestroy()
 }
 
 
-LightObj* LightObj::LightPick()
+void LightObj::LightPick(const CString& name)
 {
-	/*Vec3 rayPoint, rayDir;
-	Input::GetMouseWorldRay(rayPoint, rayDir);
+	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
-	Vec3 HitPoint;
-	for (auto pickable : g_vecLight)
+	for (auto light : g_vecLight)
 	{
-		UserMeshRenderer* Renderer = pickable->GetRenderer();
-
-		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+		if (light->GetGameObject()->name.c_str() == name)
 		{
-			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
-			return pickable;
+			EditorManager::GetInstance()->GetGizmo()->Attach(light->GetGameObject()->transform);
+			light->GetGameObject()->transform->position = camera->transform->position + camera->transform->forward * 2;
 		}
-	}*/
+	}
 
-	return nullptr;
 }
 
 void LightObj::RequireDestroy()
