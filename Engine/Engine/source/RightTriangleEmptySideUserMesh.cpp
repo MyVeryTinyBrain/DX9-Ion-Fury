@@ -1,19 +1,19 @@
 #include "EngineBase.h"
-#include "RightTriangleUserMesh.h"
+#include "RightTriangleEmptySideUserMesh.h"
 
-RightTriangleUserMesh::RightTriangleUserMesh() : UserMesh()
+RightTriangleEmptySideUserMesh::RightTriangleEmptySideUserMesh() : UserMesh()
 {
 }
 
-RightTriangleUserMesh::RightTriangleUserMesh(const wstring& localPath, bool isShared) : UserMesh(localPath, isShared)
+RightTriangleEmptySideUserMesh::RightTriangleEmptySideUserMesh(const wstring& localPath, bool isShared) : UserMesh(localPath, isShared)
 {
 }
 
-RightTriangleUserMesh::~RightTriangleUserMesh()
+RightTriangleEmptySideUserMesh::~RightTriangleEmptySideUserMesh()
 {
 }
 
-void RightTriangleUserMesh::InitializeNums(unsigned int& numVertices, unsigned int& numIncides)
+void RightTriangleEmptySideUserMesh::InitializeNums(unsigned int& numVertices, unsigned int& numIncides)
 {
 	//         1 |         4       
 	//           | 
@@ -37,7 +37,7 @@ void RightTriangleUserMesh::InitializeNums(unsigned int& numVertices, unsigned i
 	numIncides = 8;
 }
 
-void RightTriangleUserMesh::InitializeVertices()
+void RightTriangleEmptySideUserMesh::InitializeVertices()
 {
 	Vertex* vertices = LockVertexBuffer();
 
@@ -108,15 +108,15 @@ void RightTriangleUserMesh::InitializeVertices()
 	UnlockVertexBuffer();
 }
 
-void RightTriangleUserMesh::InitializeIndices()
+void RightTriangleEmptySideUserMesh::InitializeIndices()
 {
 	Index* indices = LockIndexBuffer();
 
-	// back
-	indices[0] = Index(0, 1, 2);
+	//// back
+	//indices[0] = Index(0, 1, 2);
 
-	// forward
-	indices[1] = Index(3, 5, 4);
+	//// forward
+	//indices[1] = Index(3, 5, 4);
 
 	// left
 	indices[2] = Index(8, 7, 6);
@@ -133,9 +133,9 @@ void RightTriangleUserMesh::InitializeIndices()
 	UnlockIndexBuffer();
 }
 
-IClonable* RightTriangleUserMesh::Clone()
+IClonable* RightTriangleEmptySideUserMesh::Clone()
 {
-	RightTriangleUserMesh* clone = new RightTriangleUserMesh;
+	RightTriangleEmptySideUserMesh* clone = new RightTriangleEmptySideUserMesh;
 
 	clone->CopyFrom(this);
 

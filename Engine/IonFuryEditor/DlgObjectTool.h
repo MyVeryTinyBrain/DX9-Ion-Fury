@@ -1,15 +1,14 @@
 ﻿#pragma once
 
-
 // DlgObjectTool 대화 상자
+
+#include "EditorEnum.h"
+
+class Pickable;
 
 class DlgObjectTool : public CDialog
 {
 	DECLARE_DYNAMIC(DlgObjectTool)
-
-public:
-	enum class COMBOBOX { Cube, Cyilinder, Quad, Sphere, Capsule, RightTriangle, Triangle,  END};
-
 
 public:
 	void SetPickableObject(GameObject* gameobject);
@@ -24,20 +23,31 @@ public:
 	enum { IDD = IDD_DlgObjectTool };
 #endif
 
-private:
-	COMBOBOX m_eMesh;
-
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
 public:
 	void ResetScroll();
+	void ReturnComboBoxSelect(Pickable* pick);
+	void UpdateUVScale(Pickable* pick);
+
+public:
+	float EditToNum(const CEdit& edit);
+	void NumToEdit(CEdit& edit, float num);
+
+public:
+	Vec2 GetToolUVScale();
 public:
 	CComboBox m_comboBox;
-	virtual BOOL OnInitDialog();
+
 	CString m_objectName;
+	
 	CString m_meshPath;
+
+	COMBOBOX m_MeshType;
+
+	virtual BOOL OnInitDialog();
 	afx_msg void OnObjectName();
 	afx_msg void OnSelectMesh();
 	float m_fPosX;
@@ -73,4 +83,8 @@ public:
 	CSliderCtrl m_SliderControlY;
 	CSliderCtrl m_SliderControlZ;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+
+	CEdit m_UVScaleX;
+	CEdit m_UVScaleY;
+	CButton m_ColliderExistence;
 };

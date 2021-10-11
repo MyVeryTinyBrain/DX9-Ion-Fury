@@ -98,6 +98,12 @@
     <Filter Include="Physics\PhysX">
       <UniqueIdentifier>{00f5feb6-e07d-4c5d-9afc-03d9e79718cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\UserMesh\RightTriangleEmptySide">
+      <UniqueIdentifier>{22993112-f4c6-4977-bc21-97e9bb08dc29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\UserMesh\RightTriangleSide">
+      <UniqueIdentifier>{72bfebec-0ce8-4448-9305-b3adeb480085}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -324,6 +330,18 @@
     </ClCompile>
     <ClCompile Include="source\Path.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RightTriangleEmptySideUserMesh.cpp">
+      <Filter>Resource\UserMesh\RightTriangleEmptySide</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RightTriangleBackSide.cpp">
+      <Filter>Resource\UserMesh\RightTriangleSide</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RightTriangleFrontSide.cpp">
+      <Filter>Resource\UserMesh\RightTriangleSide</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RigidbodyInterpolationer.cpp">
+      <Filter>Physics\Rigidbody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -635,6 +653,18 @@
     </ClInclude>
     <ClInclude Include="header\Path.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RightTriangleEmptySideUserMesh.h">
+      <Filter>Resource\UserMesh\RightTriangleEmptySide</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RightTriangleBackSide.h">
+      <Filter>Resource\UserMesh\RightTriangleSide</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RightTriangleFrontSide.h">
+      <Filter>Resource\UserMesh\RightTriangleSide</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RigidbodyInterpolationer.h">
+      <Filter>Physics\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

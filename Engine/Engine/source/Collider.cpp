@@ -15,6 +15,7 @@ void Collider::Awake()
 	m_material->setFrictionCombineMode(PxCombineMode::eMIN);
 	m_material->setFlag(PxMaterialFlag::eDISABLE_FRICTION, false);
 	m_material->setFlag(PxMaterialFlag::eDISABLE_STRONG_FRICTION, false);
+	//->setFlag(PxMaterialFlag::eIMPROVED_PATCH_FRICTION, false);
 
 	m_shape = device->physics->createShape(CreateGeometry().any(), *m_material, true);
 	m_shape->userData = this;

@@ -2,18 +2,18 @@
 
 #include "UserMesh.h"
 
-class SphereUserMesh : public UserMesh
+class RightTriangleEmptySideUserMesh : public UserMesh
 {
 	friend class UserMesh;
 	friend class ResourceManager;
 
 private:
 
-	SphereUserMesh();
+	RightTriangleEmptySideUserMesh();
 
-	SphereUserMesh(const wstring& localPath, bool isShared);
+	RightTriangleEmptySideUserMesh(const wstring& localPath, bool isShared);
 
-	virtual ~SphereUserMesh();
+	virtual ~RightTriangleEmptySideUserMesh();
 
 private:
 
@@ -26,17 +26,5 @@ private:
 public:
 
 	virtual IClonable* Clone() override;
-
-	float GetRadius() const;
-
-	void SetRaidus(float value);
-
-	__declspec(property(get = GetRadius, put = SetRaidus)) float radius;
-
-private:
-
-	unsigned int m_step = 32;
-
-	float m_radius = 0.5f;
 };
 

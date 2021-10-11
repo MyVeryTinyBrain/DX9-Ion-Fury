@@ -11,6 +11,10 @@ std::vector<std::wstring> Path::QueryFilePath(const std::wstring& directory)
 {
 	std::vector<std::wstring> filePathes;
 	fs::path begin = directory;
+	if (!fs::exists(begin))
+	{
+		return filePathes;
+	}
 	for (const fs::directory_entry& entry : fs::recursive_directory_iterator(begin))
 	{
 		const auto& path = entry.path();
@@ -29,6 +33,10 @@ std::vector<std::wstring> Path::QueryFilePath(const std::wstring& directory, con
 {
 	std::vector<std::wstring> filePathes;
 	fs::path begin = directory;
+	if (!fs::exists(begin))
+	{
+		return filePathes;
+	}
 	for (const fs::directory_entry& entry : fs::recursive_directory_iterator(begin))
 	{
 		const auto& path = entry.path();
@@ -47,6 +55,10 @@ std::vector<std::wstring> Path::QueryFilePath(const std::wstring& directory, Pat
 {
 	std::vector<std::wstring> filePathes;
 	fs::path begin = directory;
+	if (!fs::exists(begin))
+	{
+		return filePathes;
+	}
 	for (const fs::directory_entry& entry : fs::recursive_directory_iterator(begin))
 	{
 		const auto& path = entry.path();

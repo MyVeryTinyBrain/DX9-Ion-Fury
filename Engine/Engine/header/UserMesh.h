@@ -59,11 +59,17 @@ public:
 
 	bool Raycast(Vec3& hitPoint, const Vec3& worldRayPoint, const Vec3& worldRayDir, const Mat4& meshLocalToWorld);
 
+	const Vec2& GetUVScale() const;
+
+	void SetUVScale(const Vec2& uvScale);
+
 	__declspec(property (get = GetNumVertices)) unsigned int numVertices;
 
 	__declspec(property (get = GetNumIndices)) unsigned int numIndices;
 
 	__declspec(property (get = GetNumFaces)) unsigned int numFaces;
+
+	__declspec(property (get = GetUVScale, put = SetUVScale)) const Vec2& uvScale;
 
 protected:
 
@@ -96,6 +102,8 @@ private:
 	Vertex* m_storedVertexBuffer = nullptr;
 
 	Index* m_storedIndexBuffer = nullptr;
+
+	Vec2 m_uvScale = Vec2(1, 1);
 };
 
 #include "UserMesh.hpp"

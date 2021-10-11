@@ -38,10 +38,10 @@ void CubeUserMesh::InitializeVertices()
 		vertices[1].normal = Vec3(0, 0, -1);
 		vertices[2].normal = Vec3(0, 0, -1);
 		vertices[3].normal = Vec3(0, 0, -1);
-		vertices[0].uv = Vec2(0, 1);
-		vertices[1].uv = Vec2(0, 0);
-		vertices[2].uv = Vec2(1, 0);
-		vertices[3].uv = Vec2(1, 1);
+		vertices[0].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+		vertices[1].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+		vertices[2].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+		vertices[3].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
 
 		// back
 		// -x, y
@@ -55,10 +55,10 @@ void CubeUserMesh::InitializeVertices()
 		vertices[5].normal = Vec3(0, 0, +1);
 		vertices[6].normal = Vec3(0, 0, +1);
 		vertices[7].normal = Vec3(0, 0, +1);
-		vertices[4].uv = Vec2(1, 1);
-		vertices[5].uv = Vec2(1, 0);
-		vertices[6].uv = Vec2(0, 0);
-		vertices[7].uv = Vec2(0, 1);
+		vertices[4].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
+		vertices[5].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+		vertices[6].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+		vertices[7].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
 
 		// left
 		// -z, y
@@ -72,10 +72,10 @@ void CubeUserMesh::InitializeVertices()
 		vertices[9].normal = Vec3(-1, 0, 0);
 		vertices[10].normal = Vec3(-1, 0, 0);
 		vertices[11].normal = Vec3(-1, 0, 0);
-		vertices[8].uv = Vec2(1, 1);
-		vertices[9].uv = Vec2(1, 0);
-		vertices[10].uv = Vec2(0, 1);
-		vertices[11].uv = Vec2(0, 0);
+		vertices[8].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
+		vertices[9].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+		vertices[10].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+		vertices[11].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
 
 		// right
 		// z, y
@@ -89,10 +89,10 @@ void CubeUserMesh::InitializeVertices()
 		vertices[13].normal = Vec3(+1, 0, 0);
 		vertices[14].normal = Vec3(+1, 0, 0);
 		vertices[15].normal = Vec3(+1, 0, 0);
-		vertices[12].uv = Vec2(0, 0);
-		vertices[13].uv = Vec2(0, 1);
-		vertices[14].uv = Vec2(1, 0);
-		vertices[15].uv = Vec2(1, 1);
+		vertices[12].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+		vertices[13].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+		vertices[14].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+		vertices[15].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
 
 		// top
 		// x, z
@@ -106,10 +106,10 @@ void CubeUserMesh::InitializeVertices()
 		vertices[17].normal = Vec3(0, +1, 0);
 		vertices[18].normal = Vec3(0, +1, 0);
 		vertices[19].normal = Vec3(0, +1, 0);
-		vertices[16].uv = Vec2(0, 1);
-		vertices[17].uv = Vec2(1, 1);
-		vertices[18].uv = Vec2(0, 0);
-		vertices[19].uv = Vec2(1, 0);
+		vertices[16].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
+		vertices[17].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
+		vertices[18].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+		vertices[19].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
 
 		// bottom
 		// x, -z
@@ -123,10 +123,10 @@ void CubeUserMesh::InitializeVertices()
 		vertices[21].normal = Vec3(0, -1, 0);
 		vertices[22].normal = Vec3(0, -1, 0);
 		vertices[23].normal = Vec3(0, -1, 0);
-		vertices[20].uv = Vec2(1, 0);
-		vertices[21].uv = Vec2(0, 0);
-		vertices[22].uv = Vec2(1, 1);
-		vertices[23].uv = Vec2(0, 1);
+		vertices[20].uv = Vec2(1 * uvScale.x, 0 * uvScale.y);
+		vertices[21].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+		vertices[22].uv = Vec2(1 * uvScale.x, 1 * uvScale.y);
+		vertices[23].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
 	}
 
 	UnlockVertexBuffer();

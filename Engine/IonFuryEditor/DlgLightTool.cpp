@@ -140,21 +140,21 @@ BOOL DlgLightTool::OnInitDialog()
 	//m_LightType = L"Point";
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderCrtl_Radius.SetRange(0, 180.f);       // 사용영역 값 설정한다.
-	m_SliderCrtl_Radius.SetPos(0.f);				//위치 설정
-	m_SliderCrtl_Radius.SetLineSize(0.5f);		//방향키로 움질일 때 사이즈 
-	m_SliderCrtl_Radius.SetPageSize(0.5f);		//눈금 간격 설정
+	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
+	m_SliderCrtl_Radius.SetPos(0);				//위치 설정
+	m_SliderCrtl_Radius.SetLineSize(5);		//방향키로 움질일 때 사이즈 
+	m_SliderCrtl_Radius.SetPageSize(5);		//눈금 간격 설정
 
 	iPos = m_SliderCrtl_Radius.GetPos();
 	sPos.Format(_T(" % d"), (float)iPos);
 	m_Radius.SetWindowText(sPos);
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderDirX.SetRange(0, 360.f);
+	m_SliderDirX.SetRange(0, 360);
 	m_SliderDirX.SetPos(0);
-	m_SliderDirY.SetRange(0, 360.f);
+	m_SliderDirY.SetRange(0, 360);
 	m_SliderDirY.SetPos(0);
-	m_SliderDirZ.SetRange(0, 360.f);
+	m_SliderDirZ.SetRange(0, 360);
 	m_SliderDirZ.SetPos(0);
 
 	iPosX = m_SliderDirX.GetPos();

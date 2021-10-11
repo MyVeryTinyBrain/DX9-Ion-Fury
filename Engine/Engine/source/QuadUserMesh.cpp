@@ -36,10 +36,10 @@ void QuadUserMesh::InitializeVertices()
 	vertices[2].normal = Vec3(0.0f, 0.0f, -1.0f);
 	vertices[3].normal = Vec3(0.0f, 0.0f, -1.0f);
 
-	vertices[0].uv = Vec2(0.0f, 0.0f);
-	vertices[1].uv = Vec2(1.0f, 0.0f);
-	vertices[2].uv = Vec2(1.0f, 1.0f);
-	vertices[3].uv = Vec2(0.0f, 1.0f);
+	vertices[0].uv = Vec2(0.0f * uvScale.x, 0.0f * uvScale.y);
+	vertices[1].uv = Vec2(1.0f * uvScale.x, 0.0f * uvScale.y);
+	vertices[2].uv = Vec2(1.0f * uvScale.x, 1.0f * uvScale.y);
+	vertices[3].uv = Vec2(0.0f * uvScale.x, 1.0f * uvScale.y);
 
 	UnlockVertexBuffer();
 }

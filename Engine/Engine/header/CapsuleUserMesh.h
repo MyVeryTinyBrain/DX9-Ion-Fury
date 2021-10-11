@@ -27,6 +27,20 @@ public:
 
 	virtual IClonable* Clone() override;
 
+public:
+
+	float GetHalfHeight() const;
+
+	void SetHalfHeight(float value);
+
+	float GetRadius() const;
+
+	void SetRaidus(float value);
+
+	__declspec(property(get = GetHalfHeight, put = SetHalfHeight)) float halfHeight;
+
+	__declspec(property(get = GetRadius, put = SetRaidus)) float radius;
+
 private:
 
 	unsigned int m_step = 32;

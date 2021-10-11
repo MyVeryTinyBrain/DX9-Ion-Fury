@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EditorEnum.h"
+
 class FreePerspectiveCamera : public Component
 {
 	OverrideComponentFunction(Update);
@@ -12,9 +14,10 @@ private:
 	
 public:
 	void Add_MapObject(
-		const tag_t& tag = L"test"
-		, const wstring& ObjName = L"defaultName"
-		, const wstring& localPathMesh = BuiltInCubeUserMesh
+		Vec2 UVScale = Vec2(1.f, 1.f)
+		, COMBOBOX comboBox = COMBOBOX::Cyilinder
+		, const tag_t& tag = L""
+		, const wstring& ObjName = L""
 		, const wstring& localPathTexture = L"../SharedResource/Texture/object/brick.jpg"
 	);
 

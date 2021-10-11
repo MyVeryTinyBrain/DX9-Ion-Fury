@@ -27,3 +27,11 @@ struct RaycastHit
 	class Collider* collider = nullptr;
 };
 
+struct SweepHit
+{
+	Vec3 point;
+	Vec3 normal;
+	float distance;
+	class Collider* collider = nullptr;
+};
+

@@ -9,7 +9,7 @@
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
 #include "Gizmo.h"
-
+#include "EditorEnum.h"
 
 // DlgObjectTool 대화 상자
 
@@ -56,7 +56,6 @@ void DlgObjectTool::SelectObject()
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
-	, m_eMesh(COMBOBOX::END)
 	, m_fPosX(0.f)
 	, m_fPosY(0.f)
 	, m_fPosZ(0.f)
@@ -66,7 +65,8 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_fScaleX(1.f)
 	, m_fScaleY(1.f)
 	, m_fScaleZ(1.f)
-	, m_meshPath(L"")
+	//, m_meshPath(L"")
+	, m_MeshType(COMBOBOX::Cube)
 	, m_objectTag(_T(""))
 	, m_SelectName(_T(""))
 	, m_rPosX(0)
@@ -115,6 +115,11 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RotSlider, m_SliderControlX);
 	DDX_Control(pDX, IDC_RotSlider2, m_SliderControlY);
 	DDX_Control(pDX, IDC_RotSlider3, m_SliderControlZ);
+
+
+	DDX_Control(pDX, IDC_EDIT12, m_UVScaleX);
+	DDX_Control(pDX, IDC_EDIT11, m_UVScaleY);
+	DDX_Control(pDX, IDC_CHECK1, m_ColliderExistence);
 }
 
 
@@ -141,6 +146,46 @@ void DlgObjectTool::ResetScroll()
 	m_SliderControlZ.SetPos(0);
 }
 
+void DlgObjectTool::ReturnComboBoxSelect(Pickable* pick)
+{
+	int sel = (int)pick->GetMeshType();
+	m_comboBox.SetCurSel(sel);
+
+	m_MeshType = (COMBOBOX)m_comboBox.GetCurSel();
+}
+
+void DlgObjectTool::UpdateUVScale(Pickable* pick)
+{
+	float x = pick->GetUserMesh()->uvScale.x;
+	float y = pick->GetUserMesh()->uvScale.y;
+
+	NumToEdit(m_UVScaleX, x);
+	NumToEdit(m_UVScaleY, y);
+}
+
+float DlgObjectTool::EditToNum(const CEdit& edit)
+{
+	CString str;
+	edit.GetWindowTextW(str);
+	wchar_t* test;
+	
+	return wcstof(str.GetString(), &test);
+}
+
+void DlgObjectTool::NumToEdit(CEdit& edit, float num)
+{
+	wstring str = std::to_wstring(num);
+	edit.SetWindowTextW(str.c_str());
+}
+
+Vec2 DlgObjectTool::GetToolUVScale()
+{
+	float x = EditToNum(m_UVScaleX);
+	float y = EditToNum(m_UVScaleY);
+
+	return Vec2(x,y);
+}
+
 BOOL DlgObjectTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
@@ -157,10 +202,7 @@ BOOL DlgObjectTool::OnInitDialog()
 
 
 	m_comboBox.SetCurSel(0);
-
-	m_meshPath = BuiltInCubeUserMesh;
-
-	/////////////////////////////////////////////
+	m_MeshType = COMBOBOX::Cube;
 
 	m_SliderControlX.SetRange(0, 360);
 	m_SliderControlX.SetPos(0);
@@ -173,6 +215,9 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_SliderControlZ.SetRange(0, 360);
 	m_SliderControlZ.SetPos(0);
 	m_SliderControlZ.SetLineSize(10);
+
+	NumToEdit(m_UVScaleX, 1.f);
+	NumToEdit(m_UVScaleY, 1.f);
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -193,35 +238,7 @@ void DlgObjectTool::OnSelectMesh()
 {
 	UpdateData(TRUE);
 
-	m_eMesh = (COMBOBOX)m_comboBox.GetCurSel();
-
-
-	switch (m_eMesh)
-	{
-	case DlgObjectTool::COMBOBOX::Cube:
-		m_meshPath = BuiltInCubeUserMesh;
-		break;
-	case DlgObjectTool::COMBOBOX::Cyilinder:
-		m_meshPath = BuiltInCyilinderUserMesh;
-		break;
-	case DlgObjectTool::COMBOBOX::Quad:
-		m_meshPath = BuiltInQuadUserMesh;
-		break;
-	case DlgObjectTool::COMBOBOX::Sphere:
-		m_meshPath = BuiltInSphereUserMesh;
-		break;
-	case DlgObjectTool::COMBOBOX::Capsule:
-		m_meshPath = BuiltInCapsuleUserMesh;
-		break;
-	case DlgObjectTool::COMBOBOX::RightTriangle:
-		m_meshPath = BuiltInRightTriangleUserMesh;
-		break;
-	case DlgObjectTool::COMBOBOX::Triangle:
-		m_meshPath = BuiltInTriangleUserMesh;
-		break;
-	default:
-		break;
-	}
+	m_MeshType = (COMBOBOX)m_comboBox.GetCurSel();
 
 	UpdateData(FALSE);
 
@@ -246,11 +263,6 @@ void DlgObjectTool::OnBnClickedApply()
 
 	if (trans)
 	{
-		//auto obj = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(m_SelectName.GetString());
-		//obj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
-		//obj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
-		//obj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
-
 		GameObject* parentObj = trans->GetGameObject();
 
 		parentObj->SetName(m_objectName.GetString());
@@ -267,6 +279,15 @@ void DlgObjectTool::OnBnClickedApply()
 		parentObj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
 
 		m_SelectName = m_objectName;
+		
+		//////////////////////////////////////////////////////////////////////
+		
+		pick->SetMesh(m_MeshType);
+		//pick->GetUserMesh()->SetUVScale(m_UVScaleX., 0.f);
+
+		float X = EditToNum(m_UVScaleX);
+		float Y = EditToNum(m_UVScaleY);
+		pick->GetUserMesh()->SetUVScale(Vec2(X, Y));
 	}
 
 	ResetScroll();
@@ -431,7 +452,7 @@ void DlgObjectTool::OnBnClickedLoad()
 			pObj->name = pBuff;
 
 			Pickable* pick = pObj->AddComponent<Pickable>();
-			pick->Settings(pBuff3, pBuff4);
+			//pick->Settings(pBuff3, pBuff4);
 
 			SafeDeleteArray(pBuff);
 			SafeDeleteArray(pBuff2);
@@ -492,9 +513,9 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	if (!giz->GetSelectedObject())
 		return;
 
-	m_rRotX = m_SliderControlX.GetPos();
-	m_rRotY = m_SliderControlY.GetPos();
-	m_rRotZ = m_SliderControlZ.GetPos();
+	m_rRotX = float(m_SliderControlX.GetPos());
+	m_rRotY = float(m_SliderControlY.GetPos());
+	m_rRotZ = float(m_SliderControlZ.GetPos());
 
 	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(m_rRotX, m_rRotY, m_rRotZ));
 

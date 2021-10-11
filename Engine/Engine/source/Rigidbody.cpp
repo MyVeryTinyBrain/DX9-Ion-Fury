@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "Collider.h"
 #include "GameObject.h"
+#include "RigidbodyInterpolationer.h"
 
 void Rigidbody::Awake()
 {
@@ -23,22 +24,72 @@ void Rigidbody::Awake()
 	AttachAll();
 
 	ApplyBodyTransformFromGameObject();
+
+	m_interpolationer = new RigidbodyInterpolationer(this);
+}
+
+void Rigidbody::Start()
+{
+	m_interpolationer->BackupPose();
 }
 
 void Rigidbody::BeginPhysicsSimulate()
 {
+	if (m_interpolate)
+	{
+		m_interpolationer->RollbackPose();
+	}
+
 	ApplyBodyTransformFromGameObject();
 }
 
 void Rigidbody::EndPhysicsSimulate()
 {
 	ApplyGameObjectTransfromFromBody();
+
+	if (m_interpolate)
+	{
+		m_interpolationer->BackupPose();
+	}
+}
+
+void Rigidbody::BeginFixedUpdate()
+{
+	if (m_interpolate)
+	{
+		m_interpolationer->InterpolatePose();
+	}
+}
+
+void Rigidbody::FixedUpdateCheck()
+{
+	if (m_interpolate)
+	{
+		m_interpolationer->CheckPoseChange();
+	}
+}
+
+void Rigidbody::BeginUpdate()
+{
+	if (m_interpolate)
+	{
+		m_interpolationer->InterpolatePose();
+	}
+}
+
+void Rigidbody::UpdateCheck()
+{
+	if (m_interpolate)
+	{
+		m_interpolationer->CheckPoseChange();
+	}
 }
 
 void Rigidbody::OnDestroy()
 {
 	DetachAll();
 	PxRelease(m_body);
+	SafeDelete(m_interpolationer);
 }
 
 bool Rigidbody::UseGravity() const
@@ -80,15 +131,27 @@ void Rigidbody::SetContinuousDetection(bool value)
 void Rigidbody::ApplyBodyTransformFromGameObject()
 {
 	PxTransform pose = m_body->getGlobalPose();
-	
-	pose.p = ToPxVec3(transform->position);
+
+	bool hasChanged = false;
+
+	Vec3 deltaPos = transform->position - FromPxVec3(pose.p);
+
+	if (deltaPos.magnitude() > 0.001f)
+	{
+		hasChanged = true;
+		pose.p = ToPxVec3(transform->position);
+	}
 
 	if (Quat::Radian(FromPxQuat(pose.q), transform->rotation) > 0.01f)
 	{
+		hasChanged = true;
 		pose.q = ToPxQuat(transform->rotation);
 	}
 
-	m_body->setGlobalPose(pose);
+	if (hasChanged)
+	{
+		m_body->setGlobalPose(pose);
+	}
 }
 
 void Rigidbody::ApplyGameObjectTransfromFromBody()
@@ -102,55 +165,106 @@ void Rigidbody::ApplyGameObjectTransfromFromBody()
 
 void Rigidbody::SetPosition(const Vec3& position)
 {
-	transform->position = position;
 	PxTransform pose = m_body->getGlobalPose();
-	pose.p = ToPxVec3(position);
-	m_body->setGlobalPose(pose);
+
+	Vec3 deltaPos = position - FromPxVec3(pose.p);
+
+	if (deltaPos.magnitude() > 0.001f)
+	{
+		transform->position = position;
+		pose.p = ToPxVec3(position);
+		m_body->setGlobalPose(pose);
+	}
 }
 
 void Rigidbody::SetRotation(const Quat& rotation)
 {
-	transform->rotation = rotation;
 	PxTransform pose = m_body->getGlobalPose();
-	pose.q = ToPxQuat(rotation);
-	m_body->setGlobalPose(pose);
+
+	if (Quat::Radian(FromPxQuat(pose.q), rotation) > 0.01f)
+	{
+		transform->rotation = rotation;
+		pose.q = ToPxQuat(rotation);
+		m_body->setGlobalPose(pose);
+	}
 }
 
 void Rigidbody::SetEulerAngle(const Vec3& eulerAngle)
 {
-	transform->eulerAngle = eulerAngle;
 	PxTransform pose = m_body->getGlobalPose();
-	pose.q = ToPxQuat(transform->rotation);
-	m_body->setGlobalPose(pose);
-}
 
-void Rigidbody::SetLocalPosition(const Vec3& localPosition)
-{
-	transform->localPosition = localPosition;
-	PxTransform pose = m_body->getGlobalPose();
-	pose.p = ToPxVec3(transform->position);
-	m_body->setGlobalPose(pose);
-}
-
-void Rigidbody::SetLocalRotation(const Quat& localRotation)
-{
-	transform->localRotation = localRotation;
-	PxTransform pose = m_body->getGlobalPose();
-	pose.q = ToPxQuat(transform->rotation);
-	m_body->setGlobalPose(pose);
-}
-
-void Rigidbody::SetLocalEulerAngle(const Vec3& localEulerAngle)
-{
-	transform->localEulerAngle = localEulerAngle;
-	PxTransform pose = m_body->getGlobalPose();
-	pose.q = ToPxQuat(transform->rotation);
-	m_body->setGlobalPose(pose);
+	if (Quat::Radian(FromPxQuat(pose.q), Quat::FromEuler(eulerAngle.x, eulerAngle.y, eulerAngle.z)) > 0.01f)
+	{
+		transform->eulerAngle = eulerAngle;
+		pose.q = ToPxQuat(transform->rotation);
+		m_body->setGlobalPose(pose);
+	}
 }
 
 void Rigidbody::UpdateMassAndInertia()
 {
 	PxRigidBodyExt::setMassAndUpdateInertia(*m_body, m_body->getMass());
+}
+
+bool Rigidbody::IsRigidbodySleep() const
+{
+	return m_body->isSleeping();
+}
+
+void Rigidbody::SetRigidbodySleep(bool value)
+{
+	if (!value) m_body->wakeUp();
+	else		m_body->putToSleep();
+}
+
+float Rigidbody::GetSleepThresholder() const
+{
+	return m_body->getSleepThreshold();
+}
+
+void Rigidbody::SetSleepThresholder(float value)
+{
+	m_body->setSleepThreshold(value);
+}
+
+bool Rigidbody::IsInterpolateMode() const
+{
+	return m_interpolate;
+}
+
+void Rigidbody::SetInterpolate(bool value)
+{
+	if (m_interpolate == value)
+	{
+		return;
+	}
+
+	m_interpolate = value;
+
+	if (m_interpolate)
+	{
+		m_interpolationer->BackupPose();
+	}
+}
+
+bool Rigidbody::IsInterpolatePosition() const
+{
+	return m_interpolationer->IsInterpolatePosition();
+}
+
+void Rigidbody::SetInterpolatePosition(bool value)
+{
+	m_interpolationer->SetInterpolatePositionMode(value);
+}
+
+bool Rigidbody::IsInterpolateRotation() const
+{
+	return m_interpolationer->IsInterpolateRotation();
+}
+
+void Rigidbody::SetInterpolateRotation(bool value)
+{
+	m_interpolationer->SetInterpolateRotationMode(value);
 }
 
 float Rigidbody::GetMass() const
@@ -198,16 +312,22 @@ void Rigidbody::SetVelocity(const Vec3& velocity)
 	m_body->setLinearVelocity(pxVelocity);
 }
 
+void Rigidbody::AddForce(const Vec3& force, ForceMode forceMode)
+{
+	PxVec3 pxForce = ToPxVec3(force);
+	m_body->addForce(pxForce, (PxForceMode::Enum)forceMode);
+}
+
 Vec3 Rigidbody::GetAngularVelocity() const
 {
 	PxVec3 pxAVelocity = m_body->getAngularVelocity();
-	return FromPxVec3(pxAVelocity);
+	return FromPxVec3(pxAVelocity) * Rad2Deg;
 }
 
 void Rigidbody::SetAngularVelocity(const Vec3& angularVelocity)
 {
 	PxVec3 pxAngularVelocity = ToPxVec3(angularVelocity);
-	m_body->setAngularVelocity(pxAngularVelocity);
+	m_body->setAngularVelocity(pxAngularVelocity * Deg2Rad);
 }
 
 void Rigidbody::SetRotationLockAxis(PhysicsAxis axes, bool value)

@@ -18,6 +18,7 @@
 #include "LightObj.h"
 #include "EditorScene.h"
 #include "Gizmo.h"
+#include "EditorEnum.h"
 
 #ifdef new
 #undef new
@@ -139,6 +140,21 @@ void CIonFuryEditorView::OnInitialUpdate()
 	// 매번 화면을 업데이트 하기 위해 타이머를 설정합니다.
 	// 설정한 타이머 번호는 0번입니다.
 	SetTimer(0, 0, 0);
+
+	// 여기에서 우선 다이얼로그를 생성합니다.
+
+	if (!m_dlgObjectTool.GetSafeHwnd())
+		m_dlgObjectTool.Create(IDD_DlgObjectTool);
+
+	if (!m_dlgLightTool.GetSafeHwnd())
+		m_dlgLightTool.Create(IDD_DlgLightTool);
+
+	if (!m_dlgTextureTool.GetSafeHwnd())
+		m_dlgTextureTool.Create(IDD_DlgTextureTool);
+
+	// 얘는 터짐
+	//if (!m_dlgMonsterTool.GetSafeHwnd())
+	//	m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
 }
 
 
@@ -201,15 +217,13 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 	case 'P':
 		if (!m_dlgObjectTool || !m_dlgTextureTool)
-			camera->Add_MapObject(
-				L"",
-				L""
-				);
+			camera->Add_MapObject();
 		else
 			camera->Add_MapObject(
+				m_dlgObjectTool.GetToolUVScale(),
+				m_dlgObjectTool.m_MeshType,
 				m_dlgObjectTool.m_objectTag.GetString(),
 				m_dlgObjectTool.m_objectName.GetString(),
-				m_dlgObjectTool.m_meshPath.GetString(),
 				m_dlgTextureTool.m_texturePath.GetString());
 		break;
 	default:
@@ -243,10 +257,11 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			return;
 
 		m_dlgObjectTool.SetPickableObject(pickObj);
-
 		m_dlgObjectTool.SelectObject();
-
 		m_dlgObjectTool.ResetScroll();
+		m_dlgObjectTool.UpdateUVScale(pick);
+
+		m_dlgObjectTool.ReturnComboBoxSelect(pick);
 	}
 }
 

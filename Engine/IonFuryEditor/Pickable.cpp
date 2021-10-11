@@ -2,6 +2,7 @@
 #include "Pickable.h"
 #include "Gizmo.h"
 #include "EditorManager.h"
+#include "EditorEnum.h"
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
@@ -14,7 +15,6 @@ void Pickable::Awake()
 	m_ChildObject = CreateGameObject();
 	g_PickableVec.push_back(this);
 
-	//m_ChildObject->transform->position = GetGameObject()->transform->position;
 	m_ChildObject->transform->parent = GetGameObject()->transform;
 	m_ChildObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
 
@@ -51,13 +51,61 @@ void Pickable::OnDestroy()
 			g_TriggerVec.erase(it);
 		break;
 	}
+
+	DeleteMesh();
 }
 
-void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTexture)
+void Pickable::Settings(Vec2 UVScale, COMBOBOX comboBox, const wstring& localPathTexture)
 {
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
-	m_Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
+
+	SetMesh(comboBox);
+	m_Mesh->SetUVScale(UVScale);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
+}
+
+void Pickable::SetMesh(COMBOBOX comboBox)
+{
+	DeleteMesh();
+
+	switch (comboBox)
+	{
+	case COMBOBOX::Cube:
+		m_Mesh = UserMesh::CreateUnmanaged<CubeUserMesh>();
+		break;
+	case COMBOBOX::Cyilinder:
+		m_Mesh = UserMesh::CreateUnmanaged<CyilinderUserMesh>();
+		break;
+	case COMBOBOX::Quad:
+		m_Mesh = UserMesh::CreateUnmanaged<QuadUserMesh>();
+		break;
+	case COMBOBOX::Sphere:
+		m_Mesh = UserMesh::CreateUnmanaged<SphereUserMesh>();
+		break;
+	case COMBOBOX::Capsule:
+		m_Mesh = UserMesh::CreateUnmanaged<CapsuleUserMesh>();
+		break;
+	case COMBOBOX::RightTriangle:
+		m_Mesh = UserMesh::CreateUnmanaged<RightTriangleUserMesh>();
+		break;
+	case COMBOBOX::Triangle:
+		m_Mesh = UserMesh::CreateUnmanaged<TriangleUserMesh>();
+		break;
+	case COMBOBOX::END:
+		m_Mesh = UserMesh::CreateUnmanaged<CubeUserMesh>();
+		break;
+	}
+	m_Renderer->userMesh = m_Mesh;
+	m_MeshType = comboBox;
+}
+
+void Pickable::DeleteMesh()
+{
+	if (m_Mesh)
+	{
+		m_Mesh->ReleaseUnmanaged();
+		m_Mesh = nullptr;
+	}
 }
 
 Pickable* Pickable::Pick()
