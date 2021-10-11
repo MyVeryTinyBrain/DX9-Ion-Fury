@@ -117,7 +117,7 @@ void Spider::MoveToTarget()
 		if (m_hasJump)		// มกวม
 		{
 			Vec3 velocity = m_body->velocity;
-			velocity.y = m_jumpSpeed;        
+			velocity.y = m_jumpSpeed;
 			m_body->velocity = velocity;
 
 			transform->position += Vec3::up() * 0.05f;
@@ -126,6 +126,10 @@ void Spider::MoveToTarget()
 		}
 		else
 		{
+<<<<<<< HEAD
+=======
+
+>>>>>>> 214ff00a4d4830e33990e9b2c51c4ee6f17c24fd
 			Vec3 acceleration = forward * m_moveSpeed;
 			Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
 			velocity.y = m_body->velocity.y;
