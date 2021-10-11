@@ -70,15 +70,23 @@ private:
 
 	ExecutionTargets ComponentCallFlag(EndPhysicsSimulate);
 
+	ExecutionTargets ComponentCallFlag(BeginFixedUpdate);
+
 	ExecutionTargets ComponentCallFlag(FixedUpdate);
 
 	ExecutionTargets ComponentCallFlag(LateFixedUpdate);
+
+	ExecutionTargets ComponentCallFlag(FixedUpdateCheck);
+
+	ExecutionTargets ComponentCallFlag(BeginUpdate);
 
 	ExecutionTargets ComponentCallFlag(AnimationUpdate);
 
 	ExecutionTargets ComponentCallFlag(Update);
 
 	ExecutionTargets ComponentCallFlag(LateUpdate);
+
+	ExecutionTargets ComponentCallFlag(UpdateCheck);
 
 	ExecutionTargets ComponentCallFlag(BeginRender);
 };

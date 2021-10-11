@@ -7,6 +7,9 @@
 #define BuiltInCapsuleUserMesh						L"../BuiltIn/CapsuleUserMesh.mesh"
 #define BuiltInRightTriangleUserMesh				L"../BuiltIn/RightTriangleUserMesh.mesh"
 #define BuiltInTriangleUserMesh						L"../BuiltIn/TriangleUserMesh.mesh"
+#define BuiltInRightTriangleEmptySideUserMesh		L"../BuiltIn/RightTriangleEmptySideUserMesh.mesh"
+#define BuiltInRightTriangleBackSideUserMesh		L"../BuiltIn/RightTriangleBackSideUserMesh.mesh"
+#define BuiltInRightTriangleFrontSideUserMesh		L"../BuiltIn/RightTriangleFrontSideUserMesh.mesh"
 
 #define BuiltInWhiteTexture							L"../BuiltIn/WhiteTexture.png"
 #define BuiltInBlackTexture							L"../BuiltIn/BlackTexture.png"

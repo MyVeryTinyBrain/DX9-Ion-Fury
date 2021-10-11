@@ -86,18 +86,26 @@ void ComponentExecutioner::ExecuteDestroy(GameObjectMap& gameObjectMap)
 
 void ComponentExecutioner::ExecuteFixedUpdate()
 {
+	ExecuteByOrder(BeginFixedUpdate);
+
 	ExecuteByOrder(FixedUpdate);
 
 	ExecuteByOrder(LateFixedUpdate);
+
+	ExecuteByOrder(FixedUpdateCheck);
 }
 
 void ComponentExecutioner::ExecuteUpdate()
 {
+	ExecuteByOrder(BeginUpdate);
+
 	ExecuteByOrder(AnimationUpdate);
 
 	ExecuteByOrder(Update);
 
 	ExecuteByOrder(LateUpdate);
+
+	ExecuteByOrder(UpdateCheck);
 }
 
 void ComponentExecutioner::ExecuteBeginRender()
@@ -113,15 +121,23 @@ void ComponentExecutioner::ClearExecuteTargets()
 
 	ComponentCallFlag(EndPhysicsSimulate).clear();
 
+	ComponentCallFlag(BeginFixedUpdate).clear();
+
 	ComponentCallFlag(FixedUpdate).clear();
 
 	ComponentCallFlag(LateFixedUpdate).clear();
+
+	ComponentCallFlag(FixedUpdateCheck).clear();
+
+	ComponentCallFlag(BeginUpdate).clear();
 
 	ComponentCallFlag(AnimationUpdate).clear();
 
 	ComponentCallFlag(Update).clear();
 
 	ComponentCallFlag(LateUpdate).clear();
+
+	ComponentCallFlag(UpdateCheck).clear();
 
 	ComponentCallFlag(BeginRender).clear();
 }
@@ -222,15 +238,23 @@ ComponentExecutioner::PrepareResult ComponentExecutioner::PrepareComponent(Compo
 
 	TryAddToExecutionTarget(component, EndPhysicsSimulate);
 
+	TryAddToExecutionTarget(component, BeginFixedUpdate);
+
 	TryAddToExecutionTarget(component, FixedUpdate);
 
 	TryAddToExecutionTarget(component, LateFixedUpdate);
+
+	TryAddToExecutionTarget(component, FixedUpdateCheck);
+
+	TryAddToExecutionTarget(component, BeginUpdate);
 
 	TryAddToExecutionTarget(component, AnimationUpdate);
 
 	TryAddToExecutionTarget(component, Update);
 
 	TryAddToExecutionTarget(component, LateUpdate);
+
+	TryAddToExecutionTarget(component, UpdateCheck);
 
 	TryAddToExecutionTarget(component, BeginRender);
 
@@ -245,15 +269,23 @@ void ComponentExecutioner::SortExecutionTargetsByExecutionOrder()
 
 	SortByExecutionOrder(EndPhysicsSimulate);
 
+	SortByExecutionOrder(BeginFixedUpdate);
+
 	SortByExecutionOrder(FixedUpdate);
 
 	SortByExecutionOrder(LateFixedUpdate);
+
+	SortByExecutionOrder(FixedUpdateCheck);
+
+	SortByExecutionOrder(BeginUpdate);
 
 	SortByExecutionOrder(AnimationUpdate);
 
 	SortByExecutionOrder(Update);
 
 	SortByExecutionOrder(LateUpdate);
+
+	SortByExecutionOrder(UpdateCheck);
 
 	SortByExecutionOrder(BeginRender);
 }

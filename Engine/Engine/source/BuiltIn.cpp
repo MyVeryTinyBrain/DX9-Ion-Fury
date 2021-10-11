@@ -23,6 +23,9 @@ void BuiltIn::MakeBuiltInResources()
 #include "CapsuleUserMesh.h"
 #include "RightTriangleUserMesh.h"
 #include "TriangleUserMesh.h"
+#include "RightTriangleEmptySideUserMesh.h"
+#include "RightTriangleBackSide.h"
+#include "RightTriangleFrontSide.h"
 
 void BuiltIn::MakeUserMeshResources()
 {
@@ -33,6 +36,9 @@ void BuiltIn::MakeUserMeshResources()
     UserMesh::Create<CapsuleUserMesh>(BuiltInCapsuleUserMesh, true);
     UserMesh::Create<RightTriangleUserMesh>(BuiltInRightTriangleUserMesh, true);
     UserMesh::Create<TriangleUserMesh>(BuiltInTriangleUserMesh, true);
+    UserMesh::Create<RightTriangleEmptySideUserMesh>(BuiltInRightTriangleEmptySideUserMesh, true);
+    UserMesh::Create<RightTriangleBackSide>(BuiltInRightTriangleBackSideUserMesh, true);
+    UserMesh::Create<RightTriangleFrontSide>(BuiltInRightTriangleFrontSideUserMesh, true);
 }
 
 #include "Texture.h"

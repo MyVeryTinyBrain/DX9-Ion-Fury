@@ -106,3 +106,23 @@ float CentralTimeElement::GetUnscaledFixedUpdateDeltaTime() const
 {
 	return m_fixedUpdateTimeElement->GetUnscaledDeltaTime();
 }
+
+float CentralTimeElement::GetUpdateAccumulated() const
+{
+	return m_updateTimeElement->GetAccumulated();
+}
+
+float CentralTimeElement::GetFixedUpdateAccumulated() const
+{
+	return m_fixedUpdateTimeElement->GetAccumulated();
+}
+
+float CentralTimeElement::GetUpdateInterval() const
+{
+	return m_updateTimeElement->GetInterval();
+}
+
+float CentralTimeElement::GetFixedUpdateInterval() const
+{
+	return m_fixedUpdateTimeElement->GetInterval();
+}

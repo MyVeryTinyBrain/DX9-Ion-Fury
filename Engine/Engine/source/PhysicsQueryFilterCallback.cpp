@@ -33,7 +33,10 @@ PxQueryHitType::Enum PhysicsQueryFilterCallback::preFilter(
     Collider* collider = (Collider*)shape->userData;
     Rigidbody* rigidbody = (Rigidbody*)actor->userData;
 
-    if (rigidbody == m_ignoreBody)
+    wstring colName = collider->name;
+    wstring bodyName = rigidbody->name;
+
+    if (m_ignoreBody && rigidbody == m_ignoreBody)
         return PxQueryHitType::eNONE;
 
     bool allowTrigger = int(m_queryType) & int(PhysicsQueryType::Trigger);
@@ -48,7 +51,12 @@ PxQueryHitType::Enum PhysicsQueryFilterCallback::preFilter(
     if (!allowCollider && !collider->isTrigger)
         return PxQueryHitType::eNONE;
 
-    if (layerManager->GetCollisionBits(collider->layerIndex) & m_targets)
+    //if (layerManager->GetCollisionBits(collider->layerIndex) & m_targets)
+    //    return m_hitType;
+    //else
+    //    return PxQueryHitType::eNONE;
+
+    if ((1 << collider->layerIndex) & m_targets)
         return m_hitType;
     else
         return PxQueryHitType::eNONE;

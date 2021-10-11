@@ -103,7 +103,8 @@ Quat Quat::operator-(CONST Quat& q) const
 
 Quat Quat::operator*(CONST Quat& q) const
 {
-	/*return (Quat)Base::operator*(q);*/
+	//return (Quat)Base::operator*(q);
+
 	const Quat& lhs = *this;
 	const Quat& rhs = q;
 	return Quat(
