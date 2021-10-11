@@ -162,9 +162,9 @@ void TestScene::OnLoad(Scene* beforeScene)
         }
     }
     
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 1; ++i)
     {
-        for (int j = 0; j < 3; ++j)
+        for (int j = 0; j < 1; ++j)
         {
             auto obj = CreateGameObject();
             obj->transform->position = Vec3(i, 2, j);

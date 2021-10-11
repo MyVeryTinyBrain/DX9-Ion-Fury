@@ -12,19 +12,33 @@ RigidbodyInterpolationer::RigidbodyInterpolationer(Rigidbody* body)
 void RigidbodyInterpolationer::BackupPose()
 {
 	m_backupPosition = m_body->transform->position;
-	m_backupEulerAngle = m_body->transform->eulerAngle;
+	m_backupRotation = m_body->transform->rotation;
 }
 
 void RigidbodyInterpolationer::RollbackPose()
 {
-	m_body->transform->position = m_backupPosition;
-	m_body->transform->eulerAngle = m_backupEulerAngle;
+	if (m_interpolatePoisiton)
+	{
+		m_body->transform->position = m_backupPosition;
+	}
+	
+	if (m_interpolateRotation)
+	{
+		m_body->transform->rotation = m_backupRotation;
+	}
 }
 
 void RigidbodyInterpolationer::InterpolatePose()
 {
-	m_body->transform->position = CalcInterpolatePosition();
-	m_body->transform->eulerAngle = CalcInterpolateEulerAngle();
+	if (m_interpolatePoisiton)
+	{
+		m_body->transform->position = CalcInterpolatePosition();
+	}
+	
+	if (m_interpolateRotation)
+	{
+		m_body->transform->rotation = CalcInterpolateRotation();
+	}
 }
 
 void RigidbodyInterpolationer::CheckPoseChange()
@@ -35,19 +49,33 @@ void RigidbodyInterpolationer::CheckPoseChange()
 		m_backupPosition += deltaPos;
 	}
 
-	Vec3 deltaAngle = m_body->transform->eulerAngle - CalcInterpolateEulerAngle();
-	if (Abs(deltaAngle.x) > 0.1f)
+	Quat deltaRotation = CalcInterpolateRotation().inversed() * m_body->transform->rotation;
+	float deltaAngle = Quat::Angle(Quat::Identity(), deltaRotation);
+	if (deltaAngle > 0.1f)
 	{
-		m_backupEulerAngle.x += deltaAngle.x;
+		wstring name = m_body->name;
+		m_backupRotation = deltaRotation * m_backupRotation;
 	}
-	if (Abs(deltaAngle.y) > 0.1f)
-	{
-		m_backupEulerAngle.y += deltaAngle.y;
-	}
-	if (Abs(deltaAngle.z) > 0.1f)
-	{
-		m_backupEulerAngle.z += deltaAngle.z;
-	}
+}
+
+bool RigidbodyInterpolationer::IsInterpolatePosition() const
+{
+	return m_interpolatePoisiton;
+}
+
+bool RigidbodyInterpolationer::IsInterpolateRotation() const
+{
+	return m_interpolateRotation;
+}
+
+void RigidbodyInterpolationer::SetInterpolatePositionMode(bool value)
+{
+	m_interpolatePoisiton = value;
+}
+
+void RigidbodyInterpolationer::SetInterpolateRotationMode(bool value)
+{
+	m_interpolateRotation = value;
 }
 
 Vec3 RigidbodyInterpolationer::CalcInterpolatePosition() const
@@ -60,12 +88,20 @@ Vec3 RigidbodyInterpolationer::CalcInterpolatePosition() const
 	return m_backupPosition + m_body->velocity * accumulated;
 }
 
-Vec3 RigidbodyInterpolationer::CalcInterpolateEulerAngle() const
+Quat RigidbodyInterpolationer::CalcInterpolateRotation() const
 {
 	auto centralTime = CentralTimeElement::GetInstance();
 	float accumulated = centralTime->GetFixedUpdateAccumulated();
 
 	//accumulated = Clamp(accumulated, 0, centralTime->GetFixedUpdateInterval());
 
-	return m_backupEulerAngle + m_body->angularVelocity * accumulated;
+	Quat q = Quat::FromEuler(
+		m_body->angularVelocity.x * accumulated,
+		m_body->angularVelocity.y * accumulated,
+		m_body->angularVelocity.z * accumulated
+	);
+
+	Quat res = q * m_backupRotation;
+
+	return res;
 }

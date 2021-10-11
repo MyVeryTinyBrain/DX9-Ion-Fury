@@ -48,7 +48,6 @@ void GunnerSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_side2.png");
 	m_walk[(unsigned int)DIR::SIDE]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_side3.png");
 	m_walk[(unsigned int)DIR::SIDE]->interval = 0.1f;
-	m_walk[(unsigned int)DIR::SIDE]->isLoop = true;
 
 	m_walk[(unsigned int)DIR::BACK_DIAGONAL] = new SpriteAnimation;
 	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back_diagonal0.png");
@@ -56,7 +55,6 @@ void GunnerSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back_diagonal2.png");
 	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back_diagonal3.png");
 	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->interval = 0.1f;
-	m_walk[(unsigned int)DIR::BACK_DIAGONAL]->isLoop = true;
 
 	m_walk[(unsigned int)DIR::BACK] = new SpriteAnimation;
 	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back0.png");
@@ -64,12 +62,12 @@ void GunnerSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back2.png");
 	m_walk[(unsigned int)DIR::BACK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_walk_back3.png");
 	m_walk[(unsigned int)DIR::BACK]->interval = 0.1f;
-	m_walk[(unsigned int)DIR::BACK]->isLoop = true;
 
 	m_shoot = new SpriteAnimation;
 	m_shoot->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire0.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire1.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire2.png");
+	m_shoot->interval = 0.1f;
 
 	m_die[(unsigned int)DIE::DIE_HEADSHOT] = new SpriteAnimation;
 	m_die[(unsigned int)DIE::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_bodyshot0.png");

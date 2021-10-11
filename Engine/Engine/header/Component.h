@@ -22,9 +22,15 @@ protected:
 
 	DefineComponentFunction(EndPhysicsSimulate);
 
+	DefineComponentFunction(BeginFixedUpdate);
+
 	DefineComponentFunction(FixedUpdate);
 
 	DefineComponentFunction(LateFixedUpdate);
+
+	DefineComponentFunction(FixedUpdateCheck);
+
+	DefineComponentFunction(BeginUpdate);
 
 	DefineComponentFunction(AnimationUpdate);
 
