@@ -15,7 +15,7 @@ public:
 
 public:
 
-	static LightObj* LightPick();
+	static void LightPick(const CString& name);
 
 	void RequireDestroy();
 
@@ -28,6 +28,8 @@ private:
 	GameObject* m_LightChildObject; //addcomponet 로 타입을 넣어주면된다. 
 
 	UserMeshRenderer* m_LightRenderer;
+
+
 
 
 public:
