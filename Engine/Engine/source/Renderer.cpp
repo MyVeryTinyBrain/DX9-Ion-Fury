@@ -16,6 +16,9 @@ void Renderer::Awake()
 
 void Renderer::BeginRender()
 {
+	if (!isWake)
+		return;
+
 	GraphicDevice::GetInstance()->GetRenderProcess()->AddRenderTarget(this);
 }
 

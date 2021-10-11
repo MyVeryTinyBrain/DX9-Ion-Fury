@@ -2,9 +2,9 @@
 
 #include "Monster.h"
 
-class SpiderSpriteAnimator;
+class DroneSpriteAnimator;
 
-class Spider : public Monster
+class Drone :  public Monster
 {
 	OverrideComponentFunction(Awake);
 
@@ -21,23 +21,9 @@ class Spider : public Monster
 	virtual void OnDead(bool& dead, MonsterDamageType damageType) override;
 
 private:
-
-	void MoveToTarget();
-
-	void SetTargetCoord(Vec3 xzCoord);
-
-private:
-
-	SpiderSpriteAnimator* m_animator = nullptr;
 	
-	bool m_hasTargetCoord = false;
+	DroneSpriteAnimator* m_animator = nullptr;
 
-	Vec3 m_targetCoord;
-
-	Vec3 m_beforeCoord;
-
-	float m_jumpSpeed = 5.0f;
-
-	bool m_hasJump = false;
+	
 };
 

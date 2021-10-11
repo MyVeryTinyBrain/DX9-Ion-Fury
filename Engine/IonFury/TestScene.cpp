@@ -162,17 +162,22 @@ void TestScene::OnLoad(Scene* beforeScene)
         }
     }
     
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            auto obj = CreateGameObject();
-            obj->transform->position = Vec3(i, 2, j);
-            obj->transform->eulerAngle = Vec3(0, 90, 0);
-            obj->AddComponent<Gunner>();
-        }
-    }
+    //for (int i = 0; i < 3; ++i)
+    //{
+    //    for (int j = 0; j < 3; ++j)
+    //    {
+    //        auto obj = CreateGameObject();
+    //        obj->transform->position = Vec3(i, 2, j);
+    //        obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //        obj->AddComponent<Gunner>();
+    //    }
+    //}
 
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -5);
+        obj->AddComponent<Spider>();
+    }
     /*
     {   // Monster example
         auto obj = CreateGameObject();

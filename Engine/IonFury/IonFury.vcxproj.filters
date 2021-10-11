@@ -46,6 +46,9 @@
     <Filter Include="Monster\Spider">
       <UniqueIdentifier>{fc9ac770-3ebc-4283-aa75-17c2739044d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monster\Drone">
+      <UniqueIdentifier>{0ed520a0-eeee-4bc5-ac4e-26924f51ea82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -119,6 +122,12 @@
     </ClInclude>
     <ClInclude Include="SpiderSpriteAnimator.h">
       <Filter>Monster\Spider</Filter>
+    </ClInclude>
+    <ClInclude Include="Drone.h">
+      <Filter>Monster\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="DroneSpriteAnimator.h">
+      <Filter>Monster\Drone</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="SpiderSpriteAnimator.cpp">
       <Filter>Monster\Spider</Filter>
+    </ClCompile>
+    <ClCompile Include="Drone.cpp">
+      <Filter>Monster\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="DroneSpriteAnimator.cpp">
+      <Filter>Monster\Drone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
