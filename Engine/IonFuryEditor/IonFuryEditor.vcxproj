@@ -197,6 +197,7 @@
     <ClInclude Include="DlgTextureTool.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
+    <ClInclude Include="EnumDefine.h" />
     <ClInclude Include="FileInfo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FreePerspectiveCamera.h" />

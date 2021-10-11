@@ -200,13 +200,15 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	switch (nChar)
 	{
 	case 'P':
-		if (!m_dlgObjectTool || !m_dlgTextureTool)
+		if (!m_dlgObjectTool)
 			camera->Add_MapObject(
+				false,
 				L"",
 				L""
 				);
 		else
 			camera->Add_MapObject(
+				m_dlgObjectTool.m_ColliderExist.GetCheck(),
 				m_dlgObjectTool.m_objectTag.GetString(),
 				m_dlgObjectTool.m_objectName.GetString(),
 				m_dlgObjectTool.m_meshPath.GetString(),
@@ -234,6 +236,9 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 
 	Pickable* pick = Pickable::Pick();
+
+	if(pick && m_dlgObjectTool)
+		m_dlgObjectTool.m_ColliderExist.SetCheck(pick->GetColliderExistence());
 
 	if (pick)
 	{

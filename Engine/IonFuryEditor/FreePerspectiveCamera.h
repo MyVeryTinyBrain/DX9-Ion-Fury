@@ -12,9 +12,10 @@ private:
 	
 public:
 	void Add_MapObject(
-		const tag_t& tag = L"test"
+		bool ColiderExistence
+		, const tag_t& tag = L"test"
 		, const wstring& ObjName = L"defaultName"
-		, const wstring& localPathMesh = BuiltInCubeUserMesh
+		, COMBOBOX comboBox = COMBOBOX::Cube
 		, const wstring& localPathTexture = L"../SharedResource/Texture/object/brick.jpg"
 	);
 

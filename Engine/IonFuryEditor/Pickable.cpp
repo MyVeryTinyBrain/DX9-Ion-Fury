@@ -2,6 +2,7 @@
 #include "Pickable.h"
 #include "Gizmo.h"
 #include "EditorManager.h"
+#include "EnumDefine.h"
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
@@ -51,12 +52,19 @@ void Pickable::OnDestroy()
 			g_TriggerVec.erase(it);
 		break;
 	}
+
+	m_Mesh->ReleaseUnmanaged();
+	m_Mesh = nullptr;
 }
 
-void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTexture)
+void Pickable::Settings(bool ColliderExistence, COMBOBOX combobox, const wstring& localPathTexture)
 {
+	m_ColliderExistence = ColliderExistence;
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
-	m_Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
+
+	//switch()
+	//m_Mesh = UserMesh::CreateUnmanaged<>()
+	//m_Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
 }
 
@@ -79,6 +87,40 @@ Pickable* Pickable::Pick()
 	}
 
 	return nullptr;
+}
+
+void Pickable::CreateMesh(COMBOBOX combobox)
+{
+	switch (combobox)
+	{
+	case COMBOBOX::Cube:
+		m_Mesh = UserMesh::CreateUnmanaged<CubeUserMesh>();
+		break;
+	case COMBOBOX::Cyilinder:
+		m_Mesh = UserMesh::CreateUnmanaged<CyilinderUserMesh>();
+		break;
+	case COMBOBOX::Quad:
+		m_Mesh = UserMesh::CreateUnmanaged<QuadUserMesh>();
+		break;
+	case COMBOBOX::Sphere:
+		m_Mesh = UserMesh::CreateUnmanaged<SphereUserMesh>();
+		break;
+	case COMBOBOX::Capsule:
+		m_Mesh = UserMesh::CreateUnmanaged<CapsuleUserMesh>();
+		break;
+	case COMBOBOX::RightTriangle:
+		m_Mesh = UserMesh::CreateUnmanaged<RightTriangleUserMesh>();
+		break;
+	case COMBOBOX::Triangle:
+		m_Mesh = UserMesh::CreateUnmanaged<TriangleUserMesh>();
+		break;
+	case COMBOBOX::END:
+		break;
+	}
+}
+
+void Pickable::DeleteMesh()
+{
 }
 
 void Pickable::PushInVector(Type type)
