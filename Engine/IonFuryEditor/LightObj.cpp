@@ -24,6 +24,11 @@ void LightObj::Awake()
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<SpotLight>();
 	}
+	else if (obj->tag == L"Directional")
+	{
+		m_LightChildObject = CreateGameObjectToChild(transform);
+		m_LightChildObject->AddComponent<DirectionalLight>();
+	}
 
 	g_vecLight.push_back(this);
 

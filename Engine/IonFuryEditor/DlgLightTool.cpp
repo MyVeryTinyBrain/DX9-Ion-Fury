@@ -142,11 +142,15 @@ BOOL DlgLightTool::OnInitDialog()
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
 	m_SliderCrtl_Radius.SetPos(0);				//위치 설정
+<<<<<<< HEAD
 	m_SliderCrtl_Radius.SetLineSize(5);		//방향키로 움질일 때 사이즈 
 	m_SliderCrtl_Radius.SetPageSize(5);		//눈금 간격 설정
+=======
+	m_SliderCrtl_Radius.SetLineSize(1);		//방향키로 움질일 때 사이즈 
+>>>>>>> SeongYeon_Tool
 
 	iPos = m_SliderCrtl_Radius.GetPos();
-	sPos.Format(_T(" % d"), (float)iPos);
+	sPos.Format(_T(" % d"), iPos);
 	m_Radius.SetWindowText(sPos);
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
@@ -158,16 +162,18 @@ BOOL DlgLightTool::OnInitDialog()
 	m_SliderDirZ.SetPos(0);
 
 	iPosX = m_SliderDirX.GetPos();
-	sPosX.Format(_T(" % d"), (float)iPosX);
+	sPosX.Format(_T(" % d"), iPosX);
 	m_DirX.SetWindowText(sPosX);
 
 	iPosY = m_SliderDirY.GetPos();
-	sPosY.Format(_T(" % d"), (float)iPosY);
+	sPosY.Format(_T(" % d"), iPosY);
 	m_DirY.SetWindowText(sPosY);
 
 	iPosZ = m_SliderDirX.GetPos();
-	sPosZ.Format(_T(" % d"), (float)iPosZ);
+	sPosZ.Format(_T(" % d"), iPosZ);
 	m_DirZ.SetWindowText(sPosZ);
+
+	m_LT_ListBox.AddString(L"Directional");
 
 
 
@@ -250,85 +256,94 @@ void DlgLightTool::OnListBoxCtrl()
 
 	LightObj::LightPick(name);
 
-	if (m_LightType == L"Point" || m_LightType == L"Spot")
+
+	for (auto& light : LightObj::g_vecLight)
 	{
 
-		for (auto& light : LightObj::g_vecLight)
+		auto lightobj = light->GetGameObject();
+
+		if (lightobj->name == name.GetString())
 		{
 
-			auto lightobj = light->GetGameObject();
-
-			if (lightobj->name == name.GetString())
+			if (lightobj->tag == L"Point")
 			{
+				auto com = lightobj->GetComponentInChild<PointLight>();
 
-				if (lightobj->tag == L"Point")
-				{
-					auto com = lightobj->GetComponentInChild<PointLight>();
+				m_LightType = lightobj->tag.c_str();
+				m_LightName = lightobj->GetName().c_str();
 
-					m_LightType = lightobj->tag.c_str();
-					m_LightName = lightobj->GetName().c_str();
+				m_ColorR = com->GetColor().r;
+				m_ColorG = com->GetColor().g;
+				m_ColorB = com->GetColor().b;
+				m_ColorA = com->GetColor().a;
 
-					m_ColorR = com->GetColor().r;
-					m_ColorG = com->GetColor().g;
-					m_ColorB = com->GetColor().b;
-					m_ColorA = com->GetColor().a;
+				m_PosX = lightobj->GetTransform()->position.x;
+				m_PosY = lightobj->GetTransform()->position.y;
+				m_PosZ = lightobj->GetTransform()->position.z;
 
-					m_PosX = lightobj->GetTransform()->position.x;
-					m_PosY = lightobj->GetTransform()->position.y;
-					m_PosZ = lightobj->GetTransform()->position.z;
+				m_radius = com->range;
 
-					m_radius = com->range;
+				//m_dirx = lightobj->GetTransform()->forward.x;
+				//m_diry = lightobj->GetTransform()->forward.y;
+				//m_dirz = lightobj->GetTransform()->forward.z;
+				m_ambinentFactor = com->ambientFactor;
+				//m_Radius.SetWindowText();
 
-					m_dirx = lightobj->GetTransform()->rotation.x;
-					m_diry = lightobj->GetTransform()->rotation.y;
-					m_dirz = lightobj->GetTransform()->rotation.z;
-					//m_Radius.SetWindowText();
+			}
+			else if (lightobj->tag == L"Spot")
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
 
-				}
-				else if (lightobj->tag == L"Spot")
-				{
-					auto com = lightobj->GetComponentInChild<SpotLight>();
+				m_LightType = lightobj->tag.c_str();
+				m_LightName = lightobj->GetName().c_str();
 
-					m_LightType = lightobj->tag.c_str();
-					m_LightName = lightobj->GetName().c_str();
+				m_ColorR = com->GetColor().r;
+				m_ColorG = com->GetColor().g;
+				m_ColorB = com->GetColor().b;
+				m_ColorA = com->GetColor().a;
 
-					m_ColorR = com->GetColor().r;
-					m_ColorG = com->GetColor().g;
-					m_ColorB = com->GetColor().b;
-					m_ColorA = com->GetColor().a;
+				m_PosX = lightobj->GetTransform()->position.x;
+				m_PosY = lightobj->GetTransform()->position.y;
+				m_PosZ = lightobj->GetTransform()->position.z;
 
-					m_PosX = lightobj->GetTransform()->position.x;
-					m_PosY = lightobj->GetTransform()->position.y;
-					m_PosZ = lightobj->GetTransform()->position.z;
+				m_radius = com->range;
 
-					m_radius = com->range;
+				//m_dirx = lightobj->GetTransform()->forward.x;
+				//m_diry = lightobj->GetTransform()->forward.y;
+				//m_dirz = lightobj->GetTransform()->forward.z;
+				m_ambinentFactor = com->ambientFactor;
+			}
+			else if (lightobj->tag == L"Directional")
+			{
+				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 
-					m_dirx = lightobj->GetTransform()->rotation.x;
-					m_diry = lightobj->GetTransform()->rotation.y;
-					m_dirz = lightobj->GetTransform()->rotation.z;
-				}
+				//if (light)
+				//{
+				//	m_LT_ListBox.AddString(L"Directional");
+				//}
+				m_LightName = directionallight->GetName().c_str();
+
+				m_LightType = L"Directional";
+
+				m_ColorR = light->GetColor().r;
+				m_ColorG = light->GetColor().g;
+				m_ColorB = light->GetColor().b;
+				m_ColorA = light->GetColor().a;
+
+				m_PosX = directionallight->GetTransform()->position.x;
+				m_PosY = directionallight->GetTransform()->position.y;
+				m_PosZ = directionallight->GetTransform()->position.z;
+
+				m_dirx = directionallight->GetTransform()->forward.x;
+				m_diry = directionallight->GetTransform()->forward.y;
+				m_dirz = directionallight->GetTransform()->forward.z;
+
+				m_ambinentFactor = light->ambientFactor;
 			}
 
 		}
-	}
-	if (m_LightType == L"Directional")
-	{
-		auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
-		auto light = directionallight->GetComponent<DirectionalLight>();
-		m_LightName = light->GetName().c_str();
 
-		m_LightType = L"Directional";
-
-		m_ColorR = light->GetColor().r;
-		m_ColorG = light->GetColor().g;
-		m_ColorB = light->GetColor().b;
-		m_ColorA = light->GetColor().a;
-
-		m_PosX = directionallight->GetTransform()->position.x;
-		m_PosY = directionallight->GetTransform()->position.y;
-		m_PosZ = directionallight->GetTransform()->position.z;
-
-		m_dirz = directionallight->GetTransform()->rotation.z;
 	}
 
 
@@ -426,8 +441,52 @@ void DlgLightTool::OnEnChangeLtDirx()
 	iPosX = _ttoi(sPosX);
 
 	m_SliderDirX.SetPos(iPosX);
-}
 
+	int iIndex = m_LT_ListBox.GetCurSel();
+
+	if (iIndex < 0)
+		return;
+
+	CString wstrFindName;
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
+
+	CString name = wstrFindName.GetString();
+
+	
+
+	for (auto& light : LightObj::g_vecLight)
+	{
+		auto lightobj = light->GetGameObject();
+
+		if (lightobj->name == name.GetString())
+		{
+			if (lightobj->tag == L"Point")
+			{
+				auto com = lightobj->GetComponentInChild<PointLight>();
+				m_dirx = (float)iPosX;
+				//	com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+			else if (lightobj->tag == L"Spot")
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
+				m_dirx = (float)iPosX;
+				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+
+			else if (m_LightType == L"Directional")
+			{
+				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
+				m_dirx = (float)iPosX;
+				light->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+			break;
+		}
+	}
+
+
+
+}
 
 void DlgLightTool::OnEnChangeLtDiry()
 {
@@ -436,7 +495,56 @@ void DlgLightTool::OnEnChangeLtDiry()
 	iPosY = _ttoi(sPosY);
 
 	m_SliderDirY.SetPos(iPosY);
+
+	int iIndex = m_LT_ListBox.GetCurSel();
+
+	if (iIndex < 0)
+		return;
+
+	CString wstrFindName;
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
+
+	CString name = wstrFindName.GetString();
+
+
+	for (auto& light : LightObj::g_vecLight)
+	{
+		auto lightobj = light->GetGameObject();
+
+		if (lightobj->name == name.GetString())
+		{
+			if (lightobj->tag == L"Point")
+			{
+				auto com = lightobj->GetComponentInChild<PointLight>();
+				m_diry = (float)iPosY;
+				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+			else if (lightobj->tag == L"Spot")
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
+				m_diry = (float)iPosY;
+				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+
+			else if (m_LightType == L"Directional")
+			{
+				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
+				//m_DirX.GetWindowText(sdirX);
+				//m_dirx = (float)_ttoi(sdirX);
+
+				//m_DirY.GetWindowText(sdirY);
+				//m_diry = (float)_ttoi(sdirY);
+				m_diry = (float)iPosY;
+				light->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+
+			break;
+		}
+	}
+
 }
+
 
 
 void DlgLightTool::OnEnChangeLtDirz()
@@ -457,62 +565,46 @@ void DlgLightTool::OnEnChangeLtDirz()
 
 	m_SliderDirZ.SetPos(iPosZ);
 
-	if (m_LightType == L"Point" || m_LightType == L"Spot")
+
+	for (auto& light : LightObj::g_vecLight)
 	{
+		auto lightobj = light->GetGameObject();
 
-		for (auto& light : LightObj::g_vecLight)
+		if (lightobj->name == name.GetString())
 		{
-			auto lightobj = light->GetGameObject();
-
-			if (lightobj->name == name.GetString())
+			if (lightobj->tag == L"Point")
 			{
-				if (lightobj->tag == L"Point")
-				{
-					auto com = lightobj->GetComponentInChild<PointLight>();
-					m_DirX.GetWindowText(sdirX);
-					m_dirx = (float)_ttoi(sdirX);
+				auto com = lightobj->GetComponentInChild<PointLight>();
 
-					m_DirY.GetWindowText(sdirY);
-					m_diry = (float)_ttoi(sdirY);
-
-					m_DirZ.GetWindowText(sdirZ);
-					m_dirz = (float)_ttoi(sdirZ);
-
-					com->transform->rotation = Quat::FromEuler(m_dirx, m_diry, m_dirz);
-				}
-				else if (lightobj->tag == L"Spot")
-				{
-					auto com = lightobj->GetComponentInChild<SpotLight>();
-					m_DirX.GetWindowText(sdirX);
-					m_dirx = (float)_ttoi(sdirX);
-
-					m_DirY.GetWindowText(sdirY);
-					m_diry = (float)_ttoi(sdirY);
-
-					m_DirZ.GetWindowText(sdirZ);
-					m_dirz = (float)_ttoi(sdirZ);
-					com->transform->rotation = Quat::FromEuler(m_dirx, m_diry, m_dirz);
-				}
-
-				break;
+				m_dirz = (float)iPosZ;
+				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
+			else if (lightobj->tag == L"Spot")
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
+				m_dirz = (float)iPosZ;
+				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+			else if (m_LightType == L"Directional")
+			{
+				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
+				//m_DirX.GetWindowText(sdirX);
+				//m_dirx = (float)_ttoi(sdirX);
+
+				//m_DirY.GetWindowText(sdirY);
+				//m_diry = (float)_ttoi(sdirY);
+
+				m_dirz = (float)iPosZ;
+				light->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+			}
+
+			break;
 		}
 	}
 
-	else if (m_LightType == L"Directional")
-	{
-		auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
-		auto light = directionallight->GetComponent<DirectionalLight>();
-		//m_DirX.GetWindowText(sdirX);
-		//m_dirx = (float)_ttoi(sdirX);
 
-		//m_DirY.GetWindowText(sdirY);
-		//m_diry = (float)_ttoi(sdirY);
 
-		m_DirZ.GetWindowText(sdirZ);
-		m_dirz = (float)_ttoi(sdirZ);
-		light->transform->rotation = Quat::FromEuler(m_dirx, m_diry, m_dirz);
-	}
 
 }
 
@@ -594,25 +686,28 @@ void DlgLightTool::OnBnClickedApplyButton()
 
 	CString name = wstrFindName.GetString();
 
-	if (m_LightType == L"Point" || m_LightType == L"Spot")
+	for (auto& light : LightObj::g_vecLight)
 	{
+		auto lightobj = light->GetGameObject();
 
-		for (auto& light : LightObj::g_vecLight)
+		if (lightobj->name == name.GetString())
 		{
-			auto lightobj = light->GetGameObject();
-
-			if (lightobj->name == name.GetString())
+			if (lightobj->tag == L"Point")
 			{
-				if (lightobj->tag == L"Point")
-				{
-					auto com = lightobj->GetComponentInChild<PointLight>();
-					com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
-				}
-				else if (lightobj->tag == L"Spot")
-				{
-					auto com = lightobj->GetComponentInChild<SpotLight>();
-					com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
-				}
+				auto com = lightobj->GetComponentInChild<PointLight>();
+				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+			}
+			else if (lightobj->tag == L"Spot")
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
+				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+			}
+
+			else if (m_LightType == L"Directional")
+			{
+				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
+				light->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
 
 				m_DirX.GetWindowText(sdirX);
 				m_dirx = (float)_ttoi(sdirX);
@@ -623,31 +718,25 @@ void DlgLightTool::OnBnClickedApplyButton()
 				m_DirZ.GetWindowText(sdirZ);
 				m_dirz = (float)_ttoi(sdirZ);
 
-				lightobj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
-				lightobj->transform->rotation = Quat::FromEuler(m_dirx, m_diry, m_dirz);
-
-				break;
+				light->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
+
+			m_DirX.GetWindowText(sdirX);
+			m_dirx = (float)_ttoi(sdirX);
+
+			m_DirY.GetWindowText(sdirY);
+			m_diry = (float)_ttoi(sdirY);
+
+			m_DirZ.GetWindowText(sdirZ);
+			m_dirz = (float)_ttoi(sdirZ);
+
+			lightobj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+			//lightobj->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+
+			break;
 		}
 	}
 
-	if (m_LightType == L"Directional")
-	{
-		auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
-		auto light = directionallight->GetComponent<DirectionalLight>();
-		light->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
-
-		m_DirX.GetWindowText(sdirX);
-		m_dirx = (float)_ttoi(sdirX);
-
-		m_DirY.GetWindowText(sdirY);
-		m_diry = (float)_ttoi(sdirY);
-
-		m_DirZ.GetWindowText(sdirZ);
-		m_dirz = (float)_ttoi(sdirZ);
-
-		light->transform->rotation = Quat::FromEuler(m_dirx, m_diry, m_dirz);
-	}
 
 	UpdateData(FALSE);
 
@@ -721,37 +810,37 @@ void DlgLightTool::OnBnClickedAmbinentFactorSet()
 
 	CString name = wstrFindName.GetString();
 
-	if (m_LightType == L"Point" || m_LightType == L"Spot")
+
+
+	for (auto& light : LightObj::g_vecLight)
 	{
+		auto lightobj = light->GetGameObject();
 
-		for (auto& light : LightObj::g_vecLight)
+		if (lightobj->name == name.GetString())
 		{
-			auto lightobj = light->GetGameObject();
-
-			if (lightobj->name == name.GetString())
+			if (lightobj->tag == L"Point")
 			{
-				if (lightobj->tag == L"Point")
-				{
-					auto com = lightobj->GetComponentInChild<PointLight>();
-					com->SetAmbientFactor(m_ambinentFactor);
-				}
-				else if (lightobj->tag == L"Spot")
-				{
-					auto com = lightobj->GetComponentInChild<SpotLight>();
-					com->SetAmbientFactor(m_ambinentFactor);
-				}
-
-				break;
+				auto com = lightobj->GetComponentInChild<PointLight>();
+				com->SetAmbientFactor(m_ambinentFactor);
 			}
+			else if (lightobj->tag == L"Spot")
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
+				com->SetAmbientFactor(m_ambinentFactor);
+			}
+			else if (m_LightType == L"Directional")
+			{
+				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
+				auto light = directionallight->GetComponentInChild<DirectionalLight>();
+				light->SetAmbientFactor(m_ambinentFactor);
+			}
+
+
+			break;
 		}
 	}
 
-	else if (m_LightType == L"Directional")
-	{
-		auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
-		auto light = directionallight->GetComponent<DirectionalLight>();
-		light->SetAmbientFactor(m_ambinentFactor);
-	}
+
 
 	UpdateData(FALSE);
 }
@@ -810,12 +899,13 @@ void DlgLightTool::OnBnClickedSave()
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
-			WriteFile(hFile, &obj->transform->rotation, sizeof(Vec3), &dwByte, nullptr);	// rotation
 
 
-			if (obj->tag.c_str() == L"Point")
+			if (obj->tag == L"Point")
 			{
-				auto point = obj->GetComponent<PointLight>();
+				auto point = obj->GetComponentInChild<PointLight>();
+
+				//WriteFile(hFile, &point->transform->forward, sizeof(Vec3), &dwByte, nullptr);	// rotation
 
 				ambinentfactor = point->ambientFactor;
 				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
@@ -825,9 +915,11 @@ void DlgLightTool::OnBnClickedSave()
 				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
 
 			}
-			else if (obj->tag.c_str() == L"Spot")
+			else if (obj->tag == L"Spot")
 			{
-				auto point = obj->GetComponent<SpotLight>();
+				auto point = obj->GetComponentInChild<SpotLight>();
+
+				//WriteFile(hFile, &point->transform->forward, sizeof(Vec3), &dwByte, nullptr);	// rotation
 
 				ambinentfactor = point->ambientFactor;
 				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
@@ -837,9 +929,11 @@ void DlgLightTool::OnBnClickedSave()
 				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
 
 			}
-			else if (obj->tag.c_str() == L"Directional")
+			else if (obj->tag == L"Directional")
 			{
-				auto point = obj->GetComponent<DirectionalLight>();
+				auto point = obj->GetComponentInChild<DirectionalLight>();
+
+				WriteFile(hFile, &point->transform->forward, sizeof(Vec3), &dwByte, nullptr);	// rotation
 
 				ambinentfactor = point->ambientFactor;
 				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
@@ -899,6 +993,8 @@ void DlgLightTool::OnBnClickedLoad()
 		wchar_t* pBuff4 = nullptr;
 
 		GameObject* pObj = nullptr;
+		GameObject* pObjchild = nullptr;
+
 		Vec3 vPos = {};
 		Vec3 vScale = {};
 		Vec3 vRot = {};
@@ -917,7 +1013,7 @@ void DlgLightTool::OnBnClickedLoad()
 			ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
 			pBuff2 = new wchar_t[dwStrByte2];
 			ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
-			tag = pBuff2;
+
 
 			if (0 == dwByte)
 			{
@@ -928,41 +1024,65 @@ void DlgLightTool::OnBnClickedLoad()
 
 			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
 			pObj->name = pBuff;
+			pObj->tag = pBuff2;
 
 			LightObj* lightobj = pObj->AddComponent<LightObj>();
 
 			SafeDeleteArray(pBuff);
 			SafeDeleteArray(pBuff2);
 
-			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
-			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
-			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
-			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
-			ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
+			if (pObj->tag == L"Point" || pObj->tag == L"Spot")
+			{
+				ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
+				ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
+				ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
+				ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
+			}
+			else
+			{
+				ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
+				ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
+				ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
+				ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
+			}
+
 
 			pObj->transform->position = vPos;
-			pObj->transform->rotation = Quat::FromEuler(vRot.x, vRot.y, vRot.z);
 
 
-			if (tag == L"Spot")
+			if (pObj->tag == L"Spot")
 			{
-				auto spot = pObj->GetComponent<SpotLight>();
+
+				auto spot = pObj->GetComponentInChild<SpotLight>();
+
+				//spot->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
+
 				spot->range = frange;
 				spot->ambientFactor = fambinentfactor;
 				spot->color = Vcolor;
 
+				m_LT_ListBox.AddString(pObj->name.c_str());
+
 			}
-			else if (tag == L"Point")
+			else if (pObj->tag == L"Point")
 			{
-				auto point = pObj->GetComponent<PointLight>();
+
+				PointLight* point = pObj->GetComponentInChild<PointLight>();
+
+				//point->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
+
 				point->range = frange;
 				point->ambientFactor = fambinentfactor;
 				point->color = Vcolor;
+				m_LT_ListBox.AddString(pObj->name.c_str());
 
 			}
 			else
 			{
-				auto directional = pObj->GetComponent<DirectionalLight>();
+				auto directional = pObj->GetComponentInChild<DirectionalLight>();
+
+				directional->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
+
 				directional->ambientFactor = fambinentfactor;
 				directional->color = Vcolor;
 			}
