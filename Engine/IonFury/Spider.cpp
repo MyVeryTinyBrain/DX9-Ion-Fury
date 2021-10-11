@@ -79,7 +79,7 @@ void Spider::MoveToTarget()
 	const Vec3& spiderPos = transform->position;
 	Vec3 forward = m_targetCoord - spiderPos;
 	forward.y = 0;
-	forward.normalized();
+	forward.Normalize();
 	transform->forward = forward;
 
 	Vec3 xzSpiderPos = Vec3(spiderPos.x, 0, spiderPos.z);
@@ -110,7 +110,7 @@ void Spider::MoveToTarget()
 		if (m_hasJump)		// มกวม
 		{
 			Vec3 velocity = m_body->velocity;
-			velocity.y = m_jumpSpeed;        
+			velocity.y = m_jumpSpeed;
 			m_body->velocity = velocity;
 
 			transform->position += Vec3::up() * 0.05f;
@@ -119,7 +119,7 @@ void Spider::MoveToTarget()
 		}
 		else
 		{
-			
+
 			Vec3 acceleration = forward * m_moveSpeed;
 			Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
 			velocity.y = m_body->velocity.y;
