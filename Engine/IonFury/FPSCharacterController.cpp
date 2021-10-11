@@ -47,6 +47,15 @@ void FPSCharacterController::FixedUpdate()
         }
     }
 
+    if (Input::GetKey(Key::LCtrl))
+    {
+        m_collider->halfHeight = 0.01f;
+    }
+    else
+    {
+        m_collider->halfHeight = 0.5f;
+    }
+
     if (!m_hasGround)
     {
         m_collider->friction = 0.0f;
@@ -68,33 +77,23 @@ void FPSCharacterController::FixedUpdate()
         Physics::Raycast(hit, ray, 0xFFFFFFFF, PhysicsQueryType::All, m_body);
 
         Vec3 velocity;
+        float speedFactor = (Input::GetKey(Key::LCtrl) && m_hasGround) ? 0.35f : 1.0f;
         if (m_hasGround)
         {
             Quat q2 = Quat::FromToRotation(Vec3::up(), hit.normal);
             Quat q1 = Quat::FromEuler(0, m_camera->transform->eulerAngle.y, 0);
-            velocity = q2 * q1 * m_moveDirection * m_speed;
+            velocity = q2 * q1 * m_moveDirection * m_speed * speedFactor;
         }
         else
         {
-            velocity = m_camera->transform->rotation * m_moveDirection * m_speed;
+            velocity = m_camera->transform->rotation * m_moveDirection * m_speed * speedFactor;
             velocity.y = m_body->velocity.y;
         }
 
         m_body->velocity = velocity;
-
-        fpsCamera->fpsOrthoCamera->SetWalkingState(true);
     }
 
     m_moveDirection = Vec3::zero();
-
-    if (Input::GetKey(Key::LCtrl))
-    {
-        m_collider->halfHeight = 0.01f;
-    }
-    else
-    {
-        m_collider->halfHeight = 0.5f;
-    }
 }
 
 void FPSCharacterController::Update()

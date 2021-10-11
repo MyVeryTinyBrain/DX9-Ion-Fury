@@ -55,8 +55,11 @@ void FPSOrthoCamera::LateUpdate()
 {
 	if (m_isWalking)
 	{
-		float handsMove = (sinf(m_elapsed * 7.5f - PI * 0.5f) + 1.0f) * 0.05f;
-		m_handsObject->transform->localPosition = Vec2(handsMove, -handsMove * 0.5f);
+		const float t = m_elapsed * 5.0f;
+		float funcX = sinf(t - PI * 0.5f) + 1.0f;
+		float funcY = -powf(funcX - 1.0f, 2.0f) + 1.0f;
+		m_handsObject->transform->localPosition = Vec2(funcX, funcY) * 0.1f;
+
 		m_elapsed += Time::DeltaTime();
 		m_isWalking = false;
 	}
