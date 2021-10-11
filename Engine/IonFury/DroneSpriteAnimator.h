@@ -18,8 +18,22 @@ class DroneSpriteAnimator : public SpriteAnimator
 
 	virtual void OnDefaultAnimationChange(const SpriteAnimation* current, SpriteAnimation** next) override;
 
+public:
+
+	enum class DIR_DRONE { FRONT, FRONT_DIAGONAL, SIDE, BACK_DIAGONAL, BACK, MAX };
+
+	
+
 private:
 
-	SpriteAnimation* m_idle;
+	SpriteAnimation* m_idle[(unsigned int)DIR_DRONE::MAX];
+
+	SpriteAnimation* m_shoot[(unsigned int)DIR_DRONE::MAX];
+
+	SpriteAnimation* m_move[(unsigned int)DIR_DRONE::MAX];
+
+	SpriteAnimation* m_moveShoot[(unsigned int)DIR_DRONE::MAX];
+
+	float m_angle = 0.f;
 };
 

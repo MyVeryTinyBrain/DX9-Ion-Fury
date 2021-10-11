@@ -35,7 +35,7 @@ void Spider::FixedUpdate()
 
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
-		Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian) * randomDistance);
+		Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
 		//Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
@@ -49,6 +49,7 @@ void Spider::Update()
 		m_animator->PlayWalk();
 	else
 		m_animator->PlayIdle();
+
 }
 
 void Spider::OnDestroy()
@@ -79,7 +80,7 @@ void Spider::MoveToTarget()
 	const Vec3& spiderPos = transform->position;
 	Vec3 forward = m_targetCoord - spiderPos;
 	forward.y = 0;
-	forward.normalized();
+	forward.Normalize();
 	transform->forward = forward;
 
 	Vec3 xzSpiderPos = Vec3(spiderPos.x, 0, spiderPos.z);
@@ -90,10 +91,9 @@ void Spider::MoveToTarget()
 		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
 		RaycastHit hit;
 
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain | (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
+		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
 		{
 			float angle = Vec3::Angle(hit.normal, Vec3::up());
-			m_hasJump = true;
 
 			if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Terrain && angle > 85 && angle < 95)
 			{
@@ -107,6 +107,13 @@ void Spider::MoveToTarget()
 			}
 		}
 
+		PhysicsRay ray1(transform->position, forward.normalized(), sqrtf(5.0f));
+
+		// 플레이어만 해놓으면 플레이어를 인식 못하는듯?
+
+		m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
+
+
 		if (m_hasJump)		// 점프
 		{
 			Vec3 velocity = m_body->velocity;
@@ -119,7 +126,6 @@ void Spider::MoveToTarget()
 		}
 		else
 		{
-			
 			Vec3 acceleration = forward * m_moveSpeed;
 			Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
 			velocity.y = m_body->velocity.y;
@@ -150,6 +156,8 @@ void Spider::MoveToTarget()
 	{
 		m_hasTargetCoord = false;
 	}
+
+
 }
 
 void Spider::SetTargetCoord(Vec3 xzCoord)
