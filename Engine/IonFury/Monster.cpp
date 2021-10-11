@@ -169,7 +169,7 @@ void Monster::DamageEffectProcessing()
     {
         m_material->params.ambient = Color::white();
         m_material->params.diffuse = Color::white();
-        m_material->params.emissive = Color::black();
+        m_material->params.emissive = m_defaultEmissive;
         m_material->params.specular = Color::black();
     }
     else
@@ -178,7 +178,7 @@ void Monster::DamageEffectProcessing()
 
         m_material->params.ambient = Color::white() * invPercent;
         m_material->params.diffuse = Color::white() * invPercent;
-        m_material->params.emissive = m_damageEffectColor * percent;
+        m_material->params.emissive = Color::Lerp(m_defaultEmissive, m_damageEffectColor, percent);
         m_material->params.specular = Color::black();
     }
 

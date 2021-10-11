@@ -85,5 +85,7 @@ protected:
 
 	bool m_isDead = false;
 
+	Color m_defaultEmissive = Color::black();
+
 };
 

@@ -54,5 +54,7 @@ private:
 	float m_jumpSpeed = 5.0f;
 
 	bool m_hasGround = false;
+
+	Vec3 m_moveDirection;
 };
 

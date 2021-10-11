@@ -53,6 +53,11 @@ Camera* FPSCamera::GetCamera() const
 	return m_camera;
 }
 
+FPSOrthoCamera* FPSCamera::GetFPSOrthoCamera() const
+{
+	return m_orthoCamera;
+}
+
 void FPSCamera::MoveMouseToCenter()
 {
 	RECT rect;

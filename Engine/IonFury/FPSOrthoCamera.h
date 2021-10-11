@@ -7,7 +7,7 @@ class FPSOrthoCamera : public Component
 {
 	OverrideComponentFunction(Awake);
 
-	OverrideComponentFunction(Update);
+	OverrideComponentFunction(LateUpdate);
 
 public:
 
@@ -31,6 +31,8 @@ public:
 
 	void MoveHands(const Vec3& deltaAngle);
 
+	void SetWalkingState(bool value);
+
 private:
 
 	Camera* m_camera = nullptr;
@@ -38,6 +40,8 @@ private:
 	GameObject* m_hudObject = nullptr;
 
 	GameObject* m_handsObject = nullptr;
+
+	GameObject* m_handsChildObject = nullptr;
 
 	GameObject* m_forwardGameObject = nullptr;
 
@@ -48,5 +52,9 @@ private:
 	LeftHandAnimator* m_leftHandAnimator = nullptr;
 
 	RightHandAnimator* m_rightHandAnimator = nullptr;
+
+	bool m_isWalking = false;
+
+	float m_elapsed = 0;
 };
 

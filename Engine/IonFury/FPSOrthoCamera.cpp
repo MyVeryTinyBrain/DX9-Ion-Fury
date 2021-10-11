@@ -27,8 +27,11 @@ void FPSOrthoCamera::Awake()
 	}
 
 	m_handsObject = CreateGameObjectToChild(m_forwardGameObject->transform);
+	m_handsObject->transform->localPosition = Vec2(0, 0);
 
-	//m_leftHandGameObject = CreateGameObjectToChild(m_handsObject->transform);
+	m_handsChildObject = CreateGameObjectToChild(m_handsObject->transform);
+
+	//m_leftHandGameObject = CreateGameObjectToChild(m_handsChildObject->transform);
 	//m_leftHandAnimator = m_leftHandGameObject->AddComponent<LeftHandAnimator>();
 	//{
 	//	auto renderer = m_leftHandGameObject->AddComponent<UserMeshRenderer>();
@@ -37,7 +40,7 @@ void FPSOrthoCamera::Awake()
 	//	renderer->renderLayerIndex = 31;
 	//}
 
-	m_rightHandGameObject = CreateGameObjectToChild(m_handsObject->transform);
+	m_rightHandGameObject = CreateGameObjectToChild(m_handsChildObject->transform);
 	m_rightHandGameObject->transform->localPosition = Vec2(0, -0.2f);
 	m_rightHandAnimator = m_rightHandGameObject->AddComponent<RightHandAnimator>();
 	{
@@ -48,9 +51,22 @@ void FPSOrthoCamera::Awake()
 	}
 }
 
-void FPSOrthoCamera::Update()
+void FPSOrthoCamera::LateUpdate()
 {
-	m_handsObject->transform->localPosition = Vec2::Lerp(m_handsObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 20.0f);
+	if (m_isWalking)
+	{
+		float handsMove = (sinf(m_elapsed * 7.5f - PI * 0.5f) + 1.0f) * 0.05f;
+		m_handsObject->transform->localPosition = Vec2(handsMove, -handsMove * 0.5f);
+		m_elapsed += Time::DeltaTime();
+		m_isWalking = false;
+	}
+	else
+	{
+		m_handsObject->transform->localPosition = Vec2::Lerp(m_handsObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 10.0f);
+		m_elapsed = 0;
+	}
+
+	m_handsChildObject->transform->localPosition = Vec2::Lerp(m_handsChildObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 10.0f);
 }
 
 Camera* FPSOrthoCamera::GetCamera() const
@@ -80,8 +96,13 @@ void FPSOrthoCamera::MoveHands(const Vec3& deltaAngle)
 	clampedDeltaAngle.x = Clamp(clampedDeltaAngle.x, -clampRange, +clampRange);
 	clampedDeltaAngle.y = Clamp(clampedDeltaAngle.y, -clampRange, +clampRange);
 
-	Vec2 localPosition = m_handsObject->transform->localPosition + Vec2(-clampedDeltaAngle.y, clampedDeltaAngle.x);
+	Vec2 localPosition = m_handsChildObject->transform->localPosition + Vec2(-clampedDeltaAngle.y, clampedDeltaAngle.x);
 	localPosition.x = Clamp(localPosition.x, -0.5f, +0.5f);
 	localPosition.y = Clamp(localPosition.y, -0.5f, +0.2f);
-	m_handsObject->transform->localPosition = localPosition;
+	m_handsChildObject->transform->localPosition = localPosition;
+}
+
+void FPSOrthoCamera::SetWalkingState(bool value)
+{
+	m_isWalking = value;
 }

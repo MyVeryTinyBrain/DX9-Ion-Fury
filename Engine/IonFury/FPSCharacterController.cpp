@@ -2,6 +2,7 @@
 #include "FPSCharacterController.h"
 #include "FPSCamera.h"
 #include "PhysicsLayers.h"
+#include "FPSOrthoCamera.h"
 
 void FPSCharacterController::Awake()
 {
@@ -55,18 +56,9 @@ void FPSCharacterController::FixedUpdate()
         m_collider->friction = 1.0f;
     }
 
-    Vec3 direction;
-    if (Input::GetKey(Key::A))
-        direction.x = -1;
-    if (Input::GetKey(Key::D))
-        direction.x = +1;
-    if (Input::GetKey(Key::W))
-        direction.z = +1;
-    if (Input::GetKey(Key::S))
-        direction.z = -1;
-    direction.Normalize();
+    m_moveDirection.Normalize();
 
-    if (direction.sqrMagnitude() > 0)
+    if (m_moveDirection.sqrMagnitude() > 0)
     {
         PhysicsRay ray;
         ray.point = m_collider->transform->position;
@@ -80,16 +72,20 @@ void FPSCharacterController::FixedUpdate()
         {
             Quat q2 = Quat::FromToRotation(Vec3::up(), hit.normal);
             Quat q1 = Quat::FromEuler(0, m_camera->transform->eulerAngle.y, 0);
-            velocity = q2 * q1 * direction * m_speed;
+            velocity = q2 * q1 * m_moveDirection * m_speed;
         }
         else
         {
-            velocity = m_camera->transform->rotation * direction * m_speed;
+            velocity = m_camera->transform->rotation * m_moveDirection * m_speed;
             velocity.y = m_body->velocity.y;
         }
 
         m_body->velocity = velocity;
+
+        fpsCamera->fpsOrthoCamera->SetWalkingState(true);
     }
+
+    m_moveDirection = Vec3::zero();
 
     if (Input::GetKey(Key::LCtrl))
     {
@@ -103,6 +99,18 @@ void FPSCharacterController::FixedUpdate()
 
 void FPSCharacterController::Update()
 {
+    if (Input::GetKey(Key::A))
+        m_moveDirection.x = -1;
+    if (Input::GetKey(Key::D))
+        m_moveDirection.x = +1;
+    if (Input::GetKey(Key::W))
+        m_moveDirection.z = +1;
+    if (Input::GetKey(Key::S))
+        m_moveDirection.z = -1;
+
+    if (m_moveDirection.sqrMagnitude() > 0)
+        m_camera->fpsOrthoCamera->SetWalkingState(true);
+
     if (Input::GetKeyDown(Key::LeftMouse))
     {
         //m_orthoCamera->rightHandAnimator->PlayShoot();

@@ -12,7 +12,11 @@ public:
 
 	Camera* GetCamera() const;
 
+	FPSOrthoCamera* GetFPSOrthoCamera() const;
+
 	__declspec(property(get = GetCamera)) Camera* camera;
+
+	__declspec(property(get = GetFPSOrthoCamera)) FPSOrthoCamera* fpsOrthoCamera;
 
 private:
 
