@@ -73,7 +73,4 @@ public:
 	CSliderCtrl m_SliderControlY;
 	CSliderCtrl m_SliderControlZ;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
-	CButton m_ColliderExist;
-	float m_UVScaleX;
-	float m_UVScaleY;
 };

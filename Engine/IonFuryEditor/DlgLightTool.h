@@ -109,10 +109,12 @@ public:
 	float m_InsideAngleRatio;
 	afx_msg void OnBnClickedAmbinentFactorSet();
 	afx_msg void OnBnClickedSave();
-	afx_msg void OnBnClickedButton4();
+	afx_msg void OnBnClickedLoad();
 	float m_dirx;
 	float m_diry;
 	float m_dirz;
 	float m_ambinentFactor;
 	float m_radius;
+
+	Light* lightcom;
 };

@@ -78,8 +78,6 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_rRotZ(0)
 	, m_rScaleZ(0)
 	, m_rScaleY(0)
-	, m_UVScaleX(0)
-	, m_UVScaleY(0)
 {
 
 }
@@ -117,9 +115,6 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RotSlider, m_SliderControlX);
 	DDX_Control(pDX, IDC_RotSlider2, m_SliderControlY);
 	DDX_Control(pDX, IDC_RotSlider3, m_SliderControlZ);
-	DDX_Control(pDX, IDC_CHECK1, m_ColliderExist);
-	DDX_Text(pDX, IDC_EDIT11, m_UVScaleX);
-	DDX_Text(pDX, IDC_EDIT12, m_UVScaleY);
 }
 
 
@@ -265,8 +260,6 @@ void DlgObjectTool::OnBnClickedApply()
 		GameObject* ChildObj = pick->GetChildObject();
 		GameObject* ParentObj = pick->GetGameObject();
 
-		pick->SetColliderExistence(m_ColliderExist);
-
 		giz->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
 
 		parentObj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
@@ -304,25 +297,24 @@ void DlgObjectTool::OnBnClickedSave()
 			FILE_ATTRIBUTE_NORMAL, nullptr);
 
 		if (INVALID_HANDLE_VALUE == hFile)
-		{
-			CloseHandle(hFile);
 			return;
-		}
 
 		DWORD dwByte = 0;
 		DWORD dwStrByte = 0;
 		DWORD dwStrByte2 = 0;
 		DWORD dwStrByte3 = 0;
 		DWORD dwStrByte4 = 0;
-
 		CString strMesh = L"";
 		CString tex = L"";
 
-		auto mapObj = Pickable::g_MapVec;
+		auto pickObj = Pickable::g_PickableVec;
 
 
-		for (auto& pick : mapObj)
+		for (auto& pick : pickObj)
 		{
+			if (Type::Map != pick->GetType())
+				break;
+
 			auto obj = pick->GetGameObject();
 
 			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
@@ -332,14 +324,14 @@ void DlgObjectTool::OnBnClickedSave()
 			dwStrByte2 = sizeof(wchar_t) * (obj->tag.length() + 1);
 			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
-
+			
 			auto meshrenderer = pick->GetRenderer();
 			strMesh = meshrenderer->userMesh->GetLocalPath().c_str();
-
+			
 			dwStrByte3 = sizeof(wchar_t) * (strMesh.GetLength() + 1);
 			WriteFile(hFile, &dwStrByte3, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, strMesh, dwStrByte3, &dwByte, nullptr);				// mesh
-
+			
 			auto texture = meshrenderer->GetTexture(0);
 			tex = texture->GetLocalPath().c_str();
 
@@ -351,9 +343,7 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
-			//==========================================================================================
-			bool ColliderExistence = pick->GetColliderExistence();
-			WriteFile(hFile, &ColliderExistence, sizeof(bool), &dwByte, nullptr);
+
 		}
 
 		CloseHandle(hFile);
@@ -408,8 +398,6 @@ void DlgObjectTool::OnBnClickedLoad()
 		Vec3 vPos = {};
 		Vec3 vScale = {};
 		Vec3 vRot = {};
-		//======================================
-		bool ColliderExistence = false;
 
 	
 		while (true)
@@ -442,25 +430,21 @@ void DlgObjectTool::OnBnClickedLoad()
 			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
 			pObj->name = pBuff;
 
-			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);			// pos
-			ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);		// scale
-			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);			// angle
-			//=========================================================================
-			ReadFile(hFile, &ColliderExistence, sizeof(bool), &dwByte, nullptr);			// ColliderExistence
-
-			pObj->transform->position = vPos;
-			pObj->transform->scale = vScale;
-			pObj->transform->eulerAngle = vRot;
-
-			//==========================================================================
 			Pickable* pick = pObj->AddComponent<Pickable>();
-			pick->Settings(ColliderExistence, pBuff3, pBuff4);
-			pick->PushInVector(Type::Map);
+			pick->Settings(pBuff3, pBuff4);
 
 			SafeDeleteArray(pBuff);
 			SafeDeleteArray(pBuff2);
 			SafeDeleteArray(pBuff3);
 			SafeDeleteArray(pBuff4);
+
+			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);			// pos
+			ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);		// scale
+			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);			// angle
+
+			pObj->transform->position = vPos;
+			pObj->transform->scale = vScale;
+			pObj->transform->eulerAngle = vRot;
 		}
 
 		CloseHandle(hFile);
