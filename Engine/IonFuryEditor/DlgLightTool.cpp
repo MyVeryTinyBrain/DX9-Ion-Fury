@@ -44,7 +44,6 @@ DlgLightTool::DlgLightTool(CWnd* pParent /*=nullptr*/)
 	, sdirZ(_T(""))
 	, m_ambinentFactor(0)
 	, m_radius(0)
-	, lightcom(nullptr)
 {
 
 }
@@ -111,7 +110,7 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON6, &DlgLightTool::OnBnClickedAddButton)
 	ON_BN_CLICKED(IDC_BUTTON5, &DlgLightTool::OnBnClickedAmbinentFactorSet)
 	ON_BN_CLICKED(IDC_BUTTON3, &DlgLightTool::OnBnClickedSave)
-	ON_BN_CLICKED(IDC_BUTTON4, &DlgLightTool::OnBnClickedLoad)
+	ON_BN_CLICKED(IDC_BUTTON4, &DlgLightTool::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -140,33 +139,33 @@ BOOL DlgLightTool::OnInitDialog()
 	//m_LightType = L"Point";
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderCrtl_Radius.SetRange(0, 180.f);       // 사용영역 값 설정한다.
-	m_SliderCrtl_Radius.SetPos(0.f);				//위치 설정
-	m_SliderCrtl_Radius.SetLineSize(0.5f);		//방향키로 움질일 때 사이즈 
-	m_SliderCrtl_Radius.SetPageSize(0.5f);		//눈금 간격 설정
+	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
+	m_SliderCrtl_Radius.SetPos(0);				//위치 설정
+	m_SliderCrtl_Radius.SetLineSize(1);		//방향키로 움질일 때 사이즈 
+	m_SliderCrtl_Radius.SetPageSize(1);		//눈금 간격 설정
 
 	iPos = m_SliderCrtl_Radius.GetPos();
-	sPos.Format(_T(" % d"), (float)iPos);
+	sPos.Format(_T(" % d"), iPos);
 	m_Radius.SetWindowText(sPos);
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderDirX.SetRange(0, 360.f);
+	m_SliderDirX.SetRange(0, 360);
 	m_SliderDirX.SetPos(0);
-	m_SliderDirY.SetRange(0, 360.f);
+	m_SliderDirY.SetRange(0, 360);
 	m_SliderDirY.SetPos(0);
-	m_SliderDirZ.SetRange(0, 360.f);
+	m_SliderDirZ.SetRange(0, 360);
 	m_SliderDirZ.SetPos(0);
 
 	iPosX = m_SliderDirX.GetPos();
-	sPosX.Format(_T(" % d"), (float)iPosX);
+	sPosX.Format(_T(" % d"), iPosX);
 	m_DirX.SetWindowText(sPosX);
 
 	iPosY = m_SliderDirY.GetPos();
-	sPosY.Format(_T(" % d"), (float)iPosY);
+	sPosY.Format(_T(" % d"), iPosY);
 	m_DirY.SetWindowText(sPosY);
 
 	iPosZ = m_SliderDirX.GetPos();
-	sPosZ.Format(_T(" % d"), (float)iPosZ);
+	sPosZ.Format(_T(" % d"), iPosZ);
 	m_DirZ.SetWindowText(sPosZ);
 
 
@@ -266,7 +265,6 @@ void DlgLightTool::OnListBoxCtrl()
 					auto com = lightobj->GetComponentInChild<PointLight>();
 
 					m_LightType = lightobj->tag.c_str();
-					m_LightName = lightobj->GetName().c_str();
 
 					m_ColorR = com->GetColor().r;
 					m_ColorG = com->GetColor().g;
@@ -290,7 +288,6 @@ void DlgLightTool::OnListBoxCtrl()
 					auto com = lightobj->GetComponentInChild<SpotLight>();
 
 					m_LightType = lightobj->tag.c_str();
-					m_LightName = lightobj->GetName().c_str();
 
 					m_ColorR = com->GetColor().r;
 					m_ColorG = com->GetColor().g;
@@ -315,7 +312,6 @@ void DlgLightTool::OnListBoxCtrl()
 	{
 		auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
 		auto light = directionallight->GetComponent<DirectionalLight>();
-		m_LightName = light->GetName().c_str();
 
 		m_LightType = L"Directional";
 
@@ -330,7 +326,6 @@ void DlgLightTool::OnListBoxCtrl()
 
 		m_dirz = directionallight->GetTransform()->rotation.z;
 	}
-
 
 
 	UpdateData(FALSE);
@@ -405,12 +400,12 @@ void DlgLightTool::OnEnChangeLtRadius()
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
-				com->range = (float)iPos;
+				com->range = iPos;
 			}
 			if (lightobj->tag == L"Spot")
 			{
 				auto com = lightobj->GetComponentInChild<SpotLight>();
-				com->range = (float)iPos;
+				com->range = iPos;
 			}
 
 			break;
@@ -613,18 +608,7 @@ void DlgLightTool::OnBnClickedApplyButton()
 					auto com = lightobj->GetComponentInChild<SpotLight>();
 					com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
 				}
-
-				m_DirX.GetWindowText(sdirX);
-				m_dirx = (float)_ttoi(sdirX);
-
-				m_DirY.GetWindowText(sdirY);
-				m_diry = (float)_ttoi(sdirY);
-
-				m_DirZ.GetWindowText(sdirZ);
-				m_dirz = (float)_ttoi(sdirZ);
-
 				lightobj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
-				lightobj->transform->rotation = Quat::FromEuler(m_dirx, m_diry, m_dirz);
 
 				break;
 			}
@@ -636,17 +620,6 @@ void DlgLightTool::OnBnClickedApplyButton()
 		auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
 		auto light = directionallight->GetComponent<DirectionalLight>();
 		light->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
-
-		m_DirX.GetWindowText(sdirX);
-		m_dirx = (float)_ttoi(sdirX);
-
-		m_DirY.GetWindowText(sdirY);
-		m_diry = (float)_ttoi(sdirY);
-
-		m_DirZ.GetWindowText(sdirZ);
-		m_dirz = (float)_ttoi(sdirZ);
-
-		light->transform->rotation = Quat::FromEuler(m_dirx, m_diry, m_dirz);
 	}
 
 	UpdateData(FALSE);
@@ -660,16 +633,6 @@ void DlgLightTool::OnBnClickedAddButton()
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
 
-	for (auto& light : LightObj::g_vecLight)
-	{
-		auto lightobj = light->GetGameObject();
-
-		if (lightobj->name == m_LightName.GetString())
-		{
-			return;
-		}
-	}
-
 	CString temp = m_LightType.GetString();
 
 	if (m_LightType == L"Point")
@@ -678,9 +641,9 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		PointLightObj->name = m_LightName.GetString();
 
-		PointLightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+		//PointLightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
 
-		//PointLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
+		PointLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
 
 		PointLightObj->AddComponent<LightObj>();
 
@@ -707,51 +670,9 @@ void DlgLightTool::OnBnClickedAmbinentFactorSet()
 {
 	UpdateData(TRUE);
 
-	//lightcom->SetAmbientFactor(m_ambinentFactor);
-	////어떤라이트에세팅해줄건지 
 
 
-	int iIndex = m_LT_ListBox.GetCurSel();
-
-	if (iIndex < 0)
-		return;
-
-	CString wstrFindName;
-	m_LT_ListBox.GetText(iIndex, wstrFindName);
-
-	CString name = wstrFindName.GetString();
-
-	if (m_LightType == L"Point" || m_LightType == L"Spot")
-	{
-
-		for (auto& light : LightObj::g_vecLight)
-		{
-			auto lightobj = light->GetGameObject();
-
-			if (lightobj->name == name.GetString())
-			{
-				if (lightobj->tag == L"Point")
-				{
-					auto com = lightobj->GetComponentInChild<PointLight>();
-					com->SetAmbientFactor(m_ambinentFactor);
-				}
-				else if (lightobj->tag == L"Spot")
-				{
-					auto com = lightobj->GetComponentInChild<SpotLight>();
-					com->SetAmbientFactor(m_ambinentFactor);
-				}
-
-				break;
-			}
-		}
-	}
-
-	else if (m_LightType == L"Directional")
-	{
-		auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
-		auto light = directionallight->GetComponent<DirectionalLight>();
-		light->SetAmbientFactor(m_ambinentFactor);
-	}
+	int i = 0;
 
 	UpdateData(FALSE);
 }
@@ -789,9 +710,6 @@ void DlgLightTool::OnBnClickedSave()
 		DWORD dwStrByte4 = 0;
 		CString strMesh = L"";
 		CString tex = L"";
-		float range = 0.f;
-		float ambinentfactor = 0.f;
-
 
 		auto lightObj = LightObj::g_vecLight;
 
@@ -804,48 +722,17 @@ void DlgLightTool::OnBnClickedSave()
 			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
 
+			dwStrByte = sizeof(wchar_t) * (obj->tag.length() + 1);
+			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
+			WriteFile(hFile, obj->tag.c_str(), dwStrByte, &dwByte, nullptr);				// 타입+태그
 
 			dwStrByte2 = sizeof(wchar_t) * (obj->tag.length() + 1);
 			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
-			WriteFile(hFile, &obj->transform->rotation, sizeof(Vec3), &dwByte, nullptr);	// rotation
-
-
-			if (obj->tag.c_str() == L"Point")
-			{
-				auto point = obj->GetComponent<PointLight>();
-
-				ambinentfactor = point->ambientFactor;
-				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
-
-				range = point->range;
-				WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
-				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
-
-			}
-			else if (obj->tag.c_str() == L"Spot")
-			{
-				auto point = obj->GetComponent<SpotLight>();
-
-				ambinentfactor = point->ambientFactor;
-				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
-
-				range = point->range;
-				WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
-				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
-
-			}
-			else if (obj->tag.c_str() == L"Directional")
-			{
-				auto point = obj->GetComponent<DirectionalLight>();
-
-				ambinentfactor = point->ambientFactor;
-				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
-
-				WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
-			}
+			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
+			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
 
 		}
 
@@ -854,123 +741,8 @@ void DlgLightTool::OnBnClickedSave()
 }
 
 
-void DlgLightTool::OnBnClickedLoad()
+void DlgLightTool::OnBnClickedButton4()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
-
-	TCHAR szFilePath[MAX_PATH]{};
-
-	GetCurrentDirectory(MAX_PATH, szFilePath);
-
-	PathRemoveFileSpec(szFilePath);
-
-	lstrcat(szFilePath, L"\\Data");
-
-	Dlg.m_ofn.lpstrInitialDir = szFilePath;
-
-	if (IDOK == Dlg.DoModal())
-	{
-		CString wstrFilePath = Dlg.GetPathName();
-
-		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
-			FILE_ATTRIBUTE_NORMAL, nullptr);
-
-		if (INVALID_HANDLE_VALUE == hFile)
-			return;
-
-		// Release
-		int vecSize = LightObj::g_vecLight.size();
-		for (int i = 0; i < vecSize; ++i)
-		{
-			LightObj::g_vecLight[0]->gameObject->Destroy();
-		}
-		//
-
-		DWORD dwByte = 0;
-		DWORD dwStrByte = 0;
-		DWORD dwStrByte2 = 0;
-		DWORD dwStrByte3 = 0;
-		DWORD dwStrByte4 = 0;
-
-		wchar_t* pBuff = nullptr;
-		wchar_t* pBuff2 = nullptr;
-		wchar_t* pBuff3 = nullptr;
-		wchar_t* pBuff4 = nullptr;
-
-		GameObject* pObj = nullptr;
-		Vec3 vPos = {};
-		Vec3 vScale = {};
-		Vec3 vRot = {};
-		float frange = 0.f;
-		Vec4 Vcolor = {};
-		float fambinentfactor = 0.f;
-		CString tag = {};
-
-
-		while (true)
-		{
-			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
-			pBuff = new wchar_t[dwStrByte];
-			ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
-
-			ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
-			pBuff2 = new wchar_t[dwStrByte2];
-			ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
-			tag = pBuff2;
-
-			if (0 == dwByte)
-			{
-				SafeDeleteArray(pBuff);
-				SafeDeleteArray(pBuff2);
-				break;
-			}
-
-			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
-			pObj->name = pBuff;
-
-			LightObj* lightobj = pObj->AddComponent<LightObj>();
-
-			SafeDeleteArray(pBuff);
-			SafeDeleteArray(pBuff2);
-
-			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
-			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
-			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
-			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
-			ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
-
-			pObj->transform->position = vPos;
-			pObj->transform->rotation = Quat::FromEuler(vRot.x, vRot.y, vRot.z);
-
-
-			if (tag == L"Spot")
-			{
-				auto spot = pObj->GetComponent<SpotLight>();
-				spot->range = frange;
-				spot->ambientFactor = fambinentfactor;
-				spot->color = Vcolor;
-
-			}
-			else if (tag == L"Point")
-			{
-				auto point = pObj->GetComponent<PointLight>();
-				point->range = frange;
-				point->ambientFactor = fambinentfactor;
-				point->color = Vcolor;
-
-			}
-			else
-			{
-				auto directional = pObj->GetComponent<DirectionalLight>();
-				directional->ambientFactor = fambinentfactor;
-				directional->color = Vcolor;
-			}
-
-
-		}
-
-		CloseHandle(hFile);
-	}
-
+	UpdateData(TRUE);
+	UpdateData(FALSE);
 }
