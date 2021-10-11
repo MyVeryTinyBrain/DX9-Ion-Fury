@@ -34,6 +34,8 @@ DlgLightTool::DlgLightTool(CWnd* pParent /*=nullptr*/)
 	, iPosX(0)
 	, iPosY(0)
 	, iPosZ(0)
+	, m_OutSideAngle(0)
+	, m_InsideAngleRatio(0)
 {
 
 }
@@ -71,6 +73,8 @@ void DlgLightTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LT_DIRX, m_DirX);
 	DDX_Control(pDX, IDC_LT_DIRY, m_DirY);
 	DDX_Control(pDX, IDC_LT_DIRZ, m_DirZ);
+	DDX_Text(pDX, IDC_EDIT2, m_OutSideAngle);
+	DDX_Text(pDX, IDC_EDIT3, m_InsideAngleRatio);
 }
 
 
@@ -309,10 +313,44 @@ void DlgLightTool::OnEnChangeLtRadius()
 {
 	//범위 반지름 슬라이더 조정
 
+
+	int iIndex = m_LT_ListBox.GetCurSel();
+	CString wstrFindName;
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
+
+
+	if (iIndex < 0)
+		return;
+
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
+
+	CString name = wstrFindName.GetString();
+
 	m_Radius.GetWindowText(sPos);
 	iPos = _ttoi(sPos);
 
 	m_SliderCrtl_Radius.SetPos(iPos);
+
+	for (auto& light : LightObj::g_vecLight)
+	{
+		auto lightobj = light->GetGameObject();
+
+		if (lightobj->name == name.GetString())
+		{
+			if (lightobj->tag == L"Point")
+			{
+				auto com = lightobj->GetComponentInChild<PointLight>();
+				com->range = iPos;
+			}
+			else
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
+				com->range = iPos;
+			}
+
+			break;
+		}
+	}
 }
 
 
@@ -348,40 +386,29 @@ void DlgLightTool::OnEnChangeLtDirz()
 
 void DlgLightTool::OnEnChangeColorR()
 {
-
 	UpdateData(TRUE);
-
-
-
 	UpdateData(FALSE);
 }
 
 
 void DlgLightTool::OnEnChangeColorG()
 {
-
 	UpdateData(TRUE);
-
-
-
 	UpdateData(FALSE);
 }
 
 
 void DlgLightTool::OnEnChangeColorB()
 {
-
 	UpdateData(TRUE);
-
-
-
 	UpdateData(FALSE);
 }
 
 
 void DlgLightTool::OnEnChangeColorA()
 {
-
+	UpdateData(TRUE);
+	UpdateData(FALSE);
 }
 
 
@@ -424,20 +451,41 @@ void DlgLightTool::OnBnClickedApplyButton()
 {
 	UpdateData(TRUE);
 
-	int iSelct = m_LT_ListBox.GetCurSel();
+	int iIndex = m_LT_ListBox.GetCurSel();
 	CString wstrFindName;
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
-	m_LT_ListBox.GetText(iSelct, wstrFindName);
 
-	for (auto& lightObj : LightObj::g_vecLight)
+	if (iIndex < 0)
+		return;
+
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
+
+	CString name = wstrFindName.GetString();
+
+	for (auto& light : LightObj::g_vecLight)
 	{
-		if (lightObj->gameObject->name == wstrFindName.GetString())
+		auto lightobj = light->GetGameObject();
+
+		if (lightobj->name == name.GetString())
 		{
-			lightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+			if (lightobj->tag == L"Point")
+			{
+				auto com = lightobj->GetComponentInChild<PointLight>();
+				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+			}
+			else
+			{
+				auto com = lightobj->GetComponentInChild<SpotLight>();
+				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+			}
+			lightobj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
+
 			break;
 		}
 	}
 
+	
 	UpdateData(FALSE);
 
 }

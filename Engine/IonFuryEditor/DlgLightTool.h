@@ -98,4 +98,6 @@ public:
 	afx_msg void OnBnClickedDeleteButton();
 	afx_msg void OnBnClickedApplyButton();
 	afx_msg void OnBnClickedAddButton();
+	float m_OutSideAngle;
+	float m_InsideAngleRatio;
 };
