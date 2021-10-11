@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Drone.h" />
+    <ClInclude Include="DroneSpriteAnimator.h" />
     <ClInclude Include="FPSCharacterController.h" />
     <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="FPSOrthoCamera.h" />
@@ -178,6 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Drone.cpp" />
+    <ClCompile Include="DroneSpriteAnimator.cpp" />
     <ClCompile Include="FPSCharacterController.cpp" />
     <ClCompile Include="FPSCamera.cpp" />
     <ClCompile Include="FPSOrthoCamera.cpp" />
