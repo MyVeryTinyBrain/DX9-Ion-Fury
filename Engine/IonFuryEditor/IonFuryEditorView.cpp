@@ -76,7 +76,7 @@ void CIonFuryEditorView::OnDraw(CDC* /*pDC*/)
 	if (!pDoc)
 		return;
 
-	
+
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 }
 
@@ -250,6 +250,8 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	Pickable* pick = Pickable::Pick();
 	//LightObj* light = LightObj::LightPick();
 
+	const Vec3& mouse = Vec3(point.x, point.y, 0.f);
+
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
@@ -265,6 +267,18 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_dlgObjectTool.ReturnComboBoxSelect(pick);
 	}
 
+
+	for (auto& light : LightObj::g_vecLight)
+	{
+		auto lightobj = light->GetGameObject();
+		if (lightobj)
+		{
+			m_dlgLightTool.SetPos(mouse);
+		}
+		else
+			return;
+	}
+
 }
 
 void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
@@ -274,7 +288,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	CView::OnMouseMove(nFlags, point);
 
 	EditorManager* test = EditorManager::GetInstance();
-	
+
 	if (!test)
 		return;
 
@@ -284,9 +298,9 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	if (Handling)
 	{
 		auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
-	
+
 		m_dlgObjectTool.SetPickableObject(pickObj);
-	
+
 		m_dlgObjectTool.SelectObject();
 	}
 }

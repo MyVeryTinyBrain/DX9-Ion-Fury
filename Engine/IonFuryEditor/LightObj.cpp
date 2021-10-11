@@ -18,21 +18,23 @@ void LightObj::Awake()
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<PointLight>();
+		EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 	}
 	else if (obj->tag == L"Spot")
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<SpotLight>();
+		EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 	}
 	else if (obj->tag == L"Directional")
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<DirectionalLight>();
+
 	}
 
 	g_vecLight.push_back(this);
 
-	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 }
 
 
