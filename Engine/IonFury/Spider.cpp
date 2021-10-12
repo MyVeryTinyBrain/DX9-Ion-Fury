@@ -26,17 +26,15 @@ void Spider::FixedUpdate()
 	Monster::FixedUpdate();
 
 	MoveToTarget();
-
+	
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
 	// 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
 	if (!m_hasTargetCoord)
 	{
-
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
 		Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
-		//Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
 }
@@ -107,12 +105,14 @@ void Spider::MoveToTarget()
 			}
 		}
 
-		PhysicsRay ray1(transform->position, forward.normalized(), sqrtf(5.0f));
 
-		// 플레이어만 해놓으면 플레이어를 인식 못하는듯?
+		Vec3 target = Player::GetInstance()->transform->position - spiderPos;
+		target.y = 0;
+		target.Normalize();
+
+		PhysicsRay ray1(transform->position, target, sqrtf(5.0f));
 
 		m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
-
 
 		if (m_hasJump)		// 점프
 		{
@@ -122,7 +122,12 @@ void Spider::MoveToTarget()
 
 			transform->position += Vec3::up() * 0.05f;
 			m_body->ApplyBodyTransformFromGameObject();
+
 			m_hasJump = false;
+
+			transform->forward = target;
+			m_animator->PlayJump();
+
 		}
 		else
 		{

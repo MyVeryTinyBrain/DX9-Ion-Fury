@@ -39,6 +39,8 @@ private:
 
 	bool m_hasTargetCoord = false;
 
-	bool m_initPos = true;
+	float m_deltatime = 0.f;
+
+
 };
 

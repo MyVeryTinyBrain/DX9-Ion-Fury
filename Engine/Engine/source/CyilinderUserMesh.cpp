@@ -47,7 +47,7 @@ void CyilinderUserMesh::InitializeVertices()
 	for (DWORD i = 0; i <= 1; ++i)
 	{
 		float yPercent = float(i);
-		float y = 0.5f - yPercent;
+		float y = (0.5f - yPercent) * 2.0f;
 		Vec3 yPos = Vec3(0, y, 0) * m_halfHeight;
 
 		for (DWORD j = 0; j < m_slice; ++j)

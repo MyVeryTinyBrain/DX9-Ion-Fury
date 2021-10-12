@@ -32,7 +32,6 @@ void Drone::FixedUpdate()
 
 	if (!m_hasTargetCoord)
 	{
-
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
@@ -72,27 +71,30 @@ void Drone::Moving()
 	if (!m_hasTargetCoord)
 		return;
 
-	Vec3 dronePos = Vec3::zero();
 
-	if (m_initPos)
-	{
-		Vec3 dronePos = transform->position;		// 이전 위치 저장
-		m_initPos = false;
-	}
-	Vec3 forward = m_targetCoord - dronePos;
-	forward.y = dronePos.y;
+	Vec3 forward = m_targetCoord - transform->position;
+	forward.y = transform->position.y;
 	forward.Normalize();
 	transform->forward = forward;
-	transform->up = Vec3(0, -1, 0);
+	transform->up = Vec3(0, 1, 0);
 	transform->right = Vec3::Cross(transform->up, transform->forward);
+	transform->right.Normalize();
 
-	float distance = Vec3::Distance(dronePos, transform->position);
-	if(distance < 2.f)
-		transform->position += transform->right * Time::FixedDeltaTime();
+	m_deltatime += Time::FixedDeltaTime();
+
+
+	if (m_deltatime < 3.f)
+	{
+		transform->position += transform->right * m_moveSpeed * Time::FixedDeltaTime();
+		
+	}
 	else
 	{
-		transform->right *= -1.f;
-		transform->position += transform->right * Time::FixedDeltaTime();
+		transform->position += transform->right * -m_moveSpeed * Time::FixedDeltaTime();
+		if (m_deltatime > 6.f)
+		{
+			m_deltatime = 0.f;
+		}
 	}
 }
 
