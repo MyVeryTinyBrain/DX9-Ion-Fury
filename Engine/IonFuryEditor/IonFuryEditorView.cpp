@@ -219,12 +219,15 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		if (!m_dlgObjectTool || !m_dlgTextureTool)
 			camera->Add_MapObject();
 		else
+		{
 			camera->Add_MapObject(
+				m_dlgObjectTool.GetColliderExistence(),
 				m_dlgObjectTool.GetToolUVScale(),
 				m_dlgObjectTool.m_MeshType,
 				m_dlgObjectTool.m_objectTag.GetString(),
 				m_dlgObjectTool.m_objectName.GetString(),
 				m_dlgTextureTool.m_texturePath.GetString());
+		}
 		break;
 	default:
 		break;
@@ -265,6 +268,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_dlgObjectTool.UpdateUVScale(pick);
 
 		m_dlgObjectTool.ReturnComboBoxSelect(pick);
+		m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
 	}
 
 

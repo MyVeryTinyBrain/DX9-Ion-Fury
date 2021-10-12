@@ -154,6 +154,11 @@ void DlgObjectTool::ReturnComboBoxSelect(Pickable* pick)
 	m_MeshType = (COMBOBOX)m_comboBox.GetCurSel();
 }
 
+void DlgObjectTool::ReturnCollisionExistenceSelect(Pickable* pick)
+{
+	m_ColliderExistence.SetCheck(pick->GetCollisionExistence());
+}
+
 void DlgObjectTool::UpdateUVScale(Pickable* pick)
 {
 	float x = pick->GetUserMesh()->uvScale.x;
@@ -161,6 +166,11 @@ void DlgObjectTool::UpdateUVScale(Pickable* pick)
 
 	NumToEdit(m_UVScaleX, x);
 	NumToEdit(m_UVScaleY, y);
+}
+
+bool DlgObjectTool::GetColliderExistence()
+{
+	return m_ColliderExistence.GetCheck();
 }
 
 float DlgObjectTool::EditToNum(const CEdit& edit)
@@ -202,6 +212,7 @@ BOOL DlgObjectTool::OnInitDialog()
 
 
 	m_comboBox.SetCurSel(0);
+	m_ColliderExistence.SetCheck(false);
 	m_MeshType = COMBOBOX::Cube;
 
 	m_SliderControlX.SetRange(0, 360);
@@ -283,11 +294,12 @@ void DlgObjectTool::OnBnClickedApply()
 		//////////////////////////////////////////////////////////////////////
 		
 		pick->SetMesh(m_MeshType);
-		//pick->GetUserMesh()->SetUVScale(m_UVScaleX., 0.f);
 
 		float X = EditToNum(m_UVScaleX);
 		float Y = EditToNum(m_UVScaleY);
 		pick->GetUserMesh()->SetUVScale(Vec2(X, Y));
+		pick->SetCollisionExistence(m_ColliderExistence.GetCheck());
+
 	}
 
 	ResetScroll();
@@ -323,20 +335,18 @@ void DlgObjectTool::OnBnClickedSave()
 		DWORD dwByte = 0;
 		DWORD dwStrByte = 0;
 		DWORD dwStrByte2 = 0;
-		DWORD dwStrByte3 = 0;
 		DWORD dwStrByte4 = 0;
-		CString strMesh = L"";
 		CString tex = L"";
 
-		auto pickObj = Pickable::g_PickableVec;
+		auto MapObjects = Pickable::g_MapVec;
 
 
-		for (auto& pick : pickObj)
+		for (auto& MapPick : MapObjects)
 		{
-			if (Type::Map != pick->GetType())
+			if (Type::Map != MapPick->GetType())
 				break;
 
-			auto obj = pick->GetGameObject();
+			auto obj = MapPick->GetGameObject();
 
 			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
 			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
@@ -346,25 +356,30 @@ void DlgObjectTool::OnBnClickedSave()
 			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 			
-			auto meshrenderer = pick->GetRenderer();
-			strMesh = meshrenderer->userMesh->GetLocalPath().c_str();
-			
-			dwStrByte3 = sizeof(wchar_t) * (strMesh.GetLength() + 1);
-			WriteFile(hFile, &dwStrByte3, sizeof(DWORD), &dwByte, nullptr);
-			WriteFile(hFile, strMesh, dwStrByte3, &dwByte, nullptr);				// mesh
-			
-			auto texture = meshrenderer->GetTexture(0);
+			auto texture = MapPick->GetRenderer()->GetTexture(0);
 			tex = texture->GetLocalPath().c_str();
 
 			dwStrByte4 = sizeof(wchar_t) * (tex.GetLength() + 1);
 			WriteFile(hFile, &dwStrByte4, sizeof(DWORD), &dwByte, nullptr);
-			WriteFile(hFile, tex, dwStrByte4, &dwByte, nullptr);				// texture
-
+			WriteFile(hFile, tex, dwStrByte4, &dwByte, nullptr);							// texture
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
 
+			//////////////////////////////////////////////////////////////////////////////////////////////
+
+			UserMesh* mesh = MapPick->GetUserMesh();
+
+			Vec2 UVScale = mesh->uvScale;
+			int PickableType = (int)(MapPick->GetType());
+			int MeshType = (int)(MapPick->GetMeshType());
+			bool ColliderExistence = MapPick->GetCollisionExistence();
+
+			WriteFile(hFile, &PickableType, sizeof(int), &dwByte, nullptr);
+			WriteFile(hFile, &UVScale, sizeof(Vec2), &dwByte, nullptr);
+			WriteFile(hFile, &MeshType, sizeof(int), &dwByte, nullptr);
+			WriteFile(hFile, &ColliderExistence, sizeof(bool), &dwByte, nullptr);
 		}
 
 		CloseHandle(hFile);
@@ -407,12 +422,10 @@ void DlgObjectTool::OnBnClickedLoad()
 		DWORD dwByte = 0;
 		DWORD dwStrByte = 0;
 		DWORD dwStrByte2 = 0;
-		DWORD dwStrByte3 = 0;
 		DWORD dwStrByte4 = 0;
 
 		wchar_t* pBuff = nullptr;
 		wchar_t* pBuff2 = nullptr;
-		wchar_t* pBuff3 = nullptr;
 		wchar_t* pBuff4 = nullptr;
 
 		GameObject* pObj = nullptr;
@@ -420,30 +433,30 @@ void DlgObjectTool::OnBnClickedLoad()
 		Vec3 vScale = {};
 		Vec3 vRot = {};
 
+		Vec2 UVScale = {};
+		int PickableType = (int)(Type::TypeEnd);
+		int MeshType = (int)(COMBOBOX::END);
+		bool ColliderExistence = false;
+		bool warningsaway = false;			// warning문구 없애려고 반환만 받는다. 용도X
 	
 		while (true)
 		{
-			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
+			warningsaway = ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
 			pBuff = new wchar_t[dwStrByte];
-			ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
+			warningsaway = ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
 
-			ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
+			warningsaway = ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
 			pBuff2 = new wchar_t[dwStrByte2];
-			ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
+			warningsaway = ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
 
-			ReadFile(hFile, &dwStrByte3, sizeof(DWORD), &dwByte, nullptr);		// mesh
-			pBuff3 = new wchar_t[dwStrByte3];
-			ReadFile(hFile, pBuff3, dwStrByte3, &dwByte, nullptr);
-
-			ReadFile(hFile, &dwStrByte4, sizeof(DWORD), &dwByte, nullptr);		// texture
+			warningsaway = ReadFile(hFile, &dwStrByte4, sizeof(DWORD), &dwByte, nullptr);		// texture
 			pBuff4 = new wchar_t[dwStrByte4];
-			ReadFile(hFile, pBuff4, dwStrByte4, &dwByte, nullptr);
+			warningsaway = ReadFile(hFile, pBuff4, dwStrByte4, &dwByte, nullptr);
 
 			if (0 == dwByte)
 			{
 				SafeDeleteArray(pBuff);
 				SafeDeleteArray(pBuff2);
-				SafeDeleteArray(pBuff3);
 				SafeDeleteArray(pBuff4);
 				break;
 			}
@@ -451,21 +464,26 @@ void DlgObjectTool::OnBnClickedLoad()
 			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
 			pObj->name = pBuff;
 
+			warningsaway = ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);					// pos
+			warningsaway = ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);				// scale
+			warningsaway = ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);					// angle
+
+			warningsaway = ReadFile(hFile, &PickableType, sizeof(int), &dwByte, nullptr);			//TYPE:: map, trigger, monster
+			warningsaway = ReadFile(hFile, &UVScale, sizeof(Vec2), &dwByte, nullptr);				//UVScale
+			warningsaway = ReadFile(hFile, &MeshType, sizeof(int), &dwByte, nullptr);				//COMBOBOX:: cube, cylinder..
+			warningsaway = ReadFile(hFile, &ColliderExistence, sizeof(bool), &dwByte, nullptr);		//colliderExistence
+
 			Pickable* pick = pObj->AddComponent<Pickable>();
-			//pick->Settings(pBuff3, pBuff4);
-
-			SafeDeleteArray(pBuff);
-			SafeDeleteArray(pBuff2);
-			SafeDeleteArray(pBuff3);
-			SafeDeleteArray(pBuff4);
-
-			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);			// pos
-			ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);		// scale
-			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);			// angle
+			pick->PushInVector((Type)PickableType);
+			pick->Settings(UVScale, (COMBOBOX)MeshType, pBuff4, ColliderExistence);
 
 			pObj->transform->position = vPos;
 			pObj->transform->scale = vScale;
 			pObj->transform->eulerAngle = vRot;
+
+			SafeDeleteArray(pBuff);
+			SafeDeleteArray(pBuff2);
+			SafeDeleteArray(pBuff4);
 		}
 
 		CloseHandle(hFile);
@@ -492,6 +510,10 @@ void DlgObjectTool::OnBnClickedClear()
 	m_fRotX = 0.f;
 	m_fRotY = 0.f;
 	m_fRotZ = 0.f;
+
+	m_ColliderExistence.SetCheck(false);
+	NumToEdit(m_UVScaleX, 1.f);
+	NumToEdit(m_UVScaleY, 1.f);
 
 	UpdateData(FALSE);
 }

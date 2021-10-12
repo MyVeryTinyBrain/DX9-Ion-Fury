@@ -14,7 +14,8 @@ private:
 	
 public:
 	void Add_MapObject(
-		Vec2 UVScale = Vec2(1.f, 1.f)
+		bool ColliderExistence = false
+		, Vec2 UVScale = Vec2(1.f, 1.f)
 		, COMBOBOX comboBox = COMBOBOX::Cyilinder
 		, const tag_t& tag = L""
 		, const wstring& ObjName = L""
