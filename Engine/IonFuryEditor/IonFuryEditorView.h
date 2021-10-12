@@ -8,6 +8,7 @@
 #include "DlgObjectTool.h"
 #include "DlgTextureTool.h"
 #include "DlgMonsterTool.h"
+#include "IonFuryEditorDoc.h"
 
 class CIonFuryEditorView : public CView
 {
@@ -64,6 +65,8 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnMonsterTool();
+public:
+	DlgTextureTool* GetTextureTool();
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전

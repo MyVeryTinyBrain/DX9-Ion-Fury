@@ -30,7 +30,7 @@ public:
 	CStatic m_PictureControl;
 	CTabCtrl m_TabControl;
 public:
-	CString m_texturePath = L"../SharedResource/Texture/Object/brick.jpg";
+	CString m_texturePath = L"../SharedResource/Texture/object/brick.jpg";
 	CString m_DragList[100];
 	int		m_Cnt = 0;
 public:
@@ -40,5 +40,7 @@ public:
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 public:
 	void AddFilesToListBox(CString RelativePath, CListBox& ListBox, bool pushTexture);
+public:
+	CString GetmemberTexturePathString() { return m_texturePath; }
 
 };
