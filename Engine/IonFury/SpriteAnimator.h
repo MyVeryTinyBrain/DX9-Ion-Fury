@@ -14,7 +14,7 @@ class SpriteAnimator abstract : public Component
 protected:
 
 	// 루프 플래그가 없는 애니메이션이 종료될 때 호출됩니다.
-	virtual void OnAnimationEnd() = 0;
+	virtual void OnAnimationEnd(const SpriteAnimation* current) = 0;
 
 	// 애니메이션이 변경될 때 호출됩니다.
 	// next에 다른 애니메이션을 전달하여 변경될 애니메이션을 재설정해줄수도 있습니다.

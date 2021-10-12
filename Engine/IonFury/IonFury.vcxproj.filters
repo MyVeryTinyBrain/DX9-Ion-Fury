@@ -49,6 +49,12 @@
     <Filter Include="Monster\Drone">
       <UniqueIdentifier>{0ed520a0-eeee-4bc5-ac4e-26924f51ea82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player\Weapon">
+      <UniqueIdentifier>{6524f9f2-4210-4c2f-acea-447d322896b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon\Revolver">
+      <UniqueIdentifier>{64a52fde-c709-44b0-b3f3-cb5401ccd067}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -84,13 +90,7 @@
     <ClInclude Include="FPSOrthoCamera.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="LeftHandAnimator.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="RightHandAnimator.h">
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
@@ -132,6 +132,21 @@
     <ClInclude Include="TestScene2.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderLayers.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="Revolver.h">
+      <Filter>Player\Weapon\Revolver</Filter>
+    </ClInclude>
+    <ClInclude Include="RevolverAnimator.h">
+      <Filter>Player\Weapon\Revolver</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponTypes.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc">
@@ -162,13 +177,7 @@
     <ClCompile Include="SpriteAnimation.cpp">
       <Filter>SpriteAnimation</Filter>
     </ClCompile>
-    <ClCompile Include="RightHandAnimator.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="LeftHandAnimator.cpp">
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="FPSOrthoCamera.cpp">
@@ -215,6 +224,15 @@
     </ClCompile>
     <ClCompile Include="TestScene2.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Player\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Revolver.cpp">
+      <Filter>Player\Weapon\Revolver</Filter>
+    </ClCompile>
+    <ClCompile Include="RevolverAnimator.cpp">
+      <Filter>Player\Weapon\Revolver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,10 +6,12 @@
 
 void FPSCharacterController::Awake()
 {
+    // Physics::SetGravity(Vec3(0, -9.81f * 2.0f, 0));
+
     m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
     m_body->interpolate = true;
-    m_body->sleepThresholder = 0.5f;
+    m_body->sleepThresholder = 5.0f;
 
     m_subObj = CreateGameObjectToChild(transform);
 
@@ -47,13 +49,18 @@ void FPSCharacterController::FixedUpdate()
         }
     }
 
+    float beforeHalfHeight = m_collider->halfHeight;
     if (Input::GetKey(Key::LCtrl))
     {
-        m_collider->halfHeight = 0.01f;
+        m_collider->halfHeight = 0.001f;
     }
     else
     {
         m_collider->halfHeight = 0.5f;
+    }
+    if (beforeHalfHeight != m_collider->halfHeight)
+    {
+        m_body->SetRigidbodySleep(false);
     }
 
     if (!m_hasGround)
@@ -76,8 +83,17 @@ void FPSCharacterController::FixedUpdate()
         RaycastHit hit;
         Physics::Raycast(hit, ray, 0xFFFFFFFF, PhysicsQueryType::All, m_body);
 
+        float speedFactor = 1.0f;
+        if (Input::GetKey(Key::LCtrl) && m_hasGround)
+        {
+            speedFactor = 0.35f;
+        }
+        else if (Input::GetKey(Key::LShift))
+        {
+            speedFactor = 1.65f;
+        }
+
         Vec3 velocity;
-        float speedFactor = (Input::GetKey(Key::LCtrl) && m_hasGround) ? 0.35f : 1.0f;
         if (m_hasGround)
         {
             Quat q2 = Quat::FromToRotation(Vec3::up(), hit.normal);
@@ -110,21 +126,18 @@ void FPSCharacterController::Update()
     if (m_moveDirection.sqrMagnitude() > 0)
         m_camera->fpsOrthoCamera->SetWalkingState(true);
 
-    if (Input::GetKeyDown(Key::LeftMouse))
+    if (Input::GetKey(Key::LCtrl))
     {
-        //m_orthoCamera->rightHandAnimator->PlayShoot();
-
-        auto obj = CreateGameObject();
-        obj->transform->position = m_camera->transform->position;
-        auto body = obj->AddComponent<Rigidbody>();
-        body->interpolate = true;
-        body->SetInterpolateRotation(true);
-        body->AddForce(m_camera->transform->forward * 15, ForceMode::Impulse);
-        body->angularVelocity = Vec3(0, 180, 90);
-        auto collider = obj->AddComponent<BoxCollider>();
-        collider->SetIgnoreLayer(1, true);
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(0.35f);
+    }
+    else if (Input::GetKey(Key::LShift))
+    {
+        m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(1.65f);
+        m_camera->camera->fov = Lerp(m_camera->camera->fov, 80, Time::DeltaTime() * 10.0f);
+    }
+    else
+    {
+        m_camera->camera->fov = Lerp(m_camera->camera->fov, 90, Time::DeltaTime() * 10.0f);
     }
 }
 

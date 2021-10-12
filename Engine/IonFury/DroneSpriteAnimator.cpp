@@ -120,7 +120,7 @@ void DroneSpriteAnimator::OnDestroy()
 
 }
 
-void DroneSpriteAnimator::OnAnimationEnd()
+void DroneSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 }
 

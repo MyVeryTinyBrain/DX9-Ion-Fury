@@ -155,7 +155,7 @@ void TestScene::OnLoad(Scene* beforeScene)
 
             auto renderer = obj->AddComponent<UserMeshRenderer>();
             renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/DevAlpha.png"));
+            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
             renderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
         }
     }
