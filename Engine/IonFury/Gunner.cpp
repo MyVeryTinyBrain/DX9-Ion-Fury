@@ -152,7 +152,9 @@ void Gunner::OnDead(bool& dead, MonsterDamageType damageType)
     m_attackCount = 0;
     m_breakTime = FLT_MAX;
 
-    m_animator->PlayDie(GunnerSpriteAnimator::DIE::DIE_HEADSHOT);
+    int dieIndex = rand() % (int)GunnerSpriteAnimator::DIE::MAX;
+
+    m_animator->PlayDie((GunnerSpriteAnimator::DIE)dieIndex);
 
     // 몬스터가 사망하면 몬스터가 다른 몬스터 또는 플레이어와 충돌하지 않아야 합니다.
     // 또한 쿼리에 포함되면 안됩니다.
