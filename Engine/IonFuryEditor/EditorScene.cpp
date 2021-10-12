@@ -1,6 +1,7 @@
 #include "IonFuryEditorBase.h"
 #include "EditorScene.h"
 #include "EditorManager.h"
+#include "Gizmo.h"
 
 IClonable* EditorScene::Clone()
 {
@@ -30,7 +31,9 @@ void EditorScene::OnLoad(Scene* beforeScene)
     GameObject* editorManagerObj = CreateGameObject(L"EditorManager");
     editorManagerObj->AddComponent<EditorManager>();
 
-    
+    Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+    giz->Detach();
+    giz->enable = false;
 }
 
 void EditorScene::OnUnload(Scene* nextScene)
