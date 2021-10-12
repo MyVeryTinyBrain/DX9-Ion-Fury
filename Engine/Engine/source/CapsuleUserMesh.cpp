@@ -35,12 +35,12 @@ void CapsuleUserMesh::InitializeVertices()
 {
 	Vertex* vertices = LockVertexBuffer();
 
-	vertices[TOP_VERTEX_INDEX].position = Vec2::up() * m_radius;
+	vertices[TOP_VERTEX_INDEX].position = Vec2::up() * (m_radius + m_halfHeight);
 	vertices[TOP_VERTEX_INDEX].normal = Vec2::up();
-	vertices[TOP_VERTEX_INDEX].uv = Vec2(0, 0);
-	vertices[BOTTOM_VERTEX_INDEX].position = Vec2::down() * m_radius;
+	vertices[TOP_VERTEX_INDEX].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+	vertices[BOTTOM_VERTEX_INDEX].position = Vec2::down() * (m_radius + m_halfHeight);
 	vertices[BOTTOM_VERTEX_INDEX].normal = Vec2::down();
-	vertices[BOTTOM_VERTEX_INDEX].uv = Vec2(0, 1);
+	vertices[BOTTOM_VERTEX_INDEX].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
 
 	constexpr float p = 8.0f;
 	for (DWORD i = 0; i < m_step; ++i)
@@ -49,7 +49,7 @@ void CapsuleUserMesh::InitializeVertices()
 		if (yPercent < 0.5f) yPercent = 2.0f * yPercent * yPercent;
 		else yPercent = -2.0f * powf(yPercent - 1, 2) + 1;
 		float y = 0.5f - yPercent;
-		Vec3 yPos = Vec3(0, y, 0) * m_radius;
+		Vec3 yPos = Vec3(0, y, 0) * m_radius * 2.0f;
 		float dist = sqrtf(1 - powf(2 * y, 2)) * m_radius;
 
 		Mat4 translate = Mat4::Identity();
@@ -68,8 +68,8 @@ void CapsuleUserMesh::InitializeVertices()
 			DWORD idx = i * m_step + j;
 			vertices[idx].position = direction + yPos;
 			vertices[idx].normal = vertices[idx].position.normalized();
-			vertices[idx].uv.x = float(j) / float(m_step - 1);
-			vertices[idx].uv.y = yPercent;
+			vertices[idx].uv.x = float(j) / float(m_step - 1) * uvScale.x;
+			vertices[idx].uv.y = yPercent * uvScale.y;
 
 			vertices[idx].position = translate.MultiplyPoint(vertices[idx].position);
 		}
@@ -136,4 +136,38 @@ IClonable* CapsuleUserMesh::Clone()
 	clone->CopyFrom(this);
 
 	return clone;
+}
+
+float CapsuleUserMesh::GetHalfHeight() const
+{
+	return m_halfHeight;
+}
+
+void CapsuleUserMesh::SetHalfHeight(float value)
+{
+	if (Abs(value - m_halfHeight) <= FLT_EPSILON)
+	{
+		return;
+	}
+
+	m_halfHeight = value;
+
+	InitializeVertices();
+	ResetStoredVertexBuffer();
+}
+
+float CapsuleUserMesh::GetRadius() const
+{
+	return m_radius;
+}
+
+void CapsuleUserMesh::SetRaidus(float value)
+{
+	if (Abs(value - m_radius) > FLT_EPSILON)
+	{
+		m_radius = value;
+
+		InitializeVertices();
+		ResetStoredVertexBuffer();
+	}
 }

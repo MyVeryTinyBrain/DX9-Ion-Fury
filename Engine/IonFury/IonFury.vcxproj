@@ -151,31 +151,62 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Drone.h" />
+    <ClInclude Include="DroneSpriteAnimator.h" />
     <ClInclude Include="FPSCharacterController.h" />
     <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="FPSOrthoCamera.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="LeftHandAnimator.h" />
+    <ClInclude Include="Gunner.h" />
+    <ClInclude Include="GunnerSpriteAnimator.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="PhysicsInitialize.h" />
+    <ClInclude Include="PhysicsLayers.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="RenderLayers.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="RightHandAnimator.h" />
+    <ClInclude Include="Revolver.h" />
+    <ClInclude Include="RevolverAnimator.h" />
+    <ClInclude Include="Spider.h" />
+    <ClInclude Include="SpiderSpriteAnimator.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteAnimator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TestScene2.h" />
+    <ClInclude Include="TriangleStair.h" />
+    <ClInclude Include="UserMixMesh.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Drone.cpp" />
+    <ClCompile Include="DroneSpriteAnimator.cpp" />
     <ClCompile Include="FPSCharacterController.cpp" />
     <ClCompile Include="FPSCamera.cpp" />
     <ClCompile Include="FPSOrthoCamera.cpp" />
-    <ClCompile Include="LeftHandAnimator.cpp" />
+    <ClCompile Include="Gunner.cpp" />
+    <ClCompile Include="GunnerSpriteAnimator.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="RightHandAnimator.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="PhysicsInitialize.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Revolver.cpp" />
+    <ClCompile Include="RevolverAnimator.cpp" />
+    <ClCompile Include="Spider.cpp" />
+    <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteAnimator.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TestScene2.cpp" />
+    <ClCompile Include="TriangleStair.cpp" />
+    <ClCompile Include="UserMixMesh.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc" />

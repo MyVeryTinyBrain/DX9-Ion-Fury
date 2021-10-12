@@ -42,6 +42,14 @@ public:
 
 	float GetUnscaledFixedUpdateDeltaTime() const;
 
+	float GetUpdateAccumulated() const;
+
+	float GetFixedUpdateAccumulated() const;
+
+	float GetUpdateInterval() const;
+
+	float GetFixedUpdateInterval() const;
+
 private:
 
 	float m_updateTargetFPS;

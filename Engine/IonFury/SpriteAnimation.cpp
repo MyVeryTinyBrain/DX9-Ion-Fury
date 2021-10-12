@@ -6,6 +6,7 @@ void SpriteAnimation::AddTexture(const wstring& textureLocalPath)
 	Texture* texture = Resource::FindAs<Texture>(textureLocalPath);
 	if (!texture)
 	{
+		wcout << L"Error(SpriteAnimation::AddTexture): " << textureLocalPath << endl;
 		return;
 	}
 
@@ -56,13 +57,27 @@ bool SpriteAnimation::IndexOf(unsigned int index, Texture** ppTexture) const
 {
 	*ppTexture = nullptr;
 
+	if (textureCount == 0)
+	{
+		return false;
+	}
+
 	if (m_loop)
 	{
-		*ppTexture = m_textures[index % textureCount].GetPointer();
+		auto texture = m_textures[index % textureCount];
+		if (texture)
+		{
+			*ppTexture = texture.GetPointer();
+		}
 	}
 	else
 	{
-		*ppTexture = m_textures[Clamp(index, 0, textureCount)].GetPointer();
+		// Clamp 함수의 결과는 a <= v <= b 입니다.
+		auto texture = m_textures[unsigned int(Clamp(float(index), 0, float(textureCount - 1)))];
+		if (texture)
+		{
+			*ppTexture = texture.GetPointer();
+		}
 	}
 
 	if (!m_loop && index >= textureCount)

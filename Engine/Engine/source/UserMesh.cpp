@@ -25,8 +25,8 @@ UserMesh::~UserMesh()
 		m_indices = nullptr;
 	}
 
-	SafeDelete(m_storedVertexBuffer);
-	SafeDelete(m_storedIndexBuffer);
+	SafeDeleteArray(m_storedVertexBuffer);
+	SafeDeleteArray(m_storedIndexBuffer);
 }
 
 void UserMesh::Draw()
@@ -123,6 +123,22 @@ bool UserMesh::Raycast(Vec3& hitPoint, const Vec3& worldRayPoint, const Vec3& wo
 	}
 
 	return false;
+}
+
+const Vec2& UserMesh::GetUVScale() const
+{
+	return m_uvScale;
+}
+
+void UserMesh::SetUVScale(const Vec2& uvScale)
+{
+	if (Abs(m_uvScale.x - uvScale.x) > FLT_EPSILON ||
+		Abs(m_uvScale.y - uvScale.y) > FLT_EPSILON)
+	{
+		m_uvScale = uvScale;
+		InitializeVertices();
+		ResetStoredVertexBuffer();
+	}
 }
 
 void UserMesh::CreateVertexBuffer(unsigned int numVertices)

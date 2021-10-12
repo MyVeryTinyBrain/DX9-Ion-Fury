@@ -6,7 +6,7 @@ void SpriteAnimator::Start()
 {
 	if (!m_renderer)
 	{
-		auto renderer = gameObject->GetComponent<Renderer>();
+		auto renderer = gameObject->GetComponent<UserMeshRenderer>();
 		SetRenderer(renderer);
 	}
 }
@@ -15,62 +15,22 @@ void SpriteAnimator::AnimationUpdate()
 {
 	// 경과된 시간에 알맞는 텍스쳐를 렌더러에 올립니다.
 	UpdateTexture();
+
+	// 애니메이션이 변경되어야 하면 변경합니다.
+	Transition();
 }
 
-void SpriteAnimator::Update()
-{
-	if (!m_renderer) return;
-	if (!m_current) return;
-
-	// 경과 시간에 누적합니다.
-	if (!m_pause)
-		m_elapsed += Time::DeltaTime() * m_speed;
-
-	// 루프 애니메이션이 아닌데, 애니메이션의 끝인 경우
-	if (!m_current->isLoop && m_current->IsEnd(m_elapsed))
-	{
-		SpriteAnimation* current = m_current;
-		m_current = nullptr;
-
-		// 애니메이션 종료 이벤트함수를 호출합니다.
-		OnAnimationEnd();
-
-		// OnAnimationEnd() 에서 다른 애니메이션이 설정되지 않은 경우에
-		if (m_current == nullptr)
-		{
-			// 애니메이션을 변경하지 않는 조건이면 이전 애니메이션을 그대로 유지하고 종료합니다.
-			if (!m_transition)
-			{
-				m_current = current;
-				return;
-			}
-
-			// 기본 애니메이션으로 전환합니다.
-			PlayAnimation(m_default, true);
-
-			// 기본 애니메이션도 존재하지 않는다면 종료합니다.
-			if (!m_current)
-			{
-				return;
-			}
-
-			// 변경된 애니메이션의 텍스쳐를 적용합니다.
-			UpdateTexture();
-		}
-	}
-}
-
-const Ref<Renderer>& SpriteAnimator::GetRenderer() const
+const Ref<UserMeshRenderer>& SpriteAnimator::GetRenderer() const
 {
 	return m_renderer;
 }
 
-void SpriteAnimator::SetRenderer(const Ref<Renderer>& renderer)
+void SpriteAnimator::SetRenderer(const Ref<UserMeshRenderer>& renderer)
 {
 	m_renderer = renderer;
 }
 
-void SpriteAnimator::PlayAnimation(SpriteAnimation* animation, bool overlap)
+void SpriteAnimator::PlayAnimation(SpriteAnimation* animation, bool overlap, bool keepElapsed)
 {
 	Resume();
 
@@ -83,7 +43,10 @@ void SpriteAnimator::PlayAnimation(SpriteAnimation* animation, bool overlap)
 	// 애니메이션 변경 이벤트함수를 호출합니다.
 	OnAnimationChange(m_current, &animation);
 
-	m_elapsed = 0;
+	if (!keepElapsed)
+	{
+		m_elapsed = 0;
+	}
 	m_current = animation;
 
 	// 텍스쳐를 업데이트합니다.
@@ -118,7 +81,7 @@ SpriteAnimation* SpriteAnimator::GetCurrentAnimation() const
 	return m_current;
 }
 
-SpriteAnimation* SpriteAnimator::GetDefautlAnimation() const
+SpriteAnimation* SpriteAnimator::GetDefaultAnimation() const
 {
 	return m_default;
 }
@@ -158,6 +121,11 @@ float SpriteAnimator::GetElapsedTime() const
 	return m_elapsed;
 }
 
+void SpriteAnimator::SetElapsedTime(float value)
+{
+	m_elapsed = value;
+}
+
 float SpriteAnimator::GetPercent() const
 {
 	if (!m_current)
@@ -170,7 +138,7 @@ float SpriteAnimator::GetPercent() const
 
 unsigned int SpriteAnimator::GetFrameIndex() const
 {
-	return GetPercent() * m_current->textureCount;
+	return unsigned int(GetPercent() * m_current->textureCount);
 }
 
 void SpriteAnimator::UpdateTexture()
@@ -181,4 +149,42 @@ void SpriteAnimator::UpdateTexture()
 	Texture* texture = nullptr;
 	bool endOfAnimation = !m_current->TimeOf(m_elapsed, &texture);
 	m_renderer->SetTexture(0, texture);
+}
+
+void SpriteAnimator::Transition()
+{
+	if (!m_renderer) return;
+	if (!m_current) return;
+
+	// 경과 시간에 누적합니다.
+	if (!m_pause)
+		m_elapsed += Time::DeltaTime() * m_speed;
+
+	// 루프 애니메이션이 아닌데, 애니메이션의 끝인 경우
+	if (!m_current->isLoop && m_current->IsEnd(m_elapsed))
+	{
+		SpriteAnimation* current = m_current;
+		m_current = nullptr;
+
+		// 애니메이션 종료 이벤트함수를 호출합니다.
+		OnAnimationEnd(current);
+
+		// OnAnimationEnd() 에서 다른 애니메이션이 설정되지 않은 경우에
+		if (m_current == nullptr)
+		{
+			// 애니메이션을 변경하지 않는 조건이면 종료합니다.
+			if (!m_transition)
+			{
+				return;
+			}
+
+			m_current = current;
+
+			// 기본 애니메이션으로 전환합니다.
+			PlayAnimation(m_default, true);
+
+			// 변경된 애니메이션의 텍스쳐를 적용합니다.
+			UpdateTexture();
+		}
+	}
 }

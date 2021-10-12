@@ -27,8 +27,16 @@ public:
 
 	virtual IClonable* Clone() override;
 
+	float GetRadius() const;
+
+	void SetRaidus(float value);
+
+	__declspec(property(get = GetRadius, put = SetRaidus)) float radius;
+
 private:
 
 	unsigned int m_step = 32;
+
+	float m_radius = 0.5f;
 };
 

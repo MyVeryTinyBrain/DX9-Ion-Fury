@@ -56,7 +56,7 @@ GameObject* Component::CreateGameObjectToChild(Transform* parent, const tag_t& t
 	GameObject* go = new GameObject(gameObject->regionScene, tag);
 	go->transform->parent = parent;
 	go->transform->localPosition = Vec3::zero();
-
+	go->transform->localRotation = Quat::Identity();
 	return go;
 }
 
@@ -92,15 +92,23 @@ void Component::Initialize
 
 	ComponentSetCall(EndPhysicsSimulate);
 
+	ComponentSetCall(BeginFixedUpdate);
+
 	ComponentSetCall(FixedUpdate);
 
 	ComponentSetCall(LateFixedUpdate);
+
+	ComponentSetCall(FixedUpdateCheck);
+
+	ComponentSetCall(BeginUpdate);
 
 	ComponentSetCall(AnimationUpdate);
 
 	ComponentSetCall(Update);
 
 	ComponentSetCall(LateUpdate);
+
+	ComponentSetCall(UpdateCheck);
 
 	ComponentSetCall(BeginRender);
 

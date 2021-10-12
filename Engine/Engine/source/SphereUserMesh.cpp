@@ -30,12 +30,12 @@ void SphereUserMesh::InitializeVertices()
 {
 	Vertex* vertices = LockVertexBuffer();
 
-	vertices[TOP_VERTEX_INDEX].position = Vec2::up() * 0.5f;
+	vertices[TOP_VERTEX_INDEX].position = Vec2::up() * m_radius;
 	vertices[TOP_VERTEX_INDEX].normal = Vec2::up();
-	vertices[TOP_VERTEX_INDEX].uv = Vec2(0, 0);
-	vertices[BOTTOM_VERTEX_INDEX].position = Vec2::down() * 0.5f;
+	vertices[TOP_VERTEX_INDEX].uv = Vec2(0 * uvScale.x, 0 * uvScale.y);
+	vertices[BOTTOM_VERTEX_INDEX].position = Vec2::down() * m_radius;
 	vertices[BOTTOM_VERTEX_INDEX].normal = Vec2::down();
-	vertices[BOTTOM_VERTEX_INDEX].uv = Vec2(0, 1);
+	vertices[BOTTOM_VERTEX_INDEX].uv = Vec2(0 * uvScale.x, 1 * uvScale.y);
 
 	constexpr float p = 8.0f;
 	for (DWORD i = 0; i < m_step; ++i)
@@ -45,7 +45,7 @@ void SphereUserMesh::InitializeVertices()
 		else yPercent = -2.0f * powf(yPercent - 1, 2) + 1;
 		float y = 0.5f - yPercent;
 		Vec3 yPos = Vec3(0, y, 0);
-		float dist = sqrtf(1 - powf(2 * y, 2)) * 0.5f;
+		float dist = sqrtf(1 - powf(2 * y, 2)) * m_radius;
 
 		for (DWORD j = 0; j < m_step; ++j)
 		{
@@ -57,8 +57,8 @@ void SphereUserMesh::InitializeVertices()
 			DWORD idx = i * m_step + j;
 			vertices[idx].position = direction + yPos;
 			vertices[idx].normal = vertices[idx].position.normalized();
-			vertices[idx].uv.x = float(j) / float(m_step - 1);
-			vertices[idx].uv.y = yPercent;
+			vertices[idx].uv.x = float(j) / float(m_step - 1) * uvScale.x;
+			vertices[idx].uv.y = yPercent * uvScale.y;
 		}
 	}
 
@@ -123,4 +123,20 @@ IClonable* SphereUserMesh::Clone()
 	clone->CopyFrom(this);
 
 	return clone;
+}
+
+float SphereUserMesh::GetRadius() const
+{
+	return m_radius;
+}
+
+void SphereUserMesh::SetRaidus(float value)
+{
+	if (Abs(value - m_radius) > FLT_EPSILON)
+	{
+		m_radius = value;
+
+		InitializeVertices();
+		ResetStoredVertexBuffer();
+	}
 }

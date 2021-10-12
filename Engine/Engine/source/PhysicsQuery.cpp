@@ -95,6 +95,8 @@ std::vector<RaycastHit> PhysicsQuery::RaycastAll(const PhysicsRay& ray, PxU32 la
         hit.collider = (Collider*)pxHit.shape->userData;
     }
 
+    SafeDeleteArray(hitsBuffer);
+
     return hits;
 }
 
@@ -175,6 +177,8 @@ std::vector<Collider*> PhysicsQuery::OverlapPointAll(const Vec3& point, PxU32 la
         Collider* collider = (Collider*)pxHit.shape->userData;
     }
 
+    SafeDeleteArray(hitsBuffer);
+
     return hits;
 }
 
@@ -245,6 +249,8 @@ std::vector<Collider*> PhysicsQuery::OverlapGeometryAll(PxGeometryHolder geometr
         Collider* collider = (Collider*)pxHit.shape->userData;
     }
 
+    SafeDeleteArray(hitsBuffer);
+
     return hits;
 }
 
@@ -263,44 +269,236 @@ std::vector<Collider*> PhysicsQuery::OverlapColliderAll(Collider* collider, PxU3
     return OverlapGeometryAll(collider->geometry, collider->transform->position, collider->transform->rotation, layerMask, queryType, maxHit, collider->rigidbody);
 }
 
-bool PhysicsQuery::OverlapSphereTest(const Vec3& point, float radius, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+bool PhysicsQuery::OverlapSphereTest(float radius, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
     PxSphereGeometry geometry;
     geometry.radius = radius;
     return OverlapGeometryTest(geometry, point, Quat::Identity(), layerMask, queryType, ignoreBody);
 }
 
-Collider* PhysicsQuery::OverlapSphere(const Vec3& point, float radius, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+Collider* PhysicsQuery::OverlapSphere(float radius, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
     PxSphereGeometry geometry;
     geometry.radius = radius;
     return OverlapGeometry(geometry, point, Quat::Identity(), layerMask, queryType, ignoreBody);
 }
 
-std::vector<Collider*> PhysicsQuery::OverlapSphereAll(const Vec3& point, float radius, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+std::vector<Collider*> PhysicsQuery::OverlapSphereAll(float radius, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
 {
     PxSphereGeometry geometry;
     geometry.radius = radius;
     return OverlapGeometryAll(geometry, point, Quat::Identity(), layerMask, queryType, maxHit, ignoreBody);
 }
 
-bool PhysicsQuery::OverlapBoxTest(const Vec3& point, const Vec3& extents, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+bool PhysicsQuery::OverlapBoxTest(const Vec3& extents, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
     PxBoxGeometry geometry;
-    geometry.halfExtents = ToPxVec3(extents);
+    geometry.halfExtents = ToPxVec3(extents) * 0.5f;
     return OverlapGeometryTest(geometry, point, Quat::Identity(), layerMask, queryType, ignoreBody);
 }
 
-Collider* PhysicsQuery::OverlapBox(const Vec3& point, const Vec3& extents, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+Collider* PhysicsQuery::OverlapBox(const Vec3& extents, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
     PxBoxGeometry geometry;
-    geometry.halfExtents = ToPxVec3(extents);
+    geometry.halfExtents = ToPxVec3(extents) * 0.5f;
     return OverlapGeometry(geometry, point, Quat::Identity(), layerMask, queryType, ignoreBody);
 }
 
-std::vector<Collider*> PhysicsQuery::OverlapBoxAll(const Vec3& point, const Vec3& extents, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+std::vector<Collider*> PhysicsQuery::OverlapBoxAll(const Vec3& extents, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
 {
     PxBoxGeometry geometry;
-    geometry.halfExtents = ToPxVec3(extents);
+    geometry.halfExtents = ToPxVec3(extents) * 0.5f;
     return OverlapGeometryAll(geometry, point, Quat::Identity(), layerMask, queryType, maxHit, ignoreBody);
+}
+
+bool PhysicsQuery::OverlapCapsuleTest(float radius, float halfHeight, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxCapsuleGeometry geometry;
+    geometry.radius = radius;
+    geometry.halfHeight = halfHeight;
+    Quat capsuleRotate = rotation * Quat::FromEuler(0, 0, 90);
+    return OverlapGeometryTest(geometry, point, capsuleRotate, layerMask, queryType, ignoreBody);
+}
+
+Collider* PhysicsQuery::OverlapCapsule(float radius, float halfHeight, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxCapsuleGeometry geometry;
+    geometry.radius = radius;
+    geometry.halfHeight = halfHeight;
+    Quat capsuleRotate = rotation * Quat::FromEuler(0, 0, 90);
+    return OverlapGeometry(geometry, point, capsuleRotate, layerMask, queryType, ignoreBody);
+}
+
+std::vector<Collider*> PhysicsQuery::OverlapCapsuleAll(float radius, float halfHeight, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+{
+    PxCapsuleGeometry geometry;
+    geometry.radius = radius;
+    geometry.halfHeight = halfHeight;
+    Quat capsuleRotate = rotation * Quat::FromEuler(0, 0, 90);
+    return OverlapGeometryAll(geometry, point, capsuleRotate, layerMask, queryType, maxHit, ignoreBody);
+}
+
+bool PhysicsQuery::SweepGeometryTest(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
+
+    PxTransform pose;
+    pose.p = ToPxVec3(point);
+    pose.q = ToPxQuat(rotation);
+
+    PxVec3 dir = ToPxVec3(direction);
+
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, true, ignoreBody);
+    PxSweepBuffer hitBuffer;
+
+    bool result = scene->sweep(geometry.any(), pose, dir, distance, hitBuffer, bufferFlags, fastFilterData, &filterCallback);
+    return result;
+}
+
+bool PhysicsQuery::SweepGeometry(SweepHit& hit, PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
+
+    PxTransform pose;
+    pose.p = ToPxVec3(point);
+    pose.q = ToPxQuat(rotation);
+
+    PxVec3 dir = ToPxVec3(direction);
+
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, true, ignoreBody);
+    PxSweepBuffer hitBuffer;
+
+    bool result = scene->sweep(geometry.any(), pose, dir, distance, hitBuffer, bufferFlags, defaultFilterData, &filterCallback);
+
+    if (result)
+    {
+        const PxSweepHit& pxHit = hitBuffer.getAnyHit(0);
+        hit.point = FromPxVec3(pxHit.position);
+        hit.normal = FromPxVec3(pxHit.normal);
+        hit.distance = pxHit.distance;
+        hit.collider = (Collider*)pxHit.shape->userData;
+    }
+
+    return result;
+}
+
+std::vector<SweepHit> PhysicsQuery::SweepGeometryAll(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+{
+    auto device = PhysicsDevice::GetInstance();
+    auto scene = device->scene;
+
+    PxTransform pose;
+    pose.p = ToPxVec3(point);
+    pose.q = ToPxQuat(rotation);
+
+    PxVec3 dir = ToPxVec3(direction);
+
+    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, false, ignoreBody);
+    PxSweepHit* hitsBuffer = new PxSweepHit[maxHit]{};
+    PxSweepBuffer hitBuffer(hitsBuffer, maxHit);
+
+    bool result = scene->sweep(geometry.any(), pose, dir, distance, hitBuffer, bufferFlags, defaultFilterData, &filterCallback);
+    PxU32 nbHits = hitBuffer.getNbAnyHits();
+
+    std::vector<SweepHit> hits;
+    hits.resize(nbHits);
+    for (PxU32 i = 0; i < nbHits; ++i)
+    {
+        const PxSweepHit& pxHit = hitsBuffer[i];
+        SweepHit& hit = hits[i];
+        hit.point = FromPxVec3(pxHit.position);
+        hit.normal = FromPxVec3(pxHit.normal);
+        hit.distance = pxHit.distance;
+        hit.collider = (Collider*)pxHit.shape->userData;
+    }
+
+    SafeDeleteArray(hitsBuffer);
+
+    return hits;
+}
+
+bool PhysicsQuery::SweepColliderTest(Collider* collider, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType)
+{
+    return SweepGeometryTest(collider->geometry, collider->transform->position, collider->transform->rotation, direction, distance, layerMask, queryType, collider->rigidbody);
+}
+
+bool PhysicsQuery::SweepCollider(SweepHit& hit, Collider* collider, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType)
+{
+    return SweepGeometry(hit, collider->geometry, collider->transform->position, collider->transform->rotation, direction, distance, layerMask, queryType, collider->rigidbody);
+}
+
+std::vector<SweepHit> PhysicsQuery::SweepColliderAll(Collider* collider, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit)
+{
+    return SweepGeometryAll(collider->geometry, collider->transform->position, collider->transform->rotation, direction, distance, layerMask, queryType, maxHit, collider->rigidbody);
+}
+
+bool PhysicsQuery::SweepSphereTest(float radius, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxSphereGeometry geometry;
+    geometry.radius = radius;
+    return SweepGeometryTest(geometry, point, rotation, direction, distance, layerMask, queryType, ignoreBody);
+}
+
+bool PhysicsQuery::SweepSphere(SweepHit& hit, float radius, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxSphereGeometry geometry;
+    geometry.radius = radius;
+    return SweepGeometry(hit, geometry, point, rotation, direction, distance, layerMask, queryType, ignoreBody);
+}
+
+std::vector<SweepHit> PhysicsQuery::SweepSphereAll(float radius, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+{
+    PxSphereGeometry geometry;
+    geometry.radius = radius;
+    return SweepGeometryAll(geometry, point, rotation, direction, distance, layerMask, queryType, maxHit, ignoreBody);
+}
+
+bool PhysicsQuery::SweepBoxTest(const Vec3& extents, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxBoxGeometry geometry;
+    geometry.halfExtents = ToPxVec3(extents) * 0.5f;
+    return SweepGeometryTest(geometry, point, rotation, direction, distance, layerMask, queryType, ignoreBody);
+}
+
+bool PhysicsQuery::SweepBox(SweepHit& hit, const Vec3& extents, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxBoxGeometry geometry;
+    geometry.halfExtents = ToPxVec3(extents) * 0.5f;
+    return SweepGeometry(hit, geometry, point, rotation, direction, distance, layerMask, queryType, ignoreBody);
+}
+
+std::vector<SweepHit> PhysicsQuery::SweepBoxAll(const Vec3& extents, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+{
+    PxBoxGeometry geometry;
+    geometry.halfExtents = ToPxVec3(extents) * 0.5f;
+    return SweepGeometryAll(geometry, point, rotation, direction, distance, layerMask, queryType, maxHit, ignoreBody);
+}
+
+bool PhysicsQuery::SweepCapsuleTest(float radius, float halfHeight, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxCapsuleGeometry geometry;
+    geometry.radius = radius;
+    geometry.halfHeight = halfHeight;
+    Quat capsuleRotate = rotation * Quat::FromEuler(0, 0, 90);
+    return SweepGeometryTest(geometry, point, rotation, direction, distance, layerMask, queryType, ignoreBody);
+}
+
+bool PhysicsQuery::SweepCapsule(SweepHit& hit, float radius, float halfHeight, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+{
+    PxCapsuleGeometry geometry;
+    geometry.radius = radius;
+    geometry.halfHeight = halfHeight;
+    Quat capsuleRotate = rotation * Quat::FromEuler(0, 0, 90);
+    return SweepGeometry(hit, geometry, point, rotation, direction, distance, layerMask, queryType, ignoreBody);
+}
+
+std::vector<SweepHit> PhysicsQuery::SweepCapsuleAll(float radius, float halfHeight, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+{
+    PxCapsuleGeometry geometry;
+    geometry.radius = radius;
+    geometry.halfHeight = halfHeight;
+    Quat capsuleRotate = rotation * Quat::FromEuler(0, 0, 90);
+    return SweepGeometryAll(geometry, point, rotation, direction, distance, layerMask, queryType, maxHit, ignoreBody);
 }

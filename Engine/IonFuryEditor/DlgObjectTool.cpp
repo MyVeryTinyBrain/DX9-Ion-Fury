@@ -8,6 +8,7 @@
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
+#include "MainFrm.h"
 
 
 // DlgObjectTool 대화 상자
@@ -147,8 +148,6 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_meshPath = BuiltInCubeUserMesh;
 
 
-
-
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -158,6 +157,8 @@ void DlgObjectTool::OnObjectName()
 {
 	UpdateData(TRUE);
 
+
+	
 
 	UpdateData(FALSE);
 }
