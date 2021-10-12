@@ -63,15 +63,13 @@ public:
 	//반지름 세팅
 	afx_msg void OnEnChangeLtRadius();
 	CEdit m_Radius;
+	CString sPos;
 	CSliderCtrl m_SliderCrtl_Radius;
 	int iPos;
-	CString sPos;
-
 
 	//방향 세팅
 	CSliderCtrl m_SliderDirX;
 	CSliderCtrl m_SliderDirY;
-
 	CSliderCtrl m_SliderDirZ;
 
 	CListBox m_LT_ListBox;
@@ -83,21 +81,17 @@ public:
 	CString sPosX;
 	CString sPosY;
 	CString sPosZ;
-
 	CString sdirX;
 	CString sdirY;
 	CString sdirZ;
-
-
-
-	afx_msg void OnListBoxCtrl();
-	afx_msg void OnSelectLight();
-	afx_msg void OnLightName();
 
 	CEdit m_DirX;
 	CEdit m_DirY;
 	CEdit m_DirZ;
 
+	afx_msg void OnListBoxCtrl();
+	afx_msg void OnSelectLight();
+	afx_msg void OnLightName();
 	afx_msg void OnEnChangeLtDirx();
 	afx_msg void OnEnChangeLtDiry();
 	afx_msg void OnEnChangeLtDirz();
@@ -108,13 +102,14 @@ public:
 	afx_msg void OnBnClickedDeleteButton();
 	afx_msg void OnBnClickedApplyButton();
 	afx_msg void OnBnClickedAddButton();
+	afx_msg void OnBnClickedAmbinentFactorSet();
+	afx_msg void OnBnClickedSave();
+	afx_msg void OnBnClickedLoad();
+	afx_msg void OnBnClickedClear();
 
 
 	float m_OutSideAngle;
 	float m_InsideAngleRatio;
-	afx_msg void OnBnClickedAmbinentFactorSet();
-	afx_msg void OnBnClickedSave();
-	afx_msg void OnBnClickedLoad();
 	float m_dirx;
 	float m_diry;
 	float m_dirz;
@@ -122,5 +117,4 @@ public:
 	float m_radius;
 
 	Light* lightcom;
-	afx_msg void OnBnClickedClear();
 };
