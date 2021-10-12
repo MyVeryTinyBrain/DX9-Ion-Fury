@@ -28,6 +28,10 @@ private:
 
 	void Attack();
 
+	void JumpCheck();
+
+	void Jump();
+
 private:
 
 	SpiderSpriteAnimator* m_animator = nullptr;
@@ -43,5 +47,7 @@ private:
 	bool m_hasJump = false;
 
 	unsigned int m_attackCount = 0;
+
+	unsigned int m_jumpCount = 0;
 };
 

@@ -26,11 +26,16 @@ void Spider::FixedUpdate()
 	Monster::FixedUpdate();
 
 	MoveToTarget();
-	
+
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
+	
+	JumpCheck();
+
+
+
 	// 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
-	if (!m_hasTargetCoord)
+	if (!m_hasTargetCoord )
 	{
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
@@ -42,6 +47,9 @@ void Spider::FixedUpdate()
 void Spider::Update()
 {
 	Monster::Update();
+
+
+	Jump();
 
 	if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 		m_animator->PlayWalk();
@@ -72,13 +80,13 @@ void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
 		break;
 	case MonsterDamageType::Explosion:
 		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT);
-		
-		bound = transform->forward;
-		bound.y = 0;
-		bound.Normalize();
 
-		transform->position += bound * m_moveSpeed * -Time::DeltaTime();
- 		break;
+		//bound = transform->forward;
+		//bound.y = 0;
+		//bound.Normalize();
+
+		//transform->position += bound * m_moveSpeed * -Time::DeltaTime();
+		break;
 	case MonsterDamageType::Zizizik:
 		m_animator->PlayDamage();
 		break;
@@ -126,57 +134,11 @@ void Spider::MoveToTarget()
 			}
 		}
 
+		Vec3 acceleration = forward * m_moveSpeed;
+		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
+		velocity.y = m_body->velocity.y;
+		m_body->velocity = velocity;
 
-		Vec3 target = Player::GetInstance()->transform->position - spiderPos;
-		target.y = 0;
-		target.Normalize();
-
-		RaycastHit hit1;
-		PhysicsRay ray1(transform->position, target, sqrtf(5.0f));
-
-		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
-
-		//m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
-
-		if (m_hasJump)		// 점프
-		{
-			Vec3 velocity = m_body->velocity;
-			velocity.y = m_jumpSpeed;
-			m_body->velocity = velocity;
-
-			transform->position += Vec3::up() * 0.05f;
-			m_body->ApplyBodyTransformFromGameObject();
-
-			m_hasJump = false;
-
-			transform->forward = target;
-			m_animator->PlayJump();
-
-			//Vec3 velocity = Quat::AxisAngle(transform->right, -45) * mosterToPlayerDir;
-			//m_body->velocity = velocity;
-
-			//if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Player)
-			//{
-			//	m_attackCount = 1;
-			//}
-
-		}
-		else
-		{
-			Vec3 acceleration = forward * m_moveSpeed;
-			Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
-			velocity.y = m_body->velocity.y;
-			m_body->velocity = velocity;
-		}
-
-		if (!m_hasJump)
-		{
-			m_collider->friction = 0.0f;
-		}
-		else
-		{
-			m_collider->friction = 1.0f;
-		}
 
 		if (Vec3::Distance(xzSpiderPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 0.5f)
 		{
@@ -186,7 +148,6 @@ void Spider::MoveToTarget()
 
 		m_beforeCoord = transform->position;
 		m_beforeCoord.y = 0;
-
 
 	}
 	else
@@ -210,5 +171,70 @@ void Spider::Attack()
 	{
 		--m_attackCount;
 		// 거미줄 
+
 	}
+}
+
+void Spider::JumpCheck()
+{
+
+	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
+	mosterToPlayerDir.y = 0;
+	mosterToPlayerDir.Normalize();
+
+	RaycastHit hit1;
+	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(5.0f));
+
+	m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) /*| (1 << (PxU32)PhysicsLayers::Terrain)*/, PhysicsQueryType::All, m_body);
+
+	if (m_hasJump)
+	{
+		if (hit1.collider->layerIndex == (PxU32)PhysicsLayers::Player)
+		{
+			m_attackCount = 1;
+
+			m_jumpCount = 1;
+
+			//m_animator->PlayJump();
+		}
+	}
+	if (!m_hasJump)
+	{
+		m_collider->friction = 0.0f;
+		//m_jumpcheck = true;
+		//m_jumpCount = 0;
+	}
+	else if (m_hasJump & (m_jumpCount > 0))
+	{
+		m_collider->friction = 1.0f;
+	}
+}
+
+void Spider::Jump()
+{
+	if (m_hasJump)		// 점프
+	{
+		Vec3 playerPos = Player::GetInstance()->transform->position;
+		Vec3 monsterPos = transform->position;
+		
+		Vec3 forward = playerPos - monsterPos;
+		forward.y = 0;
+		forward.Normalize();
+		transform->forward = forward;
+
+		Vec3 velocity = Quat::AxisAngle(transform->right, -45) * forward;
+		m_body->velocity = velocity;
+		m_hasJump = false;
+
+
+		m_animator->SetAngle(AngleToPlayerWithSign());
+
+		transform->position += Vec3::up() * 0.05f;
+
+		
+
+		// 수정 해야함
+
+	}
+
 }

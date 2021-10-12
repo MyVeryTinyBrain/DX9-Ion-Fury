@@ -62,7 +62,7 @@ void SpiderSpriteAnimator::Awake()
 	m_jump[(unsigned int)DIR_SPIDER::FRONT] = new SpriteAnimation;
 	m_jump[(unsigned int)DIR_SPIDER::FRONT]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_front0.png");
 	m_jump[(unsigned int)DIR_SPIDER::FRONT]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_front1.png");
-	m_jump[(unsigned int)DIR_SPIDER::FRONT]->interval = 0.3f;
+	m_jump[(unsigned int)DIR_SPIDER::FRONT]->interval = 0.5f;
 	m_jump[(unsigned int)DIR_SPIDER::FRONT]->isLoop = true;
 
 	m_jump[(unsigned int)DIR_SPIDER::FRONT_DIAGONAL] = new SpriteAnimation;
@@ -168,7 +168,54 @@ void SpiderSpriteAnimator::LateUpdate()
 			ResetUVDirection();
 		}
 	}
-	
+	if (IsPlayingJump())
+	{
+		if (Abs(m_angle) < 22.5f + 45 * 0)
+		{
+			if (currentAnimation != m_jump[(unsigned int)DIR_SPIDER::FRONT])
+			{
+				PlayAnimation(m_jump[(unsigned int)DIR_SPIDER::FRONT], false, true);
+			}
+
+			ResetUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 1)
+		{
+			if (currentAnimation != m_jump[(unsigned int)DIR_SPIDER::FRONT_DIAGONAL])
+			{
+				PlayAnimation(m_jump[(unsigned int)DIR_SPIDER::FRONT_DIAGONAL], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 2)
+		{
+			if (currentAnimation != m_jump[(unsigned int)DIR_SPIDER::SIDE])
+			{
+				PlayAnimation(m_jump[(unsigned int)DIR_SPIDER::SIDE], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 3)
+		{
+			if (currentAnimation != m_jump[(unsigned int)DIR_SPIDER::BACK_DIAGONAL])
+			{
+				PlayAnimation(m_jump[(unsigned int)DIR_SPIDER::BACK_DIAGONAL], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+		else
+		{
+			if (currentAnimation != m_jump[(unsigned int)DIR_SPIDER::BACK])
+			{
+				PlayAnimation(m_jump[(unsigned int)DIR_SPIDER::BACK], false, true);
+			}
+
+			ResetUVDirection();
+		}
+	}
 }
 
 void SpiderSpriteAnimator::OnDestroy()

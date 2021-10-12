@@ -27,6 +27,8 @@ void Drone::FixedUpdate()
 	Monster::FixedUpdate();
 
 	//m_animator->SetAngle(AngleToPlayerWithSign());
+	
+
 
 	if (!m_hasTargetCoord)
 	{
@@ -38,9 +40,10 @@ void Drone::FixedUpdate()
 void Drone::Update()
 {
 	Monster::Update();
-
+	FindTarget();
 	Moving();
 
+	Attack();
 	//if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 	//	m_animator->PlayMove();
 	//else
@@ -73,10 +76,12 @@ void Drone::Moving()
 
 
 	Vec3 dronePos = transform->position;
-	Vec3 forward = m_targetCoord - dronePos;
+
+	Vec3 forward = Player::GetInstance()->transform->position - dronePos;
 	forward.y = dronePos.y;
 	forward.Normalize();
 	transform->forward = forward;
+
 	transform->up = Vec3(0, 1, 0);
 	transform->right = Vec3::Cross(transform->up, transform->forward);
 	transform->right.Normalize();
@@ -104,17 +109,7 @@ void Drone::Moving()
 			}
 		}
 	}
-	Vec3 xzdronePos = Vec3(dronePos.x, 0.f, dronePos.z);
-	//float distance = Vec3::Distance(dronePos, m_targetCoord);
 
-	PhysicsRay ray(xzdronePos, forward.normalized(), sqrtf(5.0f));
-	RaycastHit hit;
-
-	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider, m_body))
-	{
-		m_moveSpeed = 0.f;
-		m_animator->PlayMoveShoot();
-	}
 }
 
 void Drone::SetTargetCoord(Vec3 xzCoord)
@@ -135,10 +130,34 @@ void Drone::Attack()
 		--m_attackCount;
 		m_animator->PlayShoot();
 
-		// 플레이어를 바라봅니다.
+		
 		Vec3 forward = Player::GetInstance()->transform->position - transform->position;
 		forward.y = 0;
 		forward.Normalize();
 		transform->forward = forward;
 	}
+}
+
+void Drone::FindTarget()
+{
+	Vec3 dronePos = transform->position;
+	Vec3 forward = m_targetCoord - dronePos;
+	forward.y = dronePos.y;
+	forward.Normalize();
+	transform->forward = forward;
+
+	Vec3 xzdronePos = Vec3(dronePos.x, dronePos.y, dronePos.z);
+	//float distance = Vec3::Distance(dronePos, m_targetCoord);
+
+	PhysicsRay ray(xzdronePos, forward.normalized(), sqrtf(5.0f));
+	RaycastHit hit;
+
+	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider, m_body))
+	{
+		m_attackCount = 1;
+
+		//m_moveSpeed = 0.f;
+		//m_animator->PlayMoveShoot();
+	}
+
 }

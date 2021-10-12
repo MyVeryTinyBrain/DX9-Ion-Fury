@@ -28,6 +28,7 @@ private:
 
 	void Attack();
 
+	void FindTarget();
 
 private:
 	
