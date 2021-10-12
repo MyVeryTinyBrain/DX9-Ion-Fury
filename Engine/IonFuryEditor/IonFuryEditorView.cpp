@@ -264,7 +264,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgObjectTool.SetPickableObject(pickObj);
 		m_dlgObjectTool.SelectObject();
-		m_dlgObjectTool.ResetScroll();
+		//m_dlgObjectTool.ResetScroll();
 		m_dlgObjectTool.UpdateUVScale(pick);
 
 		m_dlgObjectTool.ReturnComboBoxSelect(pick);
