@@ -141,13 +141,9 @@ BOOL DlgLightTool::OnInitDialog()
 	//m_LightType = L"Point";
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderCrtl_Radius.SetRange(0, 180);       // 사용영역 값 설정한다.
+	m_SliderCrtl_Radius.SetRange(0, 360);       // 사용영역 값 설정한다.
 	m_SliderCrtl_Radius.SetPos(0);				//위치 설정
 	m_SliderCrtl_Radius.SetLineSize(1);		//방향키로 움질일 때 사이즈 
-
-	iPos = m_SliderCrtl_Radius.GetPos();
-	sPos.Format(_T(" % d"), iPos);
-	m_Radius.SetWindowText(sPos);
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderDirX.SetRange(0, 360);
@@ -157,17 +153,6 @@ BOOL DlgLightTool::OnInitDialog()
 	m_SliderDirZ.SetRange(0, 360);
 	m_SliderDirZ.SetPos(0);
 
-	iPosX = m_SliderDirX.GetPos();
-	sPosX.Format(_T(" % d"), iPosX);
-	m_DirX.SetWindowText(sPosX);
-
-	iPosY = m_SliderDirY.GetPos();
-	sPosY.Format(_T(" % d"), iPosY);
-	m_DirY.SetWindowText(sPosY);
-
-	iPosZ = m_SliderDirX.GetPos();
-	sPosZ.Format(_T(" % d"), iPosZ);
-	m_DirZ.SetWindowText(sPosZ);
 
 	m_LT_ListBox.AddString(L"Directional");
 
@@ -187,6 +172,7 @@ void DlgLightTool::SetAttr(int iOpa)
 void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
 	CSliderCtrl* pSlider = (CSliderCtrl*)pScrollBar;
 
 	switch (pSlider->GetDlgCtrlID())
@@ -200,28 +186,35 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		iPos = m_SliderCrtl_Radius.GetPos();
 		sPos.Format(_T("%d"), iPos);
 		m_Radius.SetWindowText(sPos);
+		m_radius = iPos;
 		break;
+
 	case IDC_SLDER_DIRX:
 		m_SliderDirX.SetPos(pSlider->GetPos());
 		iPosX = m_SliderDirX.GetPos();
 		sPosX.Format(_T("%d"), iPosX);
 		m_DirX.SetWindowText(sPosX);
+		m_dirx = iPosX;
 		break;
+
 	case IDC_SLDER_DIRY:
 		m_SliderDirY.SetPos(pSlider->GetPos());
 		iPosY = m_SliderDirY.GetPos();
 		sPosY.Format(_T("%d"), iPosY);
 		m_DirY.SetWindowText(sPosY);
+		m_diry = iPosY;
 		break;
+
 	case IDC_SLDER_DIRZ:
 		m_SliderDirZ.SetPos(pSlider->GetPos());
 		iPosZ = m_SliderDirZ.GetPos();
 		sPosZ.Format(_T("%d"), iPosZ);
 		m_DirZ.SetWindowText(sPosZ);
+		m_dirz = iPosZ;
 		break;
 	}
 
-
+	UpdateData(FALSE);
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
@@ -255,8 +248,8 @@ void DlgLightTool::OnListBoxCtrl()
 	if (iIndex < 0)
 		return;
 	CString wstrFindName;
-	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
+	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
 	CString name = wstrFindName.GetString();
 
@@ -291,9 +284,8 @@ void DlgLightTool::OnListBoxCtrl()
 				m_dirx = lightobj->transform->forward.x;
 				m_diry = lightobj->transform->forward.y;
 				m_dirz = lightobj->transform->forward.z;
-				m_ambinentFactor = com->ambientFactor;
-				//m_Radius.SetWindowText();
 
+				m_ambinentFactor = com->ambientFactor;
 			}
 			else if (lightobj->tag == L"Spot")
 			{
@@ -314,9 +306,13 @@ void DlgLightTool::OnListBoxCtrl()
 
 				m_radius = com->range;
 
+				m_OutSideAngle = com->outsideAngle;
+				m_InsideAngleRatio = com->insideAngleRatio;
+
 				m_dirx = lightobj->transform->forward.x;
 				m_diry = lightobj->transform->forward.y;
 				m_dirz = lightobj->transform->forward.z;
+
 				m_ambinentFactor = com->ambientFactor;
 			}
 			else if (lightobj->tag == L"Directional")
@@ -325,12 +321,7 @@ void DlgLightTool::OnListBoxCtrl()
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
 				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 
-				//if (light)
-				//{
-				//	m_LT_ListBox.AddString(L"Directional");
-				//}
 				m_LightName = directionallight->GetName().c_str();
-
 				m_LightType = L"Directional";
 
 				m_ColorR = light->color.r;
@@ -407,16 +398,12 @@ void DlgLightTool::OnEnChangeLtRadius()
 	CString wstrFindName;
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
-
-
-	m_LT_ListBox.GetText(iIndex, wstrFindName);
-
 	CString name = wstrFindName.GetString();
 
 	m_Radius.GetWindowText(sPos);
 	iPos = _ttoi(sPos);
 
-	m_SliderCrtl_Radius.SetPos(iPos);
+	//m_SliderCrtl_Radius.SetPos(iPos);
 
 	for (auto& light : LightObj::g_vecLight)
 	{
@@ -471,16 +458,16 @@ void DlgLightTool::OnEnChangeLtDirx()
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
 				m_dirx = (float)iPosX;
-				//	com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 			else if (lightobj->tag == L"Spot")
 			{
 				auto com = lightobj->GetComponentInChild<SpotLight>();
 				m_dirx = (float)iPosX;
-				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 
-			else if (m_LightType == L"Directional")
+			else if (lightobj->tag == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
 				auto light = directionallight->GetComponentInChild<DirectionalLight>();
@@ -533,15 +520,10 @@ void DlgLightTool::OnEnChangeLtDiry()
 				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 
-			else if (m_LightType == L"Directional")
+			else if (lightobj->tag == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"directionalLight");
 				auto light = directionallight->GetComponentInChild<DirectionalLight>();
-				//m_DirX.GetWindowText(sdirX);
-				//m_dirx = (float)_ttoi(sdirX);
-
-				//m_DirY.GetWindowText(sdirY);
-				//m_diry = (float)_ttoi(sdirY);
 				m_diry = (float)iPosY;
 				light->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
@@ -592,16 +574,10 @@ void DlgLightTool::OnEnChangeLtDirz()
 				m_dirz = (float)iPosZ;
 				//com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
-			else if (m_LightType == L"Directional")
+			else if (lightobj->tag == L"Directional")
 			{
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
 				auto light = directionallight->GetComponentInChild<DirectionalLight>();
-				//m_DirX.GetWindowText(sdirX);
-				//m_dirx = (float)_ttoi(sdirX);
-
-				//m_DirY.GetWindowText(sdirY);
-				//m_diry = (float)_ttoi(sdirY);
-
 				m_dirz = (float)iPosZ;
 				light->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
