@@ -930,7 +930,7 @@ void DlgLightTool::OnBnClickedSave()
 				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
 
 			}
-			else if (obj->tag == L"Spot")
+			if (obj->tag == L"Spot")
 			{
 				auto point = obj->GetComponentInChild<SpotLight>();
 
@@ -944,7 +944,7 @@ void DlgLightTool::OnBnClickedSave()
 				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
 
 			}
-			else if (obj->tag == L"Directional")
+			if (obj->tag == L"Directional")
 			{
 				auto point = obj->GetComponentInChild<DirectionalLight>();
 
@@ -1053,7 +1053,7 @@ void DlgLightTool::OnBnClickedLoad()
 				ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
 				ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
 			}
-			else
+			else if(pObj->tag == L"Directional")
 			{
 				ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
 				ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
@@ -1079,7 +1079,7 @@ void DlgLightTool::OnBnClickedLoad()
 				m_LT_ListBox.AddString(pObj->name.c_str());
 
 			}
-			else if (pObj->tag == L"Point")
+			if (pObj->tag == L"Point")
 			{
 
 				PointLight* point = pObj->GetComponentInChild<PointLight>();
@@ -1092,7 +1092,7 @@ void DlgLightTool::OnBnClickedLoad()
 				m_LT_ListBox.AddString(pObj->name.c_str());
 
 			}
-			else
+			if (pObj->tag == L"Directional")
 			{
 				auto directional = pObj->GetComponentInChild<DirectionalLight>();
 
