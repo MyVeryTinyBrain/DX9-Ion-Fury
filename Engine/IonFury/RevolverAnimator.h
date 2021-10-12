@@ -4,11 +4,9 @@
 
 class SpriteAnimation;
 
-class RightHandAnimator : public SpriteAnimator
+class RevolverAnimator : public SpriteAnimator
 {
 	OverrideComponentFunction(Awake);
-
-	OverrideComponentFunction(OnDestroy);
 
 	virtual void OnAnimationEnd(const SpriteAnimation* current) override;
 
@@ -20,10 +18,34 @@ public:
 
 	void PlayShoot();
 
+	void PlayReload();
+
+public:
+
+	bool IsPlayingIdle() const;
+
+	bool IsPlayingShoot() const;
+
+	bool IsPlayingReload() const;
+
+	bool IsPlayingReloadPutin() const;
+
 private:
 
 	SpriteAnimation* m_default = nullptr;
 
 	SpriteAnimation* m_shoot = nullptr;
+
+	SpriteAnimation* m_beginReload = nullptr;
+
+	SpriteAnimation* m_reloadingPutin = nullptr;
+
+	SpriteAnimation* m_reloadingPullout = nullptr;
+
+	SpriteAnimation* m_endReload = nullptr;
+
+public:
+
+	Delegate<void()> OnReloaded;
 };
 

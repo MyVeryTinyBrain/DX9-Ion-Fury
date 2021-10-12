@@ -35,7 +35,7 @@ void FPSCamera::Update()
 		
 		{
 			Vec3 realDeltaAngle = angle - beforeAngle;
-			m_orthoCamera->MoveHands(realDeltaAngle);
+			m_orthoCamera->MoveHandsChildObject(realDeltaAngle);
 		}
 
 		transform->eulerAngle = angle;
@@ -51,6 +51,11 @@ void FPSCamera::Update()
 Camera* FPSCamera::GetCamera() const
 {
 	return m_camera;
+}
+
+FPSOrthoCamera* FPSCamera::GetFPSOrthoCamera() const
+{
+	return m_orthoCamera;
 }
 
 void FPSCamera::MoveMouseToCenter()

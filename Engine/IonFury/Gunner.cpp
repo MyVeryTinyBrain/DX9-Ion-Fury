@@ -33,6 +33,7 @@ void Gunner::Update()
 {
     Monster::Update();
 
+    // 휴식시간이 아니라면 새로운 행동을 설정합니다.
     if (m_breakTime <= 0)
     {
         BehaviorType behaviorType = (BehaviorType)(rand() % unsigned int(BehaviorType::Max));
@@ -64,6 +65,16 @@ void Gunner::Update()
 
     // 몬스터의 forward 방향과 플레이어를 바라보는 방향을 계산해서 애니메이터에 전달합니다.
     m_animator->SetAngle(AngleToPlayerWithSign());
+
+    // 발사 애니메이션 중에 발광합니다.
+    if (m_animator->IsPlayingShoot())
+    {
+        m_defaultEmissive = Color::white();
+    }
+    else
+    {
+        m_defaultEmissive = Color::black();
+    }
 }
 
 void Gunner::OnDestroy()
@@ -206,10 +217,13 @@ void Gunner::SetTargetCoord(Vec3 xzCoord)
 
 void Gunner::Attack()
 {
+    // 발사 애니메이션 중일때 종료합니다.
     if (m_animator->IsPlayingShoot())
     {
         return;
     }
+
+    // 공격 카운터가 남아있다면 공격합니다.
     if (m_attackCount > 0)
     {
         --m_attackCount;
@@ -227,7 +241,7 @@ void Gunner::SetBehavior(BehaviorType type)
 {
     m_hasTargetCoord = false;
     m_attackCount = 0;
-    m_breakTime = 1.0f;
+    m_breakTime = 0.35f;
 
     switch (type)
     {
@@ -255,7 +269,7 @@ void Gunner::SetBehavior(BehaviorType type)
             break;
         case BehaviorType::Attack:
             {
-                m_attackCount = 1;
+                m_attackCount = 5;
             }
             break;
     }

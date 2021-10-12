@@ -155,14 +155,14 @@ void TestScene::OnLoad(Scene* beforeScene)
 
             auto renderer = obj->AddComponent<UserMeshRenderer>();
             renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/DevAlpha.png"));
+            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
             renderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
         }
     }
 
-    for (int i = 0; i < 1; ++i)
+    for (int i = 0; i < 5; ++i)
     {
-        for (int j = 0; j < 1; ++j)
+        for (int j = 0; j < 5; ++j)
         {
             auto obj = CreateGameObject();
             obj->transform->position = Vec3(i, 2, j);

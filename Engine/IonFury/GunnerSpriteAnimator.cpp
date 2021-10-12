@@ -67,7 +67,7 @@ void GunnerSpriteAnimator::Awake()
 	m_shoot->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire0.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire1.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/gunner/gunner_fire2.png");
-	m_shoot->interval = 0.1f;
+	m_shoot->interval = 0.05f;
 
 	m_die[(unsigned int)DIE::DIE_HEADSHOT] = new SpriteAnimation;
 	m_die[(unsigned int)DIE::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_bodyshot0.png");
@@ -266,16 +266,19 @@ void GunnerSpriteAnimator::PlayWalk()
 void GunnerSpriteAnimator::PlayShoot()
 {
 	PlayAnimation(m_shoot, true);
+	ResetUVDirection();
 }
 
 void GunnerSpriteAnimator::PlayDie(DIE type)
 {
 	PlayAnimation(m_die[unsigned int(type)]);
+	ResetUVDirection();
 }
 
 void GunnerSpriteAnimator::PlayDamage(DAMAGE type)
 {
 	PlayAnimation(m_damage[unsigned int(type)]);
+	ResetUVDirection();
 }
 
 bool GunnerSpriteAnimator::IsPlayingIdle() const

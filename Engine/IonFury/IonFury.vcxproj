@@ -160,14 +160,15 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Gunner.h" />
     <ClInclude Include="GunnerSpriteAnimator.h" />
-    <ClInclude Include="LeftHandAnimator.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="PhysicsInitialize.h" />
     <ClInclude Include="PhysicsLayers.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RenderLayers.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="RightHandAnimator.h" />
+    <ClInclude Include="Revolver.h" />
+    <ClInclude Include="RevolverAnimator.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="SpiderSpriteAnimator.h" />
     <ClInclude Include="SpriteAnimation.h" />
@@ -178,6 +179,8 @@
     <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TriangleStair.h" />
     <ClInclude Include="UserMixMesh.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp" />
@@ -188,12 +191,12 @@
     <ClCompile Include="FPSOrthoCamera.cpp" />
     <ClCompile Include="Gunner.cpp" />
     <ClCompile Include="GunnerSpriteAnimator.cpp" />
-    <ClCompile Include="LeftHandAnimator.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RightHandAnimator.cpp" />
+    <ClCompile Include="Revolver.cpp" />
+    <ClCompile Include="RevolverAnimator.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
@@ -203,6 +206,7 @@
     <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TriangleStair.cpp" />
     <ClCompile Include="UserMixMesh.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc" />

@@ -2,13 +2,16 @@
 #include "FPSCharacterController.h"
 #include "FPSCamera.h"
 #include "PhysicsLayers.h"
+#include "FPSOrthoCamera.h"
 
 void FPSCharacterController::Awake()
 {
+    // Physics::SetGravity(Vec3(0, -9.81f * 2.0f, 0));
+
     m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
     m_body->interpolate = true;
-    m_body->sleepThresholder = 0.5f;
+    m_body->sleepThresholder = 5.0f;
 
     m_subObj = CreateGameObjectToChild(transform);
 
@@ -46,6 +49,20 @@ void FPSCharacterController::FixedUpdate()
         }
     }
 
+    float beforeHalfHeight = m_collider->halfHeight;
+    if (Input::GetKey(Key::LCtrl))
+    {
+        m_collider->halfHeight = 0.001f;
+    }
+    else
+    {
+        m_collider->halfHeight = 0.5f;
+    }
+    if (beforeHalfHeight != m_collider->halfHeight)
+    {
+        m_body->SetRigidbodySleep(false);
+    }
+
     if (!m_hasGround)
     {
         m_collider->friction = 0.0f;
@@ -55,18 +72,9 @@ void FPSCharacterController::FixedUpdate()
         m_collider->friction = 1.0f;
     }
 
-    Vec3 direction;
-    if (Input::GetKey(Key::A))
-        direction.x = -1;
-    if (Input::GetKey(Key::D))
-        direction.x = +1;
-    if (Input::GetKey(Key::W))
-        direction.z = +1;
-    if (Input::GetKey(Key::S))
-        direction.z = -1;
-    direction.Normalize();
+    m_moveDirection.Normalize();
 
-    if (direction.sqrMagnitude() > 0)
+    if (m_moveDirection.sqrMagnitude() > 0)
     {
         PhysicsRay ray;
         ray.point = m_collider->transform->position;
@@ -75,49 +83,61 @@ void FPSCharacterController::FixedUpdate()
         RaycastHit hit;
         Physics::Raycast(hit, ray, 0xFFFFFFFF, PhysicsQueryType::All, m_body);
 
+        float speedFactor = 1.0f;
+        if (Input::GetKey(Key::LCtrl) && m_hasGround)
+        {
+            speedFactor = 0.35f;
+        }
+        else if (Input::GetKey(Key::LShift))
+        {
+            speedFactor = 1.65f;
+        }
+
         Vec3 velocity;
         if (m_hasGround)
         {
             Quat q2 = Quat::FromToRotation(Vec3::up(), hit.normal);
             Quat q1 = Quat::FromEuler(0, m_camera->transform->eulerAngle.y, 0);
-            velocity = q2 * q1 * direction * m_speed;
+            velocity = q2 * q1 * m_moveDirection * m_speed * speedFactor;
         }
         else
         {
-            velocity = m_camera->transform->rotation * direction * m_speed;
+            velocity = m_camera->transform->rotation * m_moveDirection * m_speed * speedFactor;
             velocity.y = m_body->velocity.y;
         }
 
         m_body->velocity = velocity;
     }
 
-    if (Input::GetKey(Key::LCtrl))
-    {
-        m_collider->halfHeight = 0.01f;
-    }
-    else
-    {
-        m_collider->halfHeight = 0.5f;
-    }
+    m_moveDirection = Vec3::zero();
 }
 
 void FPSCharacterController::Update()
 {
-    if (Input::GetKeyDown(Key::LeftMouse))
-    {
-        //m_orthoCamera->rightHandAnimator->PlayShoot();
+    if (Input::GetKey(Key::A))
+        m_moveDirection.x = -1;
+    if (Input::GetKey(Key::D))
+        m_moveDirection.x = +1;
+    if (Input::GetKey(Key::W))
+        m_moveDirection.z = +1;
+    if (Input::GetKey(Key::S))
+        m_moveDirection.z = -1;
 
-        auto obj = CreateGameObject();
-        obj->transform->position = m_camera->transform->position;
-        auto body = obj->AddComponent<Rigidbody>();
-        body->interpolate = true;
-        body->SetInterpolateRotation(true);
-        body->AddForce(m_camera->transform->forward * 15, ForceMode::Impulse);
-        body->angularVelocity = Vec3(0, 180, 90);
-        auto collider = obj->AddComponent<BoxCollider>();
-        collider->SetIgnoreLayer(1, true);
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+    if (m_moveDirection.sqrMagnitude() > 0)
+        m_camera->fpsOrthoCamera->SetWalkingState(true);
+
+    if (Input::GetKey(Key::LCtrl))
+    {
+        m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(0.35f);
+    }
+    else if (Input::GetKey(Key::LShift))
+    {
+        m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(1.65f);
+        m_camera->camera->fov = Lerp(m_camera->camera->fov, 80, Time::DeltaTime() * 10.0f);
+    }
+    else
+    {
+        m_camera->camera->fov = Lerp(m_camera->camera->fov, 90, Time::DeltaTime() * 10.0f);
     }
 }
 
