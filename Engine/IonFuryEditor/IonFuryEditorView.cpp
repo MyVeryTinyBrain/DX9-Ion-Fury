@@ -212,23 +212,36 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+	Pickable* pick = nullptr;
 
 	switch (nChar)
 	{
 	case 'P':
 		if (!m_dlgObjectTool || !m_dlgTextureTool)
-			camera->Add_MapObject();
+		{
+			pick = camera->Add_MapObject();
+		}
 		else
 		{
-			camera->Add_MapObject(
+			pick = camera->Add_MapObject(
 				m_dlgObjectTool.GetColliderExistence(),
+				m_dlgObjectTool.GetToolSize(),
+				m_dlgObjectTool.GetToolRotation(),
 				m_dlgObjectTool.GetToolUVScale(),
 				m_dlgObjectTool.m_MeshType,
 				m_dlgObjectTool.m_objectTag.GetString(),
 				m_dlgObjectTool.m_objectName.GetString(),
 				m_dlgTextureTool.m_texturePath.GetString());
+
+			m_dlgObjectTool.SetPickableObject(pick->GetGameObject());
+			m_dlgObjectTool.SelectObject();
+			m_dlgObjectTool.UpdateUVScale(pick);
+			m_dlgObjectTool.ReturnComboBoxSelect(pick);
+			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
 		}
 		break;
+	case 46:		//delete키
+		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
 	default:
 		break;
 	}
@@ -264,9 +277,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgObjectTool.SetPickableObject(pickObj);
 		m_dlgObjectTool.SelectObject();
-		//m_dlgObjectTool.ResetScroll();
 		m_dlgObjectTool.UpdateUVScale(pick);
-
 		m_dlgObjectTool.ReturnComboBoxSelect(pick);
 		m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
 	}

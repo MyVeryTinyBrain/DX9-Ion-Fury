@@ -2,6 +2,8 @@
 
 #include "EditorEnum.h"
 
+class Pickable;
+
 class FreePerspectiveCamera : public Component
 {
 	OverrideComponentFunction(Update);
@@ -11,10 +13,12 @@ private:
 	void MoveMouseToCenterPos();
 
 	POINT GetMousePointInClient() const;
-	
+
 public:
-	void Add_MapObject(
+	Pickable* Add_MapObject(
 		bool ColliderExistence = false
+		, Vec3 Size = Vec3(1.f, 1.f, 1.f)
+		, Vec3 Rotation = Vec3(0.f, 0.f, 0.f)
 		, Vec2 UVScale = Vec2(1.f, 1.f)
 		, COMBOBOX comboBox = COMBOBOX::Cyilinder
 		, const tag_t& tag = L""

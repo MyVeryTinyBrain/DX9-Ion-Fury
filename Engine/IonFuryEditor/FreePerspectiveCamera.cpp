@@ -23,8 +23,8 @@ void FreePerspectiveCamera::Update()
 	if (Input::GetKey(Key::S))
 		pos += -transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
 
-	if (Input::GetKeyDown(Key::O))
-		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
+	//if (Input::GetKeyDown(Key::O))
+	//	EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
 
 
 	if (Input::GetKey(Key::Left))
@@ -78,17 +78,25 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	return pos;
 }
 
-void FreePerspectiveCamera::Add_MapObject(bool ColliderExistence, Vec2 UVScale, COMBOBOX comboBox, const tag_t& tag, const wstring& ObjName, const wstring& localPathTexture)
+Pickable* FreePerspectiveCamera::Add_MapObject(bool ColliderExistence, Vec3 Size, Vec3 Rotation, Vec2 UVScale, COMBOBOX comboBox, const tag_t& tag, const wstring& ObjName, const wstring& localPathTexture)
 {
 	GameObject* Obj = CreateGameObject(tag);
 
 	Obj->name = ObjName;
 
 	Obj->transform->position = transform->position + transform->forward * 2;
+	//Obj->transform->scale = Size;
+	//Obj->transform->SetEulerAngle(Rotation);
 
-	auto test = Obj->AddComponent<Pickable>();
+	Pickable* pick = Obj->AddComponent<Pickable>();
 	
-	test->PushInVector(Type::Map);
-	test->Settings(UVScale, comboBox, localPathTexture, ColliderExistence);
+	pick->PushInVector(Type::Map);
+	pick->Settings(UVScale, comboBox, localPathTexture, ColliderExistence);
+
+	//Obj->transform->position = transform->position + transform->forward * 2;
+	Obj->transform->scale = Size;
+	Obj->transform->SetEulerAngle(Rotation);
+
+	return pick;
 }
 

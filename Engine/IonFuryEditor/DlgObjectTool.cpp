@@ -57,6 +57,21 @@ void DlgObjectTool::SelectObject()
 
 	UpdateData(FALSE);
 }
+
+Vec3 DlgObjectTool::GetToolSize()
+{
+	UpdateData(TRUE);
+	return Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
+	UpdateData(FALSE);
+}
+
+Vec3 DlgObjectTool::GetToolRotation()
+{
+	UpdateData(TRUE);
+	return Vec3(m_fRotX, m_fRotY, m_fRotZ);
+	UpdateData(FALSE);
+}
+
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
