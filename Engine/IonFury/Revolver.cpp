@@ -72,8 +72,6 @@ void Revolver::OnAttackInput(InputType inputType)
 		{
 			m_animator->PlayShoot();
 			--m_loadedAmmo;
-
-			cout << m_loadedAmmo << "/" << m_ammoLoadMax << "(" << m_totalAmmo << ")" << endl;
 		}
 	}
 }
@@ -96,7 +94,6 @@ void Revolver::OnReloadInput(InputType inputType)
 
 void Revolver::OnReloaded()
 {
+	m_totalAmmo -= (m_ammoLoadMax - m_loadedAmmo);
 	m_loadedAmmo = Clamp(m_totalAmmo, 0, m_ammoLoadMax);
-	m_totalAmmo -= m_loadedAmmo;
-	cout << m_loadedAmmo << "/" << m_ammoLoadMax << "(" << m_totalAmmo << ")" << endl;
 }

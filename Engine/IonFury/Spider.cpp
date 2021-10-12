@@ -26,17 +26,15 @@ void Spider::FixedUpdate()
 	Monster::FixedUpdate();
 
 	MoveToTarget();
-
+	
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
 	// 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
 	if (!m_hasTargetCoord)
 	{
-
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
 		Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
-		//Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
 }
@@ -65,6 +63,27 @@ Collider* Spider::InitializeCollider(GameObject* colliderObj)
 
 void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
+	Vec3 bound;
+
+	switch (damageType)
+	{
+	case MonsterDamageType::Bullet:
+		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC);
+		break;
+	case MonsterDamageType::Explosion:
+		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT);
+		
+		bound = transform->forward;
+		bound.y = 0;
+		bound.Normalize();
+
+		transform->position += bound * m_moveSpeed * -Time::DeltaTime();
+ 		break;
+	case MonsterDamageType::Zizizik:
+		m_animator->PlayDamage();
+		break;
+	}
+
 
 }
 
@@ -107,12 +126,17 @@ void Spider::MoveToTarget()
 			}
 		}
 
-		PhysicsRay ray1(transform->position, forward.normalized(), sqrtf(5.0f));
 
-		// 플레이어만 해놓으면 플레이어를 인식 못하는듯?
+		Vec3 target = Player::GetInstance()->transform->position - spiderPos;
+		target.y = 0;
+		target.Normalize();
 
-		m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
+		RaycastHit hit1;
+		PhysicsRay ray1(transform->position, target, sqrtf(5.0f));
 
+		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
+
+		//m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
 
 		if (m_hasJump)		// 점프
 		{
@@ -122,7 +146,17 @@ void Spider::MoveToTarget()
 
 			transform->position += Vec3::up() * 0.05f;
 			m_body->ApplyBodyTransformFromGameObject();
+
 			m_hasJump = false;
+
+			transform->forward = target;
+			m_animator->PlayJump();
+
+			//if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Player)
+			//{
+			//	m_attackCount = 1;
+			//}
+
 		}
 		else
 		{
@@ -165,4 +199,13 @@ void Spider::SetTargetCoord(Vec3 xzCoord)
 	m_hasTargetCoord = true;
 	m_targetCoord = xzCoord;
 	m_targetCoord.y = 0;
+}
+
+void Spider::Attack()
+{
+	if (m_attackCount > 0)
+	{
+		--m_attackCount;
+		// 거미줄 
+	}
 }
