@@ -228,7 +228,7 @@ void DroneSpriteAnimator::OnDestroy()
 		SafeDelete(m_moveShoot[i]);
 }
 
-void DroneSpriteAnimator::OnAnimationEnd()
+void DroneSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 }
 
@@ -261,6 +261,15 @@ void DroneSpriteAnimator::PlayShoot()
 		return;
 	}
 	PlayAnimation(m_shoot[(unsigned int)DIR_DRONE::FRONT]);
+}
+
+void DroneSpriteAnimator::PlayMove(DIR_DRONE edir)
+{
+	if (IsPlayingMove())
+	{
+		return;
+	}
+	PlayAnimation(m_move[(unsigned int)edir]);
 }
 
 void DroneSpriteAnimator::PlayMove()

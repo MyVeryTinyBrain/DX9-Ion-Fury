@@ -189,7 +189,7 @@ void SpiderSpriteAnimator::OnDestroy()
 		SafeDelete(m_die[i]);
 }
 
-void SpiderSpriteAnimator::OnAnimationEnd()
+void SpiderSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 }
 

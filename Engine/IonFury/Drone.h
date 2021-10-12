@@ -41,6 +41,6 @@ private:
 
 	float m_deltatime = 0.f;
 
-
+	unsigned int m_attackCount = 0;
 };
 

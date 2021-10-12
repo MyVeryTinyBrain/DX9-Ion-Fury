@@ -36,7 +36,7 @@ void RightHandAnimator::OnDestroy()
 	SafeDelete(m_shoot);
 }
 
-void RightHandAnimator::OnAnimationEnd()
+void RightHandAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 }
 
