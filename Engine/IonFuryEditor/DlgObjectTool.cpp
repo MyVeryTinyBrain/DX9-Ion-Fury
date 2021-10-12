@@ -10,6 +10,10 @@
 #include "Pickable.h"
 #include "Gizmo.h"
 #include "EditorEnum.h"
+//
+#include "MainFrm.h"
+#include "IonFuryEditorView.h"
+#include "DlgTextureTool.h"
 
 // DlgObjectTool 대화 상자
 
@@ -33,9 +37,14 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 	m_rRotY = gameobject->transform->eulerAngle.y;
 	m_rRotZ = gameobject->transform->eulerAngle.z;
 
-	m_SliderControlX.SetPos(gameobject->transform->eulerAngle.x + 180);
-	m_SliderControlY.SetPos(gameobject->transform->eulerAngle.y + 180);
-	m_SliderControlZ.SetPos(gameobject->transform->eulerAngle.z + 180);
+	m_SliderControlX.SetPos((int)(gameobject->transform->eulerAngle.x + 180));
+	m_SliderControlY.SetPos((int)(gameobject->transform->eulerAngle.y + 180));
+	m_SliderControlZ.SetPos((int)(gameobject->transform->eulerAngle.z + 180));
+
+	//============================
+	m_SliderControlScaleX.SetPos((int)(gameobject->transform->scale.x) * 100);
+	m_SliderControlScaleY.SetPos((int)(gameobject->transform->scale.y) * 100);
+	m_SliderControlScaleZ.SetPos((int)(gameobject->transform->scale.z) * 100);
 
 	UpdateData(FALSE);
 }
@@ -114,7 +123,6 @@ DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	, m_fScaleX(1.f)
 	, m_fScaleY(1.f)
 	, m_fScaleZ(1.f)
-	//, m_meshPath(L"")
 	, m_MeshType(COMBOBOX::Cube)
 	, m_objectTag(_T(""))
 	, m_SelectName(_T(""))
@@ -169,6 +177,10 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT12, m_UVScaleX);
 	DDX_Control(pDX, IDC_EDIT11, m_UVScaleY);
 	DDX_Control(pDX, IDC_CHECK1, m_ColliderExistence);
+
+	DDX_Control(pDX, IDC_ScaleSlider, m_SliderControlScaleX);
+	DDX_Control(pDX, IDC_ScaleSlider2, m_SliderControlScaleY);
+	DDX_Control(pDX, IDC_ScaleSlider3, m_SliderControlScaleZ);
 }
 
 
@@ -182,6 +194,7 @@ BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON5, &DlgObjectTool::OnBnClickedClear)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_RotSlider, &DlgObjectTool::OnNMCustomdrawRotslider)
 	ON_WM_HSCROLL()
+	ON_BN_CLICKED(IDC_BUTTON6, &DlgObjectTool::ClickAddButton)
 END_MESSAGE_MAP()
 
 
@@ -275,6 +288,8 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_SliderControlZ.SetRange(0, 360);
 	m_SliderControlZ.SetPos(180);
 	m_SliderControlZ.SetLineSize(10);
+
+	//작업중여기
 
 	NumToEdit(m_UVScaleX, 1.f);
 	NumToEdit(m_UVScaleY, 1.f);
@@ -592,8 +607,38 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	m_fRotX = m_rRotX;
 	m_fRotY = m_rRotY;
 	m_fRotZ = m_rRotZ;
+	//=====================================================================================
+
 
 	UpdateData(FALSE);
 
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
+}
+
+
+void DlgObjectTool::ClickAddButton()
+{
+	CMainFrame* pMainFrame = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
+	CIonFuryEditorView* pView = dynamic_cast<CIonFuryEditorView*>(pMainFrame->GetActiveView());
+
+	DlgTextureTool* textool = pView->GetTextureTool();
+	CString TexturePath = textool->GetmemberTexturePathString();
+
+	FreePerspectiveCamera* camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+	Pickable* pick = nullptr;
+	pick = camera->Add_MapObject(
+		GetColliderExistence(),
+		GetToolSize(),
+		GetToolRotation(),
+		GetToolUVScale(),
+		m_MeshType,
+		m_objectTag.GetString(),
+		m_objectName.GetString(),
+		TexturePath.GetString());
+
+	SetPickableObject(pick->GetGameObject());
+	SelectObject();
+	UpdateUVScale(pick);
+	ReturnComboBoxSelect(pick);
+	ReturnCollisionExistenceSelect(pick);
 }

@@ -80,11 +80,12 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 
 Pickable* FreePerspectiveCamera::Add_MapObject(bool ColliderExistence, Vec3 Size, Vec3 Rotation, Vec2 UVScale, COMBOBOX comboBox, const tag_t& tag, const wstring& ObjName, const wstring& localPathTexture)
 {
-	GameObject* Obj = CreateGameObject(tag);
-
+	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(tag);
+	
 	Obj->name = ObjName;
 
-	Obj->transform->position = transform->position + transform->forward * 2;
+	Vec3 test = transform->position + transform->forward * 2;
+	Obj->transform->position = test;
 	//Obj->transform->scale = Size;
 	//Obj->transform->SetEulerAngle(Rotation);
 

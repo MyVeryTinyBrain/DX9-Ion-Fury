@@ -223,6 +223,7 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		}
 		else
 		{
+			//Pickable* pick = nullptr;
 			pick = camera->Add_MapObject(
 				m_dlgObjectTool.GetColliderExistence(),
 				m_dlgObjectTool.GetToolSize(),
@@ -335,4 +336,10 @@ void CIonFuryEditorView::OnMonsterTool()
 	if (!m_dlgMonsterTool.GetSafeHwnd())
 		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
 	m_dlgMonsterTool.ShowWindow(SW_SHOW);
+}
+
+DlgTextureTool* CIonFuryEditorView::GetTextureTool()
+{
+	if (m_dlgTextureTool)
+		return &m_dlgTextureTool;
 }

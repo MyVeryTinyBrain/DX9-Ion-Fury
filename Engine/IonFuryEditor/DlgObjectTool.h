@@ -98,4 +98,8 @@ public:
 	CEdit m_UVScaleY;
 
 	CButton m_ColliderExistence;
+	afx_msg void ClickAddButton();
+	CSliderCtrl m_SliderControlScaleX;
+	CSliderCtrl m_SliderControlScaleY;
+	CSliderCtrl m_SliderControlScaleZ;
 };
