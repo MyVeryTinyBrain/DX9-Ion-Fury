@@ -26,8 +26,6 @@ void Drone::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-	Moving();
-
 	//m_animator->SetAngle(AngleToPlayerWithSign());
 
 	if (!m_hasTargetCoord)
@@ -40,6 +38,8 @@ void Drone::FixedUpdate()
 void Drone::Update()
 {
 	Monster::Update();
+
+	Moving();
 
 	//if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 	//	m_animator->PlayMove();
@@ -81,7 +81,7 @@ void Drone::Moving()
 	transform->right = Vec3::Cross(transform->up, transform->forward);
 	transform->right.Normalize();
 
-	m_deltatime += Time::FixedDeltaTime();
+	m_deltatime += Time::DeltaTime();
 
 	if (!m_animator->IsPlayingShoot() | !m_animator->IsPlayingMoveShoot())
 	{
@@ -89,13 +89,13 @@ void Drone::Moving()
 
 		if (m_deltatime < 3.f)
 		{
-			transform->position += transform->right * m_moveSpeed * Time::FixedDeltaTime();
+			transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
 			m_animator->PlayMove();
 			m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
 		}
 		else
 		{
-			transform->position += transform->right * m_moveSpeed * -Time::FixedDeltaTime();
+			transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
 			m_animator->PlayMove();
 			m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
 			if (m_deltatime > 6.f)
