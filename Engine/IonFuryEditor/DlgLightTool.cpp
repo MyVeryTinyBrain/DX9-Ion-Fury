@@ -270,7 +270,6 @@ void DlgLightTool::OnListBoxCtrl()
 
 		if (lightobj->name == name.GetString())
 		{
-
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
@@ -283,25 +282,22 @@ void DlgLightTool::OnListBoxCtrl()
 				m_ColorB = com->color.b;
 				m_ColorA = com->color.a;
 
-				/// <summary>
-				/// /////////여기서부터!!!
-				/// </summary>
-				m_PosX = lightobj->GetComponentInChild<PointLight>()->transform->position.x;
-				m_PosY = com->transform->position.x;
-				m_PosZ = com->transform->position.x;
+				m_PosX = lightobj->transform->position.x;
+				m_PosY = lightobj->transform->position.y;
+				m_PosZ = lightobj->transform->position.z;
 
 				m_radius = com->range;
 
 				m_dirx = lightobj->transform->forward.x;
 				m_diry = lightobj->transform->forward.y;
-
-				m_dirz = lightobj->GetTransform()->forward.z;
+				m_dirz = lightobj->transform->forward.z;
 				m_ambinentFactor = com->ambientFactor;
 				//m_Radius.SetWindowText();
 
 			}
 			else if (lightobj->tag == L"Spot")
 			{
+
 				auto com = lightobj->GetComponentInChild<SpotLight>();
 
 				m_LightType = lightobj->tag.c_str();
@@ -318,13 +314,14 @@ void DlgLightTool::OnListBoxCtrl()
 
 				m_radius = com->range;
 
-				m_dirx = lightobj->transform->position.x;
-				m_diry = lightobj->transform->position.y;
-				m_dirz = lightobj->transform->position.z;
+				m_dirx = lightobj->transform->forward.x;
+				m_diry = lightobj->transform->forward.y;
+				m_dirz = lightobj->transform->forward.z;
 				m_ambinentFactor = com->ambientFactor;
 			}
 			else if (lightobj->tag == L"Directional")
 			{
+
 				auto directionallight = SceneManager::GetInstance()->GetCurrentScene()->FindGameObject(L"Directional");
 				auto light = directionallight->GetComponentInChild<DirectionalLight>();
 
@@ -345,9 +342,9 @@ void DlgLightTool::OnListBoxCtrl()
 				m_PosY = directionallight->transform->position.y;
 				m_PosZ = directionallight->transform->position.z;
 
-				m_dirx = directionallight->transform->position.x;
-				m_diry = directionallight->transform->position.y;
-				m_dirz = directionallight->transform->position.z;
+				m_dirx = directionallight->transform->forward.x;
+				m_diry = directionallight->transform->forward.y;
+				m_dirz = directionallight->transform->forward.z;
 
 				m_ambinentFactor = light->ambientFactor;
 			}
@@ -795,6 +792,9 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		SpotLightObj->name = m_LightName.GetString();
 
+		m_PosX = GetPos().x;
+		m_PosY = GetPos().y;
+
 		SpotLightObj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
 		//SpotLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
 
@@ -1127,6 +1127,10 @@ void DlgLightTool::OnBnClickedClear()
 	m_dirx = 0.f;
 	m_diry = 0.f;
 	m_dirz = 0.f;
+
+	m_DirX.SetWindowText(0);
+	m_DirY.SetWindowText(0);
+	m_DirZ.SetWindowText(0);
 
 	UpdateData(FALSE);
 }
