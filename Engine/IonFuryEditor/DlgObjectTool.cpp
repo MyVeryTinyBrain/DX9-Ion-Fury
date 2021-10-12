@@ -545,5 +545,7 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	m_fRotY = m_rRotY;
 	m_fRotZ = m_rRotZ;
 
+	UpdateData(FALSE);
+
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 }
