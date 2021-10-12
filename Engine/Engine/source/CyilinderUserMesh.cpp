@@ -23,14 +23,14 @@ CyilinderUserMesh::~CyilinderUserMesh()
 
 void CyilinderUserMesh::InitializeNums(unsigned int& numVertices, unsigned int& numIncides)
 {
-    // 실린더를 두르는 위 아래 원을 구성하는 slice개의 정점 세트 두 개
-    // 실린더를 덮는 위 아래 원을 구성하는 slice개의 정점 세트 두 개
-    // 실린더를 덮는 위 아래 원의 중심점 정점 두 개
-    numVertices = (m_slice * 2) + (m_slice * 2) + (2);
+	// 실린더를 두르는 위 아래 원을 구성하는 slice개의 정점 세트 두 개
+	// 실린더를 덮는 위 아래 원을 구성하는 slice개의 정점 세트 두 개
+	// 실린더를 덮는 위 아래 원의 중심점 정점 두 개
+	numVertices = (m_slice * 2) + (m_slice * 2) + (2);
 
-    // 실런더를 두르는 메쉬 구성을 위한 slice개의 사각형 구성을 위한 slice * 2개의 삼각형 세트
-    // 실린더의 덮개 메쉬 구성을 위한 slice개의 삼각형 구성을 위한 slice개의 삼각형 세트 두 개
-    numIncides = (m_slice * 2) + m_slice * 2;
+	// 실런더를 두르는 메쉬 구성을 위한 slice개의 사각형 구성을 위한 slice * 2개의 삼각형 세트
+	// 실린더의 덮개 메쉬 구성을 위한 slice개의 삼각형 구성을 위한 slice개의 삼각형 세트 두 개
+	numIncides = (m_slice * 2) + m_slice * 2;
 }
 
 void CyilinderUserMesh::InitializeVertices()
@@ -47,7 +47,7 @@ void CyilinderUserMesh::InitializeVertices()
 	for (DWORD i = 0; i <= 1; ++i)
 	{
 		float yPercent = float(i);
-		float y = 0.5f - yPercent;
+		float y = (0.5f - yPercent) * 2.0f;
 		Vec3 yPos = Vec3(0, y, 0) * m_halfHeight;
 
 		for (DWORD j = 0; j < m_slice; ++j)
