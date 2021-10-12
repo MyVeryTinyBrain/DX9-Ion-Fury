@@ -262,6 +262,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	Pickable* pick = Pickable::Pick();
 	//LightObj* light = LightObj::LightPick();
@@ -280,6 +281,14 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_dlgObjectTool.UpdateUVScale(pick);
 		m_dlgObjectTool.ReturnComboBoxSelect(pick);
 		m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
+
+		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
+	}
+	else
+	{
+		giz->Detach();
+		giz->enable = false;
+		m_dlgObjectTool.Clear();
 	}
 
 

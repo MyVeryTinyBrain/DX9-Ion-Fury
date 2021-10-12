@@ -11,13 +11,15 @@ class DlgObjectTool : public CDialog
 	DECLARE_DYNAMIC(DlgObjectTool)
 
 public:
-	void SetPickableObject(GameObject* gameobject);
+	void SetPickableObject(GameObject* gameobject = nullptr);
 	void SelectObject();
 
 	//void ScrollUpdatePick(GameObject* gam);
 
 	Vec3 GetToolSize();
 	Vec3 GetToolRotation();
+
+	void Clear();
 
 public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
