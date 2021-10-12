@@ -33,6 +33,10 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 	m_rRotY = gameobject->transform->eulerAngle.y;
 	m_rRotZ = gameobject->transform->eulerAngle.z;
 
+	m_SliderControlX.SetPos(gameobject->transform->eulerAngle.x + 180);
+	m_SliderControlY.SetPos(gameobject->transform->eulerAngle.y + 180);
+	m_SliderControlZ.SetPos(gameobject->transform->eulerAngle.z + 180);
+
 	UpdateData(FALSE);
 }
 void DlgObjectTool::SelectObject()
@@ -53,6 +57,21 @@ void DlgObjectTool::SelectObject()
 
 	UpdateData(FALSE);
 }
+
+Vec3 DlgObjectTool::GetToolSize()
+{
+	UpdateData(TRUE);
+	return Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
+	UpdateData(FALSE);
+}
+
+Vec3 DlgObjectTool::GetToolRotation()
+{
+	UpdateData(TRUE);
+	return Vec3(m_fRotX, m_fRotY, m_fRotZ);
+	UpdateData(FALSE);
+}
+
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
@@ -216,15 +235,15 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_MeshType = COMBOBOX::Cube;
 
 	m_SliderControlX.SetRange(0, 360);
-	m_SliderControlX.SetPos(0);
+	m_SliderControlX.SetPos(180);
 	m_SliderControlX.SetLineSize(10);
 
 	m_SliderControlY.SetRange(0, 360);
-	m_SliderControlY.SetPos(0);
+	m_SliderControlY.SetPos(180);
 	m_SliderControlY.SetLineSize(10);
 
 	m_SliderControlZ.SetRange(0, 360);
-	m_SliderControlZ.SetPos(0);
+	m_SliderControlZ.SetPos(180);
 	m_SliderControlZ.SetLineSize(10);
 
 	NumToEdit(m_UVScaleX, 1.f);
@@ -535,9 +554,9 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	if (!giz->GetSelectedObject())
 		return;
 
-	m_rRotX = float(m_SliderControlX.GetPos());
-	m_rRotY = float(m_SliderControlY.GetPos());
-	m_rRotZ = float(m_SliderControlZ.GetPos());
+	m_rRotX = float(m_SliderControlX.GetPos() - 180);
+	m_rRotY = float(m_SliderControlY.GetPos() - 180);
+	m_rRotZ = float(m_SliderControlZ.GetPos() - 180);
 
 	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(m_rRotX, m_rRotY, m_rRotZ));
 

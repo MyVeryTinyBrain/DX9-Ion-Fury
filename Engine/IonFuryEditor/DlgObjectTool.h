@@ -14,6 +14,11 @@ public:
 	void SetPickableObject(GameObject* gameobject);
 	void SelectObject();
 
+	//void ScrollUpdatePick(GameObject* gam);
+
+	Vec3 GetToolSize();
+	Vec3 GetToolRotation();
+
 public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~DlgObjectTool();
