@@ -762,6 +762,7 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		if (lightobj->name == m_LightName.GetString())
 		{
+			MessageBox(_T("그럼 자네가 이름 똑같이 설정한건 말이 되고?"), _T(" 생성이안되다뇨? 말이 안 되는 거잖아!"), MB_OK | MB_ICONSTOP);
 			return;
 		}
 	}
@@ -966,6 +967,8 @@ void DlgLightTool::OnBnClickedSave()
 void DlgLightTool::OnBnClickedLoad()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	m_LT_ListBox.ResetContent();
 	CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
 
 	TCHAR szFilePath[MAX_PATH]{};
@@ -1076,7 +1079,7 @@ void DlgLightTool::OnBnClickedLoad()
 				spot->ambientFactor = fambinentfactor;
 				spot->color = Vcolor;
 
-				m_LT_ListBox.AddString(pObj->name.c_str());
+				//m_LT_ListBox.AddString(pObj->name.c_str());
 
 			}
 			if (pObj->tag == L"Point")
@@ -1089,19 +1092,18 @@ void DlgLightTool::OnBnClickedLoad()
 				point->range = frange;
 				point->ambientFactor = fambinentfactor;
 				point->color = Vcolor;
-				m_LT_ListBox.AddString(pObj->name.c_str());
+				//m_LT_ListBox.AddString(pObj->name.c_str());
 
 			}
 			if (pObj->tag == L"Directional")
 			{
-				auto directional = pObj->GetComponentInChild<DirectionalLight>();
+				DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
 				directional->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
-
 				directional->ambientFactor = fambinentfactor;
 				directional->color = Vcolor;
 			}
-
+			m_LT_ListBox.AddString(pObj->name.c_str());
 
 		}
 
