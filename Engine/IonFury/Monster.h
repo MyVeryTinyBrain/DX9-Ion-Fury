@@ -57,7 +57,7 @@ private:
 
 protected:
 
-	const float DAMAGE_EFFECT_DURATION = 0.1f;
+	const float DAMAGE_EFFECT_DURATION = 0.5f;
 
 	Rigidbody* m_body = nullptr;
 

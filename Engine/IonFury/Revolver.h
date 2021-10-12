@@ -22,6 +22,12 @@ class Revolver : public Weapon
 
 private:
 
+	void TryReload();
+
+	void Attack();
+
+private:
+
 	class RevolverAnimator* m_animator = nullptr;
 
 	Vec2 m_rightHandLocalPositionTarget;

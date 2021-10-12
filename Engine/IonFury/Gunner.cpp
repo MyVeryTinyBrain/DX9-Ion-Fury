@@ -11,7 +11,7 @@ void Gunner::Awake()
     m_hp = 10;
     m_moveSpeed = 3.0f;
 
-    m_body->mass = 2.0f;
+    m_body->mass = 4.0f;
     m_body->interpolate = true;
     m_body->sleepThresholder = 0.5f;
 
@@ -19,11 +19,17 @@ void Gunner::Awake()
     m_rendererObj->transform->scale = Vec3::one() * 3.0f;
 
     m_animator = m_rendererChildObj->AddComponent<GunnerSpriteAnimator>();
+    m_animator->OnDeadAnimated += Function<void()>(this, &Gunner::OnDeadAnimated);
 }
 
 void Gunner::FixedUpdate()
 {
     Monster::FixedUpdate();
+
+    if (m_isDead)
+    {
+        return;
+    }
 
     // 목표 지점으로 이동하는 로직입니다.
     MoveToTarget();
@@ -32,6 +38,24 @@ void Gunner::FixedUpdate()
 void Gunner::Update()
 {
     Monster::Update();
+
+    if (m_isDead)
+    {
+        if (m_body && m_body->IsRigidbodySleep())
+        {
+            m_body->Destroy();
+            m_collider->Destroy();
+            m_body = nullptr;
+            m_collider = nullptr;
+        }
+        return;
+    }
+
+    // 데미지 모션 중에는 동작을 하지 않습니다.
+    if (m_animator->IsPlayingDamage())
+    {
+        return;
+    }
 
     // 휴식시간이 아니라면 새로운 행동을 설정합니다.
     if (m_breakTime <= 0)
@@ -80,6 +104,8 @@ void Gunner::Update()
 void Gunner::OnDestroy()
 {
     Monster::OnDestroy();
+
+    m_animator->OnDeadAnimated -= Function<void()>(this, &Gunner::OnDeadAnimated);
 }
 
 Collider* Gunner::InitializeCollider(GameObject* colliderObj)
@@ -97,6 +123,10 @@ Collider* Gunner::InitializeCollider(GameObject* colliderObj)
 
 void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
+    m_hasTargetCoord = false;
+    m_attackCount = 5;
+    m_breakTime = 0.35f;
+
     switch (damageType)
     {
         case MonsterDamageType::Bullet:
@@ -118,6 +148,21 @@ void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
 
 void Gunner::OnDead(bool& dead, MonsterDamageType damageType)
 {
+    m_hasTargetCoord = false;
+    m_attackCount = 0;
+    m_breakTime = FLT_MAX;
+
+    m_animator->PlayDie(GunnerSpriteAnimator::DIE::DIE_HEADSHOT);
+
+    // 몬스터가 사망하면 몬스터가 다른 몬스터 또는 플레이어와 충돌하지 않아야 합니다.
+    // 또한 쿼리에 포함되면 안됩니다.
+    // 따라서 지형과만 충돌하는 레이어로 변경합니다.
+    m_collider->layerIndex = (uint8_t)PhysicsLayers::MonsterDeadBody;
+}
+
+void Gunner::OnDeadAnimated()
+{
+    //gameObject->Destroy();
 }
 
 bool Gunner::PlayerInSite() const

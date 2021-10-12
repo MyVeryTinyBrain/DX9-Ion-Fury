@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BulletProof.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Drone.h" />
     <ClInclude Include="DroneSpriteAnimator.h" />
@@ -162,6 +163,8 @@
     <ClInclude Include="GunnerSpriteAnimator.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="OrthoEffect.h" />
+    <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
     <ClInclude Include="PhysicsLayers.h" />
     <ClInclude Include="Player.h" />
@@ -183,6 +186,7 @@
     <ClInclude Include="WeaponTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BulletProof.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Drone.cpp" />
     <ClCompile Include="DroneSpriteAnimator.cpp" />
@@ -193,6 +197,7 @@
     <ClCompile Include="GunnerSpriteAnimator.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Revolver.cpp" />

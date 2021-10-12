@@ -2,8 +2,7 @@
 
 #include "WeaponTypes.h"
 
-class LeftHandAnimator;
-class RightHandAnimator;
+class FPSCamera;
 
 class FPSOrthoCamera : public Component
 {

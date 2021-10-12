@@ -148,7 +148,11 @@ void SpriteAnimator::UpdateTexture()
 
 	Texture* texture = nullptr;
 	bool endOfAnimation = !m_current->TimeOf(m_elapsed, &texture);
-	m_renderer->SetTexture(0, texture);
+	
+	if (texture)
+	{
+		m_renderer->SetTexture(0, texture);
+	}
 }
 
 void SpriteAnimator::Transition()

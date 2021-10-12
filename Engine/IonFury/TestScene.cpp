@@ -21,7 +21,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         obj->transform->position = Vec3(0, 5, 0);
         obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
         auto light = obj->AddComponent<DirectionalLight>();
-        light->ambientFactor = 0.5f;
+        light->ambientFactor = 0.6f;
     }
 
     {   // Create test player

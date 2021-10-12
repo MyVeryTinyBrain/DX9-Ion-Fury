@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FPSOrthoCamera.h"
 #include "RenderLayers.h"
+#include "OverlayRenderOrders.h"
 #include "Revolver.h"
 
 void FPSOrthoCamera::Awake()
@@ -24,6 +25,7 @@ void FPSOrthoCamera::Awake()
 		m_crosshairRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
 		m_crosshairRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/hud/crosshair.png"));
 		m_crosshairRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+		m_crosshairRenderer->overlayRenderOrder = int(OverlayRenderOrders::Crosshair);
 	}
 
 	m_handsObject = CreateGameObjectToChild(m_forwardGameObject->transform);

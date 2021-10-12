@@ -55,6 +55,9 @@
     <Filter Include="Player\Weapon\Revolver">
       <UniqueIdentifier>{64a52fde-c709-44b0-b3f3-cb5401ccd067}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BulletProof">
+      <UniqueIdentifier>{2a52c352-a089-44bc-bd2e-12e4d4642004}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,6 +150,15 @@
     <ClInclude Include="WeaponTypes.h">
       <Filter>Initialize</Filter>
     </ClInclude>
+    <ClInclude Include="OrthoEffect.h">
+      <Filter>Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlayRenderOrders.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletProof.h">
+      <Filter>BulletProof</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc">
@@ -233,6 +245,12 @@
     </ClCompile>
     <ClCompile Include="RevolverAnimator.cpp">
       <Filter>Player\Weapon\Revolver</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthoEffect.cpp">
+      <Filter>Player\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletProof.cpp">
+      <Filter>BulletProof</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

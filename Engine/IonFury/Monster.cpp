@@ -83,6 +83,11 @@ Vec3 Monster::ToSlopeVelocity(const Vec3& velocity, float rayLength) const
 
 void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float damage, Vec3 force)
 {
+    if (m_isDead)
+    {
+        return;
+    }
+
     damage = Clamp(damage, 0, FLT_MAX);
 
     OnDamage(collider, damageType, damage, force);
@@ -181,6 +186,21 @@ void Monster::DamageEffectProcessing()
         m_material->params.emissive = Color::Lerp(m_defaultEmissive, m_damageEffectColor, percent);
         m_material->params.specular = Color::black();
     }
+
+    //if (percent <= 0)
+    //{
+    //    m_material->params.ambient = Color::white();
+    //    m_material->params.diffuse = Color::white();
+    //    m_material->params.emissive = m_defaultEmissive;
+    //    m_material->params.specular = Color::black();
+    //}
+    //else
+    //{
+    //    m_material->params.ambient = Color::black();
+    //    m_material->params.diffuse = Color::black();
+    //    m_material->params.emissive = m_damageEffectColor;
+    //    m_material->params.specular = Color::black();
+    //}
 
     m_damageEffectCounter -= Time::DeltaTime();
 }

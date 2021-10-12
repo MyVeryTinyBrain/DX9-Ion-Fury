@@ -76,6 +76,7 @@ void GunnerSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_bodyshot3.png");
 	m_die[(unsigned int)DIE::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_bodyshot4.png");
 	m_die[(unsigned int)DIE::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_bodyshot5.png");
+	m_die[(unsigned int)DIE::DIE_HEADSHOT]->interval = 0.1f;
 
 	m_die[(unsigned int)DIE::DIE_BODYSHOT] = new SpriteAnimation;
 	m_die[(unsigned int)DIE::DIE_BODYSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_headshot0.png");
@@ -85,6 +86,7 @@ void GunnerSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE::DIE_BODYSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_headshot4.png");
 	m_die[(unsigned int)DIE::DIE_BODYSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_headshot5.png");
 	m_die[(unsigned int)DIE::DIE_BODYSHOT]->AddTexture(L"../SharedResource/Texture/gunner/gunner_headshot6.png");
+	m_die[(unsigned int)DIE::DIE_BODYSHOT]->interval = 0.1f;
 
 	m_die[(unsigned int)DIE::DIE_EXPLOSION] = new SpriteAnimation;
 	m_die[(unsigned int)DIE::DIE_EXPLOSION]->AddTexture(L"../SharedResource/Texture/gunner/gunner_explosion0.png");
@@ -96,12 +98,15 @@ void GunnerSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE::DIE_EXPLOSION]->AddTexture(L"../SharedResource/Texture/gunner/gunner_explosion6.png");
 	m_die[(unsigned int)DIE::DIE_EXPLOSION]->AddTexture(L"../SharedResource/Texture/gunner/gunner_explosion7.png");
 	m_die[(unsigned int)DIE::DIE_EXPLOSION]->AddTexture(L"../SharedResource/Texture/gunner/gunner_explosion8.png");
+	m_die[(unsigned int)DIE::DIE_EXPLOSION]->interval = 0.1f;
 
 	m_damage[(unsigned int)DAMAGE::DAMAGE_ZIZIZIK] = new SpriteAnimation;
-	m_damage[(unsigned int)DAMAGE::DAMAGE_ZIZIZIK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_damaged.png");
+	m_damage[(unsigned int)DAMAGE::DAMAGE_ZIZIZIK]->AddTexture(L"../SharedResource/Texture/gunner/gunner_zizizik.png");
+	m_damage[(unsigned int)DAMAGE::DAMAGE_ZIZIZIK]->interval = 0.3f;
 
 	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC] = new SpriteAnimation;
-	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC]->AddTexture(L"../SharedResource/Texture/gunner/gunner_explosion8.png");
+	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC]->AddTexture(L"../SharedResource/Texture/gunner/gunner_damaged.png");
+	m_damage[(unsigned int)DAMAGE::DAMAGE_GENERIC]->interval = 0.3f;
 
 	SetDefaultAnimation(m_idle[(unsigned int)DIR::FRONT]);
 }
@@ -230,6 +235,14 @@ void GunnerSpriteAnimator::OnDestroy()
 
 void GunnerSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
+	for (int i = 0; i < (int)DIE::MAX; ++i)
+	{
+		if (current == m_die[i])
+		{
+			SetDefaultAnimation(nullptr);
+			OnDeadAnimated();
+		}
+	}
 }
 
 void GunnerSpriteAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
@@ -277,7 +290,7 @@ void GunnerSpriteAnimator::PlayDie(DIE type)
 
 void GunnerSpriteAnimator::PlayDamage(DAMAGE type)
 {
-	PlayAnimation(m_damage[unsigned int(type)]);
+	PlayAnimation(m_damage[unsigned int(type)], true);
 	ResetUVDirection();
 }
 

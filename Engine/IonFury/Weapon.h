@@ -1,5 +1,7 @@
 #pragma once
 
+class FPSOrthoCamera;
+
 class Weapon abstract : public Component
 {
 public:
@@ -37,10 +39,10 @@ protected:
 
 	UserMeshRenderer* m_leftHandRenderer = nullptr;
 
-	unsigned int m_totalAmmo = 100;
+	int m_totalAmmo = 100;
 
-	unsigned int m_loadedAmmo = 10;
+	int m_loadedAmmo = 10;
 
-	unsigned int m_ammoLoadMax = 10;
+	int m_ammoLoadMax = 10;
 };
 

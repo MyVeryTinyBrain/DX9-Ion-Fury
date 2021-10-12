@@ -1,6 +1,14 @@
 #include "stdafx.h"
 #include "Revolver.h"
 #include "RevolverAnimator.h"
+#include "Player.h"
+#include "FPSCharacterController.h"
+#include "FPSCamera.h"
+#include "FPSOrthoCamera.h"
+#include "OrthoEffect.h"
+#include "PhysicsLayers.h"
+#include "Monster.h"
+#include "BulletProof.h"
 
 void Revolver::Awake()
 {
@@ -19,7 +27,7 @@ void Revolver::Awake()
 
 	m_animator->PlayDefaultAnimation();
 
-	m_totalAmmo = 100;
+	m_totalAmmo = 60;
 
 	m_loadedAmmo = 6;
 
@@ -29,6 +37,11 @@ void Revolver::Awake()
 void Revolver::Update()
 {
 	Weapon::Update();
+
+	if (m_loadedAmmo == 0)
+	{
+		TryReload();
+	}
 
 	if (m_animator->IsPlayingReloadPutin())
 	{
@@ -71,6 +84,21 @@ void Revolver::OnAttackInput(InputType inputType)
 			m_loadedAmmo > 0)
 		{
 			m_animator->PlayShoot();
+
+			float randomAngle = float(rand() % 40 - 20) + 90.0f;
+			Player::GetInstance()->controller->fpsCamera->MakeRecoil(Vec2::Direction(randomAngle) * 2.0f, 0.25f, 4.0f);
+
+			auto effectObj = CreateGameObjectToChild(m_rightHandObj->transform);
+			effectObj->transform->localPosition = Vec2(0.1f, 0.05f);
+			effectObj->transform->localScale = Vec2::one() * 0.5f;
+			auto effect = effectObj->AddComponent<OrthoEffect>();
+			effect->SetSpeed(1.5f);
+			effect->AddTexture(L"../SharedResource/Texture/revolver/revolver_effect0.png");
+			effect->AddTexture(L"../SharedResource/Texture/revolver/revolver_effect1.png");
+			effect->AddTexture(L"../SharedResource/Texture/revolver/revolver_effect2.png");
+
+			Attack();
+
 			--m_loadedAmmo;
 		}
 	}
@@ -84,16 +112,49 @@ void Revolver::OnReloadInput(InputType inputType)
 {
 	if (inputType == InputType::KeyPressing)
 	{
-		if (!m_animator->IsPlayingReload() &&
-			m_totalAmmo > 0)
-		{
-			m_animator->PlayReload();
-		}
+		TryReload();
 	}
 }
 
 void Revolver::OnReloaded()
 {
-	m_totalAmmo -= (m_ammoLoadMax - m_loadedAmmo);
-	m_loadedAmmo = Clamp(m_totalAmmo, 0, m_ammoLoadMax);
+	int emptyAmmos = (int)Abs(m_ammoLoadMax - m_loadedAmmo);
+	int reloadableAmmos = (int)Clamp(emptyAmmos, 0, m_totalAmmo);
+	m_loadedAmmo += reloadableAmmos;
+	m_totalAmmo -= reloadableAmmos;
+}
+
+void Revolver::TryReload()
+{
+	if (m_animator->IsPlayingIdle() &&
+		m_totalAmmo > 0)
+	{
+		m_animator->PlayReload();
+	}
+}
+
+void Revolver::Attack()
+{
+	RaycastHit hit;
+	PhysicsRay ray;
+	ray.direction = Player::GetInstance()->perspectiveCamera->transform->forward;
+	ray.distance = FLT_MAX;
+	ray.point = Player::GetInstance()->perspectiveCamera->transform->position;
+	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster)))
+	{
+		if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
+		{
+			auto bulletProofObj = CreateGameObject();
+			auto bulletProof = bulletProofObj->AddComponent<BulletProof>();
+			bulletProof->InitializeBulletProof(hit.point, hit.normal);
+		}
+		else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
+		{
+			auto monster = hit.collider->rigidbody->gameObject->GetComponent<Monster>();
+			if (monster)
+			{
+				monster->TakeDamage(hit.collider, MonsterDamageType::Bullet, 5, ray.direction * 10);
+			}
+		}
+	}
 }
