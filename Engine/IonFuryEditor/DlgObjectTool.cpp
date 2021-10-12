@@ -42,9 +42,9 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 	m_SliderControlZ.SetPos((int)(gameobject->transform->eulerAngle.z + 180));
 
 	//============================
-	m_SliderControlScaleX.SetPos((int)(gameobject->transform->scale.x) * 100);
-	m_SliderControlScaleY.SetPos((int)(gameobject->transform->scale.y) * 100);
-	m_SliderControlScaleZ.SetPos((int)(gameobject->transform->scale.z) * 100);
+	m_SliderControlScaleX.SetPos((int)(gameobject->transform->scale.x * 20));
+	m_SliderControlScaleY.SetPos((int)(gameobject->transform->scale.y * 20));
+	m_SliderControlScaleZ.SetPos((int)(gameobject->transform->scale.z * 20));
 
 	UpdateData(FALSE);
 }
@@ -107,6 +107,10 @@ void DlgObjectTool::Clear()
 	m_SliderControlX.SetPos(180);
 	m_SliderControlY.SetPos(180);
 	m_SliderControlZ.SetPos(180);
+
+	m_SliderControlScaleX.SetPos(20);
+	m_SliderControlScaleY.SetPos(20);
+	m_SliderControlScaleZ.SetPos(20);
 
 	UpdateData(FALSE);
 }
@@ -272,28 +276,38 @@ BOOL DlgObjectTool::OnInitDialog()
 	m_comboBox.AddString(_T("RightTriangle"));
 	m_comboBox.AddString(_T("Triangle"));
 
-
 	m_comboBox.SetCurSel(0);
 	m_ColliderExistence.SetCheck(false);
 	m_MeshType = COMBOBOX::Cube;
+	{
+		m_SliderControlX.SetRange(0, 360);
+		m_SliderControlX.SetPos(180);
+		m_SliderControlX.SetLineSize(10);
 
-	m_SliderControlX.SetRange(0, 360);
-	m_SliderControlX.SetPos(180);
-	m_SliderControlX.SetLineSize(10);
+		m_SliderControlY.SetRange(0, 360);
+		m_SliderControlY.SetPos(180);
+		m_SliderControlY.SetLineSize(10);
 
-	m_SliderControlY.SetRange(0, 360);
-	m_SliderControlY.SetPos(180);
-	m_SliderControlY.SetLineSize(10);
-
-	m_SliderControlZ.SetRange(0, 360);
-	m_SliderControlZ.SetPos(180);
-	m_SliderControlZ.SetLineSize(10);
-
+		m_SliderControlZ.SetRange(0, 360);
+		m_SliderControlZ.SetPos(180);
+		m_SliderControlZ.SetLineSize(10);
+	}
 	//작업중여기
+	{
+		m_SliderControlScaleX.SetRange(0, 100);
+		m_SliderControlScaleX.SetPos(20);
+		m_SliderControlScaleX.SetLineSize(10);
 
+		m_SliderControlScaleY.SetRange(0, 100);
+		m_SliderControlScaleY.SetPos(20);
+		m_SliderControlScaleY.SetLineSize(10);
+
+		m_SliderControlScaleZ.SetRange(0, 100);
+		m_SliderControlScaleZ.SetPos(20);
+		m_SliderControlScaleZ.SetLineSize(10);
+	}
 	NumToEdit(m_UVScaleX, 1.f);
 	NumToEdit(m_UVScaleY, 1.f);
-
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -366,7 +380,8 @@ void DlgObjectTool::OnBnClickedApply()
 
 	}
 
-	ResetScroll();
+	//ResetScroll();
+	SetPickableObject(trans->GetGameObject());
 
 	UpdateData(FALSE);
 }
@@ -476,10 +491,10 @@ void DlgObjectTool::OnBnClickedLoad()
 			return;
 	
 		// Release
-		int vecSize = Pickable::g_PickableVec.size();
+		int vecSize = Pickable::g_MapVec.size();
 		for (int i = 0; i < vecSize; ++i)
 		{
-			Pickable::g_PickableVec[0]->gameObject->Destroy();
+			Pickable::g_MapVec[0]->gameObject->Destroy();
 		}
 		//
 
@@ -550,6 +565,10 @@ void DlgObjectTool::OnBnClickedLoad()
 			SafeDeleteArray(pBuff4);
 		}
 
+		Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+		giz->Detach();
+		giz->enable = false;
+
 		CloseHandle(hFile);
 	}
 
@@ -608,7 +627,15 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	m_fRotY = m_rRotY;
 	m_fRotZ = m_rRotZ;
 	//=====================================================================================
+	m_rScaleX = float(m_SliderControlScaleX.GetPos() / 20.f);
+	m_rScaleY = float(m_SliderControlScaleY.GetPos() / 20.f);
+	m_rScaleZ = float(m_SliderControlScaleZ.GetPos() / 20.f);
 
+	giz->GetSelectedObject()->transform->SetScale(Vec3(m_rScaleX, m_rScaleY, m_rScaleZ));
+
+	m_fScaleX = m_rScaleX;
+	m_fScaleY = m_rScaleY;
+	m_fScaleZ = m_rScaleZ;
 
 	UpdateData(FALSE);
 
