@@ -22,7 +22,31 @@ public:
 
 	enum class DIR_DRONE { FRONT, FRONT_DIAGONAL, SIDE, BACK_DIAGONAL, BACK, MAX };
 
-	
+public:
+
+	void SetAngle(float angle);
+
+	void PlayIdle();
+
+	void PlayShoot();
+
+	void PlayMove();
+
+	void PlayMoveShoot();
+
+	bool IsPlayingIdle() const;
+
+	bool IsPlayingShoot() const;
+
+	bool IsPlayingMove() const;
+
+	bool IsPlayingMoveShoot() const;
+
+private:
+
+	void ChangeUVDirection();
+
+	void ResetUVDirection();
 
 private:
 
