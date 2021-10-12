@@ -57,6 +57,21 @@ void RevolverAnimator::Awake()
 	SetDefaultAnimation(m_default);
 }
 
+void RevolverAnimator::OnDestroy()
+{
+	SafeDelete(m_default);
+
+	SafeDelete(m_shoot);
+
+	SafeDelete(m_beginReload);
+
+	SafeDelete(m_reloadingPutin);
+
+	SafeDelete(m_reloadingPullout);
+
+	SafeDelete(m_endReload);
+}
+
 void RevolverAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 	if (current == m_reloadingPutin)
