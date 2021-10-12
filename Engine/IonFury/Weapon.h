@@ -33,13 +33,9 @@ protected:
 
 	GameObject* m_rightHandObj = nullptr;
 
-	GameObject* m_leftHandObj = nullptr;
-
 	UserMeshRenderer* m_rightHandRenderer = nullptr;
 
-	UserMeshRenderer* m_leftHandRenderer = nullptr;
-
-	int m_totalAmmo = 100;
+	int m_totalAmmo = 120;
 
 	int m_loadedAmmo = 10;
 

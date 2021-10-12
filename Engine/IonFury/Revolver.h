@@ -33,5 +33,19 @@ private:
 	Vec2 m_rightHandLocalPositionTarget;
 
 	Vec3 m_rightHandLocalEulerAngleTarget;
+
+	GameObject* m_leftHandObj = nullptr;
+
+	GameObject* m_leftHandChildObj = nullptr;
+
+	UserMeshRenderer* m_leftHandRenderer = nullptr;
+
+	Vec2 m_leftHandLocalPositionTarget;
+
+	const Vec2 m_leftHandHideLocalPosition = Vec2(0, -0.45f);
+
+	const Vec2 m_leftHandShowLocalPosition = Vec2(0.6f, -0.1f);
+
+	const int m_rapidFireRecoilAngleRange = 40;
 };
 

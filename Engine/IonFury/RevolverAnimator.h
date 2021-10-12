@@ -20,13 +20,19 @@ public:
 
 	void PlayShoot();
 
+	void PlayFastShoot();
+
 	void PlayReload();
 
 public:
 
 	bool IsPlayingIdle() const;
 
+	bool IsPlayingShootAll() const;
+
 	bool IsPlayingShoot() const;
+
+	bool IsPlayingFastShoot() const;
 
 	bool IsPlayingReload() const;
 
@@ -37,6 +43,8 @@ private:
 	SpriteAnimation* m_default = nullptr;
 
 	SpriteAnimation* m_shoot = nullptr;
+
+	SpriteAnimation* m_fastShoot = nullptr;
 
 	SpriteAnimation* m_beginReload = nullptr;
 
