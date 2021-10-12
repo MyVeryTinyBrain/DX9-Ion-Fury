@@ -322,7 +322,12 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 
 	if (Handling)
 	{
-		auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
+		Transform* trans = m_giz->GetSelectedObject();
+
+		if (!trans)
+			return;
+
+		auto pickObj = trans->GetGameObject();
 
 		m_dlgObjectTool.SetPickableObject(pickObj);
 
