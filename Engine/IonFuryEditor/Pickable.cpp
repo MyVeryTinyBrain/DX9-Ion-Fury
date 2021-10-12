@@ -116,12 +116,15 @@ Pickable* Pickable::Pick()
 
 	Vec3 HitPoint;
 
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
 	for (auto pickable : g_PickableVec)
 	{
 		UserMeshRenderer* Renderer = pickable->GetRenderer();
 
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
+			giz->enable = true;
 			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
 			return pickable;
 		}

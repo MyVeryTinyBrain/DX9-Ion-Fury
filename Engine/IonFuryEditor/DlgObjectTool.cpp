@@ -72,6 +72,36 @@ Vec3 DlgObjectTool::GetToolRotation()
 	UpdateData(FALSE);
 }
 
+void DlgObjectTool::Clear()
+{
+	UpdateData(TRUE);
+
+	m_objectName = L"";
+	m_objectTag = L"";
+
+	m_fPosX = 0.f;			m_rPosX = 0.f;
+	m_fPosY = 0.f;			m_rPosY = 0.f;
+	m_fPosZ = 0.f;			m_rPosZ = 0.f;
+
+	m_fScaleX = 1.f;		m_rScaleX = 1.f;
+	m_fScaleY = 1.f;		m_rScaleY = 1.f;
+	m_fScaleZ = 1.f;		m_rScaleZ = 1.f;
+
+	m_fRotX = 0.f;			m_rRotX = 0.f;
+	m_fRotY = 0.f;			m_rRotY = 0.f;
+	m_fRotZ = 0.f;			m_rRotZ = 0.f;
+
+	m_ColliderExistence.SetCheck(false);
+	NumToEdit(m_UVScaleX, 1.f);
+	NumToEdit(m_UVScaleY, 1.f);
+
+	m_SliderControlX.SetPos(180);
+	m_SliderControlY.SetPos(180);
+	m_SliderControlZ.SetPos(180);
+
+	UpdateData(FALSE);
+}
+
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgObjectTool, pParent)
 	, m_objectName(_T(""))
@@ -536,7 +566,6 @@ void DlgObjectTool::OnBnClickedClear()
 
 	UpdateData(FALSE);
 }
-
 
 void DlgObjectTool::OnNMCustomdrawRotslider(NMHDR* pNMHDR, LRESULT* pResult)
 {
