@@ -30,8 +30,11 @@ protected:
 public:
 	void ResetScroll();
 	void ReturnComboBoxSelect(Pickable* pick);
+	void ReturnCollisionExistenceSelect(Pickable* pick);
+
 	void UpdateUVScale(Pickable* pick);
 
+	bool GetColliderExistence();
 public:
 	float EditToNum(const CEdit& edit);
 	void NumToEdit(CEdit& edit, float num);
@@ -86,5 +89,6 @@ public:
 
 	CEdit m_UVScaleX;
 	CEdit m_UVScaleY;
+
 	CButton m_ColliderExistence;
 };

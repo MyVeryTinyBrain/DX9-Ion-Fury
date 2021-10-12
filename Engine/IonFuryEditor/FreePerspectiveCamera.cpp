@@ -78,7 +78,7 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	return pos;
 }
 
-void FreePerspectiveCamera::Add_MapObject(Vec2 UVScale, COMBOBOX comboBox, const tag_t& tag, const wstring& ObjName, const wstring& localPathTexture)
+void FreePerspectiveCamera::Add_MapObject(bool ColliderExistence, Vec2 UVScale, COMBOBOX comboBox, const tag_t& tag, const wstring& ObjName, const wstring& localPathTexture)
 {
 	GameObject* Obj = CreateGameObject(tag);
 
@@ -89,6 +89,6 @@ void FreePerspectiveCamera::Add_MapObject(Vec2 UVScale, COMBOBOX comboBox, const
 	auto test = Obj->AddComponent<Pickable>();
 	
 	test->PushInVector(Type::Map);
-	test->Settings(UVScale, comboBox, localPathTexture);
+	test->Settings(UVScale, comboBox, localPathTexture, ColliderExistence);
 }
 

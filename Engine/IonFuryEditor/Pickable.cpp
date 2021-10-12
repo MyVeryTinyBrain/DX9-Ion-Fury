@@ -55,13 +55,14 @@ void Pickable::OnDestroy()
 	DeleteMesh();
 }
 
-void Pickable::Settings(Vec2 UVScale, COMBOBOX comboBox, const wstring& localPathTexture)
+void Pickable::Settings(Vec2 UVScale, COMBOBOX comboBox, const wstring& localPathTexture, bool ColliderExistence)
 {
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
 
 	SetMesh(comboBox);
 	m_Mesh->SetUVScale(UVScale);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
+	m_CollisionExistence = ColliderExistence;
 }
 
 void Pickable::SetMesh(COMBOBOX comboBox)
