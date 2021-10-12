@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "LeftHandAnimator.h"
 
-void LeftHandAnimator::OnAnimationEnd()
+void LeftHandAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 }
 

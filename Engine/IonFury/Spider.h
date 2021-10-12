@@ -26,6 +26,8 @@ private:
 
 	void SetTargetCoord(Vec3 xzCoord);
 
+	void Attack();
+
 private:
 
 	SpiderSpriteAnimator* m_animator = nullptr;
@@ -39,5 +41,7 @@ private:
 	float m_jumpSpeed = 5.0f;
 
 	bool m_hasJump = false;
+
+	unsigned int m_attackCount = 0;
 };
 

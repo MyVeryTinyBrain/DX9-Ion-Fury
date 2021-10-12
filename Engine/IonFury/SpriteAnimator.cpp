@@ -167,26 +167,21 @@ void SpriteAnimator::Transition()
 		m_current = nullptr;
 
 		// 애니메이션 종료 이벤트함수를 호출합니다.
-		OnAnimationEnd();
+		OnAnimationEnd(current);
 
 		// OnAnimationEnd() 에서 다른 애니메이션이 설정되지 않은 경우에
 		if (m_current == nullptr)
 		{
-			// 애니메이션을 변경하지 않는 조건이면 이전 애니메이션을 그대로 유지하고 종료합니다.
+			// 애니메이션을 변경하지 않는 조건이면 종료합니다.
 			if (!m_transition)
 			{
-				m_current = current;
 				return;
 			}
+
+			m_current = current;
 
 			// 기본 애니메이션으로 전환합니다.
 			PlayAnimation(m_default, true);
-
-			// 기본 애니메이션도 존재하지 않는다면 종료합니다.
-			if (!m_current)
-			{
-				return;
-			}
 
 			// 변경된 애니메이션의 텍스쳐를 적용합니다.
 			UpdateTexture();

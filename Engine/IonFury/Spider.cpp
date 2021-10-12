@@ -63,6 +63,27 @@ Collider* Spider::InitializeCollider(GameObject* colliderObj)
 
 void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
+	Vec3 bound;
+
+	switch (damageType)
+	{
+	case MonsterDamageType::Bullet:
+		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC);
+		break;
+	case MonsterDamageType::Explosion:
+		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT);
+		
+		bound = transform->forward;
+		bound.y = 0;
+		bound.Normalize();
+
+		transform->position += bound * m_moveSpeed * -Time::DeltaTime();
+ 		break;
+	case MonsterDamageType::Zizizik:
+		m_animator->PlayDamage();
+		break;
+	}
+
 
 }
 
@@ -110,9 +131,12 @@ void Spider::MoveToTarget()
 		target.y = 0;
 		target.Normalize();
 
+		RaycastHit hit1;
 		PhysicsRay ray1(transform->position, target, sqrtf(5.0f));
 
-		m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
+		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
+
+		//m_hasJump = Physics::RaycastTest(ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
 
 		if (m_hasJump)		// 점프
 		{
@@ -127,6 +151,11 @@ void Spider::MoveToTarget()
 
 			transform->forward = target;
 			m_animator->PlayJump();
+
+			//if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Player)
+			//{
+			//	m_attackCount = 1;
+			//}
 
 		}
 		else
@@ -170,4 +199,13 @@ void Spider::SetTargetCoord(Vec3 xzCoord)
 	m_hasTargetCoord = true;
 	m_targetCoord = xzCoord;
 	m_targetCoord.y = 0;
+}
+
+void Spider::Attack()
+{
+	if (m_attackCount > 0)
+	{
+		--m_attackCount;
+		// 거미줄 
+	}
 }

@@ -228,7 +228,7 @@ void GunnerSpriteAnimator::OnDestroy()
 		SafeDelete(m_damage[i]);
 }
 
-void GunnerSpriteAnimator::OnAnimationEnd()
+void GunnerSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 }
 

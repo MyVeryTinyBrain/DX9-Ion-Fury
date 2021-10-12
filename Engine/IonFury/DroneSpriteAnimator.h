@@ -12,7 +12,7 @@ class DroneSpriteAnimator : public SpriteAnimator
 
 	OverrideComponentFunction(OnDestroy);
 
-	virtual void OnAnimationEnd() override;
+	virtual void OnAnimationEnd(const SpriteAnimation* current) override;
 
 	virtual void OnAnimationChange(const SpriteAnimation* current, SpriteAnimation** next) override;
 
@@ -29,6 +29,8 @@ public:
 	void PlayIdle();
 
 	void PlayShoot();
+
+	void PlayMove(DIR_DRONE edir);
 
 	void PlayMove();
 
