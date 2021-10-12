@@ -152,6 +152,9 @@ void Spider::MoveToTarget()
 			transform->forward = target;
 			m_animator->PlayJump();
 
+			//Vec3 velocity = Quat::AxisAngle(transform->right, -45) * mosterToPlayerDir;
+			//m_body->velocity = velocity;
+
 			//if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Player)
 			//{
 			//	m_attackCount = 1;
