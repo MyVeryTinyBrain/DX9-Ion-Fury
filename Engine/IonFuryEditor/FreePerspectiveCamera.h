@@ -26,10 +26,7 @@ public:
 		, const wstring& localPathTexture = L"../SharedResource/Texture/object/brick.jpg"
 	);
 
-	//void Add_Trigger(
-	//	const tag_t& tag = L"trigger"
-	//	, const wstring& ObjName = L""
-	//)
+	Pickable* Add_MonsterToolObject(Type ObjType, int cnt);
 
 
 private:

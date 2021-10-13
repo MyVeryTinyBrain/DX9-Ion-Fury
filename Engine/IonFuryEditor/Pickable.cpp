@@ -8,7 +8,7 @@ std::vector<Pickable*> Pickable::g_PickableVec;
 
 std::vector<Pickable*> Pickable::g_MapVec;
 std::vector<Pickable*> Pickable::g_TriggerVec;
-std::vector<Pickable*> Pickable::g_MonsterVec;
+std::vector<Pickable*> Pickable::g_EventVec;
 
 void Pickable::Awake()
 {
@@ -40,10 +40,10 @@ void Pickable::OnDestroy()
 		if (it != g_MapVec.end())
 			g_MapVec.erase(it);
 		break;
-	case Type::Monster:
-		it = FindInContainer(g_MonsterVec, this);
-		if (it != g_MonsterVec.end())
-			g_MonsterVec.erase(it);
+	case Type::EventObject:
+		it = FindInContainer(g_EventVec, this);
+		if (it != g_EventVec.end())
+			g_EventVec.erase(it);
 		break;
 	case Type::Trigger:
 		it = FindInContainer(g_TriggerVec, this);
@@ -141,11 +141,25 @@ void Pickable::PushInVector(Type type)
 	case Type::Map:
 		g_MapVec.push_back(this);
 		break;
-	case Type::Monster:
-		g_MonsterVec.push_back(this);
+	case Type::EventObject:
+		g_EventVec.push_back(this);
 		break;
 	case Type::Trigger:
 		g_TriggerVec.push_back(this);
 		break;
 	}
+}
+
+int Pickable::GetTriggerVectorIndex()
+{
+	if(m_Type != Type::Trigger)
+		return -1;
+
+	for (int i = 0; i < g_TriggerVec.size(); ++i)
+	{
+		if (g_TriggerVec[i] == this)
+			return i;
+	}
+
+	return -1;
 }

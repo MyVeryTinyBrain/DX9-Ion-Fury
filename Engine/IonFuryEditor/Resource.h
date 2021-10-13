@@ -33,12 +33,15 @@
 #define IDC_BUTTON1                     1018
 #define IDC_BUTTON2                     1019
 #define IDC_EDIT17                      1020
+#define IDC_BUTTON8                     1020
 #define OBJECT_1                        1021
+#define IDC_BUTTON9                     1021
 #define IDC_LIST1                       1022
 #define OBJECT_2                        1022
 #define IDC_SLIDER1                     1023
 #define IDC_SLIDERCTRL_RAD              1023
 #define IDC_ScaleSlider                 1023
+#define IDC_LIST2                       1023
 #define IDC_SLIDER2                     1024
 #define OBJECT_5                        1024
 #define IDC_SLDER_DIRX                  1024
@@ -51,19 +54,23 @@
 #define OBJECT_3                        1027
 #define IDC_SLIDER3                     1027
 #define IDC_LT_SLIDER                   1027
+#define IDC_SLIDER6                     1027
 #define OBJECT_4                        1028
 #define IDC_BUTTON3                     1028
+#define IDC_BUTTON10                    1028
 #define IDC_BUTTON4                     1029
+#define IDC_BUTTON11                    1029
 #define IDC_LT_COMBOBOX                 1030
 #define IDC_ScaleSlider2                1030
+#define IDC_BUTTON12                    1030
 #define OBJECT_8                        1031
 #define IDC_LT_LIGHTNAME                1031
+#define IDC_BUTTON13                    1031
 #define OBJECT_9                        1032
 #define IDC_COLOR_R                     1032
 #define OBJECT_10                       1033
 #define IDC_COLOR_G                     1033
 #define IDC_COLOR_B                     1034
-#define IDC_SLIDER7                     1034
 #define IDC_ScaleSlider3                1034
 #define IDC_COLOR_A                     1035
 #define IDC_LT_POSX                     1036
@@ -78,20 +85,22 @@
 #define IDC_RotSlider                   1047
 #define IDC_BUTTON6                     1049
 #define IDC_BUTTON7                     1050
+#define IDC_RADIO1                      1051
 #define IDC_RotSlider2                  1052
 #define IDC_RotSlider3                  1053
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
 #define ID_32774                        32774
+#define ID_Menu                         32775
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        313
-#define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1051
+#define _APS_NEXT_RESOURCE_VALUE        315
+#define _APS_NEXT_COMMAND_VALUE         32776
+#define _APS_NEXT_CONTROL_VALUE         1052
 #define _APS_NEXT_SYMED_VALUE           314
 #endif
 #endif
