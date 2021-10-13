@@ -250,10 +250,10 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
-
+	
 		if (!m_dlgObjectTool)
 			return;
-
+	
 		Type PickType = pick->GetType();
 
 		switch (PickType)
@@ -264,7 +264,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgObjectTool.UpdateUVScale(pick);
 			m_dlgObjectTool.ReturnComboBoxSelect(pick);
 			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
-
+	
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
 		case Type::Trigger:
@@ -294,14 +294,16 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
+
 	const Vec3& mouse = Vec3(point.x, point.y, 0.f);
+
 
 	for (auto& light : LightObj::g_vecLight)
 	{
 		auto lightobj = light->GetGameObject();
 		if (lightobj)
 		{
-			m_dlgLightTool.SetPos(mouse);
+			giz->Attach(lightobj->transform);
 		}
 		else
 			return;
@@ -314,6 +316,9 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_dlgLightTool.LightClear();
 
 	}
+
+	giz->Detach();
+	giz->enable = false;
 
 }
 
@@ -333,7 +338,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	bool Handling = m_giz->GetHandlingState();
 
 	if (Handling)		//기즈모 잡혔다
-	{
+
 		Transform* trans = m_giz->GetSelectedObject();
 		if (!trans)
 			return;
@@ -349,6 +354,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		}
 		//													용섭구역
 
+
 		//=========================
 
 		// 2. light에 대해
@@ -356,6 +362,14 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		{
 			auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
 			m_dlgLightTool.SetLTPickableObject(pickObj);
+
+	
+		//=========================
+
+		// 2. light에 대해
+		else
+		{
+			cout << "aa" << endl;
 		}
 		//													성연구역
 	}
