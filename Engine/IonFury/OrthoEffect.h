@@ -28,6 +28,8 @@ public:
 	// 이 함수를 호출하면 애니메이션이 없을 때 애니메이션을 동적 생성합니다.
 	void AddTexture(const wstring& textureLocalPath);
 
+	void SetInterval(float value);
+
 protected:
 
 	// 이 클래스를 상속받아서 고정된 이펙트를 출력하는데 사용할 수 있습니다.

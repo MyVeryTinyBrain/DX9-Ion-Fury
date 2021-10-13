@@ -26,7 +26,10 @@ void BulletProof::Update()
 
 void BulletProof::InitializeBulletProof(const Vec3& point, const Vec3& normal)
 {
+	float randomPull = float(rand() % 1000) / 1000.0f;
+	randomPull *= 0.01f;
+
 	transform->scale = Vec3::one() * 0.3f;
-	transform->position = point + normal * 0.01f;
+	transform->position = point + normal * (0.01f + randomPull);
 	transform->forward = -normal;
 }

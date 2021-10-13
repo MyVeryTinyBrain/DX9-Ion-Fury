@@ -18,6 +18,8 @@ class RevolverAnimator : public SpriteAnimator
 
 public:
 
+	void PlayIdle();
+
 	void PlayShoot();
 
 	void PlayFastShoot();
@@ -41,6 +43,8 @@ public:
 private:
 
 	SpriteAnimation* m_default = nullptr;
+
+	SpriteAnimation* m_beginIdle = nullptr;
 
 	SpriteAnimation* m_shoot = nullptr;
 

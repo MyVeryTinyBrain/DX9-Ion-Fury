@@ -50,6 +50,12 @@ void BuiltIn::MakeTextureResources()
     Texture::CreateInDirectX(128, 128, Color::red(), BuiltInRedTexture, true);
     Texture::CreateInDirectX(128, 128, Color::green(), BuiltInGreenTexture, true);
     Texture::CreateInDirectX(128, 128, Color::blue(), BuiltInBlueTexture, true);
+
+    Texture::CreateInDirectX(128, 128, Color(1, 1, 1, 0.25f), BuiltInTransparentWhiteTexture, true);
+    Texture::CreateInDirectX(128, 128, Color(0, 0, 0, 0.25f), BuiltInTransparentBlackTexture, true);
+    Texture::CreateInDirectX(128, 128, Color(1, 0, 0, 0.25f), BuiltInTransparentRedTexture, true);
+    Texture::CreateInDirectX(128, 128, Color(0, 1, 0, 0.25f), BuiltInTransparentGreenTexture, true);
+    Texture::CreateInDirectX(128, 128, Color(0, 0, 1, 0.25f), BuiltInTransparentBlueTexture, true);
 }
 
 #include "Material.h"

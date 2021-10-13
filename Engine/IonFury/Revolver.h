@@ -47,5 +47,11 @@ private:
 	const Vec2 m_leftHandShowLocalPosition = Vec2(0.6f, -0.1f);
 
 	const int m_rapidFireRecoilAngleRange = 40;
+
+	int m_totalAmmo = 100;
+
+	int m_loadedAmmo = 6;
+
+	int m_ammoLoadMax = 6;
 };
 

@@ -13,7 +13,6 @@ void OrthoEffect::Awake()
 	m_renderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
 	m_renderer->overlayRenderOrder = (int)OverlayRenderOrders::OrthoBackEffect0;
 	m_renderer->renderLayerIndex = (uint8_t)RenderLayers::Overlay;
-	m_renderer->name = L"test";
 
 	InitializeAnimation(&m_animation);
 
@@ -87,4 +86,12 @@ void OrthoEffect::AddTexture(const wstring& textureLocalPath)
 	}
 
 	m_animation->AddTexture(textureLocalPath);
+}
+
+void OrthoEffect::SetInterval(float value)
+{
+	if (m_animation)
+	{
+		m_animation->interval = value;
+	}
 }

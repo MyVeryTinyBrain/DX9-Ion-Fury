@@ -5,7 +5,7 @@
 void FPSCamera::Awake()
 {
 	ShowCursor(false);
-
+	
 	m_camera = gameObject->AddComponent<Camera>();
 	m_camera->allowRenderLayers = (1 << 0);
 	Camera::SetMainCamera(m_camera);
@@ -13,6 +13,9 @@ void FPSCamera::Awake()
 	m_orthoCamera = gameObject->AddComponent<FPSOrthoCamera>();
 
 	MoveMouseToCenter();
+
+	// 난 이 감도가 편함.
+	//m_sensitivity = 0.15f;
 }
 
 void FPSCamera::Update()

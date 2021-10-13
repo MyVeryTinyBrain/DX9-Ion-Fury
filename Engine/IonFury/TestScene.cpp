@@ -43,6 +43,7 @@ void TestScene::OnLoad(Scene* beforeScene)
 
         auto collider = obj->AddComponent<BoxCollider>();
         collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create obstacle
@@ -59,6 +60,7 @@ void TestScene::OnLoad(Scene* beforeScene)
 
         auto collider = obj->AddComponent<BoxCollider>();
         collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create triangle
@@ -72,7 +74,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<RightTriangleCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create rotated ground
@@ -86,7 +91,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -100,7 +108,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -114,7 +125,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -128,7 +142,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -142,7 +159,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     // Create transparent objects

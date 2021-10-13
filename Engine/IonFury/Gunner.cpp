@@ -153,13 +153,12 @@ void Gunner::OnDead(bool& dead, MonsterDamageType damageType)
     m_breakTime = FLT_MAX;
 
     int dieIndex = rand() % (int)GunnerSpriteAnimator::DIE::MAX;
+    if (damageType == MonsterDamageType::Explosion)
+    {
+        dieIndex = (int)MonsterDamageType::Explosion;
+    }
 
     m_animator->PlayDie((GunnerSpriteAnimator::DIE)dieIndex);
-
-    // 몬스터가 사망하면 몬스터가 다른 몬스터 또는 플레이어와 충돌하지 않아야 합니다.
-    // 또한 쿼리에 포함되면 안됩니다.
-    // 따라서 지형과만 충돌하는 레이어로 변경합니다.
-    m_collider->layerIndex = (uint8_t)PhysicsLayers::MonsterDeadBody;
 }
 
 void Gunner::OnDeadAnimated()

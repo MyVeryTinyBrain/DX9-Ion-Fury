@@ -10,9 +10,13 @@ void RevolverAnimator::Awake()
 	m_default->AddTexture(L"../SharedResource/Texture/revolver/revolver0.png");
 	m_default->isLoop = true;
 
+	m_beginIdle = new SpriteAnimation;
+	m_beginIdle->AddTexture(L"../SharedResource/Texture/revolver/revolver0.png");
+
 	m_shoot = new SpriteAnimation;
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver1.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver2.png");
+	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
@@ -39,10 +43,10 @@ void RevolverAnimator::Awake()
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver2.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
-	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
@@ -78,6 +82,8 @@ void RevolverAnimator::Awake()
 void RevolverAnimator::OnDestroy()
 {
 	SafeDelete(m_default);
+
+	SafeDelete(m_beginIdle);
 
 	SafeDelete(m_shoot);
 
@@ -121,6 +127,11 @@ void RevolverAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteA
 
 void RevolverAnimator::OnDefaultAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
 {
+}
+
+void RevolverAnimator::PlayIdle()
+{
+	PlayAnimation(m_beginIdle);
 }
 
 void RevolverAnimator::PlayShoot()
