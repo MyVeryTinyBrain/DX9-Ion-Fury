@@ -47,7 +47,6 @@ void LightObj::Update()
 		gameObject->Destroy();
 		return;
 	}
-
 }
 
 void LightObj::OnDestroy()
@@ -59,9 +58,16 @@ void LightObj::OnDestroy()
 
 void LightObj::LightSetting()
 {
-	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
+	auto meshRendererObj = CreateGameObjectToChild(gameObject->transform);
+
+	m_LightRenderer = meshRendererObj->AddComponent<UserMeshRenderer>();
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
+<<<<<<< HEAD
 	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Light.png"));
+=======
+	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+	meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
+>>>>>>> seongyeon
 }
 
 LightObj* LightObj::LightPick()
@@ -81,11 +87,20 @@ LightObj* LightObj::LightPick()
 
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
+<<<<<<< HEAD
 			//transform->position + transform->forward * 2;
 			giz->enable = true;
 			camera->transform->position = light->transform->position - camera->transform->forward * 2;
 		
 			return light;
+=======
+			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+			{
+				giz->enable = true;
+				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
+				return pickable;
+			}
+>>>>>>> seongyeon
 		}
 	}
 

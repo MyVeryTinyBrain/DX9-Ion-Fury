@@ -151,13 +151,13 @@ BOOL DlgLightTool::OnInitDialog()
 	m_SliderCrtl_Radius.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderDirX.SetRange(0, 360);
+	m_SliderDirX.SetRange(-180, 180);
 	m_SliderDirX.SetPos(0);
 	m_SliderDirX.SetLineSize(1);		//방향키로 움질일 때 사이즈 
-	m_SliderDirY.SetRange(0, 360);
+	m_SliderDirY.SetRange(-180, 180);
 	m_SliderDirY.SetPos(0);
 	m_SliderDirY.SetLineSize(1);		//방향키로 움질일 때 사이즈 
-	m_SliderDirZ.SetRange(0, 360);
+	m_SliderDirZ.SetRange(-180, 180);
 	m_SliderDirZ.SetPos(0);
 	m_SliderDirZ.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 
@@ -291,9 +291,15 @@ void DlgLightTool::OnListBoxCtrl()
 
 				m_radius = com->range;
 
+<<<<<<< HEAD
 				m_dirx = com->transform->eulerAngle.x;
 				m_diry = com->transform->eulerAngle.y;
 				m_dirz = com->transform->eulerAngle.z;
+=======
+				m_dirx = lightobj->transform->eulerAngle.x;
+				m_diry = lightobj->transform->eulerAngle.y;
+				m_dirz = lightobj->transform->eulerAngle.z;
+>>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -319,9 +325,15 @@ void DlgLightTool::OnListBoxCtrl()
 				m_OutSideAngle = com->outsideAngle;
 				m_InsideAngleRatio = com->insideAngleRatio;
 
+<<<<<<< HEAD
 				m_dirx = com->transform->eulerAngle.x;
 				m_diry = com->transform->eulerAngle.y;
 				m_dirz = com->transform->eulerAngle.z;
+=======
+				m_dirx = lightobj->transform->eulerAngle.x;
+				m_diry = lightobj->transform->eulerAngle.y;
+				m_dirz = lightobj->transform->eulerAngle.z;
+>>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -341,9 +353,15 @@ void DlgLightTool::OnListBoxCtrl()
 				m_PosY = com->transform->position.y;
 				m_PosZ = com->transform->position.z;
 
+<<<<<<< HEAD
 				m_dirx = com->transform->eulerAngle.x;
 				m_diry = com->transform->eulerAngle.y;
 				m_dirz = com->transform->eulerAngle.z;
+=======
+				m_dirx = lightobj->transform->eulerAngle.x;
+				m_diry = lightobj->transform->eulerAngle.y;
+				m_dirz = lightobj->transform->eulerAngle.z;
+>>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -438,6 +456,8 @@ void DlgLightTool::OnEnChangeLtRadius()
 
 void DlgLightTool::OnEnChangeLtDirx()
 {
+	// 001(X)
+
 	//방향 X 축 슬라이더 에디터박스 조정
 	m_DirX.GetWindowText(sPosX);
 	iPosX = _ttoi(sPosX);
@@ -462,6 +482,7 @@ void DlgLightTool::OnEnChangeLtDirx()
 
 		if (lightobj->name == name.GetString())
 		{
+<<<<<<< HEAD
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
@@ -478,6 +499,9 @@ void DlgLightTool::OnEnChangeLtDirx()
 				auto com = lightobj->GetComponentInChild<DirectionalLight>();
 				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
 			}
+=======
+			lightobj->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+>>>>>>> seongyeon
 			break;
 		}
 	}
@@ -488,6 +512,8 @@ void DlgLightTool::OnEnChangeLtDirx()
 
 void DlgLightTool::OnEnChangeLtDiry()
 {
+	// 002(Y)
+
 	//방향 X 축 슬라이더 에디터박스 조정
 	m_DirY.GetWindowText(sPosY);
 	iPosY = _ttoi(sPosY);
@@ -511,6 +537,7 @@ void DlgLightTool::OnEnChangeLtDiry()
 
 		if (lightobj->name == name.GetString())
 		{
+<<<<<<< HEAD
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
@@ -528,6 +555,9 @@ void DlgLightTool::OnEnChangeLtDiry()
 				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
 			}
 
+=======
+			lightobj->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+>>>>>>> seongyeon
 			break;
 		}
 	}
@@ -539,6 +569,8 @@ void DlgLightTool::OnEnChangeLtDiry()
 
 void DlgLightTool::OnEnChangeLtDirz()
 {
+	// 003(Z)
+
 	//방향 Z 축 슬라이더 에디터박스 조정
 	m_DirZ.GetWindowText(sPosZ);
 	iPosZ = _ttoi(sPosZ);
@@ -562,6 +594,7 @@ void DlgLightTool::OnEnChangeLtDirz()
 
 		if (lightobj->name == name.GetString())
 		{
+<<<<<<< HEAD
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
@@ -578,6 +611,9 @@ void DlgLightTool::OnEnChangeLtDirz()
 				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
 			}
 
+=======
+			lightobj->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+>>>>>>> seongyeon
 			break;
 		}
 	}
@@ -624,6 +660,7 @@ void DlgLightTool::OnBnClickedDeleteButton()
 	CString wstrFindName;
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
+	// 000
 
 	CString name = wstrFindName.GetString();
 
@@ -635,15 +672,17 @@ void DlgLightTool::OnBnClickedDeleteButton()
 		auto test = lightobj->GetComponent<LightObj>();
 
 
-		if (lightobj->name == name.GetString())
+		if (lightobj->name == name.GetString() &&
+			lightobj->tag != L"Directional")
 		{
 			light->RequireDestroy();
+
+			m_LT_ListBox.DeleteString(iIndex);
+
 			break;
 		}
 	}
 
-
-	m_LT_ListBox.DeleteString(iIndex);
 	UpdateData(FALSE);
 }
 
@@ -703,6 +742,30 @@ void DlgLightTool::OnBnClickedApplyButton()
 void DlgLightTool::OnBnClickedAddButton()
 {
 	UpdateData(TRUE);
+<<<<<<< HEAD
+=======
+
+	auto AddNameToListbox = [&]()
+	{
+		CString str;
+		GetDlgItemText(IDC_LT_LIGHTNAME, str);
+		int index = m_LT_ListBox.InsertString(-1, str);
+		m_LT_ListBox.SetCurSel(index);
+	};
+
+	if (m_LightName.Find(L' ', 0) != -1)
+	{
+		MessageBox(_T("이름에 공백 있음."), _T("이름 에러"), MB_OK | MB_ICONSTOP);
+		return;
+	}
+
+	if (m_LightName.GetLength() <= 0)
+	{
+		MessageBox(_T("이름 없음."), _T("이름 에러"), MB_OK | MB_ICONSTOP);
+		return;
+	}
+
+>>>>>>> seongyeon
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
 
@@ -744,6 +807,8 @@ void DlgLightTool::OnBnClickedAddButton()
 
 
 		//m_LT_ListBox.SetCurSel();
+
+		AddNameToListbox();
 	}
 	else if (m_LightType == L"Spot")
 	{
@@ -764,8 +829,13 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		m_LT_ListBox.AddString(m_LightName.GetString());
 
+		AddNameToListbox();
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> seongyeon
 	UpdateData(FALSE);
 }
 
@@ -849,7 +919,7 @@ void DlgLightTool::OnBnClickedSave()
 		float ambinentfactor = 0.f;
 
 
-		auto lightObj = LightObj::g_vecLight;
+		std::vector<LightObj*>& lightObj = LightObj::g_vecLight;
 
 
 		for (auto& light : lightObj)
@@ -866,7 +936,11 @@ void DlgLightTool::OnBnClickedSave()
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
+<<<<<<< HEAD
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// rot
+=======
+			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// euler angle
+>>>>>>> seongyeon
 
 			if (obj->tag == L"Point")
 			{
@@ -1003,7 +1077,7 @@ void DlgLightTool::OnBnClickedLoad()
 			SafeDeleteArray(pBuff2);
 
 			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
-			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
+			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// euler angle
 
 			if (pObj->tag == L"Point")
 			{
@@ -1033,15 +1107,19 @@ void DlgLightTool::OnBnClickedLoad()
 			if (pObj->tag == L"Point")
 			{
 				PointLight* point = pObj->GetComponentInChild<PointLight>();
-				pObj->transform->position = vPos;
 
+<<<<<<< HEAD
 				pObj->transform->eulerAngle = Vec3(vRot.x, vRot.y, vRot.z) ;
 
+=======
+				pObj->transform->position = vPos;
+				pObj->transform->eulerAngle = vRot;
+>>>>>>> seongyeon
 				point->ambientFactor = fambinentfactor;
 				point->color = Vcolor;
 				point->range = frange;
-				lightobj->LightSetting();
 
+				lightobj->LightSetting();
 			}
 
 			if (pObj->tag == L"Spot")
@@ -1050,15 +1128,19 @@ void DlgLightTool::OnBnClickedLoad()
 				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
 
 				pObj->transform->position = vPos;
+<<<<<<< HEAD
 				pObj->transform->eulerAngle = Vec3(vRot.x, vRot.y, vRot.z);
 
+=======
+				pObj->transform->eulerAngle = vRot;
+>>>>>>> seongyeon
 				spot->ambientFactor = fambinentfactor;
 				spot->color = Vcolor;
 				spot->range = frange;
 				spot->outsideAngle = _outsideAngle;
 				spot->insideAngleRatio = _insideAngleRatio;
-				lightobj->LightSetting();
 
+				lightobj->LightSetting();
 			}
 
 			if (pObj->tag == L"Directional")
@@ -1066,10 +1148,15 @@ void DlgLightTool::OnBnClickedLoad()
 				DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
 				pObj->transform->position = vPos;
+<<<<<<< HEAD
 				pObj->transform->eulerAngle = Vec3(vRot.x, vRot.y, vRot.z);
 
+=======
+				pObj->transform->eulerAngle = vRot;
+>>>>>>> seongyeon
 				directional->ambientFactor = fambinentfactor;
 				directional->color = Vcolor;
+
 				lightobj->LightSetting();
 			}
 			m_LT_ListBox.AddString(pObj->name.c_str());
@@ -1231,28 +1318,25 @@ void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 
 	if (m_LightType == L"Spot")
 	{
-		auto light = gameobject->GetComponentInChild<SpotLight>();
-		m_PosX = light->GetGameObject()->transform->position.x;
-		m_PosY = light->GetGameObject()->transform->position.y;
-		m_PosZ = light->GetGameObject()->transform->position.z;
+		m_PosX = gameobject->transform->position.x;
+		m_PosY = gameobject->transform->position.y;
+		m_PosZ = gameobject->transform->position.z;
 
 	}
 
 	else if (m_LightType == L"Point")
 	{
-		auto light = gameobject->GetComponentInChild<PointLight>();
-		m_PosX = light->GetGameObject()->transform->position.x;
-		m_PosY = light->GetGameObject()->transform->position.y;
-		m_PosZ = light->GetGameObject()->transform->position.z;
+		m_PosX = gameobject->transform->position.x;
+		m_PosY = gameobject->transform->position.y;
+		m_PosZ = gameobject->transform->position.z;
 
 	}
 
 	else if (m_LightType == L"Directional")
 	{
-		auto light = gameobject->GetComponentInChild<DirectionalLight>();
-		m_PosX = light->GetGameObject()->transform->position.x;
-		m_PosY = light->GetGameObject()->transform->position.y;
-		m_PosZ = light->GetGameObject()->transform->position.z;
+		m_PosX = gameobject->transform->position.x;
+		m_PosY = gameobject->transform->position.y;
+		m_PosZ = gameobject->transform->position.z;
 
 	}
 }
