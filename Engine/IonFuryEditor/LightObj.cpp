@@ -62,7 +62,6 @@ void LightObj::LightSetting()
 
 	m_LightRenderer = meshRendererObj->AddComponent<UserMeshRenderer>();
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
-
 	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
 	meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
 }
@@ -74,24 +73,20 @@ LightObj* LightObj::LightPick()
 
 	Vec3 HitPoint;
 
-	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	for (auto light : g_vecLight)
+	for (auto pickable : g_vecLight)
 	{
-		UserMeshRenderer* Renderer = light->GetRenderer();
+		UserMeshRenderer* Renderer = pickable->GetRenderer();
 
-		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+		if (Renderer != nullptr)
 		{
-
 			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 			{
 				giz->enable = true;
-				EditorManager::GetInstance()->GetGizmo()->Attach(light->GetGameObject()->transform);
-				return light;
+				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
+				return pickable;
 			}
-
 		}
 	}
 
