@@ -308,7 +308,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
-
 	else if (m_dlgLightTool && !giz->PickHandle())
 	{
 		cout << "조명선택안됨" << endl;

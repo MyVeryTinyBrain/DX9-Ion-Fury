@@ -47,7 +47,6 @@ void LightObj::Update()
 		gameObject->Destroy();
 		return;
 	}
-
 }
 
 void LightObj::OnDestroy()
@@ -59,10 +58,12 @@ void LightObj::OnDestroy()
 
 void LightObj::LightSetting()
 {
-	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
+	auto meshRendererObj = CreateGameObjectToChild(gameObject->transform);
+
+	m_LightRenderer = meshRendererObj->AddComponent<UserMeshRenderer>();
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
 	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
-	m_LightRenderer->transform->localEulerAngle = Vec3(90, 0, 0);
+	meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
 }
 
 LightObj* LightObj::LightPick()
@@ -80,7 +81,6 @@ LightObj* LightObj::LightPick()
 
 		if (Renderer != nullptr)
 		{
-
 			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 			{
 				giz->enable = true;
@@ -88,9 +88,9 @@ LightObj* LightObj::LightPick()
 				return pickable;
 			}
 		}
-
-		return nullptr;
 	}
+
+	return nullptr;
 }
 
 void LightObj::DeleteMesh()
