@@ -19,17 +19,22 @@ void LightObj::Awake()
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<PointLight>();
 		EditorManager::GetInstance()->GetGizmo()->Attach(transform);
+
 	}
 	else if (obj->tag == L"Spot")
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<SpotLight>();
 		EditorManager::GetInstance()->GetGizmo()->Attach(transform);
+
+
 	}
 	else if (obj->tag == L"Directional")
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<DirectionalLight>();
+		EditorManager::GetInstance()->GetGizmo()->Attach(transform);
+
 
 	}
 
@@ -57,6 +62,46 @@ void LightObj::OnDestroy()
 		g_vecLight.erase(it);
 }
 
+void LightObj::LightSetting()
+{
+	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
+	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
+	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+}
+
+LightObj* LightObj::LightPick()
+{
+	Vec3 rayPoint, rayDir;
+	Input::GetMouseWorldRay(rayPoint, rayDir);
+
+	Vec3 HitPoint;
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
+	for (auto pickable : g_vecLight)
+	{
+		UserMeshRenderer* Renderer = pickable->GetRenderer();
+
+		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+		{
+			giz->enable = true;
+			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
+			return pickable;
+		}
+	}
+
+	return nullptr;
+}
+
+void LightObj::DeleteMesh()
+{
+	if (m_LightRenderer)
+	{
+		m_LightRenderer->Destroy();
+		//m_LightRenderer = nullptr;
+	}
+}
+
 
 void LightObj::LightPick(const CString& name)
 {
@@ -64,10 +109,14 @@ void LightObj::LightPick(const CString& name)
 
 	for (auto light : g_vecLight)
 	{
-		if (light->GetGameObject()->name.c_str() == name)
+		if (light->GetGameObject()->name == name.GetString())
 		{
 			EditorManager::GetInstance()->GetGizmo()->Attach(light->GetGameObject()->transform);
-			light->GetGameObject()->transform->position = camera->transform->position + camera->transform->forward * 2;
+
+
+			camera->transform->position = light->GetGameObject()->transform->position - light->GetGameObject()->transform->forward * 2;
+			camera->transform->localEulerAngle = Vec3(0, 0, 90);
+
 		}
 	}
 

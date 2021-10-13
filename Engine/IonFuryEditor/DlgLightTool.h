@@ -50,10 +50,10 @@ public:
 	CString m_LightType;
 
 	//색상 세팅
-	float m_ColorR;
-	float m_ColorG;
-	float m_ColorB;
-	float m_ColorA;
+	int m_ColorR;
+	int m_ColorG;
+	int m_ColorB;
+	int m_ColorA;
 
 	//위치 세팅
 	float m_PosX;
@@ -117,4 +117,15 @@ public:
 	float m_radius;
 
 	Light* lightcom;
+	afx_msg void OnEnChangeLtPosx();
+	afx_msg void OnEnChangeLtPosy();
+	afx_msg void OnEnChangeLtPosz();
+
+	
+public:
+	void SetLTPickableObject(GameObject* gameobject = nullptr);
+	void SelectObject();
+	void LightClear();
+
+	void SetName(const CString& name);
 };

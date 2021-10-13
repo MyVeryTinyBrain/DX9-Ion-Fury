@@ -57,6 +57,8 @@ void TestScene::OnLoad(Scene* beforeScene)
         auto renderer = obj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInRightTriangleUserMesh);
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
         auto collider = obj->AddComponent<RightTriangleCollider>();
