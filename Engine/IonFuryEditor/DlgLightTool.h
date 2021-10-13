@@ -128,4 +128,5 @@ public:
 	void LightClear();
 
 	void SetName(const CString& name);
+	afx_msg void OnLbnDblclkList1();
 };

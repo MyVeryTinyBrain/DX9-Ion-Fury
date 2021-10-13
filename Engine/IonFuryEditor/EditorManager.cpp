@@ -31,12 +31,15 @@ void EditorManager::Awake()
 		// 자연광을 설정합니다.
 		Light::SetGlobalAmbientLight(Color::white() * 0.7f);
 
+		auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+
 		// 디렉셔널 라이트 생성
 		auto directionalLightObj = CreateGameObject(L"Directional");
 		directionalLightObj->name = L"Directional";
 		auto dl = directionalLightObj->AddComponent<LightObj>();
 		auto dll = directionalLightObj->GetComponentInChild<DirectionalLight>();
-		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+		directionalLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
+		dl->transform->forward = Quat::FromEuler(0, 0, 0) * Vec3(0,0,1);
 		dll->color = Color::white() * 0.8f;
 		dl->LightSetting();
 		

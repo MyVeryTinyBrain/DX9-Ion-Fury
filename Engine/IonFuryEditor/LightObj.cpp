@@ -67,6 +67,7 @@ void LightObj::LightSetting()
 	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
 	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+	m_LightRenderer->transform->localEulerAngle = Vec3(0, 0, 90);
 }
 
 LightObj* LightObj::LightPick()
@@ -113,9 +114,7 @@ void LightObj::LightPick(const CString& name)
 		{
 			EditorManager::GetInstance()->GetGizmo()->Attach(light->GetGameObject()->transform);
 
-
-			camera->transform->position = light->GetGameObject()->transform->position - light->GetGameObject()->transform->forward * 2;
-			camera->transform->localEulerAngle = Vec3(0, 0, 90);
+			camera->transform->position = light->m_LightChildObject->transform->position - camera->transform->forward * 2;
 
 		}
 	}
