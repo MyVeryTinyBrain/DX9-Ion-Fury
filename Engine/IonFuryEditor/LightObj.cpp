@@ -30,7 +30,7 @@ void LightObj::Awake()
 	{
 		m_LightChildObject = CreateGameObjectToChild(transform);
 		m_LightChildObject->AddComponent<DirectionalLight>();
-
+		EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 	}
 
 	g_vecLight.push_back(this);
@@ -55,6 +55,45 @@ void LightObj::OnDestroy()
 	auto it = FindInContainer(g_vecLight, this);
 	if (it != g_vecLight.end())
 		g_vecLight.erase(it);
+}
+
+void LightObj::LightSetting()
+{
+	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
+	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
+	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Light.png"));
+}
+
+LightObj* LightObj::LightPick()
+{
+	Vec3 rayPoint, rayDir;
+	Input::GetMouseWorldRay(rayPoint, rayDir);
+
+	Vec3 HitPoint;
+
+	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
+	for (auto light : g_vecLight)
+	{
+		UserMeshRenderer* Renderer = light->GetRenderer();
+
+		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+		{
+			//transform->position + transform->forward * 2;
+			giz->enable = true;
+			camera->transform->position = light->transform->position - camera->transform->forward * 2;
+		
+			return light;
+		}
+	}
+
+	return nullptr;
+}
+
+void LightObj::DeleteMesh()
+{
 }
 
 
