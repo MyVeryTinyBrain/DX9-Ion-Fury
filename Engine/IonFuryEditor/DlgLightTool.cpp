@@ -150,13 +150,13 @@ BOOL DlgLightTool::OnInitDialog()
 	m_SliderCrtl_Radius.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
-	m_SliderDirX.SetRange(0, 360);
+	m_SliderDirX.SetRange(-180, 180);
 	m_SliderDirX.SetPos(0);
 	m_SliderDirX.SetLineSize(1);		//방향키로 움질일 때 사이즈 
-	m_SliderDirY.SetRange(0, 360);
+	m_SliderDirY.SetRange(-180, 180);
 	m_SliderDirY.SetPos(0);
 	m_SliderDirY.SetLineSize(1);		//방향키로 움질일 때 사이즈 
-	m_SliderDirZ.SetRange(0, 360);
+	m_SliderDirZ.SetRange(-180, 180);
 	m_SliderDirZ.SetPos(0);
 	m_SliderDirZ.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 
