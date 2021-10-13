@@ -78,15 +78,19 @@ LightObj* LightObj::LightPick()
 	{
 		UserMeshRenderer* Renderer = pickable->GetRenderer();
 
-		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+		if (Renderer != nullptr)
 		{
-			giz->enable = true;
-			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
-			return pickable;
-		}
-	}
 
-	return nullptr;
+			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+			{
+				giz->enable = true;
+				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
+				return pickable;
+			}
+		}
+
+		return nullptr;
+	}
 }
 
 void LightObj::DeleteMesh()

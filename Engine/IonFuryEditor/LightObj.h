@@ -17,6 +17,7 @@ public:
 	void LightSetting ();
 
 	static LightObj* LightPick();
+
 private:
 	void DeleteMesh();
 
