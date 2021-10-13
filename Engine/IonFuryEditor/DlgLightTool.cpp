@@ -1360,6 +1360,7 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_dirz = com->transform->eulerAngle.z;
 
 				m_ambinentFactor = com->ambientFactor;
+				LightObj::lightPick(name);
 			}
 			else if (lightobj->tag == L"Spot")
 			{
@@ -1388,6 +1389,7 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_dirz = com->transform->eulerAngle.z;
 
 				m_ambinentFactor = com->ambientFactor;
+				LightObj::lightPick(name);
 			}
 			else if (lightobj->tag == L"Directional")
 			{
@@ -1410,13 +1412,12 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_dirz = com->transform->eulerAngle.z;
 
 				m_ambinentFactor = com->ambientFactor;
+				LightObj::lightPick(name);
 			}
 
 		}
 
 	}
-
-	LightObj::lightPick(name);
 
 	UpdateData(FALSE);
 }
