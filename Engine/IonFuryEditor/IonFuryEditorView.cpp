@@ -246,17 +246,17 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	Pickable* pick = Pickable::Pick();
-	
+
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
-	
+
 		if (!m_dlgObjectTool)
 			return;
-	
+
 		Type PickType = pick->GetType();
-		
-		switch(PickType)
+
+		switch (PickType)
 		{
 		case Type::Map:
 			m_dlgObjectTool.SetPickableObject(pickObj);
@@ -264,7 +264,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgObjectTool.UpdateUVScale(pick);
 			m_dlgObjectTool.ReturnComboBoxSelect(pick);
 			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
-	
+
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
 		case Type::Trigger:
@@ -287,6 +287,20 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	if (light)
 	{
+		auto lightobj = light->GetGameObject();
+
+		for (auto& light : LightObj::g_vecLight)
+		{
+
+			if (lightobj)
+			{
+				m_dlgLightTool.SetLTPickableObject(lightobj);
+			}
+			else
+				return;
+		}
+
+
 		auto pickObj = light->GetGameObject();
 
 		if (!m_dlgLightTool)
@@ -294,19 +308,14 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
-	for (auto& light : LightObj::g_vecLight)
-	{
-		auto lightobj = light->GetGameObject();
-		if (lightobj)
-		{
-			giz->Attach(lightobj->transform);
-		}
-		else
-			return;
-	}
 
-	giz->Detach();
-	giz->enable = false;
+	else if (m_dlgLightTool && !giz->PickHandle())
+	{
+		cout << "조명선택안됨" << endl;
+		giz->Detach();
+		giz->enable = false;
+		m_dlgLightTool.LightClear();
+	}
 
 }
 
@@ -326,7 +335,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	bool Handling = m_giz->GetHandlingState();
 
 	if (Handling)		//기즈모 잡혔다
-	{	
+	{
 		Transform* trans = m_giz->GetSelectedObject();
 		if (!trans)
 			return;
@@ -341,13 +350,14 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			m_dlgObjectTool.SelectObject();
 		}
 		//													용섭구역
-	
+
 		//=========================
 
 		// 2. light에 대해
 		else
 		{
-			cout << "aa" << endl;
+			auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
+			m_dlgLightTool.SetLTPickableObject(pickObj);
 		}
 		//													성연구역
 	}
