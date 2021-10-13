@@ -44,4 +44,9 @@ public:
 	afx_msg void ClickAddTrigger();
 	afx_msg void ClickAddEvent();
 	afx_msg void OnLbnSelChangeTrigger();
+	afx_msg void OnLbnSelChangeEvent();
+	afx_msg void ClickRemoveEvent();
+	void SetTwoListBox(int TriggerIndex, int EventIndex);
+
+	CComboBox m_EventType;
 };

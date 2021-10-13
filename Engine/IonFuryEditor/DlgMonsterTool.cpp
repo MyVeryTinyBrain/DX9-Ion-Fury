@@ -33,6 +33,7 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RADIO2, m_TouchButtonManual1);
 	DDX_Control(pDX, IDC_RADIO3, m_TouchButtonManual2);
 	DDX_Control(pDX, IDC_RADIO4, m_TouchButtonManual3);
+	DDX_Control(pDX, IDC_COMBO1, m_EventType);
 }
 
 
@@ -41,6 +42,8 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON8, &DlgMonsterTool::ClickRemoveTrigger)
 	ON_LBN_SELCHANGE(IDC_LIST1, &DlgMonsterTool::OnLbnSelChangeTrigger)
 	ON_BN_CLICKED(IDC_BUTTON2, &DlgMonsterTool::ClickAddEvent)
+	ON_BN_CLICKED(IDC_BUTTON9, &DlgMonsterTool::ClickRemoveEvent)
+	ON_LBN_SELCHANGE(IDC_LIST2, &DlgMonsterTool::OnLbnSelChangeEvent)
 END_MESSAGE_MAP()
 
 
@@ -187,6 +190,75 @@ void DlgMonsterTool::ClickAddEvent()
 	++m_EventCnt;
 
 	m_EventListBox.AddString(EventObject->GetGameObject()->GetName().c_str());
+}
 
+
+void DlgMonsterTool::ClickRemoveEvent()
+{
+	int TriggerSelect = m_TriggerListBox.GetCurSel();
+	if (TriggerSelect == -1)
+		return;
+
+	int EventSelect = m_EventListBox.GetCurSel();
+	if (EventSelect == -1)
+		return;
+
+	Pickable* Trigger = Pickable::g_TriggerVec[TriggerSelect];
+	Trigger->RemoveEventObject(EventSelect);
+
+	m_EventListBox.DeleteString(EventSelect);
+	m_EventListBox.SetCurSel(-1);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->Detach();
+	giz->enable = false;
+}
+
+void DlgMonsterTool::SetTwoListBox(int TriggerIndex, int EventIndex)
+{
+	int a = m_TriggerListBox.GetCount() -1;
+
+	if (TriggerIndex > m_TriggerListBox.GetCount() || TriggerIndex <= -1)
+		return;
+
+	m_TriggerListBox.SetCurSel(TriggerIndex);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
+	//몬스터상자 비우기. 추후 확인
+	for (int i = m_EventListBox.GetCount(); i > 0; --i)
+		m_EventListBox.DeleteString(i - 1);
+
+	//몬스터리스트상자 채우기
+	std::vector<Pickable*> EventVec = Pickable::g_TriggerVec[TriggerIndex]->GetEventVec();
+	int vecSize = EventVec.size();
+	wstring name = L"";
+	for (int i = 0; i < vecSize; ++i)
+	{
+		name = EventVec[i]->GetGameObject()->GetName();
+		m_EventListBox.AddString(name.c_str());
+	}
+
+	m_EventListBox.SetCurSel(EventIndex);
+}
+
+
+void DlgMonsterTool::OnLbnSelChangeEvent()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int TriggerSelect = m_TriggerListBox.GetCurSel();
+	if (TriggerSelect == -1)
+		return;
 	
+	int EventSelect = m_EventListBox.GetCurSel();
+	if (EventSelect == -1)
+		return;
+
+	std::vector<Pickable*> EventVec = Pickable::g_TriggerVec[TriggerSelect]->GetEventVec();
+	Pickable* Event = EventVec[EventSelect];
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
+	giz->Attach(Event->transform);
+
 }

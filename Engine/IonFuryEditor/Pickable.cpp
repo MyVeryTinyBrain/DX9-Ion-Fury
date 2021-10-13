@@ -38,18 +38,13 @@ void Pickable::OnDestroy()
 		if (it != g_MapVec.end())
 			g_MapVec.erase(it);
 		break;
-	case Type::EventObject:
-		it = FindInContainer(m_EventVec, this);
-		if (it != m_EventVec.end())
-			m_EventVec.erase(it);
-		break;
 	case Type::Trigger:
+		ClearEventVector();
+
 		it = FindInContainer(g_TriggerVec, this);
 		if (it != g_TriggerVec.end())
 			g_TriggerVec.erase(it);
 		break;
-
-		ClearEventVector();
 	}
 
 	DeleteMesh();
@@ -141,9 +136,6 @@ void Pickable::PushInVector(Type type)
 	case Type::Map:
 		g_MapVec.push_back(this);
 		break;
-	//case Type::EventObject:
-	//	g_EventVec.push_back(this);
-	//	break;
 	case Type::Trigger:
 		g_TriggerVec.push_back(this);
 		break;
@@ -152,6 +144,7 @@ void Pickable::PushInVector(Type type)
 
 void Pickable::PushInEventVector(Pickable* Event)
 {
+	Event->SetType(Type::EventObject);
 	m_EventVec.push_back(Event);
 }
 
@@ -160,7 +153,7 @@ int Pickable::GetTriggerVectorIndex()
 	if(m_Type != Type::Trigger)
 		return -1;
 
-	for (int i = 0; i < g_TriggerVec.size(); ++i)
+	for (unsigned int i = 0; i < g_TriggerVec.size(); ++i)
 	{
 		if (g_TriggerVec[i] == this)
 			return i;
@@ -169,11 +162,46 @@ int Pickable::GetTriggerVectorIndex()
 	return -1;
 }
 
+void Pickable::GetEventVectorIndex(int& TriggerIndex, int& EventIndex)
+{
+	if (m_Type != Type::EventObject)
+	{
+		TriggerIndex = -1;
+		EventIndex = -1;
+		return;
+	}
+
+	for (unsigned int i = 0; i < g_TriggerVec.size(); ++i)
+	{
+		std::vector<Pickable*> EventVec = g_TriggerVec[i]->GetEventVec();
+		for (unsigned int j = 0; j < EventVec.size(); ++j)
+			if (EventVec[j] == this)
+			{
+				TriggerIndex = i;
+				EventIndex = j;
+				return;
+			}
+	}
+
+	TriggerIndex = -1;
+	EventIndex = -1;
+	return;
+}
+
 void Pickable::ClearEventVector()
 {
 	int Size = m_EventVec.size();
 	for (int i = 0; i < Size; ++i)
 	{
 		m_EventVec[0]->Destroy();
+		m_EventVec.erase(m_EventVec.begin());
 	}
+
+	Size = m_EventVec.size();
+}
+
+void Pickable::RemoveEventObject(int idx)
+{
+	m_EventVec[idx]->Destroy();
+	m_EventVec.erase(m_EventVec.begin() + idx);
 }

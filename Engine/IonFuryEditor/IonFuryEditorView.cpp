@@ -256,7 +256,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	
 		Type PickType = pick->GetType();
 		
-		switch(PickType)
+		switch (PickType)
 		{
 		case Type::Map:
 			m_dlgObjectTool.SetPickableObject(pickObj);
@@ -264,12 +264,18 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgObjectTool.UpdateUVScale(pick);
 			m_dlgObjectTool.ReturnComboBoxSelect(pick);
 			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
-	
+
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
 		case Type::Trigger:
 			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
 			m_dlgMonsterTool.OnLbnSelChangeTrigger();
+			break;
+		case Type::EventObject:
+			int TriggerIndex = -1;
+			int EventIndex = -1;
+			pick->GetEventVectorIndex(TriggerIndex, EventIndex);
+			m_dlgMonsterTool.SetTwoListBox(TriggerIndex, EventIndex);
 		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
 	}
@@ -282,31 +288,31 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 
 	//=========================================================
-
-	LightObj* light = LightObj::LightPick();
-
-	if (light)
-	{
-		auto pickObj = light->GetGameObject();
-
-		if (!m_dlgLightTool)
-			return;
-
-		m_dlgLightTool.SetLTPickableObject(pickObj);
-	}
-	for (auto& light : LightObj::g_vecLight)
-	{
-		auto lightobj = light->GetGameObject();
-		if (lightobj)
-		{
-			giz->Attach(lightobj->transform);
-		}
-		else
-			return;
-	}
-
-	giz->Detach();
-	giz->enable = false;
+	//
+	//LightObj* light = LightObj::LightPick();
+	//
+	//if (light)
+	//{
+	//	auto pickObj = light->GetGameObject();
+	//
+	//	if (!m_dlgLightTool)
+	//		return;
+	//
+	//	m_dlgLightTool.SetLTPickableObject(pickObj);
+	//}
+	//for (auto& light : LightObj::g_vecLight)
+	//{
+	//	auto lightobj = light->GetGameObject();
+	//	if (lightobj)
+	//	{
+	//		giz->Attach(lightobj->transform);
+	//	}
+	//	else
+	//		return;
+	//}
+	//
+	//giz->Detach();
+	//giz->enable = false;
 
 }
 
@@ -343,12 +349,12 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		//													용섭구역
 	
 		//=========================
-
+		//
 		// 2. light에 대해
-		else
-		{
-			cout << "aa" << endl;
-		}
+		//else
+		//{
+		//	cout << "aa" << endl;
+		//}
 		//													성연구역
 	}
 }
