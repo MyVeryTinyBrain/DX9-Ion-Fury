@@ -246,7 +246,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	Pickable* pick = Pickable::Pick();
-	
+
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
@@ -255,8 +255,8 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			return;
 	
 		Type PickType = pick->GetType();
-		
-		switch(PickType)
+
+		switch (PickType)
 		{
 		case Type::Map:
 			m_dlgObjectTool.SetPickableObject(pickObj);
@@ -294,6 +294,10 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
+
+	const Vec3& mouse = Vec3(point.x, point.y, 0.f);
+
+
 	for (auto& light : LightObj::g_vecLight)
 	{
 		auto lightobj = light->GetGameObject();
@@ -303,6 +307,14 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 		else
 			return;
+	}
+	if (m_dlgLightTool && !giz->PickHandle())
+	{
+		cout << "ddddddddddddddddddddddd" << endl;
+		giz->Detach();
+		giz->enable = false;
+		m_dlgLightTool.LightClear();
+
 	}
 
 	giz->Detach();
@@ -326,7 +338,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	bool Handling = m_giz->GetHandlingState();
 
 	if (Handling)		//기즈모 잡혔다
-	{	
+
 		Transform* trans = m_giz->GetSelectedObject();
 		if (!trans)
 			return;
@@ -341,6 +353,16 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			m_dlgObjectTool.SelectObject();
 		}
 		//													용섭구역
+
+
+		//=========================
+
+		// 2. light에 대해
+		else
+		{
+			auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
+			m_dlgLightTool.SetLTPickableObject(pickObj);
+
 	
 		//=========================
 

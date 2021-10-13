@@ -23,6 +23,7 @@ void Pickable::Awake()
 
 void Pickable::Update()
 {
+
 }
 
 void Pickable::OnDestroy()
