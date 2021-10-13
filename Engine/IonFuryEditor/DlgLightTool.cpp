@@ -193,7 +193,7 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		iPos = m_SliderCrtl_Radius.GetPos();
 		sPos.Format(_T("%d"), iPos);
 		m_Radius.SetWindowText(sPos);
-		m_radius = iPos;
+		m_radius = (float)iPos;
 		break;
 
 	case IDC_SLDER_DIRX:
@@ -201,7 +201,7 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		iPosX = m_SliderDirX.GetPos();
 		sPosX.Format(_T("%d"), iPosX);
 		m_DirX.SetWindowText(sPosX);
-		m_dirx = iPosX;
+		m_dirx = (float)iPos;
 		break;
 
 	case IDC_SLDER_DIRY:
@@ -209,7 +209,7 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		iPosY = m_SliderDirY.GetPos();
 		sPosY.Format(_T("%d"), iPosY);
 		m_DirY.SetWindowText(sPosY);
-		m_diry = iPosY;
+		m_diry = (float)iPos;
 		break;
 
 	case IDC_SLDER_DIRZ:
@@ -217,7 +217,7 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		iPosZ = m_SliderDirZ.GetPos();
 		sPosZ.Format(_T("%d"), iPosZ);
 		m_DirZ.SetWindowText(sPosZ);
-		m_dirz = iPosZ;
+		m_dirz = (float)iPos;
 		break;
 	}
 
@@ -671,12 +671,12 @@ void DlgLightTool::OnBnClickedApplyButton()
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
-				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+				com->color =Vec4((float)m_ColorR, (float)m_ColorG, (float)m_ColorB, (float)m_ColorA);
 			}
 			else if (lightobj->tag == L"Spot")
 			{
 				auto com = lightobj->GetComponentInChild<SpotLight>();
-				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+				com->color = Vec4((float)m_ColorR, (float)m_ColorG, (float)m_ColorB, (float)m_ColorA);
 
 				com->outsideAngle = m_OutSideAngle;
 				com->insideAngleRatio = m_InsideAngleRatio;
@@ -685,7 +685,7 @@ void DlgLightTool::OnBnClickedApplyButton()
 			else if (lightobj->tag == L"Directional")
 			{
 				auto com = lightobj->GetComponentInChild<DirectionalLight>();
-				com->color = Vec4(m_ColorR, m_ColorG, m_ColorB, m_ColorA);
+				com->color == Vec4((float)m_ColorR, (float)m_ColorG, (float)m_ColorB, (float)m_ColorA);
 			}
 
 			lightobj->transform->position = Vec3(m_PosX, m_PosY, m_PosZ);
@@ -1344,11 +1344,11 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_LightType = lightobj->tag.c_str();
 				m_LightName = lightobj->GetName().c_str();
 
-				m_ColorR = com->color.r;
-				m_ColorG = com->color.g;
-				m_ColorB = com->color.b;
-				m_ColorA = com->color.a;
-
+				m_ColorR = (int)com->color.r;
+				m_ColorG = (int)com->color.g;
+				m_ColorB = (int)com->color.b;
+				m_ColorA = (int)com->color.a;
+						   
 				m_PosX = com->transform->position.x;
 				m_PosY = com->transform->position.y;
 				m_PosZ = com->transform->position.z;
@@ -1369,10 +1369,10 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_LightType = lightobj->tag.c_str();
 				m_LightName = lightobj->GetName().c_str();
 
-				m_ColorR = com->color.r;
-				m_ColorG = com->color.g;
-				m_ColorB = com->color.b;
-				m_ColorA = com->color.a;
+				m_ColorR = (int)com->color.r;
+				m_ColorG = (int)com->color.g;
+				m_ColorB = (int)com->color.b;
+				m_ColorA = (int)com->color.a;
 
 				m_PosX = com->transform->position.x;
 				m_PosY = com->transform->position.y;
@@ -1396,10 +1396,10 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_LightName = lightobj->name.c_str();;
 				m_LightType = L"Directional";
 
-				m_ColorR = com->color.r;
-				m_ColorG = com->color.g;
-				m_ColorB = com->color.b;
-				m_ColorA = com->color.a;
+				m_ColorR = (int)com->color.r;
+				m_ColorG = (int)com->color.g;
+				m_ColorB = (int)com->color.b;
+				m_ColorA = (int)com->color.a;
 
 				m_PosX = com->transform->position.x;
 				m_PosY = com->transform->position.y;
@@ -1416,7 +1416,7 @@ void DlgLightTool::OnLbnDblclkList1()
 
 	}
 
-	LightObj::LightPick(name);
+	LightObj::lightPick(name);
 
 	UpdateData(FALSE);
 }

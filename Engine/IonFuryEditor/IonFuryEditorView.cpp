@@ -279,6 +279,9 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	Pickable* pick = Pickable::Pick();
 
+	//LightObj* LightPick = LightObj::LightPick();
+
+
 	const Vec3& mouse = Vec3(point.x, point.y, 0.f);
 
 	if (pick)
@@ -314,8 +317,22 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		giz->Detach();
 		giz->enable = false;
 		m_dlgObjectTool.Clear();
+
+
 		return;
 	}
+
+	//else if (LightPick)
+	//{
+	//	auto pickObj = LightPick->GetGameObject();
+
+	//	if (!m_dlgLightTool)
+	//		return;
+
+	//	m_dlgLightTool.SetLTPickableObject(pickObj);
+
+	//	return;
+	//}
 
 
 
@@ -359,6 +376,8 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		m_dlgObjectTool.SetPickableObject(pickObj);
 
 		m_dlgObjectTool.SelectObject();
+
+		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
 }
 
