@@ -23,8 +23,6 @@ void Pickable::Awake()
 
 void Pickable::Update()
 {
-	if (Input::GetKeyDown(Key::LeftMouse))
-		Pick();
 }
 
 void Pickable::OnDestroy()

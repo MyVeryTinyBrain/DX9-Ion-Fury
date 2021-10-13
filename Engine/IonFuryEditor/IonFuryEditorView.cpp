@@ -216,31 +216,6 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	Gizmo* giz = nullptr;
 	switch (nChar)
 	{
-	//case 'P':
-	//	if (!m_dlgObjectTool || !m_dlgTextureTool)
-	//	{
-	//		pick = camera->Add_MapObject();
-	//	}
-	//	else
-	//	{
-	//		//Pickable* pick = nullptr;
-	//		pick = camera->Add_MapObject(
-	//			m_dlgObjectTool.GetColliderExistence(),
-	//			m_dlgObjectTool.GetToolSize(),
-	//			m_dlgObjectTool.GetToolRotation(),
-	//			m_dlgObjectTool.GetToolUVScale(),
-	//			m_dlgObjectTool.m_MeshType,
-	//			m_dlgObjectTool.m_objectTag.GetString(),
-	//			m_dlgObjectTool.m_objectName.GetString(),
-	//			m_dlgTextureTool.m_texturePath.GetString());
-	//
-	//		m_dlgObjectTool.SetPickableObject(pick->GetGameObject());
-	//		m_dlgObjectTool.SelectObject();
-	//		m_dlgObjectTool.UpdateUVScale(pick);
-	//		m_dlgObjectTool.ReturnComboBoxSelect(pick);
-	//		m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
-	//	}
-	//	break;
 	case 46:		//delete키
 		giz = EditorManager::GetInstance()->GetGizmo();
 		giz->DeleteAttachedObject();
@@ -270,27 +245,15 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	Pickable* GizmoSelectPick = nullptr;															//
-																									//
-	if (giz->PickHandle())																			//
-	{																								//
-		GizmoSelectPick = giz->GetSelectedObject()->GetGameObject()->GetComponent<Pickable>();		//
-	}																								//추가코드
-
 	Pickable* pick = Pickable::Pick();
-
-	const Vec3& mouse = Vec3(point.x, point.y, 0.f);
-
+	
 	if (pick)
 	{
-		if (GizmoSelectPick)																		//
-			pick = GizmoSelectPick;																	//추가코드
-
 		auto pickObj = pick->GetGameObject();
-
+	
 		if (!m_dlgObjectTool)
 			return;
-
+	
 		Type PickType = pick->GetType();
 		
 		switch(PickType)
@@ -301,7 +264,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgObjectTool.UpdateUVScale(pick);
 			m_dlgObjectTool.ReturnComboBoxSelect(pick);
 			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
-
+	
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
 		case Type::Trigger:
@@ -315,20 +278,35 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		giz->Detach();
 		giz->enable = false;
 		m_dlgObjectTool.Clear();
-		return;
 	}
 
-	//LightObj* light = LightObj::LightPick();
+
+	//=========================================================
+
+	LightObj* light = LightObj::LightPick();
+
+	if (light)
+	{
+		auto pickObj = light->GetGameObject();
+
+		if (!m_dlgLightTool)
+			return;
+
+		m_dlgLightTool.SetLTPickableObject(pickObj);
+	}
 	for (auto& light : LightObj::g_vecLight)
 	{
 		auto lightobj = light->GetGameObject();
 		if (lightobj)
 		{
-			m_dlgLightTool.SetPos(mouse);
+			giz->Attach(lightobj->transform);
 		}
 		else
 			return;
 	}
+
+	giz->Detach();
+	giz->enable = false;
 
 }
 
@@ -338,26 +316,40 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 
 	CView::OnMouseMove(nFlags, point);
 
-	EditorManager* test = EditorManager::GetInstance();
-
-	if (!test)
+	if (!EditorManager::GetInstance())
 		return;
 
 	Gizmo* m_giz = EditorManager::GetInstance()->GetGizmo();
+	if (!m_giz)
+		return;
+
 	bool Handling = m_giz->GetHandlingState();
 
-	if (Handling)
-	{
+	if (Handling)		//기즈모 잡혔다
+	{	
 		Transform* trans = m_giz->GetSelectedObject();
-
 		if (!trans)
 			return;
 
-		auto pickObj = trans->GetGameObject();
+		// 1.Obj에 대해
+		if (m_giz->GetSelectedObject()->GetGameObject()->GetComponent<Pickable>())
+		{
+			auto pickObj = trans->GetGameObject();
 
-		m_dlgObjectTool.SetPickableObject(pickObj);
+			m_dlgObjectTool.SetPickableObject(pickObj);
 
-		m_dlgObjectTool.SelectObject();
+			m_dlgObjectTool.SelectObject();
+		}
+		//													용섭구역
+	
+		//=========================
+
+		// 2. light에 대해
+		else
+		{
+			cout << "aa" << endl;
+		}
+		//													성연구역
 	}
 }
 
