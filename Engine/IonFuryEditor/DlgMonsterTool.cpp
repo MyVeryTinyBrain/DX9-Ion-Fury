@@ -34,6 +34,12 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RADIO3, m_TouchButtonManual2);
 	DDX_Control(pDX, IDC_RADIO4, m_TouchButtonManual3);
 	DDX_Control(pDX, IDC_COMBO1, m_EventType);
+	DDX_Control(pDX, IDC_SLIDER2, m_RotationX);
+	DDX_Control(pDX, IDC_SLIDER4, m_RotationY);
+	DDX_Control(pDX, IDC_SLIDER7, m_RotationZ);
+	DDX_Control(pDX, IDC_SLIDER8, m_ScaleX);
+	DDX_Control(pDX, IDC_SLIDER9, m_ScaleY);
+	DDX_Control(pDX, IDC_SLIDER10, m_ScaleZ);
 }
 
 
@@ -44,6 +50,7 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON2, &DlgMonsterTool::ClickAddEvent)
 	ON_BN_CLICKED(IDC_BUTTON9, &DlgMonsterTool::ClickRemoveEvent)
 	ON_LBN_SELCHANGE(IDC_LIST2, &DlgMonsterTool::OnLbnSelChangeEvent)
+	ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
@@ -66,24 +73,24 @@ void DlgMonsterTool::TriggerListBoxPick(int pickedNum)
 
 int DlgMonsterTool::GetCheckedButton()
 {
-	int TouchButtonManual = (int)(ThreeButton::End);
+	int TouchButtonManual = (int)(TriggerMethod::End);
 
 	int Touch = m_TouchButtonManual1.GetCheck();
 	int Button = m_TouchButtonManual2.GetCheck();
 	int Manual = m_TouchButtonManual3.GetCheck();
 
 	if (Touch)
-		TouchButtonManual = (int)(ThreeButton::Touch);
+		TouchButtonManual = (int)(TriggerMethod::Touch);
 	else if (Button)
-		TouchButtonManual = (int)(ThreeButton::Button);
+		TouchButtonManual = (int)(TriggerMethod::Button);
 	else if (Manual)
-		TouchButtonManual = (int)(ThreeButton::Manual);
+		TouchButtonManual = (int)(TriggerMethod::Manual);
 
 	return TouchButtonManual;
 }
 
 
-void DlgMonsterTool::SetCheckedButton(ThreeButton Select)
+void DlgMonsterTool::SetCheckedButton(TriggerMethod Select)
 {
 	m_TouchButtonManual1.SetCheck(0);
 	m_TouchButtonManual2.SetCheck(0);
@@ -91,13 +98,13 @@ void DlgMonsterTool::SetCheckedButton(ThreeButton Select)
 
 	switch (Select)
 	{
-	case ThreeButton::Touch:
+	case TriggerMethod::Touch:
 		m_TouchButtonManual1.SetCheck(1);
 		break;
-	case ThreeButton::Button:
+	case TriggerMethod::Button:
 		m_TouchButtonManual2.SetCheck(1);
 		break;
-	case ThreeButton::Manual:
+	case TriggerMethod::Manual:
 		m_TouchButtonManual3.SetCheck(1);
 		break;
 	}
@@ -108,9 +115,13 @@ void DlgMonsterTool::ClickAddTrigger()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
+	int TouchButtonManual = GetCheckedButton();
+	if (TouchButtonManual == (int)(TriggerMethod::End))	//Touch Button Manual 정하지 않았다면 취소
+		return;
+
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
-	++m_TriggerCnt;
+	Trigger->SetTriggerMethod((TriggerMethod)TouchButtonManual);
 
 	wstring name = Trigger->GetGameObject()->name;
 	m_TriggerListBox.AddString(name.c_str());
@@ -121,6 +132,9 @@ void DlgMonsterTool::ClickAddTrigger()
 	//이벤트상자 비우기. 추후 확인
 	for (int i = m_EventListBox.GetCount(); i > 0; --i)
 		m_EventListBox.DeleteString(i - 1);
+
+	++m_TriggerCnt;
+	SetCheckedButton(TriggerMethod::End);
 }
 
 
@@ -158,6 +172,8 @@ void DlgMonsterTool::OnLbnSelChangeTrigger()
 	Pickable* pick = Pickable::g_TriggerVec[Select];
 	giz->Attach(pick->GetTransform());
 
+	SetCheckedButton(pick->GetTriggerMethod());
+
 	//몬스터상자 비우기. 추후 확인
 	for (int i = m_EventListBox.GetCount(); i > 0; --i)
 		m_EventListBox.DeleteString(i - 1);
@@ -178,9 +194,8 @@ void DlgMonsterTool::ClickAddEvent()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	int TriggerSelect = m_TriggerListBox.GetCurSel();
-	int TouchButtonManual = GetCheckedButton();
 	
-	if (TriggerSelect == -1 || TouchButtonManual == (int)(ThreeButton::End))
+	if (TriggerSelect == -1)		//선택된 트리거가 없다면 취소
 		return;
 
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
@@ -190,6 +205,7 @@ void DlgMonsterTool::ClickAddEvent()
 	++m_EventCnt;
 
 	m_EventListBox.AddString(EventObject->GetGameObject()->GetName().c_str());
+	m_EventListBox.SetCurSel(m_EventListBox.GetCount() - 1);
 }
 
 
@@ -242,6 +258,13 @@ void DlgMonsterTool::SetTwoListBox(int TriggerIndex, int EventIndex)
 	m_EventListBox.SetCurSel(EventIndex);
 }
 
+void DlgMonsterTool::PickedMethodToButton(int TriggerIndex)
+{
+	Pickable* Trigger = Pickable::g_TriggerVec[TriggerIndex];
+	TriggerMethod method = Trigger->GetTriggerMethod();
+	SetCheckedButton(method);
+}
+
 
 void DlgMonsterTool::OnLbnSelChangeEvent()
 {
@@ -254,11 +277,27 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	if (EventSelect == -1)
 		return;
 
-	std::vector<Pickable*> EventVec = Pickable::g_TriggerVec[TriggerSelect]->GetEventVec();
+	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
+
+	std::vector<Pickable*> EventVec = trigger->GetEventVec();
+
 	Pickable* Event = EventVec[EventSelect];
+
+	TriggerMethod method = trigger->GetTriggerMethod();
+	SetCheckedButton(method);
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	giz->Attach(Event->transform);
+
+}
+
+
+void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
+
 
 }

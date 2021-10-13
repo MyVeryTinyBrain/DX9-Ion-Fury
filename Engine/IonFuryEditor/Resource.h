@@ -64,7 +64,6 @@
 #define IDC_BUTTON12                    1030
 #define OBJECT_8                        1031
 #define IDC_LT_LIGHTNAME                1031
-#define IDC_BUTTON13                    1031
 #define OBJECT_9                        1032
 #define IDC_COLOR_R                     1032
 #define IDC_SLIDER7                     1032

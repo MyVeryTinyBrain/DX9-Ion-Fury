@@ -26,9 +26,11 @@ public:
 	virtual BOOL OnInitDialog();
 public:
 	void TriggerListBoxPick(int pickedNum);
-
 	int	GetCheckedButton();
-	void SetCheckedButton(ThreeButton Select);
+	void SetCheckedButton(TriggerMethod Select);
+	void SetTwoListBox(int TriggerIndex, int EventIndex);
+
+	void PickedMethodToButton(int TriggerIndex);
 public:
 	int m_TriggerCnt = 0;
 	int m_EventCnt = 0;
@@ -39,6 +41,15 @@ public:
 	CButton m_TouchButtonManual1;
 	CButton m_TouchButtonManual2;
 	CButton m_TouchButtonManual3;
+	
+	CComboBox m_EventType;
+	
+	CSliderCtrl m_RotationX;
+	CSliderCtrl m_RotationY;
+	CSliderCtrl m_RotationZ;
+	CSliderCtrl m_ScaleX;
+	CSliderCtrl m_ScaleY;
+	CSliderCtrl m_ScaleZ;
 public:
 	afx_msg void ClickRemoveTrigger();
 	afx_msg void ClickAddTrigger();
@@ -46,7 +57,5 @@ public:
 	afx_msg void OnLbnSelChangeTrigger();
 	afx_msg void OnLbnSelChangeEvent();
 	afx_msg void ClickRemoveEvent();
-	void SetTwoListBox(int TriggerIndex, int EventIndex);
-
-	CComboBox m_EventType;
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

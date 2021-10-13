@@ -276,6 +276,8 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			int EventIndex = -1;
 			pick->GetEventVectorIndex(TriggerIndex, EventIndex);
 			m_dlgMonsterTool.SetTwoListBox(TriggerIndex, EventIndex);
+			m_dlgMonsterTool.PickedMethodToButton(TriggerIndex);
+			m_dlgMonsterTool.m_EventListBox.SetCurSel(EventIndex);
 		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
 	}
