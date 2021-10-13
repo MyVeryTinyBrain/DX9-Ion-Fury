@@ -50,6 +50,8 @@ void Pickable::OnDestroy()
 		if (it != g_TriggerVec.end())
 			g_TriggerVec.erase(it);
 		break;
+
+		ClearEventVector();
 	}
 
 	DeleteMesh();

@@ -306,6 +306,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			break;
 		case Type::Trigger:
 			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
+			m_dlgMonsterTool.OnLbnSelChangeTrigger();
 		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
 	}
@@ -316,8 +317,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_dlgObjectTool.Clear();
 		return;
 	}
-
-
 
 	//LightObj* light = LightObj::LightPick();
 	for (auto& light : LightObj::g_vecLight)
