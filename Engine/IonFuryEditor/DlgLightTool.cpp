@@ -117,7 +117,6 @@ BEGIN_MESSAGE_MAP(DlgLightTool, CDialog)
 	ON_EN_CHANGE(IDC_LT_POSX, &DlgLightTool::OnEnChangeLtPosx)
 	ON_EN_CHANGE(IDC_LT_POSY, &DlgLightTool::OnEnChangeLtPosy)
 	ON_EN_CHANGE(IDC_LT_POSZ, &DlgLightTool::OnEnChangeLtPosz)
-	ON_LBN_DBLCLK(IDC_LIST1, &DlgLightTool::OnLbnDblclkList1)
 END_MESSAGE_MAP()
 
 
@@ -249,7 +248,7 @@ void DlgLightTool::SetListBox(const wstring& lightObjName)
 void DlgLightTool::OnListBoxCtrl()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	/*UpdateData(TRUE);
+	UpdateData(TRUE);
 
 	int iIndex = m_LT_ListBox.GetCurSel();
 	if (iIndex < 0)
@@ -259,11 +258,6 @@ void DlgLightTool::OnListBoxCtrl()
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
 	CString name = wstrFindName.GetString();
-
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	if (!giz->GetSelectedObject())
-		return;
-
 
 
 	for (auto& light : LightObj::g_vecLight)
@@ -285,15 +279,15 @@ void DlgLightTool::OnListBoxCtrl()
 				m_ColorB = com->color.b;
 				m_ColorA = com->color.a;
 
-				m_PosX = com->transform->position.x;
-				m_PosY = com->transform->position.y;
-				m_PosZ = com->transform->position.z;
+				m_PosX = lightobj->transform->position.x;
+				m_PosY = lightobj->transform->position.y;
+				m_PosZ = lightobj->transform->position.z;
 
 				m_radius = com->range;
 
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
+				m_dirx = lightobj->transform->forward.x;
+				m_diry = lightobj->transform->forward.y;
+				m_dirz = lightobj->transform->forward.z;
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -310,18 +304,18 @@ void DlgLightTool::OnListBoxCtrl()
 				m_ColorB = com->color.b;
 				m_ColorA = com->color.a;
 
-				m_PosX = com->transform->position.x;
-				m_PosY = com->transform->position.y;
-				m_PosZ = com->transform->position.z;
+				m_PosX = lightobj->transform->position.x;
+				m_PosY = lightobj->transform->position.y;
+				m_PosZ = lightobj->transform->position.z;
 
 				m_radius = com->range;
 
 				m_OutSideAngle = com->outsideAngle;
 				m_InsideAngleRatio = com->insideAngleRatio;
 
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
+				m_dirx = lightobj->transform->forward.x;
+				m_diry = lightobj->transform->forward.y;
+				m_dirz = lightobj->transform->forward.z;
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -337,13 +331,13 @@ void DlgLightTool::OnListBoxCtrl()
 				m_ColorB = com->color.b;
 				m_ColorA = com->color.a;
 
-				m_PosX = com->transform->position.x;
-				m_PosY = com->transform->position.y;
-				m_PosZ = com->transform->position.z;
+				m_PosX = lightobj->transform->position.x;
+				m_PosY = lightobj->transform->position.y;
+				m_PosZ = lightobj->transform->position.z;
 
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
+				m_dirx = lightobj->transform->forward.x;
+				m_diry = lightobj->transform->forward.y;
+				m_dirz = lightobj->transform->forward.z;
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -354,7 +348,7 @@ void DlgLightTool::OnListBoxCtrl()
 
 	LightObj::LightPick(name);
 
-	UpdateData(FALSE);*/
+	UpdateData(FALSE);
 }
 
 
@@ -465,18 +459,18 @@ void DlgLightTool::OnEnChangeLtDirx()
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 			else if (lightobj->tag == L"Spot")
 			{
 				auto com = lightobj->GetComponentInChild<SpotLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 
 			else if (lightobj->tag == L"Directional")
 			{
 				auto com = lightobj->GetComponentInChild<DirectionalLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 			break;
 		}
@@ -514,18 +508,18 @@ void DlgLightTool::OnEnChangeLtDiry()
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 			else if (lightobj->tag == L"Spot")
 			{
 				auto com = lightobj->GetComponentInChild<SpotLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 
 			else if (lightobj->tag == L"Directional")
 			{
 				auto com = lightobj->GetComponentInChild<DirectionalLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 
 			break;
@@ -565,17 +559,17 @@ void DlgLightTool::OnEnChangeLtDirz()
 			if (lightobj->tag == L"Point")
 			{
 				auto com = lightobj->GetComponentInChild<PointLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 			else if (lightobj->tag == L"Spot")
 			{
 				auto com = lightobj->GetComponentInChild<SpotLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 			else if (lightobj->tag == L"Directional")
 			{
 				auto com = lightobj->GetComponentInChild<DirectionalLight>();
-				com->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
+				com->transform->forward = Quat::FromEuler(m_dirx, m_diry, m_dirz) * Vec3::down();
 			}
 
 			break;
@@ -751,7 +745,7 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		SpotLightObj->name = m_LightName.GetString();
 
-		//m_PosX = GetPos().x; 
+		//m_PosX = GetPos().x;
 	//	m_PosY = GetPos().y;
 
 		//SpotLightObj->transform->localPosition = Vec3(m_PosX, m_PosY, m_PosZ);
@@ -866,7 +860,7 @@ void DlgLightTool::OnBnClickedSave()
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
-			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// rot
+			WriteFile(hFile, &obj->transform->forward, sizeof(Vec3), &dwByte, nullptr);	// rot
 
 			if (obj->tag == L"Point")
 			{
@@ -945,7 +939,7 @@ void DlgLightTool::OnBnClickedLoad()
 		int vecSize = LightObj::g_vecLight.size();
 		for (int i = 0; i < vecSize; ++i)
 		{
-			LightObj::g_vecLight[0]->gameObject->Destroy();
+			LightObj::g_vecLight[i]->gameObject->Destroy();
 		}
 		//
 
@@ -1035,8 +1029,7 @@ void DlgLightTool::OnBnClickedLoad()
 				PointLight* point = pObj->GetComponentInChild<PointLight>();
 				pObj->transform->position = vPos;
 
-				pObj->transform->eulerAngle = Vec3(vRot.x, vRot.y, vRot.z) ;
-
+				pObj->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
 				point->ambientFactor = fambinentfactor;
 				point->color = Vcolor;
 				point->range = frange;
@@ -1050,8 +1043,7 @@ void DlgLightTool::OnBnClickedLoad()
 				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
 
 				pObj->transform->position = vPos;
-				pObj->transform->eulerAngle = Vec3(vRot.x, vRot.y, vRot.z);
-
+				pObj->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
 				spot->ambientFactor = fambinentfactor;
 				spot->color = Vcolor;
 				spot->range = frange;
@@ -1066,8 +1058,7 @@ void DlgLightTool::OnBnClickedLoad()
 				DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
 				pObj->transform->position = vPos;
-				pObj->transform->eulerAngle = Vec3(vRot.x, vRot.y, vRot.z);
-
+				pObj->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
 				directional->ambientFactor = fambinentfactor;
 				directional->color = Vcolor;
 				lightobj->LightSetting();
@@ -1076,12 +1067,12 @@ void DlgLightTool::OnBnClickedLoad()
 
 		}
 
+		m_LT_ListBox.SetCurSel(0);
 		
 		Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 		giz->Detach();
 		giz->enable = false;
 
-		//m_LT_ListBox.SetCurSel(0);
 
 
 
@@ -1118,11 +1109,10 @@ void DlgLightTool::OnBnClickedClear()
 
 void DlgLightTool::OnEnChangeLtPosx()
 {
-	UpdateData(TRUE);
-
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 	if (!giz->GetSelectedObject())
 		return;
+	UpdateData(TRUE);
 
 	int iIndex = m_LT_ListBox.GetCurSel();
 
@@ -1189,10 +1179,10 @@ void DlgLightTool::OnEnChangeLtPosy()
 
 void DlgLightTool::OnEnChangeLtPosz()
 {
-	UpdateData(TRUE);
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 	if (!giz->GetSelectedObject())
 		return;
+	UpdateData(TRUE);
 
 	int iIndex = m_LT_ListBox.GetCurSel();
 
@@ -1226,8 +1216,6 @@ void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 {
 	m_LightName = gameobject->name.c_str();
 	m_LightType = gameobject->tag.c_str();
-
-
 
 	if (m_LightType == L"Spot")
 	{
@@ -1308,115 +1296,4 @@ void DlgLightTool::LightClear()
 void DlgLightTool::SetName(const CString& name)
 {
 	int num = m_LT_ListBox.GetAnchorIndex();
-}
-
-
-void DlgLightTool::OnLbnDblclkList1()
-{
-	UpdateData(TRUE);
-
-	int iIndex = m_LT_ListBox.GetCurSel();
-	if (iIndex < 0)
-		return;
-	CString wstrFindName;
-
-	m_LT_ListBox.GetText(iIndex, wstrFindName);
-
-	CString name = wstrFindName.GetString();
-
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	if (!giz->GetSelectedObject())
-		return;
-
-
-
-	for (auto& light : LightObj::g_vecLight)
-	{
-
-		auto lightobj = light->GetGameObject();
-
-		if (lightobj->name == name.GetString())
-		{
-			if (lightobj->tag == L"Point")
-			{
-				auto com = lightobj->GetComponentInChild<PointLight>();
-
-				m_LightType = lightobj->tag.c_str();
-				m_LightName = lightobj->GetName().c_str();
-
-				m_ColorR = com->color.r;
-				m_ColorG = com->color.g;
-				m_ColorB = com->color.b;
-				m_ColorA = com->color.a;
-
-				m_PosX = com->transform->position.x;
-				m_PosY = com->transform->position.y;
-				m_PosZ = com->transform->position.z;
-
-				m_radius = com->range;
-
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-
-				m_ambinentFactor = com->ambientFactor;
-			}
-			else if (lightobj->tag == L"Spot")
-			{
-
-				auto com = lightobj->GetComponentInChild<SpotLight>();
-
-				m_LightType = lightobj->tag.c_str();
-				m_LightName = lightobj->GetName().c_str();
-
-				m_ColorR = com->color.r;
-				m_ColorG = com->color.g;
-				m_ColorB = com->color.b;
-				m_ColorA = com->color.a;
-
-				m_PosX = com->transform->position.x;
-				m_PosY = com->transform->position.y;
-				m_PosZ = com->transform->position.z;
-
-				m_radius = com->range;
-
-				m_OutSideAngle = com->outsideAngle;
-				m_InsideAngleRatio = com->insideAngleRatio;
-
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-
-				m_ambinentFactor = com->ambientFactor;
-			}
-			else if (lightobj->tag == L"Directional")
-			{
-				auto com = lightobj->GetComponentInChild<DirectionalLight>();
-
-				m_LightName = lightobj->name.c_str();;
-				m_LightType = L"Directional";
-
-				m_ColorR = com->color.r;
-				m_ColorG = com->color.g;
-				m_ColorB = com->color.b;
-				m_ColorA = com->color.a;
-
-				m_PosX = com->transform->position.x;
-				m_PosY = com->transform->position.y;
-				m_PosZ = com->transform->position.z;
-
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-
-				m_ambinentFactor = com->ambientFactor;
-			}
-
-		}
-
-	}
-
-	LightObj::LightPick(name);
-
-	UpdateData(FALSE);
 }
