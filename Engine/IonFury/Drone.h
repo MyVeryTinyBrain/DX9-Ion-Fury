@@ -22,13 +22,19 @@ class Drone :  public Monster
 
 private:
 
-	void Moving();
 
 	void SetTargetCoord(Vec3 xzCoord);
 
 	void Attack();
 
 	void FindTarget();
+	
+
+private:
+
+	enum class MovingType { Idle, Trace, leftRight, Attack, Max };
+
+	void Moving(MovingType type);
 
 private:
 	

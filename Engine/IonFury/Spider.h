@@ -49,5 +49,11 @@ private:
 	unsigned int m_attackCount = 0;
 
 	unsigned int m_jumpCount = 0;
+
+	float m_jumpY;
+
+	bool m_jump = true;
+
+	float m_jumptime = 0.f;
 };
 

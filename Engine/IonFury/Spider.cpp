@@ -39,7 +39,8 @@ void Spider::FixedUpdate()
 	{
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
-		Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
+		//Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
+		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
 }
@@ -183,26 +184,37 @@ void Spider::JumpCheck()
 	mosterToPlayerDir.Normalize();
 
 	RaycastHit hit1;
-	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(5.0f));
+	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(20.0f));
+	
+	m_jumptime += Time::FixedDeltaTime();
 
-	m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) /*| (1 << (PxU32)PhysicsLayers::Terrain)*/, PhysicsQueryType::All, m_body);
+	if (m_jumptime > 3.f)
+	{
+		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) /*| (1 << (PxU32)PhysicsLayers::Terrain)*/, PhysicsQueryType::All, m_body);
+		m_jumptime = 0.f;
+		m_jump = true;
+	}
 
+	if (m_jump)
+	{
+		m_jumpY = transform->position.y;
+		m_jump = false;
+	}
 	if (m_hasJump)
 	{
-		if (hit1.collider->layerIndex == (PxU32)PhysicsLayers::Player)
-		{
-			m_attackCount = 1;
+		//if (hit1.collider->layerIndex == (PxU32)PhysicsLayers::Player)
+		//{
+		//	m_attackCount = 1;
 
-			m_jumpCount = 1;
+		//	m_jumpCount = 1;
 
-			//m_animator->PlayJump();
-		}
+		//	m_animator->PlayJump();
+		//}
 	}
 	if (!m_hasJump)
 	{
 		m_collider->friction = 0.0f;
-		//m_jumpcheck = true;
-		//m_jumpCount = 0;
+	
 	}
 	else if (m_hasJump & (m_jumpCount > 0))
 	{
@@ -212,6 +224,10 @@ void Spider::JumpCheck()
 
 void Spider::Jump()
 {
+	if (m_animator->IsPlayingJump())
+	{
+		return;
+	}
 	if (m_hasJump)		// 점프
 	{
 		Vec3 playerPos = Player::GetInstance()->transform->position;
@@ -224,14 +240,16 @@ void Spider::Jump()
 
 		Vec3 velocity = Quat::AxisAngle(transform->right, -45) * forward;
 		m_body->velocity = velocity;
-		m_hasJump = false;
 
+	
+		
 
 		m_animator->SetAngle(AngleToPlayerWithSign());
 
 		transform->position += Vec3::up() * 0.05f;
 
-		
+		if(transform->position.y > m_jumpY + 3.f )
+			m_hasJump = false;
 
 		// 수정 해야함
 
