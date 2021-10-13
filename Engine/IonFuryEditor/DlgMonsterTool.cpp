@@ -28,6 +28,8 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_TriggerListBox);
+	DDX_Control(pDX, IDC_LIST2, m_EventListBox);
+	DDX_Control(pDX, IDC_RADIO2, m_TouchButtonManual);
 }
 
 
@@ -35,6 +37,7 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, &DlgMonsterTool::ClickAddTrigger)
 	ON_BN_CLICKED(IDC_BUTTON8, &DlgMonsterTool::ClickRemoveTrigger)
 	ON_LBN_SELCHANGE(IDC_LIST1, &DlgMonsterTool::OnLbnSelChangeTrigger)
+	ON_BN_CLICKED(IDC_BUTTON2, &DlgMonsterTool::ClickAddEvent)
 END_MESSAGE_MAP()
 
 
@@ -60,7 +63,7 @@ void DlgMonsterTool::ClickAddTrigger()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
-	Pickable* Trigger = cam->Add_MonsterToolObject(Type::Trigger, m_TriggerCnt);
+	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
 	++m_TriggerCnt;
 
 	wstring name = Trigger->GetGameObject()->name;
@@ -69,6 +72,9 @@ void DlgMonsterTool::ClickAddTrigger()
 	int i = m_TriggerListBox.GetCount();
 	m_TriggerListBox.SetCurSel(i - 1);
 
+	//이벤트상자 비우기. 추후 확인
+	for (int i = m_EventListBox.GetCount(); i > 0; --i)
+		m_EventListBox.DeleteString(i - 1);
 }
 
 
@@ -88,6 +94,9 @@ void DlgMonsterTool::ClickRemoveTrigger()
 	giz->Detach();
 	giz->enable = false;
 
+	//이벤트상자 비우기. 추후 확인
+	for (int i = m_EventListBox.GetCount(); i > 0; --i)
+		m_EventListBox.DeleteString(i - 1);
 }
 
 
@@ -100,5 +109,35 @@ void DlgMonsterTool::OnLbnSelChangeTrigger()
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	giz->Attach(Pickable::g_TriggerVec[Select]->GetTransform());
+	Pickable* pick = Pickable::g_TriggerVec[Select];
+	giz->Attach(pick->GetTransform());
+
+	//몬스터상자 비우기. 추후 확인
+	for (int i = m_EventListBox.GetCount(); i > 0; --i)
+		m_EventListBox.DeleteString(i - 1);
+
+	//몬스터리스트상자 채우기
+	std::vector<Pickable*> EventVec = pick->GetEventVec();
+	int vecSize = EventVec.size();
+	wstring name = L"";
+	for (int i = 0; i < vecSize; ++i)
+	{
+		name = EventVec[i]->GetGameObject()->GetName();
+		m_EventListBox.AddString(name.c_str());
+	}
+}
+
+
+void DlgMonsterTool::ClickAddEvent()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int TriggerSelect = m_TriggerListBox.GetCurSel();
+	
+	if (TriggerSelect == -1)
+		return;
+
+	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
+
+	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
+	cam->Add_EventObject(trigger, m_EventCnt);
 }

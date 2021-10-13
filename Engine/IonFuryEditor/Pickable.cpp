@@ -8,7 +8,7 @@ std::vector<Pickable*> Pickable::g_PickableVec;
 
 std::vector<Pickable*> Pickable::g_MapVec;
 std::vector<Pickable*> Pickable::g_TriggerVec;
-std::vector<Pickable*> Pickable::g_EventVec;
+//std::vector<Pickable*> Pickable::g_EventVec;
 
 void Pickable::Awake()
 {
@@ -41,9 +41,9 @@ void Pickable::OnDestroy()
 			g_MapVec.erase(it);
 		break;
 	case Type::EventObject:
-		it = FindInContainer(g_EventVec, this);
-		if (it != g_EventVec.end())
-			g_EventVec.erase(it);
+		it = FindInContainer(m_EventVec, this);
+		if (it != m_EventVec.end())
+			m_EventVec.erase(it);
 		break;
 	case Type::Trigger:
 		it = FindInContainer(g_TriggerVec, this);
@@ -141,13 +141,18 @@ void Pickable::PushInVector(Type type)
 	case Type::Map:
 		g_MapVec.push_back(this);
 		break;
-	case Type::EventObject:
-		g_EventVec.push_back(this);
-		break;
+	//case Type::EventObject:
+	//	g_EventVec.push_back(this);
+	//	break;
 	case Type::Trigger:
 		g_TriggerVec.push_back(this);
 		break;
 	}
+}
+
+void Pickable::PushInEventVector(Pickable* Event)
+{
+	m_EventVec.push_back(Event);
 }
 
 int Pickable::GetTriggerVectorIndex()
@@ -162,4 +167,13 @@ int Pickable::GetTriggerVectorIndex()
 	}
 
 	return -1;
+}
+
+void Pickable::ClearEventVector()
+{
+	int Size = m_EventVec.size();
+	for (int i = 0; i < Size; ++i)
+	{
+		m_EventVec[0]->Destroy();
+	}
 }

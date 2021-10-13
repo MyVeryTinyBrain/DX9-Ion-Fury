@@ -85,9 +85,11 @@
 #define IDC_RotSlider                   1047
 #define IDC_BUTTON6                     1049
 #define IDC_BUTTON7                     1050
-#define IDC_RADIO1                      1051
 #define IDC_RotSlider2                  1052
+#define IDC_RADIO2                      1052
 #define IDC_RotSlider3                  1053
+#define IDC_RADIO3                      1055
+#define IDC_RADIO4                      1056
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -100,7 +102,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        315
 #define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1052
+#define _APS_NEXT_CONTROL_VALUE         1053
 #define _APS_NEXT_SYMED_VALUE           314
 #endif
 #endif

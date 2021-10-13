@@ -99,7 +99,7 @@ Pickable* FreePerspectiveCamera::Add_MapObject(bool ColliderExistence, Vec3 Size
 	return pick;
 }
 
-Pickable* FreePerspectiveCamera::Add_MonsterToolObject(Type ObjType, int cnt)
+Pickable* FreePerspectiveCamera::Add_TriggerObject(int cnt)
 {
 	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"trigger");
 
@@ -115,17 +115,33 @@ Pickable* FreePerspectiveCamera::Add_MonsterToolObject(Type ObjType, int cnt)
 
 	Pickable* pick = Obj->AddComponent<Pickable>();
 
-	pick->PushInVector(ObjType);
+	pick->PushInVector(Type::Trigger);
 
-	switch (ObjType)
-	{
-	case Type::Trigger:
-		pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Trigger.png", true);
-		break;
-	case Type::EventObject:
-		pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Monster.png", true);
-		break;
-	}
+	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Trigger.png", true);
+
+	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
+	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
+
+	return pick;
+}
+
+Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
+{
+	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"Event");
+
+	CString name = L"Event_";
+	CString num;
+	num.Format(_T("%d"), cnt);
+	name += num;
+	Obj->name = name.GetString();
+
+	Vec3 test = transform->position + transform->forward * 2;
+	Obj->transform->position = test;
+
+	Pickable* pick = Obj->AddComponent<Pickable>();
+	Trigger->PushInEventVector(pick);
+
+	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Event.png", true);
 
 	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
