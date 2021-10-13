@@ -9,6 +9,7 @@
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
 #include "Gizmo.h"
+#include "EditorEnum.h"
 
 // DlgMonsterTool 대화 상자
 
@@ -57,6 +58,46 @@ BOOL DlgMonsterTool::OnInitDialog()
 void DlgMonsterTool::TriggerListBoxPick(int pickedNum)
 {
 	m_TriggerListBox.SetCurSel(pickedNum);
+}
+
+
+int DlgMonsterTool::GetCheckedButton()
+{
+	int TouchButtonManual = (int)(ThreeButton::End);
+
+	int Touch = m_TouchButtonManual1.GetCheck();
+	int Button = m_TouchButtonManual2.GetCheck();
+	int Manual = m_TouchButtonManual3.GetCheck();
+
+	if (Touch)
+		TouchButtonManual = (int)(ThreeButton::Touch);
+	else if (Button)
+		TouchButtonManual = (int)(ThreeButton::Button);
+	else if (Manual)
+		TouchButtonManual = (int)(ThreeButton::Manual);
+
+	return TouchButtonManual;
+}
+
+
+void DlgMonsterTool::SetCheckedButton(ThreeButton Select)
+{
+	m_TouchButtonManual1.SetCheck(0);
+	m_TouchButtonManual2.SetCheck(0);
+	m_TouchButtonManual3.SetCheck(0);
+
+	switch (Select)
+	{
+	case ThreeButton::Touch:
+		m_TouchButtonManual1.SetCheck(1);
+		break;
+	case ThreeButton::Button:
+		m_TouchButtonManual2.SetCheck(1);
+		break;
+	case ThreeButton::Manual:
+		m_TouchButtonManual3.SetCheck(1);
+		break;
+	}
 }
 
 
@@ -134,15 +175,10 @@ void DlgMonsterTool::ClickAddEvent()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	int TriggerSelect = m_TriggerListBox.GetCurSel();
-	int TouchButtonManual = 0;
+	int TouchButtonManual = GetCheckedButton();
 	
-	int Touch = m_TouchButtonManual1.GetCheck();
-	int Button = m_TouchButtonManual2.GetCheck();
-	int Manual = m_TouchButtonManual3.GetCheck();
-	//if(Touch)
-
-	//if (TriggerSelect == -1 ||)
-	//	return;
+	if (TriggerSelect == -1 || TouchButtonManual == (int)(ThreeButton::End))
+		return;
 
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
 
