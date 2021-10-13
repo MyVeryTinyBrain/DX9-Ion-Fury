@@ -31,11 +31,12 @@ public:
 	CListBox m_TriggerListBox;
 	CListBox m_EventListBox;
 
-	CButton m_TouchButtonManual;
+	CButton m_TouchButtonManual1;
+	CButton m_TouchButtonManual2;
+	CButton m_TouchButtonManual3;
 public:
 	afx_msg void ClickRemoveTrigger();
 	afx_msg void ClickAddTrigger();
 	afx_msg void ClickAddEvent();
 	afx_msg void OnLbnSelChangeTrigger();
-
 };

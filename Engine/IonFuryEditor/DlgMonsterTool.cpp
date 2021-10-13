@@ -29,7 +29,9 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_TriggerListBox);
 	DDX_Control(pDX, IDC_LIST2, m_EventListBox);
-	DDX_Control(pDX, IDC_RADIO2, m_TouchButtonManual);
+	DDX_Control(pDX, IDC_RADIO2, m_TouchButtonManual1);
+	DDX_Control(pDX, IDC_RADIO3, m_TouchButtonManual2);
+	DDX_Control(pDX, IDC_RADIO4, m_TouchButtonManual3);
 }
 
 
@@ -132,12 +134,23 @@ void DlgMonsterTool::ClickAddEvent()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	int TriggerSelect = m_TriggerListBox.GetCurSel();
+	int TouchButtonManual = 0;
 	
-	if (TriggerSelect == -1)
-		return;
+	int Touch = m_TouchButtonManual1.GetCheck();
+	int Button = m_TouchButtonManual2.GetCheck();
+	int Manual = m_TouchButtonManual3.GetCheck();
+	//if(Touch)
+
+	//if (TriggerSelect == -1 ||)
+	//	return;
 
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
-	cam->Add_EventObject(trigger, m_EventCnt);
+	Pickable* EventObject = cam->Add_EventObject(trigger, m_EventCnt);
+	++m_EventCnt;
+
+	m_EventListBox.AddString(EventObject->GetGameObject()->GetName().c_str());
+
+	
 }
