@@ -42,7 +42,7 @@ public:
 	CButton m_TouchButtonManual2;
 	CButton m_TouchButtonManual3;
 	
-	CComboBox m_EventType;
+	CComboBox m_EventTypeComboBox;
 	
 	CSliderCtrl m_RotationX;
 	CSliderCtrl m_RotationY;
@@ -58,4 +58,6 @@ public:
 	afx_msg void OnLbnSelChangeEvent();
 	afx_msg void ClickRemoveEvent();
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnClickedTriggerMethodApply();
+	afx_msg void OnClickedEventTypeApply();
 };

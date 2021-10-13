@@ -33,7 +33,7 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RADIO2, m_TouchButtonManual1);
 	DDX_Control(pDX, IDC_RADIO3, m_TouchButtonManual2);
 	DDX_Control(pDX, IDC_RADIO4, m_TouchButtonManual3);
-	DDX_Control(pDX, IDC_COMBO1, m_EventType);
+	DDX_Control(pDX, IDC_COMBO1, m_EventTypeComboBox);
 	DDX_Control(pDX, IDC_SLIDER2, m_RotationX);
 	DDX_Control(pDX, IDC_SLIDER4, m_RotationY);
 	DDX_Control(pDX, IDC_SLIDER7, m_RotationZ);
@@ -51,6 +51,8 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON9, &DlgMonsterTool::ClickRemoveEvent)
 	ON_LBN_SELCHANGE(IDC_LIST2, &DlgMonsterTool::OnLbnSelChangeEvent)
 	ON_WM_HSCROLL()
+	ON_BN_CLICKED(IDC_BUTTON5, &DlgMonsterTool::OnClickedTriggerMethodApply)
+	ON_BN_CLICKED(IDC_BUTTON13, &DlgMonsterTool::OnClickedEventTypeApply)
 END_MESSAGE_MAP()
 
 
@@ -60,6 +62,16 @@ END_MESSAGE_MAP()
 BOOL DlgMonsterTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	m_EventTypeComboBox.AddString(_T("Monster0"));
+	m_EventTypeComboBox.AddString(_T("Monster1"));
+	m_EventTypeComboBox.AddString(_T("Monster2"));
+	m_EventTypeComboBox.AddString(_T("Monster3"));
+	m_EventTypeComboBox.AddString(_T("Door1"));
+	m_EventTypeComboBox.AddString(_T("Door2"));
+	m_EventTypeComboBox.AddString(_T("Door3"));
+
+	m_EventTypeComboBox.SetCurSel(-1);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -202,10 +214,14 @@ void DlgMonsterTool::ClickAddEvent()
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* EventObject = cam->Add_EventObject(trigger, m_EventCnt);
+	EventType check = (EventType)m_EventTypeComboBox.GetCurSel();
+	EventObject->SetEventType(check);
+
 	++m_EventCnt;
 
 	m_EventListBox.AddString(EventObject->GetGameObject()->GetName().c_str());
 	m_EventListBox.SetCurSel(m_EventListBox.GetCount() - 1);
+	m_EventTypeComboBox.SetCurSel(-1);
 }
 
 
@@ -282,6 +298,12 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	std::vector<Pickable*> EventVec = trigger->GetEventVec();
 
 	Pickable* Event = EventVec[EventSelect];
+	//
+	wstring name = Event->GetGameObject()->name;
+	EventType check1= Event->GetEventType();
+	int check2 = (int)check1;
+	//
+	m_EventTypeComboBox.SetCurSel(check2);
 
 	TriggerMethod method = trigger->GetTriggerMethod();
 	SetCheckedButton(method);
@@ -300,4 +322,35 @@ void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 
 
+}
+
+
+void DlgMonsterTool::OnClickedTriggerMethodApply()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int TriggerIndex = m_TriggerListBox.GetCurSel();
+	if (TriggerIndex == -1)
+		return;
+	
+	Pickable* Trigger = Pickable::g_TriggerVec[TriggerIndex];
+	Trigger->SetTriggerMethod((TriggerMethod)GetCheckedButton());
+	
+}
+
+
+void DlgMonsterTool::OnClickedEventTypeApply()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int TriggerIndex = m_TriggerListBox.GetCurSel();
+	if (TriggerIndex == -1)
+		return;
+
+	int EventIndex = m_EventListBox.GetCurSel();
+	if (EventIndex == -1)
+		return;
+
+	std::vector<Pickable*> EventVec = Pickable::g_TriggerVec[TriggerIndex]->GetEventVec();
+	Pickable* EventObj = EventVec[EventIndex];
+
+	EventObj->SetEventType(EventType(m_EventTypeComboBox.GetCurSel()));
 }

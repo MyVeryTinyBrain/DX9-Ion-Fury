@@ -84,6 +84,7 @@
 #define IDC_BUTTON5                     1042
 #define IDC_TAB1                        1043
 #define IDC_PIC                         1044
+#define IDC_BUTTON13                    1044
 #define IDC_RotSlider                   1047
 #define IDC_BUTTON6                     1049
 #define IDC_BUTTON7                     1050
