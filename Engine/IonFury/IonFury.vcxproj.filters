@@ -55,6 +55,9 @@
     <Filter Include="Player\Weapon\Revolver">
       <UniqueIdentifier>{64a52fde-c709-44b0-b3f3-cb5401ccd067}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monster\Spider\Web">
+      <UniqueIdentifier>{cf264c09-c308-4ca6-ae16-e8172a0938ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="WeaponTypes.h">
       <Filter>Initialize</Filter>
     </ClInclude>
+    <ClInclude Include="Web.h">
+      <Filter>Monster\Spider\Web</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc">
@@ -233,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="RevolverAnimator.cpp">
       <Filter>Player\Weapon\Revolver</Filter>
+    </ClCompile>
+    <ClCompile Include="Web.cpp">
+      <Filter>Monster\Spider\Web</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

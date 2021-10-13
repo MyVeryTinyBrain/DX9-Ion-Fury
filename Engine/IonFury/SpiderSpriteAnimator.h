@@ -24,7 +24,6 @@ public:
 
 	enum class DIE_SPIDER { DIE_HEADSHOT, DIE_GENERIC, MAX};
 
-
 public:
 	
 	void SetAngle(float angle);
@@ -39,6 +38,8 @@ public:
 
 	void PlayDie(DIE_SPIDER type);
 
+	void PlayWeb();
+
 	bool IsPlayingIdle() const;
 
 	bool IsPlayingWalk() const;
@@ -48,6 +49,8 @@ public:
 	bool IsPlayingDamage() const;
 
 	bool IsPlayingDie() const;
+
+	bool IsPlayingWeb() const;
 
 private:
 
@@ -66,6 +69,8 @@ private:
 	SpriteAnimation* m_damage;
 
 	SpriteAnimation* m_die[(unsigned int)DIE_SPIDER::MAX];
+
+	SpriteAnimation* m_web;
 
 	float m_angle = 0.f;
 };

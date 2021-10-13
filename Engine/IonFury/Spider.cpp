@@ -62,7 +62,6 @@ void Spider::Update()
 void Spider::OnDestroy()
 {
 	Monster::OnDestroy();
-
 }
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)
@@ -134,9 +133,8 @@ void Spider::MoveToTarget()
 				return;
 			}
 		}
-
-		Vec3 acceleration = forward * m_moveSpeed;
-		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
+		
+		Vec3 velocity= forward * m_moveSpeed;
 		velocity.y = m_body->velocity.y;
 		m_body->velocity = velocity;
 
@@ -224,10 +222,7 @@ void Spider::JumpCheck()
 
 void Spider::Jump()
 {
-	if (m_animator->IsPlayingJump())
-	{
-		return;
-	}
+
 	if (m_hasJump)		// 점프
 	{
 		Vec3 playerPos = Player::GetInstance()->transform->position;
@@ -241,17 +236,39 @@ void Spider::Jump()
 		Vec3 velocity = Quat::AxisAngle(transform->right, -45) * forward;
 		m_body->velocity = velocity;
 
-	
-		
 
 		m_animator->SetAngle(AngleToPlayerWithSign());
 
 		transform->position += Vec3::up() * 0.05f;
 
-		if(transform->position.y > m_jumpY + 3.f )
+		if (transform->position.y > m_jumpY + 3.f)
+		{
 			m_hasJump = false;
+		}
 
-		// 수정 해야함
+		//{
+		//	web = CreateGameObject();
+		//	web->transform->position = Vec3(transform->position.x, transform->position.y, transform->position.z);
+		//	web->transform->scale = Vec3::one() * 2.0f;
+
+		//	auto renderer = web->AddComponent<UserMeshRenderer>();
+		//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+		//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/spider/Web_01.png"));
+		//	webBody = web->AddComponent<Rigidbody>();
+		//	webBody->isKinematic = true;
+		//	auto collider = web->AddComponent<BoxCollider>();
+		//	renderer->material = m_material;
+
+		//	web->transform->forward = -transform->forward;
+
+		//	Vec3 webPos = web->transform->position;
+		//	Vec3 webforward = (monsterPos + web->transform->forward * 2.f)  - monsterPos;
+		//	webforward.Normalize();
+
+
+		//	web->transform->position += forward * 0.03f;
+		//}
+
 
 	}
 

@@ -123,7 +123,7 @@ void DroneSpriteAnimator::LateUpdate()
 				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT], false, true);
 			}
 
-			ResetUVDirection();
+			//ResetUVDirection();
 		}
 		else if (Abs(m_angle) < 22.5f + 45 * 1)
 		{
@@ -132,7 +132,7 @@ void DroneSpriteAnimator::LateUpdate()
 				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL], false, true);
 			}
 
-			ChangeUVDirection();
+			//ChangeUVDirection();
 		}
 		else if (Abs(m_angle) < 22.5f + 45 * 2)
 		{
@@ -141,7 +141,7 @@ void DroneSpriteAnimator::LateUpdate()
 				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::SIDE], false, true);
 			}
 
-			ChangeUVDirection();
+			//ChangeUVDirection();
 		}
 		else if (Abs(m_angle) < 22.5f + 45 * 3)
 		{
@@ -150,7 +150,7 @@ void DroneSpriteAnimator::LateUpdate()
 				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL], false, true);
 			}
 
-			ChangeUVDirection();
+			//ChangeUVDirection();
 		}
 		else
 		{
@@ -159,7 +159,7 @@ void DroneSpriteAnimator::LateUpdate()
 				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::BACK], false, true);
 			}
 
-			ResetUVDirection();
+			//ResetUVDirection();
 		}
 	}
 	else if (IsPlayingMove())

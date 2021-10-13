@@ -69,7 +69,7 @@ Vec3 Monster::ToSlopeVelocity(const Vec3& velocity, float rayLength) const
 
         if (hasGround)
         {
-            Quat q = Quat::FromToRotation(Vec3::up(), hit.normal);
+            Quat q = Quat::FromToRotation(Vec3::up(), hit.normal);  
             return q * velocity;
         }
         else

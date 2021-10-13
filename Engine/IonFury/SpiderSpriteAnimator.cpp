@@ -112,6 +112,13 @@ void SpiderSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->interval = 0.1f;
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->isLoop = true;
 
+	m_web = new SpriteAnimation;
+	m_web->AddTexture(L"../SharedResource/Texture/spider/Web_01.png");
+	m_web->AddTexture(L"../SharedResource/Texture/spider/Web_02.png");
+	m_web->AddTexture(L"../SharedResource/Texture/spider/Web_03.png");
+	m_web->interval = 0.1f;
+	m_web->isLoop = true;
+
 
 	SetDefaultAnimation(m_walk[(unsigned int)DIR_SPIDER::FRONT]);
 }
@@ -234,6 +241,8 @@ void SpiderSpriteAnimator::OnDestroy()
 
 	for (int i = 0; i < (int)DIE_SPIDER::MAX; ++i)
 		SafeDelete(m_die[i]);
+
+	SafeDelete(m_web);
 }
 
 void SpiderSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
@@ -284,6 +293,11 @@ void SpiderSpriteAnimator::PlayDie(DIE_SPIDER type)
 	PlayAnimation(m_die[(unsigned int)type]);
 }
 
+void SpiderSpriteAnimator::PlayWeb()
+{
+	PlayAnimation(m_web, true);
+}
+
 bool SpiderSpriteAnimator::IsPlayingIdle() const
 {
 	return currentAnimation == m_Idle;
@@ -329,6 +343,11 @@ bool SpiderSpriteAnimator::IsPlayingDie() const
 		}
 	}
 	return false;
+}
+
+bool SpiderSpriteAnimator::IsPlayingWeb() const
+{
+	return  currentAnimation == m_web;
 }
 
 void SpiderSpriteAnimator::ChangeUVDirection()

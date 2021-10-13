@@ -28,7 +28,6 @@ private:
 	void Attack();
 
 	void FindTarget();
-	
 
 private:
 
@@ -49,5 +48,9 @@ private:
 	float m_deltatime = 0.f;
 
 	unsigned int m_attackCount = 0;
+
+	bool m_distance = false;
+
+	float m_breakTime = 0;
 };
 
