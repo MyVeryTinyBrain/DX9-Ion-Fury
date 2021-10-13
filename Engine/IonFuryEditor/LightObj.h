@@ -17,12 +17,11 @@ public:
 	void LightSetting ();
 
 	static LightObj* LightPick();
-
 private:
 	void DeleteMesh();
 
 public:
-	static void lightPick(const CString& name);
+	static void LightPick(const CString& name);
 
 	void RequireDestroy();
 

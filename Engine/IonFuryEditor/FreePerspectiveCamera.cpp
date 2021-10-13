@@ -138,14 +138,14 @@ Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
 	Vec3 test = transform->position + transform->forward * 2;
 	Obj->transform->position = test;
 
-	Pickable* pick = Obj->AddComponent<Pickable>();
-	Trigger->PushInEventVector(pick);
+	Pickable* Event = Obj->AddComponent<Pickable>();
+	Trigger->PushInEventVector(Event);
 
-	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Event.png", true);
+	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Event.png", true);
 
 	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
 
-	return pick;
+	return Event;
 }
 

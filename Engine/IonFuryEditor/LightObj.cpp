@@ -61,8 +61,7 @@ void LightObj::LightSetting()
 {
 	m_LightRenderer = m_LightChildObject->AddComponent<UserMeshRenderer>();
 	m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
-	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
-	m_LightRenderer->transform->localEulerAngle = Vec3(90, 0, 0);
+	m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Light.png"));
 }
 
 LightObj* LightObj::LightPick()
@@ -72,49 +71,45 @@ LightObj* LightObj::LightPick()
 
 	Vec3 HitPoint;
 
+	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	for (auto pickable : g_vecLight)
+	for (auto light : g_vecLight)
 	{
-		UserMeshRenderer* Renderer = pickable->GetRenderer();
+		UserMeshRenderer* Renderer = light->GetRenderer();
 
-		if (Renderer != nullptr)
+		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
-
-			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
-			{
-				giz->enable = true;
-				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
-				return pickable;
-			}
+			//transform->position + transform->forward * 2;
+			giz->enable = true;
+			camera->transform->position = light->transform->position - camera->transform->forward * 2;
+		
+			return light;
 		}
-
-		return nullptr;
 	}
+
+	return nullptr;
 }
 
 void LightObj::DeleteMesh()
 {
-	if (m_LightRenderer)
-	{
-		m_LightRenderer->Destroy();
-		//m_LightRenderer = nullptr;
-	}
 }
 
 
-void LightObj::lightPick(const CString& name)
+void LightObj::LightPick(const CString& name)
 {
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
 	for (auto light : g_vecLight)
 	{
-		if (light->GetGameObject()->name == name.GetString())
+		if (light->GetGameObject()->name.c_str() == name)
 		{
 			EditorManager::GetInstance()->GetGizmo()->Attach(light->GetGameObject()->transform);
-			camera->transform->position = light->m_LightChildObject->transform->position - camera->transform->forward * 2;
+			light->GetGameObject()->transform->position = camera->transform->position + camera->transform->forward * 2;
 		}
 	}
+
 }
 
 void LightObj::RequireDestroy()

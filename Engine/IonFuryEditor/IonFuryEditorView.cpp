@@ -246,16 +246,16 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	Pickable* pick = Pickable::Pick();
-
+	
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
-
+	
 		if (!m_dlgObjectTool)
 			return;
-
+	
 		Type PickType = pick->GetType();
-
+		
 		switch (PickType)
 		{
 		case Type::Map:
@@ -270,6 +270,14 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		case Type::Trigger:
 			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
 			m_dlgMonsterTool.OnLbnSelChangeTrigger();
+			break;
+		case Type::EventObject:
+			int TriggerIndex = -1;
+			int EventIndex = -1;
+			pick->GetEventVectorIndex(TriggerIndex, EventIndex);
+			m_dlgMonsterTool.SetTwoListBox(TriggerIndex, EventIndex);
+			m_dlgMonsterTool.PickedMethodToButton(TriggerIndex);
+			m_dlgMonsterTool.m_EventListBox.SetCurSel(EventIndex);
 		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
 	}
@@ -280,9 +288,8 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_dlgObjectTool.Clear();
 	}
 
-
 	//=========================================================
-
+	
 	LightObj* light = LightObj::LightPick();
 
 	if (light)
@@ -308,7 +315,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
-
 	else if (m_dlgLightTool && !giz->PickHandle())
 	{
 		cout << "조명선택안됨" << endl;
@@ -316,7 +322,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		giz->enable = false;
 		m_dlgLightTool.LightClear();
 	}
-
 }
 
 void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
@@ -335,7 +340,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	bool Handling = m_giz->GetHandlingState();
 
 	if (Handling)		//기즈모 잡혔다
-	{
+	{	
 		Transform* trans = m_giz->GetSelectedObject();
 		if (!trans)
 			return;
@@ -349,17 +354,13 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 
 			m_dlgObjectTool.SelectObject();
 		}
-		//													용섭구역
-
-		//=========================
-
-		// 2. light에 대해
+		//											용섭구역
 		else
 		{
 			auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
 			m_dlgLightTool.SetLTPickableObject(pickObj);
 		}
-		//													성연구역
+		//											성연구역
 	}
 }
 
