@@ -20,4 +20,22 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
+public:
+	void TriggerListBoxPick(int pickedNum);
+public:
+	int m_TriggerCnt = 0;
+	int m_EventCnt = 0;
+public:
+	CListBox m_TriggerListBox;
+	CListBox m_EventListBox;
+
+	CButton m_TouchButtonManual;
+public:
+	afx_msg void ClickRemoveTrigger();
+	afx_msg void ClickAddTrigger();
+	afx_msg void ClickAddEvent();
+	afx_msg void OnLbnSelChangeTrigger();
+
 };

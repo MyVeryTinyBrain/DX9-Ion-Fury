@@ -45,7 +45,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
-	ON_COMMAND(ID_32774, &CIonFuryEditorView::OnMonsterTool)
+	ON_COMMAND(ID_Menu, &CIonFuryEditorView::OnMonsterTool)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -152,9 +152,9 @@ void CIonFuryEditorView::OnInitialUpdate()
 	if (!m_dlgTextureTool.GetSafeHwnd())
 		m_dlgTextureTool.Create(IDD_DlgTextureTool);
 
-	// 얘는 터짐
-	//if (!m_dlgMonsterTool.GetSafeHwnd())
-	//	m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
+	//터질경우 의심해볼 코드
+	if (!m_dlgMonsterTool.GetSafeHwnd())
+		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
 }
 
 
@@ -213,36 +213,41 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* pick = nullptr;
-
+	Gizmo* giz = nullptr;
 	switch (nChar)
 	{
-	case 'P':
-		if (!m_dlgObjectTool || !m_dlgTextureTool)
-		{
-			pick = camera->Add_MapObject();
-		}
-		else
-		{
-			//Pickable* pick = nullptr;
-			pick = camera->Add_MapObject(
-				m_dlgObjectTool.GetColliderExistence(),
-				m_dlgObjectTool.GetToolSize(),
-				m_dlgObjectTool.GetToolRotation(),
-				m_dlgObjectTool.GetToolUVScale(),
-				m_dlgObjectTool.m_MeshType,
-				m_dlgObjectTool.m_objectTag.GetString(),
-				m_dlgObjectTool.m_objectName.GetString(),
-				m_dlgTextureTool.m_texturePath.GetString());
-
-			m_dlgObjectTool.SetPickableObject(pick->GetGameObject());
-			m_dlgObjectTool.SelectObject();
-			m_dlgObjectTool.UpdateUVScale(pick);
-			m_dlgObjectTool.ReturnComboBoxSelect(pick);
-			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
-		}
-		break;
+	//case 'P':
+	//	if (!m_dlgObjectTool || !m_dlgTextureTool)
+	//	{
+	//		pick = camera->Add_MapObject();
+	//	}
+	//	else
+	//	{
+	//		//Pickable* pick = nullptr;
+	//		pick = camera->Add_MapObject(
+	//			m_dlgObjectTool.GetColliderExistence(),
+	//			m_dlgObjectTool.GetToolSize(),
+	//			m_dlgObjectTool.GetToolRotation(),
+	//			m_dlgObjectTool.GetToolUVScale(),
+	//			m_dlgObjectTool.m_MeshType,
+	//			m_dlgObjectTool.m_objectTag.GetString(),
+	//			m_dlgObjectTool.m_objectName.GetString(),
+	//			m_dlgTextureTool.m_texturePath.GetString());
+	//
+	//		m_dlgObjectTool.SetPickableObject(pick->GetGameObject());
+	//		m_dlgObjectTool.SelectObject();
+	//		m_dlgObjectTool.UpdateUVScale(pick);
+	//		m_dlgObjectTool.ReturnComboBoxSelect(pick);
+	//		m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
+	//	}
+	//	break;
 	case 46:		//delete키
-		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
+		giz = EditorManager::GetInstance()->GetGizmo();
+		giz->DeleteAttachedObject();
+		giz->Detach();
+		giz->enable = false;
+		m_dlgObjectTool.Clear();
+		break;
 	default:
 		break;
 	}
@@ -265,49 +270,56 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	Pickable* pick = Pickable::Pick();
-	LightObj* LightPick = LightObj::LightPick();
+	Pickable* GizmoSelectPick = nullptr;															//
+																									//
+	if (giz->PickHandle())																			//
+	{																								//
+		GizmoSelectPick = giz->GetSelectedObject()->GetGameObject()->GetComponent<Pickable>();		//
+	}																								//추가코드
 
+	Pickable* pick = Pickable::Pick();
 
 	const Vec3& mouse = Vec3(point.x, point.y, 0.f);
 
 	if (pick)
 	{
+		if (GizmoSelectPick)																		//
+			pick = GizmoSelectPick;																	//추가코드
+
 		auto pickObj = pick->GetGameObject();
 
 		if (!m_dlgObjectTool)
 			return;
 
-		m_dlgObjectTool.SetPickableObject(pickObj);
-		m_dlgObjectTool.SelectObject();
-		m_dlgObjectTool.UpdateUVScale(pick);
-		m_dlgObjectTool.ReturnComboBoxSelect(pick);
-		m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
+		Type PickType = pick->GetType();
+		
+		switch(PickType)
+		{
+		case Type::Map:
+			m_dlgObjectTool.SetPickableObject(pickObj);
+			m_dlgObjectTool.SelectObject();
+			m_dlgObjectTool.UpdateUVScale(pick);
+			m_dlgObjectTool.ReturnComboBoxSelect(pick);
+			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
 
+			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
+			break;
+		case Type::Trigger:
+			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
+		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
 	}
-	else if (LightPick)
-	{
-		auto pickObj = LightPick->GetGameObject();
-
-		if (!m_dlgLightTool)
-			return;
-
-		m_dlgLightTool.SetLTPickableObject(pickObj);
-
-		return;
-	}
-	else
+	else if (!giz->PickHandle())
 	{
 		giz->Detach();
 		giz->enable = false;
-		if (pick)
-			m_dlgObjectTool.Clear();
-		else
-			m_dlgLightTool.LightClear();
-
+		m_dlgObjectTool.Clear();
+		return;
 	}
 
+
+
+	//LightObj* light = LightObj::LightPick();
 	for (auto& light : LightObj::g_vecLight)
 	{
 		auto lightobj = light->GetGameObject();
@@ -347,10 +359,16 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		m_dlgObjectTool.SetPickableObject(pickObj);
 
 		m_dlgObjectTool.SelectObject();
-
-		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
 }
+
+
+DlgTextureTool* CIonFuryEditorView::GetTextureTool()
+{
+	if (m_dlgTextureTool)
+		return &m_dlgTextureTool;
+}
+
 
 void CIonFuryEditorView::OnMonsterTool()
 {
@@ -358,10 +376,4 @@ void CIonFuryEditorView::OnMonsterTool()
 	if (!m_dlgMonsterTool.GetSafeHwnd())
 		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
 	m_dlgMonsterTool.ShowWindow(SW_SHOW);
-}
-
-DlgTextureTool* CIonFuryEditorView::GetTextureTool()
-{
-	if (m_dlgTextureTool)
-		return &m_dlgTextureTool;
 }

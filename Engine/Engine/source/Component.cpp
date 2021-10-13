@@ -12,7 +12,7 @@ GameObject* Component::GetGameObject() const
 Ref<GameObject> Component::GetRefGameObject() const
 {
 	return m_gameObject->refGameObject;
-} 
+}
 
 Transform* Component::GetTransform() const
 {

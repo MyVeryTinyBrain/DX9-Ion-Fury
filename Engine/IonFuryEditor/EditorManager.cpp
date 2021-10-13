@@ -38,7 +38,6 @@ void EditorManager::Awake()
 		auto dll = directionalLightObj->GetComponentInChild<DirectionalLight>();
 		dl->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
 		dll->color = Color::white() * 0.8f;
-		dl->LightSetting();
 		
 	}
 	///////////////////////////////////////

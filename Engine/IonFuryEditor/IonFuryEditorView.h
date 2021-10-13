@@ -64,9 +64,9 @@ public:
 	afx_msg void OnTextureTool();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnMonsterTool();
 public:
 	DlgTextureTool* GetTextureTool();
+	afx_msg void OnMonsterTool();
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전
