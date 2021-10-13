@@ -279,9 +279,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	Pickable* pick = Pickable::Pick();
 
-	//LightObj* LightPick = LightObj::LightPick();
-
-
 	const Vec3& mouse = Vec3(point.x, point.y, 0.f);
 
 	if (pick)
@@ -309,6 +306,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			break;
 		case Type::Trigger:
 			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
+			m_dlgMonsterTool.OnLbnSelChangeTrigger();
 		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
 	}
@@ -317,24 +315,8 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		giz->Detach();
 		giz->enable = false;
 		m_dlgObjectTool.Clear();
-
-
 		return;
 	}
-
-	//else if (LightPick)
-	//{
-	//	auto pickObj = LightPick->GetGameObject();
-
-	//	if (!m_dlgLightTool)
-	//		return;
-
-	//	m_dlgLightTool.SetLTPickableObject(pickObj);
-
-	//	return;
-	//}
-
-
 
 	//LightObj* light = LightObj::LightPick();
 	for (auto& light : LightObj::g_vecLight)
@@ -376,8 +358,6 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		m_dlgObjectTool.SetPickableObject(pickObj);
 
 		m_dlgObjectTool.SelectObject();
-
-		m_dlgLightTool.SetLTPickableObject(pickObj);
 	}
 }
 

@@ -3,6 +3,8 @@
 
 // DlgMonsterTool 대화 상자
 
+#include "EditorEnum.h"
+
 class DlgMonsterTool : public CDialog
 {
 	DECLARE_DYNAMIC(DlgMonsterTool)
@@ -24,6 +26,9 @@ public:
 	virtual BOOL OnInitDialog();
 public:
 	void TriggerListBoxPick(int pickedNum);
+
+	int	GetCheckedButton();
+	void SetCheckedButton(ThreeButton Select);
 public:
 	int m_TriggerCnt = 0;
 	int m_EventCnt = 0;
