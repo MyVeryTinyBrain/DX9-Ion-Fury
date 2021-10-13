@@ -1227,7 +1227,7 @@ void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 	m_LightName = gameobject->name.c_str();
 	m_LightType = gameobject->tag.c_str();
 
-
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	if (m_LightType == L"Spot")
 	{
@@ -1255,6 +1255,8 @@ void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 		m_PosZ = light->GetGameObject()->transform->position.z;
 
 	}
+
+	
 }
 
 void DlgLightTool::SelectObject()
