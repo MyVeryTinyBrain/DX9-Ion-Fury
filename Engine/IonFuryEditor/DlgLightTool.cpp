@@ -912,11 +912,6 @@ void DlgLightTool::OnBnClickedLoad()
 
 	m_LT_ListBox.ResetContent();
 
-	for (auto& light : LightObj::g_vecLight)
-	{
-		if(light)
-			light->RequireDestroy();
-	}
 
 	CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
 
@@ -944,7 +939,7 @@ void DlgLightTool::OnBnClickedLoad()
 		int vecSize = LightObj::g_vecLight.size();
 		for (int i = 0; i < vecSize; ++i)
 		{
-			LightObj::g_vecLight[0]->gameObject->Destroy();
+			LightObj::g_vecLight[i]->gameObject->Destroy();
 		}
 		//
 
@@ -1032,8 +1027,9 @@ void DlgLightTool::OnBnClickedLoad()
 			if (pObj->tag == L"Point")
 			{
 				PointLight* point = pObj->GetComponentInChild<PointLight>();
-				point->transform->position = vPos;
-				point->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
+				pObj->transform->position = vPos;
+
+				pObj->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
 				point->ambientFactor = fambinentfactor;
 				point->color = Vcolor;
 				point->range = frange;
@@ -1046,8 +1042,8 @@ void DlgLightTool::OnBnClickedLoad()
 
 				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
 
-				spot->transform->position = vPos;
-				spot->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
+				pObj->transform->position = vPos;
+				pObj->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
 				spot->ambientFactor = fambinentfactor;
 				spot->color = Vcolor;
 				spot->range = frange;
@@ -1061,8 +1057,8 @@ void DlgLightTool::OnBnClickedLoad()
 			{
 				DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
-				directional->transform->Position = vPos;
-				directional->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
+				pObj->transform->position = vPos;
+				pObj->transform->forward = Quat::FromEuler(vRot.x, vRot.y, vRot.z) * Vec3::down();
 				directional->ambientFactor = fambinentfactor;
 				directional->color = Vcolor;
 				lightobj->LightSetting();
@@ -1070,11 +1066,13 @@ void DlgLightTool::OnBnClickedLoad()
 			m_LT_ListBox.AddString(pObj->name.c_str());
 
 		}
+
+		m_LT_ListBox.SetCurSel(0);
+		
 		Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 		giz->Detach();
 		giz->enable = false;
 
-		m_LT_ListBox.SetCurSel(0);
 
 
 
