@@ -22,12 +22,16 @@ class Drone :  public Monster
 
 private:
 
-	void Moving();
 
 	void SetTargetCoord(Vec3 xzCoord);
 
 	void Attack();
 
+private:
+
+	enum class MovingType { Idle, Trace, leftRight, Attack, Max };
+
+	void Moving(MovingType type);
 
 private:
 	
@@ -42,5 +46,9 @@ private:
 	float m_deltatime = 0.f;
 
 	unsigned int m_attackCount = 0;
+
+	bool m_distance = false;
+
+	float m_breakTime = 0;
 };
 

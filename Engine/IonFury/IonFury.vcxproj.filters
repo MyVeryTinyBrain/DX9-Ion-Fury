@@ -75,6 +75,8 @@
     </Filter>
     <Filter Include="Effect\GranadeTrail">
       <UniqueIdentifier>{2eb5350f-c26d-41af-9e1c-2d81f0b0973a}</UniqueIdentifier>
+    <Filter Include="Monster\Spider\Web">
+      <UniqueIdentifier>{cf264c09-c308-4ca6-ae16-e8172a0938ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +196,8 @@
     </ClInclude>
     <ClInclude Include="BulletTrail.h">
       <Filter>Effect\BulletTrail</Filter>
+    <ClInclude Include="Web.h">
+      <Filter>Monster\Spider\Web</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +309,8 @@
     </ClCompile>
     <ClCompile Include="BulletTrail.cpp">
       <Filter>Effect\BulletTrail</Filter>
+    <ClCompile Include="Web.cpp">
+      <Filter>Monster\Spider\Web</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

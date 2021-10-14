@@ -52,7 +52,7 @@ private:
 
 private:
 
-	SpriteAnimation* m_idle[(unsigned int)DIR_DRONE::MAX];
+	SpriteAnimation* m_idle;
 
 	SpriteAnimation* m_shoot[(unsigned int)DIR_DRONE::MAX];
 
