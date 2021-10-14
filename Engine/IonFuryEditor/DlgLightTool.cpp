@@ -744,8 +744,6 @@ void DlgLightTool::OnBnClickedAddButton()
 		auto Lightobj = PointLightObj->AddComponent<LightObj>();
 		Lightobj->LightSetting();
 
-		m_LT_ListBox.AddString(m_LightName.GetString());
-
 
 
 		//m_LT_ListBox.SetCurSel();
@@ -768,8 +766,6 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		auto Lightobj = SpotLightObj->AddComponent<LightObj>();
 		Lightobj->LightSetting();
-
-		m_LT_ListBox.AddString(m_LightName.GetString());
 
 		AddNameToListbox();
 	}
@@ -1247,6 +1243,10 @@ void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
 	}
 
 	else if (m_LightType == L"Point")
@@ -1255,6 +1255,10 @@ void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
 	}
 
 	else if (m_LightType == L"Directional")
@@ -1262,6 +1266,10 @@ void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 		m_PosX = gameobject->transform->position.x;
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
+
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
 
 	}
 }
