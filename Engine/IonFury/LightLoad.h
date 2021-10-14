@@ -2,6 +2,8 @@
 class LightLoad : public Component
 {
 	DeclareStaticComponent(LightLoad);
+public:
+	OverrideComponentFunction(Awake);
 
 
 public:

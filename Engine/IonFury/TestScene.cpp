@@ -98,79 +98,79 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-    {   // Create wall
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(-15, 0, 0);
-        obj->transform->eulerAngle = Vec3(0, 0, 90);
-        obj->transform->scale = Vec3(40, 1, 40);
+    //{   // Create wall
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(-15, 0, 0);
+    //    obj->transform->eulerAngle = Vec3(0, 0, 90);
+    //    obj->transform->scale = Vec3(40, 1, 40);
 
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-        auto body = obj->AddComponent<Rigidbody>();
-        body->isKinematic = true;
+    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+    //    auto body = obj->AddComponent<Rigidbody>();
+    //    body->isKinematic = true;
 
-        auto collider = obj->AddComponent<BoxCollider>();
-        collider->friction = 1.0f;
-        collider->restitution = 1.0f;
-    }
+    //    auto collider = obj->AddComponent<BoxCollider>();
+    //    collider->friction = 1.0f;
+    //    collider->restitution = 1.0f;
+    //}
 
-    {   // Create wall
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(+15, 0, 0);
-        obj->transform->eulerAngle = Vec3(0, 0, 90);
-        obj->transform->scale = Vec3(40, 1, 40);
+    //{   // Create wall
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(+15, 0, 0);
+    //    obj->transform->eulerAngle = Vec3(0, 0, 90);
+    //    obj->transform->scale = Vec3(40, 1, 40);
 
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-        auto body = obj->AddComponent<Rigidbody>();
-        body->isKinematic = true;
+    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+    //    auto body = obj->AddComponent<Rigidbody>();
+    //    body->isKinematic = true;
 
-        auto collider = obj->AddComponent<BoxCollider>();
-        collider->friction = 1.0f;
-        collider->restitution = 1.0f;
-    }
+    //    auto collider = obj->AddComponent<BoxCollider>();
+    //    collider->friction = 1.0f;
+    //    collider->restitution = 1.0f;
+    //}
 
-    {   // Create wall
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 0, -15);
-        obj->transform->eulerAngle = Vec3(0, 90, 90);
-        obj->transform->scale = Vec3(40, 1, 40);
+    //{   // Create wall
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 0, -15);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 90);
+    //    obj->transform->scale = Vec3(40, 1, 40);
 
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-        auto body = obj->AddComponent<Rigidbody>();
-        body->isKinematic = true;
+    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+    //    auto body = obj->AddComponent<Rigidbody>();
+    //    body->isKinematic = true;
 
-        auto collider = obj->AddComponent<BoxCollider>();
-        collider->friction = 1.0f;
-        collider->restitution = 1.0f;
-    }
+    //    auto collider = obj->AddComponent<BoxCollider>();
+    //    collider->friction = 1.0f;
+    //    collider->restitution = 1.0f;
+    //}
 
-    {   // Create wall
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 0, +15);
-        obj->transform->eulerAngle = Vec3(0, 90, 90);
-        obj->transform->scale = Vec3(40, 1, 40);
+    //{   // Create wall
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 0, +15);
+    //    obj->transform->eulerAngle = Vec3(0, 90, 90);
+    //    obj->transform->scale = Vec3(40, 1, 40);
 
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-        auto body = obj->AddComponent<Rigidbody>();
-        body->isKinematic = true;
+    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+    //    auto body = obj->AddComponent<Rigidbody>();
+    //    body->isKinematic = true;
 
-        auto collider = obj->AddComponent<BoxCollider>();
-        collider->friction = 1.0f;
-        collider->restitution = 1.0f;
-    }
+    //    auto collider = obj->AddComponent<BoxCollider>();
+    //    collider->friction = 1.0f;
+    //    collider->restitution = 1.0f;
+    //}
 
     //조명 추가 테스트
     {
         auto ltobj = CreateGameObject();
         auto lightcomponet = ltobj->AddComponent<LightLoad>();
-        lightcomponet->GetInstance()->LightObjectLoad(L"../Data/EarthBossStage.dat");
+        lightcomponet->GetInstance()->LightObjectLoad(L"../Data/123333.dat");
     }
 
     for (int i = 0; i < 5; ++i)

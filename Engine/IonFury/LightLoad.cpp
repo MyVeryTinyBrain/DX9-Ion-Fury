@@ -4,6 +4,11 @@
 ImplementStaticComponent(LightLoad);
 
 
+void LightLoad::Awake()
+{
+	g_instance = this;
+}
+
 HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 {
 	HANDLE hFile = CreateFile(wstrFilePath.c_str(), GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
@@ -20,7 +25,7 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 	wchar_t* pBuff2 = nullptr;
 
 
-	GameObject* pObj = nullptr;
+	//GameObject* pObj = nullptr;
 
 	Vec3 vPos = {};
 	Vec3 vScale = {};
@@ -52,18 +57,23 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 			break;
 		}
 
-		pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
+		pBuff;
+
+		int i = 0;
+
+
+
+		GameObject* pObj = CreateGameObject();
 		pObj->name = pBuff;
 		pObj->tag = pBuff2;
 
 		SafeDeleteArray(pBuff);
 		SafeDeleteArray(pBuff2);
 
-		ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
-		ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
-
 		if (pObj->tag == L"Point")
 		{
+			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
+			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
 			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
 			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
 			ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
@@ -71,20 +81,22 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 
 		else if (pObj->tag == L"Spot")
 		{
+			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
+			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
 			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
 			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
 			ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
 			ReadFile(hFile, &_outsideAngle, sizeof(float), &dwByte, nullptr);	// >outsideAngle 
 			ReadFile(hFile, &_insideAngleRatio, sizeof(float), &dwByte, nullptr);	// >insideAngleRatio 
-
 		}
 
 
 		else if (pObj->tag == L"Directional")
 		{
+			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
+			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// rotation
 			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
 			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
-
 		}
 		//////////////////////////////////////////////////////////////////////////////
 
@@ -93,6 +105,7 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 
 		if (pObj->tag == L"Point")
 		{
+			pObj->AddComponent<PointLight>();
 			PointLight* point = pObj->GetComponentInChild<PointLight>();
 
 			point->ambientFactor = fambinentfactor;
@@ -103,7 +116,7 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 
 		if (pObj->tag == L"Spot")
 		{
-
+			pObj->AddComponent<SpotLight>();
 			SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
 
 
@@ -117,6 +130,7 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 
 		if (pObj->tag == L"Directional")
 		{
+			pObj->AddComponent<DirectionalLight>();
 			DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
 			directional->ambientFactor = fambinentfactor;
@@ -131,6 +145,7 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 	}
 
 	CloseHandle(hFile);
+
 
 	return S_OK;
 }
