@@ -500,13 +500,7 @@ void DlgLightTool::OnEnChangeLtDirx()
 
 		if (lightobj->name == name.GetString())
 		{
-<<<<<<< HEAD
 			lightobj->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
-=======
-
-			lightobj->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
-
->>>>>>> tool
 			break;
 		}
 	}
@@ -579,10 +573,7 @@ void DlgLightTool::OnEnChangeLtDirz()
 
 		if (lightobj->name == name.GetString())
 		{
-<<<<<<< HEAD
-=======
 
->>>>>>> tool
 			lightobj->transform->eulerAngle = Vec3(m_dirx, m_diry, m_dirz);
 			break;
 		}
@@ -759,21 +750,13 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		PointLightObj->name = m_LightName.GetString();
 
-		//m_PosX = GetPos().x;
-		//m_PosY = GetPos().y;
-
-		//PointLightObj->transform->localPosition = Vec3(m_PosX, m_PosY, m_PosZ);
 
 		PointLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
 
 		auto Lightobj = PointLightObj->AddComponent<LightObj>();
 		Lightobj->LightSetting();
 
-		m_LT_ListBox.AddString(m_LightName.GetString());
 
-
-
-		//m_LT_ListBox.SetCurSel();
 
 		AddNameToListbox();
 	}
@@ -794,15 +777,10 @@ void DlgLightTool::OnBnClickedAddButton()
 		auto Lightobj = SpotLightObj->AddComponent<LightObj>();
 		Lightobj->LightSetting();
 
-		m_LT_ListBox.AddString(m_LightName.GetString());
 
 		AddNameToListbox();
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> tool
 	UpdateData(FALSE);
 }
 
@@ -903,10 +881,6 @@ void DlgLightTool::OnBnClickedSave()
 			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 
 			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
-<<<<<<< HEAD
-=======
-
->>>>>>> tool
 			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// euler angle
 
 			if (obj->tag == L"Point")
@@ -1074,16 +1048,11 @@ void DlgLightTool::OnBnClickedLoad()
 			if (pObj->tag == L"Point")
 			{
 				PointLight* point = pObj->GetComponentInChild<PointLight>();
-<<<<<<< HEAD
 
-				pObj->transform->position = vPos;
-				pObj->transform->eulerAngle = vRot;
-=======
 
 				pObj->transform->position = vPos;
 				pObj->transform->eulerAngle = vRot;
 
->>>>>>> tool
 				point->ambientFactor = fambinentfactor;
 				point->color = Vcolor;
 				point->range = frange;
@@ -1097,13 +1066,7 @@ void DlgLightTool::OnBnClickedLoad()
 				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
 
 				pObj->transform->position = vPos;
-<<<<<<< HEAD
 				pObj->transform->eulerAngle = vRot;
-=======
-
-				pObj->transform->eulerAngle = vRot;
-
->>>>>>> tool
 				spot->ambientFactor = fambinentfactor;
 				spot->color = Vcolor;
 				spot->range = frange;
@@ -1118,13 +1081,8 @@ void DlgLightTool::OnBnClickedLoad()
 				DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
 				pObj->transform->position = vPos;
-<<<<<<< HEAD
-				pObj->transform->eulerAngle = vRot;
-=======
-
 				pObj->transform->eulerAngle = vRot;
 
->>>>>>> tool
 				directional->ambientFactor = fambinentfactor;
 				directional->color = Vcolor;
 
