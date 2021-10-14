@@ -17,6 +17,7 @@ IMPLEMENT_DYNAMIC(DlgMonsterTool, CDialog)
 
 DlgMonsterTool::DlgMonsterTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgMonsterTool, pParent)
+	, m_ChangingName(_T(""))
 {
 
 }
@@ -34,12 +35,13 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RADIO3, m_TouchButtonManual2);
 	DDX_Control(pDX, IDC_RADIO4, m_TouchButtonManual3);
 	DDX_Control(pDX, IDC_COMBO1, m_EventTypeComboBox);
-	DDX_Control(pDX, IDC_SLIDER2, m_RotationX);
-	DDX_Control(pDX, IDC_SLIDER4, m_RotationY);
-	DDX_Control(pDX, IDC_SLIDER7, m_RotationZ);
-	DDX_Control(pDX, IDC_SLIDER8, m_ScaleX);
-	DDX_Control(pDX, IDC_SLIDER9, m_ScaleY);
-	DDX_Control(pDX, IDC_SLIDER10, m_ScaleZ);
+	DDX_Control(pDX, IDC_SLIDER8, m_SliderScaleX);
+	DDX_Control(pDX, IDC_SLIDER9, m_SliderScaleY);
+	DDX_Control(pDX, IDC_SLIDER10, m_SliderScaleZ);
+	DDX_Control(pDX, IDC_SLIDER2, m_SliderRotationX);
+	DDX_Control(pDX, IDC_SLIDER4, m_SliderRotationY);
+	DDX_Control(pDX, IDC_SLIDER7, m_SliderRotationZ);
+	DDX_Text(pDX, IDC_EDIT1, m_ChangingName);
 }
 
 
@@ -53,6 +55,10 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_WM_HSCROLL()
 	ON_BN_CLICKED(IDC_BUTTON5, &DlgMonsterTool::OnClickedTriggerMethodApply)
 	ON_BN_CLICKED(IDC_BUTTON13, &DlgMonsterTool::OnClickedEventTypeApply)
+	ON_BN_CLICKED(IDC_BUTTON14, &DlgMonsterTool::OnBnClickedChangeTriggerName)
+	ON_BN_CLICKED(IDC_BUTTON15, &DlgMonsterTool::OnBnClickedChangeEventName)
+	ON_BN_CLICKED(IDC_BUTTON3, &DlgMonsterTool::OnBnClickedResetScale)
+	ON_BN_CLICKED(IDC_BUTTON10, &DlgMonsterTool::OnBnClickedResetRotation)
 END_MESSAGE_MAP()
 
 
@@ -72,6 +78,34 @@ BOOL DlgMonsterTool::OnInitDialog()
 	m_EventTypeComboBox.AddString(_T("Door3"));
 
 	m_EventTypeComboBox.SetCurSel(-1);
+
+	{	//RotSlider 설정
+		m_SliderRotationX.SetRange(0, 360);
+		m_SliderRotationX.SetPos(180);
+		m_SliderRotationX.SetLineSize(10);
+
+		m_SliderRotationY.SetRange(0, 360);
+		m_SliderRotationY.SetPos(180);
+		m_SliderRotationY.SetLineSize(10);
+
+		m_SliderRotationZ.SetRange(0, 360);
+		m_SliderRotationZ.SetPos(180);
+		m_SliderRotationZ.SetLineSize(10);
+	}
+
+	{	//ScaleSlider 설정
+		m_SliderScaleX.SetRange(0, 100);
+		m_SliderScaleX.SetPos(20);
+		m_SliderScaleX.SetLineSize(10);
+
+		m_SliderScaleY.SetRange(0, 100);
+		m_SliderScaleY.SetPos(20);
+		m_SliderScaleY.SetLineSize(10);
+
+		m_SliderScaleZ.SetRange(0, 100);
+		m_SliderScaleZ.SetPos(20);
+		m_SliderScaleZ.SetLineSize(10);
+	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -147,6 +181,10 @@ void DlgMonsterTool::ClickAddTrigger()
 
 	++m_TriggerCnt;
 	SetCheckedButton(TriggerMethod::End);
+
+	//scrollRot 디폴트로
+	SetScaleScrollToDefault();
+	SetRotationScrollToDefault();
 }
 
 
@@ -199,6 +237,10 @@ void DlgMonsterTool::OnLbnSelChangeTrigger()
 		name = EventVec[i]->GetGameObject()->GetName();
 		m_EventListBox.AddString(name.c_str());
 	}
+
+	//ScaleRot picked값으로 scroll 변경
+	SetScaleScrollToPicked(pick);
+	SetRotationScrollToPicked(pick);
 }
 
 
@@ -228,6 +270,10 @@ void DlgMonsterTool::ClickAddEvent()
 	m_EventListBox.AddString(EventObject->GetGameObject()->GetName().c_str());
 	m_EventListBox.SetCurSel(m_EventListBox.GetCount() - 1);
 	m_EventTypeComboBox.SetCurSel(-1);
+
+	//scrollRot 디폴트로
+	SetScaleScrollToDefault();
+	SetRotationScrollToDefault();
 }
 
 
@@ -298,7 +344,74 @@ void DlgMonsterTool::ClearEverything()
 		m_EventListBox.DeleteString(i - 1);			//몬스터리스트박스 비우기
 
 	//scale,rot, 이름까지 초기화
+	SetScaleScrollToDefault(nullptr);
+	SetRotationScrollToDefault(nullptr);
+	m_ChangingName = L"";
+
+	UpdateData(false);
+}
+
+void DlgMonsterTool::SetScaleScrollToDefault(Pickable* picked)
+{
+	m_SliderScaleX.SetPos(20);
+	m_SliderScaleY.SetPos(20);
+	m_SliderScaleZ.SetPos(20);
+
+	if (picked == nullptr || picked->GetType() == Type::Map)
+		return;
 	
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->GetSelectedObject()->transform->SetScale(Vec3(1.f, 1.f, 1.f));
+}
+
+void DlgMonsterTool::SetRotationScrollToDefault(Pickable* picked)
+{
+	m_SliderRotationX.SetPos(180);
+	m_SliderRotationY.SetPos(180);
+	m_SliderRotationZ.SetPos(180);
+
+	if (picked == nullptr || picked->GetType() == Type::Map)
+		return;
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
+}
+
+void DlgMonsterTool::SetScaleScrollToPicked(Pickable* picked)
+{
+	if (picked->GetType() == Type::Map)
+		return;
+
+	Transform* ParentTrnasform = picked->GetGameObject()->GetTransform();
+	Vec3 Scale = ParentTrnasform->scale;
+	float ScaleX = Scale.x * 20.f;
+	float ScaleY = Scale.y * 20.f;
+	float ScaleZ = Scale.z * 20.f;
+
+	//m_SliderScaleX.SetPos((int)ScaleX);
+	//m_SliderScaleY.SetPos((int)ScaleY);
+	//m_SliderScaleZ.SetPos((int)ScaleZ);
+
+	m_SliderScaleX.SetPos(10);
+	m_SliderScaleY.SetPos(10);
+	m_SliderScaleZ.SetPos(10);
+}
+
+void DlgMonsterTool::SetRotationScrollToPicked(Pickable* picked)
+{
+	if (picked->GetType() == Type::Map)
+		return;
+
+	Transform* ParentTrnasform = picked->GetGameObject()->GetTransform();
+	Vec3 Rotation = ParentTrnasform->rotation;
+
+	float RotationX = Rotation.x + 180.f;
+	float RotationY = Rotation.y + 180.f;
+	float RotationZ = Rotation.z + 180.f;
+
+	m_SliderScaleX.SetPos((int)RotationX);
+	m_SliderScaleY.SetPos((int)RotationY);
+	m_SliderScaleZ.SetPos((int)RotationZ);
 }
 
 
@@ -332,6 +445,9 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 
 	giz->Attach(Event->transform);
 
+	//ScaleRot picked값으로 scroll 변경
+	SetScaleScrollToPicked(Event);
+	SetRotationScrollToPicked(Event);
 }
 
 
@@ -339,9 +455,32 @@ void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+	if (!trans)
+		return;
+
+	Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+
+	if (!picked)
+		return;
+
+	if (picked->GetType() == Type::Map)
+		return;
+
+	float ScaleX = float(m_SliderScaleX.GetPos() / 20.f);
+	float ScaleY = float(m_SliderScaleY.GetPos() / 20.f);
+	float ScaleZ = float(m_SliderScaleZ.GetPos() / 20.f);
+	giz->GetSelectedObject()->transform->SetScale(Vec3(ScaleX, ScaleY, ScaleZ));
+
+	float RotateX = float(m_SliderRotationX.GetPos() - 180);
+	float RotateY = float(m_SliderRotationY.GetPos() - 180);
+	float RotateZ = float(m_SliderRotationZ.GetPos() - 180);
+	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
+
+	UpdateData(FALSE);
+
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
-
-
 }
 
 
@@ -373,4 +512,93 @@ void DlgMonsterTool::OnClickedEventTypeApply()
 	Pickable* EventObj = EventVec[EventIndex];
 
 	EventObj->SetEventType(EventType(m_EventTypeComboBox.GetCurSel()));
+}
+
+
+void DlgMonsterTool::OnBnClickedChangeTriggerName()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int TriggerSelect = m_TriggerListBox.GetCurSel();
+	if (TriggerSelect == -1)
+		return;
+
+	UpdateData(true);
+
+	std::vector<Pickable*> TriggerVec = Pickable::g_TriggerVec;
+
+	GameObject* ParentObj = TriggerVec[TriggerSelect]->GetGameObject();
+	ParentObj->name = m_ChangingName.GetString();
+
+	m_TriggerListBox.ResetContent();
+	for (unsigned int i = 0; i < TriggerVec.size(); ++i)
+	{
+		CString name = TriggerVec[i]->GetGameObject()->name.c_str();
+		m_TriggerListBox.AddString(name);
+	}
+	m_TriggerListBox.SetCurSel(TriggerSelect);
+}
+
+
+void DlgMonsterTool::OnBnClickedChangeEventName()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int TriggerSelect = m_TriggerListBox.GetCurSel();
+	int EventSelect = m_EventListBox.GetCurSel();
+	if (TriggerSelect == -1 || EventSelect == -1)
+		return;
+
+	UpdateData(true);
+
+	std::vector<Pickable*> TriggerVec = Pickable::g_TriggerVec;
+	Pickable* TriggerObj = TriggerVec[TriggerSelect];
+	std::vector<Pickable*> EventVec = TriggerObj->GetEventVec();
+	Pickable* EventObj = EventVec[EventSelect];
+
+	GameObject* ParentObj = EventObj->GetGameObject();
+
+	ParentObj->name = m_ChangingName.GetString();
+
+	m_EventListBox.ResetContent();
+	for (unsigned int i = 0; i < EventVec.size(); ++i)
+	{
+		CString name = EventVec[i]->GetGameObject()->name.c_str();
+		m_EventListBox.AddString(name);
+	}
+	m_EventListBox.SetCurSel(EventSelect);
+}
+
+
+void DlgMonsterTool::OnBnClickedResetScale()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+	
+	if (trans == nullptr)
+	{
+		SetScaleScrollToDefault(nullptr);
+		return;
+	}
+
+	Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+
+	SetScaleScrollToDefault(picked);
+}
+
+
+void DlgMonsterTool::OnBnClickedResetRotation()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+
+	if (trans == nullptr)
+	{
+		SetRotationScrollToDefault(nullptr);
+		return;
+	}
+
+	Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+
+	SetRotationScrollToDefault(picked);
 }

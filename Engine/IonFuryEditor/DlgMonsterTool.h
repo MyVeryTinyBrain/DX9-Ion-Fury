@@ -5,6 +5,8 @@
 
 #include "EditorEnum.h"
 
+class Pickable;
+
 class DlgMonsterTool : public CDialog
 {
 	DECLARE_DYNAMIC(DlgMonsterTool)
@@ -31,8 +33,12 @@ public:
 	void SetTwoListBox(int TriggerIndex, int EventIndex);
 
 	void PickedMethodToButton(int TriggerIndex);
-
 	void ClearEverything();
+
+	void SetScaleScrollToDefault(Pickable* picked = nullptr);
+	void SetRotationScrollToDefault(Pickable* picked = nullptr);
+	void SetScaleScrollToPicked(Pickable* picked);
+	void SetRotationScrollToPicked(Pickable* picked);
 public:
 	int m_TriggerCnt = 0;
 	int m_EventCnt = 0;
@@ -46,12 +52,15 @@ public:
 	
 	CComboBox m_EventTypeComboBox;
 	
-	CSliderCtrl m_RotationX;
-	CSliderCtrl m_RotationY;
-	CSliderCtrl m_RotationZ;
-	CSliderCtrl m_ScaleX;
-	CSliderCtrl m_ScaleY;
-	CSliderCtrl m_ScaleZ;
+	CSliderCtrl m_SliderRotationX;
+	CSliderCtrl m_SliderRotationY;
+	CSliderCtrl m_SliderRotationZ;
+	// ScaleX
+	CSliderCtrl m_SliderScaleX;
+	CSliderCtrl m_SliderScaleY;
+	CSliderCtrl m_SliderScaleZ;
+
+	CString m_ChangingName;
 public:
 	afx_msg void ClickRemoveTrigger();
 	afx_msg void ClickAddTrigger();
@@ -62,4 +71,8 @@ public:
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg void OnClickedTriggerMethodApply();
 	afx_msg void OnClickedEventTypeApply();
+	afx_msg void OnBnClickedChangeTriggerName();
+	afx_msg void OnBnClickedChangeEventName();
+	afx_msg void OnBnClickedResetScale();
+	afx_msg void OnBnClickedResetRotation();
 };

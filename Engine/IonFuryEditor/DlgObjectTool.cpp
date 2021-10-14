@@ -48,6 +48,7 @@ void DlgObjectTool::SetPickableObject(GameObject* gameobject)
 
 	UpdateData(FALSE);
 }
+
 void DlgObjectTool::SelectObject()
 {
 	UpdateData(TRUE);

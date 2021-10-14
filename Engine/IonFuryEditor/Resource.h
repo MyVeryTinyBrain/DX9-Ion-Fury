@@ -56,7 +56,6 @@
 #define IDC_LT_SLIDER                   1027
 #define OBJECT_4                        1028
 #define IDC_BUTTON3                     1028
-#define IDC_BUTTON10                    1028
 #define IDC_BUTTON4                     1029
 #define IDC_BUTTON11                    1029
 #define IDC_LT_COMBOBOX                 1030
@@ -64,6 +63,7 @@
 #define IDC_BUTTON12                    1030
 #define OBJECT_8                        1031
 #define IDC_LT_LIGHTNAME                1031
+#define IDC_BUTTON14                    1031
 #define OBJECT_9                        1032
 #define IDC_COLOR_R                     1032
 #define IDC_SLIDER7                     1032
@@ -74,9 +74,11 @@
 #define IDC_ScaleSlider3                1034
 #define IDC_SLIDER9                     1034
 #define IDC_COLOR_A                     1035
+#define IDC_BUTTON15                    1035
 #define IDC_LT_POSX                     1036
 #define IDC_SLIDER10                    1036
 #define IDC_LT_POSY                     1037
+#define IDC_BUTTON10                    1037
 #define IDC_LT_POSZ                     1038
 #define IDC_LT_RADIUS                   1039
 #define IDC_LT_DIRX                     1040
