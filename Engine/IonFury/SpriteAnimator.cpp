@@ -9,6 +9,13 @@ void SpriteAnimator::Start()
 		auto renderer = gameObject->GetComponent<UserMeshRenderer>();
 		SetRenderer(renderer);
 	}
+
+	if (m_renderer && m_default != nullptr)
+	{
+		Texture* firstTexture = nullptr;
+		m_default->IndexOf(0, &firstTexture);
+		m_renderer->SetTexture(0, firstTexture);
+	}
 }
 
 void SpriteAnimator::AnimationUpdate()
@@ -148,7 +155,11 @@ void SpriteAnimator::UpdateTexture()
 
 	Texture* texture = nullptr;
 	bool endOfAnimation = !m_current->TimeOf(m_elapsed, &texture);
-	m_renderer->SetTexture(0, texture);
+	
+	if (texture)
+	{
+		m_renderer->SetTexture(0, texture);
+	}
 }
 
 void SpriteAnimator::Transition()

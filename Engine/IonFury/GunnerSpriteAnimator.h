@@ -70,5 +70,9 @@ private:
 
 	float m_angle = 0;
 
+public:
+
+	Delegate<void()> OnDeadAnimated;
+
 };
 

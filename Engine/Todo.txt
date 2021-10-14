@@ -1,4 +1,0 @@
-ResourceObject를 상속받는 Material클래스 구현
-Material 클래스별로 정렬해서 렌더하여 Get/Set RenderState 호출 최소화
-이때 AlphaBlending/Transparent 렌더 타겟은 다른 렌더대기열에 추가
-이에 따라서 ComponentExecutioner의 렌더 타겟 벡터를 두 개로 분할해야 함

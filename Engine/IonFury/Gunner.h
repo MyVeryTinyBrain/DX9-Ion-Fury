@@ -20,6 +20,8 @@ class Gunner : public Monster
 
 	virtual void OnDead(bool& dead, MonsterDamageType damageType) override;
 
+	void OnDeadAnimated();
+
 private:
 
 	// 플레이어에게 레이를 발사해 장애물이 있는지 확인합니다.

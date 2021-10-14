@@ -102,7 +102,7 @@ void FPSCharacterController::FixedUpdate()
         }
         else
         {
-            velocity = m_camera->transform->rotation * m_moveDirection * m_speed * speedFactor;
+            velocity = Quat::FromEuler(0, m_camera->transform->eulerAngle.y, 0) * m_moveDirection * m_speed * speedFactor;
             velocity.y = m_body->velocity.y;
         }
 

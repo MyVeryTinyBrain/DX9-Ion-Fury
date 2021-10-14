@@ -8,7 +8,12 @@ void Transform::SetActiveSelf(bool active)
 
 	m_activeSelf = active;
 
-	OnEnableChanged();
+	// 이 게임오브젝트의 컴포넌트들에게 상태변경 알림 함수를 호출합니다.
+	std::vector<Component*> components = gameObject->m_components;
+	for (auto& component : components)
+	{
+		component->OnEnableChanged();
+	}
 
 	UpdateActiveInTree();
 }
@@ -371,8 +376,13 @@ void Transform::UpdateActiveInTree()
 
 	if (m_activeInTree != beforeActiveInTree)
 	{
-		// 트리내 활성화 상태가 변경되었다면 isWake 플래그를 재설정하기 위해 이 함수를 호출합니다.
-		OnEnableChanged();
+		// 트리내 활성화 상태가 변경되었다면 isWake 플래그 재설정 및 이벤트 함수 호출을 위해 
+		// 이 게임오브젝트의 컴포넌트들에게 함수를 호출합니다.
+		std::vector<Component*> components = gameObject->m_components;
+		for (auto& component : components)
+		{
+			component->OnEnableChanged();
+		}
 	}
 
 	for (auto child : m_childs)

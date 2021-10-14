@@ -21,7 +21,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         obj->transform->position = Vec3(0, 5, 0);
         obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
         auto light = obj->AddComponent<DirectionalLight>();
-        light->ambientFactor = 0.5f;
+        light->ambientFactor = 0.6f;
     }
 
     {   // Create test player
@@ -43,6 +43,7 @@ void TestScene::OnLoad(Scene* beforeScene)
 
         auto collider = obj->AddComponent<BoxCollider>();
         collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create obstacle
@@ -59,6 +60,7 @@ void TestScene::OnLoad(Scene* beforeScene)
 
         auto collider = obj->AddComponent<BoxCollider>();
         collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create triangle
@@ -72,7 +74,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<RightTriangleCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create rotated ground
@@ -86,7 +91,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -100,7 +108,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -114,7 +125,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -128,7 +142,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {   // Create wall
@@ -142,22 +159,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
         auto body = obj->AddComponent<Rigidbody>();
         body->isKinematic = true;
+
         auto collider = obj->AddComponent<BoxCollider>();
-    }
-
-    // Create transparent objects
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            auto obj = CreateGameObject();
-            obj->transform->position = Vec3(float(i), 0, float(j));
-
-            auto renderer = obj->AddComponent<UserMeshRenderer>();
-            renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
-            renderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-        }
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     for (int i = 0; i < 5; ++i)
@@ -165,7 +170,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         for (int j = 0; j < 5; ++j)
         {
             auto obj = CreateGameObject();
-            obj->transform->position = Vec3(i, 2, j);
+            obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
             obj->transform->eulerAngle = Vec3(0, 90, 0);
             obj->AddComponent<Gunner>();
         }

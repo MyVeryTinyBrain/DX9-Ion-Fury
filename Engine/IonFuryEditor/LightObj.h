@@ -1,14 +1,11 @@
 #pragma once
 
 
-enum class LIGHT {AMBINENT, DIRECTIONAL, POINT, SPOT, END};
+enum class LIGHT { AMBINENT, DIRECTIONAL, POINT, SPOT, END };
 
-class LightObj :  public Component
+class LightObj : public Component
 {
 public:
-
-	// 정석 컴포넌트의 선언부분입니다.
-	DeclareStaticComponent(LightObj);
 
 	OverrideComponentFunction(Awake);
 
@@ -17,26 +14,33 @@ public:
 	OverrideComponentFunction(OnDestroy);
 
 public:
-	void LightSettings(const wstring& localPathMesh = L"../Resource/CubeUserMesh.mesh");
+	void LightSetting ();
 
 	static LightObj* LightPick();
+private:
+	void DeleteMesh();
 
-	void AddLightObject();
+public:
+	static void LightPick(const CString& name);
 
+	void RequireDestroy();
 
 public:
 	UserMeshRenderer* GetRenderer() { return m_LightRenderer; }
 
 private:
-	LIGHT m_LightType;		// enum 
-	
+	LIGHT m_LightType = LIGHT::END;		// enum 
+
 	GameObject* m_LightChildObject; //addcomponet 로 타입을 넣어주면된다. 
 
 	UserMeshRenderer* m_LightRenderer;
 
+
+
 public:
 	static std::vector<LightObj*> g_vecLight;
 
-
+private:
+	bool m_destroyRequire = false;
 };
 

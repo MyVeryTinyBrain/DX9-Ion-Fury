@@ -10,15 +10,23 @@ void RevolverAnimator::Awake()
 	m_default->AddTexture(L"../SharedResource/Texture/revolver/revolver0.png");
 	m_default->isLoop = true;
 
+	m_beginIdle = new SpriteAnimation;
+	m_beginIdle->AddTexture(L"../SharedResource/Texture/revolver/revolver0.png");
+
 	m_shoot = new SpriteAnimation;
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver1.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver2.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
+	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
+	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
+	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
+	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
+	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
@@ -29,6 +37,20 @@ void RevolverAnimator::Awake()
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
 	m_shoot->interval = 0.01f;
+
+	m_fastShoot = new SpriteAnimation;
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver1.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver2.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver3.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver4.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
+	m_fastShoot->AddTexture(L"../SharedResource/Texture/revolver/revolver5.png");
+	m_fastShoot->interval = 0.01f;
 
 	m_beginReload = new SpriteAnimation;
 	m_beginReload->AddTexture(L"../SharedResource/Texture/revolver/revolver6.png");
@@ -61,7 +83,11 @@ void RevolverAnimator::OnDestroy()
 {
 	SafeDelete(m_default);
 
+	SafeDelete(m_beginIdle);
+
 	SafeDelete(m_shoot);
+
+	SafeDelete(m_fastShoot);
 
 	SafeDelete(m_beginReload);
 
@@ -103,9 +129,19 @@ void RevolverAnimator::OnDefaultAnimationChange(const SpriteAnimation* current, 
 {
 }
 
+void RevolverAnimator::PlayIdle()
+{
+	PlayAnimation(m_beginIdle);
+}
+
 void RevolverAnimator::PlayShoot()
 {
 	PlayAnimation(m_shoot);
+}
+
+void RevolverAnimator::PlayFastShoot()
+{
+	PlayAnimation(m_fastShoot);
 }
 
 void RevolverAnimator::PlayReload()
@@ -118,9 +154,19 @@ bool RevolverAnimator::IsPlayingIdle() const
 	return currentAnimation == m_default;
 }
 
+bool RevolverAnimator::IsPlayingShootAll() const
+{
+	return currentAnimation == m_shoot || currentAnimation == m_fastShoot;
+}
+
 bool RevolverAnimator::IsPlayingShoot() const
 {
 	return currentAnimation == m_shoot;
+}
+
+bool RevolverAnimator::IsPlayingFastShoot() const
+{
+	return currentAnimation == m_fastShoot;
 }
 
 bool RevolverAnimator::IsPlayingReload() const

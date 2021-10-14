@@ -214,6 +214,11 @@
     <Natvis Include="Engine.natvis" />
     <Natvis Include="D3DXMathEx.natvis" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CPPTest\json\json.vcxproj">
+      <Project>{8aef4dd0-e1de-4caf-823f-6cf73b39d348}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
