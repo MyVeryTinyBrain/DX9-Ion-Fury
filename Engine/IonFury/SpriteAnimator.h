@@ -11,12 +11,10 @@ class SpriteAnimator abstract : public Component
 
 	OverrideComponentFunction(AnimationUpdate);
 
-	OverrideComponentFunction(Update);
-
 protected:
 
 	// 루프 플래그가 없는 애니메이션이 종료될 때 호출됩니다.
-	virtual void OnAnimationEnd() = 0;
+	virtual void OnAnimationEnd(const SpriteAnimation* current) = 0;
 
 	// 애니메이션이 변경될 때 호출됩니다.
 	// next에 다른 애니메이션을 전달하여 변경될 애니메이션을 재설정해줄수도 있습니다.
@@ -28,11 +26,11 @@ protected:
 
 public:
 
-	const Ref<Renderer>& GetRenderer() const;
+	const Ref<UserMeshRenderer>& GetRenderer() const;
 
-	void SetRenderer(const Ref<Renderer>& renderer);
+	void SetRenderer(const Ref<UserMeshRenderer>& renderer);
 
-	void PlayAnimation(SpriteAnimation* animation, bool overlap = false);
+	void PlayAnimation(SpriteAnimation* animation, bool overlap = false, bool keepElapsed = false);
 
 	void SetDefaultAnimation(SpriteAnimation* animation, bool play = true);
 
@@ -40,7 +38,7 @@ public:
 
 	SpriteAnimation* GetCurrentAnimation() const;
 
-	SpriteAnimation* GetDefautlAnimation() const;
+	SpriteAnimation* GetDefaultAnimation() const;
 
 	bool GetTransitionMode() const;
 
@@ -56,17 +54,27 @@ public:
 
 	float GetElapsedTime() const;
 
+	void SetElapsedTime(float value);
+
 	float GetPercent() const;
 
 	unsigned int GetFrameIndex() const;
 
-private:
+	__declspec(property(get = GetCurrentAnimation)) SpriteAnimation* currentAnimation;
+
+	__declspec(property(get = GetDefaultAnimation)) SpriteAnimation* defaultAnimation;
+
+protected:
 
 	void UpdateTexture();
 
 private:
 
-	Ref<Renderer> m_renderer;
+	void Transition();
+
+private:
+
+	Ref<UserMeshRenderer> m_renderer;
 
 	float m_elapsed = 0;
 

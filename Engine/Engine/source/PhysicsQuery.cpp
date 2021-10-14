@@ -175,6 +175,7 @@ std::vector<Collider*> PhysicsQuery::OverlapPointAll(const Vec3& point, PxU32 la
     {
         const PxOverlapHit& pxHit = hitsBuffer[i];
         Collider* collider = (Collider*)pxHit.shape->userData;
+        hits[i] = collider;
     }
 
     SafeDeleteArray(hitsBuffer);
@@ -247,6 +248,7 @@ std::vector<Collider*> PhysicsQuery::OverlapGeometryAll(PxGeometryHolder geometr
     {
         const PxOverlapHit& pxHit = hitsBuffer[i];
         Collider* collider = (Collider*)pxHit.shape->userData;
+        hits[i] = collider;
     }
 
     SafeDeleteArray(hitsBuffer);
