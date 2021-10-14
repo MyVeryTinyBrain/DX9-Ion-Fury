@@ -6,6 +6,9 @@ enum class PhysicsLayers
 
 	Player = 1,
 	Monster = 2,
+	MonsterDeadBody = 3,
+
+	Projectile = 4,
 
 	MonsterHit = 10,
 

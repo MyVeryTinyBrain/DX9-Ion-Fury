@@ -29,6 +29,9 @@ void Collider::Awake()
 	ApplyScale();
 
 	ApplyLayer();
+
+	SetFrictionCombineMode(PhysicsCombineMode::Min);
+	SetRestitutionCombineMode(PhysicsCombineMode::Min);
 }
 
 void Collider::BeginPhysicsSimulate()

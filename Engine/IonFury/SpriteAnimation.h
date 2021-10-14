@@ -30,6 +30,8 @@ public:
 
 	bool IsEnd(float time) const;
 
+	void FitIntervalToTime(float time);
+
 	__declspec(property(get = GetTextureCount)) size_t textureCount;
 
 	__declspec(property(get = GetMaxTime)) float maxTime;

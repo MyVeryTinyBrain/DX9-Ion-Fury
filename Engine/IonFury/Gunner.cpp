@@ -11,7 +11,7 @@ void Gunner::Awake()
     m_hp = 10;
     m_moveSpeed = 3.0f;
 
-    m_body->mass = 2.0f;
+    m_body->mass = 4.0f;
     m_body->interpolate = true;
     m_body->sleepThresholder = 0.5f;
 
@@ -19,11 +19,17 @@ void Gunner::Awake()
     m_rendererObj->transform->scale = Vec3::one() * 3.0f;
 
     m_animator = m_rendererChildObj->AddComponent<GunnerSpriteAnimator>();
+    m_animator->OnDeadAnimated += Function<void()>(this, &Gunner::OnDeadAnimated);
 }
 
 void Gunner::FixedUpdate()
 {
     Monster::FixedUpdate();
+
+    if (m_isDead)
+    {
+        return;
+    }
 
     // 목표 지점으로 이동하는 로직입니다.
     MoveToTarget();
@@ -32,6 +38,27 @@ void Gunner::FixedUpdate()
 void Gunner::Update()
 {
     Monster::Update();
+
+    // 몬스터의 사망이 확인되었을때
+    if (m_isDead)
+    {
+        // 바디의 속도가 매우 작다면
+        // 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
+        if (m_body && m_body->IsRigidbodySleep())
+        {
+            m_body->Destroy();
+            m_collider->Destroy();
+            m_body = nullptr;
+            m_collider = nullptr;
+        }
+        return;
+    }
+
+    // 데미지 모션 중에는 동작을 하지 않습니다.
+    if (m_animator->IsPlayingDamage())
+    {
+        return;
+    }
 
     // 휴식시간이 아니라면 새로운 행동을 설정합니다.
     if (m_breakTime <= 0)
@@ -80,6 +107,8 @@ void Gunner::Update()
 void Gunner::OnDestroy()
 {
     Monster::OnDestroy();
+
+    m_animator->OnDeadAnimated -= Function<void()>(this, &Gunner::OnDeadAnimated);
 }
 
 Collider* Gunner::InitializeCollider(GameObject* colliderObj)
@@ -97,6 +126,10 @@ Collider* Gunner::InitializeCollider(GameObject* colliderObj)
 
 void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
+    m_hasTargetCoord = false;
+    m_attackCount = 5;
+    m_breakTime = 0.35f;
+
     switch (damageType)
     {
         case MonsterDamageType::Bullet:
@@ -108,6 +141,7 @@ void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
             break;
     }
 
+    // 피격당하면 플레이어를 바라봅니다.
 	const Vec3& playerPos = Player::GetInstance()->transform->position;
 	const Vec3& gunnerPos = transform->position;
     Vec3 forward = playerPos - gunnerPos;
@@ -118,6 +152,25 @@ void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
 
 void Gunner::OnDead(bool& dead, MonsterDamageType damageType)
 {
+    m_hasTargetCoord = false;
+    m_attackCount = 0;
+    m_breakTime = FLT_MAX;
+
+    // 우선 애니메이션 종류를 랜덤으로 선택합니다.
+    int dieIndex = rand() % (int)GunnerSpriteAnimator::DIE::MAX;
+
+    // 만약 폭발에 의한 죽음이라면 폭발 애니메이션을 선택합니다.
+    if (damageType == MonsterDamageType::Explosion)
+    {
+        dieIndex = (int)MonsterDamageType::Explosion;
+    }
+
+    m_animator->PlayDie((GunnerSpriteAnimator::DIE)dieIndex);
+}
+
+void Gunner::OnDeadAnimated()
+{
+    //gameObject->Destroy();
 }
 
 bool Gunner::PlayerInSite() const
@@ -167,7 +220,6 @@ void Gunner::MoveToTarget()
             {
                 // 충돌한 콜라이더가 Terrain인 경우에
                 // 각도가 지정 각도 이내이면 벽이라고 판단하여 목표 지점을 없앱니다.
-
                 m_hasTargetCoord = false;
                 return;
             }
@@ -175,7 +227,6 @@ void Gunner::MoveToTarget()
             {
                 // 충돌한 콜라이더가 몬스터 콜라이더면
                 // 목표 지점을 없앱니다.
-
                 m_hasTargetCoord = false;
                 return;
             }

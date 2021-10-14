@@ -83,6 +83,11 @@ Vec3 Monster::ToSlopeVelocity(const Vec3& velocity, float rayLength) const
 
 void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float damage, Vec3 force)
 {
+    if (m_isDead)
+    {
+        return;
+    }
+
     damage = Clamp(damage, 0, FLT_MAX);
 
     OnDamage(collider, damageType, damage, force);
@@ -99,6 +104,19 @@ void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float
     {
         m_isDead = true;
         OnDead(m_isDead, damageType);
+    }
+
+    if (m_isDead)
+    {
+        // 몬스터가 사망하면 몬스터가 다른 몬스터 또는 플레이어와 충돌하지 않아야 합니다.
+        // 또한 쿼리에 포함되면 안됩니다.
+        // 따라서 지형과만 충돌하는 레이어로 변경합니다.
+        m_collider->layerIndex = (uint8_t)PhysicsLayers::MonsterDeadBody;
+
+        m_body->velocity = Vec3(0, m_body->velocity.y, 0);
+        m_body->ClearForce(ForceMode::Impulse);
+        m_body->ClearForce(ForceMode::Force);
+        m_body->ClearForce(ForceMode::Acceleration);
     }
 }
 
@@ -181,6 +199,21 @@ void Monster::DamageEffectProcessing()
         m_material->params.emissive = Color::Lerp(m_defaultEmissive, m_damageEffectColor, percent);
         m_material->params.specular = Color::black();
     }
+
+    //if (percent <= 0)
+    //{
+    //    m_material->params.ambient = Color::white();
+    //    m_material->params.diffuse = Color::white();
+    //    m_material->params.emissive = m_defaultEmissive;
+    //    m_material->params.specular = Color::black();
+    //}
+    //else
+    //{
+    //    m_material->params.ambient = Color::black();
+    //    m_material->params.diffuse = Color::black();
+    //    m_material->params.emissive = m_damageEffectColor;
+    //    m_material->params.specular = Color::black();
+    //}
 
     m_damageEffectCounter -= Time::DeltaTime();
 }

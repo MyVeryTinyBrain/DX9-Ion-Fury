@@ -81,7 +81,7 @@ void RigidbodyInterpolationer::SetInterpolateRotationMode(bool value)
 Vec3 RigidbodyInterpolationer::CalcInterpolatePosition() const
 {
 	auto centralTime = CentralTimeElement::GetInstance();
-	float accumulated = centralTime->GetFixedUpdateAccumulated();
+	float accumulated = centralTime->GetFixedUpdateAccumulated() * centralTime->GetFixedUpdateTimeScale();
 
 	//accumulated = Clamp(accumulated, 0, centralTime->GetFixedUpdateInterval());
 
@@ -91,7 +91,7 @@ Vec3 RigidbodyInterpolationer::CalcInterpolatePosition() const
 Quat RigidbodyInterpolationer::CalcInterpolateRotation() const
 {
 	auto centralTime = CentralTimeElement::GetInstance();
-	float accumulated = centralTime->GetFixedUpdateAccumulated();
+	float accumulated = centralTime->GetFixedUpdateAccumulated() * centralTime->GetFixedUpdateTimeScale();
 
 	//accumulated = Clamp(accumulated, 0, centralTime->GetFixedUpdateInterval());
 

@@ -64,9 +64,11 @@ public:
 
 	__declspec(property(get = GetDefaultAnimation)) SpriteAnimation* defaultAnimation;
 
-private:
+protected:
 
 	void UpdateTexture();
+
+private:
 
 	void Transition();
 

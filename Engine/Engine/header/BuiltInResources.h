@@ -16,6 +16,11 @@
 #define BuiltInRedTexture							L"../BuiltIn/RedTexture.png"
 #define BuiltInGreenTexture							L"../BuiltIn/GreenTexture.png"
 #define BuiltInBlueTexture							L"../BuiltIn/BlueTexture.png"
+#define BuiltInTransparentWhiteTexture				L"../BuiltIn/TransparentWhiteTexture.png"
+#define BuiltInTransparentBlackTexture				L"../BuiltIn/TransparentBlackTexture.png"
+#define BuiltInTransparentRedTexture				L"../BuiltIn/TransparentRedTexture.png"
+#define BuiltInTransparentGreenTexture				L"../BuiltIn/TransparentGreenTexture.png"
+#define BuiltInTransparentBlueTexture				L"../BuiltIn/TransparentBlueTexture.png"
 
 #define BuiltInBackgroundMaterial					L"../BuiltIn/BackgroundMaterial.material"
 #define BuiltInSkyboxBackgroundMaterial				L"../BuiltIn/SkyboxBackgroundMaterial.material"
