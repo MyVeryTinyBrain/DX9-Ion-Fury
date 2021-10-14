@@ -283,6 +283,9 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgMonsterTool.PickedMethodToButton(TriggerIndex);
 			m_dlgMonsterTool.m_EventListBox.SetCurSel(EventIndex);
 			m_dlgMonsterTool.m_EventTypeComboBox.SetCurSel((int)pick->GetEventType());
+			//rotScale원래대로
+			m_dlgMonsterTool.SetRotationScrollToPicked(pick);
+			m_dlgMonsterTool.SetScaleScrollToPicked(pick);
 			break;
 		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
