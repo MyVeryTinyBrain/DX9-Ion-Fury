@@ -95,26 +95,22 @@ LightObj* LightObj::LightPick()
 
 void LightObj::DeleteMesh()
 {
-	if (m_LightRenderer)
-	{
-		m_LightRenderer->Destroy();
-		//m_LightRenderer = nullptr;
-	}
 }
 
 
-void LightObj::lightPick(const CString& name)
+void LightObj::LightPick(const CString& name)
 {
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 
 	for (auto light : g_vecLight)
 	{
-		if (light->GetGameObject()->name == name.GetString())
+		if (light->GetGameObject()->name.c_str() == name)
 		{
 			EditorManager::GetInstance()->GetGizmo()->Attach(light->GetGameObject()->transform);
-			camera->transform->position = light->m_LightChildObject->transform->position - camera->transform->forward * 2;
+			light->GetGameObject()->transform->position = camera->transform->position + camera->transform->forward * 2;
 		}
 	}
+
 }
 
 void LightObj::RequireDestroy()
