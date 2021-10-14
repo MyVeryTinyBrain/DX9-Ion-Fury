@@ -247,13 +247,17 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	Pickable* pick = Pickable::Pick();
 	
+	m_dlgMonsterTool.ClearEverything();
+	m_dlgObjectTool.Clear();
+
+
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
 	
 		if (!m_dlgObjectTool)
 			return;
-	
+
 		Type PickType = pick->GetType();
 		
 		switch (PickType)
@@ -278,6 +282,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgMonsterTool.SetTwoListBox(TriggerIndex, EventIndex);
 			m_dlgMonsterTool.PickedMethodToButton(TriggerIndex);
 			m_dlgMonsterTool.m_EventListBox.SetCurSel(EventIndex);
+			m_dlgMonsterTool.m_EventTypeComboBox.SetCurSel((int)pick->GetEventType());
 		}
 		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
 	}
@@ -285,7 +290,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		giz->Detach();
 		giz->enable = false;
-		m_dlgObjectTool.Clear();
+		//m_dlgObjectTool.Clear();
 	}
 
 	//=========================================================
@@ -345,14 +350,21 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		if (!trans)
 			return;
 
+		Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+
 		// 1.Obj에 대해
-		if (m_giz->GetSelectedObject()->GetGameObject()->GetComponent<Pickable>())
+		if (picked)
 		{
-			auto pickObj = trans->GetGameObject();
-
-			m_dlgObjectTool.SetPickableObject(pickObj);
-
-			m_dlgObjectTool.SelectObject();
+			Type type = picked->GetType();
+			
+			switch (type)
+			{
+			case Type::Map:
+				auto pickObj = trans->GetGameObject();
+				m_dlgObjectTool.SetPickableObject(pickObj);
+				m_dlgObjectTool.SelectObject();
+				break;
+			}
 		}
 		//											용섭구역
 		else

@@ -87,6 +87,7 @@ void DlgObjectTool::Clear()
 
 	m_objectName = L"";
 	m_objectTag = L"";
+	m_SelectName = L"";
 
 	m_fPosX = 0.f;			m_rPosX = 0.f;
 	m_fPosY = 0.f;			m_rPosY = 0.f;
@@ -354,12 +355,15 @@ void DlgObjectTool::OnBnClickedApply()
 	{
 		GameObject* parentObj = trans->GetGameObject();
 
+		Pickable* pick = parentObj->GetComponent<Pickable>();
+
+		if (!pick)
+			return;
+		if (pick->GetType() != Type::Map)
+			return;
+
 		parentObj->SetName(m_objectName.GetString());
 		parentObj->SetTag(m_objectTag.GetString());
-
-		Pickable* pick = trans->GetGameObject()->GetComponent<Pickable>();
-		GameObject* ChildObj = pick->GetChildObject();
-		GameObject* ParentObj = pick->GetGameObject();
 
 		giz->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
 
@@ -378,10 +382,10 @@ void DlgObjectTool::OnBnClickedApply()
 		pick->GetUserMesh()->SetUVScale(Vec2(X, Y));
 		pick->SetCollisionExistence(m_ColliderExistence.GetCheck());
 
+		SetPickableObject(trans->GetGameObject());
 	}
 
-	//ResetScroll();
-	SetPickableObject(trans->GetGameObject());
+	//SetPickableObject(trans->GetGameObject());
 
 	UpdateData(FALSE);
 }
@@ -580,11 +584,11 @@ void DlgObjectTool::OnBnClickedClear()
 
 	UpdateData(TRUE);
 
-	m_objectName = L"";
+	//m_objectName = L"";	이름 마찬가지
 
-	m_fPosX = 0.f;
-	m_fPosY = 0.f;
-	m_fPosZ = 0.f;
+	//m_fPosX = 0.f;
+	//m_fPosY = 0.f;
+	//m_fPosZ = 0.f;		0,0,0으로 이동시킬일은 거의 없을거같아서 포지션은 냅둔다.
 
 	m_fScaleX = 1.f;
 	m_fScaleY = 1.f;
@@ -614,8 +618,18 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	if (!giz->GetSelectedObject())
+	Transform* trans = giz->GetSelectedObject();
+	if (!trans)
 		return;
+	
+	Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+
+	if (!picked)
+		return;
+
+	if (picked->GetType() != Type::Map)
+		return;
+
 
 	m_rRotX = float(m_SliderControlX.GetPos() - 180);
 	m_rRotY = float(m_SliderControlY.GetPos() - 180);

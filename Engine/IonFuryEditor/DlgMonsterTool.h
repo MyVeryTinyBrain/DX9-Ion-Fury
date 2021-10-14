@@ -31,6 +31,8 @@ public:
 	void SetTwoListBox(int TriggerIndex, int EventIndex);
 
 	void PickedMethodToButton(int TriggerIndex);
+
+	void ClearEverything();
 public:
 	int m_TriggerCnt = 0;
 	int m_EventCnt = 0;

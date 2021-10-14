@@ -210,6 +210,12 @@ void DlgMonsterTool::ClickAddEvent()
 	if (TriggerSelect == -1)		//선택된 트리거가 없다면 취소
 		return;
 
+	int evtType = m_EventTypeComboBox.GetCurSel();
+
+	if (evtType == -1)
+		return;
+
+
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
@@ -279,6 +285,20 @@ void DlgMonsterTool::PickedMethodToButton(int TriggerIndex)
 	Pickable* Trigger = Pickable::g_TriggerVec[TriggerIndex];
 	TriggerMethod method = Trigger->GetTriggerMethod();
 	SetCheckedButton(method);
+}
+
+void DlgMonsterTool::ClearEverything()
+{
+	m_TriggerListBox.SetCurSel(-1);
+	m_EventListBox.SetCurSel(-1);
+	m_EventTypeComboBox.SetCurSel(-1);
+	SetCheckedButton(TriggerMethod::End);
+
+	for (int i = m_EventListBox.GetCount(); i > 0; --i)
+		m_EventListBox.DeleteString(i - 1);			//몬스터리스트박스 비우기
+
+	//scale,rot, 이름까지 초기화
+	
 }
 
 
