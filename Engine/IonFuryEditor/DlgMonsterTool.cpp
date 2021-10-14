@@ -382,19 +382,16 @@ void DlgMonsterTool::SetScaleScrollToPicked(Pickable* picked)
 	if (picked->GetType() == Type::Map)
 		return;
 
-	Transform* ParentTrnasform = picked->GetGameObject()->GetTransform();
-	Vec3 Scale = ParentTrnasform->scale;
+	Transform* ParentTransform = picked->GetGameObject()->GetTransform();
+	Vec3 Scale = ParentTransform->scale;
+
 	float ScaleX = Scale.x * 20.f;
 	float ScaleY = Scale.y * 20.f;
 	float ScaleZ = Scale.z * 20.f;
 
-	//m_SliderScaleX.SetPos((int)ScaleX);
-	//m_SliderScaleY.SetPos((int)ScaleY);
-	//m_SliderScaleZ.SetPos((int)ScaleZ);
-
-	m_SliderScaleX.SetPos(10);
-	m_SliderScaleY.SetPos(10);
-	m_SliderScaleZ.SetPos(10);
+	m_SliderScaleX.SetPos((int)ScaleX);
+	m_SliderScaleY.SetPos((int)ScaleY);
+	m_SliderScaleZ.SetPos((int)ScaleZ);
 }
 
 void DlgMonsterTool::SetRotationScrollToPicked(Pickable* picked)
@@ -402,16 +399,17 @@ void DlgMonsterTool::SetRotationScrollToPicked(Pickable* picked)
 	if (picked->GetType() == Type::Map)
 		return;
 
-	Transform* ParentTrnasform = picked->GetGameObject()->GetTransform();
-	Vec3 Rotation = ParentTrnasform->rotation;
+	Transform* ParentTransform = picked->GetGameObject()->GetTransform();
 
-	float RotationX = Rotation.x + 180.f;
-	float RotationY = Rotation.y + 180.f;
-	float RotationZ = Rotation.z + 180.f;
+	Vec3 EulerAngle = ParentTransform->GetEulerAngle();
 
-	m_SliderScaleX.SetPos((int)RotationX);
-	m_SliderScaleY.SetPos((int)RotationY);
-	m_SliderScaleZ.SetPos((int)RotationZ);
+	float RotationX = EulerAngle.x + 180;
+	float RotationY = EulerAngle.y + 180;
+	float RotationZ = EulerAngle.z + 180;
+
+	m_SliderRotationX.SetPos((int)RotationX);
+	m_SliderRotationY.SetPos((int)RotationY);
+	m_SliderRotationZ.SetPos((int)RotationZ);
 }
 
 
