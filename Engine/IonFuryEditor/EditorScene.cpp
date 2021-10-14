@@ -1,6 +1,7 @@
 #include "IonFuryEditorBase.h"
 #include "EditorScene.h"
 #include "EditorManager.h"
+#include "Gizmo.h"
 
 IClonable* EditorScene::Clone()
 {
@@ -20,6 +21,9 @@ void EditorScene::OnLoad(Scene* beforeScene)
     Texture::CreateFromFile(L"../SharedResourced/Texture/DevAlpha.png");
     Texture::CreateFromFile(L"../SharedResourced/Texture/DevTransparent.png");
 
+    Texture::CreateFromFile(L"../SharedResource/Texture/Light.png");
+    Texture::CreateFromFile(L"../SharedResource/Texture/object/brick.jpg");
+
     // 백버퍼의 색상을 설정합니다.
     GraphicDevice::GetInstance()->SetBackgroundColor(Color(0.5f, 0.5f, 0.5f, 1.0f));
 
@@ -27,7 +31,9 @@ void EditorScene::OnLoad(Scene* beforeScene)
     GameObject* editorManagerObj = CreateGameObject(L"EditorManager");
     editorManagerObj->AddComponent<EditorManager>();
 
-    
+    Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+    giz->Detach();
+    giz->enable = false;
 }
 
 void EditorScene::OnUnload(Scene* nextScene)

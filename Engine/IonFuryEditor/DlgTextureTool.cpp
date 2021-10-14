@@ -70,7 +70,6 @@ BOOL DlgTextureTool::OnInitDialog()
 		m_ListBox.DeleteString(i - 1);
 	AddFilesToListBox(TabImagePath0, m_ListBox, false);
 
-
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 
 	return TRUE;  // return TRUE unless you set the focus to a control

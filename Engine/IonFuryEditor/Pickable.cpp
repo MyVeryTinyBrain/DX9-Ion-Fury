@@ -2,15 +2,19 @@
 #include "Pickable.h"
 #include "Gizmo.h"
 #include "EditorManager.h"
+#include "EditorEnum.h"
 
 std::vector<Pickable*> Pickable::g_PickableVec;
+
+std::vector<Pickable*> Pickable::g_MapVec;
+std::vector<Pickable*> Pickable::g_TriggerVec;
+//std::vector<Pickable*> Pickable::g_EventVec;
 
 void Pickable::Awake()
 {
 	m_ChildObject = CreateGameObject();
 	g_PickableVec.push_back(this);
 
-	//m_ChildObject->transform->position = GetGameObject()->transform->position;
 	m_ChildObject->transform->parent = GetGameObject()->transform;
 	m_ChildObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
 
@@ -19,8 +23,6 @@ void Pickable::Awake()
 
 void Pickable::Update()
 {
-	if (Input::GetKeyDown(Key::LeftMouse))
-		Pick();
 }
 
 void Pickable::OnDestroy()
@@ -28,14 +30,78 @@ void Pickable::OnDestroy()
 	auto it = FindInContainer(g_PickableVec, this);
 	if (it != g_PickableVec.end())
 		g_PickableVec.erase(it);
+
+	switch (m_Type)
+	{
+	case Type::Map:
+		it = FindInContainer(g_MapVec, this);
+		if (it != g_MapVec.end())
+			g_MapVec.erase(it);
+		break;
+	case Type::Trigger:
+		ClearEventVector();
+
+		it = FindInContainer(g_TriggerVec, this);
+		if (it != g_TriggerVec.end())
+			g_TriggerVec.erase(it);
+		break;
+	}
+
+	DeleteMesh();
 }
 
-void Pickable::Settings(const wstring& localPathMesh, const wstring& localPathTexture)
+void Pickable::Settings(Vec2 UVScale, COMBOBOX comboBox, const wstring& localPathTexture, bool ColliderExistence)
 {
 	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
-	m_Renderer->userMesh = Resource::FindAs<UserMesh>(localPathMesh);
+
+	SetMesh(comboBox);
+	m_Mesh->SetUVScale(UVScale);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(localPathTexture));
-	//m_Renderer->SetTexture(0, Resource::Find(localPathTexture)->GetReferenceTo<Texture>());
+	m_CollisionExistence = ColliderExistence;
+}
+
+void Pickable::SetMesh(COMBOBOX comboBox)
+{
+	DeleteMesh();
+
+	switch (comboBox)
+	{
+	case COMBOBOX::Cube:
+		m_Mesh = UserMesh::CreateUnmanaged<CubeUserMesh>();
+		break;
+	case COMBOBOX::Cyilinder:
+		m_Mesh = UserMesh::CreateUnmanaged<CyilinderUserMesh>();
+		break;
+	case COMBOBOX::Quad:
+		m_Mesh = UserMesh::CreateUnmanaged<QuadUserMesh>();
+		break;
+	case COMBOBOX::Sphere:
+		m_Mesh = UserMesh::CreateUnmanaged<SphereUserMesh>();
+		break;
+	case COMBOBOX::Capsule:
+		m_Mesh = UserMesh::CreateUnmanaged<CapsuleUserMesh>();
+		break;
+	case COMBOBOX::RightTriangle:
+		m_Mesh = UserMesh::CreateUnmanaged<RightTriangleUserMesh>();
+		break;
+	case COMBOBOX::Triangle:
+		m_Mesh = UserMesh::CreateUnmanaged<TriangleUserMesh>();
+		break;
+	case COMBOBOX::END:
+		m_Mesh = UserMesh::CreateUnmanaged<CubeUserMesh>();
+		break;
+	}
+	m_Renderer->userMesh = m_Mesh;
+	m_MeshType = comboBox;
+}
+
+void Pickable::DeleteMesh()
+{
+	if (m_Mesh)
+	{
+		m_Mesh->ReleaseUnmanaged();
+		m_Mesh = nullptr;
+	}
 }
 
 Pickable* Pickable::Pick()
@@ -45,13 +111,16 @@ Pickable* Pickable::Pick()
 
 	Vec3 HitPoint;
 
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
 	for (auto pickable : g_PickableVec)
 	{
 		UserMeshRenderer* Renderer = pickable->GetRenderer();
 
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
-			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->transform);
+			giz->enable = true;
+			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
 			return pickable;
 		}
 	}
@@ -59,9 +128,80 @@ Pickable* Pickable::Pick()
 	return nullptr;
 }
 
-//void Pickable::PickDelete()
-//{
-	//Gizmo* Giz = EditorManager::GetInstance()->GetGizmo();
-	//GameObject* Obj = Giz->GetSelectedObject()
-	//	->gameObject->Destroy();
-//}
+void Pickable::PushInVector(Type type)
+{
+	m_Type = type;
+	switch (m_Type)
+	{
+	case Type::Map:
+		g_MapVec.push_back(this);
+		break;
+	case Type::Trigger:
+		g_TriggerVec.push_back(this);
+		break;
+	}
+}
+
+void Pickable::PushInEventVector(Pickable* Event)
+{
+	Event->SetType(Type::EventObject);
+	m_EventVec.push_back(Event);
+}
+
+int Pickable::GetTriggerVectorIndex()
+{
+	if(m_Type != Type::Trigger)
+		return -1;
+
+	for (unsigned int i = 0; i < g_TriggerVec.size(); ++i)
+	{
+		if (g_TriggerVec[i] == this)
+			return i;
+	}
+
+	return -1;
+}
+
+void Pickable::GetEventVectorIndex(int& TriggerIndex, int& EventIndex)
+{
+	if (m_Type != Type::EventObject)
+	{
+		TriggerIndex = -1;
+		EventIndex = -1;
+		return;
+	}
+
+	for (unsigned int i = 0; i < g_TriggerVec.size(); ++i)
+	{
+		std::vector<Pickable*> EventVec = g_TriggerVec[i]->GetEventVec();
+		for (unsigned int j = 0; j < EventVec.size(); ++j)
+			if (EventVec[j] == this)
+			{
+				TriggerIndex = i;
+				EventIndex = j;
+				return;
+			}
+	}
+
+	TriggerIndex = -1;
+	EventIndex = -1;
+	return;
+}
+
+void Pickable::ClearEventVector()
+{
+	int Size = m_EventVec.size();
+	for (int i = 0; i < Size; ++i)
+	{
+		m_EventVec[0]->Destroy();
+		m_EventVec.erase(m_EventVec.begin());
+	}
+
+	Size = m_EventVec.size();
+}
+
+void Pickable::RemoveEventObject(int idx)
+{
+	m_EventVec[idx]->Destroy();
+	m_EventVec.erase(m_EventVec.begin() + idx);
+}

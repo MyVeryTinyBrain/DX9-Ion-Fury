@@ -44,6 +44,9 @@
       <Filter>EditorCore</Filter>
     </ClCompile>
     <ClCompile Include="FileInfo.cpp" />
+    <ClCompile Include="DlgMonsterTool.cpp">
+      <Filter>Dlg</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -98,6 +101,12 @@
       <Filter>EditorCore</Filter>
     </ClInclude>
     <ClInclude Include="FileInfo.h" />
+    <ClInclude Include="DlgMonsterTool.h">
+      <Filter>Dlg</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorEnum.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Toolbar.bmp">
