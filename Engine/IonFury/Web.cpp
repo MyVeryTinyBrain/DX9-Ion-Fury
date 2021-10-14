@@ -13,7 +13,7 @@ void Web::Awake()
 	m_body->interpolate = true;
 
 
-	m_rendererObj->transform->scale = Vec3::one() * 3.0f;
+	m_rendererObj->transform->scale = Vec3::one() * 4.0f;
 	m_rendererObj->transform->localPosition = Vec3(0, -0.5, 0);
 
 	m_animator = m_rendererChildObj->AddComponent<SpiderSpriteAnimator>();
@@ -29,13 +29,20 @@ void Web::Update()
 	{
 		m_animator->SetDefaultAnimation(m_animator->GetWeb(), true);
 		
+		
+		m_body->isKinematic = true;
 
 		m_collider->friction = 1.0f;
 
 		Vec3 velocity = transform->forward * m_moveSpeed;
+		//m_body->velocity = velocity;
+
+		transform->position += transform->forward * m_moveSpeed * Time::DeltaTime();
 	}
 	else
+	{
 		m_animator->Pause();
+	}
 
 
 }

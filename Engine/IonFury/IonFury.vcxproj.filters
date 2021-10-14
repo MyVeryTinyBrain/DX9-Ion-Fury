@@ -49,9 +49,6 @@
     <ClCompile Include="SpiderSpriteAnimator.cpp">
       <Filter>Monster\Spider</Filter>
     </ClCompile>
-    <ClCompile Include="Web.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
     <ClCompile Include="BillboardEffect.cpp">
       <Filter>Effect\BillboardEffect</Filter>
     </ClCompile>
@@ -99,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="OrthoEffect.cpp">
       <Filter>Player\FPSOrthoCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Web.cpp">
+      <Filter>Monster\Spider\Web</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +171,6 @@
     <ClInclude Include="SpiderSpriteAnimator.h">
       <Filter>Monster\Spider</Filter>
     </ClInclude>
-    <ClInclude Include="Web.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
     <ClInclude Include="BillboardEffect.h">
       <Filter>Effect\BillboardEffect</Filter>
     </ClInclude>
@@ -221,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="OrthoEffect.h">
       <Filter>Player\FPSOrthoCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Web.h">
+      <Filter>Monster\Spider\Web</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -297,6 +297,9 @@
     </Filter>
     <Filter Include="Player\FPSOrthoCamera">
       <UniqueIdentifier>{3904ecde-6516-4a71-b772-371c9e981347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Spider\Web">
+      <UniqueIdentifier>{eb427bac-5ad8-43c8-8a18-1f8d53f5e9c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,10 @@ void Drone::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+	if (m_isDead)
+	{
+		return;
+	}
 
 	if (!m_hasTargetCoord)
 	{
@@ -38,7 +42,19 @@ void Drone::Update()
 {
 	Monster::Update();
 
-
+	if (m_isDead)
+	{
+		// 바디의 속도가 매우 작다면
+		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
+		if (m_body && m_body->IsRigidbodySleep())
+		{
+			m_body->Destroy();
+			m_collider->Destroy();
+			m_body = nullptr;
+			m_collider = nullptr;
+		}
+		return;
+	}
 	//Moving(MovingType::Attack);
 	if (m_breakTime <= 0)
 	{
@@ -51,10 +67,28 @@ void Drone::Update()
 		m_breakTime -= Time::DeltaTime();
 	}
 
+	if (m_animator->IsPlayingIdle() &&
+		m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
+	{
+		m_animator->PlayMove();
+	}
+	else if (m_animator->IsPlayingMove() &&
+		m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
+	{
+		m_animator->PlayDefaultAnimation();
+	}
 	Attack();
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
+	if (m_animator->IsPlayingShoot() | m_animator->IsPlayingMoveShoot())
+	{
+		m_defaultEmissive = Color::white();
+	}
+	else
+	{
+		m_defaultEmissive = Color::black();
+	}
 }
 
 void Drone::OnDestroy()
@@ -69,10 +103,13 @@ Collider* Drone::InitializeCollider(GameObject* colliderObj)
 
 void Drone::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
+	// 데미지 스프라이트 없음. 
 }
 
 void Drone::OnDead(bool& dead, MonsterDamageType damageType)
 {
+	// 죽는 모션 없음. 이펙트 생성
+
 }
 
 void Drone::Moving(MovingType type)

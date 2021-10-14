@@ -56,5 +56,6 @@ private:
 
 	bool m_attack = true;
 
+	float m_breakTime = 0;
 };
 

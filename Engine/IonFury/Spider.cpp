@@ -31,7 +31,7 @@ void Spider::FixedUpdate()
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
-
+	
 	JumpCheck();
 
 
@@ -51,15 +51,10 @@ void Spider::Update()
 {
 	Monster::Update();
 
-
+	
 	Jump();
 
 	Attack();
-
-	if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
-		m_animator->PlayWalk();
-	else
-		m_animator->PlayIdle();
 
 }
 
@@ -75,32 +70,49 @@ Collider* Spider::InitializeCollider(GameObject* colliderObj)
 
 void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
-	Vec3 bound;
+	m_hasTargetCoord = false;
+	m_attackCount = 5;
+	m_breakTime = 0.35f;
 
 	switch (damageType)
 	{
 	case MonsterDamageType::Bullet:
-		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC);
+		m_animator->SetDefaultAnimation(m_animator->GetDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC), true);
+		m_moveSpeed = 0.f;
 		break;
 	case MonsterDamageType::Explosion:
-		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT);
-
-		//bound = transform->forward;
-		//bound.y = 0;
-		//bound.Normalize();
-
-		//transform->position += bound * m_moveSpeed * -Time::DeltaTime();
+		m_animator->SetDefaultAnimation(m_animator->GetDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT), true);
+		m_moveSpeed = 0.f;
 		break;
 	case MonsterDamageType::Zizizik:
-		m_animator->PlayDamage();
+		m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
 		break;
 	}
 
+	const Vec3& playerPos = Player::GetInstance()->transform->position;
+	const Vec3& gunnerPos = transform->position;
+	Vec3 forward = playerPos - gunnerPos;
+	forward.y = 0;
+	forward.Normalize();
+	transform->forward = forward;
 
 }
 
 void Spider::OnDead(bool& dead, MonsterDamageType damageType)
 {
+	m_hasTargetCoord = false;
+	m_attackCount = 0;
+	m_breakTime = FLT_MAX;
+
+	int dieIndex = rand() % (int)SpiderSpriteAnimator::DIE_SPIDER::MAX;
+
+
+	if (damageType == MonsterDamageType::Explosion)
+	{
+		dieIndex = (int)MonsterDamageType::Explosion;
+	}
+
+	m_animator->PlayDie((SpiderSpriteAnimator::DIE_SPIDER)dieIndex);
 }
 
 void Spider::MoveToTarget()
@@ -185,6 +197,8 @@ void Spider::Attack()
 
 void Spider::JumpCheck()
 {
+	if (m_animator->IsPlayingDamage() | m_animator->IsPlayingDie())
+		return;
 
 	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayerDir.y = 0;
@@ -226,7 +240,7 @@ void Spider::Jump()
 	{
 		if (m_attack)
 		{
-			m_attackCount = 5;
+			m_attackCount = 1;
 			m_attack = false;
 		}
 		Vec3 playerPos = Player::GetInstance()->transform->position;
@@ -243,13 +257,14 @@ void Spider::Jump()
 		
 		transform->position += velocity * 0.03f;
 
-		m_animator->SetAngle(AngleToPlayerWithSign());
-
+		//m_animator->SetAngle(AngleToPlayerWithSign());
+		m_animator->SetDefaultAnimation(m_animator->GetJump(), true);
 
 		if (transform->position.y > m_jumpY + 2.f)
 		{
 			m_attack = true;
 			m_hasJump = false;
+			m_animator->SetDefaultAnimation(m_animator->GetWalk(), true);
 		}
 
 
