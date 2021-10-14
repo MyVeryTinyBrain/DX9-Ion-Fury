@@ -759,7 +759,6 @@ void DlgLightTool::OnBnClickedAddButton()
 		Lightobj->LightSetting();
 
 
-
 		AddNameToListbox();
 	}
 	else if (m_LightType == L"Spot")
@@ -768,10 +767,7 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		SpotLightObj->name = m_LightName.GetString();
 
-		//m_PosX = GetPos().x; 
-	//	m_PosY = GetPos().y;
 
-		//SpotLightObj->transform->localPosition = Vec3(m_PosX, m_PosY, m_PosZ);
 		SpotLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
 
 		SpotLightObj->AddComponent<LightObj>();
