@@ -44,6 +44,12 @@ public:
 
 	bool IsPlayingMoveShoot() const;
 
+	SpriteAnimation* GetIdle() const;
+
+	SpriteAnimation* GetMove() const;
+
+	SpriteAnimation* GetShoot() const;
+
 private:
 
 	void ChangeUVDirection();

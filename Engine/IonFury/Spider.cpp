@@ -36,12 +36,8 @@ void Spider::FixedUpdate()
 
 
 
-	// 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
 	if (!m_hasTargetCoord)
 	{
-		float randomRadian = (rand() % 360) * Deg2Rad;
-		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
-		//Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
@@ -185,8 +181,8 @@ void Spider::Attack()
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
+		
 		// 거미줄 
-
 		auto obj = CreateGameObject();
 		obj->transform->position = transform->position + transform->forward;// *2.f;
 		obj->transform->forward = transform->forward;
@@ -197,7 +193,8 @@ void Spider::Attack()
 
 void Spider::JumpCheck()
 {
-	if (m_animator->IsPlayingDamage() | m_animator->IsPlayingDie())
+
+	if (!m_animator->IsPlayingWalk())
 		return;
 
 	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
@@ -257,7 +254,6 @@ void Spider::Jump()
 		
 		transform->position += velocity * 0.03f;
 
-		//m_animator->SetAngle(AngleToPlayerWithSign());
 		m_animator->SetDefaultAnimation(m_animator->GetJump(), true);
 
 		if (transform->position.y > m_jumpY + 2.f)

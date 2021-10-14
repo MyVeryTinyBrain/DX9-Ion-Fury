@@ -44,8 +44,7 @@ void Drone::Update()
 
 	if (m_isDead)
 	{
-		// 바디의 속도가 매우 작다면
-		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
+
 		if (m_body && m_body->IsRigidbodySleep())
 		{
 			m_body->Destroy();
@@ -55,7 +54,7 @@ void Drone::Update()
 		}
 		return;
 	}
-	//Moving(MovingType::Attack);
+	
 	if (m_breakTime <= 0)
 	{
 		MovingType movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
@@ -67,7 +66,7 @@ void Drone::Update()
 		m_breakTime -= Time::DeltaTime();
 	}
 
-	if (m_animator->IsPlayingIdle() &&
+	/*if (m_animator->IsPlayingIdle() &&
 		m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 	{
 		m_animator->PlayMove();
@@ -76,7 +75,7 @@ void Drone::Update()
 		m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
 	{
 		m_animator->PlayDefaultAnimation();
-	}
+	}*/
 	Attack();
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
@@ -104,6 +103,7 @@ Collider* Drone::InitializeCollider(GameObject* colliderObj)
 void Drone::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
 	// 데미지 스프라이트 없음. 
+	Destroy(); // effect!
 }
 
 void Drone::OnDead(bool& dead, MonsterDamageType damageType)
@@ -140,7 +140,7 @@ void Drone::Moving(MovingType type)
 
 		if (m_distance)
 		{
-			m_animator->PlayIdle();
+			m_animator->SetDefaultAnimation(m_animator->GetIdle(), true);
 			Vec3 targetCoord = Player::GetInstance()->transform->position;
 			SetTargetCoord(targetCoord);
 
@@ -217,7 +217,7 @@ void Drone::Attack()
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
-		m_animator->PlayShoot();
+		m_animator->SetDefaultAnimation(m_animator->GetShoot(), true);
 
 
 		Vec3 forward = Player::GetInstance()->transform->position - transform->position;
