@@ -61,3 +61,6 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "DirectionalLight.h"
+
+// For json
+#include "../../json/json.h"

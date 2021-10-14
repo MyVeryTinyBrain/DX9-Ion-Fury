@@ -55,6 +55,27 @@
     <Filter Include="Player\Weapon\Revolver">
       <UniqueIdentifier>{64a52fde-c709-44b0-b3f3-cb5401ccd067}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player\Weapon\Launcher">
+      <UniqueIdentifier>{1e22ab09-9907-4899-8270-30d04523bbf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{b0fa2d6b-9231-4387-8eac-ad2056b12233}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\BulletProof">
+      <UniqueIdentifier>{2a52c352-a089-44bc-bd2e-12e4d4642004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\BillboardEffect">
+      <UniqueIdentifier>{7a385f93-4581-456e-a731-66be633f0ae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Effect">
+      <UniqueIdentifier>{b9047419-5373-4a07-9215-5763d9066b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\BulletTrail">
+      <UniqueIdentifier>{84e6ddb6-1081-4439-8245-9f275c76d231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\GranadeTrail">
+      <UniqueIdentifier>{2eb5350f-c26d-41af-9e1c-2d81f0b0973a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,6 +168,33 @@
     <ClInclude Include="WeaponTypes.h">
       <Filter>Initialize</Filter>
     </ClInclude>
+    <ClInclude Include="OverlayRenderOrders.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletProof.h">
+      <Filter>Effect\BulletProof</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherAnimator.h">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Launcher.h">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherGranade.h">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardEffect.h">
+      <Filter>Effect\BillboardEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthoEffect.h">
+      <Filter>Player\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GranadeTrail.h">
+      <Filter>Effect\GranadeTrail</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletTrail.h">
+      <Filter>Effect\BulletTrail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc">
@@ -233,6 +281,30 @@
     </ClCompile>
     <ClCompile Include="RevolverAnimator.cpp">
       <Filter>Player\Weapon\Revolver</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletProof.cpp">
+      <Filter>Effect\BulletProof</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherAnimator.cpp">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="Launcher.cpp">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherGranade.cpp">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="BillboardEffect.cpp">
+      <Filter>Effect\BillboardEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthoEffect.cpp">
+      <Filter>Player\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GranadeTrail.cpp">
+      <Filter>Effect\GranadeTrail</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletTrail.cpp">
+      <Filter>Effect\BulletTrail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "FPSOrthoCamera.h"
 #include "RenderLayers.h"
+#include "OverlayRenderOrders.h"
 #include "Revolver.h"
+#include "Launcher.h"
 
 void FPSOrthoCamera::Awake()
 {
@@ -24,18 +26,23 @@ void FPSOrthoCamera::Awake()
 		m_crosshairRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
 		m_crosshairRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/hud/crosshair.png"));
 		m_crosshairRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+		m_crosshairRenderer->overlayRenderOrder = int(OverlayRenderOrders::Crosshair);
 	}
 
 	m_handsObject = CreateGameObjectToChild(m_forwardGameObject->transform);
 	m_handsObject->transform->localPosition = Vec2(0, 0);
 
-	m_handsChildObject = CreateGameObjectToChild(m_handsObject->transform);
+	m_handsMiddleObject = CreateGameObjectToChild(m_handsObject->transform);
+
+	m_handsChildObject = CreateGameObjectToChild(m_handsMiddleObject->transform);
 
 	SetupWeapons();
 }
 
 void FPSOrthoCamera::Update()
 {
+	ChangeWeapon();
+
 	InputToActiveWeapon();
 }
 
@@ -84,8 +91,13 @@ void FPSOrthoCamera::SetCrossHair(bool value)
 	m_crosshairRenderer->gameObject->activeSelf = value;
 }
 
-void FPSOrthoCamera::SetActiveWeapon(unsigned int weaponIndex)
+void FPSOrthoCamera::SetActiveWeapon(int weaponIndex)
 {
+	if (weaponIndex < 0)
+	{
+		weaponIndex = 0;
+	}
+
 	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
 	{
 		m_weaponObjects[i]->activeSelf = false;
@@ -93,12 +105,17 @@ void FPSOrthoCamera::SetActiveWeapon(unsigned int weaponIndex)
 
 	m_weaponObjects[weaponIndex]->activeSelf = true;
 	m_weapons[weaponIndex]->OnChanged();
+
+	m_activeWeaponIndex = weaponIndex;
 }
 
 void FPSOrthoCamera::SetupWeapons()
 {
 	m_weaponObjects[(unsigned int)WeaponTypes::Revolver] = CreateGameObjectToChild(m_handsChildObject->transform);
 	m_weapons[(unsigned int)WeaponTypes::Revolver] = m_weaponObjects[(unsigned int)WeaponTypes::Revolver]->AddComponent<Revolver>();
+
+	m_weaponObjects[(unsigned int)WeaponTypes::Launcher] = CreateGameObjectToChild(m_handsChildObject->transform);
+	m_weapons[(unsigned int)WeaponTypes::Launcher] = m_weaponObjects[(unsigned int)WeaponTypes::Launcher]->AddComponent<Launcher>();
 
 	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
 	{
@@ -120,43 +137,51 @@ void FPSOrthoCamera::InputToActiveWeapon()
 	t sub = nothing;
 	t reload = nothing;
 
-	if (Input::GetKeyDown(Key::LeftMouse))
+	if (m_weaponChangingCounter <= 0)
 	{
-		attack = keydown;
-	}
-	else if (Input::GetKey(Key::LeftMouse))
-	{
-		attack = keypressing;
-	}
-	else if (Input::GetKeyUp(Key::LeftMouse))
-	{
-		attack = keyup;
+		if (Input::GetKeyDown(Key::LeftMouse))
+		{
+			attack = keydown;
+		}
+		else if (Input::GetKey(Key::LeftMouse))
+		{
+			attack = keypressing;
+		}
+		else if (Input::GetKeyUp(Key::LeftMouse))
+		{
+			attack = keyup;
+		}
+
+		if (Input::GetKeyDown(Key::RightMouse))
+		{
+			sub = keydown;
+		}
+		else if (Input::GetKey(Key::RightMouse))
+		{
+			sub = keypressing;
+		}
+		else if (Input::GetKeyUp(Key::RightMouse))
+		{
+			sub = keyup;
+		}
+
+		if (Input::GetKeyDown(Key::R))
+		{
+			reload = keydown;
+		}
+		else if (Input::GetKey(Key::R))
+		{
+			reload = keypressing;
+		}
+		else if (Input::GetKeyUp(Key::R))
+		{
+			reload = keyup;
+		}
 	}
 
-	if (Input::GetKeyDown(Key::RightMouse))
+	if (m_activeWeaponIndex < 0 || m_activeWeaponIndex >= (int)WeaponTypes::Max)
 	{
-		sub = keydown;
-	}
-	else if (Input::GetKey(Key::RightMouse))
-	{
-		sub = keypressing;
-	}
-	else if (Input::GetKeyUp(Key::RightMouse))
-	{
-		sub = keyup;
-	}
-
-	if (Input::GetKeyDown(Key::R))
-	{
-		reload = keydown;
-	}
-	else if (Input::GetKey(Key::R))
-	{
-		reload = keypressing;
-	}
-	else if (Input::GetKeyUp(Key::R))
-	{
-		reload = keyup;
+		return;
 	}
 
 	m_weapons[m_activeWeaponIndex]->OnAttackInput(attack);
@@ -184,12 +209,52 @@ void FPSOrthoCamera::MoveHandsObject()
 	}
 	else
 	{
-		m_handsObject->transform->localPosition = Vec2::Lerp(m_handsObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 10.0f);
+		m_handsObject->transform->localPosition = Vec2::Lerp(m_handsObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 20.0f);
 		m_elapsed = 0;
 	}
 }
 
 void FPSOrthoCamera::RepositionHandsChildObject()
 {
-	m_handsChildObject->transform->localPosition = Vec2::Lerp(m_handsChildObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 10.0f);
+	m_handsChildObject->transform->localPosition = Vec2::Lerp(m_handsChildObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 20.0f);
+}
+
+void FPSOrthoCamera::ChangeWeapon()
+{
+	int changeWeaponIndex = -1;
+	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
+	{
+		Key key = (Key)(i + (int)Key::One);
+		if (Input::GetKeyDown(key))
+		{
+			changeWeaponIndex = i;
+		}
+	}
+
+	if (changeWeaponIndex != m_activeWeaponIndex && changeWeaponIndex >= 0 && changeWeaponIndex < (int)WeaponTypes::Max)
+	{
+		m_weaponChangeIndex = changeWeaponIndex;
+		m_weaponChangingCounter = 0.2f;
+	}
+
+	if (m_weaponChangingCounter > 0)
+	{
+		m_weaponChangingCounter -= Time::DeltaTime();
+
+		if (m_weaponChangingCounter <= 0)
+		{
+			SetActiveWeapon(m_weaponChangeIndex);
+		}
+	}
+
+	if (m_weaponChangingCounter > 0)
+	{
+		m_handsMiddleObject->transform->localPosition = Vec2::Lerp(m_handsMiddleObject->transform->localPosition, m_handsMiddleHideLocalPosition, Time::DeltaTime() * 10.0f);
+		m_handsMiddleObject->transform->localEulerAngle = Vec3::Lerp(m_handsMiddleObject->transform->localEulerAngle, m_handsMiddleHideLocalEulerAngle, Time::DeltaTime() * 10.0f);
+	}
+	else
+	{
+		m_handsMiddleObject->transform->localPosition = Vec2::Lerp(m_handsMiddleObject->transform->localPosition, m_handsMiddleShowLocalPosition, Time::DeltaTime() * 10.0f);
+		m_handsMiddleObject->transform->localEulerAngle = Vec3::Lerp(m_handsMiddleObject->transform->localEulerAngle, m_handsMiddleShowLocalEulerAngle, Time::DeltaTime() * 10.0f);
+	}
 }
