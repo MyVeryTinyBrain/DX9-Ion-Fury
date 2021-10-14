@@ -16,6 +16,7 @@ enum class ForceMode
 	Impulse = PxForceMode::eIMPULSE,
 	Force = PxForceMode::eFORCE,
 	Acceleration = PxForceMode::eACCELERATION,
+	Velocity = PxForceMode::eVELOCITY_CHANGE,
 };
 
 class Rigidbody : public Component
@@ -117,6 +118,8 @@ public:
 	void SetVelocity(const Vec3& velocity);
 
 	void AddForce(const Vec3& force, ForceMode forceMode);
+
+	void ClearForce(ForceMode forceMode);
 
 	Vec3 GetAngularVelocity() const;
 

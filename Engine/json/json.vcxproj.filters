@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{73b5ab55-b803-4ca1-a257-d5582856213d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{c86cb5f0-805b-4379-98a1-5a19f5cded18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="예제">
+      <UniqueIdentifier>{a9c50fe5-7d8d-4c5d-8ed1-87a0a74d0257}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="json_reader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="json_value.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="json_writer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="streamWrite.cpp">
+      <Filter>예제</Filter>
+    </ClCompile>
+    <ClCompile Include="stringWrite.cpp">
+      <Filter>예제</Filter>
+    </ClCompile>
+    <ClCompile Include="readFromStream.cpp">
+      <Filter>예제</Filter>
+    </ClCompile>
+    <ClCompile Include="readFromString.cpp">
+      <Filter>예제</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="json.h" />
+    <ClInclude Include="config.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="reader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="value.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="writer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="json_features.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="allocator.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="assertions.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="forwards.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="json_tool.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="json_valueiterator.inl">
+      <Filter>소스 파일</Filter>
+    </None>
+  </ItemGroup>
+</Project>

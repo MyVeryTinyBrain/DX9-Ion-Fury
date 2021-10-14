@@ -8,6 +8,8 @@ public:
 
 	friend class Scene;
 
+	friend class Transform;
+
 	friend class Component;
 
 	friend class ComponentExecutioner;
