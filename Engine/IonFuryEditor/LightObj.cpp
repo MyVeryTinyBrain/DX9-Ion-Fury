@@ -77,9 +77,11 @@ LightObj* LightObj::LightPick()
 
 	for (auto pickable : g_vecLight)
 	{
-		UserMeshRenderer* Renderer = pickable->GetRenderer();
+		auto obj = pickable->GetGameObject();
+		auto Renderer = obj->GetComponent<UserMeshRenderer>();
+		//UserMeshRenderer* Renderer = 
 
-		if (Renderer != nullptr)
+		if (Renderer)
 		{
 			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 			{

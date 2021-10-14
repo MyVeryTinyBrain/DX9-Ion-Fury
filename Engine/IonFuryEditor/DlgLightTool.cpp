@@ -383,6 +383,8 @@ void DlgLightTool::OnSelectLight()
 
 	m_comboBox = (COMBOBOX)m_LT_ComboBox.GetCurSel(); //선택한거
 
+	//CString type = (COMBOO)
+
 	switch (m_comboBox)
 	{
 	case DlgLightTool::COMBOBOX::POINTLIGNT:
