@@ -19,14 +19,13 @@ void Drone::Awake()
 	m_rendererObj->transform->localPosition = Vec3(0, -1, 0);
 
 	m_animator = m_rendererChildObj->AddComponent<DroneSpriteAnimator>();
-	
+
 }
 
 void Drone::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-	//m_animator->SetAngle(AngleToPlayerWithSign());
 
 	if (!m_hasTargetCoord)
 	{
@@ -39,12 +38,22 @@ void Drone::Update()
 {
 	Monster::Update();
 
-	Moving();
 
-	//if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
-	//	m_animator->PlayMove();
-	//else
-	//	m_animator->PlayIdle();
+	//Moving(MovingType::Attack);
+	if (m_breakTime <= 0)
+	{
+		MovingType movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
+		Moving(movingtype);
+	}
+
+	if (m_breakTime > 0 )
+	{
+		m_breakTime -= Time::DeltaTime();
+	}
+
+	Attack();
+
+	m_animator->SetAngle(AngleToPlayerWithSign());
 
 }
 
@@ -66,26 +75,67 @@ void Drone::OnDead(bool& dead, MonsterDamageType damageType)
 {
 }
 
-void Drone::Moving()
+void Drone::Moving(MovingType type)
 {
-	if (!m_hasTargetCoord)
-		return;
-
+	m_hasTargetCoord = false;
+	m_attackCount = 0;
+	m_breakTime = 0.35f;
 
 	Vec3 dronePos = transform->position;
-	Vec3 forward = m_targetCoord - dronePos;
-	forward.y = dronePos.y;
+
+	Vec3 forward = Player::GetInstance()->transform->position - dronePos;
 	forward.Normalize();
 	transform->forward = forward;
-	transform->up = Vec3(0, 1, 0);
-	transform->right = Vec3::Cross(transform->up, transform->forward);
-	transform->right.Normalize();
 
-	m_deltatime += Time::DeltaTime();
-
-	if (!m_animator->IsPlayingShoot() | !m_animator->IsPlayingMoveShoot())
+	switch (type)
 	{
-		m_moveSpeed = 4.0f;
+	case Drone::MovingType::Idle:
+		break;
+	case Drone::MovingType::Trace:
+	{
+		Vec3 xzdronePos = Vec3(dronePos.x, 0, dronePos.z);
+		float distance = Vec3::Distance(xzdronePos, Player::GetInstance()->transform->position);
+
+		if (distance > 8.f)
+			m_distance = true;
+		else
+			m_distance = false;
+
+		if (m_distance)
+		{
+			m_animator->PlayIdle();
+			Vec3 targetCoord = Player::GetInstance()->transform->position;
+			SetTargetCoord(targetCoord);
+
+			Vec3 velocity = forward * m_moveSpeed;
+			velocity.y = 0;
+			m_body->velocity = velocity;
+		}
+
+		m_deltatime += Time::DeltaTime();
+
+		if (m_deltatime < 1.5f)
+		{
+			transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
+		}
+		else
+		{
+			transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
+			
+			if (m_deltatime > 3.f)
+			{
+				m_deltatime = 0.f;
+			}
+		}
+	}
+	break;
+	case Drone::MovingType::leftRight:
+	{
+		transform->up = Vec3(0, 1, 0);
+		transform->right = Vec3::Cross(transform->up, transform->forward);
+		transform->right.Normalize();
+
+		m_deltatime += Time::DeltaTime();
 
 		if (m_deltatime < 3.f)
 		{
@@ -104,17 +154,14 @@ void Drone::Moving()
 			}
 		}
 	}
-	Vec3 xzdronePos = Vec3(dronePos.x, 0.f, dronePos.z);
-	//float distance = Vec3::Distance(dronePos, m_targetCoord);
-
-	PhysicsRay ray(xzdronePos, forward.normalized(), sqrtf(5.0f));
-	RaycastHit hit;
-
-	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider, m_body))
+	break;
+	case Drone::MovingType::Attack:
 	{
-		m_moveSpeed = 0.f;
-		m_animator->PlayMoveShoot();
+		m_attackCount = 5;
 	}
+	break;
+	}
+
 }
 
 void Drone::SetTargetCoord(Vec3 xzCoord)
@@ -135,7 +182,7 @@ void Drone::Attack()
 		--m_attackCount;
 		m_animator->PlayShoot();
 
-		// 플레이어를 바라봅니다.
+
 		Vec3 forward = Player::GetInstance()->transform->position - transform->position;
 		forward.y = 0;
 		forward.Normalize();

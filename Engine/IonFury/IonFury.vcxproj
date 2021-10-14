@@ -181,6 +181,7 @@
     <ClInclude Include="UserMixMesh.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponTypes.h" />
+    <ClInclude Include="Web.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp" />
@@ -207,6 +208,7 @@
     <ClCompile Include="TriangleStair.cpp" />
     <ClCompile Include="UserMixMesh.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Web.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc" />
