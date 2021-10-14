@@ -17,6 +17,8 @@
 #include "Pickable.h"
 #include "LightObj.h"
 #include "EditorScene.h"
+#include "Gizmo.h"
+#include "EditorEnum.h"
 
 #ifdef new
 #undef new
@@ -41,6 +43,9 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_WM_KEYDOWN()
 	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
 	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
+	ON_COMMAND(ID_Menu, &CIonFuryEditorView::OnMonsterTool)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -48,7 +53,6 @@ END_MESSAGE_MAP()
 CIonFuryEditorView::CIonFuryEditorView() noexcept
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-
 }
 
 CIonFuryEditorView::~CIonFuryEditorView()
@@ -71,6 +75,7 @@ void CIonFuryEditorView::OnDraw(CDC* /*pDC*/)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+
 
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 }
@@ -135,6 +140,21 @@ void CIonFuryEditorView::OnInitialUpdate()
 	// 매번 화면을 업데이트 하기 위해 타이머를 설정합니다.
 	// 설정한 타이머 번호는 0번입니다.
 	SetTimer(0, 0, 0);
+
+	// 여기에서 우선 다이얼로그를 생성합니다.
+
+	if (!m_dlgObjectTool.GetSafeHwnd())
+		m_dlgObjectTool.Create(IDD_DlgObjectTool);
+
+	if (!m_dlgLightTool.GetSafeHwnd())
+		m_dlgLightTool.Create(IDD_DlgLightTool);
+
+	if (!m_dlgTextureTool.GetSafeHwnd())
+		m_dlgTextureTool.Create(IDD_DlgTextureTool);
+
+	//터질경우 의심해볼 코드
+	if (!m_dlgMonsterTool.GetSafeHwnd())
+		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
 }
 
 
@@ -192,29 +212,22 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-
-
-
+	Pickable* pick = nullptr;
+	Gizmo* giz = nullptr;
 	switch (nChar)
 	{
-	case 'P':
-		camera->Add_Object_Sample(
-			m_dlgObjectTool.m_objectTag.GetString(),
-			m_dlgObjectTool.m_objectName.GetString(),
-			m_dlgObjectTool.m_meshPath.GetString(),
-			m_dlgTextureTool.m_texturePath.GetString());
-		break;
-	case 'U':
-		camera->AddLight(m_dlgLightTool.m_LightName.GetString(),
-			m_dlgLightTool.m_LightType.GetString() 
-			); 
+	case 46:		//delete키
+		giz = EditorManager::GetInstance()->GetGizmo();
+		giz->DeleteAttachedObject();
+		giz->Detach();
+		giz->enable = false;
+		m_dlgObjectTool.Clear();
 		break;
 	default:
 		break;
 	}
 
 }
-
 
 void CIonFuryEditorView::OnTextureTool()
 {
@@ -224,23 +237,161 @@ void CIonFuryEditorView::OnTextureTool()
 	m_dlgTextureTool.ShowWindow(SW_SHOW);
 }
 
-
 void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
 	CView::OnLButtonDown(nFlags, point);
 
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	auto pickable = Pickable::Pick();
+	Pickable* pick = Pickable::Pick();
+	
+	m_dlgMonsterTool.ClearEverything();
+	m_dlgObjectTool.Clear();
 
-	if (pickable)
+
+	if (pick)
 	{
-		auto pickObj = pickable->GetGameObject();
+		auto pickObj = pick->GetGameObject();
+	
+		if (!m_dlgObjectTool)
+			return;
 
-		m_dlgObjectTool.SetPickableObject(pickObj);
+		Type PickType = pick->GetType();
+		
+		switch (PickType)
+		{
+		case Type::Map:
+			m_dlgObjectTool.SetPickableObject(pickObj);
+			m_dlgObjectTool.SelectObject();
+			m_dlgObjectTool.UpdateUVScale(pick);
+			m_dlgObjectTool.ReturnComboBoxSelect(pick);
+			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
 
-		m_dlgObjectTool.SelectObject();
+			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
+			break;
+		case Type::Trigger:
+			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
+			m_dlgMonsterTool.OnLbnSelChangeTrigger();
+			break;
+		case Type::EventObject:
+			int TriggerIndex = -1;
+			int EventIndex = -1;
+			pick->GetEventVectorIndex(TriggerIndex, EventIndex);
+			m_dlgMonsterTool.SetTwoListBox(TriggerIndex, EventIndex);
+			m_dlgMonsterTool.PickedMethodToButton(TriggerIndex);
+			m_dlgMonsterTool.m_EventListBox.SetCurSel(EventIndex);
+			m_dlgMonsterTool.m_EventTypeComboBox.SetCurSel((int)pick->GetEventType());
+			//rotScale원래대로
+			m_dlgMonsterTool.SetRotationScrollToPicked(pick);
+			m_dlgMonsterTool.SetScaleScrollToPicked(pick);
+			break;
+		}
+		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
+	}
+	else if (!giz->PickHandle())
+	{
+		giz->Detach();
+		giz->enable = false;
+		//m_dlgObjectTool.Clear();
 	}
 
+	//=========================================================
+	
+	LightObj* light = LightObj::LightPick();
+
+	if (light)
+	{
+		auto lightobj = light->GetGameObject();
+
+		for (auto& light : LightObj::g_vecLight)
+		{
+
+			if (lightobj)
+			{
+				m_dlgLightTool.SetLTPickableObject(lightobj);
+			}
+			else
+				return;
+		}
+
+
+		auto pickObj = light->GetGameObject();
+
+		if (!m_dlgLightTool)
+			return;
+
+		m_dlgLightTool.SetLTPickableObject(pickObj);
+	}
+	else if (m_dlgLightTool && !giz->PickHandle())
+	{
+		cout << "조명선택안됨" << endl;
+		giz->Detach();
+		giz->enable = false;
+		m_dlgLightTool.LightClear();
+	}
+}
+
+void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CView::OnMouseMove(nFlags, point);
+
+	if (!EditorManager::GetInstance())
+		return;
+
+	Gizmo* m_giz = EditorManager::GetInstance()->GetGizmo();
+	if (!m_giz)
+		return;
+
+	bool Handling = m_giz->GetHandlingState();
+
+	if (Handling)		//기즈모 잡혔다
+	{	
+		Transform* trans = m_giz->GetSelectedObject();
+		if (!trans)
+			return;
+
+		Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+
+		// 1.Obj에 대해
+		if (picked)
+		{
+			Type type = picked->GetType();
+			
+			switch (type)
+			{
+			case Type::Map:
+				auto pickObj = trans->GetGameObject();
+				m_dlgObjectTool.SetPickableObject(pickObj);
+				m_dlgObjectTool.SelectObject();
+				break;
+			}
+		}
+		//											용섭구역
+		else
+		{
+			auto pickObj = m_giz->GetSelectedObject()->GetGameObject();
+			m_dlgLightTool.SetLTPickableObject(pickObj);
+		}
+		//											성연구역
+	}
+}
+
+
+DlgTextureTool* CIonFuryEditorView::GetTextureTool()
+{
+	if (m_dlgTextureTool)
+		return &m_dlgTextureTool;
+}
+
+
+void CIonFuryEditorView::OnMonsterTool()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_dlgMonsterTool.GetSafeHwnd())
+		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
+	m_dlgMonsterTool.ShowWindow(SW_SHOW);
 }

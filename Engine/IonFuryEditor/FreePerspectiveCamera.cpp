@@ -4,6 +4,8 @@
 #include "Pickable.h"
 #include "EditorManager.h"
 #include "LightObj.h"
+#include "EditorEnum.h"
+#include <string>
 
 
 void FreePerspectiveCamera::Update()
@@ -22,10 +24,8 @@ void FreePerspectiveCamera::Update()
 	if (Input::GetKey(Key::S))
 		pos += -transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
 
-	if (Input::GetKeyDown(Key::M))
-		EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
-	if (Input::GetKeyDown(Key::L))
-		EditorManager::GetInstance()->GetGizmo()->GetInformation();
+	//if (Input::GetKeyDown(Key::O))
+	//	EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
 
 
 	if (Input::GetKey(Key::Left))
@@ -79,46 +79,73 @@ POINT FreePerspectiveCamera::GetMousePointInClient() const
 	return pos;
 }
 
-void FreePerspectiveCamera::Add_Object_Sample( const tag_t& tag, const wstring& ObjName, const wstring& localPathMesh, const wstring& localPathTexture)
+Pickable* FreePerspectiveCamera::Add_MapObject(bool ColliderExistence, Vec3 Size, Vec3 Rotation, Vec2 UVScale, COMBOBOX comboBox, const tag_t& tag, const wstring& ObjName, const wstring& localPathTexture)
 {
-	if (localPathMesh.length() < 1)
-		return;
-	GameObject* Obj = CreateGameObject(tag);
-
+	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(tag);
+	
 	Obj->name = ObjName;
 
-	Obj->transform->position = transform->position + transform->forward * 2;
+	Vec3 test = transform->position + transform->forward * 2;
+	Obj->transform->position = test;
+
+	Pickable* pick = Obj->AddComponent<Pickable>();
 	
+	pick->PushInVector(Type::Map);
+	pick->Settings(UVScale, comboBox, localPathTexture, ColliderExistence);
 
-	auto test = Obj->AddComponent<Pickable>();
-	test->Settings(localPathMesh, localPathTexture);
+	Obj->transform->scale = Size;
+	Obj->transform->SetEulerAngle(Rotation);
+
+	return pick;
 }
 
-void FreePerspectiveCamera::AddLight(const wstring& LightName ,	const wstring& LightType )
+Pickable* FreePerspectiveCamera::Add_TriggerObject(int cnt)
 {
-	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
+	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"trigger");
 
-	if (LightType == L"Point")
-	{
-		GameObject* PointLightObj = CreateGameObject(L"Light");
+	CString name = L"Trigger_";
+	CString num;
+	num.Format(_T("%d"), cnt);
+	name += num;
+	
+	Obj->name = name.GetString();
 
-		PointLightObj->name = LightName;
+	Vec3 test = transform->position + transform->forward * 2;
+	Obj->transform->position = test;
 
-		//PointLightObj->Set
+	Pickable* pick = Obj->AddComponent<Pickable>();
 
-		PointLightObj->transform->position = transform->position + transform->forward * 2;
+	pick->PushInVector(Type::Trigger);
 
-		PointLightObj->AddComponent<LightObj>();
+	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Trigger.png", true);
 
-	}
-	else if (LightType == L"Spot")
-	{
-		GameObject* SpotLightObj = CreateGameObject(L"Light");
+	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
+	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
 
-		SpotLightObj->name = LightName;
-
-		SpotLightObj->transform->position = transform->position + transform->forward * 2;
-
-		SpotLightObj->AddComponent<LightObj>();
-	}
+	return pick;
 }
+
+Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
+{
+	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"Event");
+
+	CString name = L"Event_";
+	CString num;
+	num.Format(_T("%d"), cnt);
+	name += num;
+	Obj->name = name.GetString();
+
+	Vec3 test = transform->position + transform->forward * 2;
+	Obj->transform->position = test;
+
+	Pickable* Event = Obj->AddComponent<Pickable>();
+	Trigger->PushInEventVector(Event);
+
+	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Event.png", true);
+
+	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
+	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
+
+	return Event;
+}
+

@@ -1,221 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Default">
-      <UniqueIdentifier>{9c2c4e58-2993-4980-9cc4-1566b30dbe38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Default\리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{424967a5-5ee1-435d-8d95-c04efb834323}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SpriteAnimation">
-      <UniqueIdentifier>{c7d1ec07-34c8-45fe-bf56-424c96ee6ce3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player">
-      <UniqueIdentifier>{faeaece0-c880-4ad2-82cb-8b7e73420f4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MixUserMesh">
-      <UniqueIdentifier>{9c5c51f5-d5e9-471a-a192-8ca57608f7e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster">
-      <UniqueIdentifier>{e9b50697-9852-4d87-a91f-a79caeb2c4b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Gunner">
-      <UniqueIdentifier>{d820f875-fbb3-40af-9134-6e3ea78e51bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MixUserMesh\Cube">
-      <UniqueIdentifier>{fe4ad100-a0d7-4417-a0da-8aaf32c82727}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MixUserMesh\TriangleStair">
-      <UniqueIdentifier>{9b6f4c15-a80f-4369-b29c-f562ceb7ee76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Initialize">
-      <UniqueIdentifier>{cdb4b80e-a991-4c63-aefb-6c077d7b5fe2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Spider">
-      <UniqueIdentifier>{fc9ac770-3ebc-4283-aa75-17c2739044d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Drone">
-      <UniqueIdentifier>{0ed520a0-eeee-4bc5-ac4e-26924f51ea82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon">
-      <UniqueIdentifier>{6524f9f2-4210-4c2f-acea-447d322896b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon\Revolver">
-      <UniqueIdentifier>{64a52fde-c709-44b0-b3f3-cb5401ccd067}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon\Launcher">
-      <UniqueIdentifier>{1e22ab09-9907-4899-8270-30d04523bbf4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect">
-      <UniqueIdentifier>{b0fa2d6b-9231-4387-8eac-ad2056b12233}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\BulletProof">
-      <UniqueIdentifier>{2a52c352-a089-44bc-bd2e-12e4d4642004}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\BillboardEffect">
-      <UniqueIdentifier>{7a385f93-4581-456e-a731-66be633f0ae0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Effect">
-      <UniqueIdentifier>{b9047419-5373-4a07-9215-5763d9066b00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\BulletTrail">
-      <UniqueIdentifier>{84e6ddb6-1081-4439-8245-9f275c76d231}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\GranadeTrail">
-      <UniqueIdentifier>{2eb5350f-c26d-41af-9e1c-2d81f0b0973a}</UniqueIdentifier>
-    <Filter Include="Monster\Spider\Web">
-      <UniqueIdentifier>{cf264c09-c308-4ca6-ae16-e8172a0938ec}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Main.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimator.h">
-      <Filter>SpriteAnimation</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimation.h">
-      <Filter>SpriteAnimation</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCamera.h">
+    <ClCompile Include="PhysicsInitialize.cpp">
+      <Filter>Initialize</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCharacterController.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSOrthoCamera.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Gunner.h">
-      <Filter>Monster\Gunner</Filter>
-    </ClInclude>
-    <ClInclude Include="UserMixMesh.h">
-      <Filter>MixUserMesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>MixUserMesh\Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleStair.h">
-      <Filter>MixUserMesh\TriangleStair</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsLayers.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsInitialize.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerSpriteAnimator.h">
-      <Filter>Monster\Gunner</Filter>
-    </ClInclude>
-    <ClInclude Include="Spider.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="SpiderSpriteAnimator.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="Drone.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneSpriteAnimator.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene2.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Player\Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderLayers.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="Revolver.h">
-      <Filter>Player\Weapon\Revolver</Filter>
-    </ClInclude>
-    <ClInclude Include="RevolverAnimator.h">
-      <Filter>Player\Weapon\Revolver</Filter>
-    </ClInclude>
-    <ClInclude Include="WeaponTypes.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="OverlayRenderOrders.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletProof.h">
-      <Filter>Effect\BulletProof</Filter>
-    </ClInclude>
-    <ClInclude Include="LauncherAnimator.h">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClInclude>
-    <ClInclude Include="Launcher.h">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClInclude>
-    <ClInclude Include="LauncherGranade.h">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClInclude>
-    <ClInclude Include="BillboardEffect.h">
-      <Filter>Effect\BillboardEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="OrthoEffect.h">
-      <Filter>Player\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="GranadeTrail.h">
-      <Filter>Effect\GranadeTrail</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletTrail.h">
-      <Filter>Effect\BulletTrail</Filter>
-    <ClInclude Include="Web.h">
-      <Filter>Monster\Spider\Web</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="IonFury.rc">
-      <Filter>Default\리소스 파일</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>Default\리소스 파일</Filter>
-    </Image>
-    <Image Include="IonFury.ico">
-      <Filter>Default\리소스 파일</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
+    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="UserMixMesh.cpp">
+      <Filter>UserMixMesh</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Default</Filter>
@@ -223,41 +22,23 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="TestScene2.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
     <ClCompile Include="SpriteAnimator.cpp">
-      <Filter>SpriteAnimation</Filter>
+      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="SpriteAnimation.cpp">
-      <Filter>SpriteAnimation</Filter>
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
+    <ClCompile Include="Drone.cpp">
+      <Filter>Monster\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="FPSOrthoCamera.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCharacterController.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCamera.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Monster</Filter>
+    <ClCompile Include="DroneSpriteAnimator.cpp">
+      <Filter>Monster\Drone</Filter>
     </ClCompile>
     <ClCompile Include="Gunner.cpp">
       <Filter>Monster\Gunner</Filter>
-    </ClCompile>
-    <ClCompile Include="UserMixMesh.cpp">
-      <Filter>MixUserMesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>MixUserMesh\Cube</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleStair.cpp">
-      <Filter>MixUserMesh\TriangleStair</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsInitialize.cpp">
-      <Filter>Initialize</Filter>
     </ClCompile>
     <ClCompile Include="GunnerSpriteAnimator.cpp">
       <Filter>Monster\Gunner</Filter>
@@ -268,17 +49,35 @@
     <ClCompile Include="SpiderSpriteAnimator.cpp">
       <Filter>Monster\Spider</Filter>
     </ClCompile>
-    <ClCompile Include="Drone.cpp">
-      <Filter>Monster\Drone</Filter>
+    <ClCompile Include="Web.cpp">
+      <Filter>Monster\Spider</Filter>
     </ClCompile>
-    <ClCompile Include="DroneSpriteAnimator.cpp">
-      <Filter>Monster\Drone</Filter>
+    <ClCompile Include="BillboardEffect.cpp">
+      <Filter>Effect\BillboardEffect</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene2.cpp">
-      <Filter>Scene</Filter>
+    <ClCompile Include="BulletProof.cpp">
+      <Filter>Effect\BulletPrrof</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletTrail.cpp">
+      <Filter>Effect\BulletTrail</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>UserMixMesh\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleStair.cpp">
+      <Filter>UserMixMesh\TriangleStair</Filter>
     </ClCompile>
     <ClCompile Include="Weapon.cpp">
       <Filter>Player\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Launcher.cpp">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherAnimator.cpp">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherGranade.cpp">
+      <Filter>Player\Weapon\Launcher</Filter>
     </ClCompile>
     <ClCompile Include="Revolver.cpp">
       <Filter>Player\Weapon\Revolver</Filter>
@@ -286,34 +85,228 @@
     <ClCompile Include="RevolverAnimator.cpp">
       <Filter>Player\Weapon\Revolver</Filter>
     </ClCompile>
-    <ClCompile Include="BulletProof.cpp">
-      <Filter>Effect\BulletProof</Filter>
-    </ClCompile>
-    <ClCompile Include="LauncherAnimator.cpp">
+    <ClCompile Include="GranadeTrail.cpp">
       <Filter>Player\Weapon\Launcher</Filter>
     </ClCompile>
-    <ClCompile Include="Launcher.cpp">
-      <Filter>Player\Weapon\Launcher</Filter>
+    <ClCompile Include="FPSCamera.cpp">
+      <Filter>Player\FPSCamera</Filter>
     </ClCompile>
-    <ClCompile Include="LauncherGranade.cpp">
-      <Filter>Player\Weapon\Launcher</Filter>
+    <ClCompile Include="FPSCharacterController.cpp">
+      <Filter>Player\FPSCharacterController</Filter>
     </ClCompile>
-    <ClCompile Include="BillboardEffect.cpp">
-      <Filter>Effect\BillboardEffect</Filter>
+    <ClCompile Include="FPSOrthoCamera.cpp">
+      <Filter>Player\FPSOrthoCamera</Filter>
     </ClCompile>
     <ClCompile Include="OrthoEffect.cpp">
-      <Filter>Player\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="GranadeTrail.cpp">
-      <Filter>Effect\GranadeTrail</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletTrail.cpp">
-      <Filter>Effect\BulletTrail</Filter>
-    <ClCompile Include="Web.cpp">
-      <Filter>Monster\Spider\Web</Filter>
+      <Filter>Player\FPSOrthoCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
+    <ClInclude Include="WeaponTypes.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsLayers.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsInitialize.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlayRenderOrders.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderLayers.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="UserMixMesh.h">
+      <Filter>UserMixMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimator.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Drone.h">
+      <Filter>Monster\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="DroneSpriteAnimator.h">
+      <Filter>Monster\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="Gunner.h">
+      <Filter>Monster\Gunner</Filter>
+    </ClInclude>
+    <ClInclude Include="GunnerSpriteAnimator.h">
+      <Filter>Monster\Gunner</Filter>
+    </ClInclude>
+    <ClInclude Include="Spider.h">
+      <Filter>Monster\Spider</Filter>
+    </ClInclude>
+    <ClInclude Include="SpiderSpriteAnimator.h">
+      <Filter>Monster\Spider</Filter>
+    </ClInclude>
+    <ClInclude Include="Web.h">
+      <Filter>Monster\Spider</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardEffect.h">
+      <Filter>Effect\BillboardEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletProof.h">
+      <Filter>Effect\BulletPrrof</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletTrail.h">
+      <Filter>Effect\BulletTrail</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>UserMixMesh\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleStair.h">
+      <Filter>UserMixMesh\TriangleStair</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Launcher.h">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherAnimator.h">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherGranade.h">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Revolver.h">
+      <Filter>Player\Weapon\Revolver</Filter>
+    </ClInclude>
+    <ClInclude Include="RevolverAnimator.h">
+      <Filter>Player\Weapon\Revolver</Filter>
+    </ClInclude>
+    <ClInclude Include="GranadeTrail.h">
+      <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCamera.h">
+      <Filter>Player\FPSCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCharacterController.h">
+      <Filter>Player\FPSCharacterController</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSOrthoCamera.h">
+      <Filter>Player\FPSOrthoCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthoEffect.h">
+      <Filter>Player\FPSOrthoCamera</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="IonFury.ico">
+      <Filter>Default</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Player">
+      <UniqueIdentifier>{f4474f13-5e07-4509-bd6f-93ea63fcc6a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Initialize">
+      <UniqueIdentifier>{4ea17e0b-757a-41d5-8ca7-76e230e67b0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{fc3a4172-fe75-4241-b314-c16e3e70c900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{274f2630-8b03-48f0-a0d5-60ec215eebc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserMixMesh">
+      <UniqueIdentifier>{43e5c40b-ed9c-4016-a2b9-edd93d0f3eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{d132e486-eb07-4e1b-9bff-752534c5d6ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{4cb0a06c-cba9-4bb5-ae0c-d5d55c8fc7ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{d3f95ce9-ad56-4f16-823c-60eac3fc67d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Drone">
+      <UniqueIdentifier>{2e82c966-71b6-4931-b975-48b24fc5f846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Gunner">
+      <UniqueIdentifier>{a26b2a83-f228-4e6a-950c-3136089df29a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Spider">
+      <UniqueIdentifier>{2f8a3dfe-a684-4a74-8888-bb612c8ca425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\BillboardEffect">
+      <UniqueIdentifier>{93f7a33f-8f63-44bc-87fd-045b4590a96a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\BulletPrrof">
+      <UniqueIdentifier>{a0f293fb-4db4-4abf-940b-9e3b1dbe921d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\BulletTrail">
+      <UniqueIdentifier>{175a30ab-2e43-4487-b986-bad053a49df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserMixMesh\Cube">
+      <UniqueIdentifier>{223998da-340a-456b-8024-8aaa291d2180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserMixMesh\TriangleStair">
+      <UniqueIdentifier>{3705107a-4dc9-40c4-bcd7-ff837dd13ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon">
+      <UniqueIdentifier>{0c67afdb-fc6e-4f22-93df-ff706ff5cb9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon\Launcher">
+      <UniqueIdentifier>{dacc8ffc-4ef8-470e-9c16-f45ae90c3ebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon\Revolver">
+      <UniqueIdentifier>{70e3703f-dec2-447d-9cf7-3c4d95fb6d63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\FPSCamera">
+      <UniqueIdentifier>{5e23bcc3-7774-4cdc-a0da-97452768a39f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\FPSCharacterController">
+      <UniqueIdentifier>{c3179b1e-b0c4-4814-9b3c-cc027375abe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\FPSOrthoCamera">
+      <UniqueIdentifier>{3904ecde-6516-4a71-b772-371c9e981347}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IonFury.rc">
+      <Filter>Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint">
+      <Filter>Default</Filter>
+    </None>
   </ItemGroup>
 </Project>

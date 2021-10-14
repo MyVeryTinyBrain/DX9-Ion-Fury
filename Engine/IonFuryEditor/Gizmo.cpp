@@ -50,10 +50,12 @@ void Gizmo::Update()
 	else if (HasSelect() && Input::GetKey(Key::LeftMouse))
 	{
 		Handling();
+		m_Handling = true;
 	}
 	if (Input::GetKeyUp(Key::LeftMouse))
 	{
 		PutHandle();
+		m_Handling = false;
 	}
 }
 
@@ -85,9 +87,11 @@ bool Gizmo::PickHandle()
 
 			// 마우스가 축을 선택한 위치를 저장합니다.
 			m_selectCoord = CalcGizmoHandlingCoord();
+			cout << "->" << m_selectCoord.x << ", " << m_selectCoord.y << ", " << m_selectCoord.z << endl;
 
 			// 축이 선택되었을때의 오브젝트 중심 위치를 저장합니다.
 			m_selectedPosition = transform->position;
+
 			return true;
 		}
 	}
@@ -180,6 +184,11 @@ void Gizmo::GetInformation()
 	}
 }
 
+bool Gizmo::GetHandlingState()
+{
+	return m_Handling;
+}
+
 
 
 void Gizmo::ResetGizmoTransform()
@@ -202,13 +211,15 @@ void Gizmo::ResetGizmoTransform()
 
 void Gizmo::Handling()
 {
+	float gap = 0.2f;
+
 	Vec3 dragCoord = CalcGizmoHandlingCoord();
 	Vec3 delta = dragCoord - m_selectCoord;
+
 	transform->position = m_selectedPosition + delta;
 
 	if (Input::GetKey(Key::LCtrl))
 	{
-		float gap = 0.2f;
 		Vec3 pos = transform->position;
 		switch (m_select)
 		{

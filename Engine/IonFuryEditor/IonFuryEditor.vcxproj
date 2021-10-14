@@ -196,8 +196,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DlgLightTool.h" />
+    <ClInclude Include="DlgMonsterTool.h" />
     <ClInclude Include="DlgObjectTool.h" />
     <ClInclude Include="DlgTextureTool.h" />
+    <ClInclude Include="EditorEnum.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
     <ClInclude Include="FileInfo.h" />
@@ -216,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DlgLightTool.cpp" />
+    <ClCompile Include="DlgMonsterTool.cpp" />
     <ClCompile Include="DlgObjectTool.cpp" />
     <ClCompile Include="DlgTextureTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />
@@ -246,9 +249,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{82bbf192-4b75-46b9-88be-21c93e9f6cfc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\IonFury\IonFury.vcxproj">
-      <Project>{a1235ded-7f24-4a2f-ab66-536f073e1cf2}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,19 +1,25 @@
 ﻿#pragma once
 
-
 // DlgObjectTool 대화 상자
+
+#include "EditorEnum.h"
+
+class Pickable;
 
 class DlgObjectTool : public CDialog
 {
 	DECLARE_DYNAMIC(DlgObjectTool)
 
 public:
-	enum class COMBOBOX { Cube, Cyilinder, Quad, Sphere, Capsule, RightTriangle, Triangle,  END};
-
-
-public:
-	void SetPickableObject(GameObject* gameobject);
+	void SetPickableObject(GameObject* gameobject = nullptr);
 	void SelectObject();
+
+	//void ScrollUpdatePick(GameObject* gam);
+
+	Vec3 GetToolSize();
+	Vec3 GetToolRotation();
+
+	void Clear();
 
 public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
@@ -24,19 +30,34 @@ public:
 	enum { IDD = IDD_DlgObjectTool };
 #endif
 
-private:
-	COMBOBOX m_eMesh;
-
-
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
 public:
+	void ResetScroll();
+	void ReturnComboBoxSelect(Pickable* pick);
+	void ReturnCollisionExistenceSelect(Pickable* pick);
+
+	void UpdateUVScale(Pickable* pick);
+
+	bool GetColliderExistence();
+public:
+	float EditToNum(const CEdit& edit);
+	void NumToEdit(CEdit& edit, float num);
+
+public:
+	Vec2 GetToolUVScale();
+public:
 	CComboBox m_comboBox;
-	virtual BOOL OnInitDialog();
+
 	CString m_objectName;
+	
 	CString m_meshPath;
+
+	COMBOBOX m_MeshType;
+
+	virtual BOOL OnInitDialog();
 	afx_msg void OnObjectName();
 	afx_msg void OnSelectMesh();
 	float m_fPosX;
@@ -67,5 +88,18 @@ public:
 	afx_msg void OnBnClickedApply();
 	afx_msg void OnBnClickedLoad();
 	afx_msg void OnBnClickedClear();
+	afx_msg void OnNMCustomdrawRotslider(NMHDR* pNMHDR, LRESULT* pResult);
+	CSliderCtrl m_SliderControlX;
+	CSliderCtrl m_SliderControlY;
+	CSliderCtrl m_SliderControlZ;
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 
+	CEdit m_UVScaleX;
+	CEdit m_UVScaleY;
+
+	CButton m_ColliderExistence;
+	afx_msg void ClickAddButton();
+	CSliderCtrl m_SliderControlScaleX;
+	CSliderCtrl m_SliderControlScaleY;
+	CSliderCtrl m_SliderControlScaleZ;
 };
