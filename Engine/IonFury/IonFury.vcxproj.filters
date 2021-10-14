@@ -100,6 +100,9 @@
     <ClCompile Include="OrthoEffect.cpp">
       <Filter>Player\FPSOrthoCamera</Filter>
     </ClCompile>
+    <ClCompile Include="LightLoad.cpp">
+      <Filter>Load</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WeaponTypes.h">
@@ -222,6 +225,9 @@
     <ClInclude Include="OrthoEffect.h">
       <Filter>Player\FPSOrthoCamera</Filter>
     </ClInclude>
+    <ClInclude Include="LightLoad.h">
+      <Filter>Load</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -297,6 +303,9 @@
     </Filter>
     <Filter Include="Player\FPSOrthoCamera">
       <UniqueIdentifier>{3904ecde-6516-4a71-b772-371c9e981347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Load">
+      <UniqueIdentifier>{3fa8a085-c66e-4a1a-90e1-70600f68c003}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

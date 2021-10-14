@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Gunner.h"
 #include "Spider.h"
+#include "LightLoad.h"
 
 IClonable* TestScene::Clone()
 {
@@ -163,6 +164,13 @@ void TestScene::OnLoad(Scene* beforeScene)
         auto collider = obj->AddComponent<BoxCollider>();
         collider->friction = 1.0f;
         collider->restitution = 1.0f;
+    }
+
+    //조명 추가 테스트
+    {
+        auto ltobj = CreateGameObject();
+        auto lightcomponet = ltobj->AddComponent<LightLoad>();
+        lightcomponet->GetInstance()->LightObjectLoad(L"../Data/EarthBossStage.dat");
     }
 
     for (int i = 0; i < 5; ++i)

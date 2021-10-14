@@ -167,6 +167,7 @@
     <ClInclude Include="Launcher.h" />
     <ClInclude Include="LauncherAnimator.h" />
     <ClInclude Include="LauncherGranade.h" />
+    <ClInclude Include="LightLoad.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="OrthoEffect.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="LauncherAnimator.cpp" />
     <ClCompile Include="LauncherGranade.cpp" />
+    <ClCompile Include="LightLoad.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
