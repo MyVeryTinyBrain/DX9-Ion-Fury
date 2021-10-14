@@ -33,8 +33,8 @@ void FPSCamera::Update()
 		Vec3 rotateAngle = Vec3(deltaMouse.y, deltaMouse.x, 0) * m_sensitivity;
 
 		angle -= rotateAngle;
-		angle.x = MathEx::Clamp(angle.x, -90, +90);
-		angle.z = MathEx::Clamp(angle.z, -90, +90);
+		angle.x = MathEx::Clamp(angle.x, -85, +85);
+		angle.z = MathEx::Clamp(angle.z, -85, +85);
 		
 		{
 			Vec3 realDeltaAngle = angle - beforeAngle;
@@ -91,8 +91,8 @@ void FPSCamera::Recoiling()
 		Vec2 recoilVelocity = m_recoilVelocity * powerPercent;
 		Vec3 angle = transform->eulerAngle;
 		angle += Vec3(-recoilVelocity.y, recoilVelocity.x, 0) * Time::TimeScale();
-		angle.x = MathEx::Clamp(angle.x, -90, +90);
-		angle.z = MathEx::Clamp(angle.z, -90, +90);
+		angle.x = MathEx::Clamp(angle.x, -85, +85);
+		angle.z = MathEx::Clamp(angle.z, -85, +85);
 		transform->eulerAngle = angle;
 
 		m_recoilCounter -= Time::DeltaTime();

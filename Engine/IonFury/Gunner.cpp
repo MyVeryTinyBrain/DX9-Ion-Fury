@@ -39,8 +39,11 @@ void Gunner::Update()
 {
     Monster::Update();
 
+    // 몬스터의 사망이 확인되었을때
     if (m_isDead)
     {
+        // 바디의 속도가 매우 작다면
+        // 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
         if (m_body && m_body->IsRigidbodySleep())
         {
             m_body->Destroy();
@@ -138,6 +141,7 @@ void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
             break;
     }
 
+    // 피격당하면 플레이어를 바라봅니다.
 	const Vec3& playerPos = Player::GetInstance()->transform->position;
 	const Vec3& gunnerPos = transform->position;
     Vec3 forward = playerPos - gunnerPos;
@@ -152,7 +156,10 @@ void Gunner::OnDead(bool& dead, MonsterDamageType damageType)
     m_attackCount = 0;
     m_breakTime = FLT_MAX;
 
+    // 우선 애니메이션 종류를 랜덤으로 선택합니다.
     int dieIndex = rand() % (int)GunnerSpriteAnimator::DIE::MAX;
+
+    // 만약 폭발에 의한 죽음이라면 폭발 애니메이션을 선택합니다.
     if (damageType == MonsterDamageType::Explosion)
     {
         dieIndex = (int)MonsterDamageType::Explosion;
@@ -213,7 +220,6 @@ void Gunner::MoveToTarget()
             {
                 // 충돌한 콜라이더가 Terrain인 경우에
                 // 각도가 지정 각도 이내이면 벽이라고 판단하여 목표 지점을 없앱니다.
-
                 m_hasTargetCoord = false;
                 return;
             }
@@ -221,7 +227,6 @@ void Gunner::MoveToTarget()
             {
                 // 충돌한 콜라이더가 몬스터 콜라이더면
                 // 목표 지점을 없앱니다.
-
                 m_hasTargetCoord = false;
                 return;
             }

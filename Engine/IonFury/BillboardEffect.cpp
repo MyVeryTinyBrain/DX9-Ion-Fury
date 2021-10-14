@@ -81,6 +81,16 @@ void BillboardEffect::AddTexture(const wstring& textureLocalPath)
 	m_animation->AddTexture(textureLocalPath);
 }
 
+void BillboardEffect::FitIntervalToTime(float time)
+{
+	if (!m_animation)
+	{
+		return;
+	}
+
+	m_animation->FitIntervalToTime(time);
+}
+
 void BillboardEffect::SetToAlphaTest()
 {
 	m_renderer->material = Resource::FindAs<Material>(BuiltInNolightAlphaTestMaterial);
@@ -97,4 +107,14 @@ void BillboardEffect::SetInterval(float value)
 	{
 		m_animation->interval = value;
 	}
+}
+
+bool BillboardEffect::IsIgnoreZRotation() const
+{
+	return m_renderer->ignoreRotationZ;
+}
+
+void BillboardEffect::SetIgnoreZRotation(bool value)
+{
+	m_renderer->ignoreRotationZ = value;
 }

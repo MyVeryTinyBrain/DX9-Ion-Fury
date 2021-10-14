@@ -26,11 +26,19 @@ public:
 	// 이 함수를 호출하면 애니메이션이 없을 때 애니메이션을 동적 생성합니다.
 	void AddTexture(const wstring& textureLocalPath);
 
+	// 애니메이션이 이 시간동안 재생되도록 프레임 간격을 맞춥니다.
+	// 애니메이션이 모두 설정된 이후에 호출하도록 합니다.
+	void FitIntervalToTime(float time);
+
 	void SetToAlphaTest();
 
 	void SetToTransparent();
 
 	void SetInterval(float value);
+
+	bool IsIgnoreZRotation() const;
+
+	void SetIgnoreZRotation(bool value);
 
 protected:
 

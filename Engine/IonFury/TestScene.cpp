@@ -165,27 +165,12 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-    // Create transparent objects
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            auto obj = CreateGameObject();
-            obj->transform->position = Vec3(float(i), 0, float(j));
-
-            auto renderer = obj->AddComponent<UserMeshRenderer>();
-            renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-            renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
-            renderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-        }
-    }
-
     for (int i = 0; i < 5; ++i)
     {
         for (int j = 0; j < 5; ++j)
         {
             auto obj = CreateGameObject();
-            obj->transform->position = Vec3(i, 2, j);
+            obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
             obj->transform->eulerAngle = Vec3(0, 90, 0);
             obj->AddComponent<Gunner>();
         }

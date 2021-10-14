@@ -15,6 +15,10 @@ public:
 
 private:
 
+	void MakeEffectOnce(const Vec3 point);
+
+private:
+
 	enum { BULLETPROOF_SELF_DESTROY_TIME = 30 };
 
 	UserMeshRenderer* m_renderer = nullptr;

@@ -103,3 +103,13 @@ bool SpriteAnimation::IsEnd(float time) const
 {
 	return time >= maxTime;
 }
+
+void SpriteAnimation::FitIntervalToTime(float time)
+{
+	if (textureCount == 0)
+	{
+		return;
+	}
+
+	m_interval = time / textureCount;
+}

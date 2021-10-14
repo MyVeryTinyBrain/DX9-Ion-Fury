@@ -73,7 +73,7 @@ void Launcher::OnAttackInput(InputType inputType)
 		Attack();
 
 		float randomAngle = float(rand() % 50 - 25) + 90.0f;
-		Player::GetInstance()->controller->fpsCamera->MakeRecoil(Vec2::Direction(randomAngle) * 4.0f, 0.4f, 6.0f);
+		Player::GetInstance()->controller->fpsCamera->MakeRecoil(Vec2::Direction(randomAngle) * 6.0f, 0.2f, 6.0f);
 
 		--m_currentAmmo->loadedAmmo;
 	}

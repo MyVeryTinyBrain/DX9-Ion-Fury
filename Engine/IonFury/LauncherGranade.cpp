@@ -3,9 +3,13 @@
 #include "PhysicsLayers.h"
 #include "Monster.h"
 #include "BillboardEffect.h"
+#include "GranadeTrail.h"
 
 void LauncherGranade::Awake()
 {
+	auto trailObj = CreateGameObjectToChild(transform);
+	GranadeTrail* trail = trailObj->AddComponent<GranadeTrail>();
+
 	m_rigidbody = gameObject->AddComponent<Rigidbody>();
 	m_rigidbody->interpolate = true;
 	m_rigidbody->mass = 0.1f;

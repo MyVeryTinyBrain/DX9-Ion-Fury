@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BulletProof.h"
+#include "BillboardEffect.h"
 
 void BulletProof::Awake()
 {
@@ -32,4 +33,28 @@ void BulletProof::InitializeBulletProof(const Vec3& point, const Vec3& normal)
 	transform->scale = Vec3::one() * 0.3f;
 	transform->position = point + normal * (0.01f + randomPull);
 	transform->forward = -normal;
+
+	MakeEffectOnce(point + normal * 0.1f);
+}
+
+void BulletProof::MakeEffectOnce(const Vec3 point)
+{
+	GameObject* effectObj = CreateGameObject();
+	effectObj->transform->position = transform->position;
+	effectObj->transform->scale = Vec3::one() * 1.0f;
+	effectObj->transform->eulerAngle = Vec3(0, 0, float(rand() % 360));
+
+	BillboardEffect* effect = effectObj->AddComponent<BillboardEffect>();
+	effect->SetIgnoreZRotation(false);
+
+	effect->AddTexture(L"../SharedResource/Texture/spark0/3.png");
+	effect->AddTexture(L"../SharedResource/Texture/spark0/4.png");
+	effect->AddTexture(L"../SharedResource/Texture/spark0/5.png");
+	effect->AddTexture(L"../SharedResource/Texture/spark0/6.png");
+	effect->AddTexture(L"../SharedResource/Texture/spark0/7.png");
+	effect->AddTexture(L"../SharedResource/Texture/spark0/8.png");
+	effect->AddTexture(L"../SharedResource/Texture/spark0/9.png");
+
+	float randomPercent = float(rand() % 100) * 0.01f;
+	effect->FitIntervalToTime(randomPercent * 0.3f + 0.1f);
 }

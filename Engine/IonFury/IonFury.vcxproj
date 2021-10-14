@@ -95,7 +95,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -110,7 +110,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="BillboardEffect.h" />
     <ClInclude Include="BulletProof.h" />
+    <ClInclude Include="BulletTrail.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Drone.h" />
     <ClInclude Include="DroneSpriteAnimator.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="FPSOrthoCamera.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GranadeTrail.h" />
     <ClInclude Include="Gunner.h" />
     <ClInclude Include="GunnerSpriteAnimator.h" />
     <ClInclude Include="Launcher.h" />
@@ -192,12 +194,14 @@
   <ItemGroup>
     <ClCompile Include="BillboardEffect.cpp" />
     <ClCompile Include="BulletProof.cpp" />
+    <ClCompile Include="BulletTrail.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Drone.cpp" />
     <ClCompile Include="DroneSpriteAnimator.cpp" />
     <ClCompile Include="FPSCharacterController.cpp" />
     <ClCompile Include="FPSCamera.cpp" />
     <ClCompile Include="FPSOrthoCamera.cpp" />
+    <ClCompile Include="GranadeTrail.cpp" />
     <ClCompile Include="Gunner.cpp" />
     <ClCompile Include="GunnerSpriteAnimator.cpp" />
     <ClCompile Include="Launcher.cpp" />
