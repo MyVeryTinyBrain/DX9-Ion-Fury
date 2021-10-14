@@ -53,7 +53,6 @@ void Drone::Update()
 
 	Attack();
 
-
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
 }
@@ -188,27 +187,5 @@ void Drone::Attack()
 		forward.y = 0;
 		forward.Normalize();
 		transform->forward = forward;
-	}
-}
-
-void Drone::FindTarget()
-{
-	Vec3 dronePos = transform->position;
-	Vec3 playerPos = Player::GetInstance()->transform->position;
-	Vec3 forward = playerPos - dronePos;
-	forward.y = dronePos.y;
-	forward.Normalize();
-	transform->forward = forward;
-
-	
-
-	PhysicsRay ray(playerPos, forward, 8.f);
-	RaycastHit hit;
-
-	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider, m_body))
-	{
-		m_attackCount = 1;
-
-
 	}
 }

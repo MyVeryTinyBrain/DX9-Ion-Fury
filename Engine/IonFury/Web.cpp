@@ -9,8 +9,9 @@ void Web::Awake()
 
 	m_moveSpeed = 2.0f;
 
-	m_body->mass = 0.5f;
+	m_body->mass = 0.01f;
 	m_body->interpolate = true;
+
 
 	m_rendererObj->transform->scale = Vec3::one() * 3.0f;
 	m_rendererObj->transform->localPosition = Vec3(0, -0.5, 0);
@@ -22,19 +23,29 @@ void Web::Update()
 {
 	Monster::Update();
 
+	m_animationtime += Time::DeltaTime();
 
-	Vec3 playerPos = Player::GetInstance()->transform->position;
-	Vec3 webPos = transform->position;
-	Vec3 forward = playerPos - webPos;
-	forward.Normalize();
+	if (m_animationtime < 0.4f)
+	{
+		m_animator->SetDefaultAnimation(m_animator->GetWeb(), true);
+		
 
-	Vec3 velocity = forward * m_moveSpeed;
-	velocity.y = 0;
-	m_body->velocity = velocity;
+		m_collider->friction = 1.0f;
 
-	//transform->position += forward * 0.03f;
+		Vec3 velocity = transform->forward * m_moveSpeed;
+	}
+	else
+		m_animator->Pause();
 
-	m_animator->PlayWeb();
+
+}
+
+void Web::LateUpdate()
+{
+	Monster::LateUpdate();
+
+	if (m_animationtime > 3.f)
+		Destroy();
 }
 
 void Web::OnDestroy()

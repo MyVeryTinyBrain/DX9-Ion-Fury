@@ -27,8 +27,6 @@ private:
 
 	void Attack();
 
-	void FindTarget();
-
 private:
 
 	enum class MovingType { Idle, Trace, leftRight, Attack, Max };

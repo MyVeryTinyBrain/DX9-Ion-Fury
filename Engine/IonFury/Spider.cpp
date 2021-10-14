@@ -3,6 +3,7 @@
 #include "SpiderSpriteAnimator.h"
 #include "Player.h"
 #include "PhysicsLayers.h"
+#include "Web.h"
 
 void Spider::Awake()
 {
@@ -13,6 +14,7 @@ void Spider::Awake()
 
 	m_body->mass = 0.5f;
 	m_body->interpolate = true;
+
 
 	m_rendererObj->transform->scale = Vec3::one() * 3.0f;
 	m_rendererObj->transform->localPosition = Vec3(0, -0.5, 0);
@@ -29,13 +31,13 @@ void Spider::FixedUpdate()
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
-	
+
 	JumpCheck();
 
 
 
 	// 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
-	if (!m_hasTargetCoord )
+	if (!m_hasTargetCoord)
 	{
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
@@ -51,6 +53,8 @@ void Spider::Update()
 
 
 	Jump();
+
+	Attack();
 
 	if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 		m_animator->PlayWalk();
@@ -133,8 +137,8 @@ void Spider::MoveToTarget()
 				return;
 			}
 		}
-		
-		Vec3 velocity= forward * m_moveSpeed;
+
+		Vec3 velocity = forward * m_moveSpeed;
 		velocity.y = m_body->velocity.y;
 		m_body->velocity = velocity;
 
@@ -171,6 +175,11 @@ void Spider::Attack()
 		--m_attackCount;
 		// 거미줄 
 
+		auto obj = CreateGameObject();
+		obj->transform->position = transform->position + transform->forward;// *2.f;
+		obj->transform->forward = transform->forward;
+		obj->AddComponent<Web>();
+
 	}
 }
 
@@ -183,12 +192,12 @@ void Spider::JumpCheck()
 
 	RaycastHit hit1;
 	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(20.0f));
-	
+
 	m_jumptime += Time::FixedDeltaTime();
 
 	if (m_jumptime > 3.f)
 	{
-		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) /*| (1 << (PxU32)PhysicsLayers::Terrain)*/, PhysicsQueryType::All, m_body);
+		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) , PhysicsQueryType::All, m_body);
 		m_jumptime = 0.f;
 		m_jump = true;
 	}
@@ -198,23 +207,13 @@ void Spider::JumpCheck()
 		m_jumpY = transform->position.y;
 		m_jump = false;
 	}
-	if (m_hasJump)
-	{
-		//if (hit1.collider->layerIndex == (PxU32)PhysicsLayers::Player)
-		//{
-		//	m_attackCount = 1;
 
-		//	m_jumpCount = 1;
-
-		//	m_animator->PlayJump();
-		//}
-	}
 	if (!m_hasJump)
 	{
 		m_collider->friction = 0.0f;
-	
+
 	}
-	else if (m_hasJump & (m_jumpCount > 0))
+	else if (m_hasJump)
 	{
 		m_collider->friction = 1.0f;
 	}
@@ -225,51 +224,36 @@ void Spider::Jump()
 
 	if (m_hasJump)		// 점프
 	{
+		if (m_attack)
+		{
+			m_attackCount = 5;
+			m_attack = false;
+		}
 		Vec3 playerPos = Player::GetInstance()->transform->position;
 		Vec3 monsterPos = transform->position;
-		
+
 		Vec3 forward = playerPos - monsterPos;
 		forward.y = 0;
 		forward.Normalize();
 		transform->forward = forward;
 
-		Vec3 velocity = Quat::AxisAngle(transform->right, -45) * forward;
-		m_body->velocity = velocity;
+		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
+		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * 2.f;
+		
+		transform->position += velocity * 0.03f;
 
 		m_animator->SetAngle(AngleToPlayerWithSign());
 
-		transform->position += Vec3::up() * 0.05f;
 
-		if (transform->position.y > m_jumpY + 3.f)
+		if (transform->position.y > m_jumpY + 2.f)
 		{
+			m_attack = true;
 			m_hasJump = false;
 		}
 
-		//{
-		//	web = CreateGameObject();
-		//	web->transform->position = Vec3(transform->position.x, transform->position.y, transform->position.z);
-		//	web->transform->scale = Vec3::one() * 2.0f;
-
-		//	auto renderer = web->AddComponent<UserMeshRenderer>();
-		//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
-		//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/spider/Web_01.png"));
-		//	webBody = web->AddComponent<Rigidbody>();
-		//	webBody->isKinematic = true;
-		//	auto collider = web->AddComponent<BoxCollider>();
-		//	renderer->material = m_material;
-
-		//	web->transform->forward = -transform->forward;
-
-		//	Vec3 webPos = web->transform->position;
-		//	Vec3 webforward = (monsterPos + web->transform->forward * 2.f)  - monsterPos;
-		//	webforward.Normalize();
-
-
-		//	web->transform->position += forward * 0.03f;
-		//}
-
 
 	}
+
 
 }

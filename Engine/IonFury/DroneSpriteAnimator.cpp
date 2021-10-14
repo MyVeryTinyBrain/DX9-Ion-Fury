@@ -7,25 +7,25 @@ void DroneSpriteAnimator::Awake()
 {
 	SpriteAnimator::Awake();
 
-	m_idle[(unsigned int)DIR_DRONE::FRONT] = new SpriteAnimation;
-	m_idle[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_front.png");
-	m_idle[(unsigned int)DIR_DRONE::FRONT]->isLoop = true;
+	m_idle = new SpriteAnimation;
+	m_idle->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_front.png");
+	m_idle->isLoop = true;
 
-	m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL] = new SpriteAnimation;
-	m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_front_diagonal.png");
-	m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL]->isLoop = true;
+	//m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL] = new SpriteAnimation;
+	//m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_front_diagonal.png");
+	//m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL]->isLoop = true;
 
-	m_idle[(unsigned int)DIR_DRONE::SIDE] = new SpriteAnimation;
-	m_idle[(unsigned int)DIR_DRONE::SIDE]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_side.png");
-	m_idle[(unsigned int)DIR_DRONE::SIDE]->isLoop = true;
+	//m_idle[(unsigned int)DIR_DRONE::SIDE] = new SpriteAnimation;
+	//m_idle[(unsigned int)DIR_DRONE::SIDE]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_side.png");
+	//m_idle[(unsigned int)DIR_DRONE::SIDE]->isLoop = true;
 
-	m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL] = new SpriteAnimation;
-	m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_back_diagonal.png");
-	m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL]->isLoop = true;
+	//m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL] = new SpriteAnimation;
+	//m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_back_diagonal.png");
+	//m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL]->isLoop = true;
 
-	m_idle[(unsigned int)DIR_DRONE::BACK] = new SpriteAnimation;
-	m_idle[(unsigned int)DIR_DRONE::BACK]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_back.png");
-	m_idle[(unsigned int)DIR_DRONE::BACK]->isLoop = true;
+	//m_idle[(unsigned int)DIR_DRONE::BACK] = new SpriteAnimation;
+	//m_idle[(unsigned int)DIR_DRONE::BACK]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_back.png");
+	//m_idle[(unsigned int)DIR_DRONE::BACK]->isLoop = true;
 
 	m_shoot[(unsigned int)DIR_DRONE::FRONT] = new SpriteAnimation;
 	m_shoot[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_shoot_front0.png");
@@ -107,62 +107,62 @@ void DroneSpriteAnimator::Awake()
 	m_moveShoot[(unsigned int)DIR_DRONE::BACK]->interval = 0.1f;
 	m_moveShoot[(unsigned int)DIR_DRONE::BACK]->isLoop = true;
 
-	SetDefaultAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT]);
+	SetDefaultAnimation(m_idle);
 }
 
 void DroneSpriteAnimator::LateUpdate()
 {
 	SpriteAnimator::LateUpdate();
 
-	if (IsPlayingIdle())
-	{
-		if (Abs(m_angle) < 22.5f + 45 * 0)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::FRONT])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT], false, true);
-			}
+	//if (IsPlayingIdle())
+	//{
+	//	if (Abs(m_angle) < 22.5f + 45 * 0)
+	//	{
+	//		if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::FRONT])
+	//		{
+	//			PlayAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT], false, true);
+	//		}
 
-			//ResetUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 1)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL], false, true);
-			}
+	//		//ResetUVDirection();
+	//	}
+	//	else if (Abs(m_angle) < 22.5f + 45 * 1)
+	//	{
+	//		if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL])
+	//		{
+	//			PlayAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL], false, true);
+	//		}
 
-			//ChangeUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 2)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::SIDE])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::SIDE], false, true);
-			}
+	//		//ChangeUVDirection();
+	//	}
+	//	else if (Abs(m_angle) < 22.5f + 45 * 2)
+	//	{
+	//		if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::SIDE])
+	//		{
+	//			PlayAnimation(m_idle[(unsigned int)DIR_DRONE::SIDE], false, true);
+	//		}
 
-			//ChangeUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 3)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL], false, true);
-			}
+	//		//ChangeUVDirection();
+	//	}
+	//	else if (Abs(m_angle) < 22.5f + 45 * 3)
+	//	{
+	//		if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL])
+	//		{
+	//			PlayAnimation(m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL], false, true);
+	//		}
 
-			//ChangeUVDirection();
-		}
-		else
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::BACK])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_DRONE::BACK], false, true);
-			}
+	//		//ChangeUVDirection();
+	//	}
+	//	else
+	//	{
+	//		if (currentAnimation != m_idle[(unsigned int)DIR_DRONE::BACK])
+	//		{
+	//			PlayAnimation(m_idle[(unsigned int)DIR_DRONE::BACK], false, true);
+	//		}
 
-			//ResetUVDirection();
-		}
-	}
-	else if (IsPlayingMove())
+	//		//ResetUVDirection();
+	//	}
+	//}
+	if (IsPlayingMove())
 	{
 		if (Abs(m_angle) < 22.5f + 45 * 0)
 		{
@@ -215,8 +215,8 @@ void DroneSpriteAnimator::OnDestroy()
 {
 	SpriteAnimator::OnDestroy();
 
-	for (int i = 0; i < (int)DIR_DRONE::MAX; ++i)
-		SafeDelete(m_idle[i]);
+	
+		SafeDelete(m_idle);
 
 	for (int i = 0; i < (int)DIR_DRONE::MAX; ++i)
 		SafeDelete(m_shoot[i]);
@@ -251,16 +251,12 @@ void DroneSpriteAnimator::PlayIdle()
 	{
 		return;
 	}
-	PlayAnimation(m_idle[(unsigned int)DIR_DRONE::FRONT]);
+	PlayAnimation(m_idle);
 }
 
 void DroneSpriteAnimator::PlayShoot()
 {
-	if (IsPlayingShoot())
-	{
-		return;
-	}
-	PlayAnimation(m_shoot[(unsigned int)DIR_DRONE::FRONT]);
+	PlayAnimation(m_idle, true);
 }
 
 void DroneSpriteAnimator::PlayMove(DIR_DRONE edir)
@@ -292,14 +288,8 @@ void DroneSpriteAnimator::PlayMoveShoot()
 
 bool DroneSpriteAnimator::IsPlayingIdle() const
 {
-	for (auto idle : m_idle)
-	{
-		if (currentAnimation == idle)
-		{
-			return true;
-		}
-	}
-	return false;
+
+	return currentAnimation == m_idle;
 }
 
 bool DroneSpriteAnimator::IsPlayingShoot() const

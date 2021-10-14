@@ -10,6 +10,8 @@ class Web : public Monster
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(LateUpdate);
+
 	OverrideComponentFunction(OnDestroy);
 
 	virtual Collider* InitializeCollider(GameObject* colliderObj) override;
@@ -21,5 +23,7 @@ class Web : public Monster
 private:
 
 	SpiderSpriteAnimator* m_animator = nullptr;
+
+	float m_animationtime = 0;
 };
 

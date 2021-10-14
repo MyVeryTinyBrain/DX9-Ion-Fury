@@ -52,6 +52,8 @@ public:
 
 	bool IsPlayingWeb() const;
 
+	SpriteAnimation* GetWeb() const;
+
 private:
 
 	void ChangeUVDirection();

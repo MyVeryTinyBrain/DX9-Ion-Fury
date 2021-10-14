@@ -113,10 +113,10 @@ void SpiderSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->isLoop = true;
 
 	m_web = new SpriteAnimation;
-	m_web->AddTexture(L"../SharedResource/Texture/spider/Web_01.png");
-	m_web->AddTexture(L"../SharedResource/Texture/spider/Web_02.png");
-	m_web->AddTexture(L"../SharedResource/Texture/spider/Web_03.png");
-	m_web->interval = 0.1f;
+	m_web->AddTexture(L"../SharedResource/Texture/spider/Web0.png");
+	m_web->AddTexture(L"../SharedResource/Texture/spider/Web1.png");
+	m_web->AddTexture(L"../SharedResource/Texture/spider/Web2.png");
+	m_web->interval = 0.15f;
 	m_web->isLoop = true;
 
 
@@ -348,6 +348,11 @@ bool SpiderSpriteAnimator::IsPlayingDie() const
 bool SpiderSpriteAnimator::IsPlayingWeb() const
 {
 	return  currentAnimation == m_web;
+}
+
+SpriteAnimation* SpiderSpriteAnimator::GetWeb() const
+{
+	return m_web;
 }
 
 void SpiderSpriteAnimator::ChangeUVDirection()
