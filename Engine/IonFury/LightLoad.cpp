@@ -1,12 +1,24 @@
 #include "stdafx.h"
 #include "LightLoad.h"
 
+
 ImplementStaticComponent(LightLoad);
 
+std::vector<LightLoad*> LightLoad::g_vecLight;
 
 void LightLoad::Awake()
 {
 	g_instance = this;
+
+
+	//g_vecLight.push_back(this);
+}
+
+void LightLoad::OnDestroy()
+{
+	auto it = FindInContainer(g_vecLight, this);
+	if (it != g_vecLight.end())
+		g_vecLight.erase(it);
 }
 
 HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
@@ -15,6 +27,12 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 
 	if (INVALID_HANDLE_VALUE == hFile)
 		return E_FAIL;
+
+	//int vecSize = LightLoad::g_vecLight.size();
+	//for (int i = 0; i < vecSize; ++i)
+	//{
+	//	LightLoad::g_vecLight[0]->gameObject->Destroy();
+	//}
 
 	DWORD dwByte = 0;
 	DWORD dwStrByte = 0;
@@ -25,8 +43,8 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 	wchar_t* pBuff2 = nullptr;
 
 
-	//GameObject* pObj = nullptr;
-
+	GameObject* pObj = nullptr;
+	
 	Vec3 vPos = {};
 	Vec3 vScale = {};
 	Vec3 vRot = {};
@@ -34,10 +52,12 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 	Vec4 Vcolor = {};
 	float fambinentfactor = 0.f;
 	string tag = {};
+	
 
 	float _outsideAngle = 0.f;
 	float _insideAngleRatio = 0.f;
 
+	
 
 	while (true)
 	{
@@ -57,15 +77,11 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 			break;
 		}
 
-		pBuff;
-
-		int i = 0;
-
-
-
-		GameObject* pObj = CreateGameObject();
+		pObj = CreateGameObject(pBuff2);
 		pObj->name = pBuff;
 		pObj->tag = pBuff2;
+
+		
 
 		SafeDeleteArray(pBuff);
 		SafeDeleteArray(pBuff2);
@@ -100,22 +116,30 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 		}
 		//////////////////////////////////////////////////////////////////////////////
 
-		pObj->transform->position = vPos;
-		pObj->transform->eulerAngle = vRot;
+		
 
 		if (pObj->tag == L"Point")
 		{
+			pObj->transform->position = vPos;
+			pObj->transform->eulerAngle = vRot;
 			pObj->AddComponent<PointLight>();
 			PointLight* point = pObj->GetComponentInChild<PointLight>();
 
 			point->ambientFactor = fambinentfactor;
 			point->color = Vcolor;
 			point->range = frange;
-
+			
+			auto meshRendererObj = CreateGameObjectToChild(gameObject->transform);
+			auto m_LightRenderer = meshRendererObj->AddComponent<UserMeshRenderer>();
+			m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
+			m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+			meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
 		}
 
 		if (pObj->tag == L"Spot")
 		{
+			pObj->transform->position = vPos;
+			pObj->transform->eulerAngle = vRot;
 			pObj->AddComponent<SpotLight>();
 			SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
 
@@ -126,22 +150,32 @@ HRESULT LightLoad::LightObjectLoad(const wstring& wstrFilePath)
 			spot->outsideAngle = _outsideAngle;
 			spot->insideAngleRatio = _insideAngleRatio;
 
+			auto meshRendererObj = CreateGameObjectToChild(gameObject->transform);
+			auto m_LightRenderer = meshRendererObj->AddComponent<UserMeshRenderer>();
+			m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
+			m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+			meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
 		}
 
 		if (pObj->tag == L"Directional")
 		{
+			pObj->transform->position = vPos;
+			pObj->transform->eulerAngle = vRot;
 			pObj->AddComponent<DirectionalLight>();
 			DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
 			directional->ambientFactor = fambinentfactor;
 			directional->color = Vcolor;
+
+			auto meshRendererObj = CreateGameObjectToChild(gameObject->transform);
+			auto m_LightRenderer = meshRendererObj->AddComponent<UserMeshRenderer>();
+			m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
+			m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
+			meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
 		}
 
-		auto meshRendererObj = CreateGameObjectToChild(gameObject->transform);
-		auto m_LightRenderer = meshRendererObj->AddComponent<UserMeshRenderer>();
-		m_LightRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
-		m_LightRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResourced/Texture/Dev.png"));
-		meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
+		g_vecLight.push_back(pObj->GetComponent<LightLoad>());
+
 	}
 
 	CloseHandle(hFile);
