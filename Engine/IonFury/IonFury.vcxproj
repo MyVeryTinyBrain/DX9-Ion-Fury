@@ -160,6 +160,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Gunner.h" />
     <ClInclude Include="GunnerSpriteAnimator.h" />
+    <ClInclude Include="LightObject.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="PhysicsInitialize.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="FPSOrthoCamera.cpp" />
     <ClCompile Include="Gunner.cpp" />
     <ClCompile Include="GunnerSpriteAnimator.cpp" />
+    <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />

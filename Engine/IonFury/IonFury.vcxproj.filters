@@ -55,6 +55,9 @@
     <Filter Include="Player\Weapon\Revolver">
       <UniqueIdentifier>{64a52fde-c709-44b0-b3f3-cb5401ccd067}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{fb46baa7-dc20-48f7-8483-0333eb1d94b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="WeaponTypes.h">
       <Filter>Initialize</Filter>
     </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc">
@@ -233,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="RevolverAnimator.cpp">
       <Filter>Player\Weapon\Revolver</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
