@@ -1,0 +1,102 @@
+[
+	[
+		{
+			"Name" : "Trriger0_Type:Touch",
+			"PositionX" : -1.1999999284744263,
+			"PositionY" : 0.0,
+			"PositionZ" : -2.9347374439239502,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"TriggerMethod" : 0,
+			"TriggerToolAutoNum" : 3
+		},
+		{
+			"EventType" : 0,
+			"Name" : "Trriger0_Monster0",
+			"PositionX" : -2.1999998092651367,
+			"PositionY" : 0.0,
+			"PositionZ" : -2.9999990463256836,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0
+		},
+		{
+			"EventType" : 4,
+			"Name" : "Trriger0_Door1(long vertical)",
+			"PositionX" : -3.1999998092651367,
+			"PositionY" : 0.0,
+			"PositionZ" : -3.0373802185058594,
+			"RotationX" : 0.0,
+			"RotationY" : 180.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 2.4000000953674316,
+			"ScaleZ" : 1.0
+		}
+	],
+	[
+		{
+			"Name" : "Trigger1_Type:Button",
+			"PositionX" : -6.1999998092651367,
+			"PositionY" : 0.21660920977592468,
+			"PositionZ" : -4.023073673248291,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"TriggerMethod" : 1,
+			"TriggerToolAutoNum" : 3
+		},
+		{
+			"EventType" : 6,
+			"Name" : "Trigger1_Door3",
+			"PositionX" : -7.1999993324279785,
+			"PositionY" : 0.21660919487476349,
+			"PositionZ" : -4.0574135780334473,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0
+		}
+	],
+	[
+		{
+			"Name" : "Trigger2_Type:Manual",
+			"PositionX" : -8.9999990463256836,
+			"PositionY" : 0.51003837585449219,
+			"PositionZ" : -4.5577125549316406,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"TriggerMethod" : 2,
+			"TriggerToolAutoNum" : 3
+		},
+		{
+			"EventType" : 5,
+			"Name" : "Trigger2_Door2",
+			"PositionX" : -9.9869489669799805,
+			"PositionY" : 0.51003861427307129,
+			"PositionZ" : -4.5865421295166016,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0
+		}
+	]
+]

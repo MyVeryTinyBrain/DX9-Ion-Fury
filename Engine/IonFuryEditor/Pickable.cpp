@@ -209,6 +209,15 @@ void Pickable::ClearTriggerVector()
 	}
 }
 
+void Pickable::ClearMapVector()
+{
+	int Size = g_MapVec.size();
+	for (int i = 0; i < Size; ++i)
+	{
+		g_MapVec[0]->Destroy();
+	}
+}
+
 void Pickable::RemoveEventObject(int idx)
 {
 	m_EventVec[idx]->Destroy();

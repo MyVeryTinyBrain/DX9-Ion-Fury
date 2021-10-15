@@ -14,6 +14,9 @@
 #include "MainFrm.h"
 #include "IonFuryEditorView.h"
 #include "DlgTextureTool.h"
+//
+#include <fstream>
+#include <atlconv.h>
 
 // DlgObjectTool 대화 상자
 
@@ -115,6 +118,64 @@ void DlgObjectTool::Clear()
 	m_SliderControlScaleZ.SetPos(20);
 
 	UpdateData(FALSE);
+}
+
+void DlgObjectTool::SaveToJsonFormat(const Json::Value& json, string path)
+{
+	Json::StreamWriterBuilder builder;
+	string jsonFormatText = Json::writeString(builder, json);
+
+	std::ofstream out;
+	out.open(path);
+
+	out << jsonFormatText;
+
+	out.close();
+}
+
+Json::Value DlgObjectTool::LoadFromJsonFormat(string path)
+{
+	std::ifstream in;
+	in.open(path);
+
+	if (!in.is_open())
+	{
+		cout << "json read error: not exist file" << endl;
+		return Json::Value();
+	}
+
+	in.seekg(0, std::ios::end);
+	size_t size = in.tellg();
+	std::string jsonFormatText(size, ' ');
+	in.seekg(0);
+	in.read(&jsonFormatText[0], size);
+
+	in.close();
+
+	Json::Value root;
+	JSONCPP_STRING err;
+
+	Json::CharReaderBuilder charReaderBuilder;
+	const std::unique_ptr<Json::CharReader> reader(charReaderBuilder.newCharReader());
+	if (!reader->parse(jsonFormatText.c_str(), jsonFormatText.c_str() + jsonFormatText.length(), &root, &err))
+	{
+		cout << "json read error: invalid format" << endl;
+		return EXIT_FAILURE;
+	}
+
+	return root;
+}
+
+wstring DlgObjectTool::ToWString(const string& str)
+{
+	USES_CONVERSION;
+	return wstring(A2W(str.c_str()));
+}
+
+string DlgObjectTool::ToString(const wstring& wstr)
+{
+	USES_CONVERSION;
+	return string(W2A(wstr.c_str()));
 }
 
 DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
@@ -392,191 +453,120 @@ void DlgObjectTool::OnBnClickedApply()
 }
 
 void DlgObjectTool::OnBnClickedSave()
-{
+{	
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CFileDialog Dlg(FALSE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
-
-	TCHAR szFilePath[MAX_PATH];
-
-	GetCurrentDirectory(MAX_PATH, szFilePath);
-
-	PathRemoveFileSpec(szFilePath);
-
-	lstrcat(szFilePath, L"\\Data");
-
-	Dlg.m_ofn.lpstrInitialDir = szFilePath;
-
-	if (IDOK == Dlg.DoModal())
 	{
-		CString wstrFilePath = Dlg.GetPathName();
+		// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CFileDialog Dlg(FALSE, L"txt", L"MapData.txt", OFN_OVERWRITEPROMPT);
 
-		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-			FILE_ATTRIBUTE_NORMAL, nullptr);
+		TCHAR szFilePath[MAX_PATH];
 
-		if (INVALID_HANDLE_VALUE == hFile)
-			return;
+		GetCurrentDirectory(MAX_PATH, szFilePath);
 
-		DWORD dwByte = 0;
-		DWORD dwStrByte = 0;
-		DWORD dwStrByte2 = 0;
-		DWORD dwStrByte4 = 0;
-		CString tex = L"";
+		PathRemoveFileSpec(szFilePath);
 
-		auto MapObjects = Pickable::g_MapVec;
+		lstrcat(szFilePath, L"\\Data\\Map");
 
+		Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
-		for (auto& MapPick : MapObjects)
+		if (IDOK == Dlg.DoModal())
 		{
-			if (Type::Map != MapPick->GetType())
-				break;
+			CString wstrFilePath = Dlg.GetPathName();
+			Json::Value Root;
 
-			auto obj = MapPick->GetGameObject();
+			std::vector<Pickable*> MapVec = Pickable::g_MapVec;
+			for (unsigned int i = 0; i < MapVec.size(); ++i)
+			{
+				Pickable* MapObject = MapVec[i];
 
-			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
-			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
-			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
+				Json::Value MapValue;
+				MapValue["Name"] = ToString(MapObject->GetGameObject()->GetName());
+				MapValue["Tag"] = ToString(MapObject->GetGameObject()->GetTag());
+				MapValue["TexturePath"] = ToString(MapObject->GetRenderer()->GetTexture(0)->GetLocalPath());
+				MapValue["MeshType"] = (int)MapObject->GetMeshType();
+				MapValue["PositionX"] = MapObject->GetGameObject()->GetTransform()->position.x;
+				MapValue["PositionY"] = MapObject->GetGameObject()->GetTransform()->position.y;
+				MapValue["PositionZ"] = MapObject->GetGameObject()->GetTransform()->position.z;
+				MapValue["ScaleX"] = MapObject->GetGameObject()->GetTransform()->scale.x;
+				MapValue["ScaleY"] = MapObject->GetGameObject()->GetTransform()->scale.y;
+				MapValue["ScaleZ"] = MapObject->GetGameObject()->GetTransform()->scale.z;
+				MapValue["RotationX"] = MapObject->GetGameObject()->transform->eulerAngle.x;
+				MapValue["RotationY"] = MapObject->GetGameObject()->transform->eulerAngle.y;
+				MapValue["RotationZ"] = MapObject->GetGameObject()->transform->eulerAngle.z;
+				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
+				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
+				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
 
-			dwStrByte2 = sizeof(wchar_t) * (obj->tag.length() + 1);
-			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
-			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
-			
-			auto texture = MapPick->GetRenderer()->GetTexture(0);
-			tex = texture->GetLocalPath().c_str();
+				Root[i] = MapValue;
+			}
 
-			dwStrByte4 = sizeof(wchar_t) * (tex.GetLength() + 1);
-			WriteFile(hFile, &dwStrByte4, sizeof(DWORD), &dwByte, nullptr);
-			WriteFile(hFile, tex, dwStrByte4, &dwByte, nullptr);							// texture
-
-			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
-			WriteFile(hFile, &obj->transform->scale, sizeof(Vec3), &dwByte, nullptr);		// scale
-			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// angle
-
-			//////////////////////////////////////////////////////////////////////////////////////////////
-
-			UserMesh* mesh = MapPick->GetUserMesh();
-
-			Vec2 UVScale = mesh->uvScale;
-			int PickableType = (int)(MapPick->GetType());
-			int MeshType = (int)(MapPick->GetMeshType());
-			bool ColliderExistence = MapPick->GetCollisionExistence();
-
-			WriteFile(hFile, &PickableType, sizeof(int), &dwByte, nullptr);
-			WriteFile(hFile, &UVScale, sizeof(Vec2), &dwByte, nullptr);
-			WriteFile(hFile, &MeshType, sizeof(int), &dwByte, nullptr);
-			WriteFile(hFile, &ColliderExistence, sizeof(bool), &dwByte, nullptr);
+			SaveToJsonFormat(Root, ToString(wstrFilePath.GetString()));
 		}
-
-		CloseHandle(hFile);
 	}
+	return;
 }
 
 void DlgObjectTool::OnBnClickedLoad()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
-
-	TCHAR szFilePath[MAX_PATH]{};
-
-	GetCurrentDirectory(MAX_PATH, szFilePath);
-
-	PathRemoveFileSpec(szFilePath);
-
-	lstrcat(szFilePath, L"\\Data");
-
-	Dlg.m_ofn.lpstrInitialDir = szFilePath;
-
-	if (IDOK == Dlg.DoModal())
 	{
-		CString wstrFilePath = Dlg.GetPathName();
+		CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
 
-		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
-			FILE_ATTRIBUTE_NORMAL, nullptr);
+		TCHAR szFilePath[MAX_PATH]{};
 
-		if (INVALID_HANDLE_VALUE == hFile)
-			return;
-	
-		// Release
-		int vecSize = Pickable::g_MapVec.size();
-		for (int i = 0; i < vecSize; ++i)
+		GetCurrentDirectory(MAX_PATH, szFilePath);
+
+		PathRemoveFileSpec(szFilePath);
+
+		lstrcat(szFilePath, L"\\Data\\Map");
+
+		Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+		if (IDOK == Dlg.DoModal())
 		{
-			Pickable::g_MapVec[0]->gameObject->Destroy();
-		}
-		//
+			Pickable::ClearMapVector();
 
-		DWORD dwByte = 0;
-		DWORD dwStrByte = 0;
-		DWORD dwStrByte2 = 0;
-		DWORD dwStrByte4 = 0;
+			CString wstrFilePath = Dlg.GetPathName();
 
-		wchar_t* pBuff = nullptr;
-		wchar_t* pBuff2 = nullptr;
-		wchar_t* pBuff4 = nullptr;
+			Json::Value root = LoadFromJsonFormat(ToString(wstrFilePath.GetString()));
+			int RootSize = (int)root.size();
 
-		GameObject* pObj = nullptr;
-		Vec3 vPos = {};
-		Vec3 vScale = {};
-		Vec3 vRot = {};
-
-		Vec2 UVScale = {};
-		int PickableType = (int)(Type::TypeEnd);
-		int MeshType = (int)(COMBOBOX::END);
-		bool ColliderExistence = false;
-		bool warningsaway = false;			// warning문구 없애려고 반환만 받는다. 용도X
-	
-		while (true)
-		{
-			warningsaway = ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
-			pBuff = new wchar_t[dwStrByte];
-			warningsaway = ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
-
-			warningsaway = ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
-			pBuff2 = new wchar_t[dwStrByte2];
-			warningsaway = ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
-
-			warningsaway = ReadFile(hFile, &dwStrByte4, sizeof(DWORD), &dwByte, nullptr);		// texture
-			pBuff4 = new wchar_t[dwStrByte4];
-			warningsaway = ReadFile(hFile, pBuff4, dwStrByte4, &dwByte, nullptr);
-
-			if (0 == dwByte)
+			for (int i = 0; i < RootSize; ++i)
 			{
-				SafeDeleteArray(pBuff);
-				SafeDeleteArray(pBuff2);
-				SafeDeleteArray(pBuff4);
-				break;
+				//MapObj
+				Json::Value MapValue = root[i];
+
+				wstring Name = ToWString(MapValue["Name"].asString());
+				wstring Tag = ToWString(MapValue["Tag"].asString());
+				wstring TexturePath = ToWString(MapValue["TexturePath"].asString());
+				int temp = MapValue["MeshType"].asInt();
+				COMBOBOX MeshType = (COMBOBOX)temp;
+			
+				Vec3 Pos = Vec3(MapValue["PositionX"].asFloat(), MapValue["PositionY"].asFloat(), MapValue["PositionZ"].asFloat());
+				Vec3 Scale = Vec3(MapValue["ScaleX"].asFloat(), MapValue["ScaleY"].asFloat(), MapValue["ScaleZ"].asFloat());
+				Vec3 EulerAngle = Vec3(MapValue["RotationX"].asFloat(), MapValue["RotationY"].asFloat(), MapValue["RotationZ"].asFloat());
+				
+				Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
+				bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+				//==
+				GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
+				pObj->name = Name;
+
+				Pickable* pick = pObj->AddComponent<Pickable>();
+				pick->PushInVector(Type::Map);
+				pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
+
+				pObj->transform->position = Pos;
+				pObj->transform->scale = Scale;
+				pObj->transform->eulerAngle = EulerAngle;
 			}
-
-			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
-			pObj->name = pBuff;
-
-			warningsaway = ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);					// pos
-			warningsaway = ReadFile(hFile, &vScale, sizeof(Vec3), &dwByte, nullptr);				// scale
-			warningsaway = ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);					// angle
-
-			warningsaway = ReadFile(hFile, &PickableType, sizeof(int), &dwByte, nullptr);			//TYPE:: map, trigger, monster
-			warningsaway = ReadFile(hFile, &UVScale, sizeof(Vec2), &dwByte, nullptr);				//UVScale
-			warningsaway = ReadFile(hFile, &MeshType, sizeof(int), &dwByte, nullptr);				//COMBOBOX:: cube, cylinder..
-			warningsaway = ReadFile(hFile, &ColliderExistence, sizeof(bool), &dwByte, nullptr);		//colliderExistence
-
-			Pickable* pick = pObj->AddComponent<Pickable>();
-			pick->PushInVector((Type)PickableType);
-			pick->Settings(UVScale, (COMBOBOX)MeshType, pBuff4, ColliderExistence);
-
-			pObj->transform->position = vPos;
-			pObj->transform->scale = vScale;
-			pObj->transform->eulerAngle = vRot;
-
-			SafeDeleteArray(pBuff);
-			SafeDeleteArray(pBuff2);
-			SafeDeleteArray(pBuff4);
+			Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+			giz->Detach();
+			giz->enable= false;
 		}
-
-		Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-		giz->Detach();
-		giz->enable = false;
-
-		CloseHandle(hFile);
 	}
 
+	return;
 }
 
 void DlgObjectTool::OnBnClickedClear()

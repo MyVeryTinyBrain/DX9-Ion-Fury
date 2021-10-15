@@ -385,16 +385,8 @@ void DlgMonsterTool::EmptyAfterLoad()
 	SetRotationScrollToDefault(nullptr);
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	Pickable* Picked = giz->GetSelectedObject()->GetGameObject()->GetComponent<Pickable>();
-
-	if (!Picked)
-	{
-		if (Picked->GetType() != Type::Map)
-		{
-			giz->Detach();
-			giz->enable = false;
-		}
-	}
+	giz->Detach();
+	giz->enable = false;
 }
 
 Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method)
@@ -753,7 +745,7 @@ void DlgMonsterTool::OnBnClickedResetRotation()
 void DlgMonsterTool::OnBnClickedSaveButton()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CFileDialog Dlg(FALSE, L"txt", L"*", OFN_OVERWRITEPROMPT);
+	CFileDialog Dlg(FALSE, L"txt", L"TriggerEventData.txt", OFN_OVERWRITEPROMPT);
 
 	TCHAR szFilePath[MAX_PATH];
 
@@ -761,7 +753,7 @@ void DlgMonsterTool::OnBnClickedSaveButton()
 
 	PathRemoveFileSpec(szFilePath);
 
-	lstrcat(szFilePath, L"\\Data");
+	lstrcat(szFilePath, L"\\Data\\TriggerEvent");
 
 	Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
@@ -836,7 +828,7 @@ void DlgMonsterTool::OnBnClickedLoadButton()
 
 	PathRemoveFileSpec(szFilePath);
 
-	lstrcat(szFilePath, L"\\Data");
+	lstrcat(szFilePath, L"\\Data\\TriggerEvent");
 
 	Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
@@ -881,8 +873,6 @@ void DlgMonsterTool::OnBnClickedLoadButton()
 			}
 		}
 
+		EmptyAfterLoad();
 	}
-
-
-	
 }
