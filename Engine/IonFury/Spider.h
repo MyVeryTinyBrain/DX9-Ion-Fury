@@ -16,9 +16,9 @@ class Spider : public Monster
 
 	virtual Collider* InitializeCollider(GameObject* colliderObj) override;
 
-	virtual void OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force) override;
+	virtual void OnDamage(DamageParameters& params) override;
 
-	virtual void OnDead(bool& dead, MonsterDamageType damageType) override;
+	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
 private:
 

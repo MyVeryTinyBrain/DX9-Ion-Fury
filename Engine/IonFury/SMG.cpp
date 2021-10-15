@@ -321,7 +321,19 @@ void SMG::AttackOnce(int recoilAngleRange)
 			auto monster = hit.collider->rigidbody->gameObject->GetComponent<Monster>();
 			if (monster)
 			{
-				monster->TakeDamage(hit.collider, MonsterDamageType::Bullet, 2.5f, ray.direction * 10);
+				DamageParameters params;
+				params.monsterHitCollider = hit.collider;
+				params.damageType = MonsterDamageType::Bullet;
+				params.damage = 2.5f;
+				params.force = ray.direction * 10;
+				params.includeDamageDirection = true;
+				params.damageDirection = ray.direction;
+				params.includeAttackBeginPoint = true;
+				params.attackBeginPoint = ray.point;
+				params.includeMonsterHitWorldPoint = true;
+				params.monsterHitWorldPoint = hit.point;
+
+				monster->TakeDamage(params);
 			}
 		}
 	}

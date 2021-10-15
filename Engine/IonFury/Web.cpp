@@ -46,7 +46,9 @@ void Web::Update()
 		m_animator->SetDefaultAnimation(m_animator->GetWeb(), true);
 		
 		
-		m_body->isKinematic = true;
+		//m_body->isKinematic = true;
+		m_body->SetRotationLockAxis(PhysicsAxis::All, true);
+		m_body->SetTranslationLockAxis(PhysicsAxis::All, true);
 
 		Vec3 velocity = transform->forward * m_moveSpeed;
 		m_body->velocity = velocity;

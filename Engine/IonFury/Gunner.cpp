@@ -125,13 +125,13 @@ Collider* Gunner::InitializeCollider(GameObject* colliderObj)
     return m_capsuleCollider;
 }
 
-void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
+void Gunner::OnDamage(DamageParameters& params)
 {
     m_hasTargetCoord = false;
     m_attackCount = 5;
     m_breakTime = 0.35f;
 
-    switch (damageType)
+    switch (params.damageType)
     {
         case MonsterDamageType::Bullet:
         case MonsterDamageType::Explosion:
@@ -140,6 +140,13 @@ void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
         case MonsterDamageType::Zizizik:
             m_animator->PlayDamage(GunnerSpriteAnimator::DAMAGE::DAMAGE_ZIZIZIK);
             break;
+    }
+
+    if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
+    {
+        GameObject* bloodEffectObj = CreateGameObject();
+        bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
+        bloodEffectObj->AddComponent<BloodEffect>();
     }
 
     // 피격당하면 플레이어를 바라봅니다.
@@ -151,7 +158,7 @@ void Gunner::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
     transform->forward = forward;
 }
 
-void Gunner::OnDead(bool& dead, MonsterDamageType damageType)
+void Gunner::OnDead(bool& dead, DamageParameters& params)
 {
     m_hasTargetCoord = false;
     m_attackCount = 0;
@@ -161,7 +168,7 @@ void Gunner::OnDead(bool& dead, MonsterDamageType damageType)
     int dieIndex = rand() % (int)GunnerSpriteAnimator::DIE::MAX;
 
     // 만약 폭발에 의한 죽음이라면 폭발 애니메이션을 선택합니다.
-    if (damageType == MonsterDamageType::Explosion)
+    if (params.damageType == MonsterDamageType::Explosion)
     {
         dieIndex = (int)MonsterDamageType::Explosion;
     }

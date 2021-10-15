@@ -172,7 +172,19 @@ void Chaingun::Attack()
 			auto monster = hit.collider->rigidbody->gameObject->GetComponent<Monster>();
 			if (monster)
 			{
-				monster->TakeDamage(hit.collider, MonsterDamageType::Bullet, 5, ray.direction * 10);
+				DamageParameters params;
+				params.monsterHitCollider = hit.collider;
+				params.damageType = MonsterDamageType::Bullet;
+				params.damage = 5.0f;
+				params.force = ray.direction * 10;
+				params.includeDamageDirection = true;
+				params.damageDirection = ray.direction;
+				params.includeAttackBeginPoint = true;
+				params.attackBeginPoint = ray.point;
+				params.includeMonsterHitWorldPoint = true;
+				params.monsterHitWorldPoint = hit.point;
+
+				monster->TakeDamage(params);
 			}
 		}
 	}

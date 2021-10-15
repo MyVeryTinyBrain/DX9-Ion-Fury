@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "PhysicsLayers.h"
 #include "Web.h"
+#include "BloodEffect.h"
 
 void Spider::Awake()
 {
@@ -17,7 +18,7 @@ void Spider::Awake()
 
 
 	m_rendererObj->transform->scale = Vec3::one() * 3.0f;
-	m_rendererObj->transform->localPosition = Vec3(0, -0.5, 0);
+	m_rendererObj->transform->localPosition = Vec3(0, -0.75f, 0);
 
 	m_animator = m_rendererChildObj->AddComponent<SpiderSpriteAnimator>();
 
@@ -68,14 +69,23 @@ void Spider::OnDestroy()
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)
 {
+	{
+		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	}
+
+	colliderObj->transform->localScale = Vec3::one() * 1.25f;
+
 	return colliderObj->AddComponent<SphereCollider>();
 }
 
-void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
+void Spider::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
 
-	switch (damageType)
+	switch (params.damageType)
 	{
 	case MonsterDamageType::Bullet:
 		m_animator->SetDefaultAnimation(m_animator->GetDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC), true);
@@ -90,16 +100,22 @@ void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& d
 		break;
 	}
 
+	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
+	{
+		GameObject* bloodEffectObj = CreateGameObject();
+		bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
+		bloodEffectObj->AddComponent<BloodEffect>();
+	}
+
 	const Vec3& playerPos = Player::GetInstance()->transform->position;
 	const Vec3& gunnerPos = transform->position;
 	Vec3 forward = playerPos - gunnerPos;
 	forward.y = 0;
 	forward.Normalize();
 	transform->forward = forward;
-
 }
 
-void Spider::OnDead(bool& dead, MonsterDamageType damageType)
+void Spider::OnDead(bool& dead, DamageParameters& params)
 {
 	m_hasTargetCoord = false;
 	m_attackCount = 0;
@@ -107,7 +123,7 @@ void Spider::OnDead(bool& dead, MonsterDamageType damageType)
 	int dieIndex = rand() % (int)SpiderSpriteAnimator::DIE_SPIDER::MAX;
 
 
-	if (damageType == MonsterDamageType::Explosion)
+	if (params.damageType == MonsterDamageType::Explosion)
 	{
 		dieIndex = (int)MonsterDamageType::Explosion;
 	}
