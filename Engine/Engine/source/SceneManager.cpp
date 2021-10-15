@@ -68,11 +68,13 @@ bool SceneManager::TryChangeScene(Scene ** outBeforeScenes)
 			ResourceManager::GetInstance()->ReleaseUnsharedResources();
 		}
 
-		m_next->OnLoad(m_current);
-
-		SafeDeleteInline(m_current);
+		Scene* beforeScene = m_current;
 
 		m_current = m_next;
+
+		m_next->OnLoad(beforeScene);
+
+		SafeDeleteInline(beforeScene);
 
 		m_next = nullptr;
 
