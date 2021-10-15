@@ -1,0 +1,33 @@
+[
+	{
+		"AmbinentFactor" : 0.0,
+		"ColorA" : 1.0,
+		"ColorB" : 1.0,
+		"ColorG" : 1.0,
+		"ColorR" : 1.0,
+		"EulerAngleX" : 0.0,
+		"EulerAngleY" : 0.0,
+		"EulerAngleZ" : 0.0,
+		"Name" : "Directional",
+		"PosX" : 0.0,
+		"PosY" : 0.0,
+		"PosZ" : -3.0,
+		"Tag" : "Directional"
+	},
+	{
+		"AmbinentFactor" : 0.0,
+		"ColorA" : 1.0,
+		"ColorB" : 1.0,
+		"ColorG" : 1.0,
+		"ColorR" : 1.0,
+		"EulerAngleX" : 0.0,
+		"EulerAngleY" : 0.0,
+		"EulerAngleZ" : 0.0,
+		"Name" : "wee",
+		"PosX" : -3.0682001113891602,
+		"PosY" : 0.0,
+		"PosZ" : -5.5303201675415039,
+		"Range" : 30.0,
+		"Tag" : "Point"
+	}
+]
