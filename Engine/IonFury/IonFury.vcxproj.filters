@@ -115,6 +115,9 @@
     <ClCompile Include="ChaingunGunpartAnimator.cpp">
       <Filter>Player\Weapon\Chaingun</Filter>
     </ClCompile>
+    <ClCompile Include="BloodEffect.cpp">
+      <Filter>Effect\Blood</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WeaponTypes.h">
@@ -252,6 +255,9 @@
     <ClInclude Include="ChaingunAmmopartAnimator.h">
       <Filter>Player\Weapon\Chaingun</Filter>
     </ClInclude>
+    <ClInclude Include="BloodEffect.h">
+      <Filter>Effect\Blood</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -333,6 +339,9 @@
     </Filter>
     <Filter Include="Player\Weapon\Chaingun">
       <UniqueIdentifier>{dffa52ae-fbdf-4625-b2b4-8e608ba4ba7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Blood">
+      <UniqueIdentifier>{1f27907a-e02c-483e-b085-6fb7ed394e91}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

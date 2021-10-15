@@ -54,6 +54,6 @@ private:
 
 	int m_angleRange = 10;
 
-	int m_ammo = 200;
+	int m_ammo = 999;
 };
 

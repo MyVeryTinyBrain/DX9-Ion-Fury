@@ -11,6 +11,7 @@
 #include "BulletProof.h"
 #include "RenderLayers.h"
 #include "OverlayRenderOrders.h"
+#include "BloodEffect.h"
 
 void Revolver::Awake()
 {

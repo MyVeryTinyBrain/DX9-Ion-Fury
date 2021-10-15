@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BillboardEffect.h" />
+    <ClInclude Include="BloodEffect.h" />
     <ClInclude Include="BulletProof.h" />
     <ClInclude Include="BulletTrail.h" />
     <ClInclude Include="Chaingun.h" />
@@ -199,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BillboardEffect.cpp" />
+    <ClCompile Include="BloodEffect.cpp" />
     <ClCompile Include="BulletProof.cpp" />
     <ClCompile Include="BulletTrail.cpp" />
     <ClCompile Include="Chaingun.cpp" />
