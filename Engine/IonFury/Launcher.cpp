@@ -70,6 +70,10 @@ void Launcher::OnChanged()
 	m_animator->PlayIdle();
 }
 
+void Launcher::OnPutIn()
+{
+}
+
 void Launcher::OnAttackInput(InputType inputType)
 {
 	if (inputType == InputType::KeyPressing && 
@@ -91,16 +95,36 @@ void Launcher::OnAttackInput(InputType inputType)
 
 void Launcher::OnSubInput(InputType inputType)
 {
-	if (inputType == InputType::KeyPressing && 
-		m_animator->IsPlayingIdle())
+	if (inputType == InputType::KeyPressing)
 	{
+		bool isIdle = m_animator->IsPlayingIdle();
+		bool isEnfOfPullPump = m_animator->IsPlayingPullPump() && m_animator->GetPercent() > 0.8f;
+		bool isHalfReloading = m_animator->IsPlayingReload() && m_animator->GetPercent() < 0.4f;
+
+		if (!isIdle && !isEnfOfPullPump && !isHalfReloading)
+		{
+			return;
+		}
+
+		float elapsed = m_animator->GetElapsedTime();
+
 		if (m_mode == Mode::Shotgun)
 		{
 			m_animator->PlayChangeToYellow();
+
+			if (isHalfReloading)
+			{
+				m_animator->SetElapsedTime(elapsed);
+			}
 		}
 		else
 		{
 			m_animator->PlayChangeToRed();
+
+			if (isHalfReloading)
+			{
+				m_animator->SetElapsedTime(elapsed);
+			}
 		}
 	}
 }
@@ -217,13 +241,12 @@ void Launcher::LauncherShootOnce()
 void Launcher::MakeFireEffect()
 {
 	auto effectObj = CreateGameObjectToChild(m_rightHandObj->transform);
-	effectObj->transform->localPosition = Vec2(0.28f, -0.25f);
+	effectObj->transform->localPosition = Vec2(0.23f, -0.2f);
 	effectObj->transform->localEulerAngle = Vec3(0, 0, -10);
-	effectObj->transform->localScale = Vec2(0.2f, 0.2f);
+	effectObj->transform->localScale = Vec2(0.25f, 0.25f);
 	auto effect = effectObj->AddComponent<OrthoEffect>();
-	effect->SetSpeed(1.0f);
-	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire0.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire0.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire1.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire2.png");
+	effect->SetInterval(0.03f);
 }

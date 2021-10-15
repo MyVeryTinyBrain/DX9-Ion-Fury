@@ -4,22 +4,17 @@
 
 class SMG : public Weapon
 {
-	struct Ammo
-	{
-		int totalAmmo = 100;
-		int loadedAmmo = 30;
-		int ammoLoadMax = 30;
-	};
-
-private:
-
 	OverrideComponentFunction(Awake);
+
+	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(LateUpdate);
 
 	OverrideComponentFunction(OnDestroy);
 
 	virtual void OnChanged() override;
+
+	virtual void OnPutIn() override;
 
 	virtual void OnAttackInput(InputType inputType) override;
 
@@ -47,11 +42,17 @@ private:
 
 	void MakeLeftFireEffect();
 
+	void DebugAmmos();
+
 private:
 
-	Ammo m_leftAmmo;
+	int m_totalAmmo = 300;
 
-	Ammo m_rightAmmo;
+	int m_ammoLoadMax = 30;
+
+	int m_leftAmmo = 30;
+
+	int m_rightAmmo = 30;
 
 	GameObject* m_hansParentObj = nullptr;
 

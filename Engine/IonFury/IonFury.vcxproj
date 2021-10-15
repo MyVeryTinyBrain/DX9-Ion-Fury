@@ -154,6 +154,9 @@
     <ClInclude Include="BillboardEffect.h" />
     <ClInclude Include="BulletProof.h" />
     <ClInclude Include="BulletTrail.h" />
+    <ClInclude Include="Chaingun.h" />
+    <ClInclude Include="ChaingunAmmopartAnimator.h" />
+    <ClInclude Include="ChaingunGunpartAnimator.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Drone.h" />
     <ClInclude Include="DroneSpriteAnimator.h" />
@@ -198,6 +201,9 @@
     <ClCompile Include="BillboardEffect.cpp" />
     <ClCompile Include="BulletProof.cpp" />
     <ClCompile Include="BulletTrail.cpp" />
+    <ClCompile Include="Chaingun.cpp" />
+    <ClCompile Include="ChaingunAmmopartAnimator.cpp" />
+    <ClCompile Include="ChaingunGunpartAnimator.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Drone.cpp" />
     <ClCompile Include="DroneSpriteAnimator.cpp" />

@@ -65,6 +65,7 @@ void SMGAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
 	if (current == m_reload)
 	{
+		PlayIdle();
 		OnReloaded();
 	}
 

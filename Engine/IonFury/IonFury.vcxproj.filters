@@ -106,6 +106,15 @@
     <ClCompile Include="SMGAnimator.cpp">
       <Filter>Player\Weapon\SMG</Filter>
     </ClCompile>
+    <ClCompile Include="Chaingun.cpp">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaingunAmmopartAnimator.cpp">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaingunGunpartAnimator.cpp">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WeaponTypes.h">
@@ -234,6 +243,15 @@
     <ClInclude Include="SMGAnimator.h">
       <Filter>Player\Weapon\SMG</Filter>
     </ClInclude>
+    <ClInclude Include="ChaingunGunpartAnimator.h">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClInclude>
+    <ClInclude Include="Chaingun.h">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaingunAmmopartAnimator.h">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -312,6 +330,9 @@
     </Filter>
     <Filter Include="Player\Weapon\SMG">
       <UniqueIdentifier>{2ca8e1c0-d141-445a-9f30-c889328996a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon\Chaingun">
+      <UniqueIdentifier>{dffa52ae-fbdf-4625-b2b4-8e608ba4ba7d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

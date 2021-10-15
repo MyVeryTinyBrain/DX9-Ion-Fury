@@ -60,7 +60,7 @@ void LauncherAnimator::Awake()
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red17.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red18.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red19.png");
-	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
+	//m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red23.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red24.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red25.png");
@@ -69,7 +69,7 @@ void LauncherAnimator::Awake()
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red25.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red24.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red23.png");
-	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
+	//m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red19.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red18.png");
 	m_reload[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red17.png");
@@ -90,7 +90,7 @@ void LauncherAnimator::Awake()
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow17.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow18.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow19.png");
-	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
+	//m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow23.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow24.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow25.png");
@@ -99,7 +99,7 @@ void LauncherAnimator::Awake()
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow25.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow24.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow23.png");
-	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
+	//m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow19.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow18.png");
 	m_reload[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow17.png");
@@ -120,7 +120,7 @@ void LauncherAnimator::Awake()
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow17.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow18.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow19.png");
-	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
+	//m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow23.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow24.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow25.png");
@@ -129,7 +129,7 @@ void LauncherAnimator::Awake()
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red25.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red24.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red23.png");
-	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
+	//m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red19.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red18.png");
 	m_SkinChange[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red17.png");
@@ -150,7 +150,7 @@ void LauncherAnimator::Awake()
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red17.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red18.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red19.png");
-	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
+	//m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red22.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red23.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red24.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red25.png");
@@ -159,7 +159,7 @@ void LauncherAnimator::Awake()
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow25.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow24.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow23.png");
-	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
+	//m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow22.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow19.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow18.png");
 	m_SkinChange[(int)Skin::Yellow]->AddTexture(L"../SharedResource/Texture/launcher_yellow/launcher_yellow17.png");
@@ -297,6 +297,19 @@ bool LauncherAnimator::IsPlayingShoot() const
 	for (int i = 0; i < (int)Skin::Max; ++i)
 	{
 		if (currentAnimation == m_shoot[i])
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool LauncherAnimator::IsPlayingPullPump() const
+{
+	for (int i = 0; i < (int)Skin::Max; ++i)
+	{
+		if (currentAnimation == m_pullPump[i])
 		{
 			return true;
 		}

@@ -24,6 +24,8 @@ class Launcher : public Weapon
 
 	virtual void OnChanged() override;
 
+	virtual void OnPutIn() override;
+
 	virtual void OnAttackInput(InputType inputType) override;
 
 	virtual void OnSubInput(InputType inputType) override;

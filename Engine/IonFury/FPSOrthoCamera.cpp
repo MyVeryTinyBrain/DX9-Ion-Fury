@@ -5,6 +5,7 @@
 #include "Revolver.h"
 #include "Launcher.h"
 #include "SMG.h"
+#include "Chaingun.h"
 
 void FPSOrthoCamera::Awake()
 {
@@ -66,6 +67,8 @@ Transform* FPSOrthoCamera::GetForwardTransform() const
 
 void FPSOrthoCamera::MoveHandsChildObject(const Vec3& deltaAngle)
 {
+	// 회전한 각도 차이만큼 손을 이동시킵니다.
+
 	const float clampRange = 0.5f;
 	Vec3 clampedDeltaAngle = deltaAngle * (1.0f / 360.0f);
 	clampedDeltaAngle.x = Clamp(clampedDeltaAngle.x, -clampRange, +clampRange);
@@ -73,7 +76,7 @@ void FPSOrthoCamera::MoveHandsChildObject(const Vec3& deltaAngle)
 
 	Vec2 localPosition = m_handsChildObject->transform->localPosition + Vec2(-clampedDeltaAngle.y, clampedDeltaAngle.x);
 	localPosition.x = Clamp(localPosition.x, -0.5f, +0.5f);
-	localPosition.y = Clamp(localPosition.y, -0.5f, +0.2f);
+	localPosition.y = Clamp(localPosition.y, -0.5f, +0.1f);
 	m_handsChildObject->transform->localPosition = localPosition;
 }
 
@@ -99,9 +102,14 @@ void FPSOrthoCamera::SetActiveWeapon(int weaponIndex)
 		weaponIndex = 0;
 	}
 
+	m_weapons[weaponIndex]->OnPutIn();
+
 	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
 	{
 		m_weaponObjects[i]->activeSelf = false;
+		m_weapons[i]->OnAttackInput(Weapon::InputType::Nothing);
+		m_weapons[i]->OnSubInput(Weapon::InputType::Nothing);
+		m_weapons[i]->OnReloadInput(Weapon::InputType::Nothing);
 	}
 
 	m_weaponObjects[weaponIndex]->activeSelf = true;
@@ -120,6 +128,9 @@ void FPSOrthoCamera::SetupWeapons()
 
 	m_weaponObjects[(unsigned int)WeaponTypes::SMG] = CreateGameObjectToChild(m_handsChildObject->transform);
 	m_weapons[(unsigned int)WeaponTypes::SMG] = m_weaponObjects[(unsigned int)WeaponTypes::SMG]->AddComponent<SMG>();
+
+	m_weaponObjects[(unsigned int)WeaponTypes::Chaingun] = CreateGameObjectToChild(m_handsChildObject->transform);
+	m_weapons[(unsigned int)WeaponTypes::Chaingun] = m_weaponObjects[(unsigned int)WeaponTypes::Chaingun]->AddComponent<Chaingun>();
 
 	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
 	{
@@ -213,6 +224,7 @@ void FPSOrthoCamera::MoveHandsObject()
 	}
 	else
 	{
+		// 걷지 않을 때 손 위치 변화를 우너점으로 부드럽게 이동시킵니다.
 		m_handsObject->transform->localPosition = Vec2::Lerp(m_handsObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 20.0f);
 		m_elapsed = 0;
 	}
@@ -220,7 +232,8 @@ void FPSOrthoCamera::MoveHandsObject()
 
 void FPSOrthoCamera::RepositionHandsChildObject()
 {
-	m_handsChildObject->transform->localPosition = Vec2::Lerp(m_handsChildObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 20.0f);
+	// 카메라 회전에 의한 손 위치 변화를 원점으로 부드럽게 이동시킵니다.
+	m_handsChildObject->transform->localPosition = Vec2::Lerp(m_handsChildObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 10.0f);
 }
 
 void FPSOrthoCamera::ChangeWeapon()

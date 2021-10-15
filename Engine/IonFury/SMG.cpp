@@ -13,6 +13,8 @@
 
 void SMG::Awake()
 {
+	Weapon::Awake();
+
 	// 손 부모 생성
 	m_hansParentObj = CreateGameObjectToChild(transform);
 	m_hansParentObj->transform->localPosition = Vec2(0, -0.15f);
@@ -54,24 +56,55 @@ void SMG::Awake()
 	m_leftHandObj->activeSelf = false;
 }
 
+void SMG::Update()
+{
+	Weapon::Update();
+
+	if (!m_leftHandObj->activeInTree &&
+		m_rightAmmo == 0)
+	{
+		TryReload();
+	}
+
+	if (m_leftHandObj->activeInTree &&
+		m_leftAmmo == 0 && 
+		m_rightAmmo == 0)
+	{
+		TryReload();
+	}
+}
+
 void SMG::LateUpdate()
 {
+	Weapon::LateUpdate();
+
 	if (m_leftHandAnimator->IsPlayingPutin())
 	{
 		m_leftHandChild->transform->localPosition = Vec2::Lerp(m_leftHandChild->transform->localPosition, Vec2(0, -1), Time::DeltaTime() * 5.0f);
 	}
-	else if (m_leftHandAnimator->IsPlayingPullout())
+	else if (m_leftHandObj->activeInTree && m_rightHandAnimator->IsPlayingReload())
 	{
-		m_leftHandChild->transform->localPosition = Vec2::Lerp(m_leftHandChild->transform->localPosition, Vec2(0, 0), Time::DeltaTime() * 25.0f);
+		m_leftHandChild->transform->localPosition = Vec2::Lerp(m_leftHandChild->transform->localPosition, Vec2(0, -1), Time::DeltaTime() * 5.0f);
 	}
 	else
 	{
-		m_leftHandChild->transform->localPosition = Vec2::zero();
+		m_leftHandChild->transform->localPosition = Vec2::Lerp(m_leftHandChild->transform->localPosition, Vec2(0, 0), Time::DeltaTime() * 25.0f);
+	}
+
+	if (m_leftHandAnimator->IsPlayingReload())
+	{
+		m_rightHandObj->transform->localPosition = Vec2::Lerp(m_rightHandObj->transform->localPosition, Vec2(0, -1), Time::DeltaTime() * 5.0f);
+	}
+	else
+	{
+		m_rightHandObj->transform->localPosition = Vec2::Lerp(m_rightHandObj->transform->localPosition, Vec2(0, 0), Time::DeltaTime() * 25.0f);
 	}
 }
 
 void SMG::OnDestroy()
 {
+	Weapon::OnDestroy();
+
 	m_leftHandQuad->ReleaseUnmanaged();
 }
 
@@ -81,11 +114,16 @@ void SMG::OnChanged()
 	m_leftHandAnimator->PlayIdle();
 }
 
+void SMG::OnPutIn()
+{
+}
+
 void SMG::OnAttackInput(InputType inputType)
 {
 	if (inputType == InputType::KeyPressing)
 	{
-		if (!m_leftHandAnimator->IsPlayingIdle())
+		if (m_leftHandObj->activeInTree && 
+			!m_leftHandAnimator->IsPlayingIdle())
 		{
 			return;
 		}
@@ -94,33 +132,57 @@ void SMG::OnAttackInput(InputType inputType)
 			return;
 		}
 
-		if (m_rightAmmo.loadedAmmo <= 0)
+		if (m_rightAmmo <= 0 &&
+			m_leftHandObj->activeInTree &&
+			m_leftAmmo <= 0)
 		{
 			return;
 		}
-		if (m_leftHandObj->activeInTree &&
-			m_leftAmmo.loadedAmmo <= 0)
+
+		if (m_rightAmmo <= 0 &&
+			!m_leftHandObj->activeInTree)
 		{
 			return;
 		}
 
 		float recoilFactor = 1.0f;
 
-		if (m_leftHandObj->activeInTree)
+		if (m_leftHandObj->activeInTree &&
+			m_leftAmmo > 0 &&
+			m_rightAmmo > 0)
+		{
+			recoilFactor = 1.80f;
+		}
+
+		if (m_leftHandObj->activeInTree &&
+			m_leftAmmo > 0)
 		{
 			m_leftHandAnimator->PlayFire();
 
-			recoilFactor = 1.80f;
-
 			MakeLeftFireEffect();
 
-			AttackOnce(4);
+			int angleRange = 0;
+
+			if (m_rightAmmo > 0)
+			{
+				angleRange = 4;
+			}
+
+			AttackOnce(angleRange);
+
+			--m_leftAmmo;
 		}
 
-		m_rightHandAnimator->PlayFire();
-		MakeRightFireEffect();
+		if(m_rightAmmo > 0)
+		{
+			m_rightHandAnimator->PlayFire();
 
-		AttackOnce(0);
+			MakeRightFireEffect();
+
+			AttackOnce(0);
+
+			--m_rightAmmo;
+		}
 
 		float randomAngle = float(rand() % 140 - 70) + 90.0f;
 		Player::GetInstance()->controller->fpsCamera->MakeRecoil(Vec2::Direction(randomAngle) * 0.75f * recoilFactor, 0.3f, 6.0f);
@@ -153,6 +215,10 @@ void SMG::OnSubInput(InputType inputType)
 
 void SMG::OnReloadInput(InputType inputType)
 {
+	if (inputType == InputType::KeyPressing)
+	{
+		TryReload();
+	}
 }
 
 void SMG::OnPlayedLeftPutin()
@@ -169,25 +235,55 @@ void SMG::OnPlayLeftPullout()
 
 void SMG::OnRightReloaded()
 {
+	int emptyAmmos = (int)Abs(float(m_ammoLoadMax - m_rightAmmo));
+	int reloadableAmmos = (int)Clamp(emptyAmmos, 0, float(m_totalAmmo));
+	m_rightAmmo += reloadableAmmos;
+	m_totalAmmo -= reloadableAmmos;
+
+	TryReload();
 }
 
 void SMG::OnLeftReloaded()
 {
+	int emptyAmmos = (int)Abs(float(m_ammoLoadMax - m_leftAmmo));
+	int reloadableAmmos = (int)Clamp(emptyAmmos, 0, float(m_totalAmmo));
+	m_leftAmmo += reloadableAmmos;
+	m_totalAmmo -= reloadableAmmos;
+
+	TryReload();
 }
 
 void SMG::TryReload()
 {
+	if (!m_rightHandAnimator->IsPlayingIdle())
+	{
+		return;
+	}
+
+	if (m_leftHandObj->activeInTree &&
+		!m_leftHandAnimator->IsPlayingIdle())
+	{
+		return;
+	}
+
+	if (m_totalAmmo <= 0)
+	{
+		return;
+	}
+
 	if (m_rightHandAnimator->IsPlayingIdle() &&
-		m_rightAmmo.loadedAmmo <= 0)
+		m_rightAmmo < m_ammoLoadMax)
 	{
 		m_rightHandAnimator->PlayReload();
+		return;
 	}
 
 	if (m_leftHandObj->activeInTree &&
 		m_leftHandAnimator->IsPlayingIdle() &&
-		m_leftAmmo.loadedAmmo <= 0)
+		m_leftAmmo < m_ammoLoadMax)
 	{
 		m_leftHandAnimator->PlayReload();
+		return;
 	}
 }
 
@@ -205,10 +301,10 @@ void SMG::AttackOnce(int recoilAngleRange)
 	{
 		randomXAngle = float(rand() % 2);
 		randomYAngle = float(rand() % 2);
-		if (randomXAngle == 1) randomXAngle = -recoilAngleRange;
-		if (randomXAngle == 0) randomXAngle = +recoilAngleRange;
-		if (randomYAngle == 1) randomYAngle = -recoilAngleRange;
-		if (randomYAngle == 0) randomYAngle = +recoilAngleRange;
+		if (randomXAngle == 1) randomXAngle = -float(recoilAngleRange);
+		if (randomXAngle == 0) randomXAngle = +float(recoilAngleRange);
+		if (randomYAngle == 1) randomYAngle = -float(recoilAngleRange);
+		if (randomYAngle == 0) randomYAngle = +float(recoilAngleRange);
 	}
 	ray.direction = Player::GetInstance()->perspectiveCamera->transform->rotation * Quat::FromEuler(randomXAngle, randomYAngle, 0) * Vec3::forawrd();
 
@@ -236,6 +332,7 @@ void SMG::MakeRightFireEffect()
 	auto effectObj = CreateGameObjectToChild(m_rightHandObj->transform);
 	effectObj->transform->localPosition = Vec2(0.225f, -0.06f);
 	effectObj->transform->localScale = Vec2(0.4f, 0.4f);
+	effectObj->transform->localEulerAngle = Vec3(0, 0, float(rand() % 60 - 30));
 	auto effect = effectObj->AddComponent<OrthoEffect>();
 	effect->AddTexture(L"../SharedResource/Texture/smg/effect_right0.png");
 	effect->AddTexture(L"../SharedResource/Texture/smg/effect_right1.png");
@@ -248,9 +345,17 @@ void SMG::MakeLeftFireEffect()
 	auto effectObj = CreateGameObjectToChild(m_leftHandObj->transform);
 	effectObj->transform->localPosition = Vec2(-0.225f, -0.06f);
 	effectObj->transform->localScale = Vec2(0.4f, 0.4f);
+	effectObj->transform->localEulerAngle = Vec3(0, 0, float(rand() % 60 - 30));
 	auto effect = effectObj->AddComponent<OrthoEffect>();
 	effect->AddTexture(L"../SharedResource/Texture/smg/effect_left0.png");
 	effect->AddTexture(L"../SharedResource/Texture/smg/effect_left1.png");
 	effect->AddTexture(L"../SharedResource/Texture/smg/effect_left2.png");
 	effect->SetInterval(0.02f);
+}
+
+void SMG::DebugAmmos()
+{
+	char buffer[256];
+	sprintf_s(buffer, "left(%d), right(%d), total(%d)", m_leftAmmo, m_rightAmmo, m_totalAmmo);
+	cout << buffer << endl;
 }

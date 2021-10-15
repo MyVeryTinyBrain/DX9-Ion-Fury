@@ -78,6 +78,8 @@ void Revolver::Update()
 
 void Revolver::OnDestroy()
 {
+	Weapon::OnDestroy();
+
 	m_animator->OnReloaded -= Function<void()>(this, &Revolver::OnReloaded);
 }
 
@@ -106,6 +108,10 @@ void Revolver::OnChanged()
 	m_leftHandLocalPositionTarget = m_leftHandHideLocalPosition;
 
 	m_leftHandObj->activeSelf = true;
+}
+
+void Revolver::OnPutIn()
+{
 }
 
 void Revolver::OnAttackInput(InputType inputType)
@@ -212,6 +218,7 @@ void Revolver::MakeFireEffect()
 	auto effectObj = CreateGameObjectToChild(m_rightHandObj->transform);
 	effectObj->transform->localPosition = Vec2(0.1f, 0.05f);
 	effectObj->transform->localScale = Vec2::one() * 0.5f;
+	effectObj->transform->localEulerAngle = Vec3(0, 0, float(rand() % 60 - 30));
 	auto effect = effectObj->AddComponent<OrthoEffect>();
 	effect->SetSpeed(1.5f);
 	effect->AddTexture(L"../SharedResource/Texture/revolver/revolver_effect0.png");
