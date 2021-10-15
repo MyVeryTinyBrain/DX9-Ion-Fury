@@ -4,7 +4,7 @@
 
 class SpiderSpriteAnimator;
 
-class Web : public Monster
+class Web : public Component
 {
 	OverrideComponentFunction(Awake);
 
@@ -14,16 +14,21 @@ class Web : public Monster
 
 	OverrideComponentFunction(OnDestroy);
 
-	virtual Collider* InitializeCollider(GameObject* colliderObj) override;
-
-	virtual void OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force) override;
-
-	virtual void OnDead(bool& dead, MonsterDamageType damageType) override;
 
 private:
 
 	SpiderSpriteAnimator* m_animator = nullptr;
 
+	Rigidbody* m_body = nullptr;
+
+	GameObject* m_rendererObj = nullptr;
+
 	float m_animationtime = 0;
+
+	float m_moveSpeed = 0.f;
+
+	QuadUserMesh* m_quad = nullptr;
+
+	Material* m_material = nullptr;
 };
 

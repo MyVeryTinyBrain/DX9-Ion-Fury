@@ -36,6 +36,10 @@ public:
 
 	void PlayMoveShoot();
 
+	void PlayExplosion();
+
+	void PlaySmoke();
+
 	bool IsPlayingIdle() const;
 
 	bool IsPlayingShoot() const;
@@ -44,11 +48,19 @@ public:
 
 	bool IsPlayingMoveShoot() const;
 
+	bool IsPlayingExplosion() const;
+
+	bool IsPlayingSmoke() const;
+
 	SpriteAnimation* GetIdle() const;
 
 	SpriteAnimation* GetMove() const;
 
 	SpriteAnimation* GetShoot() const;
+	
+	SpriteAnimation* GetExplosion() const;
+
+	SpriteAnimation* GetSmoke() const;
 
 private:
 
@@ -65,6 +77,10 @@ private:
 	SpriteAnimation* m_move[(unsigned int)DIR_DRONE::MAX];
 
 	SpriteAnimation* m_moveShoot[(unsigned int)DIR_DRONE::MAX];
+
+	SpriteAnimation* m_explosion;
+
+	SpriteAnimation* m_smoke;
 
 	float m_angle = 0.f;
 };

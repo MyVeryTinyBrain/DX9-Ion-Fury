@@ -11,22 +11,6 @@ void DroneSpriteAnimator::Awake()
 	m_idle->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_front.png");
 	m_idle->isLoop = true;
 
-	//m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL] = new SpriteAnimation;
-	//m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_front_diagonal.png");
-	//m_idle[(unsigned int)DIR_DRONE::FRONT_DIAGONAL]->isLoop = true;
-
-	//m_idle[(unsigned int)DIR_DRONE::SIDE] = new SpriteAnimation;
-	//m_idle[(unsigned int)DIR_DRONE::SIDE]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_side.png");
-	//m_idle[(unsigned int)DIR_DRONE::SIDE]->isLoop = true;
-
-	//m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL] = new SpriteAnimation;
-	//m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_back_diagonal.png");
-	//m_idle[(unsigned int)DIR_DRONE::BACK_DIAGONAL]->isLoop = true;
-
-	//m_idle[(unsigned int)DIR_DRONE::BACK] = new SpriteAnimation;
-	//m_idle[(unsigned int)DIR_DRONE::BACK]->AddTexture(L"../SharedResource/Texture/Drone/Drone_idle_back.png");
-	//m_idle[(unsigned int)DIR_DRONE::BACK]->isLoop = true;
-
 	m_shoot[(unsigned int)DIR_DRONE::FRONT] = new SpriteAnimation;
 	m_shoot[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_shoot_front0.png");
 	m_shoot[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_shoot_front1.png");
@@ -100,6 +84,39 @@ void DroneSpriteAnimator::Awake()
 	m_moveShoot[(unsigned int)DIR_DRONE::BACK]->AddTexture(L"../SharedResource/Texture/Drone/Drone_move_shoot_back1.png");
 	m_moveShoot[(unsigned int)DIR_DRONE::BACK]->interval = 0.1f;
 	
+	m_explosion = new SpriteAnimation;
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/0.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/1.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/2.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/3.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/4.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/5.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/6.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/7.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/8.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/9.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/10.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/11.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/12.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/13.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/14.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/15.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/16.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/17.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/18.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/19.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/20.png");
+	m_explosion->interval = 0.1f;
+	m_explosion->isLoop = true;
+
+	m_smoke = new SpriteAnimation;
+	m_smoke->AddTexture(L"../SharedResource/Texture/dronesmoke/0.png");
+	m_smoke->AddTexture(L"../SharedResource/Texture/dronesmoke/1.png");
+	m_smoke->AddTexture(L"../SharedResource/Texture/dronesmoke/2.png");
+	m_smoke->AddTexture(L"../SharedResource/Texture/dronesmoke/3.png");
+	m_smoke->interval = 0.3f;
+	m_smoke->isLoop = true;
+
 
 	SetDefaultAnimation(m_idle);
 }
@@ -173,6 +190,10 @@ void DroneSpriteAnimator::OnDestroy()
 
 	for (int i = 0; i < (int)DIR_DRONE::MAX; ++i)
 		SafeDelete(m_moveShoot[i]);
+
+	SafeDelete(m_explosion);
+
+	SafeDelete(m_smoke);
 }
 
 void DroneSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
@@ -233,6 +254,16 @@ void DroneSpriteAnimator::PlayMoveShoot()
 	PlayAnimation(m_moveShoot[(unsigned int)DIR_DRONE::FRONT]);
 }
 
+void DroneSpriteAnimator::PlayExplosion()
+{
+	PlayAnimation(m_explosion, true);
+}
+
+void DroneSpriteAnimator::PlaySmoke()
+{
+	PlayAnimation(m_smoke, true);
+}
+
 bool DroneSpriteAnimator::IsPlayingIdle() const
 {
 
@@ -275,6 +306,16 @@ bool DroneSpriteAnimator::IsPlayingMoveShoot() const
 	return false;
 }
 
+bool DroneSpriteAnimator::IsPlayingExplosion() const
+{
+	return currentAnimation == m_explosion;
+}
+
+bool DroneSpriteAnimator::IsPlayingSmoke() const
+{
+	return currentAnimation == m_smoke;
+}
+
 SpriteAnimation* DroneSpriteAnimator::GetIdle() const
 {
 	return m_idle;
@@ -288,6 +329,16 @@ SpriteAnimation* DroneSpriteAnimator::GetMove() const
 SpriteAnimation* DroneSpriteAnimator::GetShoot() const
 {
 	return m_shoot[(unsigned int)DIR_DRONE::FRONT];
+}
+
+SpriteAnimation* DroneSpriteAnimator::GetExplosion() const
+{
+	return m_explosion;
+}
+
+SpriteAnimation* DroneSpriteAnimator::GetSmoke() const
+{
+	return m_smoke;
 }
 
 void DroneSpriteAnimator::ChangeUVDirection()

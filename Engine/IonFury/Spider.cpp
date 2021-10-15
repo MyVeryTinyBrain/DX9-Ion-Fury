@@ -31,7 +31,7 @@ void Spider::FixedUpdate()
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
-	
+
 	JumpCheck();
 
 
@@ -47,11 +47,18 @@ void Spider::Update()
 {
 	Monster::Update();
 
-	
+
 	Jump();
 
 	Attack();
 
+	m_PatternTime += Time::DeltaTime();
+
+	if (m_PatternTime > 3.f)
+	{
+		jumpingtype = (JumpType)(rand() % unsigned int(JumpType::MAX));
+		m_PatternTime = 0.f;
+	}
 }
 
 void Spider::OnDestroy()
@@ -67,8 +74,6 @@ Collider* Spider::InitializeCollider(GameObject* colliderObj)
 void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
 {
 	m_hasTargetCoord = false;
-	m_attackCount = 5;
-	m_breakTime = 0.35f;
 
 	switch (damageType)
 	{
@@ -98,8 +103,7 @@ void Spider::OnDead(bool& dead, MonsterDamageType damageType)
 {
 	m_hasTargetCoord = false;
 	m_attackCount = 0;
-	m_breakTime = FLT_MAX;
-
+	
 	int dieIndex = rand() % (int)SpiderSpriteAnimator::DIE_SPIDER::MAX;
 
 
@@ -181,7 +185,7 @@ void Spider::Attack()
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
-		
+
 		// 거미줄 
 		auto obj = CreateGameObject();
 		obj->transform->position = transform->position + transform->forward;// *2.f;
@@ -208,7 +212,15 @@ void Spider::JumpCheck()
 
 	if (m_jumptime > 3.f)
 	{
-		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) , PhysicsQueryType::All, m_body);
+		switch (jumpingtype)
+		{
+		case Spider::JumpType::BASIC:
+			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
+			break;
+		case Spider::JumpType::WEB:
+			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
+			break;
+		}
 		m_jumptime = 0.f;
 		m_jump = true;
 	}
@@ -235,7 +247,7 @@ void Spider::Jump()
 
 	if (m_hasJump)		// 점프
 	{
-		if (m_attack)
+		if (m_attack && jumpingtype == JumpType::WEB)
 		{
 			m_attackCount = 1;
 			m_attack = false;
@@ -251,20 +263,18 @@ void Spider::Jump()
 		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
 		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * 2.f;
-		
+
 		transform->position += velocity * 0.03f;
 
 		m_animator->SetDefaultAnimation(m_animator->GetJump(), true);
 
 		if (transform->position.y > m_jumpY + 2.f)
 		{
-			m_attack = true;
+			if(jumpingtype == JumpType::WEB)
+				m_attack = true;
 			m_hasJump = false;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk(), true);
 		}
-
-
 	}
-
-
 }
+

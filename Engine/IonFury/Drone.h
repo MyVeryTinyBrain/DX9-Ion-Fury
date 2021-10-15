@@ -22,10 +22,11 @@ class Drone : public Monster
 
 private:
 
-
 	void SetTargetCoord(Vec3 xzCoord);
 
 	void Attack();
+
+	void Explosion();
 
 private:
 
