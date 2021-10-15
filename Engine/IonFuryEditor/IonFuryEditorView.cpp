@@ -245,11 +245,17 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
+	//========================================================================
+	giz->Click();
+	if (giz->PickHandle())
+		return;						
+	//기즈모를 가장 우선적으로 선택하도록한 어거지코드!! 문제터지면 삭제
+	//========================================================================
+
 	Pickable* pick = Pickable::Pick();
 
 	m_dlgMonsterTool.ClearEverything();
 	m_dlgObjectTool.Clear();
-
 
 	if (pick)
 	{

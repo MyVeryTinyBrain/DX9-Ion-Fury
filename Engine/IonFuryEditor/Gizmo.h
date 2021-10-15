@@ -9,6 +9,8 @@ class Gizmo : public Component
 	OverrideComponentFunction(OnDestroy);
 
 public:
+	void Click();	//기존 업데이트에 있던 내역
+public:
 
 	// 축을 선택하려고 시도합니다.
 	// 축이 선택되면 True를 반환합니다.

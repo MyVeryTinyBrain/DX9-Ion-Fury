@@ -68,6 +68,24 @@ void Gizmo::OnDestroy()
 	}
 }
 
+void Gizmo::Click()
+{
+	if (Input::GetKeyDown(Key::LeftMouse))
+	{
+		PickHandle();
+	}
+	else if (HasSelect() && Input::GetKey(Key::LeftMouse))
+	{
+		Handling();
+		m_Handling = true;
+	}
+	if (Input::GetKeyUp(Key::LeftMouse))
+	{
+		PutHandle();
+		m_Handling = false;
+	}
+}
+
 bool Gizmo::PickHandle()
 {
 	Vec3 rayPoint, rayDir;
