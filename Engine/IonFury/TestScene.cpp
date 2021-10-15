@@ -19,10 +19,10 @@ void TestScene::OnLoad(Scene* beforeScene)
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
-        obj->transform->position = Vec3(0, 5, 0);
-        obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
-        auto light = obj->AddComponent<DirectionalLight>();
-        light->ambientFactor = 0.6f;
+        //obj->transform->position = Vec3(0, 5, 0);
+        //obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+        //auto light = obj->AddComponent<DirectionalLight>();
+        //light->ambientFactor = 0.6f;
     }
 
     {   // Create test player
@@ -170,19 +170,19 @@ void TestScene::OnLoad(Scene* beforeScene)
     {
         auto ltobj = CreateGameObject();
         auto lightcomponet = ltobj->AddComponent<LightLoad>();
-        lightcomponet->GetInstance()->LightObjectLoad(L"../Data/123333.dat");
+        lightcomponet->LightObjectLoad(L"../Data/123333.dat");
     }
 
-    for (int i = 0; i < 5; ++i)
-    {
-        for (int j = 0; j < 5; ++j)
-        {
-            auto obj = CreateGameObject();
-            obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
-            obj->transform->eulerAngle = Vec3(0, 90, 0);
-            obj->AddComponent<Gunner>();
-        }
-    }
+    //for (int i = 0; i < 5; ++i)
+    //{
+    //    for (int j = 0; j < 5; ++j)
+    //    {
+    //        auto obj = CreateGameObject();
+    //        obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
+    //        obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //        obj->AddComponent<Gunner>();
+    //    }
+    //}
 
     /*
     {   // Monster example
