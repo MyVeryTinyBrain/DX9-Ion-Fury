@@ -200,6 +200,15 @@ void Pickable::ClearEventVector()
 	Size = m_EventVec.size();
 }
 
+void Pickable::ClearTriggerVector()
+{
+	int Size = g_TriggerVec.size();
+	for (int i = 0; i < Size; ++i)
+	{
+		g_TriggerVec[0]->Destroy();
+	}
+}
+
 void Pickable::RemoveEventObject(int idx)
 {
 	m_EventVec[idx]->Destroy();

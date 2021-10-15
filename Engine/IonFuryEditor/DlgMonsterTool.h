@@ -4,6 +4,9 @@
 // DlgMonsterTool 대화 상자
 
 #include "EditorEnum.h"
+#include <fstream>
+#include <atlconv.h>
+#include "../json/json.h"
 
 class Pickable;
 
@@ -40,6 +43,16 @@ public:
 	void SetScaleScrollToPicked(Pickable* picked);
 	void SetRotationScrollToPicked(Pickable* picked);
 public:
+	void SaveToJsonFormat(const Json::Value& json, string path);
+	Json::Value LoadFromJsonFormat(string path);
+	wstring ToWString(const string& str);
+	string ToString(const wstring& wstr);
+
+	void EmptyBeforeLoad();
+	void EmptyAfterLoad();
+	Pickable* AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method);
+	void AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, EventType type);
+public:
 	int m_TriggerCnt = 0;
 	int m_EventCnt = 0;
 public:
@@ -75,4 +88,6 @@ public:
 	afx_msg void OnBnClickedChangeEventName();
 	afx_msg void OnBnClickedResetScale();
 	afx_msg void OnBnClickedResetRotation();
+	afx_msg void OnBnClickedSaveButton();
+	afx_msg void OnBnClickedLoadButton();
 };
