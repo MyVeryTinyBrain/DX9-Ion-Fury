@@ -40,7 +40,6 @@ private:
 	void SetAttr(int iOpa);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 
-
 public:
 	void SetPos(Vec3 _mouse);
 	Vec3 GetPos();
@@ -129,4 +128,15 @@ public:
 
 	void SetName(const CString& name);
 	afx_msg void OnLbnDblclkList1();
+
+
+	//제이슨
+public:
+	void JsonWrite();
+	void JsonRoad();
+
+	void SaveToJsonFormat(const Json::Value& json, string path);
+	Json::Value LoadFromJsonFormat(string path);
+	wstring ToWString(const string& str);
+	string ToString(const wstring& wstr);
 };
