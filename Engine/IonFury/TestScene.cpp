@@ -171,8 +171,8 @@ void TestScene::OnLoad(Scene* beforeScene)
         auto ltobj = CreateGameObject();
         auto lightcomponet = ltobj->AddComponent<LightLoad>();
         lightcomponet->LightObjectLoad(L"../Data/123333.dat");
+ 
     }
-
     //for (int i = 0; i < 5; ++i)
     //{
     //    for (int j = 0; j < 5; ++j)
