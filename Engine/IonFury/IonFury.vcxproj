@@ -178,6 +178,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Revolver.h" />
     <ClInclude Include="RevolverAnimator.h" />
+    <ClInclude Include="SMG.h" />
+    <ClInclude Include="SMGAnimator.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="SpiderSpriteAnimator.h" />
     <ClInclude Include="SpriteAnimation.h" />
@@ -215,6 +217,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Revolver.cpp" />
     <ClCompile Include="RevolverAnimator.cpp" />
+    <ClCompile Include="SMG.cpp" />
+    <ClCompile Include="SMGAnimator.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
@@ -237,6 +241,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{82bbf192-4b75-46b9-88be-21c93e9f6cfc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\json\json.vcxproj">
+      <Project>{8aef4dd0-e1de-4caf-823f-6cf73b39d348}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

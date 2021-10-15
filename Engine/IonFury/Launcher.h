@@ -52,6 +52,10 @@ private:
 
 private:
 
+	GameObject* m_rightHandObj = nullptr;
+
+	UserMeshRenderer* m_rightHandRenderer = nullptr;
+
 	class LauncherAnimator* m_animator = nullptr;
 
 	const Vec2 m_rightHandLocalScale = Vec2(2, 2);

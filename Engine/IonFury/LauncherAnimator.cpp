@@ -28,9 +28,6 @@ void LauncherAnimator::Awake()
 
 	m_pullPump[(int)Skin::Red] = new SpriteAnimation;
 	m_pullPump[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red0.png");
-	m_pullPump[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red0.png");
-	m_pullPump[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red0.png");
-	m_pullPump[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red0.png");
 	m_pullPump[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red1.png");
 	m_pullPump[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red2.png");
 	m_pullPump[(int)Skin::Red]->AddTexture(L"../SharedResource/Texture/launcher_red/launcher_red3.png");
@@ -228,6 +225,15 @@ void LauncherAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteA
 {
 	for (int i = 0; i < (int)Skin::Max; ++i)
 	{
+		if (current == m_beginIdle[i])
+		{
+			*next = m_idle[i];
+			break;
+		}
+	}
+
+	for (int i = 0; i < (int)Skin::Max; ++i)
+	{
 		if (current == m_shoot[i] && *next == m_idle[i])
 		{
 			*next = m_pullPump[i];
@@ -277,7 +283,7 @@ bool LauncherAnimator::IsPlayingIdle() const
 {
 	for (int i = 0; i < (int)Skin::Max; ++i)
 	{
-		if (currentAnimation == m_idle[i])
+		if (currentAnimation == m_idle[i] || currentAnimation == m_beginIdle[i])
 		{
 			return true;
 		}

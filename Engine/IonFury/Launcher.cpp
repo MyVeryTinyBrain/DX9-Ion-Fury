@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Launcher.h"
+#include "RenderLayers.h"
+#include "OverlayRenderOrders.h"
 #include "LauncherAnimator.h"
 #include "Player.h"
 #include "FPSCharacterController.h"
@@ -13,6 +15,14 @@
 void Launcher::Awake()
 {
 	Weapon::Awake();
+
+	// 오른쪽 손 생성
+	m_rightHandObj = CreateGameObjectToChild(transform);
+	m_rightHandRenderer = m_rightHandObj->AddComponent<UserMeshRenderer>();
+	m_rightHandRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_rightHandRenderer->material = Resource::FindAs<Material>(BuiltInLightOverlayMaterial);
+	m_rightHandRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_rightHandRenderer->overlayRenderOrder = int(OverlayRenderOrders::PlayerRightHand);
 
 	// 애니메이터 부착 및 이벤트함수 등록
 	m_animator = m_rightHandObj->AddComponent<LauncherAnimator>();
@@ -201,7 +211,7 @@ void Launcher::LauncherShootOnce()
 
 	LauncherGranade* granade = granadeObj->AddComponent<LauncherGranade>();
 	granade->rigidbody->isContinousDetection = true;
-	granade->rigidbody->velocity = cameraTransform->rotation * Quat::AxisAngle(Vec3::right(), -5) * Vec3::forawrd() * 25;
+	granade->rigidbody->velocity = cameraTransform->rotation * Quat::AxisAngle(Vec3::right(), -2.5f) * Vec3::forawrd() * 25;
 }
 
 void Launcher::MakeFireEffect()

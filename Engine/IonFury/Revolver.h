@@ -26,7 +26,13 @@ private:
 
 	void Attack();
 
+	void MakeFireEffect();
+
 private:
+
+	GameObject* m_rightHandObj = nullptr;
+
+	UserMeshRenderer* m_rightHandRenderer = nullptr;
 
 	class RevolverAnimator* m_animator = nullptr;
 

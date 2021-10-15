@@ -100,6 +100,12 @@
     <ClCompile Include="OrthoEffect.cpp">
       <Filter>Player\FPSOrthoCamera</Filter>
     </ClCompile>
+    <ClCompile Include="SMG.cpp">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClCompile>
+    <ClCompile Include="SMGAnimator.cpp">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WeaponTypes.h">
@@ -222,6 +228,12 @@
     <ClInclude Include="OrthoEffect.h">
       <Filter>Player\FPSOrthoCamera</Filter>
     </ClInclude>
+    <ClInclude Include="SMG.h">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClInclude>
+    <ClInclude Include="SMGAnimator.h">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -297,6 +309,9 @@
     </Filter>
     <Filter Include="Player\FPSOrthoCamera">
       <UniqueIdentifier>{3904ecde-6516-4a71-b772-371c9e981347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon\SMG">
+      <UniqueIdentifier>{2ca8e1c0-d141-445a-9f30-c889328996a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

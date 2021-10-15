@@ -4,6 +4,7 @@
 #include "OverlayRenderOrders.h"
 #include "Revolver.h"
 #include "Launcher.h"
+#include "SMG.h"
 
 void FPSOrthoCamera::Awake()
 {
@@ -116,6 +117,9 @@ void FPSOrthoCamera::SetupWeapons()
 
 	m_weaponObjects[(unsigned int)WeaponTypes::Launcher] = CreateGameObjectToChild(m_handsChildObject->transform);
 	m_weapons[(unsigned int)WeaponTypes::Launcher] = m_weaponObjects[(unsigned int)WeaponTypes::Launcher]->AddComponent<Launcher>();
+
+	m_weaponObjects[(unsigned int)WeaponTypes::SMG] = CreateGameObjectToChild(m_handsChildObject->transform);
+	m_weapons[(unsigned int)WeaponTypes::SMG] = m_weaponObjects[(unsigned int)WeaponTypes::SMG]->AddComponent<SMG>();
 
 	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
 	{
@@ -250,11 +254,9 @@ void FPSOrthoCamera::ChangeWeapon()
 	if (m_weaponChangingCounter > 0)
 	{
 		m_handsMiddleObject->transform->localPosition = Vec2::Lerp(m_handsMiddleObject->transform->localPosition, m_handsMiddleHideLocalPosition, Time::DeltaTime() * 10.0f);
-		m_handsMiddleObject->transform->localEulerAngle = Vec3::Lerp(m_handsMiddleObject->transform->localEulerAngle, m_handsMiddleHideLocalEulerAngle, Time::DeltaTime() * 10.0f);
 	}
 	else
 	{
 		m_handsMiddleObject->transform->localPosition = Vec2::Lerp(m_handsMiddleObject->transform->localPosition, m_handsMiddleShowLocalPosition, Time::DeltaTime() * 10.0f);
-		m_handsMiddleObject->transform->localEulerAngle = Vec3::Lerp(m_handsMiddleObject->transform->localEulerAngle, m_handsMiddleShowLocalEulerAngle, Time::DeltaTime() * 10.0f);
 	}
 }
