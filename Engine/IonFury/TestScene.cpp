@@ -169,7 +169,7 @@ void TestScene::OnLoad(Scene* beforeScene)
     //조명 추가 테스트
     {
         auto ltobj = CreateGameObject();
-        auto lightcomponet = ltobj->AddComponent<LightLoad>();
+        auto lightcomponet = ltobj->AddComponent<LightLoad>(); //1차문제 스태틱으로만들면되는데 왜땡겨옴
         lightcomponet->LightObjectLoad(L"../Data/123333.dat");
  
     }
