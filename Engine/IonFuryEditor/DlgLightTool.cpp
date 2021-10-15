@@ -12,7 +12,6 @@
 
 #include <fstream>
 #include <atlconv.h>
-#define _CRT_SECURE_NO_WARNINGS
 
 // DlgLightTool 대화 상자
 
@@ -908,7 +907,7 @@ void DlgLightTool::OnBnClickedLoad()
 {
 
 	JsonRoad();
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	//m_LT_ListBox.ResetContent();
 
 	//CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
@@ -1505,17 +1504,21 @@ void DlgLightTool::JsonRoad()
 
 	Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
+	m_LT_ListBox.ResetContent();
+
+	int vecSize = LightObj::g_vecLight.size();
+	for (int i = 0; i < vecSize; ++i)
+	{
+		LightObj::g_vecLight[0]->gameObject->Destroy();
+	}
+
+	float Range = 0.f;
+	float OutsideAngle = 0.f;
+	float InsideAngleRatio = 0.f;
+
 
 	if (IDOK == Dlg.DoModal())
 	{
-		m_LT_ListBox.ResetContent();
-
-		int vecSize = LightObj::g_vecLight.size();
-		for (int i = 0; i < vecSize; ++i)
-		{
-			LightObj::g_vecLight[0]->gameObject->Destroy();
-		}
-
 		CString wstrFilePath = Dlg.GetPathName();
 
 		Json::Value LightJson = LoadFromJsonFormat(ToString(wstrFilePath.GetString()));
@@ -1523,28 +1526,67 @@ void DlgLightTool::JsonRoad()
 
 		for (int i = 0; i < LightJsonSize; ++i)
 		{
-			Json::Value Light = LightJson[i];
-			Json::Value LightValue = Light[0];
-			wstring Name = ToWString(LightValue["Name"].asString());
-			wstring Tag = ToWString(LightValue["Tag"].asString());
 
-			Vec3 EulerAngle = Vec3(LightValue["EulerAngleX"].asFloat(), LightValue["EulerAngleY"].asFloat(), LightValue["EulerAngleZ"].asFloat());
-			float AmbinentFactor = LightValue["AmbinentFactor"].asFloat();
-			Vec4 Color = Vec4(LightValue["ColorR"].asInt(), LightValue["ColorG"].asInt(), LightValue["ColorB"].asInt(), LightValue["ColorA"].asInt());
+			Json::Value Light = LightJson[i];
+		//	Json::Value LightValue = Light[i];
+			wstring Name = ToWString(Light["Name"].asString());
+			wstring Tag = ToWString(Light["Tag"].asString());
+
+			Vec3 Pos = Vec3(Light["PosX"].asFloat(), Light["PosY"].asFloat(), Light["PosZ"].asFloat());
+			Vec3 EulerAngle = Vec3(Light["EulerAngleX"].asFloat(), Light["EulerAngleY"].asFloat(), Light["EulerAngleZ"].asFloat());
+			float AmbinentFactor = Light["AmbinentFactor"].asFloat();
+			Vec4 VColor = Vec4((float)Light["ColorR"].asInt(), (float)Light["ColorG"].asInt(), (float)Light["ColorB"].asInt(), (float)Light["ColorA"].asInt());
 
 			if (Tag == L"Point")
 			{
-				float Range = LightValue["Range"].asFloat();
+				Range = Light["Range"].asFloat();
 			}
 			else if (Tag == L"Spot")
 			{
-				float Range = LightValue["Range"].asFloat();
-				float OutsideAngle = LightValue["OutsideAngle"].asFloat();
-				float InsideAngleRatio = LightValue["InsideAngleRatio"].asFloat();
+				Range = Light["Range"].asFloat();
+				OutsideAngle = Light["OutsideAngle"].asFloat();
+				InsideAngleRatio = Light["InsideAngleRatio"].asFloat();
+			}
+
+			GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
+			LightObj* lightobj = pObj->AddComponent<LightObj>();
+			pObj->name = Name;
+			pObj->tag = Tag;
+			pObj->transform->position = Pos;
+			pObj->transform->eulerAngle = EulerAngle;
+			
+			if (Tag == L"Point")
+			{
+				PointLight* point = pObj->GetComponentInChild<PointLight>();
+				point->ambientFactor = AmbinentFactor;
+				point->color = VColor;
+				point->range = Range;
+
+				lightobj->LightSetting();
 
 			}
-		}
+			else if (Tag == L"Spot")
+			{
+				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
+				spot->ambientFactor = AmbinentFactor;
+				spot->color = VColor;
+				spot->range = Range;
+				spot->outsideAngle = OutsideAngle;
+				spot->insideAngleRatio = InsideAngleRatio;
 
+				lightobj->LightSetting();
+			}
+			else if (Tag == L"Directional")
+			{
+				DirectionalLight* spot = pObj->GetComponentInChild<DirectionalLight>();
+				spot->ambientFactor = AmbinentFactor;
+				spot->color = VColor;
+
+				lightobj->LightSetting();
+			}
+
+			m_LT_ListBox.InsertString(-1, pObj->name.c_str());
+		}
 	}
 }
 
@@ -1563,7 +1605,35 @@ void DlgLightTool::SaveToJsonFormat(const Json::Value& json, string path)
 
 Json::Value DlgLightTool::LoadFromJsonFormat(string path)
 {
-	return Json::Value();
+	std::ifstream in;
+	in.open(path);
+
+	if (!in.is_open())
+	{
+		cout << "json read error: not exist file" << endl;
+		return Json::Value();
+	}
+
+	in.seekg(0, std::ios::end);
+	size_t size = in.tellg();
+	std::string jsonFormatText(size, ' ');
+	in.seekg(0);
+	in.read(&jsonFormatText[0], size);
+
+	in.close();
+
+	Json::Value root;
+	JSONCPP_STRING err;
+
+	Json::CharReaderBuilder charReaderBuilder;
+	const std::unique_ptr<Json::CharReader> reader(charReaderBuilder.newCharReader());
+	if (!reader->parse(jsonFormatText.c_str(), jsonFormatText.c_str() + jsonFormatText.length(), &root, &err))
+	{
+		cout << "json read error: invalid format" << endl;
+		return EXIT_FAILURE;
+	}
+
+	return root;
 }
 
 wstring DlgLightTool::ToWString(const string& str)
