@@ -241,7 +241,7 @@ void DlgLightTool::SetListBox(const wstring& lightObjName)
 {
 	UpdateData(TRUE);
 
-	m_LT_ListBox.AddString(lightObjName.c_str());
+	//m_LT_ListBox.AddString(lightObjName.c_str());
 
 	UpdateData(FALSE);
 }
@@ -291,15 +291,9 @@ void DlgLightTool::OnListBoxCtrl()
 
 				m_radius = com->range;
 
-<<<<<<< HEAD
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-=======
 				m_dirx = lightobj->transform->eulerAngle.x;
 				m_diry = lightobj->transform->eulerAngle.y;
 				m_dirz = lightobj->transform->eulerAngle.z;
->>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -324,16 +318,10 @@ void DlgLightTool::OnListBoxCtrl()
 
 				m_OutSideAngle = com->outsideAngle;
 				m_InsideAngleRatio = com->insideAngleRatio;
-
-<<<<<<< HEAD
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-=======
+        
 				m_dirx = lightobj->transform->eulerAngle.x;
 				m_diry = lightobj->transform->eulerAngle.y;
 				m_dirz = lightobj->transform->eulerAngle.z;
->>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -353,16 +341,11 @@ void DlgLightTool::OnListBoxCtrl()
 				m_PosY = com->transform->position.y;
 				m_PosZ = com->transform->position.z;
 
-<<<<<<< HEAD
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-=======
+
 				m_dirx = lightobj->transform->eulerAngle.x;
 				m_diry = lightobj->transform->eulerAngle.y;
 				m_dirz = lightobj->transform->eulerAngle.z;
->>>>>>> seongyeon
-
+        
 				m_ambinentFactor = com->ambientFactor;
 			}
 
@@ -749,9 +732,6 @@ void DlgLightTool::OnBnClickedAddButton()
 		m_LT_ListBox.AddString(m_LightName.GetString());
 
 
-
-		//m_LT_ListBox.SetCurSel();
-
 		AddNameToListbox();
 	}
 	else if (m_LightType == L"Spot")
@@ -760,10 +740,7 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		SpotLightObj->name = m_LightName.GetString();
 
-		//m_PosX = GetPos().x; 
-	//	m_PosY = GetPos().y;
 
-		//SpotLightObj->transform->localPosition = Vec3(m_PosX, m_PosY, m_PosZ);
 		SpotLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
 
 		SpotLightObj->AddComponent<LightObj>();
@@ -926,9 +903,7 @@ void DlgLightTool::OnBnClickedSave()
 void DlgLightTool::OnBnClickedLoad()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
 	m_LT_ListBox.ResetContent();
-
 
 	CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
 
@@ -1055,7 +1030,7 @@ void DlgLightTool::OnBnClickedLoad()
 				lightobj->LightSetting();
 			}
 
-			if (pObj->tag == L"Spot")
+			else if (pObj->tag == L"Spot")
 			{
 
 				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
@@ -1073,7 +1048,7 @@ void DlgLightTool::OnBnClickedLoad()
 				lightobj->LightSetting();
 			}
 
-			if (pObj->tag == L"Directional")
+			else if (pObj->tag == L"Directional")
 			{
 				DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
 
@@ -1086,18 +1061,10 @@ void DlgLightTool::OnBnClickedLoad()
 
 				lightobj->LightSetting();
 			}
-			m_LT_ListBox.AddString(pObj->name.c_str());
+
+			m_LT_ListBox.InsertString(-1,pObj->name.c_str());
 
 		}
-
-		
-		Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-		giz->Detach();
-		giz->enable = false;
-
-		//m_LT_ListBox.SetCurSel(0);
-
-
 
 		CloseHandle(hFile);
 	}
@@ -1407,10 +1374,10 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_LightName = lightobj->name.c_str();;
 				m_LightType = L"Directional";
 
-				m_ColorR =(int)com->color.r;
-				m_ColorG =(int)com->color.g;
-				m_ColorB =(int)com->color.b;
-				m_ColorA =(int)com->color.a;
+				m_ColorR = (int)com->color.r;
+				m_ColorG = (int)com->color.g;
+				m_ColorB = (int)com->color.b;
+				m_ColorA = (int)com->color.a;
 
 				m_PosX = com->transform->position.x;
 				m_PosY = com->transform->position.y;
