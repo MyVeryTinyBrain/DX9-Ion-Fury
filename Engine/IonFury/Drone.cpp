@@ -54,28 +54,15 @@ void Drone::Update()
 		}
 		return;
 	}
-	
-	if (m_breakTime <= 0)
-	{
-		MovingType movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
-		Moving(movingtype);
-	}
 
-	if (m_breakTime > 0 )
+	Moving(movingtype);
+
+
+	if (m_breakTime > 0)
 	{
 		m_breakTime -= Time::DeltaTime();
 	}
 
-	/*if (m_animator->IsPlayingIdle() &&
-		m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
-	{
-		m_animator->PlayMove();
-	}
-	else if (m_animator->IsPlayingMove() &&
-		m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
-	{
-		m_animator->PlayDefaultAnimation();
-	}*/
 	Attack();
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
@@ -115,8 +102,9 @@ void Drone::OnDead(bool& dead, MonsterDamageType damageType)
 void Drone::Moving(MovingType type)
 {
 	m_hasTargetCoord = false;
-	m_attackCount = 0;
+	//m_attackCount = 0;
 	m_breakTime = 0.35f;
+	//m_breakTime = 3.f;
 
 	Vec3 dronePos = transform->position;
 
@@ -127,6 +115,7 @@ void Drone::Moving(MovingType type)
 	switch (type)
 	{
 	case Drone::MovingType::Idle:
+		movingtype = (MovingType)1;
 		break;
 	case Drone::MovingType::Trace:
 	{
@@ -158,36 +147,40 @@ void Drone::Moving(MovingType type)
 		else
 		{
 			transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
-			
+
 			if (m_deltatime > 3.f)
 			{
 				m_deltatime = 0.f;
+				movingtype = (MovingType)2;
 			}
 		}
 	}
 	break;
 	case Drone::MovingType::leftRight:
 	{
-		transform->up = Vec3(0, 1, 0);
-		transform->right = Vec3::Cross(transform->up, transform->forward);
-		transform->right.Normalize();
+		//transform->up = Vec3(0, 1, 0);
+		//transform->right = Vec3::Cross(transform->up, transform->forward);
+		//transform->right.Normalize();
 
 		m_deltatime += Time::DeltaTime();
 
 		if (m_deltatime < 3.f)
 		{
 			transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
-			m_animator->PlayMove();
+			//m_animator->PlayMove();
+			m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
 			m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
 		}
 		else
 		{
 			transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
-			m_animator->PlayMove();
+			m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
+			//m_animator->PlayMove();
 			m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
 			if (m_deltatime > 6.f)
 			{
 				m_deltatime = 0.f;
+				movingtype = (MovingType)3;
 			}
 		}
 	}
@@ -195,6 +188,16 @@ void Drone::Moving(MovingType type)
 	case Drone::MovingType::Attack:
 	{
 		m_attackCount = 5;
+
+		movingtype = (MovingType)4;
+	}
+	break;
+	case Drone::MovingType::Max:
+	{
+		if (m_attackCount == 1)
+		{
+			movingtype = (MovingType)0;
+		}
 	}
 	break;
 	}
@@ -210,19 +213,17 @@ void Drone::SetTargetCoord(Vec3 xzCoord)
 
 void Drone::Attack()
 {
-	if (m_animator->IsPlayingShoot() | m_animator->IsPlayingMoveShoot())
-	{
-		return;
-	}
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
+
+
 		m_animator->SetDefaultAnimation(m_animator->GetShoot(), true);
-
-
 		Vec3 forward = Player::GetInstance()->transform->position - transform->position;
 		forward.y = 0;
 		forward.Normalize();
 		transform->forward = forward;
+
 	}
+
 }
