@@ -113,6 +113,9 @@ Pickable* Pickable::Pick()
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
+	float FinalDistance = 90000.f;
+	Pickable* ClosestPicked = nullptr;
+
 	for (auto pickable : g_PickableVec)
 	{
 		UserMeshRenderer* Renderer = pickable->GetRenderer();
@@ -121,11 +124,18 @@ Pickable* Pickable::Pick()
 		{
 			giz->enable = true;
 			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
-			return pickable;
+			
+			Vec3 Between = rayPoint - HitPoint;
+			float BetweenDistance = (Between.x * Between.x) + (Between.y * Between.y) + (Between.x * Between.y);
+			if (FinalDistance >= BetweenDistance)
+			{
+				FinalDistance = BetweenDistance;
+				ClosestPicked = pickable;
+			}
 		}
 	}
 
-	return nullptr;
+	return ClosestPicked;
 }
 
 void Pickable::PushInVector(Type type)
