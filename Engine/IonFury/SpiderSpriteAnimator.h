@@ -54,6 +54,13 @@ public:
 
 	SpriteAnimation* GetWeb() const;
 
+	SpriteAnimation* GetJump() const;
+
+	SpriteAnimation* GetDie(DIE_SPIDER type) const;
+
+	SpriteAnimation* GetDamage() const;
+
+	SpriteAnimation* GetWalk() const;
 private:
 
 	void ChangeUVDirection();
@@ -75,5 +82,10 @@ private:
 	SpriteAnimation* m_web;
 
 	float m_angle = 0.f;
+
+public:
+
+	Delegate<void()> OnDeadAnimated;
+
 };
 

@@ -4,7 +4,7 @@
 
 class DroneSpriteAnimator;
 
-class Drone :  public Monster
+class Drone : public Monster
 {
 	OverrideComponentFunction(Awake);
 
@@ -22,10 +22,11 @@ class Drone :  public Monster
 
 private:
 
-
 	void SetTargetCoord(Vec3 xzCoord);
 
 	void Attack();
+
+	void Explosion();
 
 private:
 
@@ -34,7 +35,7 @@ private:
 	void Moving(MovingType type);
 
 private:
-	
+
 	DroneSpriteAnimator* m_animator = nullptr;
 
 	Vec3 m_targetCoord;
@@ -50,5 +51,7 @@ private:
 	bool m_distance = false;
 
 	float m_breakTime = 0;
-};
 
+	MovingType movingtype = (MovingType)0;
+
+};
