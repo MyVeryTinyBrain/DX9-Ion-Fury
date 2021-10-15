@@ -34,6 +34,10 @@ private:
 
 private:
 
+	enum class JumpType { BASIC, WEB, MAX };
+
+private:
+
 	SpiderSpriteAnimator* m_animator = nullptr;
 	
 	bool m_hasTargetCoord = false;
@@ -56,5 +60,8 @@ private:
 
 	bool m_attack = true;
 
+	float m_PatternTime = 0;
+
+	JumpType jumpingtype = (JumpType)0;
 };
 
