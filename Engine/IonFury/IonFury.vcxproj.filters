@@ -49,6 +49,9 @@
     <ClCompile Include="SpiderSpriteAnimator.cpp">
       <Filter>Monster\Spider</Filter>
     </ClCompile>
+    <ClCompile Include="Web.cpp">
+      <Filter>Monster\Spider</Filter>
+    </ClCompile>
     <ClCompile Include="BillboardEffect.cpp">
       <Filter>Effect\BillboardEffect</Filter>
     </ClCompile>
@@ -97,6 +100,23 @@
     <ClCompile Include="OrthoEffect.cpp">
       <Filter>Player\FPSOrthoCamera</Filter>
     </ClCompile>
+    <ClCompile Include="SMG.cpp">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClCompile>
+    <ClCompile Include="SMGAnimator.cpp">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClCompile>
+    <ClCompile Include="Chaingun.cpp">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaingunAmmopartAnimator.cpp">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaingunGunpartAnimator.cpp">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodEffect.cpp">
+      <Filter>Effect\Blood</Filter>
     <ClCompile Include="Web.cpp">
       <Filter>Monster\Spider\Web</Filter>
     </ClCompile>
@@ -177,6 +197,15 @@
     <ClInclude Include="SpiderSpriteAnimator.h">
       <Filter>Monster\Spider</Filter>
     </ClInclude>
+    <ClInclude Include="Web.h">
+      <Filter>Monster\Spider</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardEffect.h">
+      <Filter>Effect\BillboardEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletProof.h">
+      <Filter>Effect\BulletPrrof</Filter>
+    </ClInclude>
     <ClInclude Include="BillboardEffect.h">
       <Filter>Effect\BillboardEffect</Filter>
     </ClInclude>
@@ -212,6 +241,36 @@
     </ClInclude>
     <ClInclude Include="GranadeTrail.h">
       <Filter>Player\Weapon\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCamera.h">
+      <Filter>Player\FPSCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCharacterController.h">
+      <Filter>Player\FPSCharacterController</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSOrthoCamera.h">
+      <Filter>Player\FPSOrthoCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthoEffect.h">
+      <Filter>Player\FPSOrthoCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="SMG.h">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClInclude>
+    <ClInclude Include="SMGAnimator.h">
+      <Filter>Player\Weapon\SMG</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaingunGunpartAnimator.h">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClInclude>
+    <ClInclude Include="Chaingun.h">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaingunAmmopartAnimator.h">
+      <Filter>Player\Weapon\Chaingun</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodEffect.h">
+      <Filter>Effect\Blood</Filter>
     </ClInclude>
     <ClInclude Include="FPSCamera.h">
       <Filter>Player\FPSCamera</Filter>
@@ -310,6 +369,14 @@
     <Filter Include="Player\FPSOrthoCamera">
       <UniqueIdentifier>{3904ecde-6516-4a71-b772-371c9e981347}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player\Weapon\SMG">
+      <UniqueIdentifier>{2ca8e1c0-d141-445a-9f30-c889328996a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon\Chaingun">
+      <UniqueIdentifier>{dffa52ae-fbdf-4625-b2b4-8e608ba4ba7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Blood">
+      <UniqueIdentifier>{1f27907a-e02c-483e-b085-6fb7ed394e91}</UniqueIdentifier>
     <Filter Include="Monster\Spider\Web">
       <UniqueIdentifier>{eb427bac-5ad8-43c8-8a18-1f8d53f5e9c7}</UniqueIdentifier>
     </Filter>

@@ -28,6 +28,8 @@ public:
 
 	bool TimeOf(float time, Texture** ppTexture) const;
 
+	unsigned int TimeToIndex(float time) const;
+
 	bool IsEnd(float time) const;
 
 	void FitIntervalToTime(float time);

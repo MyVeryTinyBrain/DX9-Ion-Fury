@@ -3,6 +3,7 @@
 #include "GunnerSpriteAnimator.h"
 #include "Player.h"
 #include "PhysicsLayers.h"
+#include "BloodEffect.h"
 
 void Gunner::Awake()
 {

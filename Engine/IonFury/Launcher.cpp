@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Launcher.h"
+#include "RenderLayers.h"
+#include "OverlayRenderOrders.h"
 #include "LauncherAnimator.h"
 #include "Player.h"
 #include "FPSCharacterController.h"
@@ -13,6 +15,14 @@
 void Launcher::Awake()
 {
 	Weapon::Awake();
+
+	// 오른쪽 손 생성
+	m_rightHandObj = CreateGameObjectToChild(transform);
+	m_rightHandRenderer = m_rightHandObj->AddComponent<UserMeshRenderer>();
+	m_rightHandRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_rightHandRenderer->material = Resource::FindAs<Material>(BuiltInLightOverlayMaterial);
+	m_rightHandRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_rightHandRenderer->overlayRenderOrder = int(OverlayRenderOrders::PlayerRightHand);
 
 	// 애니메이터 부착 및 이벤트함수 등록
 	m_animator = m_rightHandObj->AddComponent<LauncherAnimator>();
@@ -60,6 +70,10 @@ void Launcher::OnChanged()
 	m_animator->PlayIdle();
 }
 
+void Launcher::OnPutIn()
+{
+}
+
 void Launcher::OnAttackInput(InputType inputType)
 {
 	if (inputType == InputType::KeyPressing && 
@@ -81,16 +95,36 @@ void Launcher::OnAttackInput(InputType inputType)
 
 void Launcher::OnSubInput(InputType inputType)
 {
-	if (inputType == InputType::KeyPressing && 
-		m_animator->IsPlayingIdle())
+	if (inputType == InputType::KeyPressing)
 	{
+		bool isIdle = m_animator->IsPlayingIdle();
+		bool isEnfOfPullPump = m_animator->IsPlayingPullPump() && m_animator->GetPercent() > 0.8f;
+		bool isHalfReloading = m_animator->IsPlayingReload() && m_animator->GetPercent() < 0.4f;
+
+		if (!isIdle && !isEnfOfPullPump && !isHalfReloading)
+		{
+			return;
+		}
+
+		float elapsed = m_animator->GetElapsedTime();
+
 		if (m_mode == Mode::Shotgun)
 		{
 			m_animator->PlayChangeToYellow();
+
+			if (isHalfReloading)
+			{
+				m_animator->SetElapsedTime(elapsed);
+			}
 		}
 		else
 		{
 			m_animator->PlayChangeToRed();
+
+			if (isHalfReloading)
+			{
+				m_animator->SetElapsedTime(elapsed);
+			}
 		}
 	}
 }
@@ -201,19 +235,18 @@ void Launcher::LauncherShootOnce()
 
 	LauncherGranade* granade = granadeObj->AddComponent<LauncherGranade>();
 	granade->rigidbody->isContinousDetection = true;
-	granade->rigidbody->velocity = cameraTransform->rotation * Quat::AxisAngle(Vec3::right(), -5) * Vec3::forawrd() * 25;
+	granade->rigidbody->velocity = cameraTransform->rotation * Quat::AxisAngle(Vec3::right(), -2.5f) * Vec3::forawrd() * 25;
 }
 
 void Launcher::MakeFireEffect()
 {
 	auto effectObj = CreateGameObjectToChild(m_rightHandObj->transform);
-	effectObj->transform->localPosition = Vec2(0.28f, -0.25f);
+	effectObj->transform->localPosition = Vec2(0.23f, -0.2f);
 	effectObj->transform->localEulerAngle = Vec3(0, 0, -10);
-	effectObj->transform->localScale = Vec2(0.2f, 0.2f);
+	effectObj->transform->localScale = Vec2(0.25f, 0.25f);
 	auto effect = effectObj->AddComponent<OrthoEffect>();
-	effect->SetSpeed(1.0f);
-	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire0.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire0.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire1.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire2.png");
+	effect->SetInterval(0.03f);
 }

@@ -175,10 +175,15 @@ void SpriteAnimator::Transition()
 	if (!m_current->isLoop && m_current->IsEnd(m_elapsed))
 	{
 		SpriteAnimation* current = m_current;
-		m_current = nullptr;
 
 		// 애니메이션 종료 이벤트함수를 호출합니다.
 		OnAnimationEnd(current);
+
+		// OnAnimationEnd 내부에서 애니메이션이 변경되지 않았다면 현재 애니메이션을 nullptr로 합니다.
+		if (m_current == current)
+		{
+			m_current = nullptr;
+		}
 
 		// OnAnimationEnd() 에서 다른 애니메이션이 설정되지 않은 경우에
 		if (m_current == nullptr)
