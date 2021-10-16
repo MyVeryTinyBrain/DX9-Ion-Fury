@@ -18,14 +18,16 @@ void Chaingun::Awake()
 
 	// 몸체 오브젝트 생성
 	m_bodyObj = CreateGameObjectToChild(transform);
+	m_bodyChildObj = CreateGameObjectToChild(m_bodyObj->transform);
 
 	// 총열 오브젝트 생성
-	m_gunObj = CreateGameObjectToChild(m_bodyObj->transform);
+	m_gunObj = CreateGameObjectToChild(m_bodyChildObj->transform);
 
 	// 총알집 오브젝트 생성
-	m_ammoObj = CreateGameObjectToChild(m_bodyObj->transform);
+	m_ammoObj = CreateGameObjectToChild(m_bodyChildObj->transform);
 
-	m_bodyRenderer = m_bodyObj->AddComponent<UserMeshRenderer>();
+	// 렌더러 생성 및 설정
+	m_bodyRenderer = m_bodyChildObj->AddComponent<UserMeshRenderer>();
 	m_bodyRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
 	m_bodyRenderer->material = Resource::FindAs<Material>(BuiltInLightOverlayMaterial);
 	m_bodyRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
@@ -58,6 +60,8 @@ void Chaingun::Awake()
 void Chaingun::Update()
 {
 	Weapon::Update();
+
+	RepositionBody();
 }
 
 void Chaingun::OnDestroy()
@@ -74,6 +78,8 @@ void Chaingun::OnChanged()
 	m_ammoAnimator->PlayIdle();
 
 	m_hasAttackInput = false;
+
+	m_bodyChildObj->transform->localPosition = Vec2::zero();
 }
 
 void Chaingun::OnPutIn()
@@ -104,6 +110,56 @@ void Chaingun::OnReloadInput(InputType inputType)
 {
 }
 
+AmmoTypes Chaingun::GetAmmoType0() const
+{
+	return AmmoTypes::Chaingun;
+}
+
+AmmoTypes Chaingun::GetAmmoType1() const
+{
+	return AmmoTypes::None;
+}
+
+unsigned int Chaingun::GetTotalAmmo0() const
+{
+	return m_ammo;
+}
+
+unsigned int Chaingun::GetTotalAmmo1() const
+{
+	return 0;
+}
+
+unsigned int Chaingun::GetLoadedAmmo0() const
+{
+	return 0;
+}
+
+unsigned int Chaingun::GetLoadedAmmo1() const
+{
+	return 0;
+}
+
+bool Chaingun::GetLoadedAmmo0State() const
+{
+	return false;
+}
+
+bool Chaingun::GetLoadedAmmo1State() const
+{
+	return false;
+}
+
+void Chaingun::AddAmmo(AmmoTypes ammo, unsigned int count)
+{
+	m_ammo += count;
+
+	if (m_ammo > 999)
+	{
+		m_ammo = 999;
+	}
+}
+
 void Chaingun::OnRotateBarrel()
 {
 	if (m_ammo <= 0)
@@ -123,7 +179,14 @@ void Chaingun::OnRotateBarrel()
 		Player::GetInstance()->controller->fpsCamera->MakeRecoil(Vec2::Direction(randomAngle) * 0.4f, 0.3f, 6.0f);
 
 		--m_ammo;
+
+		m_bodyChildObj->transform->localPosition = Vec2::Direction(float(rand() % 360)) * 0.005f;
 	}
+}
+
+void Chaingun::RepositionBody()
+{
+	m_bodyChildObj->transform->localPosition = Vec2::Lerp(m_bodyChildObj->transform->localPosition, Vec2::zero(), Time::DeltaTime() * 10.0f);
 }
 
 void Chaingun::MakeRightFireEffect()

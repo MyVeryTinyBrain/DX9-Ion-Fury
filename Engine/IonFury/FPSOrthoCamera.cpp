@@ -2,10 +2,10 @@
 #include "FPSOrthoCamera.h"
 #include "RenderLayers.h"
 #include "OverlayRenderOrders.h"
-#include "Revolver.h"
-#include "Launcher.h"
-#include "SMG.h"
-#include "Chaingun.h"
+#include "Weapon.h"
+#include "Hands.h"
+#include "PlayerUI.h"
+#include "Player.h"
 
 void FPSOrthoCamera::Awake()
 {
@@ -31,28 +31,28 @@ void FPSOrthoCamera::Awake()
 		m_crosshairRenderer->overlayRenderOrder = int(OverlayRenderOrders::Crosshair);
 	}
 
-	m_handsObject = CreateGameObjectToChild(m_forwardGameObject->transform);
-	m_handsObject->transform->localPosition = Vec2(0, 0);
+	{
+		auto uiObj = CreateGameObjectToChild(m_forwardGameObject->transform);
+		m_ui = uiObj->AddComponent<PlayerUI>();
+	}
 
-	m_handsMiddleObject = CreateGameObjectToChild(m_handsObject->transform);
+	m_handsObj = CreateGameObjectToChild(m_forwardGameObject->transform);
+	m_hands = m_handsObj->AddComponent<Hands>();
+}
 
-	m_handsChildObject = CreateGameObjectToChild(m_handsMiddleObject->transform);
-
-	SetupWeapons();
+void FPSOrthoCamera::Start()
+{
+	
 }
 
 void FPSOrthoCamera::Update()
 {
-	ChangeWeapon();
 
-	InputToActiveWeapon();
 }
 
 void FPSOrthoCamera::LateUpdate()
 {
-	MoveHandsObject();
-
-	RepositionHandsChildObject();
+	UpdateUI();
 }
 
 Camera* FPSOrthoCamera::GetCamera() const
@@ -65,29 +65,29 @@ Transform* FPSOrthoCamera::GetForwardTransform() const
 	return m_forwardGameObject->transform;
 }
 
+PlayerUI* FPSOrthoCamera::GetUI() const
+{
+	return m_ui;
+}
+
+Hands* FPSOrthoCamera::GetHands() const
+{
+	return m_hands;
+}
+
 void FPSOrthoCamera::MoveHandsChildObject(const Vec3& deltaAngle)
 {
-	// 회전한 각도 차이만큼 손을 이동시킵니다.
-
-	const float clampRange = 0.5f;
-	Vec3 clampedDeltaAngle = deltaAngle * (1.0f / 360.0f);
-	clampedDeltaAngle.x = Clamp(clampedDeltaAngle.x, -clampRange, +clampRange);
-	clampedDeltaAngle.y = Clamp(clampedDeltaAngle.y, -clampRange, +clampRange);
-
-	Vec2 localPosition = m_handsChildObject->transform->localPosition + Vec2(-clampedDeltaAngle.y, clampedDeltaAngle.x);
-	localPosition.x = Clamp(localPosition.x, -0.5f, +0.5f);
-	localPosition.y = Clamp(localPosition.y, -0.5f, +0.1f);
-	m_handsChildObject->transform->localPosition = localPosition;
+	m_hands->MoveHandsChildObject(deltaAngle);
 }
 
 void FPSOrthoCamera::SetWalkingState(bool value)
 {
-	m_isWalking = value;
+	m_hands->SetWalkingState(value);
 }
 
 void FPSOrthoCamera::SetElaptionAccumulateScale(float value)
 {
-	m_elapionAccumulateScale = value;
+	m_hands->SetElaptionAccumulateScale(value);
 }
 
 void FPSOrthoCamera::SetCrossHair(bool value)
@@ -95,181 +95,16 @@ void FPSOrthoCamera::SetCrossHair(bool value)
 	m_crosshairRenderer->gameObject->activeSelf = value;
 }
 
-void FPSOrthoCamera::SetActiveWeapon(int weaponIndex)
+void FPSOrthoCamera::UpdateUI()
 {
-	if (weaponIndex < 0)
-	{
-		weaponIndex = 0;
-	}
-
-	m_weapons[weaponIndex]->OnPutIn();
-
-	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
-	{
-		m_weaponObjects[i]->activeSelf = false;
-		m_weapons[i]->OnAttackInput(Weapon::InputType::Nothing);
-		m_weapons[i]->OnSubInput(Weapon::InputType::Nothing);
-		m_weapons[i]->OnReloadInput(Weapon::InputType::Nothing);
-	}
-
-	m_weaponObjects[weaponIndex]->activeSelf = true;
-	m_weapons[weaponIndex]->OnChanged();
-
-	m_activeWeaponIndex = weaponIndex;
-}
-
-void FPSOrthoCamera::SetupWeapons()
-{
-	m_weaponObjects[(unsigned int)WeaponTypes::Revolver] = CreateGameObjectToChild(m_handsChildObject->transform);
-	m_weapons[(unsigned int)WeaponTypes::Revolver] = m_weaponObjects[(unsigned int)WeaponTypes::Revolver]->AddComponent<Revolver>();
-
-	m_weaponObjects[(unsigned int)WeaponTypes::Launcher] = CreateGameObjectToChild(m_handsChildObject->transform);
-	m_weapons[(unsigned int)WeaponTypes::Launcher] = m_weaponObjects[(unsigned int)WeaponTypes::Launcher]->AddComponent<Launcher>();
-
-	m_weaponObjects[(unsigned int)WeaponTypes::SMG] = CreateGameObjectToChild(m_handsChildObject->transform);
-	m_weapons[(unsigned int)WeaponTypes::SMG] = m_weaponObjects[(unsigned int)WeaponTypes::SMG]->AddComponent<SMG>();
-
-	m_weaponObjects[(unsigned int)WeaponTypes::Chaingun] = CreateGameObjectToChild(m_handsChildObject->transform);
-	m_weapons[(unsigned int)WeaponTypes::Chaingun] = m_weaponObjects[(unsigned int)WeaponTypes::Chaingun]->AddComponent<Chaingun>();
-
-	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
-	{
-		m_weaponObjects[i]->activeSelf = false;
-	}
-
-	SetActiveWeapon(0);
-}
-
-void FPSOrthoCamera::InputToActiveWeapon()
-{
-	using t = Weapon::InputType;
-	constexpr t keydown = t::KeyDown;
-	constexpr t keypressing = t::KeyPressing;
-	constexpr t keyup = t::KeyUp;
-	constexpr t nothing = t::Nothing;
-
-	t attack = nothing;
-	t sub = nothing;
-	t reload = nothing;
-
-	if (m_weaponChangingCounter <= 0)
-	{
-		if (Input::GetKeyDown(Key::LeftMouse))
-		{
-			attack = keydown;
-		}
-		else if (Input::GetKey(Key::LeftMouse))
-		{
-			attack = keypressing;
-		}
-		else if (Input::GetKeyUp(Key::LeftMouse))
-		{
-			attack = keyup;
-		}
-
-		if (Input::GetKeyDown(Key::RightMouse))
-		{
-			sub = keydown;
-		}
-		else if (Input::GetKey(Key::RightMouse))
-		{
-			sub = keypressing;
-		}
-		else if (Input::GetKeyUp(Key::RightMouse))
-		{
-			sub = keyup;
-		}
-
-		if (Input::GetKeyDown(Key::R))
-		{
-			reload = keydown;
-		}
-		else if (Input::GetKey(Key::R))
-		{
-			reload = keypressing;
-		}
-		else if (Input::GetKeyUp(Key::R))
-		{
-			reload = keyup;
-		}
-	}
-
-	if (m_activeWeaponIndex < 0 || m_activeWeaponIndex >= (int)WeaponTypes::Max)
-	{
-		return;
-	}
-
-	m_weapons[m_activeWeaponIndex]->OnAttackInput(attack);
-	m_weapons[m_activeWeaponIndex]->OnSubInput(sub);
-	m_weapons[m_activeWeaponIndex]->OnReloadInput(reload);
-}
-
-void FPSOrthoCamera::MoveHandsObject()
-{
-	if (m_isWalking)
-	{
-		//const float t = m_elapsed * 5.0f;
-		//float funcX = sinf(t - PI * 0.5f) + 1.0f;
-		//float funcY = -powf(funcX - 1.0f, 2.0f) + 1.0f;
-		//m_handsObject->transform->localPosition = Vec2(funcX, funcY * 0.5f) * 0.05f;
-
-		const float t = m_elapsed * 7.5f;
-		float f = sinf(t);
-		float g = -pow(f, 2.0f);
-		m_handsObject->transform->localPosition = Vec2(f, g * 0.5f) * 0.05f;
-
-		m_elapsed += Time::DeltaTime() * m_elapionAccumulateScale;
-		m_isWalking = false;
-		m_elapionAccumulateScale = 1.0f;
-	}
-	else
-	{
-		// 걷지 않을 때 손 위치 변화를 우너점으로 부드럽게 이동시킵니다.
-		m_handsObject->transform->localPosition = Vec2::Lerp(m_handsObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 20.0f);
-		m_elapsed = 0;
-	}
-}
-
-void FPSOrthoCamera::RepositionHandsChildObject()
-{
-	// 카메라 회전에 의한 손 위치 변화를 원점으로 부드럽게 이동시킵니다.
-	m_handsChildObject->transform->localPosition = Vec2::Lerp(m_handsChildObject->transform->localPosition, Vec2::zero(), Time::UnscaledDelteTime() * 10.0f);
-}
-
-void FPSOrthoCamera::ChangeWeapon()
-{
-	int changeWeaponIndex = -1;
-	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
-	{
-		Key key = (Key)(i + (int)Key::One);
-		if (Input::GetKeyDown(key))
-		{
-			changeWeaponIndex = i;
-		}
-	}
-
-	if (changeWeaponIndex != m_activeWeaponIndex && changeWeaponIndex >= 0 && changeWeaponIndex < (int)WeaponTypes::Max)
-	{
-		m_weaponChangeIndex = changeWeaponIndex;
-		m_weaponChangingCounter = 0.2f;
-	}
-
-	if (m_weaponChangingCounter > 0)
-	{
-		m_weaponChangingCounter -= Time::DeltaTime();
-
-		if (m_weaponChangingCounter <= 0)
-		{
-			SetActiveWeapon(m_weaponChangeIndex);
-		}
-	}
-
-	if (m_weaponChangingCounter > 0)
-	{
-		m_handsMiddleObject->transform->localPosition = Vec2::Lerp(m_handsMiddleObject->transform->localPosition, m_handsMiddleHideLocalPosition, Time::DeltaTime() * 10.0f);
-	}
-	else
-	{
-		m_handsMiddleObject->transform->localPosition = Vec2::Lerp(m_handsMiddleObject->transform->localPosition, m_handsMiddleShowLocalPosition, Time::DeltaTime() * 10.0f);
-	}
+	Weapon* weapon = m_hands->GetActiveWeapon();
+	m_ui->SetLoadedAmmo0State(weapon->GetLoadedAmmo0State());
+	m_ui->SetLoadedAmmo1State(weapon->GetLoadedAmmo1State());
+	m_ui->SetLoadedAmmo0(weapon->GetLoadedAmmo0());
+	m_ui->SetLoadedAmmo1(weapon->GetLoadedAmmo1());
+	m_ui->SetAmmo0Type(weapon->GetAmmoType0());
+	m_ui->SetAmmo1Type(weapon->GetAmmoType1());
+	m_ui->SetAmmo0(weapon->GetTotalAmmo0());
+	m_ui->SetAmmo1(weapon->GetTotalAmmo1());
+	m_ui->SetHP(Player::GetInstance()->HP);
 }

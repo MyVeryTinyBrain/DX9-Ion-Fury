@@ -15,7 +15,7 @@ void Drone::Awake()
 	m_moveSpeed = 4.0f;
 
 	m_body->mass = 1.f;
-	m_body->interpolate = true;
+	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->useGravity = false;
 	m_body->sleepThresholder = 1.0f;
 

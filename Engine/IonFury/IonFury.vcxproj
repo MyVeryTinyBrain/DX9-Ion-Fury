@@ -151,8 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AmmoTypes.h" />
+    <ClInclude Include="Arrow.h" />
     <ClInclude Include="BillboardEffect.h" />
     <ClInclude Include="BloodEffect.h" />
+    <ClInclude Include="Bow.h" />
+    <ClInclude Include="BowAnimator.h" />
+    <ClInclude Include="BowStringAnimator.h" />
     <ClInclude Include="BulletProof.h" />
     <ClInclude Include="BulletTrail.h" />
     <ClInclude Include="Chaingun.h" />
@@ -175,6 +180,8 @@
     <ClInclude Include="LauncherGranade.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Number.h" />
+    <ClInclude Include="Numbers.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
@@ -195,14 +202,20 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TriangleStair.h" />
+    <ClInclude Include="PlayerUI.h" />
     <ClInclude Include="UserMixMesh.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="Hands.h" />
     <ClInclude Include="WeaponTypes.h" />
     <ClInclude Include="Web.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="BillboardEffect.cpp" />
     <ClCompile Include="BloodEffect.cpp" />
+    <ClCompile Include="Bow.cpp" />
+    <ClCompile Include="BowAnimator.cpp" />
+    <ClCompile Include="BowStringAnimator.cpp" />
     <ClCompile Include="BulletProof.cpp" />
     <ClCompile Include="BulletTrail.cpp" />
     <ClCompile Include="Chaingun.cpp" />
@@ -224,6 +237,8 @@
     <ClCompile Include="LauncherGranade.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Number.cpp" />
+    <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -239,8 +254,10 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TriangleStair.cpp" />
+    <ClCompile Include="PlayerUI.cpp" />
     <ClCompile Include="UserMixMesh.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Hands.cpp" />
     <ClCompile Include="Web.cpp" />
   </ItemGroup>
   <ItemGroup>

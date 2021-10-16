@@ -1,6 +1,10 @@
 (@@는 86, 64등 실행 환경입니다)
 (##는 Debug, Release 빌드 설정입니다)
 
+참조 추가
+	Engine
+	json
+
 구성 속성->VC++ 디렉터리->포함 디렉터리
 	$(WindowsSDK_IncludePath)
 	$(VC_IncludePath)

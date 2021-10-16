@@ -12,7 +12,7 @@ void Web::Awake()
 	m_body->SetRotationLockAxis(PhysicsAxis::All, true);
 
 	m_body->mass = 0.01f;
-	m_body->interpolate = true;
+	m_body->interpolate = Interpolate::Extrapolate;
 
 	MaterialParameters params;
 	params.alphaTest = true;

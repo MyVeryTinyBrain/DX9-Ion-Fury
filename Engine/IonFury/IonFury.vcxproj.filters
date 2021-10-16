@@ -124,6 +124,30 @@
     <ClCompile Include="TestScene2.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Bow.cpp">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClCompile>
+    <ClCompile Include="BowAnimator.cpp">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClCompile>
+    <ClCompile Include="BowStringAnimator.cpp">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClCompile>
+    <ClCompile Include="Number.cpp">
+      <Filter>Player\UI\Number</Filter>
+    </ClCompile>
+    <ClCompile Include="Numbers.cpp">
+      <Filter>Player\UI\Numbers</Filter>
+    </ClCompile>
+    <ClCompile Include="Hands.cpp">
+      <Filter>Player\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUI.cpp">
+      <Filter>Player\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaingun.h">
@@ -270,6 +294,33 @@
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="BowAnimator.h">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClInclude>
+    <ClInclude Include="Bow.h">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClInclude>
+    <ClInclude Include="BowStringAnimator.h">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Player\Weapon\Bow</Filter>
+    </ClInclude>
+    <ClInclude Include="Number.h">
+      <Filter>Player\UI\Number</Filter>
+    </ClInclude>
+    <ClInclude Include="Numbers.h">
+      <Filter>Player\UI\Numbers</Filter>
+    </ClInclude>
+    <ClInclude Include="Hands.h">
+      <Filter>Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerUI.h">
+      <Filter>Player\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoTypes.h">
+      <Filter>Initialize</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -351,6 +402,18 @@
     </Filter>
     <Filter Include="Player\Weapon\Launcher">
       <UniqueIdentifier>{996e84ce-7ddb-4d2d-b51f-03b4f53669b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Weapon\Bow">
+      <UniqueIdentifier>{a5685ba0-1f0d-4b07-b0ce-a478f6b4ca05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\UI">
+      <UniqueIdentifier>{59697637-fe6b-4e85-835a-5bd402971880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\UI\Number">
+      <UniqueIdentifier>{3519f3cd-786b-4958-889f-fcd5f1d12ee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\UI\Numbers">
+      <UniqueIdentifier>{94339adf-cf63-455c-bdcb-3daf48a08a74}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

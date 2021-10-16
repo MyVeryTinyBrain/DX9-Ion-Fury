@@ -11,10 +11,11 @@ void LauncherGranade::Awake()
 	GranadeTrail* trail = trailObj->AddComponent<GranadeTrail>();
 
 	m_rigidbody = gameObject->AddComponent<Rigidbody>();
-	m_rigidbody->interpolate = true;
+	m_rigidbody->interpolate = Interpolate::Extrapolate;
 	m_rigidbody->mass = 0.1f;
 	m_rigidbody->positionIteration = 1;
 	m_rigidbody->velocityIteration = 1;
+	m_rigidbody->isContinousDetection = true;
 
 	m_colliderObj = CreateGameObjectToChild(transform);
 	m_colliderObj->transform->scale = Vec3::one() * 0.5f;
@@ -139,7 +140,7 @@ void LauncherGranade::Explosion()
 		DamageParameters params;
 		params.monsterHitCollider = monsterCollider;
 		params.damageType = MonsterDamageType::Explosion;
-		params.damage = 20.0f;
+		params.damage = float(m_explosionDamage);
 		params.force = direction * 30;
 		params.includeDamageDirection = true;
 		params.damageDirection = direction;

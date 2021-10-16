@@ -10,7 +10,7 @@ void FPSCharacterController::Awake()
 
     m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
-    m_body->interpolate = true;
+    m_body->interpolate = Interpolate::Interpolate;
     m_body->sleepThresholder = 5.0f;
 
     m_subObj = CreateGameObjectToChild(transform);
@@ -133,11 +133,6 @@ void FPSCharacterController::Update()
     else if (Input::GetKey(Key::LShift))
     {
         m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(1.65f);
-        m_camera->camera->fov = Lerp(m_camera->camera->fov, 80, Time::DeltaTime() * 10.0f);
-    }
-    else
-    {
-        m_camera->camera->fov = Lerp(m_camera->camera->fov, 90, Time::DeltaTime() * 10.0f);
     }
 }
 

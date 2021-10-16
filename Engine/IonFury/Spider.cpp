@@ -14,7 +14,7 @@ void Spider::Awake()
 	m_moveSpeed = 2.0f;
 
 	m_body->mass = 0.5f;
-	m_body->interpolate = true;
+	m_body->interpolate = Interpolate::Extrapolate;
 
 
 	m_rendererObj->transform->scale = Vec3::one() * 3.0f;

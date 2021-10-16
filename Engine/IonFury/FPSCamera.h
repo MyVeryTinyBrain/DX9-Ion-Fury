@@ -45,5 +45,7 @@ private:
 	float m_recoilMaxTime;
 
 	float m_recoilPow = 1.0f;
+
+	float m_defaultFOV = 90.0f;
 };
 

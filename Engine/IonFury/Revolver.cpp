@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "FPSCharacterController.h"
 #include "FPSCamera.h"
-#include "FPSOrthoCamera.h"
 #include "OrthoEffect.h"
 #include "PhysicsLayers.h"
 #include "Monster.h"
@@ -159,6 +158,56 @@ void Revolver::OnReloadInput(InputType inputType)
 	if (inputType == InputType::KeyPressing)
 	{
 		TryReload();
+	}
+}
+
+AmmoTypes Revolver::GetAmmoType0() const
+{
+	return AmmoTypes::Revolver;
+}
+
+AmmoTypes Revolver::GetAmmoType1() const
+{
+	return AmmoTypes::None;
+}
+
+unsigned int Revolver::GetTotalAmmo0() const
+{
+	return m_totalAmmo;
+}
+
+unsigned int Revolver::GetTotalAmmo1() const
+{
+	return 0;
+}
+
+unsigned int Revolver::GetLoadedAmmo0() const
+{
+	return m_loadedAmmo;
+}
+
+unsigned int Revolver::GetLoadedAmmo1() const
+{
+	return 0;
+}
+
+bool Revolver::GetLoadedAmmo0State() const
+{
+	return true;
+}
+
+bool Revolver::GetLoadedAmmo1State() const
+{
+	return false;
+}
+
+void Revolver::AddAmmo(AmmoTypes ammo, unsigned int count)
+{
+	m_totalAmmo += count;
+
+	if (m_totalAmmo > 999)
+	{
+		m_totalAmmo = 999;
 	}
 }
 

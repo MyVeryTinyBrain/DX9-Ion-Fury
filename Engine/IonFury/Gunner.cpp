@@ -13,7 +13,7 @@ void Gunner::Awake()
     m_moveSpeed = 3.0f;
 
     m_body->mass = 4.0f;
-    m_body->interpolate = true;
+    m_body->interpolate = Interpolate::Extrapolate;
     m_body->sleepThresholder = 0.5f;
 
     // 렌더링되는 쿼드의 스케일을 키웁니다.

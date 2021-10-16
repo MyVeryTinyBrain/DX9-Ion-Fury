@@ -6,5 +6,7 @@ enum class WeaponTypes
 	Launcher,
 	SMG,
 	Chaingun,
+	Bow,
 	Max,
+	None,
 };

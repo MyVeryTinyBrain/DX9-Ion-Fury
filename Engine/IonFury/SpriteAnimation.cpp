@@ -112,7 +112,7 @@ unsigned int SpriteAnimation::TimeToIndex(float time) const
 
 	if (!m_loop && index >= textureCount)
 	{
-		index = textureCount - 1;
+		index = unsigned int(textureCount - 1);
 	}
 
 	return index;

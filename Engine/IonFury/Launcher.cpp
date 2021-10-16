@@ -137,6 +137,123 @@ void Launcher::OnReloadInput(InputType inputType)
 	}
 }
 
+AmmoTypes Launcher::GetAmmoType0() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return AmmoTypes::Shotgun;
+			break;
+		case Mode::Launcher:
+			return AmmoTypes::Launcher;
+			break;
+	}
+
+	return AmmoTypes::None;
+}
+
+AmmoTypes Launcher::GetAmmoType1() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return AmmoTypes::Launcher;
+			break;
+		case Mode::Launcher:
+			return AmmoTypes::Shotgun;
+			break;
+	}
+
+	return AmmoTypes::None;
+}
+
+unsigned int Launcher::GetTotalAmmo0() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return m_shotgunAmmo.totalAmmo;
+			break;
+		case Mode::Launcher:
+			return m_launcherAmmo.totalAmmo;
+			break;
+	}
+
+	return 0;
+}
+
+unsigned int Launcher::GetTotalAmmo1() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return m_launcherAmmo.totalAmmo;
+			break;
+		case Mode::Launcher:
+			return m_shotgunAmmo.totalAmmo;
+			break;
+	}
+
+	return 0;
+}
+
+unsigned int Launcher::GetLoadedAmmo0() const
+{
+	return m_currentAmmo->loadedAmmo;
+}
+
+unsigned int Launcher::GetLoadedAmmo1() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return m_launcherAmmo.loadedAmmo;
+			break;
+		case Mode::Launcher:
+			return m_shotgunAmmo.loadedAmmo;
+			break;
+	}
+
+	return 0;
+}
+
+bool Launcher::GetLoadedAmmo0State() const
+{
+	return true;
+}
+
+bool Launcher::GetLoadedAmmo1State() const
+{
+	return true;
+}
+
+void Launcher::AddAmmo(AmmoTypes ammo, unsigned int count)
+{
+	switch (ammo)
+	{
+		case AmmoTypes::Shotgun:
+			{
+				m_shotgunAmmo.totalAmmo += count;
+
+				if (m_shotgunAmmo.totalAmmo > 999)
+				{
+					m_shotgunAmmo.totalAmmo = 999;
+				}
+			}
+			break;
+		case AmmoTypes::Launcher:
+			{
+				m_launcherAmmo.totalAmmo += count;
+
+				if (m_launcherAmmo.totalAmmo > 999)
+				{
+					m_launcherAmmo.totalAmmo = 999;
+				}
+			}
+			break;
+	}
+}
+
 void Launcher::OnReloaded()
 {
 	int emptyAmmos = (int)Abs(m_currentAmmo->ammoLoadMax - m_currentAmmo->loadedAmmo);

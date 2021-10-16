@@ -221,6 +221,56 @@ void SMG::OnReloadInput(InputType inputType)
 	}
 }
 
+AmmoTypes SMG::GetAmmoType0() const
+{
+	return AmmoTypes::SMG;
+}
+
+AmmoTypes SMG::GetAmmoType1() const
+{
+	return AmmoTypes::None;
+}
+
+unsigned int SMG::GetTotalAmmo0() const
+{
+	return m_totalAmmo;
+}
+
+unsigned int SMG::GetTotalAmmo1() const
+{
+	return 0;
+}
+
+unsigned int SMG::GetLoadedAmmo0() const
+{
+	return m_rightAmmo;
+}
+
+unsigned int SMG::GetLoadedAmmo1() const
+{
+	return m_leftAmmo;
+}
+
+bool SMG::GetLoadedAmmo0State() const
+{
+	return true;
+}
+
+bool SMG::GetLoadedAmmo1State() const
+{
+	return m_leftHandObj->activeInTree;
+}
+
+void SMG::AddAmmo(AmmoTypes ammo, unsigned int count)
+{
+	m_totalAmmo += count;
+
+	if (m_totalAmmo > 999)
+	{
+		m_totalAmmo = 999;
+	}
+}
+
 void SMG::OnPlayedLeftPutin()
 {
 	m_leftHandObj->activeSelf = false;

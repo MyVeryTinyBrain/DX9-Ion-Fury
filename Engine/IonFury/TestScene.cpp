@@ -165,9 +165,9 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 10; ++i)
     {
-        for (int j = 0; j < 5; ++j)
+        for (int j = 0; j < 10; ++j)
         {
             auto obj = CreateGameObject();
             obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
