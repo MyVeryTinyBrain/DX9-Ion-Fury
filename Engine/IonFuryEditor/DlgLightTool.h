@@ -31,6 +31,7 @@ protected:
 
 private:
 	virtual BOOL OnInitDialog();
+	void InitDirectionInfo();
 	CComboBox m_LT_ComboBox;
 
 // 투명도 조절하는 함수입니다. 
