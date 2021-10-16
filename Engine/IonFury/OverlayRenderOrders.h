@@ -9,5 +9,9 @@ enum class OverlayRenderOrders
 	OrthoBackEffect3,
 	PlayerRightHand,
 	PlayerLeftHand,
+	PlayerWeaponOverlay0,
+	PlayerWeaponOverlay1,
+	PlayerWeaponOverlay2,
+	PlayerWeaponOverlay3,
 	Crosshair,
 };

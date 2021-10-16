@@ -7,6 +7,39 @@ enum class MonsterDamageType
 	Explosion,
 };
 
+struct DamageParameters
+{
+	// 몬스터가 피격당한 콜라이더입니다.
+	Collider* monsterHitCollider = nullptr;
+
+	// 공격의 형태입니다.
+	MonsterDamageType damageType = MonsterDamageType::Bullet;
+
+	// 몬스터에 적용되어야 할 데미지입니다.
+	float damage = 0;
+
+	// 몬스터의 강체에 적용되어야 할 힘입니다.
+	Vec3 force = Vec3::zero();
+
+	// 몬스터의 콜라이더에 적중한 좌표가 포함되었음을 알리는 플래그입니다.
+	bool includeMonsterHitWorldPoint = false;
+
+	// 공격이 몬스터의 콜라이더에 적중한 좌표입니다.
+	Vec3 monsterHitWorldPoint = Vec3::zero();
+
+	// 공격이 진행되는 방향이 포함되었음을 알리는 플래그입니다.
+	bool includeDamageDirection = false;
+
+	// 공격이 진행되는 방향벡터입니다.
+	Vec3 damageDirection = Vec3::zero();
+
+	// 공격이 시작된 좌표가 포함되었음을 알리는 플래그입니다.
+	bool includeAttackBeginPoint = false;
+
+	// 공격이 시작된 좌표입니다.
+	Vec3 attackBeginPoint = Vec3::zero();
+};
+
 class Monster : public Component
 {
 	OverrideComponentFunction(Awake);
@@ -23,15 +56,15 @@ protected:
 
 	virtual Collider* InitializeCollider(GameObject* colliderObj) = 0;
 
-	virtual void OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force) = 0;
+	virtual void OnDamage(DamageParameters& params) = 0;
 
-	virtual void OnDead(bool& dead, MonsterDamageType damageType) = 0;
+	virtual void OnDead(bool& dead, DamageParameters& params) = 0;
 
 public:
 
 	Vec3 ToSlopeVelocity(const Vec3& velocity, float rayLength = FLT_MAX) const;
 
-	void TakeDamage(Collider* collider, MonsterDamageType damageType, float damage, Vec3 force = Vec3::zero());
+	void TakeDamage(const DamageParameters& params);
 
 	float AngleToPlayer() const;
 
@@ -60,6 +93,8 @@ protected:
 	const float DAMAGE_EFFECT_DURATION = 0.5f;
 
 	Rigidbody* m_body = nullptr;
+
+	Ref<Rigidbody> m_refBody;
 
 	GameObject* m_colliderObj = nullptr;
 

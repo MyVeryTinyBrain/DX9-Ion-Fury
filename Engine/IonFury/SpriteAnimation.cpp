@@ -99,6 +99,25 @@ bool SpriteAnimation::TimeOf(float time, Texture** ppTexture) const
 	return IndexOf(index, ppTexture);
 }
 
+unsigned int SpriteAnimation::TimeToIndex(float time) const
+{
+	if (time < 0)
+	{
+		time = 0;
+	}
+
+	float percent = time / maxTime;
+	float fIndex = percent * textureCount;
+	unsigned int index = int(fIndex);
+
+	if (!m_loop && index >= textureCount)
+	{
+		index = textureCount - 1;
+	}
+
+	return index;
+}
+
 bool SpriteAnimation::IsEnd(float time) const
 {
 	return time >= maxTime;

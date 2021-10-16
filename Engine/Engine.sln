@@ -9,7 +9,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IonFuryEditor", "IonFuryEdi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IonFury", "IonFury\IonFury.vcxproj", "{A1235DED-7F24-4A2F-AB66-536F073E1CF2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "json", "..\..\CPPTest\json\json.vcxproj", "{8AEF4DD0-E1DE-4CAF-823F-6CF73B39D348}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "json", "json\json.vcxproj", "{8AEF4DD0-E1DE-4CAF-823F-6CF73B39D348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -135,9 +135,18 @@ void LauncherGranade::Explosion()
 		Vec3 direction = monster->transform->position - transform->position;
 		direction.y = 0;
 		direction.Normalize();
-		Vec3 force = direction * 30.0f;
 
-		monster->TakeDamage(monsterCollider, MonsterDamageType::Explosion, 20, force);
+		DamageParameters params;
+		params.monsterHitCollider = monsterCollider;
+		params.damageType = MonsterDamageType::Explosion;
+		params.damage = 20.0f;
+		params.force = direction * 30;
+		params.includeDamageDirection = true;
+		params.damageDirection = direction;
+		params.includeAttackBeginPoint = true;
+		params.attackBeginPoint = transform->position;
+
+		monster->TakeDamage(params);
 	}
 
 	gameObject->Destroy();

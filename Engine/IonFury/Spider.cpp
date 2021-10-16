@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "PhysicsLayers.h"
 #include "Web.h"
+#include "BloodEffect.h"
 
 void Spider::Awake()
 {
@@ -17,7 +18,7 @@ void Spider::Awake()
 
 
 	m_rendererObj->transform->scale = Vec3::one() * 3.0f;
-	m_rendererObj->transform->localPosition = Vec3(0, -0.5, 0);
+	m_rendererObj->transform->localPosition = Vec3(0, -0.75f, 0);
 
 	m_animator = m_rendererChildObj->AddComponent<SpiderSpriteAnimator>();
 
@@ -36,12 +37,8 @@ void Spider::FixedUpdate()
 
 
 
-	// 목표 지점이 없는 경우에 목표 지점을 랜덤하게 재설정합니다.
 	if (!m_hasTargetCoord)
 	{
-		float randomRadian = (rand() % 360) * Deg2Rad;
-		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
-		//Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
@@ -56,11 +53,13 @@ void Spider::Update()
 
 	Attack();
 
-	if (m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
-		m_animator->PlayWalk();
-	else
-		m_animator->PlayIdle();
+	m_PatternTime += Time::DeltaTime();
 
+	if (m_PatternTime > 3.f)
+	{
+		jumpingtype = (JumpType)(rand() % unsigned int(JumpType::MAX));
+		m_PatternTime = 0.f;
+	}
 }
 
 void Spider::OnDestroy()
@@ -70,37 +69,66 @@ void Spider::OnDestroy()
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)
 {
+	{
+		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	}
+
+	colliderObj->transform->localScale = Vec3::one() * 1.25f;
+
 	return colliderObj->AddComponent<SphereCollider>();
 }
 
-void Spider::OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force)
+void Spider::OnDamage(DamageParameters& params)
 {
-	Vec3 bound;
+	m_hasTargetCoord = false;
 
-	switch (damageType)
+	switch (params.damageType)
 	{
 	case MonsterDamageType::Bullet:
-		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC);
+		m_animator->SetDefaultAnimation(m_animator->GetDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC), true);
+		m_moveSpeed = 0.f;
 		break;
 	case MonsterDamageType::Explosion:
-		m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT);
-
-		//bound = transform->forward;
-		//bound.y = 0;
-		//bound.Normalize();
-
-		//transform->position += bound * m_moveSpeed * -Time::DeltaTime();
+		m_animator->SetDefaultAnimation(m_animator->GetDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT), true);
+		m_moveSpeed = 0.f;
 		break;
 	case MonsterDamageType::Zizizik:
-		m_animator->PlayDamage();
+		m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
 		break;
 	}
 
+	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
+	{
+		GameObject* bloodEffectObj = CreateGameObject();
+		bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
+		bloodEffectObj->AddComponent<BloodEffect>();
+	}
 
+	const Vec3& playerPos = Player::GetInstance()->transform->position;
+	const Vec3& gunnerPos = transform->position;
+	Vec3 forward = playerPos - gunnerPos;
+	forward.y = 0;
+	forward.Normalize();
+	transform->forward = forward;
 }
 
-void Spider::OnDead(bool& dead, MonsterDamageType damageType)
+void Spider::OnDead(bool& dead, DamageParameters& params)
 {
+	m_hasTargetCoord = false;
+	m_attackCount = 0;
+	
+	int dieIndex = rand() % (int)SpiderSpriteAnimator::DIE_SPIDER::MAX;
+
+
+	if (params.damageType == MonsterDamageType::Explosion)
+	{
+		dieIndex = (int)MonsterDamageType::Explosion;
+	}
+
+	m_animator->PlayDie((SpiderSpriteAnimator::DIE_SPIDER)dieIndex);
 }
 
 void Spider::MoveToTarget()
@@ -173,8 +201,8 @@ void Spider::Attack()
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
-		// 거미줄 
 
+		// 거미줄 
 		auto obj = CreateGameObject();
 		obj->transform->position = transform->position + transform->forward;// *2.f;
 		obj->transform->forward = transform->forward;
@@ -185,6 +213,9 @@ void Spider::Attack()
 
 void Spider::JumpCheck()
 {
+
+	if (!m_animator->IsPlayingWalk())
+		return;
 
 	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayerDir.y = 0;
@@ -197,7 +228,15 @@ void Spider::JumpCheck()
 
 	if (m_jumptime > 3.f)
 	{
-		m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) , PhysicsQueryType::All, m_body);
+		switch (jumpingtype)
+		{
+		case Spider::JumpType::BASIC:
+			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
+			break;
+		case Spider::JumpType::WEB:
+			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
+			break;
+		}
 		m_jumptime = 0.f;
 		m_jump = true;
 	}
@@ -224,9 +263,9 @@ void Spider::Jump()
 
 	if (m_hasJump)		// 점프
 	{
-		if (m_attack)
+		if (m_attack && jumpingtype == JumpType::WEB)
 		{
-			m_attackCount = 5;
+			m_attackCount = 1;
 			m_attack = false;
 		}
 		Vec3 playerPos = Player::GetInstance()->transform->position;
@@ -240,20 +279,18 @@ void Spider::Jump()
 		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
 		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * 2.f;
-		
+
 		transform->position += velocity * 0.03f;
 
-		m_animator->SetAngle(AngleToPlayerWithSign());
-
+		m_animator->SetDefaultAnimation(m_animator->GetJump(), true);
 
 		if (transform->position.y > m_jumpY + 2.f)
 		{
-			m_attack = true;
+			if(jumpingtype == JumpType::WEB)
+				m_attack = true;
 			m_hasJump = false;
+			m_animator->SetDefaultAnimation(m_animator->GetWalk(), true);
 		}
-
-
 	}
-
-
 }
+

@@ -8,6 +8,7 @@ void Monster::Awake()
 {
 	m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
+    m_refBody = m_body;
 
 	m_colliderObj = CreateGameObjectToChild(transform);
 	m_collider = InitializeCollider(m_colliderObj);
@@ -81,16 +82,18 @@ Vec3 Monster::ToSlopeVelocity(const Vec3& velocity, float rayLength) const
     return Vec3::zero();
 }
 
-void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float damage, Vec3 force)
+void Monster::TakeDamage(const DamageParameters& params)
 {
     if (m_isDead)
     {
         return;
     }
 
-    damage = Clamp(damage, 0, FLT_MAX);
+    DamageParameters copiedParams = params;
 
-    OnDamage(collider, damageType, damage, force);
+    OnDamage(copiedParams);
+
+    float damage = Clamp(copiedParams.damage, 0, FLT_MAX);
 
     if (damage > 0)
     {
@@ -98,12 +101,16 @@ void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float
     }
 
     m_hp -= damage;
-    m_body->AddForce(force, ForceMode::Impulse);
+    
+    if (m_refBody)
+    {
+        m_body->AddForce(copiedParams.force, ForceMode::Impulse);
+    }
 
     if (m_hp <= 0 && !m_isDead)
     {
         m_isDead = true;
-        OnDead(m_isDead, damageType);
+        OnDead(m_isDead, copiedParams);
     }
 
     if (m_isDead)
@@ -113,10 +120,13 @@ void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float
         // 따라서 지형과만 충돌하는 레이어로 변경합니다.
         m_collider->layerIndex = (uint8_t)PhysicsLayers::MonsterDeadBody;
 
-        m_body->velocity = Vec3(0, m_body->velocity.y, 0);
-        m_body->ClearForce(ForceMode::Impulse);
-        m_body->ClearForce(ForceMode::Force);
-        m_body->ClearForce(ForceMode::Acceleration);
+        if (m_refBody)
+        {
+            m_body->velocity = Vec3(0, m_body->velocity.y, 0);
+            m_body->ClearForce(ForceMode::Impulse);
+            m_body->ClearForce(ForceMode::Force);
+            m_body->ClearForce(ForceMode::Acceleration);
+        }
     }
 }
 

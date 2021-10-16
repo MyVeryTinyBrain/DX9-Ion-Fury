@@ -152,10 +152,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BillboardEffect.h" />
+    <ClInclude Include="BloodEffect.h" />
     <ClInclude Include="BulletProof.h" />
     <ClInclude Include="BulletTrail.h" />
+    <ClInclude Include="Chaingun.h" />
+    <ClInclude Include="ChaingunAmmopartAnimator.h" />
+    <ClInclude Include="ChaingunGunpartAnimator.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Drone.h" />
+    <ClInclude Include="DroneExplosion.h" />
+    <ClInclude Include="DroneSmoke.h" />
     <ClInclude Include="DroneSpriteAnimator.h" />
     <ClInclude Include="FPSCharacterController.h" />
     <ClInclude Include="FPSCamera.h" />
@@ -179,6 +185,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Revolver.h" />
     <ClInclude Include="RevolverAnimator.h" />
+    <ClInclude Include="SMG.h" />
+    <ClInclude Include="SMGAnimator.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="SpiderSpriteAnimator.h" />
     <ClInclude Include="SpriteAnimation.h" />
@@ -195,10 +203,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BillboardEffect.cpp" />
+    <ClCompile Include="BloodEffect.cpp" />
     <ClCompile Include="BulletProof.cpp" />
     <ClCompile Include="BulletTrail.cpp" />
+    <ClCompile Include="Chaingun.cpp" />
+    <ClCompile Include="ChaingunAmmopartAnimator.cpp" />
+    <ClCompile Include="ChaingunGunpartAnimator.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Drone.cpp" />
+    <ClCompile Include="DroneExplosion.cpp" />
+    <ClCompile Include="DroneSmoke.cpp" />
     <ClCompile Include="DroneSpriteAnimator.cpp" />
     <ClCompile Include="FPSCharacterController.cpp" />
     <ClCompile Include="FPSCamera.cpp" />
@@ -217,6 +231,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Revolver.cpp" />
     <ClCompile Include="RevolverAnimator.cpp" />
+    <ClCompile Include="SMG.cpp" />
+    <ClCompile Include="SMGAnimator.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
@@ -239,6 +255,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{82bbf192-4b75-46b9-88be-21c93e9f6cfc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\json\json.vcxproj">
+      <Project>{8aef4dd0-e1de-4caf-823f-6cf73b39d348}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

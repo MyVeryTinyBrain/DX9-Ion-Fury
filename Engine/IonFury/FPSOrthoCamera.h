@@ -75,11 +75,7 @@ private:
 
 	const Vec2 m_handsMiddleShowLocalPosition = Vec2::zero();
 
-	const Vec2 m_handsMiddleHideLocalPosition = Vec2(-0.2f, -1.0f);
-
-	const Vec3 m_handsMiddleShowLocalEulerAngle = Vec3(0, 0, 0);
-
-	const Vec3 m_handsMiddleHideLocalEulerAngle = Vec3(0, 0, 50);
+	const Vec2 m_handsMiddleHideLocalPosition = Vec2(0, -1.0f);
 
 	// 화면각도 변경시 무기를 따라오는 동작을 구현하는 게임오브젝트입니다.
 

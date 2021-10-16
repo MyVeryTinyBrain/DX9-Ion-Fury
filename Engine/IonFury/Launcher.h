@@ -24,6 +24,8 @@ class Launcher : public Weapon
 
 	virtual void OnChanged() override;
 
+	virtual void OnPutIn() override;
+
 	virtual void OnAttackInput(InputType inputType) override;
 
 	virtual void OnSubInput(InputType inputType) override;
@@ -51,6 +53,10 @@ private:
 	void MakeFireEffect();
 
 private:
+
+	GameObject* m_rightHandObj = nullptr;
+
+	UserMeshRenderer* m_rightHandRenderer = nullptr;
 
 	class LauncherAnimator* m_animator = nullptr;
 

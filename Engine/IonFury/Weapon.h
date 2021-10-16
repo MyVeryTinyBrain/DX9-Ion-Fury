@@ -11,14 +11,13 @@ public:
 		KeyDown, KeyPressing, KeyUp, Nothing
 	};
 
-private:
-
-	OverrideComponentFunction(Awake);
-
 public:
 
 	// 이 무기로 변경되었을 떄 호출됩니다.
 	virtual void OnChanged() = 0;
+
+	// 이 무기를 집어 넣을 때 호출됩니다.
+	virtual void OnPutIn() = 0;
 
 	// 공격 키 상태가 전송됩니다.
 	virtual void OnAttackInput(InputType inputType) = 0;
@@ -28,11 +27,5 @@ public:
 
 	// 재장전 키 상태가 전송됩니다.
 	virtual void OnReloadInput(InputType inputType) = 0;
-
-protected:
-
-	GameObject* m_rightHandObj = nullptr;
-
-	UserMeshRenderer* m_rightHandRenderer = nullptr;
 };
 
