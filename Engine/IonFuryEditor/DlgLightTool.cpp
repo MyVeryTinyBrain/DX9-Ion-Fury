@@ -143,9 +143,9 @@ BOOL DlgLightTool::OnInitDialog()
 	m_LT_ComboBox.AddString(_T("Point"));
 	m_LT_ComboBox.AddString(_T("Spot"));
 	m_LT_ComboBox.AddString(_T("Directional"));
-	m_LT_ComboBox.AddString(_T("Ambinent"));
 	//m_LT_ComboBox.AddString(_T("Ambinent"));
-	m_LT_ComboBox.SetCurSel(0);
+	//m_LT_ComboBox.AddString(_T("Ambinent"));
+	m_LT_ComboBox.SetCurSel(2);
 	//m_LightType = L"Directional";
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
@@ -155,21 +155,54 @@ BOOL DlgLightTool::OnInitDialog()
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderDirX.SetRange(-180, 180);
-	m_SliderDirX.SetPos(0);
+	m_SliderDirX.SetPos(-180);
 	m_SliderDirX.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 	m_SliderDirY.SetRange(-180, 180);
-	m_SliderDirY.SetPos(0);
+	m_SliderDirY.SetPos(-180);
 	m_SliderDirY.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 	m_SliderDirZ.SetRange(-180, 180);
-	m_SliderDirZ.SetPos(0);
+	m_SliderDirZ.SetPos(-180);
 	m_SliderDirZ.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 
 	m_LT_ListBox.AddString(L"Directional");
-	//m_LT_ListBox.SetCurSel(0);
-
+	m_LT_ListBox.SetCurSel(0);
+	InitDirectionInfo();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
+
+void DlgLightTool::InitDirectionInfo()
+{
+	for (auto& light : LightObj::g_vecLight)
+	{
+		auto directionlight = light->GetGameObject()->GetComponentInChild<DirectionalLight>();
+
+		m_LightName = light->name.c_str();;
+		m_LightType = light->GetGameObject()->tag.c_str();
+
+		m_ColorR = (int)directionlight->color.r;
+		m_ColorG = (int)directionlight->color.g;
+		m_ColorB = (int)directionlight->color.b;
+		m_ColorA = (int)directionlight->color.a;
+
+		m_PosX = directionlight->transform->position.x;
+		m_PosY = directionlight->transform->position.y;
+		m_PosZ = directionlight->transform->position.z;
+
+		m_dirx = directionlight->transform->eulerAngle.x;
+		m_diry = directionlight->transform->eulerAngle.y;
+		m_dirz = directionlight->transform->eulerAngle.z;
+
+		m_ambinentFactor = directionlight->ambientFactor;
+
+		m_SliderCrtl_Radius.SetPos(0);
+	}
+
+	m_SliderDirX.SetPos(int(m_dirx));
+	m_SliderDirY.SetPos(int(m_diry));
+	m_SliderDirZ.SetPos(int(m_dirz));
+
 }
 
 void DlgLightTool::SetAttr(int iOpa)
@@ -201,7 +234,7 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 	case IDC_SLDER_DIRX:
 		m_SliderDirX.SetPos(pSlider->GetPos());
-		iPosX = m_SliderDirX.GetPos();
+		iPosX =m_SliderDirX.GetPos();
 		sPosX.Format(_T("%d"), iPosX);
 		m_DirX.SetWindowText(sPosX);
 		m_dirx = (float)iPosX;
@@ -374,17 +407,21 @@ void DlgLightTool::OnSelectLight()
 	switch (m_comboBox)
 	{
 	case DlgLightTool::COMBOBOX::POINTLIGNT:
+		m_LightName = L"";
 		m_LightType = L"Point";
 		break;
 	case DlgLightTool::COMBOBOX::SPOTLIGNT:
+		m_LightName = L"";
 		m_LightType = L"Spot";
 		break;
 	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
+		m_LightName = L"";
 		m_LightType = L"Directional";
 		break;
-	case DlgLightTool::COMBOBOX::AMBINENTLIGHT:
-		m_LightType = L"Ambinent";
-		break;
+	//case DlgLightTool::COMBOBOX::AMBINENTLIGHT:
+	//	m_LightName = L"";
+	//	m_LightType = L"Ambinent";
+	//	break;
 	default:
 		break;
 	}
@@ -450,7 +487,7 @@ void DlgLightTool::OnEnChangeLtDirx()
 	m_DirX.GetWindowText(sPosX);
 	iPosX = _ttoi(sPosX);
 
-	m_SliderDirX.SetPos(iPosX);
+	m_SliderDirX.SetPos((int)iPosX);
 
 	int iIndex = m_LT_ListBox.GetCurSel();
 
@@ -489,7 +526,7 @@ void DlgLightTool::OnEnChangeLtDiry()
 	m_DirY.GetWindowText(sPosY);
 	iPosY = _ttoi(sPosY);
 
-	m_SliderDirY.SetPos(iPosY);
+	m_SliderDirY.SetPos((int)iPosY);
 
 	int iIndex = m_LT_ListBox.GetCurSel();
 
@@ -536,7 +573,7 @@ void DlgLightTool::OnEnChangeLtDirz()
 
 	CString name = wstrFindName.GetString();
 
-	m_SliderDirZ.SetPos(iPosZ);
+	m_SliderDirZ.SetPos((int)iPosZ);
 
 
 	for (auto& light : LightObj::g_vecLight)
@@ -1211,34 +1248,91 @@ void DlgLightTool::OnEnChangeLtPosz()
 
 void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 {
+
+	UpdateData(TRUE);
+
+
+	int iIndex = m_LT_ListBox.FindString(-1,m_LightName);
+	m_LT_ListBox.SetCurSel(iIndex);
+
 	m_LightName = gameobject->name.c_str();
 	m_LightType = gameobject->tag.c_str();
 
+	auto light = gameobject->GetComponent<LightObj>();
 
-
-	if (m_LightType == L"Spot")
+	if (m_LightType == L"Point")
 	{
+		auto childlight = light->GetGameObject()->GetComponentInChild<PointLight>();
+
 		m_PosX = gameobject->transform->position.x;
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
+		m_ColorR =(int)childlight->color.r;
+		m_ColorG =(int)childlight->color.g;
+		m_ColorB =(int)childlight->color.b;
+		m_ColorA =(int)childlight->color.a;
+
+		m_radius = childlight->range;
+		m_ambinentFactor = childlight->ambientFactor;
+		m_SliderCrtl_Radius.SetPos((int)m_radius);
 	}
 
-	else if (m_LightType == L"Point")
+	else if (m_LightType == L"Spot")
 	{
+		auto childlight = light->GetGameObject()->GetComponentInChild<SpotLight>();
+
 		m_PosX = gameobject->transform->position.x;
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
+		m_ColorR = (int)childlight->color.r;
+		m_ColorG = (int)childlight->color.g;
+		m_ColorB = (int)childlight->color.b;
+		m_ColorA = (int)childlight->color.a;
+
+		m_radius = childlight->range;
+		m_ambinentFactor = childlight->ambientFactor;
+
+		m_OutSideAngle = childlight->outsideAngle;
+		m_InsideAngleRatio = childlight->insideAngleRatio;
+		m_SliderCrtl_Radius.SetPos((int)m_radius);
 	}
 
 	else if (m_LightType == L"Directional")
 	{
+		auto childlight = light->GetGameObject()->GetComponentInChild<DirectionalLight>();
+
 		m_PosX = gameobject->transform->position.x;
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
+		m_ColorR = (int)childlight->color.r;
+		m_ColorG = (int)childlight->color.g;
+		m_ColorB = (int)childlight->color.b;
+		m_ColorA = (int)childlight->color.a;
+
+		m_ambinentFactor = childlight->ambientFactor;
+		m_SliderCrtl_Radius.SetPos(0);
 	}
+
+	m_SliderDirX.SetPos(int(m_dirx));
+	m_SliderDirY.SetPos(int(m_diry));
+	m_SliderDirZ.SetPos(int(m_dirz));
+
+	UpdateData(FALSE);
 }
 
 void DlgLightTool::SelectObject()
@@ -1250,7 +1344,7 @@ void DlgLightTool::LightClear()
 {
 	UpdateData(TRUE);
 
-	m_LightName = L"";
+	//m_LightName = L"";
 	m_LightType = L"";
 
 	m_ColorR = 0;
@@ -1299,6 +1393,8 @@ void DlgLightTool::OnLbnDblclkList1()
 {
 	UpdateData(TRUE);
 
+	LightClear();
+
 	int iIndex = m_LT_ListBox.GetCurSel();
 	if (iIndex < 0)
 		return;
@@ -1307,12 +1403,10 @@ void DlgLightTool::OnLbnDblclkList1()
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
 	CString name = wstrFindName.GetString();
-
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	if (!giz->GetSelectedObject())
-		return;
-
-
+	//Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	//
+	//if (!giz->GetSelectedObject())
+	//	return;
 
 	for (auto& light : LightObj::g_vecLight)
 	{
@@ -1338,12 +1432,14 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_PosZ = com->transform->position.z;
 
 				m_radius = com->range;
+				m_SliderCrtl_Radius.SetPos(int(m_radius));
 
 				m_dirx = com->transform->eulerAngle.x;
 				m_diry = com->transform->eulerAngle.y;
 				m_dirz = com->transform->eulerAngle.z;
 
 				m_ambinentFactor = com->ambientFactor;
+
 			}
 			else if (lightobj->tag == L"Spot")
 			{
@@ -1363,6 +1459,7 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_PosZ = com->transform->position.z;
 
 				m_radius = com->range;
+				m_SliderCrtl_Radius.SetPos(int(m_radius));
 
 				m_OutSideAngle = com->outsideAngle;
 				m_InsideAngleRatio = com->insideAngleRatio;
@@ -1394,8 +1491,13 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_dirz = com->transform->eulerAngle.z;
 
 				m_ambinentFactor = com->ambientFactor;
+
+				m_SliderCrtl_Radius.SetPos(0);
 			}
 
+			m_SliderDirX.SetPos(int(m_dirx));
+			m_SliderDirY.SetPos(int(m_diry));
+			m_SliderDirZ.SetPos(int(m_dirz));
 		}
 
 	}
@@ -1528,7 +1630,7 @@ void DlgLightTool::JsonRoad()
 		{
 
 			Json::Value Light = LightJson[i];
-		//	Json::Value LightValue = Light[i];
+			//	Json::Value LightValue = Light[i];
 			wstring Name = ToWString(Light["Name"].asString());
 			wstring Tag = ToWString(Light["Tag"].asString());
 
@@ -1554,7 +1656,7 @@ void DlgLightTool::JsonRoad()
 			pObj->tag = Tag;
 			pObj->transform->position = Pos;
 			pObj->transform->eulerAngle = EulerAngle;
-			
+
 			if (Tag == L"Point")
 			{
 				PointLight* point = pObj->GetComponentInChild<PointLight>();
@@ -1615,7 +1717,7 @@ Json::Value DlgLightTool::LoadFromJsonFormat(string path)
 	}
 
 	in.seekg(0, std::ios::end);
-	size_t size = in.tellg();
+	size_t size = (size_t)in.tellg();
 	std::string jsonFormatText(size, ' ');
 	in.seekg(0);
 	in.read(&jsonFormatText[0], size);
