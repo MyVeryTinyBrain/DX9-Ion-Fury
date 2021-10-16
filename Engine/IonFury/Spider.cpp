@@ -10,7 +10,7 @@ void Spider::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 5;
+	m_hp = 10;
 	m_moveSpeed = 2.0f;
 
 	m_body->mass = 0.5f;

@@ -124,6 +124,18 @@
     <ClCompile Include="TestScene2.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Warmech.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechSpriteAnimator.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WamechBullet.cpp">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WamechMissile.cpp">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaingun.h">
@@ -270,6 +282,18 @@
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Warmech.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechSpriteAnimator.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WamechBullet.h">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WamechMissile.h">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -351,6 +375,12 @@
     </Filter>
     <Filter Include="Player\Weapon\Launcher">
       <UniqueIdentifier>{996e84ce-7ddb-4d2d-b51f-03b4f53669b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Warmech">
+      <UniqueIdentifier>{db062307-36f8-43f7-8361-22a6049e1175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Warmech\Weapon">
+      <UniqueIdentifier>{f20a739b-c7fa-412a-8ec4-eb3beeae46e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

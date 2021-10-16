@@ -11,7 +11,7 @@ void Drone::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 5;
+	m_hp = 10;
 	m_moveSpeed = 4.0f;
 
 	m_body->mass = 1.f;
@@ -20,7 +20,7 @@ void Drone::Awake()
 	m_body->sleepThresholder = 1.0f;
 
 	m_rendererObj->transform->scale = Vec3::one() * 4.0f;
-	m_rendererObj->transform->localPosition = Vec3(0, -0.5f, 0);
+	m_rendererObj->transform->localPosition = Vec3(0, -2.f, 0);
 	m_renderer->freezeX = false;
 	m_renderer->freezeZ = false;
 
@@ -67,7 +67,7 @@ void Drone::Update()
 		return;
 	}
 
-	//Moving(movingtype);
+	Moving(movingtype);
 
 	Attack();
 
@@ -98,7 +98,7 @@ Collider* Drone::InitializeCollider(GameObject* colliderObj)
 	}
 
 	colliderObj->transform->localScale = Vec3::one() * 2.0f;
-
+	
 	return colliderObj->AddComponent<SphereCollider>();
 }
 
@@ -111,16 +111,15 @@ void Drone::OnDamage(DamageParameters& params)
 		bloodEffectObj->AddComponent<BloodEffect>();
 	}
 
-	params.force = Vec3::zero();
-
-	Explosion();
-	// 데미지 스프라이트 없음. 
-	gameObject->Destroy(); // effect!
 }
 
 void Drone::OnDead(bool& dead, DamageParameters& params)
 {
-	// 죽는 모션 없음. 이펙트 생성
+	params.force = Vec3::zero();
+
+	Explosion();
+
+	gameObject->Destroy();
 }
 
 void Drone::Moving(MovingType type)
@@ -249,11 +248,6 @@ void Drone::Attack()
 
 void Drone::Explosion()
 {
-	{
-		GameObject* effectObj = CreateGameObject();
-		effectObj->transform->position = transform->position;
-		effectObj->AddComponent<DroneSmoke>();
-	}
 	{
 		GameObject* effectObj = CreateGameObject();
 		effectObj->transform->position = transform->position;

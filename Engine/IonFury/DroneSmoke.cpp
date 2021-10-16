@@ -30,7 +30,7 @@ void DroneSmoke::Update()
 	if (m_animationTime < 1.2f)
 		m_animator->SetDefaultAnimation(m_animator->GetSmoke(), true);
 	else
-		Destroy();
+		gameObject->Destroy();
 }
 
 void DroneSmoke::OnDestroy()
