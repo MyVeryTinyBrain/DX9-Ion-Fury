@@ -159,6 +159,8 @@
     <ClInclude Include="ChaingunAmmopartAnimator.h" />
     <ClInclude Include="ChaingunGunpartAnimator.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Deacon.h" />
+    <ClInclude Include="DeaconSpriteAnimator.h" />
     <ClInclude Include="Drone.h" />
     <ClInclude Include="DroneExplosion.h" />
     <ClInclude Include="DroneSmoke.h" />
@@ -210,6 +212,8 @@
     <ClCompile Include="ChaingunAmmopartAnimator.cpp" />
     <ClCompile Include="ChaingunGunpartAnimator.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Deacon.cpp" />
+    <ClCompile Include="DeaconSpriteAnimator.cpp" />
     <ClCompile Include="Drone.cpp" />
     <ClCompile Include="DroneExplosion.cpp" />
     <ClCompile Include="DroneSmoke.cpp" />

@@ -221,7 +221,7 @@ void LightLoad::LightObjectLoadJson(const wstring& wstrFilePath)
 
 	ifs.close();
 
-	MessageBox(nullptr, L"Load complete", L"Success Load", MB_OK );
+	//MessageBox(nullptr, L"Load complete", L"Success Load", MB_OK );
 }
 
 Json::Value LightLoad::LoadFromJsonFormat(string path)

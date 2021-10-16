@@ -4,6 +4,7 @@
 #include "Gunner.h"
 #include "Spider.h"
 #include "LightLoad.h"
+#include "Deacon.h"
 
 IClonable* TestScene::Clone()
 {
@@ -50,6 +51,12 @@ void TestScene::OnLoad(Scene* beforeScene)
     {
         //LightLoad::LightObjectLoad(L"../Data/123333.dat");
         LightLoad::LightObjectLoadJson(L"../Data/LightObject.txt");
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -10);
+        obj->AddComponent<Deacon>();
     }
 }
 

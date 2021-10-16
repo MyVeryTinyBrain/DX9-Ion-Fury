@@ -127,6 +127,12 @@
     <ClCompile Include="LightLoad.cpp">
       <Filter>Load</Filter>
     </ClCompile>
+    <ClCompile Include="Deacon.cpp">
+      <Filter>Monster\Deacon</Filter>
+    </ClCompile>
+    <ClCompile Include="DeaconSpriteAnimator.cpp">
+      <Filter>Monster\Deacon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaingun.h">
@@ -276,6 +282,12 @@
     <ClInclude Include="LightLoad.h">
       <Filter>Load</Filter>
     </ClInclude>
+    <ClInclude Include="Deacon.h">
+      <Filter>Monster\Deacon</Filter>
+    </ClInclude>
+    <ClInclude Include="DeaconSpriteAnimator.h">
+      <Filter>Monster\Deacon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -360,6 +372,9 @@
     </Filter>
     <Filter Include="Load">
       <UniqueIdentifier>{3fa8a085-c66e-4a1a-90e1-70600f68c003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Deacon">
+      <UniqueIdentifier>{6676ce66-8a17-4f74-8806-059aa6aecd20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
