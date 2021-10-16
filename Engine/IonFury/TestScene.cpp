@@ -48,7 +48,8 @@ void TestScene::OnLoad(Scene* beforeScene)
     }
 
     {
-        LightLoad::LightObjectLoad(L"../Data/123333.dat");
+        //LightLoad::LightObjectLoad(L"../Data/123333.dat");
+        LightLoad::LightObjectLoadJson(L"../Data/LightObject.txt");
     }
 }
 
