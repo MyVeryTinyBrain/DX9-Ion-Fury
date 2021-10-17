@@ -111,15 +111,15 @@ void Drone::OnDamage(DamageParameters& params)
 		bloodEffectObj->AddComponent<BloodEffect>();
 	}
 
-}
-
-void Drone::OnDead(bool& dead, DamageParameters& params)
-{
 	params.force = Vec3::zero();
 
 	Explosion();
 
 	gameObject->Destroy();
+}
+
+void Drone::OnDead(bool& dead, DamageParameters& params)
+{
 }
 
 void Drone::Moving(MovingType type)

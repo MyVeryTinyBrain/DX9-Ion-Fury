@@ -4,6 +4,7 @@
 #include "BloodEffect.h"
 #include "Player.h"
 #include "PhysicsLayers.h"
+#include "WarmechBullet.h"
 
 void Warmech::Awake()
 {
@@ -15,13 +16,15 @@ void Warmech::Awake()
 	m_body->mass = 8.f;
 	m_body->interpolate = true;
 	
+    m_renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/warmech/parent.png"));
+
     m_bodyWarmech = CreateGameObject();
     m_legWarmech = CreateGameObject();
 
     m_bodyWarmech->transform->parent = this->transform;
     m_legWarmech->transform->parent = m_bodyWarmech->transform;
 
-    m_bodyWarmech->transform->localPosition = Vec3(0, 2.5f , 0);
+    m_bodyWarmech->transform->localPosition = Vec3(0, 2.5f , 0.f);
  
     {
         auto renderer = m_bodyWarmech->AddComponent<UserMeshBillboardRenderer>();
@@ -34,7 +37,7 @@ void Warmech::Awake()
        m_bodyAnimator = m_bodyWarmech->AddComponent<WarmechSpriteAnimator>();
     }
 
-    m_legWarmech->transform->localPosition = Vec3(0, -0.65f, 0);
+    m_legWarmech->transform->localPosition = Vec3(0, -0.65f, 0.f);
  
     {
         auto renderer = m_legWarmech->AddComponent<UserMeshBillboardRenderer>();
@@ -82,10 +85,11 @@ void Warmech::Update()
 		return;
 	}
   
+    AttackType attackType = (AttackType)(rand() % unsigned int(AttackType::Max));
     if (m_breakTime <= 0)
     {
         ActionType actionType = (ActionType)(rand() % unsigned int(ActionType::Max));
-        SetAction(actionType);
+        SetAction(actionType, attackType);
     }
 
     if (m_breakTime > 0 && m_bodyAnimator->IsPlayingIdle())
@@ -102,8 +106,8 @@ void Warmech::Update()
 		m_bodyAnimator->PlayDefaultAnimation();
     }
 
-    AttackType random = (AttackType)(rand() % unsigned int(AttackType::Max));
-    Attack(random);
+   
+    Attack(attackType);
 
    
 	m_bodyAnimator->SetAngle(AngleToPlayerWithSign());
@@ -245,6 +249,7 @@ void Warmech::Attack(AttackType type)
         return;
     }
 
+
     if (m_attackCount > 0)
     {
         --m_attackCount;
@@ -252,10 +257,19 @@ void Warmech::Attack(AttackType type)
         switch (type)
         {
         case Warmech::AttackType::Bullet:
+        {
             m_bodyAnimator->PlayShoot();
+
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(transform->position.x - 1.1f, transform->position.y - 0.35f, transform->position.z) + transform->forward;// *2.ff
+            obj->transform->forward = transform->forward;
+            obj->AddComponent<WarmechBullet>();
+        }
             break;
         case Warmech::AttackType::Missile:
+        { 
             m_bodyAnimator->PlayMissile();
+        }
             break;
         }
 
@@ -266,7 +280,7 @@ void Warmech::Attack(AttackType type)
     }
 }
 
-void Warmech::SetAction(ActionType type)
+void Warmech::SetAction(ActionType type , AttackType attacktype)
 {
     m_hasTargetCoord = false;
     m_attackCount = 0;
@@ -298,7 +312,11 @@ void Warmech::SetAction(ActionType type)
     break;
     case ActionType::Attack:
     {
-        m_attackCount = 5;
+        if (attacktype == AttackType::Missile)
+            m_attackCount = 1;
+        else if (attacktype == AttackType::Bullet)
+            m_attackCount = 50;
+
     }
     break;
     }

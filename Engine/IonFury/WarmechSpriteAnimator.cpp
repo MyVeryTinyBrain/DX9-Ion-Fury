@@ -75,6 +75,23 @@ void WarmechSpriteAnimator::Awake()
 	m_missile->AddTexture(L"../SharedResource/Texture/warmech/warmech_missile2.png");
 	m_missile->interval = 0.1f;
 
+	m_bullet = new SpriteAnimation;
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet0.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet1.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet2.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet3.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet4.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet5.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet6.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet7.png");
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet8.png");
+	m_bullet->interval = 0.1f;
+
+	m_missileBullet = new SpriteAnimation;
+	m_missileBullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechMissile.png");
+	m_missileBullet->isLoop = true;
+
+
 	SetDefaultAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT]);
 }
 
@@ -194,6 +211,10 @@ void WarmechSpriteAnimator::OnDestroy()
 	SafeDelete(m_shoot);
 
 	SafeDelete(m_missile);
+
+	SafeDelete(m_bullet);
+
+	SafeDelete(m_missileBullet);
 }
 
 void WarmechSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
@@ -242,6 +263,16 @@ void WarmechSpriteAnimator::PlayMissile()
 	PlayAnimation(m_missile, true);
 }
 
+void WarmechSpriteAnimator::PlayBullet()
+{
+	PlayAnimation(m_bullet, true);
+}
+
+void WarmechSpriteAnimator::PlayMissileBullet()
+{
+	PlayAnimation(m_missileBullet, true);
+}
+
 bool WarmechSpriteAnimator::IsPlayingIdle() const
 {
 	for (auto idle : m_idle)
@@ -276,6 +307,16 @@ bool WarmechSpriteAnimator::IsPlayingMissile() const
 	return currentAnimation == m_missile;
 }
 
+bool WarmechSpriteAnimator::IsPlayingBullet() const
+{
+	return currentAnimation == m_bullet;
+}
+
+bool WarmechSpriteAnimator::IsPlayingMissileBullet() const
+{
+	return currentAnimation == m_missileBullet;
+}
+
 SpriteAnimation* WarmechSpriteAnimator::GetIdle() const
 {
 	return m_idle[(unsigned int)DIR_WARMECH::FRONT];
@@ -294,6 +335,16 @@ SpriteAnimation* WarmechSpriteAnimator::GetShoot() const
 SpriteAnimation* WarmechSpriteAnimator::GetMissile() const
 {
 	return m_missile;
+}
+
+SpriteAnimation* WarmechSpriteAnimator::GetBullet() const
+{
+	return m_bullet;
+}
+
+SpriteAnimation* WarmechSpriteAnimator::GetMissileBullet() const
+{
+	return m_missileBullet;
 }
 
 void WarmechSpriteAnimator::ChangeUVDirection()

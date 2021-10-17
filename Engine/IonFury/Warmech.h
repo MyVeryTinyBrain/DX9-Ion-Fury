@@ -32,7 +32,7 @@ private:
 
 	enum class AttackType { Bullet, Missile, Max };
 
-	void SetAction(ActionType type);
+	void SetAction(ActionType type, AttackType attacktype);
 
 	void Attack(AttackType type);
 

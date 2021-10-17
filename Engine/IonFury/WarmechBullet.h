@@ -1,8 +1,8 @@
 #pragma once
 
-class SpiderSpriteAnimator;
+class WarmechSpriteAnimator;
 
-class Web : public Component
+class WarmechBullet : public Component
 {
 	OverrideComponentFunction(Awake);
 
@@ -12,10 +12,9 @@ class Web : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
-
 private:
 
-	SpiderSpriteAnimator* m_animator = nullptr;
+	WarmechSpriteAnimator* m_animator = nullptr;
 
 	Rigidbody* m_body = nullptr;
 

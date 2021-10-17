@@ -32,6 +32,10 @@ public:
 
 	void PlayMissile();
 
+	void PlayBullet();
+
+	void PlayMissileBullet();
+
 	bool IsPlayingIdle() const;
 
 	bool IsPlayingWalk() const;
@@ -40,6 +44,10 @@ public:
 
 	bool IsPlayingMissile() const;
 
+	bool IsPlayingBullet() const;
+
+	bool IsPlayingMissileBullet() const;
+
 	SpriteAnimation* GetIdle() const;
 
 	SpriteAnimation* GetWalk() const;
@@ -47,6 +55,10 @@ public:
 	SpriteAnimation* GetShoot() const;
 
 	SpriteAnimation* GetMissile() const;
+
+	SpriteAnimation* GetBullet() const;
+
+	SpriteAnimation* GetMissileBullet() const;
 
 private:
 
@@ -63,6 +75,10 @@ private:
 	SpriteAnimation* m_shoot;
 
 	SpriteAnimation* m_missile;
+
+	SpriteAnimation* m_bullet;
+
+	SpriteAnimation* m_missileBullet;
 
 	float m_angle = 0.f;
 

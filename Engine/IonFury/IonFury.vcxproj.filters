@@ -130,10 +130,10 @@
     <ClCompile Include="WarmechSpriteAnimator.cpp">
       <Filter>Monster\Warmech</Filter>
     </ClCompile>
-    <ClCompile Include="WamechBullet.cpp">
+    <ClCompile Include="WarmechBullet.cpp">
       <Filter>Monster\Warmech\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="WamechMissile.cpp">
+    <ClCompile Include="WarmechMissile.cpp">
       <Filter>Monster\Warmech\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
@@ -288,10 +288,10 @@
     <ClInclude Include="WarmechSpriteAnimator.h">
       <Filter>Monster\Warmech</Filter>
     </ClInclude>
-    <ClInclude Include="WamechBullet.h">
+    <ClInclude Include="WarmechBullet.h">
       <Filter>Monster\Warmech\Weapon</Filter>
     </ClInclude>
-    <ClInclude Include="WamechMissile.h">
+    <ClInclude Include="WarmechMissile.h">
       <Filter>Monster\Warmech\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
