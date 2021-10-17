@@ -34,7 +34,7 @@ private:
 
 	UserMeshBillboardRenderer* m_renderer = nullptr;
 
-	int m_explosionDamage = 10;
+	int m_explosionDamage = 20;
 
 	float m_explosionRadius = 1.5f;
 

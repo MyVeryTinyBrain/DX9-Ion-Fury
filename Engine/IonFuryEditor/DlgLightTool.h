@@ -31,6 +31,7 @@ protected:
 
 private:
 	virtual BOOL OnInitDialog();
+	void InitDirectionInfo();
 	CComboBox m_LT_ComboBox;
 
 // 투명도 조절하는 함수입니다. 
@@ -39,7 +40,6 @@ private:
 	int m_nOpa;
 	void SetAttr(int iOpa);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
-
 
 public:
 	void SetPos(Vec3 _mouse);
@@ -129,4 +129,15 @@ public:
 
 	void SetName(const CString& name);
 	afx_msg void OnLbnDblclkList1();
+
+
+	//제이슨
+public:
+	void JsonWrite();
+	void JsonRoad();
+
+	void SaveToJsonFormat(const Json::Value& json, string path);
+	Json::Value LoadFromJsonFormat(string path);
+	wstring ToWString(const string& str);
+	string ToString(const wstring& wstr);
 };

@@ -108,6 +108,11 @@ void RevolverAnimator::OnAnimationEnd(const SpriteAnimation* current)
 
 void RevolverAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
 {
+	if (current == m_beginIdle)
+	{
+		*next = m_default;
+	}
+
 	if (*next == m_default)
 	{
 		if (current == m_beginReload)
@@ -151,7 +156,7 @@ void RevolverAnimator::PlayReload()
 
 bool RevolverAnimator::IsPlayingIdle() const
 {
-	return currentAnimation == m_default;
+	return currentAnimation == m_default || currentAnimation == m_beginIdle;
 }
 
 bool RevolverAnimator::IsPlayingShootAll() const

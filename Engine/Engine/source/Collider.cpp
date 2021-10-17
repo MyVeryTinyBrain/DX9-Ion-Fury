@@ -7,6 +7,12 @@
 #include "LayerManager.h"
 #include "Rigidbody.h"
 
+Collider::~Collider()
+{
+	PxRelease(m_material);
+	PxRelease(m_shape);
+}
+
 void Collider::Awake()
 {
 	auto device = PhysicsDevice::GetInstance();
@@ -61,9 +67,6 @@ void Collider::OnDestroy()
 	Rigidbody* body = GetRigidbody();
 	if (body)
 		body->Detach(this);
-
-	PxRelease(m_material);
-	PxRelease(m_shape);
 }
 
 bool Collider::IsTrigger() const

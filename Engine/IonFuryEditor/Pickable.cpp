@@ -107,25 +107,34 @@ void Pickable::DeleteMesh()
 Pickable* Pickable::Pick()
 {
 	Vec3 rayPoint, rayDir;
-	Input::GetMouseWorldRay(rayPoint, rayDir);
-
 	Vec3 HitPoint;
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
+	float FinalDistance = 90000.f;
+	Pickable* ClosestPicked = nullptr;
+
 	for (auto pickable : g_PickableVec)
 	{
 		UserMeshRenderer* Renderer = pickable->GetRenderer();
+		Input::GetMouseWorldRay(rayPoint, rayDir);
 
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
 			giz->enable = true;
-			EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
-			return pickable;
+			
+			Vec3 Between = rayPoint - HitPoint;
+			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.x * Between.y));
+			if (FinalDistance >= BetweenDistance)
+			{
+				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
+				FinalDistance = BetweenDistance;
+				ClosestPicked = pickable;
+			}
 		}
 	}
 
-	return nullptr;
+	return ClosestPicked;
 }
 
 void Pickable::PushInVector(Type type)
@@ -198,6 +207,24 @@ void Pickable::ClearEventVector()
 	}
 
 	Size = m_EventVec.size();
+}
+
+void Pickable::ClearTriggerVector()
+{
+	int Size = g_TriggerVec.size();
+	for (int i = 0; i < Size; ++i)
+	{
+		g_TriggerVec[0]->Destroy();
+	}
+}
+
+void Pickable::ClearMapVector()
+{
+	int Size = g_MapVec.size();
+	for (int i = 0; i < Size; ++i)
+	{
+		g_MapVec[0]->Destroy();
+	}
 }
 
 void Pickable::RemoveEventObject(int idx)

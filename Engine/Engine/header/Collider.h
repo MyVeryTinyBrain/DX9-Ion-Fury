@@ -20,6 +20,12 @@ class Collider abstract : public Component
 {
 	friend class Rigidbody;
 
+protected:
+
+	virtual ~Collider();
+
+private:
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(BeginPhysicsSimulate);

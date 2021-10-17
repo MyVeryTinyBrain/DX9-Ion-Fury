@@ -8,6 +8,7 @@ void Monster::Awake()
 {
 	m_body = gameObject->AddComponent<Rigidbody>();
     m_body->SetRotationLockAxis(PhysicsAxis::All, true);
+    m_refBody = m_body;
 
 	m_colliderObj = CreateGameObjectToChild(transform);
 	m_collider = InitializeCollider(m_colliderObj);
@@ -25,16 +26,7 @@ void Monster::Awake()
     m_rendererObj = CreateGameObjectToChild(transform);
     m_rendererObj->transform->localPosition = Vec3(0, -1.0f, 0);
 
-    m_rendererChildObj = CreateGameObjectToChild(m_rendererObj->transform);
-    m_rendererChildObj->transform->localPosition = Vec3(0, 0.5f, 0);
-
-    m_renderer = m_rendererChildObj->AddComponent<UserMeshBillboardRenderer>();
-    m_renderer->freezeX = true;
-    m_renderer->freezeZ = true;
-    m_renderer->material = m_material;
-
     m_quad = UserMesh::CreateUnmanaged<QuadUserMesh>();
-    m_renderer->userMesh = m_quad;
 }
 
 void Monster::FixedUpdate()
@@ -81,16 +73,18 @@ Vec3 Monster::ToSlopeVelocity(const Vec3& velocity, float rayLength) const
     return Vec3::zero();
 }
 
-void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float damage, Vec3 force)
+void Monster::TakeDamage(const DamageParameters& params)
 {
     if (m_isDead)
     {
         return;
     }
 
-    damage = Clamp(damage, 0, FLT_MAX);
+    DamageParameters copiedParams = params;
 
-    OnDamage(collider, damageType, damage, force);
+    OnDamage(copiedParams);
+
+    float damage = Clamp(copiedParams.damage, 0, FLT_MAX);
 
     if (damage > 0)
     {
@@ -98,12 +92,16 @@ void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float
     }
 
     m_hp -= damage;
-    m_body->AddForce(force, ForceMode::Impulse);
+    
+    if (m_refBody)
+    {
+        m_body->AddForce(copiedParams.force, ForceMode::Impulse);
+    }
 
     if (m_hp <= 0 && !m_isDead)
     {
         m_isDead = true;
-        OnDead(m_isDead, damageType);
+        OnDead(m_isDead, copiedParams);
     }
 
     if (m_isDead)
@@ -113,10 +111,13 @@ void Monster::TakeDamage(Collider* collider, MonsterDamageType damageType, float
         // 따라서 지형과만 충돌하는 레이어로 변경합니다.
         m_collider->layerIndex = (uint8_t)PhysicsLayers::MonsterDeadBody;
 
-        m_body->velocity = Vec3(0, m_body->velocity.y, 0);
-        m_body->ClearForce(ForceMode::Impulse);
-        m_body->ClearForce(ForceMode::Force);
-        m_body->ClearForce(ForceMode::Acceleration);
+        if (m_refBody)
+        {
+            m_body->velocity = Vec3(0, m_body->velocity.y, 0);
+            m_body->ClearForce(ForceMode::Impulse);
+            m_body->ClearForce(ForceMode::Force);
+            m_body->ClearForce(ForceMode::Acceleration);
+        }
     }
 }
 
@@ -216,4 +217,20 @@ void Monster::DamageEffectProcessing()
     //}
 
     m_damageEffectCounter -= Time::DeltaTime();
+}
+
+UserMeshBillboardRenderer* Monster::CreateRenderer()
+{
+    auto rendererChildObj = CreateGameObjectToChild(m_rendererObj->transform);
+    rendererChildObj->transform->localPosition = Vec3(0, 0.5f, 0);
+
+    auto renderer = rendererChildObj->AddComponent<UserMeshBillboardRenderer>();
+    renderer->freezeX = true;
+    renderer->freezeZ = true;
+    renderer->material = m_material;
+    renderer->userMesh = m_quad;
+
+    m_renderers.push_back(renderer);
+
+    return renderer;
 }

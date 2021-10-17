@@ -22,6 +22,12 @@ public:
 	void Clear();
 
 public:
+	void SaveToJsonFormat(const Json::Value& json, string path);
+	Json::Value LoadFromJsonFormat(string path);
+	wstring ToWString(const string& str);
+	string ToString(const wstring& wstr);
+
+public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~DlgObjectTool();
 

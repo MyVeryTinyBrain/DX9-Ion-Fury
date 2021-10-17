@@ -11,6 +11,11 @@
 #include "Gizmo.h"
 #include "EditorEnum.h"
 
+//#include <iostream>
+#include <fstream>
+#include <atlconv.h>
+//#include "../json/json.h"
+
 // DlgMonsterTool 대화 상자
 
 IMPLEMENT_DYNAMIC(DlgMonsterTool, CDialog)
@@ -59,6 +64,8 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON15, &DlgMonsterTool::OnBnClickedChangeEventName)
 	ON_BN_CLICKED(IDC_BUTTON3, &DlgMonsterTool::OnBnClickedResetScale)
 	ON_BN_CLICKED(IDC_BUTTON10, &DlgMonsterTool::OnBnClickedResetRotation)
+	ON_BN_CLICKED(IDC_BUTTON11, &DlgMonsterTool::OnBnClickedSaveButton)
+	ON_BN_CLICKED(IDC_BUTTON12, &DlgMonsterTool::OnBnClickedLoadButton)
 END_MESSAGE_MAP()
 
 
@@ -351,6 +358,82 @@ void DlgMonsterTool::ClearEverything()
 	UpdateData(false);
 }
 
+void DlgMonsterTool::EmptyBeforeLoad()
+{
+	Pickable::ClearTriggerVector();
+
+	for (int i = m_TriggerListBox.GetCount(); i > 0; --i)
+		m_TriggerListBox.DeleteString(i - 1);		//트리거리스트박스 비우기
+	for (int i = m_EventListBox.GetCount(); i > 0; --i)
+		m_EventListBox.DeleteString(i - 1);			//몬스터리스트박스 비우기
+
+	SetCheckedButton(TriggerMethod::End);
+	m_EventTypeComboBox.SetCurSel(-1);
+	SetScaleScrollToDefault(nullptr);
+	SetRotationScrollToDefault(nullptr);
+	m_ChangingName = L"";
+
+	UpdateData(false);
+}
+
+void DlgMonsterTool::EmptyAfterLoad()
+{
+	for (int i = m_EventListBox.GetCount(); i > 0; --i)
+		m_EventListBox.DeleteString(i - 1);			//몬스터리스트박스 비우기
+	
+	SetScaleScrollToDefault(nullptr);
+	SetRotationScrollToDefault(nullptr);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->Detach();
+	giz->enable = false;
+}
+
+Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method)
+{
+	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
+	
+	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
+	Transform* trans = Trigger->GetGameObject()->GetTransform();
+
+	trans->GetGameObject()->name = name;
+	trans->SetPosition(Pos);
+	trans->SetScale(Scale);
+	trans->SetEulerAngle(Euler);
+	Trigger->SetTriggerMethod(method);
+
+	m_TriggerListBox.AddString(name.c_str());
+
+	//int i = m_TriggerListBox.GetCount();
+	//m_TriggerListBox.SetCurSel(i - 1);
+
+	//이벤트상자 비우기. 추후 확인
+	//for (int i = m_EventListBox.GetCount(); i > 0; --i)
+	//	m_EventListBox.DeleteString(i - 1);
+
+	return Trigger;
+}
+
+void DlgMonsterTool::AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, EventType type)
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
+	Pickable* EventObject = cam->Add_EventObject(Trigger, m_EventCnt);
+	EventObject->SetEventType(type);
+
+	Transform* trans = EventObject->GetGameObject()->GetTransform();
+	trans->GetGameObject()->name = name;
+	trans->SetPosition(Pos);
+	trans->SetScale(Scale);
+	trans->SetEulerAngle(Euler);
+	EventObject->SetEventType(type);
+
+	m_EventListBox.AddString(name.c_str());
+
+	++m_EventCnt;
+}
+
 void DlgMonsterTool::SetScaleScrollToDefault(Pickable* picked)
 {
 	m_SliderScaleX.SetPos(20);
@@ -412,6 +495,63 @@ void DlgMonsterTool::SetRotationScrollToPicked(Pickable* picked)
 	m_SliderRotationZ.SetPos((int)RotationZ);
 }
 
+void DlgMonsterTool::SaveToJsonFormat(const Json::Value& json, string path)
+{
+	Json::StreamWriterBuilder builder;
+	string jsonFormatText = Json::writeString(builder, json);
+
+	std::ofstream out;
+	out.open(path);
+
+	out << jsonFormatText;
+
+	out.close();
+}
+
+Json::Value DlgMonsterTool::LoadFromJsonFormat(string path)
+{
+	std::ifstream in;
+	in.open(path);
+
+	if (!in.is_open())
+	{
+		cout << "json read error: not exist file" << endl;
+		return Json::Value();
+	}
+
+	in.seekg(0, std::ios::end);
+	size_t size = in.tellg();
+	std::string jsonFormatText(size, ' ');
+	in.seekg(0);
+	in.read(&jsonFormatText[0], size);
+
+	in.close();
+
+	Json::Value root;
+	JSONCPP_STRING err;
+
+	Json::CharReaderBuilder charReaderBuilder;
+	const std::unique_ptr<Json::CharReader> reader(charReaderBuilder.newCharReader());
+	if (!reader->parse(jsonFormatText.c_str(), jsonFormatText.c_str() + jsonFormatText.length(), &root, &err))
+	{
+		cout << "json read error: invalid format" << endl;
+		return EXIT_FAILURE;
+	}
+
+	return root;
+}
+
+wstring DlgMonsterTool::ToWString(const string& str)
+{
+	USES_CONVERSION;
+	return wstring(A2W(str.c_str()));
+}
+
+string DlgMonsterTool::ToString(const wstring& wstr)
+{
+	USES_CONVERSION;
+	return string(W2A(wstr.c_str()));
+}
 
 void DlgMonsterTool::OnLbnSelChangeEvent()
 {
@@ -599,4 +739,140 @@ void DlgMonsterTool::OnBnClickedResetRotation()
 	Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
 
 	SetRotationScrollToDefault(picked);
+}
+
+
+void DlgMonsterTool::OnBnClickedSaveButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CFileDialog Dlg(FALSE, L"txt", L"TriggerEventData.txt", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH];
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data\\TriggerEvent");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+	if (IDOK == Dlg.DoModal())
+	{
+		CString wstrFilePath = Dlg.GetPathName();
+		Json::Value Root;
+
+		std::vector<Pickable*> TriggerVec = Pickable::g_TriggerVec;
+		for (unsigned int i = 0; i < TriggerVec.size(); ++i)
+		{
+			Pickable* TriggerObject = TriggerVec[i];
+
+			Json::Value Trigger;
+
+			{
+				Json::Value TriggerValue;
+				TriggerValue["Name"] = ToString(TriggerObject->GetGameObject()->GetName());
+				TriggerValue["PositionX"] = TriggerObject->GetGameObject()->GetTransform()->position.x;
+				TriggerValue["PositionY"] = TriggerObject->GetGameObject()->GetTransform()->position.y;
+				TriggerValue["PositionZ"] = TriggerObject->GetGameObject()->GetTransform()->position.z;
+				TriggerValue["ScaleX"] = TriggerObject->GetGameObject()->GetTransform()->scale.x;
+				TriggerValue["ScaleY"] = TriggerObject->GetGameObject()->GetTransform()->scale.y;
+				TriggerValue["ScaleZ"] = TriggerObject->GetGameObject()->GetTransform()->scale.z;
+				TriggerValue["RotationX"] = TriggerObject->GetGameObject()->transform->eulerAngle.x;
+				TriggerValue["RotationY"] = TriggerObject->GetGameObject()->transform->eulerAngle.y;
+				TriggerValue["RotationZ"] = TriggerObject->GetGameObject()->transform->eulerAngle.z;
+				TriggerValue["TriggerMethod"] = (int)TriggerObject->GetTriggerMethod();
+				TriggerValue["TriggerToolAutoNum"] = m_TriggerCnt;
+
+				Trigger[0] = TriggerValue;
+			}
+
+			//Trigger[1~] = Event
+			std::vector<Pickable*> EventVec = TriggerObject->GetEventVec();
+			for (unsigned int j = 0; j < EventVec.size(); ++j)
+			{
+				Json::Value Event;
+				Pickable* EventObject = EventVec[j];
+				Event["Name"] = ToString(EventObject->GetGameObject()->GetName());
+				Event["PositionX"] = EventObject->GetGameObject()->GetTransform()->position.x;
+				Event["PositionY"] = EventObject->GetGameObject()->GetTransform()->position.y;
+				Event["PositionZ"] = EventObject->GetGameObject()->GetTransform()->position.z;
+				Event["ScaleX"] = EventObject->GetGameObject()->GetTransform()->scale.x;
+				Event["ScaleY"] = EventObject->GetGameObject()->GetTransform()->scale.y;
+				Event["ScaleZ"] = EventObject->GetGameObject()->GetTransform()->scale.z;
+				Event["RotationX"] = EventObject->GetGameObject()->transform->eulerAngle.x;
+				Event["RotationY"] = EventObject->GetGameObject()->transform->eulerAngle.y;
+				Event["RotationZ"] = EventObject->GetGameObject()->transform->eulerAngle.z;
+				Event["EventType"] = (int)(EventObject->GetEventType());
+
+				Trigger[j + 1] = Event;
+			}
+
+			//Root[i] = Trigger
+			Root[i] = Trigger;
+		}
+
+		SaveToJsonFormat(Root, ToString(wstrFilePath.GetString()));
+	}
+}
+
+
+void DlgMonsterTool::OnBnClickedLoadButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH]{};
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data\\TriggerEvent");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+	if (IDOK == Dlg.DoModal())
+	{
+		EmptyBeforeLoad();
+
+		CString wstrFilePath = Dlg.GetPathName();
+		
+		Json::Value root = LoadFromJsonFormat(ToString(wstrFilePath.GetString()));
+		int RootSize = (int)root.size();
+
+		for (int i = 0; i < RootSize; ++i)
+		{
+			//Trigger
+			Json::Value Trigger = root[i];
+			Json::Value TriggerValue = Trigger[0];
+			wstring Name = ToWString(TriggerValue["Name"].asString());
+			Vec3 Pos = Vec3(TriggerValue["PositionX"].asFloat(), TriggerValue["PositionY"].asFloat(), TriggerValue["PositionZ"].asFloat());
+			Vec3 Scale = Vec3(TriggerValue["ScaleX"].asFloat(), TriggerValue["ScaleY"].asFloat(), TriggerValue["ScaleZ"].asFloat());
+			Vec3 EulerAngle = Vec3(TriggerValue["RotationX"].asFloat(), TriggerValue["RotationY"].asFloat(), TriggerValue["RotationZ"].asFloat());
+			int temp = TriggerValue["TriggerMethod"].asInt();
+			TriggerMethod method = (TriggerMethod)temp;
+
+			Pickable* TriggerObject = AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method);	//트리거 로딩
+			m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();								//트리거 이름 자동완성 번호 셋팅
+
+
+			int TriggerSize = Trigger.size();
+			for (int i = 1; i < TriggerSize; ++i)
+			{
+				Json::Value Event = Trigger[i];
+
+				wstring Name = ToWString(Event["Name"].asString());
+				Vec3 Pos = Vec3(Event["PositionX"].asFloat(), Event["PositionY"].asFloat(), Event["PositionZ"].asFloat());
+				Vec3 Scale = Vec3(Event["ScaleX"].asFloat(), Event["ScaleY"].asFloat(), Event["ScaleZ"].asFloat());
+				Vec3 EulerAngle = Vec3(Event["RotationX"].asFloat(), Event["RotationY"].asFloat(), Event["RotationZ"].asFloat());
+				int temp = Event["EventType"].asInt();
+				EventType evtType = (EventType)(temp);
+
+				AddEventLoadingStyle(TriggerObject, Name, Pos, Scale, EulerAngle, evtType);			//해당 트리거의 이벤트 로딩
+			}
+		}
+
+		EmptyAfterLoad();
+	}
 }

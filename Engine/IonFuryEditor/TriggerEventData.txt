@@ -1,0 +1,12 @@
+[
+	{
+		"EulerAngleX" : 0.0,
+		"EulerAngleY" : 0.0,
+		"EulerAngleZ" : 0.0,
+		"Name" : "Directional",
+		"PosX" : 0.0,
+		"PosY" : 0.0,
+		"PosZ" : -3.0,
+		"Tag" : "Directional"
+	}
+]

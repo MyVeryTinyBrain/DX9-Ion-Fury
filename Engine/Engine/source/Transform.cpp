@@ -98,6 +98,8 @@ void Transform::AddChild(Transform* child)
 
 	// 자식으로 추가된 child 트랜스폼을 업데이트합니다.
 
+	child->UpdateWorldTransform(UpdateTransformArgument::None);
+
 	child->UpdateLocalTransform(UpdateTransformArgument::None);
 
 	child->UpdateActiveInTree();

@@ -1,21 +1,25 @@
 #include "EngineBase.h"
-#include "RigidbodyInterpolationer.h"
+#include "RigidbodyExtrapolater.h"
 #include "Rigidbody.h"
 #include "Transform.h"
 #include "CentralTimeElement.h"
 
-RigidbodyInterpolationer::RigidbodyInterpolationer(Rigidbody* body)
+RigidbodyExtrapolater::RigidbodyExtrapolater(Rigidbody* body) : RigibdoyInterpolateBase(body)
 {
-	m_body = body;
 }
 
-void RigidbodyInterpolationer::BackupPose()
+void RigidbodyExtrapolater::Enable()
+{
+	BackupPose();
+}
+
+void RigidbodyExtrapolater::BackupPose()
 {
 	m_backupPosition = m_body->transform->position;
 	m_backupRotation = m_body->transform->rotation;
 }
 
-void RigidbodyInterpolationer::RollbackPose()
+void RigidbodyExtrapolater::RollbackPose()
 {
 	if (m_interpolatePoisiton)
 	{
@@ -28,7 +32,7 @@ void RigidbodyInterpolationer::RollbackPose()
 	}
 }
 
-void RigidbodyInterpolationer::InterpolatePose()
+void RigidbodyExtrapolater::InterpolatePose()
 {
 	if (m_interpolatePoisiton)
 	{
@@ -41,7 +45,7 @@ void RigidbodyInterpolationer::InterpolatePose()
 	}
 }
 
-void RigidbodyInterpolationer::CheckPoseChange()
+void RigidbodyExtrapolater::CheckPoseChange()
 {
 	Vec3 deltaPos = m_body->transform->position - CalcInterpolatePosition();
 	if (deltaPos.magnitude() > 0.001f)
@@ -53,47 +57,22 @@ void RigidbodyInterpolationer::CheckPoseChange()
 	float deltaAngle = Quat::Angle(Quat::Identity(), deltaRotation);
 	if (deltaAngle > 0.1f)
 	{
-		wstring name = m_body->name;
 		m_backupRotation = deltaRotation * m_backupRotation;
 	}
 }
 
-bool RigidbodyInterpolationer::IsInterpolatePosition() const
-{
-	return m_interpolatePoisiton;
-}
-
-bool RigidbodyInterpolationer::IsInterpolateRotation() const
-{
-	return m_interpolateRotation;
-}
-
-void RigidbodyInterpolationer::SetInterpolatePositionMode(bool value)
-{
-	m_interpolatePoisiton = value;
-}
-
-void RigidbodyInterpolationer::SetInterpolateRotationMode(bool value)
-{
-	m_interpolateRotation = value;
-}
-
-Vec3 RigidbodyInterpolationer::CalcInterpolatePosition() const
+Vec3 RigidbodyExtrapolater::CalcInterpolatePosition() const
 {
 	auto centralTime = CentralTimeElement::GetInstance();
 	float accumulated = centralTime->GetFixedUpdateAccumulated() * centralTime->GetFixedUpdateTimeScale();
-
-	//accumulated = Clamp(accumulated, 0, centralTime->GetFixedUpdateInterval());
 
 	return m_backupPosition + m_body->velocity * accumulated;
 }
 
-Quat RigidbodyInterpolationer::CalcInterpolateRotation() const
+Quat RigidbodyExtrapolater::CalcInterpolateRotation() const
 {
 	auto centralTime = CentralTimeElement::GetInstance();
 	float accumulated = centralTime->GetFixedUpdateAccumulated() * centralTime->GetFixedUpdateTimeScale();
-
-	//accumulated = Clamp(accumulated, 0, centralTime->GetFixedUpdateInterval());
 
 	Quat q = Quat::FromEuler(
 		m_body->angularVelocity.x * accumulated,

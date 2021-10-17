@@ -37,7 +37,7 @@ void SpiderSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR_SPIDER::SIDE]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_Side4.png");
 	m_walk[(unsigned int)DIR_SPIDER::SIDE]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_Side5.png");
 	m_walk[(unsigned int)DIR_SPIDER::SIDE]->interval = 0.1f;
-	m_walk[(unsigned int)DIR_SPIDER::SIDE]->isLoop = true;
+
 
 	m_walk[(unsigned int)DIR_SPIDER::BACK_DIAGONAL] = new SpriteAnimation;
 	m_walk[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_back_diagonal0.png");
@@ -47,7 +47,7 @@ void SpiderSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_back_diagonal4.png");
 	m_walk[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_back_diagonal5.png");
 	m_walk[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->interval = 0.1f;
-	m_walk[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->isLoop = true;
+	
 
 	m_walk[(unsigned int)DIR_SPIDER::BACK] = new SpriteAnimation;
 	m_walk[(unsigned int)DIR_SPIDER::BACK]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_back0.png");
@@ -57,7 +57,7 @@ void SpiderSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR_SPIDER::BACK]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_back4.png");
 	m_walk[(unsigned int)DIR_SPIDER::BACK]->AddTexture(L"../SharedResource/Texture/spider/Spider_walk_back5.png");
 	m_walk[(unsigned int)DIR_SPIDER::BACK]->interval = 0.1f;
-	m_walk[(unsigned int)DIR_SPIDER::BACK]->isLoop = true;
+
 
 	m_jump[(unsigned int)DIR_SPIDER::FRONT] = new SpriteAnimation;
 	m_jump[(unsigned int)DIR_SPIDER::FRONT]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_front0.png");
@@ -75,19 +75,19 @@ void SpiderSpriteAnimator::Awake()
 	m_jump[(unsigned int)DIR_SPIDER::SIDE]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_side0.png");
 	m_jump[(unsigned int)DIR_SPIDER::SIDE]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_side1.png");
 	m_jump[(unsigned int)DIR_SPIDER::SIDE]->interval = 0.3f;
-	m_jump[(unsigned int)DIR_SPIDER::SIDE]->isLoop = true;
+	
 
 	m_jump[(unsigned int)DIR_SPIDER::BACK_DIAGONAL] = new SpriteAnimation;
 	m_jump[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_back_diagonal0.png");
 	m_jump[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_back_diagonal1.png");
 	m_jump[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->interval = 0.3f;
-	m_jump[(unsigned int)DIR_SPIDER::BACK_DIAGONAL]->isLoop = true;
+	
 
 	m_jump[(unsigned int)DIR_SPIDER::BACK] = new SpriteAnimation;
 	m_jump[(unsigned int)DIR_SPIDER::BACK]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_back0.png");
 	m_jump[(unsigned int)DIR_SPIDER::BACK]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_back1.png");
 	m_jump[(unsigned int)DIR_SPIDER::BACK]->interval = 0.3f;
-	m_jump[(unsigned int)DIR_SPIDER::BACK]->isLoop = true;
+	
 
 	m_damage = new SpriteAnimation;
 	m_damage->AddTexture(L"../SharedResource/Texture/spider/Spider_zizizik.png");
@@ -102,7 +102,7 @@ void SpiderSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE_SPIDER::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/spider/Spider_headshot6.png");
 	m_die[(unsigned int)DIE_SPIDER::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/spider/Spider_headshot7.png");
 	m_die[(unsigned int)DIE_SPIDER::DIE_HEADSHOT]->interval = 0.1f;
-	m_die[(unsigned int)DIE_SPIDER::DIE_HEADSHOT]->isLoop = true;
+	
 
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC] = new SpriteAnimation;
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->AddTexture(L"../SharedResource/Texture/spider/Spider_hit0.png");
@@ -110,7 +110,7 @@ void SpiderSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->AddTexture(L"../SharedResource/Texture/spider/Spider_hit2.png");
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->AddTexture(L"../SharedResource/Texture/spider/Spider_hit3.png");
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->interval = 0.1f;
-	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->isLoop = true;
+	
 
 	m_web = new SpriteAnimation;
 	m_web->AddTexture(L"../SharedResource/Texture/spider/Web0.png");
@@ -175,7 +175,7 @@ void SpiderSpriteAnimator::LateUpdate()
 			ResetUVDirection();
 		}
 	}
-	if (IsPlayingJump())
+	else if (IsPlayingJump())
 	{
 		if (Abs(m_angle) < 22.5f + 45 * 0)
 		{
@@ -243,10 +243,19 @@ void SpiderSpriteAnimator::OnDestroy()
 		SafeDelete(m_die[i]);
 
 	SafeDelete(m_web);
+
 }
 
 void SpiderSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
+	for (int i = 0; i < (int)DIR_SPIDER::MAX; ++i)
+	{
+		if (current == m_die[i])
+		{
+			SetDefaultAnimation(nullptr);
+			OnDeadAnimated();
+		}
+	}
 }
 
 void SpiderSpriteAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
@@ -353,6 +362,26 @@ bool SpiderSpriteAnimator::IsPlayingWeb() const
 SpriteAnimation* SpiderSpriteAnimator::GetWeb() const
 {
 	return m_web;
+}
+
+SpriteAnimation* SpiderSpriteAnimator::GetJump() const
+{
+	return m_jump[(unsigned int)DIR_SPIDER::FRONT];
+}
+
+SpriteAnimation* SpiderSpriteAnimator::GetDie(DIE_SPIDER type) const
+{
+	return m_die[(unsigned int)type];
+}
+
+SpriteAnimation* SpiderSpriteAnimator::GetDamage() const
+{
+	return m_damage;
+}
+
+SpriteAnimation* SpiderSpriteAnimator::GetWalk() const
+{
+	return m_walk[(unsigned int)DIR_SPIDER::FRONT];
 }
 
 void SpiderSpriteAnimator::ChangeUVDirection()

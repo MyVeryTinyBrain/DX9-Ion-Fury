@@ -8,3 +8,11 @@ void UserMixMesh::SetMaterials(const Ref<Material>& material)
 		renderer->material = material;
 	}
 }
+
+void UserMixMesh::SetRenderLayers(int layerIndex)
+{
+	for (auto& renderer : m_renderers)
+	{
+		renderer->renderLayerIndex = layerIndex;
+	}
+}

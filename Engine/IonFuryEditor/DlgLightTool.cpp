@@ -10,6 +10,9 @@
 #include "LightObj.h"
 #include "Gizmo.h"
 
+#include <fstream>
+#include <atlconv.h>
+
 // DlgLightTool 대화 상자
 
 IMPLEMENT_DYNAMIC(DlgLightTool, CDialog)
@@ -140,9 +143,9 @@ BOOL DlgLightTool::OnInitDialog()
 	m_LT_ComboBox.AddString(_T("Point"));
 	m_LT_ComboBox.AddString(_T("Spot"));
 	m_LT_ComboBox.AddString(_T("Directional"));
-	m_LT_ComboBox.AddString(_T("Ambinent"));
 	//m_LT_ComboBox.AddString(_T("Ambinent"));
-	m_LT_ComboBox.SetCurSel(0);
+	//m_LT_ComboBox.AddString(_T("Ambinent"));
+	m_LT_ComboBox.SetCurSel(2);
 	//m_LightType = L"Directional";
 
 	//반지름 슬라이드컨트롤 초기화 작업을 추가합니다. 
@@ -152,21 +155,54 @@ BOOL DlgLightTool::OnInitDialog()
 
 	//방향 슬라이드컨트롤 초기화 작업을 추가합니다. 
 	m_SliderDirX.SetRange(-180, 180);
-	m_SliderDirX.SetPos(0);
+	m_SliderDirX.SetPos(-180);
 	m_SliderDirX.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 	m_SliderDirY.SetRange(-180, 180);
-	m_SliderDirY.SetPos(0);
+	m_SliderDirY.SetPos(-180);
 	m_SliderDirY.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 	m_SliderDirZ.SetRange(-180, 180);
-	m_SliderDirZ.SetPos(0);
+	m_SliderDirZ.SetPos(-180);
 	m_SliderDirZ.SetLineSize(1);		//방향키로 움질일 때 사이즈 
 
 	m_LT_ListBox.AddString(L"Directional");
-	//m_LT_ListBox.SetCurSel(0);
-
+	m_LT_ListBox.SetCurSel(0);
+	InitDirectionInfo();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
+
+void DlgLightTool::InitDirectionInfo()
+{
+	for (auto& light : LightObj::g_vecLight)
+	{
+		auto directionlight = light->GetGameObject()->GetComponentInChild<DirectionalLight>();
+
+		m_LightName = light->name.c_str();;
+		m_LightType = light->GetGameObject()->tag.c_str();
+
+		m_ColorR = (int)directionlight->color.r;
+		m_ColorG = (int)directionlight->color.g;
+		m_ColorB = (int)directionlight->color.b;
+		m_ColorA = (int)directionlight->color.a;
+
+		m_PosX = directionlight->transform->position.x;
+		m_PosY = directionlight->transform->position.y;
+		m_PosZ = directionlight->transform->position.z;
+
+		m_dirx = directionlight->transform->eulerAngle.x;
+		m_diry = directionlight->transform->eulerAngle.y;
+		m_dirz = directionlight->transform->eulerAngle.z;
+
+		m_ambinentFactor = directionlight->ambientFactor;
+
+		m_SliderCrtl_Radius.SetPos(0);
+	}
+
+	m_SliderDirX.SetPos(int(m_dirx));
+	m_SliderDirY.SetPos(int(m_diry));
+	m_SliderDirZ.SetPos(int(m_dirz));
+
 }
 
 void DlgLightTool::SetAttr(int iOpa)
@@ -198,7 +234,7 @@ void DlgLightTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 	case IDC_SLDER_DIRX:
 		m_SliderDirX.SetPos(pSlider->GetPos());
-		iPosX = m_SliderDirX.GetPos();
+		iPosX =m_SliderDirX.GetPos();
 		sPosX.Format(_T("%d"), iPosX);
 		m_DirX.SetWindowText(sPosX);
 		m_dirx = (float)iPosX;
@@ -241,7 +277,7 @@ void DlgLightTool::SetListBox(const wstring& lightObjName)
 {
 	UpdateData(TRUE);
 
-	m_LT_ListBox.AddString(lightObjName.c_str());
+	//m_LT_ListBox.AddString(lightObjName.c_str());
 
 	UpdateData(FALSE);
 }
@@ -291,15 +327,9 @@ void DlgLightTool::OnListBoxCtrl()
 
 				m_radius = com->range;
 
-<<<<<<< HEAD
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-=======
 				m_dirx = lightobj->transform->eulerAngle.x;
 				m_diry = lightobj->transform->eulerAngle.y;
 				m_dirz = lightobj->transform->eulerAngle.z;
->>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -325,15 +355,9 @@ void DlgLightTool::OnListBoxCtrl()
 				m_OutSideAngle = com->outsideAngle;
 				m_InsideAngleRatio = com->insideAngleRatio;
 
-<<<<<<< HEAD
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-=======
 				m_dirx = lightobj->transform->eulerAngle.x;
 				m_diry = lightobj->transform->eulerAngle.y;
 				m_dirz = lightobj->transform->eulerAngle.z;
->>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -353,15 +377,10 @@ void DlgLightTool::OnListBoxCtrl()
 				m_PosY = com->transform->position.y;
 				m_PosZ = com->transform->position.z;
 
-<<<<<<< HEAD
-				m_dirx = com->transform->eulerAngle.x;
-				m_diry = com->transform->eulerAngle.y;
-				m_dirz = com->transform->eulerAngle.z;
-=======
+
 				m_dirx = lightobj->transform->eulerAngle.x;
 				m_diry = lightobj->transform->eulerAngle.y;
 				m_dirz = lightobj->transform->eulerAngle.z;
->>>>>>> seongyeon
 
 				m_ambinentFactor = com->ambientFactor;
 			}
@@ -383,20 +402,26 @@ void DlgLightTool::OnSelectLight()
 
 	m_comboBox = (COMBOBOX)m_LT_ComboBox.GetCurSel(); //선택한거
 
+	//CString type = (COMBOO)
+
 	switch (m_comboBox)
 	{
 	case DlgLightTool::COMBOBOX::POINTLIGNT:
+		m_LightName = L"";
 		m_LightType = L"Point";
 		break;
 	case DlgLightTool::COMBOBOX::SPOTLIGNT:
+		m_LightName = L"";
 		m_LightType = L"Spot";
 		break;
 	case DlgLightTool::COMBOBOX::DIRECTIONALLIGNT:
+		m_LightName = L"";
 		m_LightType = L"Directional";
 		break;
-	case DlgLightTool::COMBOBOX::AMBINENTLIGHT:
-		m_LightType = L"Ambinent";
-		break;
+	//case DlgLightTool::COMBOBOX::AMBINENTLIGHT:
+	//	m_LightName = L"";
+	//	m_LightType = L"Ambinent";
+	//	break;
 	default:
 		break;
 	}
@@ -462,7 +487,7 @@ void DlgLightTool::OnEnChangeLtDirx()
 	m_DirX.GetWindowText(sPosX);
 	iPosX = _ttoi(sPosX);
 
-	m_SliderDirX.SetPos(iPosX);
+	m_SliderDirX.SetPos((int)iPosX);
 
 	int iIndex = m_LT_ListBox.GetCurSel();
 
@@ -501,7 +526,7 @@ void DlgLightTool::OnEnChangeLtDiry()
 	m_DirY.GetWindowText(sPosY);
 	iPosY = _ttoi(sPosY);
 
-	m_SliderDirY.SetPos(iPosY);
+	m_SliderDirY.SetPos((int)iPosY);
 
 	int iIndex = m_LT_ListBox.GetCurSel();
 
@@ -548,7 +573,7 @@ void DlgLightTool::OnEnChangeLtDirz()
 
 	CString name = wstrFindName.GetString();
 
-	m_SliderDirZ.SetPos(iPosZ);
+	m_SliderDirZ.SetPos((int)iPosZ);
 
 
 	for (auto& light : LightObj::g_vecLight)
@@ -744,11 +769,6 @@ void DlgLightTool::OnBnClickedAddButton()
 		auto Lightobj = PointLightObj->AddComponent<LightObj>();
 		Lightobj->LightSetting();
 
-		m_LT_ListBox.AddString(m_LightName.GetString());
-
-
-
-		//m_LT_ListBox.SetCurSel();
 
 		AddNameToListbox();
 	}
@@ -758,10 +778,7 @@ void DlgLightTool::OnBnClickedAddButton()
 
 		SpotLightObj->name = m_LightName.GetString();
 
-		//m_PosX = GetPos().x; 
-	//	m_PosY = GetPos().y;
 
-		//SpotLightObj->transform->localPosition = Vec3(m_PosX, m_PosY, m_PosZ);
 		SpotLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
 
 		SpotLightObj->AddComponent<LightObj>();
@@ -769,7 +786,6 @@ void DlgLightTool::OnBnClickedAddButton()
 		auto Lightobj = SpotLightObj->AddComponent<LightObj>();
 		Lightobj->LightSetting();
 
-		m_LT_ListBox.AddString(m_LightName.GetString());
 
 		AddNameToListbox();
 	}
@@ -823,282 +839,278 @@ void DlgLightTool::OnBnClickedAmbinentFactorSet()
 
 void DlgLightTool::OnBnClickedSave()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CFileDialog Dlg(FALSE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
+	JsonWrite();
+	cout << "저장성공" << endl;
 
-	TCHAR szFilePath[MAX_PATH];
+	//// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//CFileDialog Dlg(FALSE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
 
-	GetCurrentDirectory(MAX_PATH, szFilePath);
+	//TCHAR szFilePath[MAX_PATH];
 
-	PathRemoveFileSpec(szFilePath);
+	//GetCurrentDirectory(MAX_PATH, szFilePath);
 
-	lstrcat(szFilePath, L"\\Data");
+	//PathRemoveFileSpec(szFilePath);
 
-	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+	//lstrcat(szFilePath, L"\\Data");
 
-	if (IDOK == Dlg.DoModal())
-	{
-		CString wstrFilePath = Dlg.GetPathName();
+	//Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
-		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-			FILE_ATTRIBUTE_NORMAL, nullptr);
+	//if (IDOK == Dlg.DoModal())
+	//{
+	//	CString wstrFilePath = Dlg.GetPathName();
 
-		if (INVALID_HANDLE_VALUE == hFile)
-			return;
+	//	HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+	//		FILE_ATTRIBUTE_NORMAL, nullptr);
 
-		DWORD dwByte = 0;
-		DWORD dwStrByte = 0;
-		DWORD dwStrByte2 = 0;
-		DWORD dwStrByte3 = 0;
-		DWORD dwStrByte4 = 0;
-		CString strMesh = L"";
-		CString tex = L"";
-		float range = 0.f;
-		float ambinentfactor = 0.f;
+	//	if (INVALID_HANDLE_VALUE == hFile)
+	//		return;
 
-
-		std::vector<LightObj*>& lightObj = LightObj::g_vecLight;
-
-
-		for (auto& light : lightObj)
-		{
-			auto obj = light->GetGameObject();
-
-			dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
-			WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
-			WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
+	//	DWORD dwByte = 0;
+	//	DWORD dwStrByte = 0;
+	//	DWORD dwStrByte2 = 0;
+	//	DWORD dwStrByte3 = 0;
+	//	DWORD dwStrByte4 = 0;
+	//	CString strMesh = L"";
+	//	CString tex = L"";
+	//	float range = 0.f;
+	//	float ambinentfactor = 0.f;
 
 
-			dwStrByte2 = sizeof(wchar_t) * (obj->tag.length() + 1);
-			WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
-			WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
+	//	std::vector<LightObj*>& lightObj = LightObj::g_vecLight;
 
-			WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 
-			WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// euler angle
+	//	for (auto& light : lightObj)
+	//	{
+	//		auto obj = light->GetGameObject();
 
-			if (obj->tag == L"Point")
-			{
-				auto point = obj->GetComponentInChild<PointLight>();
+	//		dwStrByte = sizeof(wchar_t) * (obj->name.length() + 1);
+	//		WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
+	//		WriteFile(hFile, obj->name.c_str(), dwStrByte, &dwByte, nullptr);				// 이름
 
-				ambinentfactor = point->ambientFactor;
-				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
 
-				range = point->range;
-				WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
-				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
+	//		dwStrByte2 = sizeof(wchar_t) * (obj->tag.length() + 1);
+	//		WriteFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);
+	//		WriteFile(hFile, obj->tag.c_str(), dwStrByte2, &dwByte, nullptr);				// tag
 
-			}
-			if (obj->tag == L"Spot")
-			{
-				auto point = obj->GetComponentInChild<SpotLight>();
+	//		WriteFile(hFile, &obj->transform->position, sizeof(Vec3), &dwByte, nullptr);	// pos
 
-				ambinentfactor = point->ambientFactor;
-				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
+	//		WriteFile(hFile, &obj->transform->eulerAngle, sizeof(Vec3), &dwByte, nullptr);	// euler angle
 
-				range = point->range;
-				WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
-				WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
+	//		if (obj->tag == L"Point")
+	//		{
+	//			auto point = obj->GetComponentInChild<PointLight>();
 
-				WriteFile(hFile, &m_OutSideAngle, sizeof(float), &dwByte, nullptr);				// >outsideAngle 
-				WriteFile(hFile, &m_InsideAngleRatio, sizeof(float), &dwByte, nullptr);			// >insideAngleRatio 
+	//			ambinentfactor = point->ambientFactor;
+	//			WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
 
-			}
-			if (obj->tag == L"Directional")
-			{
-				auto point = obj->GetComponentInChild<DirectionalLight>();
+	//			range = point->range;
+	//			WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
+	//			WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
 
-				ambinentfactor = point->ambientFactor;
-				WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
+	//		}
+	//		if (obj->tag == L"Spot")
+	//		{
+	//			auto point = obj->GetComponentInChild<SpotLight>();
 
-				WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
-			}
+	//			ambinentfactor = point->ambientFactor;
+	//			WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
 
-		}
+	//			range = point->range;
+	//			WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
+	//			WriteFile(hFile, &range, sizeof(float), &dwByte, nullptr);					// range
 
-		CloseHandle(hFile);
-	}
+	//			WriteFile(hFile, &m_OutSideAngle, sizeof(float), &dwByte, nullptr);				// >outsideAngle 
+	//			WriteFile(hFile, &m_InsideAngleRatio, sizeof(float), &dwByte, nullptr);			// >insideAngleRatio 
+
+	//		}
+	//		if (obj->tag == L"Directional")
+	//		{
+	//			auto point = obj->GetComponentInChild<DirectionalLight>();
+
+	//			ambinentfactor = point->ambientFactor;
+	//			WriteFile(hFile, &ambinentfactor, sizeof(float), &dwByte, nullptr);				// ambinentfactor
+
+	//			WriteFile(hFile, &point->color, sizeof(Vec4), &dwByte, nullptr);			// color
+	//		}
+
+	//	}
+
+	//	CloseHandle(hFile);
+	//}
 }
 
 
 void DlgLightTool::OnBnClickedLoad()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
-	m_LT_ListBox.ResetContent();
+	JsonRoad();
+	//// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//m_LT_ListBox.ResetContent();
 
+	//CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
 
-	CFileDialog Dlg(TRUE, L"dat", L"*.dat", OFN_OVERWRITEPROMPT);
+	//TCHAR szFilePath[MAX_PATH]{};
 
-	TCHAR szFilePath[MAX_PATH]{};
+	//GetCurrentDirectory(MAX_PATH, szFilePath);
 
-	GetCurrentDirectory(MAX_PATH, szFilePath);
+	//PathRemoveFileSpec(szFilePath);
 
-	PathRemoveFileSpec(szFilePath);
+	//lstrcat(szFilePath, L"\\Data");
 
-	lstrcat(szFilePath, L"\\Data");
+	//Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
-	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+	//if (IDOK == Dlg.DoModal())
+	//{
+	//	CString wstrFilePath = Dlg.GetPathName();
 
-	if (IDOK == Dlg.DoModal())
-	{
-		CString wstrFilePath = Dlg.GetPathName();
+	//	HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
+	//		FILE_ATTRIBUTE_NORMAL, nullptr);
 
-		HANDLE hFile = CreateFile(wstrFilePath.GetString(), GENERIC_READ, 0, nullptr, OPEN_EXISTING,
-			FILE_ATTRIBUTE_NORMAL, nullptr);
+	//	if (INVALID_HANDLE_VALUE == hFile)
+	//		return;
 
-		if (INVALID_HANDLE_VALUE == hFile)
-			return;
+	//	// Release
+	//	int vecSize = LightObj::g_vecLight.size();
+	//	for (int i = 0; i < vecSize; ++i)
+	//	{
+	//		LightObj::g_vecLight[0]->gameObject->Destroy();
+	//	}
+	//	//
 
-		// Release
-		int vecSize = LightObj::g_vecLight.size();
-		for (int i = 0; i < vecSize; ++i)
-		{
-			LightObj::g_vecLight[0]->gameObject->Destroy();
-		}
-		//
+	//	DWORD dwByte = 0;
+	//	DWORD dwStrByte = 0;
+	//	DWORD dwStrByte2 = 0;
+	//	DWORD dwStrByte3 = 0;
+	//	DWORD dwStrByte4 = 0;
 
-		DWORD dwByte = 0;
-		DWORD dwStrByte = 0;
-		DWORD dwStrByte2 = 0;
-		DWORD dwStrByte3 = 0;
-		DWORD dwStrByte4 = 0;
+	//	wchar_t* pBuff = nullptr;
+	//	wchar_t* pBuff2 = nullptr;
+	//	wchar_t* pBuff3 = nullptr;
+	//	wchar_t* pBuff4 = nullptr;
 
-		wchar_t* pBuff = nullptr;
-		wchar_t* pBuff2 = nullptr;
-		wchar_t* pBuff3 = nullptr;
-		wchar_t* pBuff4 = nullptr;
+	//	GameObject* pObj = nullptr;
+	//	GameObject* pObjchild = nullptr;
 
-		GameObject* pObj = nullptr;
-		GameObject* pObjchild = nullptr;
+	//	Vec3 vPos = {};
+	//	Vec3 vScale = {};
+	//	Vec3 vRot = {};
+	//	float frange = 0.f;
+	//	Vec4 Vcolor = {};
+	//	float fambinentfactor = 0.f;
+	//	CString tag = {};
 
-		Vec3 vPos = {};
-		Vec3 vScale = {};
-		Vec3 vRot = {};
-		float frange = 0.f;
-		Vec4 Vcolor = {};
-		float fambinentfactor = 0.f;
-		CString tag = {};
-
-		float _outsideAngle = 0.f;
-		float _insideAngleRatio = 0.f;
-
-
-		while (true)
-		{
-			ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
-			pBuff = new wchar_t[dwStrByte];
-			ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
-
-			ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
-			pBuff2 = new wchar_t[dwStrByte2];
-			ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
+	//	float _outsideAngle = 0.f;
+	//	float _insideAngleRatio = 0.f;
 
 
-			if (0 == dwByte)
-			{
-				SafeDeleteArray(pBuff);
-				SafeDeleteArray(pBuff2);
-				break;
-			}
+	//	while (true)
+	//	{
+	//		ReadFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);		// 이름
+	//		pBuff = new wchar_t[dwStrByte];
+	//		ReadFile(hFile, pBuff, dwStrByte, &dwByte, nullptr);
 
-			pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
-			pObj->name = pBuff;
-			pObj->tag = pBuff2;
-
-			LightObj* lightobj = pObj->AddComponent<LightObj>();
-
-			SafeDeleteArray(pBuff);
-			SafeDeleteArray(pBuff2);
-
-			ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
-			ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// euler angle
-
-			if (pObj->tag == L"Point")
-			{
-				ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
-				ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
-				ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
-			}
-
-			else if (pObj->tag == L"Spot")
-			{
-				ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
-				ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
-				ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
-				ReadFile(hFile, &_outsideAngle, sizeof(float), &dwByte, nullptr);	// >outsideAngle 
-				ReadFile(hFile, &_insideAngleRatio, sizeof(float), &dwByte, nullptr);	// >insideAngleRatio 
-
-			}
-
-			else if (pObj->tag == L"Directional")
-			{
-				ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
-				ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
-
-			}
+	//		ReadFile(hFile, &dwStrByte2, sizeof(DWORD), &dwByte, nullptr);		// tag
+	//		pBuff2 = new wchar_t[dwStrByte2];
+	//		ReadFile(hFile, pBuff2, dwStrByte2, &dwByte, nullptr);
 
 
-			if (pObj->tag == L"Point")
-			{
-				PointLight* point = pObj->GetComponentInChild<PointLight>();
+	//		if (0 == dwByte)
+	//		{
+	//			SafeDeleteArray(pBuff);
+	//			SafeDeleteArray(pBuff2);
+	//			break;
+	//		}
 
-				pObj->transform->position = vPos;
-				pObj->transform->eulerAngle = vRot;
+	//		pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(pBuff2);
+	//		pObj->name = pBuff;
+	//		pObj->tag = pBuff2;
 
-				point->ambientFactor = fambinentfactor;
-				point->color = Vcolor;
-				point->range = frange;
+	//		LightObj* lightobj = pObj->AddComponent<LightObj>();
 
-				lightobj->LightSetting();
-			}
+	//		SafeDeleteArray(pBuff);
+	//		SafeDeleteArray(pBuff2);
 
-			if (pObj->tag == L"Spot")
-			{
+	//		ReadFile(hFile, &vPos, sizeof(Vec3), &dwByte, nullptr);				// pos
+	//		ReadFile(hFile, &vRot, sizeof(Vec3), &dwByte, nullptr);				// euler angle
 
-				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
+	//		if (pObj->tag == L"Point")
+	//		{
+	//			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
+	//			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
+	//			ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
+	//		}
 
-				pObj->transform->position = vPos;
+	//		else if (pObj->tag == L"Spot")
+	//		{
+	//			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
+	//			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
+	//			ReadFile(hFile, &frange, sizeof(float), &dwByte, nullptr);			// range
+	//			ReadFile(hFile, &_outsideAngle, sizeof(float), &dwByte, nullptr);		// >outsideAngle 
+	//			ReadFile(hFile, &_insideAngleRatio, sizeof(float), &dwByte, nullptr);	// >insideAngleRatio 
 
-				pObj->transform->eulerAngle = vRot;
+	//		}
 
-				spot->ambientFactor = fambinentfactor;
-				spot->color = Vcolor;
-				spot->range = frange;
-				spot->outsideAngle = _outsideAngle;
-				spot->insideAngleRatio = _insideAngleRatio;
+	//		else if (pObj->tag == L"Directional")
+	//		{
+	//			ReadFile(hFile, &fambinentfactor, sizeof(float), &dwByte, nullptr);	// ambinentfactor
+	//			ReadFile(hFile, &Vcolor, sizeof(Vec4), &dwByte, nullptr);			// color
 
-				lightobj->LightSetting();
-			}
-
-			if (pObj->tag == L"Directional")
-			{
-				DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
-
-				pObj->transform->position = vPos;
-
-				pObj->transform->eulerAngle = vRot;
-
-				directional->ambientFactor = fambinentfactor;
-				directional->color = Vcolor;
-
-				lightobj->LightSetting();
-			}
-			m_LT_ListBox.AddString(pObj->name.c_str());
-
-		}
-
-		
-		Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-		giz->Detach();
-		giz->enable = false;
-
-		//m_LT_ListBox.SetCurSel(0);
+	//		}
 
 
+	//		if (pObj->tag == L"Point")
+	//		{
+	//			PointLight* point = pObj->GetComponentInChild<PointLight>();
 
-		CloseHandle(hFile);
-	}
+	//			pObj->transform->position = vPos;
+	//			pObj->transform->eulerAngle = vRot;
+
+	//			point->ambientFactor = fambinentfactor;
+	//			point->color = Vcolor;
+	//			point->range = frange;
+
+	//			lightobj->LightSetting();
+	//		}
+
+	//		else if (pObj->tag == L"Spot")
+	//		{
+
+	//			SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
+
+	//			pObj->transform->position = vPos;
+
+	//			pObj->transform->eulerAngle = vRot;
+
+	//			spot->ambientFactor = fambinentfactor;
+	//			spot->color = Vcolor;
+	//			spot->range = frange;
+	//			spot->outsideAngle = _outsideAngle;
+	//			spot->insideAngleRatio = _insideAngleRatio;
+
+	//			lightobj->LightSetting();
+	//		}
+
+	//		else if (pObj->tag == L"Directional")
+	//		{
+	//			DirectionalLight* directional = pObj->GetComponentInChild<DirectionalLight>();
+
+	//			pObj->transform->position = vPos;
+
+	//			pObj->transform->eulerAngle = vRot;
+
+	//			directional->ambientFactor = fambinentfactor;
+	//			directional->color = Vcolor;
+
+	//			lightobj->LightSetting();
+	//		}
+
+	//		m_LT_ListBox.InsertString(-1,pObj->name.c_str());
+
+	//	}
+
+	//	CloseHandle(hFile);
+	//}
+
 
 }
 
@@ -1236,34 +1248,91 @@ void DlgLightTool::OnEnChangeLtPosz()
 
 void DlgLightTool::SetLTPickableObject(GameObject* gameobject)
 {
+
+	UpdateData(TRUE);
+
+
+	int iIndex = m_LT_ListBox.FindString(-1,m_LightName);
+	m_LT_ListBox.SetCurSel(iIndex);
+
 	m_LightName = gameobject->name.c_str();
 	m_LightType = gameobject->tag.c_str();
 
+	auto light = gameobject->GetComponent<LightObj>();
 
-
-	if (m_LightType == L"Spot")
+	if (m_LightType == L"Point")
 	{
+		auto childlight = light->GetGameObject()->GetComponentInChild<PointLight>();
+
 		m_PosX = gameobject->transform->position.x;
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
+		m_ColorR =(int)childlight->color.r;
+		m_ColorG =(int)childlight->color.g;
+		m_ColorB =(int)childlight->color.b;
+		m_ColorA =(int)childlight->color.a;
+
+		m_radius = childlight->range;
+		m_ambinentFactor = childlight->ambientFactor;
+		m_SliderCrtl_Radius.SetPos((int)m_radius);
 	}
 
-	else if (m_LightType == L"Point")
+	else if (m_LightType == L"Spot")
 	{
+		auto childlight = light->GetGameObject()->GetComponentInChild<SpotLight>();
+
 		m_PosX = gameobject->transform->position.x;
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
+		m_ColorR = (int)childlight->color.r;
+		m_ColorG = (int)childlight->color.g;
+		m_ColorB = (int)childlight->color.b;
+		m_ColorA = (int)childlight->color.a;
+
+		m_radius = childlight->range;
+		m_ambinentFactor = childlight->ambientFactor;
+
+		m_OutSideAngle = childlight->outsideAngle;
+		m_InsideAngleRatio = childlight->insideAngleRatio;
+		m_SliderCrtl_Radius.SetPos((int)m_radius);
 	}
 
 	else if (m_LightType == L"Directional")
 	{
+		auto childlight = light->GetGameObject()->GetComponentInChild<DirectionalLight>();
+
 		m_PosX = gameobject->transform->position.x;
 		m_PosY = gameobject->transform->position.y;
 		m_PosZ = gameobject->transform->position.z;
 
+		m_dirx = gameobject->transform->eulerAngle.x;
+		m_diry = gameobject->transform->eulerAngle.y;
+		m_dirz = gameobject->transform->eulerAngle.z;
+
+		m_ColorR = (int)childlight->color.r;
+		m_ColorG = (int)childlight->color.g;
+		m_ColorB = (int)childlight->color.b;
+		m_ColorA = (int)childlight->color.a;
+
+		m_ambinentFactor = childlight->ambientFactor;
+		m_SliderCrtl_Radius.SetPos(0);
 	}
+
+	m_SliderDirX.SetPos(int(m_dirx));
+	m_SliderDirY.SetPos(int(m_diry));
+	m_SliderDirZ.SetPos(int(m_dirz));
+
+	UpdateData(FALSE);
 }
 
 void DlgLightTool::SelectObject()
@@ -1275,7 +1344,7 @@ void DlgLightTool::LightClear()
 {
 	UpdateData(TRUE);
 
-	m_LightName = L"";
+	//m_LightName = L"";
 	m_LightType = L"";
 
 	m_ColorR = 0;
@@ -1324,6 +1393,8 @@ void DlgLightTool::OnLbnDblclkList1()
 {
 	UpdateData(TRUE);
 
+	LightClear();
+
 	int iIndex = m_LT_ListBox.GetCurSel();
 	if (iIndex < 0)
 		return;
@@ -1332,12 +1403,10 @@ void DlgLightTool::OnLbnDblclkList1()
 	m_LT_ListBox.GetText(iIndex, wstrFindName);
 
 	CString name = wstrFindName.GetString();
-
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	if (!giz->GetSelectedObject())
-		return;
-
-
+	//Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	//
+	//if (!giz->GetSelectedObject())
+	//	return;
 
 	for (auto& light : LightObj::g_vecLight)
 	{
@@ -1363,12 +1432,14 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_PosZ = com->transform->position.z;
 
 				m_radius = com->range;
+				m_SliderCrtl_Radius.SetPos(int(m_radius));
 
 				m_dirx = com->transform->eulerAngle.x;
 				m_diry = com->transform->eulerAngle.y;
 				m_dirz = com->transform->eulerAngle.z;
 
 				m_ambinentFactor = com->ambientFactor;
+
 			}
 			else if (lightobj->tag == L"Spot")
 			{
@@ -1388,6 +1459,7 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_PosZ = com->transform->position.z;
 
 				m_radius = com->range;
+				m_SliderCrtl_Radius.SetPos(int(m_radius));
 
 				m_OutSideAngle = com->outsideAngle;
 				m_InsideAngleRatio = com->insideAngleRatio;
@@ -1405,10 +1477,10 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_LightName = lightobj->name.c_str();;
 				m_LightType = L"Directional";
 
-				m_ColorR =(int)com->color.r;
-				m_ColorG =(int)com->color.g;
-				m_ColorB =(int)com->color.b;
-				m_ColorA =(int)com->color.a;
+				m_ColorR = (int)com->color.r;
+				m_ColorG = (int)com->color.g;
+				m_ColorB = (int)com->color.b;
+				m_ColorA = (int)com->color.a;
 
 				m_PosX = com->transform->position.x;
 				m_PosY = com->transform->position.y;
@@ -1419,8 +1491,13 @@ void DlgLightTool::OnLbnDblclkList1()
 				m_dirz = com->transform->eulerAngle.z;
 
 				m_ambinentFactor = com->ambientFactor;
+
+				m_SliderCrtl_Radius.SetPos(0);
 			}
 
+			m_SliderDirX.SetPos(int(m_dirx));
+			m_SliderDirY.SetPos(int(m_diry));
+			m_SliderDirZ.SetPos(int(m_dirz));
 		}
 
 	}
@@ -1429,3 +1506,249 @@ void DlgLightTool::OnLbnDblclkList1()
 
 	UpdateData(FALSE);
 }
+
+void DlgLightTool::JsonWrite()
+{
+	CFileDialog Dlg(FALSE, L"txt", L"LightObject.txt", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH];
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+	//Json::StreamWriterBuilder builder111;
+	//const std::unique_ptr<Json::StreamWriter> writer(builder111.newStreamWriter());
+
+	if (IDOK == Dlg.DoModal())
+	{
+		CString wstrFilePath = Dlg.GetPathName();
+		std::vector<LightObj*> lightvec = LightObj::g_vecLight;
+
+		Json::Value lightobj;
+		for (unsigned int i = 0; i < lightvec.size(); ++i)
+		{
+			LightObj* lightobject = lightvec[i];
+			{
+				Json::Value lignt;
+
+				lignt["Name"] = ToString(lightobject->GetGameObject()->name.c_str());
+				lignt["Tag"] = ToString(lightobject->GetGameObject()->tag.c_str());
+
+				lignt["PosX"] = lightobject->GetGameObject()->transform->position.x;
+				lignt["PosY"] = lightobject->GetGameObject()->transform->position.y;
+				lignt["PosZ"] = lightobject->GetGameObject()->transform->position.z;
+
+				lignt["EulerAngleX"] = lightobject->GetGameObject()->transform->eulerAngle.x;
+				lignt["EulerAngleY"] = lightobject->GetGameObject()->transform->eulerAngle.y;
+				lignt["EulerAngleZ"] = lightobject->GetGameObject()->transform->eulerAngle.z;
+
+				if (lightobject->GetGameObject()->tag == L"Point")							//포인트 라인트	
+				{
+					auto lightcom = lightobject->GetGameObject()->GetComponentInChild<PointLight>();
+					lignt["AmbinentFactor"] = lightcom->ambientFactor;
+					lignt["ColorR"] = lightcom->color.r;
+					lignt["ColorG"] = lightcom->color.g;
+					lignt["ColorB"] = lightcom->color.b;
+					lignt["ColorA"] = lightcom->color.a;
+
+					lignt["Range"] = lightcom->range;
+				}
+				else if (lightobject->GetGameObject()->tag == L"Spot")						//스포트라이트
+				{
+					auto lightcom = lightobject->GetGameObject()->GetComponentInChild<SpotLight>();
+					lignt["AmbinentFactor"] = lightcom->ambientFactor;
+					lignt["ColorR"] = lightcom->color.r;
+					lignt["ColorG"] = lightcom->color.g;
+					lignt["ColorB"] = lightcom->color.b;
+					lignt["ColorA"] = lightcom->color.a;
+
+					lignt["Range"] = lightcom->range;
+
+					lignt["OutsideAngle"] = lightcom->outsideAngle;
+					lignt["InsideAngleRatio"] = lightcom->insideAngleRatio;
+				}
+
+				else if (lightobject->GetGameObject()->tag == L"Directional")					//디렉셔널라이트 
+				{
+					auto lightcom = lightobject->GetGameObject()->GetComponentInChild<DirectionalLight>();
+					lignt["AmbinentFactor"] = lightcom->ambientFactor;
+					lignt["ColorR"] = lightcom->color.r;
+					lignt["ColorG"] = lightcom->color.g;
+					lignt["ColorB"] = lightcom->color.b;
+					lignt["ColorA"] = lightcom->color.a;
+				}
+
+				lightobj[i] = lignt;
+
+			}
+		}
+		//writer->write(lightobj, &std::cout);
+		SaveToJsonFormat(lightobj, ToString(wstrFilePath.GetString()));
+	}
+}
+
+void DlgLightTool::JsonRoad()
+{
+	CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH]{};
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+	m_LT_ListBox.ResetContent();
+
+	int vecSize = LightObj::g_vecLight.size();
+	for (int i = 0; i < vecSize; ++i)
+	{
+		LightObj::g_vecLight[0]->gameObject->Destroy();
+	}
+
+	float Range = 0.f;
+	float OutsideAngle = 0.f;
+	float InsideAngleRatio = 0.f;
+
+
+	if (IDOK == Dlg.DoModal())
+	{
+		CString wstrFilePath = Dlg.GetPathName();
+
+		Json::Value LightJson = LoadFromJsonFormat(ToString(wstrFilePath.GetString()));
+		int LightJsonSize = (int)LightJson.size();
+
+		for (int i = 0; i < LightJsonSize; ++i)
+		{
+
+			Json::Value Light = LightJson[i];
+			//	Json::Value LightValue = Light[i];
+			wstring Name = ToWString(Light["Name"].asString());
+			wstring Tag = ToWString(Light["Tag"].asString());
+
+			Vec3 Pos = Vec3(Light["PosX"].asFloat(), Light["PosY"].asFloat(), Light["PosZ"].asFloat());
+			Vec3 EulerAngle = Vec3(Light["EulerAngleX"].asFloat(), Light["EulerAngleY"].asFloat(), Light["EulerAngleZ"].asFloat());
+			float AmbinentFactor = Light["AmbinentFactor"].asFloat();
+			Vec4 VColor = Vec4((float)Light["ColorR"].asInt(), (float)Light["ColorG"].asInt(), (float)Light["ColorB"].asInt(), (float)Light["ColorA"].asInt());
+
+			if (Tag == L"Point")
+			{
+				Range = Light["Range"].asFloat();
+			}
+			else if (Tag == L"Spot")
+			{
+				Range = Light["Range"].asFloat();
+				OutsideAngle = Light["OutsideAngle"].asFloat();
+				InsideAngleRatio = Light["InsideAngleRatio"].asFloat();
+			}
+
+			GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
+			LightObj* lightobj = pObj->AddComponent<LightObj>();
+			pObj->name = Name;
+			pObj->tag = Tag;
+			pObj->transform->position = Pos;
+			pObj->transform->eulerAngle = EulerAngle;
+
+			if (Tag == L"Point")
+			{
+				PointLight* point = pObj->GetComponentInChild<PointLight>();
+				point->ambientFactor = AmbinentFactor;
+				point->color = VColor;
+				point->range = Range;
+
+				lightobj->LightSetting();
+
+			}
+			else if (Tag == L"Spot")
+			{
+				SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
+				spot->ambientFactor = AmbinentFactor;
+				spot->color = VColor;
+				spot->range = Range;
+				spot->outsideAngle = OutsideAngle;
+				spot->insideAngleRatio = InsideAngleRatio;
+
+				lightobj->LightSetting();
+			}
+			else if (Tag == L"Directional")
+			{
+				DirectionalLight* spot = pObj->GetComponentInChild<DirectionalLight>();
+				spot->ambientFactor = AmbinentFactor;
+				spot->color = VColor;
+
+				lightobj->LightSetting();
+			}
+
+			m_LT_ListBox.InsertString(-1, pObj->name.c_str());
+		}
+	}
+}
+
+void DlgLightTool::SaveToJsonFormat(const Json::Value& json, string path)
+{
+	Json::StreamWriterBuilder builder;
+	string jsonFormatText = Json::writeString(builder, json);
+
+	std::ofstream out;
+	out.open(path);
+
+	out << jsonFormatText;
+
+	out.close();
+}
+
+Json::Value DlgLightTool::LoadFromJsonFormat(string path)
+{
+	std::ifstream in;
+	in.open(path);
+
+	if (!in.is_open())
+	{
+		cout << "json read error: not exist file" << endl;
+		return Json::Value();
+	}
+
+	in.seekg(0, std::ios::end);
+	size_t size = (size_t)in.tellg();
+	std::string jsonFormatText(size, ' ');
+	in.seekg(0);
+	in.read(&jsonFormatText[0], size);
+
+	in.close();
+
+	Json::Value root;
+	JSONCPP_STRING err;
+
+	Json::CharReaderBuilder charReaderBuilder;
+	const std::unique_ptr<Json::CharReader> reader(charReaderBuilder.newCharReader());
+	if (!reader->parse(jsonFormatText.c_str(), jsonFormatText.c_str() + jsonFormatText.length(), &root, &err))
+	{
+		cout << "json read error: invalid format" << endl;
+		return EXIT_FAILURE;
+	}
+
+	return root;
+}
+
+wstring DlgLightTool::ToWString(const string& str)
+{
+	USES_CONVERSION;
+	return wstring(A2W(str.c_str()));
+}
+
+string DlgLightTool::ToString(const wstring& wstr)
+{
+	USES_CONVERSION;
+	return string(W2A(wstr.c_str()));
+}
+
+
+

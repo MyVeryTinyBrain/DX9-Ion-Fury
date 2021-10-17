@@ -77,9 +77,9 @@ LightObj* LightObj::LightPick()
 
 	for (auto pickable : g_vecLight)
 	{
-		UserMeshRenderer* Renderer = pickable->GetRenderer();
+		auto Renderer = pickable->GetGameObject()->GetComponentInChild<UserMeshRenderer>();
 
-		if (Renderer != nullptr)
+		if (Renderer)
 		{
 			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 			{
@@ -107,7 +107,8 @@ void LightObj::LightPick(const CString& name)
 		if (light->GetGameObject()->name.c_str() == name)
 		{
 			EditorManager::GetInstance()->GetGizmo()->Attach(light->GetGameObject()->transform);
-			light->GetGameObject()->transform->position = camera->transform->position + camera->transform->forward * 2;
+
+			camera->transform->position = light->GetGameObject()->transform->position - camera->transform->forward * 2;
 		}
 	}
 

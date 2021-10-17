@@ -38,8 +38,9 @@ void EditorManager::Awake()
 		directionalLightObj->name = L"Directional";
 		auto dl = directionalLightObj->AddComponent<LightObj>();
 		auto dll = directionalLightObj->GetComponentInChild<DirectionalLight>();
+		dll->name = L"Directional";
 		directionalLightObj->transform->position = camera->GetGameObject()->transform->position + camera->GetGameObject()->transform->forward * 2;
-		dll->color = Color::white() * 0.8f;
+		dll->color = Color::white();
 		dl->LightSetting();
 		
 	}

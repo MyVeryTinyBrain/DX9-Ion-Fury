@@ -16,9 +16,9 @@ class Spider : public Monster
 
 	virtual Collider* InitializeCollider(GameObject* colliderObj) override;
 
-	virtual void OnDamage(Collider* collider, MonsterDamageType damageType, float& damage, Vec3& force) override;
+	virtual void OnDamage(DamageParameters& params) override;
 
-	virtual void OnDead(bool& dead, MonsterDamageType damageType) override;
+	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
 private:
 
@@ -33,6 +33,12 @@ private:
 	void Jump();
 
 private:
+
+	enum class JumpType { BASIC, WEB, MAX };
+
+private:
+
+	UserMeshBillboardRenderer* m_renderer = nullptr;
 
 	SpiderSpriteAnimator* m_animator = nullptr;
 	
@@ -56,5 +62,8 @@ private:
 
 	bool m_attack = true;
 
+	float m_PatternTime = 0;
+
+	JumpType jumpingtype = (JumpType)0;
 };
 
