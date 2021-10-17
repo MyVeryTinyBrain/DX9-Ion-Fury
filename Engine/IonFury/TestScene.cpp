@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Gunner.h"
 #include "Spider.h"
+#include "Skybox.h"
 
 IClonable* TestScene::Clone()
 {
@@ -11,6 +12,18 @@ IClonable* TestScene::Clone()
 
 void TestScene::OnLoad(Scene* beforeScene)
 {
+    {
+        auto skyboxObj = CreateGameObject();
+        Skybox* skybox = skyboxObj->AddComponent<Skybox>();
+
+        skybox->SetTopTexture(L"../SharedResource/Texture/skybox_cloudy/top.png");
+        skybox->SetLeftTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetRightTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetForwardTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetBackTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
+    }
+
     {   // Create directional light
         auto obj = CreateGameObject();
 
@@ -165,9 +178,9 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 5; ++i)
     {
-        for (int j = 0; j < 10; ++j)
+        for (int j = 0; j < 5; ++j)
         {
             auto obj = CreateGameObject();
             obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);

@@ -8,6 +8,8 @@ class Arrow : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
+	OverrideComponentFunction(FixedUpdate);
+
 	OverrideComponentFunction(Update);
 
 	void OnCollisionEnter(const CollisionEnter& collider);

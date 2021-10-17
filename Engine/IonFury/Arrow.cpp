@@ -46,6 +46,10 @@ void Arrow::OnDestroy()
 	RemoveBodyAndCollider();
 }
 
+void Arrow::FixedUpdate()
+{
+}
+
 void Arrow::Update()
 {
 	m_selfDestroyCounter -= Time::DeltaTime();

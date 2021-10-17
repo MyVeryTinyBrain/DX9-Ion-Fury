@@ -37,10 +37,6 @@ private:
 
 private:
 
-	Vec3 m_originBackupPosition;
-
-	Quat m_originBackupRotation;
-
 	Vec3 m_backupPosition;
 
 	Quat m_backupRotation;

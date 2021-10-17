@@ -148,6 +148,9 @@
     <ClCompile Include="PlayerUI.cpp">
       <Filter>Player\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Skybox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaingun.h">
@@ -321,6 +324,9 @@
     <ClInclude Include="AmmoTypes.h">
       <Filter>Initialize</Filter>
     </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Skybox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -414,6 +420,9 @@
     </Filter>
     <Filter Include="Player\UI\Numbers">
       <UniqueIdentifier>{94339adf-cf63-455c-bdcb-3daf48a08a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skybox">
+      <UniqueIdentifier>{b4e26422-1087-4d48-9054-5c06f958220e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

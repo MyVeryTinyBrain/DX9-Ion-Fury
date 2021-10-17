@@ -4,6 +4,7 @@
 #include "FPSCamera.h"
 #include "FPSOrthoCamera.h"
 #include "Hands.h"
+#include "PlayerUI.h"
 
 ImplementStaticComponent(Player);
 
@@ -12,6 +13,18 @@ void Player::Awake()
 	g_instance = this;
 
 	m_controller = gameObject->AddComponent<FPSCharacterController>();
+}
+
+void Player::Update()
+{
+	if (Input::GetKeyDown(Key::Up))
+	{
+		AddHP(1);
+	}
+	if (Input::GetKeyDown(Key::Down))
+	{
+		SubtractHP(1);
+	}
 }
 
 FPSCharacterController* Player::GetController() const
@@ -34,7 +47,7 @@ FPSOrthoCamera* Player::GetOrthoCamera() const
 	return m_controller->fpsCamera->fpsOrthoCamera;
 }
 
-void Player::AddHP(int hp)
+void Player::AddHP(unsigned int hp, bool effect)
 {
 	m_hp += hp;
 
@@ -42,9 +55,29 @@ void Player::AddHP(int hp)
 	{
 		m_hp = 100;
 	}
+
+	if (effect)
+	{
+		m_controller->fpsCamera->fpsOrthoCamera->UI->ShowGreenScreenEffect();
+	}
 }
 
-void Player::SetHP(int hp)
+void Player::SubtractHP(unsigned int hp, bool effect)
+{
+	if (m_hp < hp)
+	{
+		hp = m_hp;
+	}
+
+	m_hp -= hp;
+
+	if (effect)
+	{
+		m_controller->fpsCamera->fpsOrthoCamera->UI->ShowRedScreenEffect();
+	}
+}
+
+void Player::SetHP(unsigned int hp)
 {
 	if (hp < 0)
 	{

@@ -23,9 +23,6 @@ void RigidbodyInterpolater::BackupPose()
 
 	m_backupPosition = m_body->transform->position;
 	m_backupRotation = m_body->transform->rotation;
-
-	m_originBackupPosition = m_backupPosition;
-	m_originBackupRotation = m_backupRotation;
 }
 
 void RigidbodyInterpolater::RollbackPose()

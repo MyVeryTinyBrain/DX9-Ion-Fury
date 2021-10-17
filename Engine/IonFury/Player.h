@@ -13,6 +13,8 @@ class Player : public Component
 
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Update);
+
 public:
 
 	FPSCharacterController* GetController() const;
@@ -33,9 +35,11 @@ public:
 
 public:
 
-	void AddHP(int hp);
+	void AddHP(unsigned int hp, bool effect = true);
 
-	void SetHP(int hp);
+	void SubtractHP(unsigned int hp, bool effect = true);
+
+	void SetHP(unsigned int hp);
 
 	int GetHP() const;
 

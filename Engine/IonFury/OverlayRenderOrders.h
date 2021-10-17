@@ -18,6 +18,8 @@ enum class OverlayRenderOrders
 	PlayerWeaponOverlay3,
 
 	UIFont,
+	UIPic,
+	UIForeground,
 
 	Crosshair,
 };

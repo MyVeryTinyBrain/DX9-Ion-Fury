@@ -2,6 +2,7 @@
 #include "PlayerUI.h"
 #include "Numbers.h"
 #include "RenderLayers.h"
+#include "OverlayRenderOrders.h"
 
 void PlayerUI::Awake()
 {
@@ -17,6 +18,7 @@ void PlayerUI::Awake()
 	m_playerFaceRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
 	m_playerFaceRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
 	m_playerFaceRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_playerFaceRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
 
 	m_hpObj = CreateGameObjectToChild(transform);
 	m_hpObj->transform->localPosition = Vec2(-0.71f, -0.45f);
@@ -54,6 +56,7 @@ void PlayerUI::Awake()
 	m_ammoTypeRenderer0->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
 	m_ammoTypeRenderer0->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
 	m_ammoTypeRenderer0->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_ammoTypeRenderer0->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
 
 	m_ammoTypeObj1 = CreateGameObjectToChild(transform);
 	m_ammoTypeObj1->transform->localPosition = Vec2(0.825f, -0.34f);
@@ -62,6 +65,7 @@ void PlayerUI::Awake()
 	m_ammoTypeRenderer1->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
 	m_ammoTypeRenderer1->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
 	m_ammoTypeRenderer1->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_ammoTypeRenderer1->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
 
 	m_ammoTexture[(unsigned int)AmmoTypes::Revolver] = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/ammo_revolver.png");
 	m_ammoTexture[(unsigned int)AmmoTypes::Shotgun] = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/ammo_shotgun.png");
@@ -70,11 +74,49 @@ void PlayerUI::Awake()
 	m_ammoTexture[(unsigned int)AmmoTypes::Chaingun] = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/ammo_chaingun.png");
 	m_ammoTexture[(unsigned int)AmmoTypes::Arrow] = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/ammo_arrow.png");
 
+	m_redScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/red.png");;
+	m_greenScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/green.png");;
+
+	m_screenEffectObj = CreateGameObjectToChild(transform);
+	m_screenEffectObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetAspect(), 1.0f);
+	m_screenEffectRenderer = m_screenEffectObj->AddComponent<UserMeshRenderer>();
+	m_screenEffectRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
+	m_screenEffectRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_screenEffectRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_screenEffectRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIForeground;
+	m_screenEffectRenderer->enable = false;
+
 	SetHP(100);
 	SetAmmo0(999);
 	SetAmmo1(999);
 	SetAmmo0Type(AmmoTypes::Shotgun);
 	SetAmmo1Type(AmmoTypes::Launcher);
+}
+
+void PlayerUI::Update()
+{
+	if (m_screenEffectObj->transform->localScale.y > 2.0f)
+	{
+		m_screenEffectRenderer->enable = false;
+	}
+	else
+	{
+		m_screenEffectObj->transform->localScale += Vec2::one() * 0.8f * Time::DeltaTime();
+	}
+}
+
+void PlayerUI::ShowRedScreenEffect()
+{
+	m_screenEffectRenderer->SetTexture(0, m_redScreenEffectTexture);
+	m_screenEffectRenderer->enable = true;
+	m_screenEffectObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetAspect(), 1);
+}
+
+void PlayerUI::ShowGreenScreenEffect()
+{
+	m_screenEffectRenderer->SetTexture(0, m_greenScreenEffectTexture);
+	m_screenEffectRenderer->enable = true;
+	m_screenEffectObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetAspect(), 1);
 }
 
 void PlayerUI::SetHP(unsigned int value)

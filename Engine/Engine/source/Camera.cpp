@@ -93,6 +93,11 @@ void Camera::SetFOV(float angle)
 	m_fovAngle = angle;
 }
 
+float Camera::GetAspect() const
+{
+	return m_aspect;
+}
+
 float Camera::GetOrthographicSize() const
 {
 	return m_orthographicSize;

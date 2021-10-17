@@ -191,6 +191,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Revolver.h" />
     <ClInclude Include="RevolverAnimator.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="SMG.h" />
     <ClInclude Include="SMGAnimator.h" />
     <ClInclude Include="Spider.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Revolver.cpp" />
     <ClCompile Include="RevolverAnimator.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SMG.cpp" />
     <ClCompile Include="SMGAnimator.cpp" />
     <ClCompile Include="Spider.cpp" />

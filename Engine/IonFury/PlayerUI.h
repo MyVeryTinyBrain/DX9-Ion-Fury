@@ -8,7 +8,13 @@ class PlayerUI : public Component
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Update);
+
 public:
+
+	void ShowRedScreenEffect();
+
+	void ShowGreenScreenEffect();
 
 	void SetHP(unsigned int value);
 
@@ -65,5 +71,13 @@ private:
 	UserMeshRenderer* m_ammoTypeRenderer1 = nullptr;
 
 	Texture* m_ammoTexture[(unsigned int)AmmoTypes::Max] = {};
+
+	GameObject* m_screenEffectObj = nullptr;
+
+	UserMeshRenderer* m_screenEffectRenderer = nullptr;
+
+	Texture* m_redScreenEffectTexture = nullptr;
+
+	Texture* m_greenScreenEffectTexture = nullptr;
 };
 
