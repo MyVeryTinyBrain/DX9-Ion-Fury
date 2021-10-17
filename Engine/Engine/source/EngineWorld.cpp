@@ -59,6 +59,8 @@ HRESULT EngineWorld::Initialize(HWND hWnd, UINT width, UINT height, BOOL windowe
 
 	BuiltIn::MakeBuiltInResources();
 
+	SharedResourceLoader::LoadSharedResources();
+
 	m_initialized = true;
 
 	srand(unsigned int(time(NULL)));

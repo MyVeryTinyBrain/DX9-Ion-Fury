@@ -175,6 +175,12 @@
     <ClCompile Include="TestScene3.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="MapLoad.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaingun.h">
@@ -374,6 +380,12 @@
     </ClInclude>
     <ClInclude Include="TestScene3.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoad.h">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>Loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -116,12 +116,12 @@ void Gunner::OnDestroy()
 
 Collider* Gunner::InitializeCollider(GameObject* colliderObj)
 {
-    //{
-    //    auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
-    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
-    //    renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-    //}
+    {
+        auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
+        renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+    }
 
     m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
     return m_capsuleCollider;

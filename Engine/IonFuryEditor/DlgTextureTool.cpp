@@ -203,6 +203,8 @@ void DlgTextureTool::OnDropFiles(HDROP hDropInfo)
 		DragQueryFile(hDropInfo, i, szFilePath, MAX_PATH);
 		CString relativePath = FileInfo::ConvertRelativePath(szFilePath);	//상대경로
 
+		relativePath.Replace(L"\\", L"/");
+
 		//CString fileName = PathFindFileName(szFilePath);					//파일이름
 		//TCHAR szFileName[MAX_PATH]{};
 		//lstrcpy(szFileName, fileName.GetString());
