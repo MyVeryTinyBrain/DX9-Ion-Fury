@@ -10,3 +10,4 @@ bld/
 [Ll]og/
 .vs/
 *.vcxproj.filters
+*.aps
