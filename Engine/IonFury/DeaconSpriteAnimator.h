@@ -23,33 +23,21 @@ public:
 
 	void SetAngle(float angle);
 
-	void PlayIdle();
-
-	void PlayShoot();
-
 	void PlayMove(DIR_DECACONE edir);
 
-	void PlayMove();
-
-	void PlayMoveShoot();
+	void PlayShoot();
 
 	void PlayExplosion();
 
 	void PlaySmoke();
 
-	bool IsPlayingIdle() const;
-
-	bool IsPlayingShoot() const;
-
 	bool IsPlayingMove() const;
 
-	bool IsPlayingMoveShoot() const;
+	bool IsPlayingShoot() const;
 
 	bool IsPlayingExplosion() const;
 
 	bool IsPlayingSmoke() const;
-
-	SpriteAnimation* GetIdle() const;
 
 	SpriteAnimation* GetMove() const;
 
@@ -67,15 +55,13 @@ private:
 
 private:
 
-	SpriteAnimation* m_idle[(unsigned int)DIR_DECACONE::MAX]; //기본
-
-	SpriteAnimation* m_Attack[(unsigned int)DIR_DECACONE::MAX];	//공격할때
+	SpriteAnimation* m_Attack;	//공격할때
 
 	SpriteAnimation* m_move[(unsigned int)DIR_DECACONE::MAX]; //움직일때
 
 	SpriteAnimation* m_zizizik[(unsigned int)DIR_DECACONE::MAX]; //지지직
 
-	SpriteAnimation* m_explosion;	//죽을때
+	SpriteAnimation* m_dead;	//죽을때
 
 	SpriteAnimation* m_smoke;	//이펙트
 

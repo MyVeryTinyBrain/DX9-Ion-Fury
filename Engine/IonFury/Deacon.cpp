@@ -3,6 +3,7 @@
 #include "DeaconSpriteAnimator.h"
 #include "PhysicsInitialize.h"
 #include "Player.h"
+#include "BloodEffect.h"
 
 void Deacon::Awake()
 {
@@ -66,6 +67,19 @@ void Deacon::Update()
             m_collider = nullptr;
         }
     }
+
+    Attack(); //공격
+
+    m_animator->SetAngle(AngleToPlayerWithSign());//플레이어기준 어디에있는지 ~몬스터 가 보는 방향과 플레이어 방향 사이의 크기 에서 보여줄 스프라이트 출력시키게 해주는거
+    
+    if (m_animator->IsPlayingShoot())
+    {
+        m_defaultEmissive = Color::white();     //데미지 이펙트 컬러
+    }
+    else
+    {
+        m_defaultEmissive = Color::black();
+    }
 }
 
 void Deacon::OnDestroy()
@@ -86,6 +100,17 @@ Collider* Deacon::InitializeCollider(GameObject* colliderObj)
 
 void Deacon::OnDamage(DamageParameters& params)
 {
+    if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
+    {
+        GameObject* bloodEffectObj = CreateGameObject();
+        bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
+        bloodEffectObj->AddComponent<BloodEffect>();
+    }
+
+    params.force = Vec3::zero();
+    
+    Explosion();
+    gameObject->Destroy();
 }
 
 void Deacon::OnDead(bool& dead, DamageParameters& params)
@@ -101,6 +126,16 @@ void Deacon::SetTargetCoord(Vec3 xzCoord)
 
 void Deacon::Attack()
 {
+    if (m_attackCount > 0)
+    {
+        --m_attackCount;
+
+        m_animator->SetDefaultAnimation(m_animator->GetShoot(), true);
+        Vec3 forward = Player::GetInstance()->transform->position - transform->position; //플레이어 위치 - 내 위치
+        forward.y = 0;
+        forward.Normalize();
+        transform->forward = forward;
+    }
 }
 
 void Deacon::Explosion()
