@@ -31,7 +31,7 @@ void DroneExplosion::Update()
 	if (m_animationTime < 2.f)
 		m_animator->SetDefaultAnimation(m_animator->GetExplosion(), true);
 	else
-		Destroy();
+		gameObject->Destroy();
 
 }
 

@@ -132,6 +132,17 @@
     </ClCompile>
     <ClCompile Include="DeaconSpriteAnimator.cpp">
       <Filter>Monster\Deacon</Filter>
+    <ClCompile Include="Warmech.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechSpriteAnimator.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechBullet.cpp">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechMissile.cpp">
+      <Filter>Monster\Warmech\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +298,17 @@
     </ClInclude>
     <ClInclude Include="DeaconSpriteAnimator.h">
       <Filter>Monster\Deacon</Filter>
+    <ClInclude Include="Warmech.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechSpriteAnimator.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechBullet.h">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechMissile.h">
+      <Filter>Monster\Warmech\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +397,11 @@
     </Filter>
     <Filter Include="Monster\Deacon">
       <UniqueIdentifier>{6676ce66-8a17-4f74-8806-059aa6aecd20}</UniqueIdentifier>
+    <Filter Include="Monster\Warmech">
+      <UniqueIdentifier>{db062307-36f8-43f7-8361-22a6049e1175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Warmech\Weapon">
+      <UniqueIdentifier>{f20a739b-c7fa-412a-8ec4-eb3beeae46e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

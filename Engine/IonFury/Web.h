@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Monster.h"
-
 class SpiderSpriteAnimator;
 
 class Web : public Component

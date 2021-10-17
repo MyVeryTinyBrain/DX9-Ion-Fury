@@ -66,7 +66,7 @@ void Web::Update()
 void Web::LateUpdate()
 {
 	if (m_animationtime > 3.f)
-		Destroy();
+		gameObject->Destroy();
 }
 
 void Web::OnDestroy()

@@ -199,6 +199,10 @@
     <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TriangleStair.h" />
     <ClInclude Include="UserMixMesh.h" />
+    <ClInclude Include="WarmechBullet.h" />
+    <ClInclude Include="WarmechMissile.h" />
+    <ClInclude Include="Warmech.h" />
+    <ClInclude Include="WarmechSpriteAnimator.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponTypes.h" />
     <ClInclude Include="Web.h" />
@@ -246,6 +250,10 @@
     <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TriangleStair.cpp" />
     <ClCompile Include="UserMixMesh.cpp" />
+    <ClCompile Include="WarmechBullet.cpp" />
+    <ClCompile Include="WarmechMissile.cpp" />
+    <ClCompile Include="Warmech.cpp" />
+    <ClCompile Include="WarmechSpriteAnimator.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Web.cpp" />
   </ItemGroup>
