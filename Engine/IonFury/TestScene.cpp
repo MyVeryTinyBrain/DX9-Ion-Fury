@@ -6,6 +6,14 @@
 #include "Skybox.h"
 #include "LightLoad.h"
 #include "MapLoad.h"
+#include "ItemHealthPack.h"
+#include "ItemBowAmmo.h"
+#include "ItemChaingunAmmo.h"
+#include "ItemLauncherAmmo.h"
+#include "ItemRevolverAmmo.h"
+#include "ItemShotgunAmmo.h"
+#include "ItemSMGAmmo.h"
+#include "ObjectStair.h"
 
 IClonable* TestScene::Clone()
 {
@@ -34,6 +42,7 @@ void TestScene::OnLoad(Scene* beforeScene)
 
         auto renderer = obj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+<<<<<<< HEAD
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
         obj->transform->position = Vec3(0, 5, 0);
@@ -41,6 +50,61 @@ void TestScene::OnLoad(Scene* beforeScene)
         auto light = obj->AddComponent<DirectionalLight>();
         light->ambientFactor = 0.6f;
     }
+=======
+        renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+
+        obj->transform->position = Vec3(0, 5, 0);
+        obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+
+        auto light = obj->AddComponent<DirectionalLight>();
+        light->ambientFactor = 0.6f;
+    }
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, -1, 3);
+        obj->AddComponent<ObjectStair>();
+    }
+
+    {
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 5, 0);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 5, 1);
+            obj->AddComponent<ItemBowAmmo>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 5, 2);
+            obj->AddComponent<ItemChaingunAmmo>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 5, 3);
+            obj->AddComponent<ItemLauncherAmmo>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 5, 4);
+            obj->AddComponent<ItemRevolverAmmo>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 5, 5);
+            obj->AddComponent<ItemShotgunAmmo>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 5, 6);
+            obj->AddComponent<ItemSMGAmmo>();
+        }
+    }
+>>>>>>> 91ee468e67d5c20eaab9af4f58ab0f3893712713
 
     {   // Create test player
         auto obj = CreateGameObject();
@@ -183,6 +247,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
+<<<<<<< HEAD
     for (int i = 0; i < 5; ++i)
     {
         for (int j = 0; j < 5; ++j)
@@ -193,6 +258,18 @@ void TestScene::OnLoad(Scene* beforeScene)
             obj->AddComponent<Gunner>();
         }
     }
+=======
+    //for (int i = 0; i < 2; ++i)
+    //{
+    //    for (int j = 0; j < 5; ++j)
+    //    {
+    //        auto obj = CreateGameObject();
+    //        obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
+    //        obj->transform->eulerAngle = Vec3(0, 90, 0);
+    //        obj->AddComponent<Gunner>();
+    //    }
+    //}
+>>>>>>> 91ee468e67d5c20eaab9af4f58ab0f3893712713
 }
 
 void TestScene::OnUnload(Scene* nextScene)

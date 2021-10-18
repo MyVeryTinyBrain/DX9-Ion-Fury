@@ -25,3 +25,18 @@ void TriangleStair::Awake()
 
 	SetMaterials(Resource::FindAs<Material>(BuiltInGeometryMaterial));
 }
+
+UserMeshRenderer* TriangleStair::GetEmptyRightTriangle() const
+{
+	return m_emptyRightTriangle;
+}
+
+UserMeshRenderer* TriangleStair::GetBackSide() const
+{
+	return m_backSide;
+}
+
+UserMeshRenderer* TriangleStair::GetFrontSide() const
+{
+	return m_frontSide;
+}

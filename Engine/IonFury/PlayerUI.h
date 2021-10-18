@@ -16,6 +16,8 @@ public:
 
 	void ShowGreenScreenEffect();
 
+	void ShowBlueScreenEffect();
+
 	void SetHP(unsigned int value);
 
 	void SetLoadedAmmo0State(bool value);
@@ -79,5 +81,7 @@ private:
 	Texture* m_redScreenEffectTexture = nullptr;
 
 	Texture* m_greenScreenEffectTexture = nullptr;
+
+	Texture* m_blueScreenEffectTexture = nullptr;
 };
 
