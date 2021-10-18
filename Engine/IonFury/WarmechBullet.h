@@ -6,6 +6,8 @@ class WarmechBullet : public Component
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(FixedUpdate);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(LateUpdate);
@@ -31,5 +33,9 @@ private:
 	float m_selfDestroyCounter = 5.0f;
 
 	UserMeshRenderer* m_debugRenderer = nullptr;
+
+	bool m_initialdir = true;
+
+	Vec3 forward;
 };
 

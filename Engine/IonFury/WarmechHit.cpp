@@ -1,11 +1,7 @@
 #include "stdafx.h"
-#include "WarmechMissile.h"
-#include "WarmechSpriteAnimator.h"
-#include "PhysicsLayers.h"
-#include "Player.h"
+#include "WarmechHit.h"
 
-
-void WarmechMissile::Awake()
+void WarmechHit::Awake()
 {
 	m_moveSpeed = 3.0f;
 
@@ -37,44 +33,11 @@ void WarmechMissile::Awake()
 	//}
 }
 
-void WarmechMissile::FixedUpdate()
-{
-	Collider* collider = Physics::OverlapSphere(
-		transform->position,
-		m_radius,
-		(1 << (PxU32)PhysicsLayers::Terrain || 1 << (PxU32)PhysicsLayers::Player),
-		PhysicsQueryType::Collider);
-
-	if (collider)
-	{
-		if (collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
-		{
-		
-		}
-		else if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
-		{
-
-		}
-	}
-}
-
-void WarmechMissile::Update()
-{
-	
-	m_animator->SetDefaultAnimation(m_animator->GetMissileBullet(), true);
-
-
-	transform->position += transform->forward * m_moveSpeed * Time::DeltaTime();
-
-
-
-}
-
-void WarmechMissile::LateUpdate()
+void WarmechHit::Update()
 {
 }
 
-void WarmechMissile::OnDestroy()
+void WarmechHit::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();

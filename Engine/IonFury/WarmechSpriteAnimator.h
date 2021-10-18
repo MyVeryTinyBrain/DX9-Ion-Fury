@@ -80,6 +80,8 @@ private:
 
 	SpriteAnimation* m_missileBullet;
 
+	SpriteAnimation* m_damage;
+
 	float m_angle = 0.f;
 
 };

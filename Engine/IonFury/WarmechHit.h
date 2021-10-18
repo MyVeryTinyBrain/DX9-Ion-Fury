@@ -2,15 +2,11 @@
 
 class WarmechSpriteAnimator;
 
-class WarmechMissile : public Component
+class WarmechHit : public Component
 {
 	OverrideComponentFunction(Awake);
 
-	OverrideComponentFunction(FixedUpdate);
-
 	OverrideComponentFunction(Update);
-
-	OverrideComponentFunction(LateUpdate);
 
 	OverrideComponentFunction(OnDestroy);
 
