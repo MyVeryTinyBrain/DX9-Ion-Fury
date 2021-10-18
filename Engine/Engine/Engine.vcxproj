@@ -22,6 +22,9 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\QuadRightUserMesh.cpp" />
+    <ClCompile Include="source\QuadTopUserMesh.cpp" />
+    <ClCompile Include="source\QuadForwardUserMesh.cpp" />
     <ClCompile Include="source\RigibdoyInterpolateBase.cpp" />
     <ClCompile Include="source\RigidbodyInterpolater.cpp" />
     <ClCompile Include="source\RigidbodyExtrapolater.cpp" />
@@ -196,6 +199,9 @@
     <ClInclude Include="header\RigidbodyExtrapolater.h" />
     <ClInclude Include="header\RigidbodyInterpolater.h" />
     <ClInclude Include="header\RigibdoyInterpolateBase.h" />
+    <ClInclude Include="header\QuadRightUserMesh.h" />
+    <ClInclude Include="header\QuadTopUserMesh.h" />
+    <ClInclude Include="header\QuadForwardUserMesh.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />

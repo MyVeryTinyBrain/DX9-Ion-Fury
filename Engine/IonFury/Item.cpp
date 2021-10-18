@@ -12,21 +12,20 @@ void Item::Awake()
 	m_renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
 	m_renderer->material = Resource::FindAs<Material>(BuiltInAlphaTestMaterial);
 
-	{
-		auto debugObj = CreateGameObjectToChild(m_root->transform);
-		m_debugRenderer = debugObj->AddComponent<UserMeshRenderer>();
-		m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-		m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-	}
+	//{
+	//	auto debugObj = CreateGameObjectToChild(m_root->transform);
+	//	m_debugRenderer = debugObj->AddComponent<UserMeshRenderer>();
+	//	m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
+	//	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//}
 }
 
 void Item::Start()
 {
-	if (Time::TimeScale() <= 0)
-	{
-		return;
-	}
+#ifdef _AFX
+	return;
+#endif
 
 	PhysicsRay ray(transform->position, Vec3::down(), 50.0f);
 	RaycastHit hit;
@@ -38,10 +37,9 @@ void Item::Start()
 
 void Item::Update()
 {
-	if (Time::TimeScale() <= 0)
-	{
-		return;
-	}
+#ifdef _AFX
+	return;
+#endif
 
 	auto collider = Physics::OverlapSphere(
 		transform->position,
@@ -56,8 +54,8 @@ void Item::Update()
 		gameObject->Destroy();
 	}
 
-	if (m_debugRenderer)
-	{
-		m_debugRenderer->transform->scale = Vec3::one() * m_triggerRadius * 2.0f;
-	}
+	//if (m_debugRenderer)
+	//{
+	//	m_debugRenderer->transform->scale = Vec3::one() * m_triggerRadius * 2.0f;
+	//}
 }

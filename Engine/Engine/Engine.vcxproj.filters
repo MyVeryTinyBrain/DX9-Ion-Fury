@@ -349,6 +349,15 @@
     <ClCompile Include="source\RigibdoyInterpolateBase.cpp">
       <Filter>Physics\Rigidbody</Filter>
     </ClCompile>
+    <ClCompile Include="source\QuadRightUserMesh.cpp">
+      <Filter>Resource\UserMesh\Quad</Filter>
+    </ClCompile>
+    <ClCompile Include="source\QuadTopUserMesh.cpp">
+      <Filter>Resource\UserMesh\Quad</Filter>
+    </ClCompile>
+    <ClCompile Include="source\QuadForwardUserMesh.cpp">
+      <Filter>Resource\UserMesh\Quad</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Object.h">
@@ -677,6 +686,15 @@
     </ClInclude>
     <ClInclude Include="header\RigibdoyInterpolateBase.h">
       <Filter>Physics\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="header\QuadForwardUserMesh.h">
+      <Filter>Resource\UserMesh\Quad</Filter>
+    </ClInclude>
+    <ClInclude Include="header\QuadRightUserMesh.h">
+      <Filter>Resource\UserMesh\Quad</Filter>
+    </ClInclude>
+    <ClInclude Include="header\QuadTopUserMesh.h">
+      <Filter>Resource\UserMesh\Quad</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

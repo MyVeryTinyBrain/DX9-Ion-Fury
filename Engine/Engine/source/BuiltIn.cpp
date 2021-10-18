@@ -20,6 +20,9 @@ void BuiltIn::MakeBuiltInResources()
 #include "SphereUserMesh.h"
 #include "CyilinderUserMesh.h"
 #include "QuadUserMesh.h"
+#include "QuadForwardUserMesh.h"
+#include "QuadTopUserMesh.h"
+#include "QuadRightUserMesh.h"
 #include "CapsuleUserMesh.h"
 #include "RightTriangleUserMesh.h"
 #include "TriangleUserMesh.h"
@@ -33,6 +36,9 @@ void BuiltIn::MakeUserMeshResources()
     UserMesh::Create<SphereUserMesh>(BuiltInSphereUserMesh, true);
     UserMesh::Create<CyilinderUserMesh>(BuiltInCyilinderUserMesh, true);
     UserMesh::Create<QuadUserMesh>(BuiltInQuadUserMesh, true);
+    UserMesh::Create<QuadForwardUserMesh>(BuiltInQuadForwardUserMesh, true);
+    UserMesh::Create<QuadTopUserMesh>(BuiltInQuadTopUserMesh, true);
+    UserMesh::Create<QuadRightUserMesh>(BuiltInQuadRightUserMesh, true);
     UserMesh::Create<CapsuleUserMesh>(BuiltInCapsuleUserMesh, true);
     UserMesh::Create<RightTriangleUserMesh>(BuiltInRightTriangleUserMesh, true);
     UserMesh::Create<TriangleUserMesh>(BuiltInTriangleUserMesh, true);
