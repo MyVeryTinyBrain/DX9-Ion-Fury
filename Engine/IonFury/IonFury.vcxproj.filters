@@ -157,12 +157,6 @@
     <ClCompile Include="Deacon.cpp">
       <Filter>Monster\Deacon</Filter>
     </ClCompile>
-    <ClCompile Include="WarmechBullet.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechMissile.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
     <ClCompile Include="WarmechSpriteAnimator.cpp">
       <Filter>Monster\Warmech</Filter>
     </ClCompile>
@@ -180,6 +174,18 @@
     </ClCompile>
     <ClCompile Include="MapObject.cpp">
       <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechExplosion.cpp">
+      <Filter>Monster\Warmech\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechHit.cpp">
+      <Filter>Monster\Warmech\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechBullet.cpp">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechMissile.cpp">
+      <Filter>Monster\Warmech\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -366,12 +372,6 @@
     <ClInclude Include="Warmech.h">
       <Filter>Monster\Warmech</Filter>
     </ClInclude>
-    <ClInclude Include="WarmechBullet.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechMissile.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
     <ClInclude Include="WarmechSpriteAnimator.h">
       <Filter>Monster\Warmech</Filter>
     </ClInclude>
@@ -386,6 +386,18 @@
     </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechExplosion.h">
+      <Filter>Monster\Warmech\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechHit.h">
+      <Filter>Monster\Warmech\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechBullet.h">
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechMissile.h">
+      <Filter>Monster\Warmech\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -492,6 +504,12 @@
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Warmech\Effect">
+      <UniqueIdentifier>{5318c0c3-aa10-43e0-b908-3aa0071c905c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Warmech\Weapon">
+      <UniqueIdentifier>{9fcc4a51-cfdc-466d-8474-7b95517222c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

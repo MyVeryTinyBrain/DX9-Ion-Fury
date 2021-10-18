@@ -213,6 +213,8 @@
     <ClInclude Include="UserMixMesh.h" />
     <ClInclude Include="Warmech.h" />
     <ClInclude Include="WarmechBullet.h" />
+    <ClInclude Include="WarmechExplosion.h" />
+    <ClInclude Include="WarmechHit.h" />
     <ClInclude Include="WarmechMissile.h" />
     <ClInclude Include="WarmechSpriteAnimator.h" />
     <ClInclude Include="Weapon.h" />
@@ -276,6 +278,8 @@
     <ClCompile Include="UserMixMesh.cpp" />
     <ClCompile Include="Warmech.cpp" />
     <ClCompile Include="WarmechBullet.cpp" />
+    <ClCompile Include="WarmechExplosion.cpp" />
+    <ClCompile Include="WarmechHit.cpp" />
     <ClCompile Include="WarmechMissile.cpp" />
     <ClCompile Include="WarmechSpriteAnimator.cpp" />
     <ClCompile Include="Weapon.cpp" />

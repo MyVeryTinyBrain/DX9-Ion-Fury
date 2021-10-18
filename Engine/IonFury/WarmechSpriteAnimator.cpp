@@ -31,7 +31,7 @@ void WarmechSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR_WARMECH::FRONT]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_front1.png");
 	m_walk[(unsigned int)DIR_WARMECH::FRONT]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_front2.png");
 	m_walk[(unsigned int)DIR_WARMECH::FRONT]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_front3.png");
-	m_walk[(unsigned int)DIR_WARMECH::FRONT]->interval = 0.1f;
+	m_walk[(unsigned int)DIR_WARMECH::FRONT]->interval = 0.2f;
 	m_walk[(unsigned int)DIR_WARMECH::FRONT]->isLoop = true;
 	
 	m_walk[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL] = new SpriteAnimation;
@@ -39,7 +39,7 @@ void WarmechSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_front_diagonal1.png");
 	m_walk[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_front_diagonal2.png");
 	m_walk[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_front_diagonal3.png");
-	m_walk[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL]->interval = 0.1f;
+	m_walk[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL]->interval = 0.2f;
 	m_walk[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL]->isLoop = true;
 	  
 	m_walk[(unsigned int)DIR_WARMECH::SIDE] = new SpriteAnimation;
@@ -47,21 +47,25 @@ void WarmechSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR_WARMECH::SIDE]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_side1.png");
 	m_walk[(unsigned int)DIR_WARMECH::SIDE]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_side2.png");
 	m_walk[(unsigned int)DIR_WARMECH::SIDE]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_side3.png");
-	m_walk[(unsigned int)DIR_WARMECH::SIDE]->interval = 0.1f;
+	m_walk[(unsigned int)DIR_WARMECH::SIDE]->interval = 0.2f;
 	 
 	m_walk[(unsigned int)DIR_WARMECH::BACK_DIAGONAL] = new SpriteAnimation;
 	m_walk[(unsigned int)DIR_WARMECH::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back_diagonal0.png");
 	m_walk[(unsigned int)DIR_WARMECH::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back_diagonal1.png");
 	m_walk[(unsigned int)DIR_WARMECH::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back_diagonal2.png");
 	m_walk[(unsigned int)DIR_WARMECH::BACK_DIAGONAL]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back_diagonal3.png");
-	m_walk[(unsigned int)DIR_WARMECH::BACK_DIAGONAL]->interval = 0.1f;
+	m_walk[(unsigned int)DIR_WARMECH::BACK_DIAGONAL]->interval = 0.2f;
 	
 	m_walk[(unsigned int)DIR_WARMECH::BACK] = new SpriteAnimation;
 	m_walk[(unsigned int)DIR_WARMECH::BACK]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back0.png");
 	m_walk[(unsigned int)DIR_WARMECH::BACK]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back1.png");
 	m_walk[(unsigned int)DIR_WARMECH::BACK]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back2.png");
 	m_walk[(unsigned int)DIR_WARMECH::BACK]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back3.png");
-	m_walk[(unsigned int)DIR_WARMECH::BACK]->interval = 0.1f;
+	m_walk[(unsigned int)DIR_WARMECH::BACK]->interval = 0.2f;
+
+	m_walkIdle = new SpriteAnimation;
+	m_walkIdle->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_idle.png");
+	m_walkIdle->isLoop = true;
 
 	m_shoot = new SpriteAnimation;
 	m_shoot->AddTexture(L"../SharedResource/Texture/warmech/warmech_shot0.png");
@@ -76,21 +80,62 @@ void WarmechSpriteAnimator::Awake()
 	m_missile->interval = 0.1f;
 
 	m_bullet = new SpriteAnimation;
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet0.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet1.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet2.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet3.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet4.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet5.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet6.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet7.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet8.png");
-	m_bullet->interval = 0.1f;
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/Warmechbullet.png");
+	m_bullet->isLoop = true;
 
 	m_missileBullet = new SpriteAnimation;
 	m_missileBullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechMissile.png");
 	m_missileBullet->isLoop = true;
 
+	m_damage = new SpriteAnimation;
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/0.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/1.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/2.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/3.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/4.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/5.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/6.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/7.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/8.png");
+	m_damage->AddTexture(L"../SharedResource/Texture/wamech_Hit/9.png");
+	m_damage->interval = 0.05f;
+	m_damage->isLoop = true;
+
+	m_explosion = new SpriteAnimation;
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/0.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/1.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/2.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/3.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/4.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/5.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/6.png");	
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/7.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/8.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/9.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/10.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/11.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/12.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/13.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/14.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/15.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/16.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/17.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/18.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/19.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/20.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/21.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/22.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/23.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/24.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/25.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/26.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/27.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/28.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/29.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/30.png");
+	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/31.png");
+	m_explosion->interval = 0.08f;
+	m_explosion->isLoop = true;
 
 	SetDefaultAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT]);
 }
@@ -208,6 +253,8 @@ void WarmechSpriteAnimator::OnDestroy()
 	for (int i = 0; i < (int)DIR_WARMECH::MAX; ++i)
 		SafeDelete(m_walk[i]);
 
+	SafeDelete(m_walkIdle);
+
 	SafeDelete(m_shoot);
 
 	SafeDelete(m_missile);
@@ -215,6 +262,10 @@ void WarmechSpriteAnimator::OnDestroy()
 	SafeDelete(m_bullet);
 
 	SafeDelete(m_missileBullet);
+
+	SafeDelete(m_damage);
+
+	SafeDelete(m_explosion);
 }
 
 void WarmechSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
@@ -253,6 +304,11 @@ void WarmechSpriteAnimator::PlayWalk()
 	PlayAnimation(m_walk [(unsigned int)DIR_WARMECH::FRONT] );
 }
 
+void WarmechSpriteAnimator::PlayWalkIdle()
+{
+	PlayAnimation(m_walkIdle, true);
+}
+
 void WarmechSpriteAnimator::PlayShoot()
 {
 	PlayAnimation(m_shoot, true);
@@ -271,6 +327,16 @@ void WarmechSpriteAnimator::PlayBullet()
 void WarmechSpriteAnimator::PlayMissileBullet()
 {
 	PlayAnimation(m_missileBullet, true);
+}
+
+void WarmechSpriteAnimator::PlayDamage()
+{
+	PlayAnimation(m_damage, true);
+}
+
+void WarmechSpriteAnimator::PlayExplosion()
+{
+	PlayAnimation(m_explosion, true);
 }
 
 bool WarmechSpriteAnimator::IsPlayingIdle() const
@@ -297,6 +363,11 @@ bool WarmechSpriteAnimator::IsPlayingWalk() const
 	return false;
 }
 
+bool WarmechSpriteAnimator::IsPlayingWalkIdle() const
+{
+	return currentAnimation == m_walkIdle;
+}
+
 bool WarmechSpriteAnimator::IsPlayingShoot() const
 {
 	return currentAnimation == m_shoot;
@@ -317,36 +388,40 @@ bool WarmechSpriteAnimator::IsPlayingMissileBullet() const
 	return currentAnimation == m_missileBullet;
 }
 
-SpriteAnimation* WarmechSpriteAnimator::GetIdle() const
+bool WarmechSpriteAnimator::IsPlayingDamage() const
 {
-	return m_idle[(unsigned int)DIR_WARMECH::FRONT];
+	return currentAnimation == m_damage;
 }
 
-SpriteAnimation* WarmechSpriteAnimator::GetWalk() const
+bool WarmechSpriteAnimator::IsPlayingExplosion() const
 {
-	return m_walk[(unsigned int)DIR_WARMECH::FRONT];
+	return currentAnimation == m_explosion;
 }
 
-SpriteAnimation* WarmechSpriteAnimator::GetShoot() const
+SpriteAnimation* WarmechSpriteAnimator::GetSpriteAnimation(SPRITE_WARMECH Spritetype) const
 {
-	return m_shoot;
+	switch (Spritetype)
+	{
+	case SPRITE_WARMECH::Idle:
+		return m_idle[(unsigned int)DIR_WARMECH::FRONT];
+	case SPRITE_WARMECH::Walk:
+		return m_walk[(unsigned int)DIR_WARMECH::FRONT];
+	case SPRITE_WARMECH::WalkIdle:
+		return m_walkIdle;
+	case SPRITE_WARMECH::Shoot:
+		return m_shoot;
+	case SPRITE_WARMECH::Missile:
+		return m_missile;
+	case SPRITE_WARMECH::Bullet:
+		return m_bullet;
+	case SPRITE_WARMECH::MissileBullet:
+		return m_missileBullet;
+	case SPRITE_WARMECH::Damage:
+		return m_damage;
+	case SPRITE_WARMECH::Explosion:
+		return m_explosion;
+	}
 }
-
-SpriteAnimation* WarmechSpriteAnimator::GetMissile() const
-{
-	return m_missile;
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetBullet() const
-{
-	return m_bullet;
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetMissileBullet() const
-{
-	return m_missileBullet;
-}
-
 void WarmechSpriteAnimator::ChangeUVDirection()
 {
 	float direction = m_angle > 0 ? -1.0f : +1.0f;

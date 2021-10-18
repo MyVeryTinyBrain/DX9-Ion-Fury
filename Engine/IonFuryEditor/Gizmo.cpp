@@ -10,7 +10,9 @@ void Gizmo::Awake()
 	param.zRead = false;
 	param.zWrite = false;
 	param.useLight = false;
-	m_gizmoMaterial = Material::CreateUnmanaged(param);
+	m_gizmoMaterial = Material::Create
+	
+	(param);
 
 	UserMesh::Create<CubeUserMesh>(L"../Resource/Gizmo/CubeUserMesh.mesh", true);
 	Texture::CreateInDirectX(128, 128, Color::red(), L"../Resource/RedTexture.png", true);

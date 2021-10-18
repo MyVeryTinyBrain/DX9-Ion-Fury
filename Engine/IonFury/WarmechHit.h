@@ -2,7 +2,7 @@
 
 class WarmechSpriteAnimator;
 
-class WarmechBullet : public Component
+class WarmechHit : public Component
 {
 	OverrideComponentFunction(Awake);
 
@@ -10,17 +10,14 @@ class WarmechBullet : public Component
 
 	OverrideComponentFunction(Update);
 
-	OverrideComponentFunction(LateUpdate);
-
 	OverrideComponentFunction(OnDestroy);
 
 private:
-
 	WarmechSpriteAnimator* m_animator = nullptr;
 
-	GameObject* m_rendererObj = nullptr;
+	Rigidbody* m_body = nullptr;
 
-	float m_animationtime = 0;
+	GameObject* m_rendererObj = nullptr;
 
 	float m_moveSpeed = 0.f;
 
@@ -28,14 +25,8 @@ private:
 
 	Material* m_material = nullptr;
 
-	float m_radius = 0.5f;
-
 	float m_selfDestroyCounter = 3.0f;
 
-	UserMeshRenderer* m_debugRenderer = nullptr;
-
-	bool m_initialdir = true;
-
-	Vec3 forward;
+	bool m_ground = false;
 };
 
