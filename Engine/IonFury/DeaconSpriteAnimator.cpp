@@ -69,6 +69,21 @@ void DeaconSpriteAnimator::Awake()
 	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead6.png");
 	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead7.png");
 	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead8.png");
+	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead9.png");
+	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead10.png");
+	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead11.png");
+	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead12.png");
+	m_dead->interval = 0.1f; //시간간격
+
+
+	m_flyeffect = new SpriteAnimation;
+	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly0.png");
+	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly1.png");
+	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly2.png");
+	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly3.png");
+	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly4.png");
+	m_flyeffect->interval = 0.1f;
+	m_flyeffect->isLoop = true;
 
 
 	SetDefaultAnimation(m_move[(unsigned int)DIR_DECACONE::FRONT]); //디폴트 애니메이션
@@ -142,10 +157,20 @@ void DeaconSpriteAnimator::OnDestroy()
 
 	SafeDelete(m_dead);
 
+	SafeDelete(m_flyeffect);
+
 }
 
 void DeaconSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
+	for (int i = 0; i < (int)DIE::MAX; ++i)
+	{
+		if (current == m_dead)
+		{
+			SetDefaultAnimation(nullptr);
+			OnDeadAnimated();
+		}
+	}
 }
 
 void DeaconSpriteAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
@@ -185,8 +210,16 @@ void DeaconSpriteAnimator::PlayExplosion()
 	PlayAnimation(m_dead, true);
 }
 
+void DeaconSpriteAnimator::PlayDie()
+{
+	PlayAnimation(m_dead, true);
+	ResetUVDirection();
+}
+
 void DeaconSpriteAnimator::PlaySmoke()
 {
+	PlayAnimation(m_flyeffect, true);
+	ResetUVDirection();
 }
 
 bool DeaconSpriteAnimator::IsPlayingMove() const
@@ -213,7 +246,7 @@ bool DeaconSpriteAnimator::IsPlayingExplosion() const
 
 bool DeaconSpriteAnimator::IsPlayingSmoke() const
 {
-	return false;
+	return currentAnimation == m_flyeffect;
 }
 
 
@@ -234,7 +267,7 @@ SpriteAnimation* DeaconSpriteAnimator::GetExplosion() const
 
 SpriteAnimation* DeaconSpriteAnimator::GetSmoke() const
 {
-	return nullptr;
+	return  m_flyeffect;
 }
 
 void DeaconSpriteAnimator::ChangeUVDirection()
