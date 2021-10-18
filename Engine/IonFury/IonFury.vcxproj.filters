@@ -157,12 +157,6 @@
     <ClCompile Include="Deacon.cpp">
       <Filter>Monster\Deacon</Filter>
     </ClCompile>
-    <ClCompile Include="WarmechBullet.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechMissile.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
     <ClCompile Include="WarmechSpriteAnimator.cpp">
       <Filter>Monster\Warmech</Filter>
     </ClCompile>
@@ -181,8 +175,53 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>Loader</Filter>
     </ClCompile>
+    <ClCompile Include="TrailRenderer.cpp">
+      <Filter>Effect\TrailRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBowAmmo.cpp">
+      <Filter>Item\ItemBowAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemChaingunAmmo.cpp">
+      <Filter>Item\ItemChaingunAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHealthPack.cpp">
+      <Filter>Item\ItemHealthPack</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemLauncherAmmo.cpp">
+      <Filter>Item\ItemLauncherAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRevolverAmmo.cpp">
+      <Filter>Item\ItemRevolverAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemShotgunAmmo.cpp">
+      <Filter>Item\ItemShotgunAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemSMGAmmo.cpp">
+      <Filter>Item\ItemSMGAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectStair.cpp">
+      <Filter>Object\ObjectStair</Filter>
+    </ClCompile>
     <ClCompile Include="DeaconflyEffect.cpp">
       <Filter>Monster\Deacon</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechBullet.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechExplosion.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechHit.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechMissile.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechTrail.cpp">
+      <Filter>Monster\Warmech</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -369,12 +408,6 @@
     <ClInclude Include="Warmech.h">
       <Filter>Monster\Warmech</Filter>
     </ClInclude>
-    <ClInclude Include="WarmechBullet.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechMissile.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
     <ClInclude Include="WarmechSpriteAnimator.h">
       <Filter>Monster\Warmech</Filter>
     </ClInclude>
@@ -390,8 +423,53 @@
     <ClInclude Include="MapObject.h">
       <Filter>Loader</Filter>
     </ClInclude>
+    <ClInclude Include="TrailRenderer.h">
+      <Filter>Effect\TrailRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBowAmmo.h">
+      <Filter>Item\ItemBowAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemChaingunAmmo.h">
+      <Filter>Item\ItemChaingunAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHealthPack.h">
+      <Filter>Item\ItemHealthPack</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemLauncherAmmo.h">
+      <Filter>Item\ItemLauncherAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRevolverAmmo.h">
+      <Filter>Item\ItemRevolverAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemShotgunAmmo.h">
+      <Filter>Item\ItemShotgunAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSMGAmmo.h">
+      <Filter>Item\ItemSMGAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectStair.h">
+      <Filter>Object\ObjectStair</Filter>
+    </ClInclude>
     <ClInclude Include="DeaconflyEffect.h">
       <Filter>Monster\Deacon</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechBullet.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechExplosion.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechHit.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechMissile.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechTrail.h">
+      <Filter>Monster\Warmech</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -498,6 +576,39 @@
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\TrailRenderer">
+      <UniqueIdentifier>{5bbe9025-8d0c-40f8-932e-c0f594cb06c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{7c48a62c-dcdc-4ac4-8481-e45cf18af766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\ItemRevolverAmmo">
+      <UniqueIdentifier>{52ce034f-40ae-40af-ab78-5648b34c26ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\ItemHealthPack">
+      <UniqueIdentifier>{6757d16c-adf2-4a93-9bd3-baa67deba4f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\ItemShotgunAmmo">
+      <UniqueIdentifier>{bfa04390-12e7-4487-a93f-5f540e02dba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\ItemLauncherAmmo">
+      <UniqueIdentifier>{82dbe6c4-a1bb-411d-b511-7463c6352880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\ItemSMGAmmo">
+      <UniqueIdentifier>{1e58e6aa-7e96-4cd5-98d2-cee03d7525dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\ItemChaingunAmmo">
+      <UniqueIdentifier>{665424cf-2168-4a0e-81e2-1f944a05ef77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\ItemBowAmmo">
+      <UniqueIdentifier>{2bd6a73f-c683-46a1-9080-bfa7d788ea42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{d6d4acf2-97f3-4d70-b0c9-a4684714f598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\ObjectStair">
+      <UniqueIdentifier>{2e5bcf4d-660b-4099-86a4-7b2ba86a0341}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

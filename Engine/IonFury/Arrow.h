@@ -12,6 +12,8 @@ class Arrow : public Component
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(LateUpdate);
+
 	void OnCollisionEnter(const CollisionEnter& collider);
 
 public:
@@ -23,6 +25,8 @@ public:
 private:
 
 	void RemoveBodyAndCollider();
+
+	void RemoveRenderer();
 
 private:
 
@@ -43,5 +47,9 @@ private:
 	UserMeshRenderer* m_colliderDebugRenderer = nullptr;
 
 	Vec3 m_beginPoint;
+
+	class TrailRenderer* m_trailRenderer = nullptr;
+
+	bool m_hitOnTerrain = false;
 };
 

@@ -116,12 +116,12 @@ void Gunner::OnDestroy()
 
 Collider* Gunner::InitializeCollider(GameObject* colliderObj)
 {
-    {
-        auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
-        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
-        renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-    }
+    //{
+    //    auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/transparent.png"));
+    //    renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+    //}
 
     m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
     return m_capsuleCollider;
@@ -295,6 +295,9 @@ void Gunner::Attack()
         forward.y = 0;
         forward.Normalize();
         transform->forward = forward;
+
+        // 플레이어에게 총을 쏩니다.
+        ShootToPlayer();
     }
 }
 
@@ -334,4 +337,11 @@ void Gunner::SetBehavior(BehaviorType type)
             }
             break;
     }
+}
+
+void Gunner::ShootToPlayer()
+{
+    Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
+    mosterToPlayer.Normalize();
+    Player::GetInstance()->TakeDamage(1);
 }
