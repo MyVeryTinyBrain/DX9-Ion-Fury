@@ -3,6 +3,7 @@
 #include "EditorEnum.h"
 
 class Pickable;
+class HandlingObject;
 
 class FreePerspectiveCamera : public Component
 {
@@ -29,6 +30,8 @@ public:
 	Pickable* Add_TriggerObject(int cnt);
 
 	Pickable* Add_EventObject(Pickable* Trigger, int cnt);
+
+	HandlingObject* Add_HandlingObject(int cnt);
 
 private:
 

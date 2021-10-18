@@ -213,6 +213,7 @@
     <ClInclude Include="LightObj.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Pickable.h" />
+    <ClInclude Include="HandlingObject.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -233,6 +234,7 @@
     <ClCompile Include="LightObj.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Pickable.cpp" />
+    <ClCompile Include="HandlingObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFuryEditor.rc" />
