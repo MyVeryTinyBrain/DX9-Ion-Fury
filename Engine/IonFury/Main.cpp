@@ -4,6 +4,8 @@
 #include "TestScene.h"
 #include "TestScene2.h"
 
+#ifndef _AFX
+
 HINSTANCE hInst;
 EngineWorld world;
 
@@ -58,3 +60,5 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	return 0;
 }
+
+#endif
