@@ -43,7 +43,7 @@ public:
 
 	void SetRigidCounter(float value);
 
-	void TakeDamage(int damage, const Vec3& velocity = Vec3::zero());
+	void TakeDamage(int damage, const Vec3& velocity = Vec3::zero(), float rigidTime = 0.0f);
 
 	void SetHP(unsigned int hp);
 

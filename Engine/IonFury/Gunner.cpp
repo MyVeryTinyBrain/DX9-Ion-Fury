@@ -343,5 +343,5 @@ void Gunner::ShootToPlayer()
 {
     Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
     mosterToPlayer.Normalize();
-    Player::GetInstance()->TakeDamage(5, mosterToPlayer * 2.0f);
+    Player::GetInstance()->TakeDamage(1);
 }

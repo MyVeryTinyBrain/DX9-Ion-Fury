@@ -208,8 +208,20 @@
     <ClCompile Include="DeaconflyEffect.cpp">
       <Filter>Monster\Deacon</Filter>
     </ClCompile>
+    <ClCompile Include="WarmechBullet.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechExplosion.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechHit.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechMissile.cpp">
+      <Filter>Monster\Warmech</Filter>
+    </ClCompile>
     <ClCompile Include="WarmechTrail.cpp">
-      <Filter>Monster\Warmech\Effect</Filter>
+      <Filter>Monster\Warmech</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,8 +456,20 @@
     <ClInclude Include="DeaconflyEffect.h">
       <Filter>Monster\Deacon</Filter>
     </ClInclude>
+    <ClInclude Include="WarmechBullet.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechExplosion.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechHit.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechMissile.h">
+      <Filter>Monster\Warmech</Filter>
+    </ClInclude>
     <ClInclude Include="WarmechTrail.h">
-      <Filter>Monster\Warmech\Effect</Filter>
+      <Filter>Monster\Warmech</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

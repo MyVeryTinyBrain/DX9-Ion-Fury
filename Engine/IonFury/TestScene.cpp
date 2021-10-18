@@ -14,6 +14,7 @@
 #include "ItemShotgunAmmo.h"
 #include "ItemSMGAmmo.h"
 #include "ObjectStair.h"
+#include "Cube.h"
 
 IClonable* TestScene::Clone()
 {
@@ -37,26 +38,20 @@ void TestScene::OnLoad(Scene* beforeScene)
         skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
     }
 
+    {
+        auto obj = CreateGameObject();
+        obj->AddComponent<Cube>();
+    }
+
     {   // Create directional light
         auto obj = CreateGameObject();
 
         auto renderer = obj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-<<<<<<< HEAD
         renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
         obj->transform->position = Vec3(0, 5, 0);
         obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
-        auto light = obj->AddComponent<DirectionalLight>();
-        light->ambientFactor = 0.6f;
-    }
-=======
-        renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-        renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-
-        obj->transform->position = Vec3(0, 5, 0);
-        obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
-
         auto light = obj->AddComponent<DirectionalLight>();
         light->ambientFactor = 0.6f;
     }
@@ -104,7 +99,6 @@ void TestScene::OnLoad(Scene* beforeScene)
             obj->AddComponent<ItemSMGAmmo>();
         }
     }
->>>>>>> 91ee468e67d5c20eaab9af4f58ab0f3893712713
 
     {   // Create test player
         auto obj = CreateGameObject();
@@ -247,7 +241,6 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-<<<<<<< HEAD
     for (int i = 0; i < 5; ++i)
     {
         for (int j = 0; j < 5; ++j)
@@ -258,18 +251,6 @@ void TestScene::OnLoad(Scene* beforeScene)
             obj->AddComponent<Gunner>();
         }
     }
-=======
-    //for (int i = 0; i < 2; ++i)
-    //{
-    //    for (int j = 0; j < 5; ++j)
-    //    {
-    //        auto obj = CreateGameObject();
-    //        obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
-    //        obj->transform->eulerAngle = Vec3(0, 90, 0);
-    //        obj->AddComponent<Gunner>();
-    //    }
-    //}
->>>>>>> 91ee468e67d5c20eaab9af4f58ab0f3893712713
 }
 
 void TestScene::OnUnload(Scene* nextScene)

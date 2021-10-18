@@ -101,7 +101,7 @@ void Player::SetRigidCounter(float value)
 	m_rigidCounter = value;
 }
 
-void Player::TakeDamage(int damage, const Vec3& velocity)
+void Player::TakeDamage(int damage, const Vec3& velocity, float rigidTime)
 {
 	// 안전장치입니다.
 	if (m_hp < 20)
@@ -126,7 +126,10 @@ void Player::TakeDamage(int damage, const Vec3& velocity)
 		m_damagedVelocity = velocity;
 	}
 
-	SetRigidCounter(0.10f);
+	if (m_rigidCounter < rigidTime)
+	{
+		SetRigidCounter(rigidTime);
+	}
 }
 
 void Player::SetHP(unsigned int hp)
