@@ -2,13 +2,13 @@
 #include "HandlingObject.h"
 #include "EditorManager.h"
 #include "Gizmo.h"
-#include "../IonFury/ItemBowAmmo.h"
-#include "../IonFury/ItemChaingunAmmo.h"
-#include "../IonFury/ItemLauncherAmmo.h"
-#include "../IonFury/ItemRevolverAmmo.h"
-#include "../IonFury/ItemShotgunAmmo.h"
-#include "../IonFury/ItemSMGAmmo.h"
-#include "../IonFury/ItemHealthPack.h"
+#include <ItemBowAmmo.h>
+#include <ItemChaingunAmmo.h>
+#include <ItemLauncherAmmo.h>
+#include <ItemRevolverAmmo.h>
+#include <ItemShotgunAmmo.h>
+#include <ItemSMGAmmo.h>
+#include <ItemHealthPack.h>
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -62,8 +62,8 @@ void HandlingObject::RemoveMaterial()
 
 void HandlingObject::AddTypeToChildObject(CString Type)
 {
-//	if (Type == (L"ItemSMGAmmo"))
-	//	m_ChildObject->AddComponent<ItemSMGAmmo>();
+	if (Type == (L"ItemSMGAmmo"))
+		m_ChildObject->AddComponent<ItemSMGAmmo>();
 }
 
 HandlingObject* HandlingObject::Pick(float& Distance)
