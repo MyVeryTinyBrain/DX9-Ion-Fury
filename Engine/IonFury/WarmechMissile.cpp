@@ -4,6 +4,7 @@
 #include "PhysicsLayers.h"
 #include "Player.h"
 #include "GranadeTrail.h"
+#include "WarmechExplosion.h"
 
 
 void WarmechMissile::Awake()
@@ -11,15 +12,26 @@ void WarmechMissile::Awake()
 	auto trailObj = CreateGameObjectToChild(transform);
 	GranadeTrail* trail = trailObj->AddComponent<GranadeTrail>();
 
-
 	m_moveSpeed = 3.0f;
 
-
 	m_body = gameObject->AddComponent<Rigidbody>();
-	m_body->SetRotationLockAxis(PhysicsAxis::All, true);
 
-	m_body->mass = 0.01f;
+	m_body->mass = 0.1f;
 	m_body->interpolate = Interpolate::Extrapolate;
+	m_body->positionIteration = 1;
+	m_body->velocityIteration = 1;
+	m_body->isContinousDetection = true;
+
+
+	m_colliderObj = CreateGameObjectToChild(transform);
+	m_colliderObj->transform->scale = Vec3::one() * 0.5f;
+	m_collider = m_colliderObj->AddComponent<SphereCollider>();
+	m_collider->layerIndex = (uint8_t)PhysicsLayers::Projectile;
+	m_collider->restitutionCombineMode = PhysicsCombineMode::Average;
+	m_collider->restitution = 0.5f;
+	m_collider->friction = 0.5f;
+	m_collider->SetIgnoreLayerBits(1 << (uint32_t)PhysicsLayers::Player);
+	m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &WarmechMissile::OnCollisionEnter);
 
 	MaterialParameters params;
 	params.alphaTest = true;
@@ -49,32 +61,17 @@ void WarmechMissile::Awake()
 	//}
 }
 
-void WarmechMissile::FixedUpdate()
-{
-	Collider* collider = Physics::OverlapSphere(
-		transform->position,
-		m_radius,
-		(1 << (PxU32)PhysicsLayers::Terrain || 1 << (PxU32)PhysicsLayers::Player),
-		PhysicsQueryType::Collider);
-
-	if (collider)
-	{
-		if (collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
-		{
-		
-		}
-		else if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
-		{
-
-		}
-	}
-}
-
 void WarmechMissile::Update()
 {
-	
-	m_animator->SetDefaultAnimation(m_animator->GetMissileBullet(), true);
 
+	m_selfDestroyCounter -= Time::DeltaTime();
+
+	if (m_selfDestroyCounter <= 0)
+	{
+		gameObject->Destroy();
+	}
+
+	m_animator->SetDefaultAnimation(m_animator->GetSpriteAnimation(SPRITE_WARMECH::MissileBullet), true);
 
 	Vec3 playerPos = Player::GetInstance()->transform->position;
 	Vec3 missilePos = transform->position;
@@ -88,22 +85,93 @@ void WarmechMissile::Update()
 		m_initialdir = false;
 	}
 
-	Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
-	Vec3 velocity = Quat::AxisAngle(right, -22.5f) * forward * m_moveSpeed;
+	if (m_groundCollision)
+	{
+		m_selfExplosionCounter -= Time::DeltaTime();
+	}
+	else
+	{
+		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
-	transform->position += velocity * 0.03f;
+		Vec3 velocity = Quat::AxisAngle(right, -22.5f) * forward * m_moveSpeed;
 
+		transform->position += velocity * 0.03f;
+	}
 
+	Rebound();
 
-}
+	if (m_selfExplosionCounter <= 0)
+	{
+		Explosion();
 
-void WarmechMissile::LateUpdate()
-{
+		gameObject->Destroy();
+	}
+
 }
 
 void WarmechMissile::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
+}
+
+void WarmechMissile::OnCollisionEnter(const CollisionEnter& collider)
+{
+	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
+	{
+		if (m_rebound)
+		{
+			m_reboudcount = 3;
+			m_rebound = false;
+		}
+
+		m_groundCollision = true;
+	}
+	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
+	{
+		Explosion();
+
+		gameObject->Destroy();
+	}
+}
+
+void WarmechMissile::Explosion()
+{
+	{
+		auto obj = CreateGameObject();
+		obj->transform->position = transform->position + (-transform->right);
+		obj->AddComponent<WarmechExplosion>();
+
+	}
+	{
+		auto obj = CreateGameObject();
+		obj->transform->position = transform->position + transform->right;
+		obj->AddComponent<WarmechExplosion>();
+
+	}
+	{
+		auto obj = CreateGameObject();
+		obj->transform->position = transform->position + transform->up;
+		obj->AddComponent<WarmechExplosion>();
+
+	}
+}
+
+void WarmechMissile::Rebound()
+{
+
+	if ((m_reboudcount > 0) && m_groundCollision)
+	{
+		--m_reboudcount;
+
+		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
+
+		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * 2.f;
+
+		transform->position += velocity * 0.03f;
+
+	}
+
+
 }

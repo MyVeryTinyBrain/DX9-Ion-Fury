@@ -30,13 +30,13 @@ private:
 
 private:
 
-	enum class ActionType { Idle, WalkToRandomCoord, WalkToPlayerDirection, Attack, Max };
+	enum class ActionType { Idle, WalkToRandomCoord, WalkToPlayerDirection, Bullet, Missile, Max };
 
 	enum class AttackType { Bullet, Missile, Max };
 
 	void SetAction(ActionType type, AttackType attacktype);
 
-	void Attack(AttackType type);
+	void Attack();
 
 private:
 
@@ -59,5 +59,9 @@ private:
 	float m_breakTime = 0;
 
 	unsigned int m_attackCount = 0;
+
+	ActionType actionType = ActionType::Max;
+
+	bool m_attacking = false;
 };
 

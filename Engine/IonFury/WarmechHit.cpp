@@ -52,7 +52,9 @@ void WarmechHit::FixedUpdate()
 
 void WarmechHit::Update()
 {
-	m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
+	//m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
+	m_animator->SetDefaultAnimation(m_animator->GetSpriteAnimation(SPRITE_WARMECH::Damage), true);
+
 
 	if (m_ground)
 	{

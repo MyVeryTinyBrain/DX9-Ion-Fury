@@ -2,6 +2,9 @@
 
 #include "SpriteAnimator.h"
 
+
+enum class SPRITE_WARMECH { Idle, Walk, WalkIdle, Shoot, Missile, Bullet, MissileBullet, Damage, Explosion, Max };
+
 class WarmechSpriteAnimator : public SpriteAnimator
 {
 	OverrideComponentFunction(Awake);
@@ -28,6 +31,8 @@ public:
 
 	void PlayWalk();
 
+	void PlayWalkIdle();
+
 	void PlayShoot();
 
 	void PlayMissile();
@@ -44,6 +49,8 @@ public:
 
 	bool IsPlayingWalk() const;
 
+	bool IsPlayingWalkIdle() const;
+
 	bool IsPlayingShoot() const;
 
 	bool IsPlayingMissile() const;
@@ -56,21 +63,8 @@ public:
 
 	bool IsPlayingExplosion() const;
 
-	SpriteAnimation* GetIdle() const;
+	SpriteAnimation* GetSpriteAnimation(SPRITE_WARMECH Spritetype) const;
 
-	SpriteAnimation* GetWalk() const;
-
-	SpriteAnimation* GetShoot() const;
-
-	SpriteAnimation* GetMissile() const;
-
-	SpriteAnimation* GetBullet() const;
-
-	SpriteAnimation* GetMissileBullet() const;
-
-	SpriteAnimation* GetDamage() const;
-
-	SpriteAnimation* GetExplosion() const;
 
 private:
 
@@ -83,6 +77,8 @@ private:
 	SpriteAnimation* m_idle[(unsigned int)DIR_WARMECH::MAX];
 
 	SpriteAnimation* m_walk[(unsigned int)DIR_WARMECH::MAX];
+
+	SpriteAnimation* m_walkIdle;
 
 	SpriteAnimation* m_shoot;
 

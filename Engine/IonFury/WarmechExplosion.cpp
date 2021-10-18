@@ -2,6 +2,7 @@
 #include "WarmechExplosion.h"
 #include "WarmechSpriteAnimator.h"
 
+
 void WarmechExplosion::Awake()
 {
 	auto m_rendererObj = CreateGameObjectToChild(transform);
@@ -27,8 +28,9 @@ void WarmechExplosion::Update()
 {
 	m_animationTime += Time::DeltaTime();
 
-	if (m_animationTime < 2.f)
-		m_animator->SetDefaultAnimation(m_animator->GetExplosion(), true);
+	if (m_animationTime < 3.2f)
+		m_animator->SetDefaultAnimation(m_animator->GetSpriteAnimation(SPRITE_WARMECH::Explosion), true);
+		//m_animator->SetDefaultAnimation(m_animator->GetExplosion(), true);
 	else
 		gameObject->Destroy();
 }

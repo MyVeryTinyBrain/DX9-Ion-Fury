@@ -30,7 +30,7 @@ private:
 
 	float m_radius = 0.5f;
 
-	float m_selfDestroyCounter = 5.0f;
+	float m_selfDestroyCounter = 3.0f;
 
 	UserMeshRenderer* m_debugRenderer = nullptr;
 

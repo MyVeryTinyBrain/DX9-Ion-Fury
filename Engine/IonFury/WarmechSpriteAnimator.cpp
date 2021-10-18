@@ -63,6 +63,10 @@ void WarmechSpriteAnimator::Awake()
 	m_walk[(unsigned int)DIR_WARMECH::BACK]->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_back3.png");
 	m_walk[(unsigned int)DIR_WARMECH::BACK]->interval = 0.2f;
 
+	m_walkIdle = new SpriteAnimation;
+	m_walkIdle->AddTexture(L"../SharedResource/Texture/warmech/warmech_walk_idle.png");
+	m_walkIdle->isLoop = true;
+
 	m_shoot = new SpriteAnimation;
 	m_shoot->AddTexture(L"../SharedResource/Texture/warmech/warmech_shot0.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/warmech/warmech_shot1.png");
@@ -76,16 +80,8 @@ void WarmechSpriteAnimator::Awake()
 	m_missile->interval = 0.1f;
 
 	m_bullet = new SpriteAnimation;
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet0.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet1.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet2.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet3.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet4.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet5.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet6.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet7.png");
-	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechbullet8.png");
-	m_bullet->interval = 0.1f;
+	m_bullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/Warmechbullet.png");
+	m_bullet->isLoop = true;
 
 	m_missileBullet = new SpriteAnimation;
 	m_missileBullet->AddTexture(L"../SharedResource/Texture/wermech_weapon/warmechMissile.png");
@@ -138,7 +134,7 @@ void WarmechSpriteAnimator::Awake()
 	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/29.png");
 	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/30.png");
 	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/31.png");
-	m_explosion->interval = 0.1f;
+	m_explosion->interval = 0.08f;
 	m_explosion->isLoop = true;
 
 	SetDefaultAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT]);
@@ -257,6 +253,8 @@ void WarmechSpriteAnimator::OnDestroy()
 	for (int i = 0; i < (int)DIR_WARMECH::MAX; ++i)
 		SafeDelete(m_walk[i]);
 
+	SafeDelete(m_walkIdle);
+
 	SafeDelete(m_shoot);
 
 	SafeDelete(m_missile);
@@ -304,6 +302,11 @@ void WarmechSpriteAnimator::PlayWalk()
 		return;
 	}
 	PlayAnimation(m_walk [(unsigned int)DIR_WARMECH::FRONT] );
+}
+
+void WarmechSpriteAnimator::PlayWalkIdle()
+{
+	PlayAnimation(m_walkIdle, true);
 }
 
 void WarmechSpriteAnimator::PlayShoot()
@@ -360,6 +363,11 @@ bool WarmechSpriteAnimator::IsPlayingWalk() const
 	return false;
 }
 
+bool WarmechSpriteAnimator::IsPlayingWalkIdle() const
+{
+	return currentAnimation == m_walkIdle;
+}
+
 bool WarmechSpriteAnimator::IsPlayingShoot() const
 {
 	return currentAnimation == m_shoot;
@@ -390,46 +398,30 @@ bool WarmechSpriteAnimator::IsPlayingExplosion() const
 	return currentAnimation == m_explosion;
 }
 
-SpriteAnimation* WarmechSpriteAnimator::GetIdle() const
+SpriteAnimation* WarmechSpriteAnimator::GetSpriteAnimation(SPRITE_WARMECH Spritetype) const
 {
-	return m_idle[(unsigned int)DIR_WARMECH::FRONT];
+	switch (Spritetype)
+	{
+	case SPRITE_WARMECH::Idle:
+		return m_idle[(unsigned int)DIR_WARMECH::FRONT];
+	case SPRITE_WARMECH::Walk:
+		return m_walk[(unsigned int)DIR_WARMECH::FRONT];
+	case SPRITE_WARMECH::WalkIdle:
+		return m_walkIdle;
+	case SPRITE_WARMECH::Shoot:
+		return m_shoot;
+	case SPRITE_WARMECH::Missile:
+		return m_missile;
+	case SPRITE_WARMECH::Bullet:
+		return m_bullet;
+	case SPRITE_WARMECH::MissileBullet:
+		return m_missileBullet;
+	case SPRITE_WARMECH::Damage:
+		return m_damage;
+	case SPRITE_WARMECH::Explosion:
+		return m_explosion;
+	}
 }
-
-SpriteAnimation* WarmechSpriteAnimator::GetWalk() const
-{
-	return m_walk[(unsigned int)DIR_WARMECH::FRONT];
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetShoot() const
-{
-	return m_shoot;
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetMissile() const
-{
-	return m_missile;
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetBullet() const
-{
-	return m_bullet;
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetMissileBullet() const
-{
-	return m_missileBullet;
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetDamage() const
-{
-	return m_damage;
-}
-
-SpriteAnimation* WarmechSpriteAnimator::GetExplosion() const
-{
-	return m_explosion;
-}
-
 void WarmechSpriteAnimator::ChangeUVDirection()
 {
 	float direction = m_angle > 0 ? -1.0f : +1.0f;

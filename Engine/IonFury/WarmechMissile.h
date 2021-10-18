@@ -6,13 +6,18 @@ class WarmechMissile : public Component
 {
 	OverrideComponentFunction(Awake);
 
-	OverrideComponentFunction(FixedUpdate);
-
 	OverrideComponentFunction(Update);
 
-	OverrideComponentFunction(LateUpdate);
-
 	OverrideComponentFunction(OnDestroy);
+
+	void OnCollisionEnter(const CollisionEnter& collider);
+
+public:
+
+	void Explosion();
+
+	void Rebound();
+
 
 private:
 
@@ -22,9 +27,11 @@ private:
 
 	Rigidbody* m_body = nullptr;
 
-	float m_moveSpeed = 0.f;
+	GameObject* m_colliderObj = nullptr;
 
-	float m_radius = 0.5f;
+	SphereCollider* m_collider = nullptr;
+
+	float m_moveSpeed = 0.f;
 
 	QuadUserMesh* m_quad = nullptr;
 
@@ -35,6 +42,16 @@ private:
 	bool m_initialdir = true;
 
 	Vec3 forward;
+
+	bool m_groundCollision = false;
+
+	float m_selfExplosionCounter = 2.f;
+
+	float m_selfDestroyCounter = 30.0f;
+
+	bool m_rebound = true;
+
+	float m_reboudcount = 1.f;
 
 };
 

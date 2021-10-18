@@ -28,7 +28,7 @@ void Warmech::Awake()
 		renderer->material = m_material;
 		renderer->userMesh = m_quad;
 
-		renderer->transform->localPosition = Vec3(0, 3.f, 0.f);
+		renderer->transform->localPosition = Vec3(0, 3.25f, 0.f);
 		renderer->transform->scale = Vec3::one() * 4.0f;
 
 		m_bodyAnimator = m_bodyWarmech->AddComponent<WarmechSpriteAnimator>();
@@ -85,9 +85,9 @@ void Warmech::Update()
 
 	AttackType attackType = (AttackType)(rand() % unsigned int(AttackType::Max));
 
-	if (m_breakTime <= 0)
+	if (!m_attacking && (m_breakTime <= 0))
 	{
-		ActionType actionType = (ActionType)(rand() % unsigned int(ActionType::Max));
+		actionType = (ActionType)(rand() % unsigned int(ActionType::Max));
 		SetAction(actionType, attackType);
 	}
 
@@ -103,10 +103,11 @@ void Warmech::Update()
 	else if (m_legAnimator->IsPlayingWalk() && m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
 	{
 		m_bodyAnimator->PlayDefaultAnimation();
+		m_legAnimator->PlayWalkIdle();
 	}
 
 
-	Attack(attackType);
+	Attack();
 
 
 	m_bodyAnimator->SetAngle(AngleToPlayerWithSign());
@@ -135,7 +136,7 @@ Collider* Warmech::InitializeCollider(GameObject* colliderObj)
 		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
 		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
 		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-		renderer->transform->scale = Vec3::one() * 2.0f;
+		renderer->transform->scale = Vec3::one() * 1.6f;
 	}
 
 	m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
@@ -263,22 +264,22 @@ void Warmech::Explosion()
 	}
 }
 
-void Warmech::Attack(AttackType type)
+void Warmech::Attack()
 {
 	if (m_bodyAnimator->IsPlayingShoot() | m_bodyAnimator->IsPlayingMissile())
 	{
 		return;
 	}
 
-
 	if (m_attackCount > 0)
 	{
-		--m_attackCount;
+		
 
-		switch (type)
+		switch (actionType)
 		{
-		case Warmech::AttackType::Bullet:
+		case Warmech::ActionType::Bullet:
 		{
+			--m_attackCount;
 			m_bodyAnimator->PlayShoot();
 
 			auto obj = CreateGameObject();
@@ -286,8 +287,9 @@ void Warmech::Attack(AttackType type)
 			obj->AddComponent<WarmechBullet>();
 		}
 		break;
-		case Warmech::AttackType::Missile:
+		case Warmech::ActionType::Missile:
 		{
+			--m_attackCount;
 			m_bodyAnimator->PlayMissile();
 
 			auto obj = CreateGameObject();
@@ -302,6 +304,8 @@ void Warmech::Attack(AttackType type)
 		forward.Normalize();
 		transform->forward = forward;
 	}
+	else
+		m_attacking = false;
 }
 
 void Warmech::SetAction(ActionType type, AttackType attacktype)
@@ -314,6 +318,7 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	{
 	case ActionType::Idle:
 	{
+
 	}
 	break;
 	case ActionType::WalkToRandomCoord:
@@ -334,13 +339,15 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 		SetTargetCoord(monsterPos + direction * distance);
 	}
 	break;
-	case ActionType::Attack:
+	case ActionType::Bullet:
 	{
-		if (attacktype == AttackType::Missile)
-			m_attackCount = 1;
-		else if (attacktype == AttackType::Bullet)
-			m_attackCount = 10;
-
+		m_attackCount = 10;
+		m_attacking = true;
+	}
+	case ActionType::Missile:
+	{
+		m_attackCount = 1;
+		m_attacking = true;
 	}
 	break;
 	}
