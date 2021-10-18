@@ -99,6 +99,12 @@ void BuiltIn::MakeMaterialResources()
     }
     {
         MaterialParameters params;
+        params.useLight = false;
+        params.cullMode = CullMode::None;
+        Material::Create(params, BuiltInNolightNoCullGeometryMaterial, true);
+    }
+    {
+        MaterialParameters params;
         params.renderQueue = RenderQueue::GeometryLast;
         Material::Create(params, BuiltInGeometryLastMaterial, true);
     }

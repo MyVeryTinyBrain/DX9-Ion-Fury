@@ -28,6 +28,7 @@
 #define BuiltInNolightPriorityMaterial				L"../BuiltIn/NolightPriorityGeometryMaterial.material"
 #define BuiltInGeometryMaterial						L"../BuiltIn/GeometryMaterial.material"
 #define BuiltInNolightGeometryMaterial				L"../BuiltIn/NolightGeometryMaterial.material"
+#define BuiltInNolightNoCullGeometryMaterial		L"../BuiltIn/NolightNoCullGeometryMaterial.material"
 #define BuiltInGeometryLastMaterial					L"../BuiltIn/GeometryLastMaterial.material"
 #define BuiltInNolightGeometryLastMaterial			L"../BuiltIn/NolightGeometryLastMaterial.material"
 #define BuiltInAlphaTestMaterial					L"../BuiltIn/AlphaTestMaterial.material"
