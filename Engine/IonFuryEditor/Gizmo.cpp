@@ -105,7 +105,6 @@ bool Gizmo::PickHandle()
 
 			// 마우스가 축을 선택한 위치를 저장합니다.
 			m_selectCoord = CalcGizmoHandlingCoord();
-			cout << "->" << m_selectCoord.x << ", " << m_selectCoord.y << ", " << m_selectCoord.z << endl;
 
 			// 축이 선택되었을때의 오브젝트 중심 위치를 저장합니다.
 			m_selectedPosition = transform->position;
@@ -206,8 +205,6 @@ bool Gizmo::GetHandlingState()
 {
 	return m_Handling;
 }
-
-
 
 void Gizmo::ResetGizmoTransform()
 {

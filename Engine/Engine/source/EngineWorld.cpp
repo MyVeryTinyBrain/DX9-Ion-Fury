@@ -25,7 +25,7 @@ HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int he
 		return E_FAIL;
 	}
 
-	CentralTimeElement::GetInstance()->Initialize(144, 50);
+	CentralTimeElement::GetInstance()->Initialize(144, 60);
 
 	PhysicsDevice::GetInstance()->Initialize();
 
@@ -53,11 +53,13 @@ HRESULT EngineWorld::Initialize(HWND hWnd, UINT width, UINT height, BOOL windowe
 		return E_FAIL;
 	}
 
-	CentralTimeElement::GetInstance()->Initialize(144, 50);
+	CentralTimeElement::GetInstance()->Initialize(144, 60);
 
 	PhysicsDevice::GetInstance()->Initialize();
 
 	BuiltIn::MakeBuiltInResources();
+
+	SharedResourceLoader::LoadSharedResources();
 
 	m_initialized = true;
 

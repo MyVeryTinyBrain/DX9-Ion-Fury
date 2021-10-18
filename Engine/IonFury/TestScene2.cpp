@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "TestScene2.h"
 #include "Player.h"
+#include "Skybox.h"
 #include "Spider.h"
 #include "Drone.h"
+#include "Warmech.h"
 
 IClonable* TestScene2::Clone()
 {
@@ -11,6 +13,18 @@ IClonable* TestScene2::Clone()
 
 void TestScene2::OnLoad(Scene* beforeScene)
 {
+    {
+        auto skyboxObj = CreateGameObject();
+        Skybox* skybox = skyboxObj->AddComponent<Skybox>();
+
+        skybox->SetTopTexture(L"../SharedResource/Texture/skybox_cloudy/top.png");
+        skybox->SetLeftTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetRightTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetForwardTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetBackTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
+    }
+
     {   // Create directional light
         auto obj = CreateGameObject();
 
@@ -145,32 +159,23 @@ void TestScene2::OnLoad(Scene* beforeScene)
         auto collider = obj->AddComponent<BoxCollider>();
     }
 
-    // Create transparent objects
-    //for (int i = 0; i < 3; ++i)
-    //{
-    //    for (int j = 0; j < 3; ++j)
-    //    {
-    //        auto obj = CreateGameObject();
-    //        obj->transform->position = Vec3(float(i), 0, float(j));
-
-    //        auto renderer = obj->AddComponent<UserMeshRenderer>();
-    //        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-    //        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/DevAlpha.png"));
-    //        renderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-    //    }
-    //}
-
     {
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, 2, -5);
-        obj->AddComponent<Spider>();
+        obj->AddComponent<Warmech>();
     }
 
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -10);
-        obj->AddComponent<Drone>();
-    }
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -5);
+    //    obj->AddComponent<Spider>();
+    //}
+
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -10);
+    //    obj->AddComponent<Drone>();
+    //}
 }
 
 void TestScene2::OnUnload(Scene* nextScene)

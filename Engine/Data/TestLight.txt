@@ -1,0 +1,17 @@
+[
+	{
+		"AmbinentFactor" : 0.0,
+		"ColorA" : 1.0,
+		"ColorB" : 1.0,
+		"ColorG" : 1.0,
+		"ColorR" : 1.0,
+		"EulerAngleX" : 59.999984741210938,
+		"EulerAngleY" : -6.9999990463256836,
+		"EulerAngleZ" : -4.2688679968705401e-07,
+		"Name" : "Directional",
+		"PosX" : 0.0,
+		"PosY" : 1.3938287496566772,
+		"PosZ" : -2.9999995231628418,
+		"Tag" : "Directional"
+	}
+]

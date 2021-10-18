@@ -2,6 +2,13 @@
 
 #include "Component.h"
 
+enum class Interpolate
+{
+	None,
+	Interpolate,
+	Extrapolate,
+};
+
 enum class PhysicsAxis
 {
 	NONE = 0,
@@ -22,6 +29,12 @@ enum class ForceMode
 class Rigidbody : public Component
 {
 	friend class Collider;
+
+protected:
+
+	virtual ~Rigidbody();
+
+private:
 
 	OverrideComponentFunction(Awake);
 
@@ -85,9 +98,9 @@ public:
 
 	void SetSleepThresholder(float value);
 
-	bool IsInterpolateMode() const;
+	Interpolate GetInterpolate() const;
 
-	void SetInterpolate(bool value);
+	void SetInterpolate(Interpolate mode);
 
 	// 보간이 활성화 되었을 때 위치를 보간하는지에 대한 플래그입니다.
 	bool IsInterpolatePosition() const;
@@ -145,7 +158,7 @@ public:
 
 	__declspec(property(get = GetSleepThresholder, put = SetSleepThresholder)) float sleepThresholder;
 
-	__declspec(property(get = IsInterpolateMode, put = SetInterpolate)) bool interpolate;
+	__declspec(property(get = GetInterpolate, put = SetInterpolate)) Interpolate interpolate;
 
 	__declspec(property(get = GetMass, put = SetMass)) float mass;
 
@@ -181,8 +194,10 @@ private:
 
 	bool m_continous = false;
 
-	class RigidbodyInterpolationer* m_interpolationer = nullptr;
+	class RigibdoyInterpolateBase* m_currentInterpolate = nullptr;
 
-	bool m_interpolate = false;
+	class RigidbodyInterpolater* m_interpolationer = nullptr;
+
+	class RigidbodyExtrapolater* m_extrapolater = nullptr;
 };
 

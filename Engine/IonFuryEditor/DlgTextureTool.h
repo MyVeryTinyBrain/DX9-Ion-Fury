@@ -30,7 +30,7 @@ public:
 	CStatic m_PictureControl;
 	CTabCtrl m_TabControl;
 public:
-	CString m_texturePath = L"../SharedResource/Texture/object/brick.jpg";
+	CString m_texturePath = BuiltInWhiteTexture;
 	CString m_DragList[100];
 	int		m_Cnt = 0;
 public:

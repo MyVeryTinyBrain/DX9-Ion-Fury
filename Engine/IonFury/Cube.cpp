@@ -53,3 +53,33 @@ void Cube::Awake()
 
 	SetMaterials(Resource::FindAs<Material>(BuiltInGeometryMaterial));
 }
+
+UserMeshRenderer* Cube::GetLeftRenderer() const
+{
+	return m_left;
+}
+
+UserMeshRenderer* Cube::GetRightRenderer() const
+{
+	return m_right;
+}
+
+UserMeshRenderer* Cube::GetTopRenderer() const
+{
+	return m_top;
+}
+
+UserMeshRenderer* Cube::GetBottomRenderer() const
+{
+	return m_bottom;
+}
+
+UserMeshRenderer* Cube::GetForwardRenderer() const
+{
+	return m_forward;
+}
+
+UserMeshRenderer* Cube::GetBackRenderer() const
+{
+	return m_back;
+}

@@ -7,6 +7,7 @@ void FPSCamera::Awake()
 	ShowCursor(false);
 	
 	m_camera = gameObject->AddComponent<Camera>();
+	m_camera->fov = m_defaultFOV;
 	m_camera->allowRenderLayers = (1 << 0);
 	Camera::SetMainCamera(m_camera);
 
@@ -29,7 +30,9 @@ void FPSCamera::Update()
 		MoveMouseToCenter();
 		Vec2 centerMouse = Input::GetMousePositionInViewport();
 
-		Vec2 deltaMouse = centerMouse - beforeMouse;
+		float fovPercent = m_camera->fov / m_defaultFOV;
+
+		Vec2 deltaMouse = (centerMouse - beforeMouse) * fovPercent;
 		Vec3 rotateAngle = Vec3(deltaMouse.y, deltaMouse.x, 0) * m_sensitivity;
 
 		angle -= rotateAngle;

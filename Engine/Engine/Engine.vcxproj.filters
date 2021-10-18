@@ -340,7 +340,13 @@
     <ClCompile Include="source\RightTriangleFrontSide.cpp">
       <Filter>Resource\UserMesh\RightTriangleSide</Filter>
     </ClCompile>
-    <ClCompile Include="source\RigidbodyInterpolationer.cpp">
+    <ClCompile Include="source\RigidbodyExtrapolater.cpp">
+      <Filter>Physics\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RigidbodyInterpolater.cpp">
+      <Filter>Physics\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RigibdoyInterpolateBase.cpp">
       <Filter>Physics\Rigidbody</Filter>
     </ClCompile>
   </ItemGroup>
@@ -663,7 +669,13 @@
     <ClInclude Include="header\RightTriangleFrontSide.h">
       <Filter>Resource\UserMesh\RightTriangleSide</Filter>
     </ClInclude>
-    <ClInclude Include="header\RigidbodyInterpolationer.h">
+    <ClInclude Include="header\RigidbodyExtrapolater.h">
+      <Filter>Physics\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RigidbodyInterpolater.h">
+      <Filter>Physics\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="header\RigibdoyInterpolateBase.h">
       <Filter>Physics\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>

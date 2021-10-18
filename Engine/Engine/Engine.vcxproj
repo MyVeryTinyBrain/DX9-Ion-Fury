@@ -22,7 +22,9 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\RigidbodyInterpolationer.cpp" />
+    <ClCompile Include="source\RigibdoyInterpolateBase.cpp" />
+    <ClCompile Include="source\RigidbodyInterpolater.cpp" />
+    <ClCompile Include="source\RigidbodyExtrapolater.cpp" />
     <ClCompile Include="source\RightTriangleBackSide.cpp" />
     <ClCompile Include="source\RightTriangleFrontSide.cpp" />
     <ClCompile Include="source\RightTriangleEmptySideUserMesh.cpp" />
@@ -191,7 +193,9 @@
     <ClInclude Include="header\RightTriangleEmptySideUserMesh.h" />
     <ClInclude Include="header\RightTriangleBackSide.h" />
     <ClInclude Include="header\RightTriangleFrontSide.h" />
-    <ClInclude Include="header\RigidbodyInterpolationer.h" />
+    <ClInclude Include="header\RigidbodyExtrapolater.h" />
+    <ClInclude Include="header\RigidbodyInterpolater.h" />
+    <ClInclude Include="header\RigibdoyInterpolateBase.h" />
     <ClInclude Include="source\LibraryLink.cpp" />
     <ClInclude Include="header\Rigidbody.h" />
     <ClInclude Include="header\SphereCollider.h" />

@@ -5,7 +5,14 @@
 #include "Transform.h"
 #include "Collider.h"
 #include "GameObject.h"
-#include "RigidbodyInterpolationer.h"
+
+#include "RigidbodyExtrapolater.h"
+#include "RigidbodyInterpolater.h"
+
+Rigidbody::~Rigidbody()
+{
+	PxRelease(m_body);
+}
 
 void Rigidbody::Awake()
 {
@@ -25,7 +32,9 @@ void Rigidbody::Awake()
 
 	ApplyBodyTransformFromGameObject();
 
-	m_interpolationer = new RigidbodyInterpolationer(this);
+	m_interpolationer = new RigidbodyInterpolater(this);
+
+	m_extrapolater = new RigidbodyExtrapolater(this);
 }
 
 void Rigidbody::Start()
@@ -35,9 +44,9 @@ void Rigidbody::Start()
 
 void Rigidbody::BeginPhysicsSimulate()
 {
-	if (m_interpolate)
+	if (m_currentInterpolate)
 	{
-		m_interpolationer->RollbackPose();
+		m_currentInterpolate->RollbackPose();
 	}
 
 	ApplyBodyTransformFromGameObject();
@@ -47,49 +56,49 @@ void Rigidbody::EndPhysicsSimulate()
 {
 	ApplyGameObjectTransfromFromBody();
 
-	if (m_interpolate)
+	if (m_currentInterpolate)
 	{
-		m_interpolationer->BackupPose();
+		m_currentInterpolate->BackupPose();
 	}
 }
 
 void Rigidbody::BeginFixedUpdate()
 {
-	if (m_interpolate)
+	if (m_currentInterpolate)
 	{
-		m_interpolationer->InterpolatePose();
+		m_currentInterpolate->InterpolatePose();
 	}
 }
 
 void Rigidbody::FixedUpdateCheck()
 {
-	if (m_interpolate)
+	if (m_currentInterpolate)
 	{
-		m_interpolationer->CheckPoseChange();
+		m_currentInterpolate->CheckPoseChange();
 	}
 }
 
 void Rigidbody::BeginUpdate()
 {
-	if (m_interpolate)
+	if (m_currentInterpolate)
 	{
-		m_interpolationer->InterpolatePose();
+		m_currentInterpolate->InterpolatePose();
 	}
 }
 
 void Rigidbody::UpdateCheck()
 {
-	if (m_interpolate)
+	if (m_currentInterpolate)
 	{
-		m_interpolationer->CheckPoseChange();
+		m_currentInterpolate->CheckPoseChange();
 	}
 }
 
 void Rigidbody::OnDestroy()
 {
 	DetachAll();
-	PxRelease(m_body);
 	SafeDelete(m_interpolationer);
+	SafeDelete(m_extrapolater);
 }
 
 bool Rigidbody::UseGravity() const
@@ -227,23 +236,44 @@ void Rigidbody::SetSleepThresholder(float value)
 	m_body->setSleepThreshold(value);
 }
 
-bool Rigidbody::IsInterpolateMode() const
+Interpolate Rigidbody::GetInterpolate() const
 {
-	return m_interpolate;
+	if (!m_currentInterpolate)
+	{
+		return Interpolate::None;
+	}
+	else if (m_currentInterpolate == m_interpolationer)
+	{
+		return Interpolate::Interpolate;
+	}
+	else if (m_currentInterpolate == m_extrapolater)
+	{
+		return Interpolate::Extrapolate;
+	}
+
+	return Interpolate::None;
 }
 
-void Rigidbody::SetInterpolate(bool value)
+void Rigidbody::SetInterpolate(Interpolate mode)
 {
-	if (m_interpolate == value)
+	if (mode == GetInterpolate())
 	{
 		return;
 	}
 
-	m_interpolate = value;
-
-	if (m_interpolate)
+	switch (mode)
 	{
-		m_interpolationer->BackupPose();
+		case Interpolate::Interpolate:
+			m_currentInterpolate = m_interpolationer;
+			m_currentInterpolate->Enable();
+			break;
+		case Interpolate::Extrapolate:
+			m_currentInterpolate = m_extrapolater;
+			m_currentInterpolate->Enable();
+			break;
+		default:
+			m_currentInterpolate = nullptr;
+			break;
 	}
 }
 

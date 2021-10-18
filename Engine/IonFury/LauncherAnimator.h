@@ -43,6 +43,8 @@ public:
 
 	bool IsPlayingShoot() const;
 
+	bool IsPlayingPullPump() const;
+
 	bool IsPlayingReload() const;
 
 	bool IsPlayingSkinChange() const;

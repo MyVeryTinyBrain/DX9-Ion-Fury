@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Launcher.h"
+#include "RenderLayers.h"
+#include "OverlayRenderOrders.h"
 #include "LauncherAnimator.h"
 #include "Player.h"
 #include "FPSCharacterController.h"
@@ -13,6 +15,14 @@
 void Launcher::Awake()
 {
 	Weapon::Awake();
+
+	// 오른쪽 손 생성
+	m_rightHandObj = CreateGameObjectToChild(transform);
+	m_rightHandRenderer = m_rightHandObj->AddComponent<UserMeshRenderer>();
+	m_rightHandRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_rightHandRenderer->material = Resource::FindAs<Material>(BuiltInLightOverlayMaterial);
+	m_rightHandRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_rightHandRenderer->overlayRenderOrder = int(OverlayRenderOrders::PlayerRightHand);
 
 	// 애니메이터 부착 및 이벤트함수 등록
 	m_animator = m_rightHandObj->AddComponent<LauncherAnimator>();
@@ -60,6 +70,10 @@ void Launcher::OnChanged()
 	m_animator->PlayIdle();
 }
 
+void Launcher::OnPutIn()
+{
+}
+
 void Launcher::OnAttackInput(InputType inputType)
 {
 	if (inputType == InputType::KeyPressing && 
@@ -81,16 +95,36 @@ void Launcher::OnAttackInput(InputType inputType)
 
 void Launcher::OnSubInput(InputType inputType)
 {
-	if (inputType == InputType::KeyPressing && 
-		m_animator->IsPlayingIdle())
+	if (inputType == InputType::KeyPressing)
 	{
+		bool isIdle = m_animator->IsPlayingIdle();
+		bool isEnfOfPullPump = m_animator->IsPlayingPullPump() && m_animator->GetPercent() > 0.8f;
+		bool isHalfReloading = m_animator->IsPlayingReload() && m_animator->GetPercent() < 0.4f;
+
+		if (!isIdle && !isEnfOfPullPump && !isHalfReloading)
+		{
+			return;
+		}
+
+		float elapsed = m_animator->GetElapsedTime();
+
 		if (m_mode == Mode::Shotgun)
 		{
 			m_animator->PlayChangeToYellow();
+
+			if (isHalfReloading)
+			{
+				m_animator->SetElapsedTime(elapsed);
+			}
 		}
 		else
 		{
 			m_animator->PlayChangeToRed();
+
+			if (isHalfReloading)
+			{
+				m_animator->SetElapsedTime(elapsed);
+			}
 		}
 	}
 }
@@ -100,6 +134,123 @@ void Launcher::OnReloadInput(InputType inputType)
 	if (inputType == InputType::KeyPressing)
 	{
 		TryReload();
+	}
+}
+
+AmmoTypes Launcher::GetAmmoType0() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return AmmoTypes::Shotgun;
+			break;
+		case Mode::Launcher:
+			return AmmoTypes::Launcher;
+			break;
+	}
+
+	return AmmoTypes::None;
+}
+
+AmmoTypes Launcher::GetAmmoType1() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return AmmoTypes::Launcher;
+			break;
+		case Mode::Launcher:
+			return AmmoTypes::Shotgun;
+			break;
+	}
+
+	return AmmoTypes::None;
+}
+
+unsigned int Launcher::GetTotalAmmo0() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return m_shotgunAmmo.totalAmmo;
+			break;
+		case Mode::Launcher:
+			return m_launcherAmmo.totalAmmo;
+			break;
+	}
+
+	return 0;
+}
+
+unsigned int Launcher::GetTotalAmmo1() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return m_launcherAmmo.totalAmmo;
+			break;
+		case Mode::Launcher:
+			return m_shotgunAmmo.totalAmmo;
+			break;
+	}
+
+	return 0;
+}
+
+unsigned int Launcher::GetLoadedAmmo0() const
+{
+	return m_currentAmmo->loadedAmmo;
+}
+
+unsigned int Launcher::GetLoadedAmmo1() const
+{
+	switch (m_mode)
+	{
+		case Mode::Shotgun:
+			return m_launcherAmmo.loadedAmmo;
+			break;
+		case Mode::Launcher:
+			return m_shotgunAmmo.loadedAmmo;
+			break;
+	}
+
+	return 0;
+}
+
+bool Launcher::GetLoadedAmmo0State() const
+{
+	return true;
+}
+
+bool Launcher::GetLoadedAmmo1State() const
+{
+	return true;
+}
+
+void Launcher::AddAmmo(AmmoTypes ammo, unsigned int count)
+{
+	switch (ammo)
+	{
+		case AmmoTypes::Shotgun:
+			{
+				m_shotgunAmmo.totalAmmo += count;
+
+				if (m_shotgunAmmo.totalAmmo > 999)
+				{
+					m_shotgunAmmo.totalAmmo = 999;
+				}
+			}
+			break;
+		case AmmoTypes::Launcher:
+			{
+				m_launcherAmmo.totalAmmo += count;
+
+				if (m_launcherAmmo.totalAmmo > 999)
+				{
+					m_launcherAmmo.totalAmmo = 999;
+				}
+			}
+			break;
 	}
 }
 
@@ -186,7 +337,19 @@ void Launcher::ShotgunShootOnce()
 			auto monster = hit.collider->rigidbody->gameObject->GetComponent<Monster>();
 			if (monster)
 			{
-				monster->TakeDamage(hit.collider, MonsterDamageType::Bullet, 2.5f, ray.direction * 10);
+				DamageParameters params;
+				params.monsterHitCollider = hit.collider;
+				params.damageType = MonsterDamageType::Bullet;
+				params.damage = 2.5f;
+				params.force = ray.direction * 10;
+				params.includeDamageDirection = true;
+				params.damageDirection = ray.direction;
+				params.includeAttackBeginPoint = true;
+				params.attackBeginPoint = ray.point;
+				params.includeMonsterHitWorldPoint = true;
+				params.monsterHitWorldPoint = hit.point;
+
+				monster->TakeDamage(params);
 			}
 		}
 	}
@@ -201,19 +364,18 @@ void Launcher::LauncherShootOnce()
 
 	LauncherGranade* granade = granadeObj->AddComponent<LauncherGranade>();
 	granade->rigidbody->isContinousDetection = true;
-	granade->rigidbody->velocity = cameraTransform->rotation * Quat::AxisAngle(Vec3::right(), -5) * Vec3::forawrd() * 25;
+	granade->rigidbody->velocity = cameraTransform->rotation * Quat::AxisAngle(Vec3::right(), -2.5f) * Vec3::forawrd() * 25;
 }
 
 void Launcher::MakeFireEffect()
 {
 	auto effectObj = CreateGameObjectToChild(m_rightHandObj->transform);
-	effectObj->transform->localPosition = Vec2(0.28f, -0.25f);
+	effectObj->transform->localPosition = Vec2(0.23f, -0.2f);
 	effectObj->transform->localEulerAngle = Vec3(0, 0, -10);
-	effectObj->transform->localScale = Vec2(0.2f, 0.2f);
+	effectObj->transform->localScale = Vec2(0.25f, 0.25f);
 	auto effect = effectObj->AddComponent<OrthoEffect>();
-	effect->SetSpeed(1.0f);
-	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire0.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire0.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire1.png");
 	effect->AddTexture(L"../SharedResource/Texture/launcher_effect/launcher_fire2.png");
+	effect->SetInterval(0.03f);
 }

@@ -64,6 +64,8 @@ public:
 
 	__declspec(property(get = GetDefaultAnimation)) SpriteAnimation* defaultAnimation;
 
+	__declspec(property(get = GetSpeed, put = SetSpeed)) float speed;
+
 protected:
 
 	void UpdateTexture();

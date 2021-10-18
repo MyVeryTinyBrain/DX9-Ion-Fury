@@ -43,6 +43,8 @@ public:
 
 	void SetFOV(float angle);
 
+	float GetAspect() const;
+
 	float GetOrthographicSize() const;
 
 	void SetOrthographicSize(float value);

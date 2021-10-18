@@ -6,7 +6,33 @@ class Cube : public UserMixMesh
 {
 	OverrideComponentFunction(Awake);
 
-private:
+public:
+
+	UserMeshRenderer* GetLeftRenderer() const;
+
+	UserMeshRenderer* GetRightRenderer() const;
+
+	UserMeshRenderer* GetTopRenderer() const;
+
+	UserMeshRenderer* GetBottomRenderer() const;
+
+	UserMeshRenderer* GetForwardRenderer() const;
+
+	UserMeshRenderer* GetBackRenderer() const;
+
+	__declspec(property(get = GetLeftRenderer)) UserMeshRenderer* left;
+
+	__declspec(property(get = GetRightRenderer)) UserMeshRenderer* right;
+
+	__declspec(property(get = GetTopRenderer)) UserMeshRenderer* top;
+
+	__declspec(property(get = GetBottomRenderer)) UserMeshRenderer* bottom;
+
+	__declspec(property(get = GetForwardRenderer)) UserMeshRenderer* forward;
+
+	__declspec(property(get = GetBackRenderer)) UserMeshRenderer* back;
+
+protected:
 
 	GameObject*			m_leftObj			= nullptr;
 
