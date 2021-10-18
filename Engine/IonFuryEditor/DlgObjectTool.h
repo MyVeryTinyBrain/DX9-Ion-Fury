@@ -16,8 +16,17 @@ public:
 	enum { IDD = IDD_DlgObjTool };
 #endif
 protected:
-	DECLARE_MESSAGE_MAP()
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
+	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButton16();
+	CListBox m_ObjectListBox;
+	CSliderCtrl m_ScaleXSlider;
+	CSliderCtrl m_ScaleYSlider;
+	CSliderCtrl m_ScaleZSlider;
+	CSliderCtrl m_RotationXSlider;
+	CSliderCtrl m_RotationYSlider;
+	CSliderCtrl m_RotationZSlider;
+	CSliderCtrl m_PivotScaleSlider;
+	CString m_Name;
 };

@@ -154,7 +154,7 @@ HandlingObject* FreePerspectiveCamera::Add_HandlingObject(int cnt)
 {
 	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"HandlingObject");
 
-	CString name = L"Event_";
+	CString name = L"Object_";
 	CString num;
 	num.Format(_T("%d"), cnt);
 	name += num;

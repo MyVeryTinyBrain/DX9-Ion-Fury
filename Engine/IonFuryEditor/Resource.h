@@ -91,6 +91,7 @@
 #define IDC_LT_DIRX                     1040
 #define IDC_BUTTON19                    1040
 #define IDC_LT_DIRZ                     1041
+#define IDC_BUTTON16                    1041
 #define IDC_BUTTON5                     1042
 #define IDC_TAB1                        1043
 #define IDC_PIC                         1044
