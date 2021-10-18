@@ -3,6 +3,8 @@
 #include "EditorManager.h"
 #include "Gizmo.h"
 
+std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
+
 void HandlingObject::Awake()
 {
 	m_ChildObject = CreateGameObject();

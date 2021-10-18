@@ -161,6 +161,7 @@ HandlingObject* FreePerspectiveCamera::Add_HandlingObject(int cnt)
 	Obj->name = name.GetString();
 
 	Vec3 Position = transform->position + transform->forward * 2;
+	Obj->transform->position = Position;
 
 	HandlingObject* Handling = Obj->AddComponent<HandlingObject>();
 

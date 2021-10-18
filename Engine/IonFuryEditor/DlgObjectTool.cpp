@@ -9,8 +9,10 @@
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
+#include "HandlingObject.h"
 #include "Gizmo.h"
 #include "EditorEnum.h"
+//#include "../IonFury/"
 //
 #include <fstream>
 #include <atlconv.h>
@@ -48,5 +50,17 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 // DlgObjectTool 메시지 처리기
 
 BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
+	ON_BN_CLICKED(IDC_BUTTON17, &DlgObjectTool::OnBnClickedAddButton)
 END_MESSAGE_MAP()
 
+
+
+void DlgObjectTool::OnBnClickedAddButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	HandlingObject* Pivot = EditorManager::GetInstance()->GetPerspectiveCamera()->Add_HandlingObject(m_Cnt);
+	++m_Cnt;
+
+	GameObject* ChildObj = Pivot->GetChildObject();
+	//ChildObj->AddComponent<>
+}

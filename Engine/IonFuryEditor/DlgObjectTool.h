@@ -29,4 +29,7 @@ public:
 	CSliderCtrl m_RotationZSlider;
 	CSliderCtrl m_PivotScaleSlider;
 	CString m_Name;
+	int m_Cnt = 0;
+public:
+	afx_msg void OnBnClickedAddButton();
 };
