@@ -46,6 +46,8 @@ private:
 
 	void SetBehavior(BehaviorType type);
 
+	void ShootToPlayer();
+
 private:
 
 	UserMeshBillboardRenderer* m_renderer = nullptr;

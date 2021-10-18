@@ -5,6 +5,7 @@
 #include "FPSOrthoCamera.h"
 #include "Hands.h"
 #include "PlayerUI.h"
+#include "TrailRenderer.h"
 
 ImplementStaticComponent(Player);
 
@@ -13,18 +14,36 @@ void Player::Awake()
 	g_instance = this;
 
 	m_controller = gameObject->AddComponent<FPSCharacterController>();
+	gameObject->AddComponent<TrailRenderer>();
 }
 
 void Player::Update()
 {
-	if (Input::GetKeyDown(Key::Up))
+	m_controller->enable = m_rigidCounter <= 0;
+	if (m_rigidCounter > 0)
 	{
-		AddHP(1);
+		m_rigidCounter -= Time::DeltaTime();
 	}
-	if (Input::GetKeyDown(Key::Down))
+}
+
+void Player::FixedUpdate()
+{
+	if (m_damagedVelocity != Vec3::zero())
 	{
-		SubtractHP(1);
+		Vec3 velocity = m_controller->rigidbody->velocity;
+		if (Abs(m_damagedVelocity.y) <= Abs(velocity.y))
+		{
+			m_damagedVelocity.y = 0;
+		}
+		velocity.x = m_damagedVelocity.x;
+		velocity.z = m_damagedVelocity.z;
+		if (Abs(m_damagedVelocity.y) >= 1.0f)
+		{
+			velocity.y = m_damagedVelocity.y;
+		}
+		m_controller->rigidbody->velocity = velocity;
 	}
+	m_damagedVelocity = Vec3::zero();
 }
 
 FPSCharacterController* Player::GetController() const
@@ -77,6 +96,42 @@ void Player::SubtractHP(unsigned int hp, bool effect)
 	}
 }
 
+void Player::SetRigidCounter(float value)
+{
+	m_rigidCounter = value;
+}
+
+void Player::TakeDamage(int damage, const Vec3& velocity, float rigidTime)
+{
+	// 안전장치입니다.
+	if (m_hp < 20)
+	{
+		if (damage > 1)
+		{
+			damage = 1;
+		}
+	}
+	else if (m_hp < 50)
+	{
+		if (damage > 2)
+		{
+			damage = damage / 2;
+		}
+	}
+
+	SubtractHP(damage);
+
+	if (velocity.sqrMagnitude() > m_damagedVelocity.sqrMagnitude())
+	{
+		m_damagedVelocity = velocity;
+	}
+
+	if (m_rigidCounter < rigidTime)
+	{
+		SetRigidCounter(rigidTime);
+	}
+}
+
 void Player::SetHP(unsigned int hp)
 {
 	if (hp < 0)
@@ -97,7 +152,12 @@ int Player::GetHP() const
 	return m_hp;
 }
 
-void Player::AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count)
+void Player::AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count, bool effect)
 {
 	m_controller->fpsCamera->fpsOrthoCamera->hands->AddAmmo(weapon, ammo, count);
+
+	if (effect)
+	{
+		m_controller->fpsCamera->fpsOrthoCamera->UI->ShowBlueScreenEffect();
+	}
 }
