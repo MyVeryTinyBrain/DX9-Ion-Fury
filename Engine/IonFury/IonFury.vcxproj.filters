@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Chaingun.cpp">
-      <Filter>Player\Weapon\Chaingun</Filter>
-    </ClCompile>
-    <ClCompile Include="ChaingunAmmopartAnimator.cpp">
-      <Filter>Player\Weapon\Chaingun</Filter>
-    </ClCompile>
-    <ClCompile Include="ChaingunGunpartAnimator.cpp">
-      <Filter>Player\Weapon\Chaingun</Filter>
-    </ClCompile>
     <ClCompile Include="Drone.cpp">
       <Filter>Monster\Drone</Filter>
     </ClCompile>
@@ -22,71 +13,14 @@
     <ClCompile Include="DroneSpriteAnimator.cpp">
       <Filter>Monster\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="FPSCamera.cpp">
-      <Filter>Player\FPSCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSOrthoCamera.cpp">
-      <Filter>Player\FPSCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="BillboardEffect.cpp">
-      <Filter>Effect\BillboardEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="BloodEffect.cpp">
-      <Filter>Effect\BloodEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletProof.cpp">
-      <Filter>Effect\BulletProof</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletTrail.cpp">
-      <Filter>Effect\BulletTrail</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCharacterController.cpp">
-      <Filter>Player\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="GranadeTrail.cpp">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClCompile>
     <ClCompile Include="Gunner.cpp">
       <Filter>Monster\Gunner</Filter>
     </ClCompile>
     <ClCompile Include="GunnerSpriteAnimator.cpp">
       <Filter>Monster\Gunner</Filter>
     </ClCompile>
-    <ClCompile Include="LauncherGranade.cpp">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClCompile>
-    <ClCompile Include="LauncherAnimator.cpp">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClCompile>
-    <ClCompile Include="Launcher.cpp">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Monster</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="OrthoEffect.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsInitialize.cpp">
-      <Filter>Initialize</Filter>
-    </ClCompile>
-    <ClCompile Include="Revolver.cpp">
-      <Filter>Player\Weapon\Revolver</Filter>
-    </ClCompile>
-    <ClCompile Include="RevolverAnimator.cpp">
-      <Filter>Player\Weapon\Revolver</Filter>
-    </ClCompile>
-    <ClCompile Include="SMG.cpp">
-      <Filter>Player\Weapon\SMG</Filter>
-    </ClCompile>
-    <ClCompile Include="SMGAnimator.cpp">
-      <Filter>Player\Weapon\SMG</Filter>
     </ClCompile>
     <ClCompile Include="Spider.cpp">
       <Filter>Monster\Spider</Filter>
@@ -97,59 +31,14 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>MixMesh\Cube</Filter>
-    </ClCompile>
-    <ClCompile Include="UserMixMesh.cpp">
-      <Filter>MixMesh</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleStair.cpp">
-      <Filter>MixMesh\Stair</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Player\Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="Web.cpp">
       <Filter>Monster\Spider</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteAnimation.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteAnimator.cpp">
-      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene2.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Bow.cpp">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClCompile>
-    <ClCompile Include="BowAnimator.cpp">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClCompile>
-    <ClCompile Include="BowStringAnimator.cpp">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClCompile>
-    <ClCompile Include="Arrow.cpp">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClCompile>
-    <ClCompile Include="Number.cpp">
-      <Filter>Player\UI\Number</Filter>
-    </ClCompile>
-    <ClCompile Include="Numbers.cpp">
-      <Filter>Player\UI\Numbers</Filter>
-    </ClCompile>
-    <ClCompile Include="Hands.cpp">
-      <Filter>Player\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerUI.cpp">
-      <Filter>Player\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Skybox.cpp">
-      <Filter>Skybox</Filter>
     </ClCompile>
     <ClCompile Include="DeaconSpriteAnimator.cpp">
       <Filter>Monster\Deacon</Filter>
@@ -175,36 +64,6 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>Loader</Filter>
     </ClCompile>
-    <ClCompile Include="TrailRenderer.cpp">
-      <Filter>Effect\TrailRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemBowAmmo.cpp">
-      <Filter>Item\ItemBowAmmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemChaingunAmmo.cpp">
-      <Filter>Item\ItemChaingunAmmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemHealthPack.cpp">
-      <Filter>Item\ItemHealthPack</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemLauncherAmmo.cpp">
-      <Filter>Item\ItemLauncherAmmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemRevolverAmmo.cpp">
-      <Filter>Item\ItemRevolverAmmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemShotgunAmmo.cpp">
-      <Filter>Item\ItemShotgunAmmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemSMGAmmo.cpp">
-      <Filter>Item\ItemSMGAmmo</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectStair.cpp">
-      <Filter>Object\ObjectStair</Filter>
-    </ClCompile>
     <ClCompile Include="DeaconflyEffect.cpp">
       <Filter>Monster\Deacon</Filter>
     </ClCompile>
@@ -225,15 +84,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Chaingun.h">
-      <Filter>Player\Weapon\Chaingun</Filter>
-    </ClInclude>
-    <ClInclude Include="ChaingunAmmopartAnimator.h">
-      <Filter>Player\Weapon\Chaingun</Filter>
-    </ClInclude>
-    <ClInclude Include="ChaingunGunpartAnimator.h">
-      <Filter>Player\Weapon\Chaingun</Filter>
-    </ClInclude>
     <ClInclude Include="Drone.h">
       <Filter>Monster\Drone</Filter>
     </ClInclude>
@@ -246,30 +96,6 @@
     <ClInclude Include="DroneSpriteAnimator.h">
       <Filter>Monster\Drone</Filter>
     </ClInclude>
-    <ClInclude Include="FPSCamera.h">
-      <Filter>Player\FPSCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSOrthoCamera.h">
-      <Filter>Player\FPSCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="BillboardEffect.h">
-      <Filter>Effect\BillboardEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="BloodEffect.h">
-      <Filter>Effect\BloodEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletProof.h">
-      <Filter>Effect\BulletProof</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletTrail.h">
-      <Filter>Effect\BulletTrail</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCharacterController.h">
-      <Filter>Player\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="GranadeTrail.h">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClInclude>
     <ClInclude Include="Gunner.h">
       <Filter>Monster\Gunner</Filter>
     </ClInclude>
@@ -279,53 +105,11 @@
     <ClInclude Include="framework.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="LauncherGranade.h">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClInclude>
-    <ClInclude Include="LauncherAnimator.h">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClInclude>
-    <ClInclude Include="Launcher.h">
-      <Filter>Player\Weapon\Launcher</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
     <ClInclude Include="Main.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="OrthoEffect.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderLayers.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsLayers.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsInitialize.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="OverlayRenderOrders.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="Revolver.h">
-      <Filter>Player\Weapon\Revolver</Filter>
-    </ClInclude>
-    <ClInclude Include="RevolverAnimator.h">
-      <Filter>Player\Weapon\Revolver</Filter>
-    </ClInclude>
-    <ClInclude Include="SMG.h">
-      <Filter>Player\Weapon\SMG</Filter>
-    </ClInclude>
-    <ClInclude Include="SMGAnimator.h">
-      <Filter>Player\Weapon\SMG</Filter>
     </ClInclude>
     <ClInclude Include="Spider.h">
       <Filter>Monster\Spider</Filter>
@@ -339,65 +123,14 @@
     <ClInclude Include="targetver.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>MixMesh\Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="UserMixMesh.h">
-      <Filter>MixMesh</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleStair.h">
-      <Filter>MixMesh\Stair</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Player\Weapon</Filter>
-    </ClInclude>
     <ClInclude Include="Web.h">
       <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="WeaponTypes.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimation.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimator.h">
-      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="TestScene2.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="BowAnimator.h">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClInclude>
-    <ClInclude Include="Bow.h">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClInclude>
-    <ClInclude Include="BowStringAnimator.h">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>Player\Weapon\Bow</Filter>
-    </ClInclude>
-    <ClInclude Include="Number.h">
-      <Filter>Player\UI\Number</Filter>
-    </ClInclude>
-    <ClInclude Include="Numbers.h">
-      <Filter>Player\UI\Numbers</Filter>
-    </ClInclude>
-    <ClInclude Include="Hands.h">
-      <Filter>Player\Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerUI.h">
-      <Filter>Player\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="AmmoTypes.h">
-      <Filter>Initialize</Filter>
-    </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>Skybox</Filter>
     </ClInclude>
     <ClInclude Include="DeaconSpriteAnimator.h">
       <Filter>Monster\Deacon</Filter>
@@ -422,36 +155,6 @@
     </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="TrailRenderer.h">
-      <Filter>Effect\TrailRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemBowAmmo.h">
-      <Filter>Item\ItemBowAmmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemChaingunAmmo.h">
-      <Filter>Item\ItemChaingunAmmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemHealthPack.h">
-      <Filter>Item\ItemHealthPack</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemLauncherAmmo.h">
-      <Filter>Item\ItemLauncherAmmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemRevolverAmmo.h">
-      <Filter>Item\ItemRevolverAmmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemShotgunAmmo.h">
-      <Filter>Item\ItemShotgunAmmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemSMGAmmo.h">
-      <Filter>Item\ItemSMGAmmo</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectStair.h">
-      <Filter>Object\ObjectStair</Filter>
     </ClInclude>
     <ClInclude Include="DeaconflyEffect.h">
       <Filter>Monster\Deacon</Filter>
@@ -487,86 +190,17 @@
     <Filter Include="Monster\Drone">
       <UniqueIdentifier>{49a8b4a5-1355-4987-aa5f-34be7d907343}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Player">
-      <UniqueIdentifier>{db1a84c4-b304-4e6a-9cb7-ec612e8daf57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\FPSCamera">
-      <UniqueIdentifier>{fd364169-ef36-4182-a698-819123567a09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Default">
       <UniqueIdentifier>{7e4f66b0-fe7a-45af-a42a-f09ccac37ad1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect">
-      <UniqueIdentifier>{8a9b6ef6-5def-482e-ae16-745b907de7c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\BillboardEffect">
-      <UniqueIdentifier>{1f39bd54-bc05-4efc-8b68-6b9f860b1e96}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\BloodEffect">
-      <UniqueIdentifier>{95bed4cb-529c-4e59-a673-3d54244e8985}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\BulletProof">
-      <UniqueIdentifier>{ed6a3766-7106-45f3-be64-6e3076a82f38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\BulletTrail">
-      <UniqueIdentifier>{040f82d0-0d5a-48d7-8591-13ba6b8aa5ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Controller">
-      <UniqueIdentifier>{8fc9455f-1c73-4e3c-b554-fbc4f8e66ed2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Monster\Gunner">
       <UniqueIdentifier>{1b7d2333-9e45-4a83-af15-df870ea25789}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Initialize">
-      <UniqueIdentifier>{1ef4502b-5933-453a-b9a9-2a17a3b79708}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Monster\Spider">
       <UniqueIdentifier>{61140836-3f23-4a7d-b54b-a4ea99b416b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MixMesh">
-      <UniqueIdentifier>{15e51273-9cce-43c5-aab8-6fd710555db0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MixMesh\Cube">
-      <UniqueIdentifier>{dc83c921-5ac9-475d-b0cc-10ff70676b7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MixMesh\Stair">
-      <UniqueIdentifier>{852828e7-59c0-475c-8110-a27df41beb56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{6fc9cee4-c080-411a-b8be-20e781357d26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{9ad150aa-2c96-4258-b22d-361ad658c3df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon">
-      <UniqueIdentifier>{8edec28a-921f-4837-9c2b-1424209d7e5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon\Chaingun">
-      <UniqueIdentifier>{7fc1ef1f-319a-4868-8e2c-ae49cf7916c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon\SMG">
-      <UniqueIdentifier>{a2770190-b266-418b-9d6d-fb964244eaed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon\Revolver">
-      <UniqueIdentifier>{d0fe7cd7-04ee-4f20-9b97-ee1c0c3822a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon\Launcher">
-      <UniqueIdentifier>{996e84ce-7ddb-4d2d-b51f-03b4f53669b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\Weapon\Bow">
-      <UniqueIdentifier>{a5685ba0-1f0d-4b07-b0ce-a478f6b4ca05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\UI">
-      <UniqueIdentifier>{59697637-fe6b-4e85-835a-5bd402971880}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\UI\Number">
-      <UniqueIdentifier>{3519f3cd-786b-4958-889f-fcd5f1d12ee1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\UI\Numbers">
-      <UniqueIdentifier>{94339adf-cf63-455c-bdcb-3daf48a08a74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Skybox">
-      <UniqueIdentifier>{b4e26422-1087-4d48-9054-5c06f958220e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Monster\Deacon">
       <UniqueIdentifier>{09c9aea7-78e2-4bd4-9a43-62f748871dde}</UniqueIdentifier>
@@ -577,48 +211,15 @@
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Effect\TrailRenderer">
-      <UniqueIdentifier>{5bbe9025-8d0c-40f8-932e-c0f594cb06c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item">
-      <UniqueIdentifier>{7c48a62c-dcdc-4ac4-8481-e45cf18af766}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ItemRevolverAmmo">
-      <UniqueIdentifier>{52ce034f-40ae-40af-ab78-5648b34c26ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ItemHealthPack">
-      <UniqueIdentifier>{6757d16c-adf2-4a93-9bd3-baa67deba4f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ItemShotgunAmmo">
-      <UniqueIdentifier>{bfa04390-12e7-4487-a93f-5f540e02dba3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ItemLauncherAmmo">
-      <UniqueIdentifier>{82dbe6c4-a1bb-411d-b511-7463c6352880}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ItemSMGAmmo">
-      <UniqueIdentifier>{1e58e6aa-7e96-4cd5-98d2-cee03d7525dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ItemChaingunAmmo">
-      <UniqueIdentifier>{665424cf-2168-4a0e-81e2-1f944a05ef77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ItemBowAmmo">
-      <UniqueIdentifier>{2bd6a73f-c683-46a1-9080-bfa7d788ea42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{d6d4acf2-97f3-4d70-b0c9-a4684714f598}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\ObjectStair">
-      <UniqueIdentifier>{2e5bcf4d-660b-4099-86a4-7b2ba86a0341}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint">
-      <Filter>Default</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc">
       <Filter>Default</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint">
+      <Filter>Default</Filter>
+    </None>
   </ItemGroup>
 </Project>
