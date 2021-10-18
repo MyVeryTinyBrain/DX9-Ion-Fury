@@ -4,6 +4,7 @@
 #include "Skybox.h"
 #include "Deacon.h"
 #include "Drone.h"
+#include "Gunner.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -180,10 +181,16 @@ void TestScene3::OnLoad(Scene* beforeScene)
 
 	{
 		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0, 1, -15);
+		obj->transform->position = Vec3(0, 2, -15);
 		obj->AddComponent<Deacon>();
 	}
 
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 0, 1);
+        obj->AddComponent<Gunner>();
+    }
 }
 
 void TestScene3::OnUnload(Scene* nextScene)
