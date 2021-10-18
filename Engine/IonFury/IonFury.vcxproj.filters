@@ -181,9 +181,6 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>Loader</Filter>
     </ClCompile>
-    <ClCompile Include="DeaconflyEffect.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaingun.h">
@@ -389,9 +386,6 @@
     </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="DeaconflyEffect.h">
-      <Filter>Monster\Deacon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

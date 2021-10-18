@@ -165,7 +165,6 @@
     <ClInclude Include="ChaingunGunpartAnimator.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Deacon.h" />
-    <ClInclude Include="DeaconflyEffect.h" />
     <ClInclude Include="DeaconSpriteAnimator.h" />
     <ClInclude Include="Drone.h" />
     <ClInclude Include="DroneExplosion.h" />
@@ -235,7 +234,6 @@
     <ClCompile Include="ChaingunGunpartAnimator.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Deacon.cpp" />
-    <ClCompile Include="DeaconflyEffect.cpp" />
     <ClCompile Include="DeaconSpriteAnimator.cpp" />
     <ClCompile Include="Drone.cpp" />
     <ClCompile Include="DroneExplosion.cpp" />
