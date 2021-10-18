@@ -133,6 +133,8 @@ public:
 
 	//제이슨
 public:
+	void EmptyListBoxBeforeLoad();
+
 	void JsonWrite();
 	void JsonRoad();
 

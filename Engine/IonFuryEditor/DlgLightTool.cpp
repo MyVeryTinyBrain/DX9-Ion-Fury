@@ -1507,6 +1507,11 @@ void DlgLightTool::OnLbnDblclkList1()
 	UpdateData(FALSE);
 }
 
+void DlgLightTool::EmptyListBoxBeforeLoad()
+{
+	m_LT_ListBox.ResetContent();
+}
+
 void DlgLightTool::JsonWrite()
 {
 	CFileDialog Dlg(FALSE, L"txt", L"LightObject.txt", OFN_OVERWRITEPROMPT);
@@ -1517,7 +1522,7 @@ void DlgLightTool::JsonWrite()
 
 	PathRemoveFileSpec(szFilePath);
 
-	lstrcat(szFilePath, L"\\Data");
+	lstrcat(szFilePath, L"\\Data\\Light");
 
 	Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
@@ -1602,7 +1607,7 @@ void DlgLightTool::JsonRoad()
 
 	PathRemoveFileSpec(szFilePath);
 
-	lstrcat(szFilePath, L"\\Data");
+	lstrcat(szFilePath, L"\\Data\\Light");
 
 	Dlg.m_ofn.lpstrInitialDir = szFilePath;
 

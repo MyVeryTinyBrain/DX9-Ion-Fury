@@ -1,0 +1,91 @@
+{
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.0,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 119.0,
+			"EulerAngleY" : 69.0,
+			"EulerAngleZ" : 115.0,
+			"Name" : "Directional",
+			"PosX" : 2.8821806907653809,
+			"PosY" : 0.0,
+			"PosZ" : -2.9999995231628418,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : 
+	[
+		{
+			"ColliderExistence" : false,
+			"MeshType" : 0,
+			"Name" : "test1",
+			"PositionX" : 1.2636699676513672,
+			"PositionY" : -0.82265198230743408,
+			"PositionZ" : -3.0,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/npc/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MeshType" : 0,
+			"Name" : "test2",
+			"PositionX" : -0.28749170899391174,
+			"PositionY" : -2.7635748386383057,
+			"PositionZ" : -3.693739652633667,
+			"RotationX" : 41.999988555908203,
+			"RotationY" : -61.999988555908203,
+			"RotationZ" : 2.2977312710281694e-06,
+			"ScaleX" : 2.5,
+			"ScaleY" : 2.0,
+			"ScaleZ" : 2.5,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/npc/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		}
+	],
+	"TriggerEvents" : 
+	[
+		[
+			{
+				"Name" : "Trigger_0",
+				"PositionX" : -1.3997964859008789,
+				"PositionY" : -0.76049381494522095,
+				"PositionZ" : -4.1461749076843262,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 2,
+				"TriggerToolAutoNum" : 1
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_0",
+				"PositionX" : -3.3781752586364746,
+				"PositionY" : -0.76049381494522095,
+				"PositionZ" : -3.9556794166564941,
+				"RotationX" : -57.0,
+				"RotationY" : 72.0,
+				"RotationZ" : 72.0,
+				"ScaleX" : 1.9500000476837158,
+				"ScaleY" : 2.0,
+				"ScaleZ" : 2.1500000953674316
+			}
+		]
+	]
+}

@@ -67,6 +67,15 @@ public:
 public:
 	DlgTextureTool* GetTextureTool();
 	afx_msg void OnMonsterTool();
+public:
+	void DetachGizmo();
+public:
+	void SaveToJsonFormat(const Json::Value& json, string path);
+	Json::Value LoadFromJsonFormat(string path);
+	wstring ToWString(const string& str);
+	string ToString(const wstring& wstr);
+	afx_msg void OnFileSaveAs();
+	afx_msg void OnFileOpen();
 };
 
 #ifndef _DEBUG  // IonFuryEditorView.cpp의 디버그 버전
