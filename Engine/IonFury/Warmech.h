@@ -26,6 +26,8 @@ private:
 
 	void SetTargetCoord(Vec3 xzCoord);
 
+	void Explosion();
+
 private:
 
 	enum class ActionType { Idle, WalkToRandomCoord, WalkToPlayerDirection, Attack, Max };

@@ -6,6 +6,8 @@
 #include "PhysicsLayers.h"
 #include "WarmechBullet.h"
 #include "WarmechMissile.h"
+#include "WarmechHit.h"
+#include "WarmechExplosion.h"
 
 void Warmech::Awake()
 {
@@ -149,10 +151,18 @@ void Warmech::OnDamage(DamageParameters& params)
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
-		GameObject* bloodEffectObj = CreateGameObject();
-		bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
-		bloodEffectObj->AddComponent<BloodEffect>();
+		{
+			GameObject* bloodEffectObj = CreateGameObject();
+			bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
+			bloodEffectObj->AddComponent<BloodEffect>();
+		}
+		{
+			GameObject* bloodEffectObj = CreateGameObject();
+			bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
+			bloodEffectObj->AddComponent<WarmechHit>();
+		}
 	}
+
 
 	params.force = Vec3::zero();
 
@@ -166,9 +176,8 @@ void Warmech::OnDamage(DamageParameters& params)
 
 void Warmech::OnDead(bool& dead, DamageParameters& params)
 {
-	m_hasTargetCoord = false;
-	m_attackCount = 0;
-	m_breakTime = FLT_MAX;
+
+	Explosion();
 
 	gameObject->Destroy();
 }
@@ -240,6 +249,20 @@ void Warmech::SetTargetCoord(Vec3 xzCoord)
 	m_targetCoord.y = 0;
 }
 
+void Warmech::Explosion()
+{
+	{
+		GameObject* effectObj = CreateGameObject();
+		effectObj->transform->position = Vec3(transform->position.x, transform->position.y + 0.35f, transform->position.z);
+		effectObj->AddComponent<WarmechExplosion>();
+	}
+	{
+		GameObject* effectObj = CreateGameObject();
+		effectObj->transform->position = Vec3(transform->position.x, transform->position.y - 0.8f, transform->position.z);
+		effectObj->AddComponent<WarmechExplosion>();
+	}
+}
+
 void Warmech::Attack(AttackType type)
 {
 	if (m_bodyAnimator->IsPlayingShoot() | m_bodyAnimator->IsPlayingMissile())
@@ -269,7 +292,6 @@ void Warmech::Attack(AttackType type)
 
 			auto obj = CreateGameObject();
 			obj->transform->position = transform->position + transform->right;
-			obj->transform->forward = transform->forward;
 			obj->AddComponent<WarmechMissile>();
 		}
 		break;

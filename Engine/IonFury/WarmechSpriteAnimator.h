@@ -36,6 +36,10 @@ public:
 
 	void PlayMissileBullet();
 
+	void PlayDamage();
+
+	void PlayExplosion();
+
 	bool IsPlayingIdle() const;
 
 	bool IsPlayingWalk() const;
@@ -48,6 +52,10 @@ public:
 
 	bool IsPlayingMissileBullet() const;
 
+	bool IsPlayingDamage() const;
+
+	bool IsPlayingExplosion() const;
+
 	SpriteAnimation* GetIdle() const;
 
 	SpriteAnimation* GetWalk() const;
@@ -59,6 +67,10 @@ public:
 	SpriteAnimation* GetBullet() const;
 
 	SpriteAnimation* GetMissileBullet() const;
+
+	SpriteAnimation* GetDamage() const;
+
+	SpriteAnimation* GetExplosion() const;
 
 private:
 
@@ -81,6 +93,8 @@ private:
 	SpriteAnimation* m_missileBullet;
 
 	SpriteAnimation* m_damage;
+
+	SpriteAnimation* m_explosion;
 
 	float m_angle = 0.f;
 

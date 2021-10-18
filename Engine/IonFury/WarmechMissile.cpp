@@ -3,11 +3,23 @@
 #include "WarmechSpriteAnimator.h"
 #include "PhysicsLayers.h"
 #include "Player.h"
+#include "GranadeTrail.h"
 
 
 void WarmechMissile::Awake()
 {
+	auto trailObj = CreateGameObjectToChild(transform);
+	GranadeTrail* trail = trailObj->AddComponent<GranadeTrail>();
+
+
 	m_moveSpeed = 3.0f;
+
+
+	m_body = gameObject->AddComponent<Rigidbody>();
+	m_body->SetRotationLockAxis(PhysicsAxis::All, true);
+
+	m_body->mass = 0.01f;
+	m_body->interpolate = Interpolate::Extrapolate;
 
 	MaterialParameters params;
 	params.alphaTest = true;
@@ -64,7 +76,23 @@ void WarmechMissile::Update()
 	m_animator->SetDefaultAnimation(m_animator->GetMissileBullet(), true);
 
 
-	transform->position += transform->forward * m_moveSpeed * Time::DeltaTime();
+	Vec3 playerPos = Player::GetInstance()->transform->position;
+	Vec3 missilePos = transform->position;
+
+
+	if (m_initialdir)
+	{
+		forward = playerPos - missilePos;
+		forward.Normalize();
+		transform->forward = forward;
+		m_initialdir = false;
+	}
+
+	Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
+
+	Vec3 velocity = Quat::AxisAngle(right, -22.5f) * forward * m_moveSpeed;
+
+	transform->position += velocity * 0.03f;
 
 
 

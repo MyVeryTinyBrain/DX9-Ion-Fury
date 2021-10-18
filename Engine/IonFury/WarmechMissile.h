@@ -15,26 +15,26 @@ class WarmechMissile : public Component
 	OverrideComponentFunction(OnDestroy);
 
 private:
+
 	WarmechSpriteAnimator* m_animator = nullptr;
 
 	GameObject* m_rendererObj = nullptr;
 
-	float m_animationtime = 0;
+	Rigidbody* m_body = nullptr;
 
 	float m_moveSpeed = 0.f;
+
+	float m_radius = 0.5f;
 
 	QuadUserMesh* m_quad = nullptr;
 
 	Material* m_material = nullptr;
-
-	float m_radius = 0.5f;
-
-	float m_selfDestroyCounter = 5.0f;
 
 	UserMeshRenderer* m_debugRenderer = nullptr;
 
 	bool m_initialdir = true;
 
 	Vec3 forward;
+
 };
 

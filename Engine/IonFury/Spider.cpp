@@ -90,11 +90,9 @@ void Spider::OnDamage(DamageParameters& params)
 	switch (params.damageType)
 	{
 	case MonsterDamageType::Bullet:
-		//m_animator->SetDefaultAnimation(m_animator->GetDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_GENERIC), true);
 		m_moveSpeed = 0.f;
 		break;
 	case MonsterDamageType::Explosion:
-		//m_animator->SetDefaultAnimation(m_animator->GetDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT), true);
 		m_moveSpeed = 0.f;
 		break;
 	case MonsterDamageType::Zizizik:
