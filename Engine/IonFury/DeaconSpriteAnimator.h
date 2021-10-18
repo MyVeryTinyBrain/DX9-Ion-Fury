@@ -19,8 +19,6 @@ public:
 
 	enum class DIR_DECACONE{ FRONT, FRONT_DIAGONAL, SIDE, BACK_DIAGONAL, BACK, MAX };
 
-	enum class DIE {DIE, MAX};
-
 public:
 
 	void SetAngle(float angle);
@@ -30,8 +28,6 @@ public:
 	void PlayShoot();
 
 	void PlayExplosion();
-
-	void PlayDie();
 
 	void PlaySmoke();
 
@@ -70,11 +66,5 @@ private:
 	SpriteAnimation* m_smoke;	//¿Ã∆Â∆Æ
 
 	float m_angle = 0.f;
-
-	SpriteAnimation* m_flyeffect;
-
-public:
-
-	Delegate<void()> OnDeadAnimated;
 };
 
