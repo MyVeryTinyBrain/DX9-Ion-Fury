@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ObjectStair.h"
+#include "Cube.h"
 
 void ObjectStair::Awake()
 {
@@ -32,40 +33,35 @@ void ObjectStair::Awake()
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, -0.4f, 0);
 		obj->transform->localScale = Vec3(1, 0.2f, 1);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, -0.2f, 0.1f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.8f);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.0f, 0.2f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.6f);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.2f, 0.3f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.4f);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.4f, 0.4f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.2f);
 	}

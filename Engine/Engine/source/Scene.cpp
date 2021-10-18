@@ -27,7 +27,8 @@ GameObject* Scene::CreateGameObjectToChild(class Transform* parent, const tag_t&
 	GameObject* go = new GameObject(this, tag);
 	go->transform->parent = parent;
 	go->transform->localPosition = Vec3::zero();
-
+	go->transform->localRotation = Quat::Identity();
+	go->transform->localScale = Vec3::one();
 	return go;
 }
 

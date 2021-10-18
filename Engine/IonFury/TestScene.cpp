@@ -38,10 +38,17 @@ void TestScene::OnLoad(Scene* beforeScene)
         skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
     }
 
-    {
-        auto obj = CreateGameObject();
-        obj->AddComponent<Cube>();
-    }
+    //{
+    //    auto parent = CreateGameObject();
+    //    parent->transform->position = Vec3(0, -2, 2);
+    //    parent->transform->scale = Vec3(1, 1, 2);
+    //    parent->transform->eulerAngle = Vec3(90, 0, 0);
+
+    //    auto child = CreateGameObjectToChild(parent->transform);
+    //    auto renderer = child->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+    //}
 
     {   // Create directional light
         auto obj = CreateGameObject();
@@ -58,8 +65,22 @@ void TestScene::OnLoad(Scene* beforeScene)
 
     {
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, -1, 3);
+        obj->transform->position = Vec3(0, -1.7f, 3);
+        obj->transform->scale = Vec3(2, 1, 1);
         obj->AddComponent<ObjectStair>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, -1.7f, 4);
+        obj->transform->scale = Vec3(2, 1, 1);
+        obj->AddComponent<Cube>();
+
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+
+        auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
     }
 
     {
