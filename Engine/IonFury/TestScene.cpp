@@ -119,6 +119,41 @@ void TestScene::OnLoad(Scene* beforeScene)
             obj->transform->position = Vec3(5, 5, 6);
             obj->AddComponent<ItemSMGAmmo>();
         }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(0, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(1, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(2, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(3, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(4, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(6, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
     }
 
     {   // Create test player
@@ -160,6 +195,40 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
+    {   // Create obstacle
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, -1, -3);
+        obj->transform->scale = Vec3(7.5f, 1, 1);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+
+        auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
+    }
+
+    {   // Create obstacle
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 1, 8);
+        obj->transform->scale = Vec3(15, 3, 1);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+
+        auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
+    }
+
     {   // Create triangle
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(10, 0, 0);
@@ -176,6 +245,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->friction = 1.0f;
         collider->restitution = 1.0f;
     }
+
 
     {   // Create rotated ground
         auto obj = CreateGameObject();

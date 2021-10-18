@@ -332,8 +332,21 @@ void Gunner::SetBehavior(BehaviorType type)
             }
             break;
         case BehaviorType::Attack:
-            {
-                m_attackCount = 5;
+            {    
+                Vec3 playerHead = Player::GetInstance()->perspectiveCamera->transform->position;
+                Vec3 monsterHead = transform->position + Vec3::up() * 0.5f;
+
+                Vec3 mosterToPlayer = playerHead - monsterHead;
+                mosterToPlayer.Normalize();
+
+                PhysicsRay ray(monsterHead, mosterToPlayer, FLT_MAX);
+                RaycastHit hit;
+                Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider);
+
+                if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+                {
+                    m_attackCount = 5;
+                }
             }
             break;
     }
@@ -341,7 +354,18 @@ void Gunner::SetBehavior(BehaviorType type)
 
 void Gunner::ShootToPlayer()
 {
-    Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
+    Vec3 playerHead = Player::GetInstance()->perspectiveCamera->transform->position;
+    Vec3 monsterHead = transform->position + Vec3::up() * 0.5f;
+
+    Vec3 mosterToPlayer = playerHead - monsterHead;
     mosterToPlayer.Normalize();
-    Player::GetInstance()->TakeDamage(1);
+
+    PhysicsRay ray(monsterHead, mosterToPlayer, FLT_MAX);
+    RaycastHit hit;
+    Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider);
+
+    if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+    {
+        Player::GetInstance()->TakeDamage(1);
+    }
 }
