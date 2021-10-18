@@ -187,6 +187,12 @@
     <ClCompile Include="WarmechMissile.cpp">
       <Filter>Monster\Warmech\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="DeaconflyEffect.cpp">
+      <Filter>Monster\Deacon</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechTrail.cpp">
+      <Filter>Monster\Warmech\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chaingun.h">
@@ -398,6 +404,12 @@
     </ClInclude>
     <ClInclude Include="WarmechMissile.h">
       <Filter>Monster\Warmech\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="DeaconflyEffect.h">
+      <Filter>Monster\Deacon</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechTrail.h">
+      <Filter>Monster\Warmech\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
