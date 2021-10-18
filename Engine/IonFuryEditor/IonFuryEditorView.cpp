@@ -19,6 +19,7 @@
 #include "EditorScene.h"
 #include "Gizmo.h"
 #include "EditorEnum.h"
+#include "HandlingObject.h"
 
 #ifdef new
 #undef new
@@ -265,7 +266,16 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	//기즈모를 가장 우선적으로 선택하도록한 어거지코드!! 문제터지면 삭제
 	//========================================================================
 
-	Pickable* pick = Pickable::Pick();
+	float PickableDistance = 90000.f;
+	float HandlingDistance = 90000.f;
+	Pickable* pick = Pickable::Pick(PickableDistance);
+	HandlingObject* HandlePick = HandlingObject::Pick(HandlingDistance);
+
+	if (PickableDistance < HandlingDistance)
+		HandlePick = nullptr;
+	else if (PickableDistance > HandlingDistance)
+		pick = nullptr;
+
 
 	m_dlgMonsterTool.ClearEverything();
 	m_dlgMapTool.Clear();
@@ -273,6 +283,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
+		EditorManager::GetInstance()->GetGizmo()->Attach(pickObj->transform);
 
 		if (!m_dlgMapTool)
 			return;
@@ -307,23 +318,26 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgMonsterTool.SetScaleScrollToPicked(pick);
 			break;
 		}
-		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
+		return;
 	}
-	else if (!giz->PickHandle())
-	{
-		giz->Detach();
-		giz->enable = false;
-		//m_dlgObjectTool.Clear();
-	}
+	//else if (!giz->PickHandle())
+	//{
+	//	giz->Detach();
+	//	giz->enable = false;
+	//}
 
 	//=========================================================
+	if (HandlePick)
+	{
 
-	LightObj* light = LightObj::LightPick();
+	}
+	//=========================================================
+	LightObj* LightPick = LightObj::LightPick();
 	m_dlgLightTool.LightClear();
 
-	if (light)
+	if (LightPick)
 	{
-		auto lightobj = light->GetGameObject();
+		auto lightobj = LightPick->GetGameObject();
 
 		for (auto& light : LightObj::g_vecLight)
 		{
@@ -336,16 +350,18 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 				return;
 		}
 	}
+	//else if (!giz->PickHandle())
+	//{
+	//	cout << "조명선택안됨" << endl;
+	//	giz->Detach();
+	//	giz->enable = false;
+	//}
 
-
-	else if (!giz->PickHandle())
+	if (!pick && !HandlePick && !LightPick)
 	{
-		cout << "조명선택안됨" << endl;
 		giz->Detach();
 		giz->enable = false;
 	}
-
-
 }
 
 void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)

@@ -62,6 +62,39 @@ void HandlingObject::RemoveMaterial()
 
 void HandlingObject::AddTypeToChildObject(CString Type)
 {
-	if (Type == (L"ItemSMGAmmo"))
-		m_ChildObject->AddComponent<ItemSMGAmmo>();
+//	if (Type == (L"ItemSMGAmmo"))
+	//	m_ChildObject->AddComponent<ItemSMGAmmo>();
+}
+
+HandlingObject* HandlingObject::Pick(float& Distance)
+{
+	Vec3 rayPoint, rayDir;
+	Vec3 HitPoint;
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
+	Distance = 90000.f;
+	HandlingObject* ClosestPicked = nullptr;
+
+	for (auto pickable : g_HandlingVec)
+	{
+		UserMeshRenderer* Renderer = pickable->GetRenderer();
+		Input::GetMouseWorldRay(rayPoint, rayDir);
+
+		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
+		{
+			giz->enable = true;
+
+			Vec3 Between = rayPoint - HitPoint;
+			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.z * Between.z));
+			if (Distance >= BetweenDistance)
+			{
+				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
+				Distance = BetweenDistance;
+				ClosestPicked = pickable;
+			}
+		}
+	}
+
+	return ClosestPicked;
 }

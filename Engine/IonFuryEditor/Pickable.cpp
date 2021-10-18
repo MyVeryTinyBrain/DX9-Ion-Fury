@@ -3,6 +3,7 @@
 #include "Gizmo.h"
 #include "EditorManager.h"
 #include "EditorEnum.h"
+#include "HandlingObject.h"
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
@@ -104,14 +105,14 @@ void Pickable::DeleteMesh()
 	}
 }
 
-Pickable* Pickable::Pick()
+Pickable* Pickable::Pick(float& Distance)
 {
 	Vec3 rayPoint, rayDir;
 	Vec3 HitPoint;
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	float FinalDistance = 90000.f;
+	Distance = 90000.f;
 	Pickable* ClosestPicked = nullptr;
 
 	for (auto pickable : g_PickableVec)
@@ -124,11 +125,11 @@ Pickable* Pickable::Pick()
 			giz->enable = true;
 			
 			Vec3 Between = rayPoint - HitPoint;
-			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.x * Between.y));
-			if (FinalDistance >= BetweenDistance)
+			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.z * Between.z));
+			if (Distance >= BetweenDistance)
 			{
 				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
-				FinalDistance = BetweenDistance;
+				Distance = BetweenDistance;
 				ClosestPicked = pickable;
 			}
 		}
