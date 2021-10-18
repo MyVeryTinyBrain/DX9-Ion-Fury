@@ -45,6 +45,7 @@ void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER11, m_RotationZSlider);
 	DDX_Control(pDX, IDC_SLIDER1, m_PivotScaleSlider);
 	DDX_Text(pDX, IDC_EDIT2, m_Name);
+	DDX_Control(pDX, IDC_COMBO1, m_TypeComboBox);
 }
 
 // DlgObjectTool 메시지 처리기
@@ -54,6 +55,28 @@ BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
 END_MESSAGE_MAP()
 
 
+BOOL DlgObjectTool::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	m_TypeComboBox.AddString(_T("ItemBowAmmo"));
+
+	m_TypeComboBox.AddString(_T("ItemChaingunAmmo"));
+
+	m_TypeComboBox.AddString(_T("ItemLauncherAmmo"));
+
+	m_TypeComboBox.AddString(_T("ItemRevolverAmmo"));
+
+	m_TypeComboBox.AddString(_T("ItemShotgunAmmo"));
+
+	m_TypeComboBox.AddString(_T("ItemSMGAmmo"));
+
+	m_TypeComboBox.AddString(_T("ItemHealthPack"));
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
 
 void DlgObjectTool::OnBnClickedAddButton()
 {
@@ -61,6 +84,9 @@ void DlgObjectTool::OnBnClickedAddButton()
 	HandlingObject* Pivot = EditorManager::GetInstance()->GetPerspectiveCamera()->Add_HandlingObject(m_Cnt);
 	++m_Cnt;
 
-	GameObject* ChildObj = Pivot->GetChildObject();
-	//ChildObj->AddComponent<>
+	CString Type = L"";
+	m_TypeComboBox.GetLBText(m_TypeComboBox.GetCurSel(), Type);
+	Pivot->AddTypeToChildObject(Type);
 }
+
+

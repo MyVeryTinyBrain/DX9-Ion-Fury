@@ -2,6 +2,13 @@
 #include "HandlingObject.h"
 #include "EditorManager.h"
 #include "Gizmo.h"
+#include "../IonFury/ItemBowAmmo.h"
+#include "../IonFury/ItemChaingunAmmo.h"
+#include "../IonFury/ItemLauncherAmmo.h"
+#include "../IonFury/ItemRevolverAmmo.h"
+#include "../IonFury/ItemShotgunAmmo.h"
+#include "../IonFury/ItemSMGAmmo.h"
+#include "../IonFury/ItemHealthPack.h"
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -51,4 +58,10 @@ void HandlingObject::RemoveMaterial()
 		m_Material->ReleaseUnmanaged();
 		m_Material = nullptr;
 	}
+}
+
+void HandlingObject::AddTypeToChildObject(CString Type)
+{
+	if (Type == (L"ItemSMGAmmo"))
+		m_ChildObject->AddComponent<ItemSMGAmmo>();
 }

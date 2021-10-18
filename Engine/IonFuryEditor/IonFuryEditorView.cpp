@@ -400,6 +400,8 @@ DlgTextureTool* CIonFuryEditorView::GetTextureTool()
 {
 	if (m_dlgTextureTool)
 		return &m_dlgTextureTool;
+	else
+		return nullptr;
 }
 
 

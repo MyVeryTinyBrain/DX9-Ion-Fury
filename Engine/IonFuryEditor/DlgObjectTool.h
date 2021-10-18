@@ -19,6 +19,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+
 public:
 	CListBox m_ObjectListBox;
 	CSliderCtrl m_ScaleXSlider;
@@ -28,8 +29,11 @@ public:
 	CSliderCtrl m_RotationYSlider;
 	CSliderCtrl m_RotationZSlider;
 	CSliderCtrl m_PivotScaleSlider;
+	CComboBox m_TypeComboBox;
 	CString m_Name;
 	int m_Cnt = 0;
 public:
 	afx_msg void OnBnClickedAddButton();
+public:
+	virtual BOOL OnInitDialog();
 };
