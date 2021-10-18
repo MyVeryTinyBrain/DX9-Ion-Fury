@@ -15,6 +15,8 @@ class Player : public Component
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(FixedUpdate);
+
 public:
 
 	FPSCharacterController* GetController() const;
@@ -39,11 +41,15 @@ public:
 
 	void SubtractHP(unsigned int hp, bool effect = true);
 
+	void SetRigidCounter(float value);
+
+	void TakeDamage(int damage, const Vec3& velocity = Vec3::zero(), float rigidTime = 0.0f);
+
 	void SetHP(unsigned int hp);
 
 	int GetHP() const;
 
-	void AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count);
+	void AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count, bool effect = true);
 
 	__declspec(property(get = GetHP, put = SetHP)) int HP;
 
@@ -52,5 +58,9 @@ private:
 	FPSCharacterController* m_controller = nullptr;
 
 	int m_hp = 100;
+
+	float m_rigidCounter = 0;
+
+	Vec3 m_damagedVelocity = Vec3::zero();
 };
 

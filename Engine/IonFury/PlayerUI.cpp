@@ -75,7 +75,8 @@ void PlayerUI::Awake()
 	m_ammoTexture[(unsigned int)AmmoTypes::Arrow] = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/ammo_arrow.png");
 
 	m_redScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/red.png");;
-	m_greenScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/green.png");;
+	m_greenScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/green.png");
+	m_blueScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/blue.png");
 
 	m_screenEffectObj = CreateGameObjectToChild(transform);
 	m_screenEffectObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetAspect(), 1.0f);
@@ -115,6 +116,13 @@ void PlayerUI::ShowRedScreenEffect()
 void PlayerUI::ShowGreenScreenEffect()
 {
 	m_screenEffectRenderer->SetTexture(0, m_greenScreenEffectTexture);
+	m_screenEffectRenderer->enable = true;
+	m_screenEffectObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetAspect(), 1);
+}
+
+void PlayerUI::ShowBlueScreenEffect()
+{
+	m_screenEffectRenderer->SetTexture(0, m_blueScreenEffectTexture);
 	m_screenEffectRenderer->enable = true;
 	m_screenEffectObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetAspect(), 1);
 }

@@ -2,9 +2,14 @@
 #include "Arrow.h"
 #include "PhysicsLayers.h"
 #include "Monster.h"
+#include "TrailRenderer.h"
 
 void Arrow::Awake()
 {
+	m_trailRenderer = gameObject->AddComponent<TrailRenderer>();
+	m_trailRenderer->width = 0.2f;
+	m_trailRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInRedTexture));
+
 	m_rigidbody = gameObject->AddComponent<Rigidbody>();
 	m_rigidbody->interpolate = Interpolate::Extrapolate;
 	m_rigidbody->mass = 0.1f;
@@ -33,7 +38,7 @@ void Arrow::Awake()
 	m_renderer = m_rendererObj->AddComponent<UserMeshRenderer>();
 	m_renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
 	m_renderer->material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
-	m_renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInGreenTexture));
+	m_renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInRedTexture));
 }
 
 void Arrow::Start()
@@ -60,17 +65,40 @@ void Arrow::Update()
 	}
 }
 
+void Arrow::LateUpdate()
+{
+	if (m_rigidbody)
+	{
+		m_trailRenderer->AddPoint(transform->position);
+
+		if (m_trailRenderer->GetPointCount() > 50)
+		{
+			m_trailRenderer->RemoveFirstPoint();
+		}
+	}
+	else
+	{
+		m_trailRenderer->RemoveFirstPoint();
+
+		if (!m_hitOnTerrain && m_trailRenderer->GetPointCount() == 0)
+		{
+			gameObject->Destroy();
+		}
+	}
+}
+
 void Arrow::OnCollisionEnter(const CollisionEnter& collider)
 {
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
 	{
 		transform->position = collider.GetContact(0).point + collider.GetContact(0).normal * 0.1f;
-
+		m_hitOnTerrain = true;
 		RemoveBodyAndCollider();
 	}
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
 	{
-		gameObject->Destroy();
+		RemoveBodyAndCollider();
+		RemoveRenderer();
 	}
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Monster)
 	{
@@ -99,7 +127,8 @@ void Arrow::OnCollisionEnter(const CollisionEnter& collider)
 
 		monster->TakeDamage(params);
 
-		gameObject->Destroy();
+		RemoveBodyAndCollider();
+		RemoveRenderer();
 	}
 }
 
@@ -124,5 +153,14 @@ void Arrow::RemoveBodyAndCollider()
 		m_rigidbody->Destroy();
 
 		m_rigidbody = nullptr;
+	}
+}
+
+void Arrow::RemoveRenderer()
+{
+	if (m_renderer)
+	{
+		m_renderer->Destroy();
+		m_renderer = nullptr;
 	}
 }

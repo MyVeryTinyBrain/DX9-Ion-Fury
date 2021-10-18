@@ -54,5 +54,18 @@ private:
 	float m_breakTime = 0;
 
 	MovingType movingtype = (MovingType)0;
+
+	bool m_realdead = false;
+
+
+private:
+	void DeadPosSet();
+
+	void Effect();
+
+private:
+
+	float createEffect = 0.f;;
+	float random = 0;
 };
 
