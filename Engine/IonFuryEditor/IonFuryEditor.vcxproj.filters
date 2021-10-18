@@ -132,10 +132,10 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
     <None Include="res\IonFuryEditor.rc2">
       <Filter>Default</Filter>
     </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
