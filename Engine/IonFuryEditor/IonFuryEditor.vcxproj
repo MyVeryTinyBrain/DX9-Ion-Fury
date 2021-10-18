@@ -197,6 +197,7 @@
   <ItemGroup>
     <ClInclude Include="DlgLightTool.h" />
     <ClInclude Include="DlgMonsterTool.h" />
+    <ClInclude Include="DlgMapTool.h" />
     <ClInclude Include="DlgObjectTool.h" />
     <ClInclude Include="DlgTextureTool.h" />
     <ClInclude Include="EditorEnum.h" />
@@ -220,6 +221,7 @@
   <ItemGroup>
     <ClCompile Include="DlgLightTool.cpp" />
     <ClCompile Include="DlgMonsterTool.cpp" />
+    <ClCompile Include="DlgMapTool.cpp" />
     <ClCompile Include="DlgObjectTool.cpp" />
     <ClCompile Include="DlgTextureTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />

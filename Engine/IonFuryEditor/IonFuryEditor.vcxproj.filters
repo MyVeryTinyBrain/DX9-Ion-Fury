@@ -34,7 +34,7 @@
     <ClCompile Include="DlgLightTool.cpp">
       <Filter>Dlg</Filter>
     </ClCompile>
-    <ClCompile Include="DlgObjectTool.cpp">
+    <ClCompile Include="DlgMapTool.cpp">
       <Filter>Dlg</Filter>
     </ClCompile>
     <ClCompile Include="DlgTextureTool.cpp">
@@ -49,6 +49,9 @@
     </ClCompile>
     <ClCompile Include="HandlingObject.cpp">
       <Filter>EditorCore</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgObjectTool.cpp">
+      <Filter>Dlg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +94,7 @@
     <ClInclude Include="EditorManager.h">
       <Filter>EditorCore</Filter>
     </ClInclude>
-    <ClInclude Include="DlgObjectTool.h">
+    <ClInclude Include="DlgMapTool.h">
       <Filter>Dlg</Filter>
     </ClInclude>
     <ClInclude Include="DlgLightTool.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="HandlingObject.h">
       <Filter>EditorCore</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgObjectTool.h">
+      <Filter>Dlg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -38,7 +38,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_SIZE()
 	ON_WM_TIMER()
-	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
+	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnMap)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
 	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
@@ -48,6 +48,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_Menu, &CIonFuryEditorView::OnMonsterTool)
 	ON_COMMAND(ID_FILE_SAVE_AS, &CIonFuryEditorView::OnFileSaveAs)
 	ON_COMMAND(ID_FILE_OPEN, &CIonFuryEditorView::OnFileOpen)
+	ON_COMMAND(ID_32776, &CIonFuryEditorView::OnObject)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -145,8 +146,8 @@ void CIonFuryEditorView::OnInitialUpdate()
 
 	// 여기에서 우선 다이얼로그를 생성합니다.
 
-	if (!m_dlgObjectTool.GetSafeHwnd())
-		m_dlgObjectTool.Create(IDD_DlgObjectTool);
+	if (!m_dlgMapTool.GetSafeHwnd())
+		m_dlgMapTool.Create(IDD_DlgMapTool);
 
 	if (!m_dlgLightTool.GetSafeHwnd())
 		m_dlgLightTool.Create(IDD_DlgLightTool);
@@ -157,6 +158,9 @@ void CIonFuryEditorView::OnInitialUpdate()
 	//터질경우 의심해볼 코드
 	if (!m_dlgMonsterTool.GetSafeHwnd())
 		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
+
+	if (!m_dlgObjectTool.GetSafeHwnd())
+		m_dlgObjectTool.Create(IDD_DlgObjTool);
 }
 
 
@@ -189,12 +193,12 @@ BOOL CIonFuryEditorView::DestroyWindow()
 }
 
 
-void CIonFuryEditorView::OnObject()
+void CIonFuryEditorView::OnMap()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	if (!m_dlgObjectTool.GetSafeHwnd())
-		m_dlgObjectTool.Create(IDD_DlgObjectTool);
-	m_dlgObjectTool.ShowWindow(SW_SHOW);
+	if (!m_dlgMapTool.GetSafeHwnd())
+		m_dlgMapTool.Create(IDD_DlgMapTool);
+	m_dlgMapTool.ShowWindow(SW_SHOW);
 }
 
 
@@ -206,6 +210,13 @@ void CIonFuryEditorView::OnLight()
 	m_dlgLightTool.ShowWindow(SW_SHOW);
 }
 
+void CIonFuryEditorView::OnObject()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_dlgObjectTool.GetSafeHwnd())
+		m_dlgObjectTool.Create(IDD_DlgObjTool);
+	m_dlgObjectTool.ShowWindow(SW_SHOW);
+}
 
 void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
@@ -223,7 +234,7 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		giz->DeleteAttachedObject();
 		giz->Detach();
 		giz->enable = false;
-		m_dlgObjectTool.Clear();
+		m_dlgMapTool.Clear();
 		break;
 	default:
 		break;
@@ -257,13 +268,13 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	Pickable* pick = Pickable::Pick();
 
 	m_dlgMonsterTool.ClearEverything();
-	m_dlgObjectTool.Clear();
+	m_dlgMapTool.Clear();
 
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
 
-		if (!m_dlgObjectTool)
+		if (!m_dlgMapTool)
 			return;
 
 		Type PickType = pick->GetType();
@@ -271,11 +282,11 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		switch (PickType)
 		{
 		case Type::Map:
-			m_dlgObjectTool.SetPickableObject(pickObj);
-			m_dlgObjectTool.SelectObject();
-			m_dlgObjectTool.UpdateUVScale(pick);
-			m_dlgObjectTool.ReturnComboBoxSelect(pick);
-			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
+			m_dlgMapTool.SetPickableObject(pickObj);
+			m_dlgMapTool.SelectObject();
+			m_dlgMapTool.UpdateUVScale(pick);
+			m_dlgMapTool.ReturnComboBoxSelect(pick);
+			m_dlgMapTool.ReturnCollisionExistenceSelect(pick);
 
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
@@ -369,8 +380,8 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			{
 			case Type::Map:
 				auto pickObj = trans->GetGameObject();
-				m_dlgObjectTool.SetPickableObject(pickObj);
-				m_dlgObjectTool.SelectObject();
+				m_dlgMapTool.SetPickableObject(pickObj);
+				m_dlgMapTool.SelectObject();
 				break;
 			}
 		}
@@ -823,3 +834,6 @@ void CIonFuryEditorView::OnFileOpen()
 		}
 	}
 }
+
+
+

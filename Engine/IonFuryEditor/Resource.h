@@ -7,9 +7,12 @@
 #define IDR_MAINFRAME                   128
 #define IDR_IonFuryEditorTYPE           130
 #define IDD_DlgObjectTool               310
+#define IDD_DlgMapTool                  310
 #define IDD_DlgLightTool                311
 #define IDD_DlgTextureTool              312
 #define IDD_DlgMonsterTool              313
+#define IDD_DlgItemTool                 315
+#define IDD_DlgObjTool                  315
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
 #define IDC_EDIT3                       1002
@@ -56,8 +59,10 @@
 #define IDC_LT_SLIDER                   1027
 #define OBJECT_4                        1028
 #define IDC_BUTTON3                     1028
+#define IDC_SLIDER6                     1028
 #define IDC_BUTTON4                     1029
 #define IDC_BUTTON11                    1029
+#define IDC_SLIDER11                    1029
 #define IDC_LT_COMBOBOX                 1030
 #define IDC_ScaleSlider2                1030
 #define IDC_BUTTON12                    1030
@@ -70,6 +75,7 @@
 #define OBJECT_10                       1033
 #define IDC_COLOR_G                     1033
 #define IDC_SLIDER8                     1033
+#define IDC_BUTTON17                    1033
 #define IDC_COLOR_B                     1034
 #define IDC_ScaleSlider3                1034
 #define IDC_SLIDER9                     1034
@@ -81,7 +87,9 @@
 #define IDC_BUTTON10                    1037
 #define IDC_LT_POSZ                     1038
 #define IDC_LT_RADIUS                   1039
+#define IDC_BUTTON18                    1039
 #define IDC_LT_DIRX                     1040
+#define IDC_BUTTON19                    1040
 #define IDC_LT_DIRZ                     1041
 #define IDC_BUTTON5                     1042
 #define IDC_TAB1                        1043
@@ -100,13 +108,14 @@
 #define ID_32773                        32773
 #define ID_32774                        32774
 #define ID_Menu                         32775
+#define ID_32776                        32776
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        315
-#define _APS_NEXT_COMMAND_VALUE         32776
+#define _APS_NEXT_RESOURCE_VALUE        317
+#define _APS_NEXT_COMMAND_VALUE         32777
 #define _APS_NEXT_CONTROL_VALUE         1053
 #define _APS_NEXT_SYMED_VALUE           314
 #endif
