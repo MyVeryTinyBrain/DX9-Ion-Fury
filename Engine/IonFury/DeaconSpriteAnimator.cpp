@@ -25,7 +25,7 @@ void DeaconSpriteAnimator::Awake()
 	m_move[(unsigned int)DIR_DECACONE::FRONT_DIAGONAL]->isLoop = true;
 
 	m_move[(unsigned int)DIR_DECACONE::SIDE] = new SpriteAnimation;																	//사이드 
-	m_move[(unsigned int)DIR_DECACONE::SIDE]->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_side0.png");				
+	m_move[(unsigned int)DIR_DECACONE::SIDE]->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_side0.png");
 	m_move[(unsigned int)DIR_DECACONE::SIDE]->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_side1.png");
 	m_move[(unsigned int)DIR_DECACONE::SIDE]->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_side2.png");
 	m_move[(unsigned int)DIR_DECACONE::SIDE]->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_side3.png");
@@ -74,6 +74,13 @@ void DeaconSpriteAnimator::Awake()
 	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead11.png");
 	m_dead->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_Dead12.png");
 	m_dead->interval = 0.1f; //시간간격
+	//m_dead->isLoop = true;
+	//bool take = true;
+	//if (take)
+	//{
+	//	m_dead->isLoop = true;
+	//	take = false;
+	//}
 
 
 	m_flyeffect = new SpriteAnimation;

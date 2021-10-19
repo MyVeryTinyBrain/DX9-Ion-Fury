@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="UserMixMesh">
+      <UniqueIdentifier>{5b8a21e5-419d-482c-99fa-03272dbdc6f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{1bf09b99-b0b6-4d3f-9e80-73691644e995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapon">
+      <UniqueIdentifier>{b874a7e3-ebd8-4e1e-b6fa-3005fe51017e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{7555a118-bcb4-4c69-be85-6acf78fb5b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Initlialize">
+      <UniqueIdentifier>{6331fed6-eb6c-4b34-8090-24302518156a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{881ec5f6-494d-4c8c-950d-7e195c3a7fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{65574b5a-b926-4597-9b94-a10d0b4c80b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{d0b2f833-6d2e-499d-b426-ba61e7549c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{833c5302-ca1e-4954-8a01-dcc1d68b2e7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{29e4b8c9-5802-4dec-9a3b-ec9546d6a93b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skybox">
+      <UniqueIdentifier>{d9a28f87-b245-490e-9cf6-c2ee30177b9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{db41070f-f989-4215-add4-ae463f678d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TrailRenderer">
+      <UniqueIdentifier>{06247398-5b55-4716-8d4c-e1ecbf815bc0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cube.h">
+      <Filter>UserMixMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="UserMixMesh.h">
+      <Filter>UserMixMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleStair.h">
+      <Filter>UserMixMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponTypes.h">
+      <Filter>Initlialize</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoTypes.h">
+      <Filter>Initlialize</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Bow.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="BowAnimator.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="BowStringAnimator.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletProof.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletTrail.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Chaingun.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaingunAmmopartAnimator.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaingunGunpartAnimator.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCamera.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCharacterController.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSOrthoCamera.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GranadeTrail.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Hands.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBowAmmo.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemChaingunAmmo.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHealthPack.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemLauncherAmmo.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRevolverAmmo.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemShotgunAmmo.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSMGAmmo.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Launcher.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherAnimator.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherGranade.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Number.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Numbers.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectStair.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthoEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlayRenderOrders.h">
+      <Filter>Initlialize</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsInitialize.h">
+      <Filter>Initlialize</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsLayers.h">
+      <Filter>Initlialize</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderLayers.h">
+      <Filter>Initlialize</Filter>
+    </ClInclude>
+    <ClInclude Include="Revolver.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="RevolverAnimator.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="shared_stdafx.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="SMG.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="SMGAnimator.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimator.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="TrailRenderer.h">
+      <Filter>TrailRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectContainer.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cube.cpp">
+      <Filter>UserMixMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="UserMixMesh.cpp">
+      <Filter>UserMixMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleStair.cpp">
+      <Filter>UserMixMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BillboardEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Bow.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BowAnimator.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BowStringAnimator.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletProof.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletTrail.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Chaingun.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaingunAmmopartAnimator.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaingunGunpartAnimator.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCamera.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCharacterController.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSOrthoCamera.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GranadeTrail.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Hands.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBowAmmo.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemChaingunAmmo.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHealthPack.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemLauncherAmmo.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRevolverAmmo.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemShotgunAmmo.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemSMGAmmo.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Launcher.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherAnimator.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherGranade.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Number.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Numbers.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectStair.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthoEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsInitialize.cpp">
+      <Filter>Initlialize</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Revolver.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="RevolverAnimator.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="shared_stdafx.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="SMG.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="SMGAnimator.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimation.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimator.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="TrailRenderer.cpp">
+      <Filter>TrailRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectContainer.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint">
+      <Filter>소스 파일</Filter>
+    </None>
+  </ItemGroup>
+</Project>
