@@ -45,9 +45,9 @@ void DlgMapTool::SetPickableObject(GameObject* gameobject)
 	m_SliderControlZ.SetPos((int)(gameobject->transform->eulerAngle.z + 180));
 
 	//============================
-	m_SliderControlScaleX.SetPos((int)(gameobject->transform->scale.x * 20));
-	m_SliderControlScaleY.SetPos((int)(gameobject->transform->scale.y * 20));
-	m_SliderControlScaleZ.SetPos((int)(gameobject->transform->scale.z * 20));
+	m_SliderControlScaleX.SetPos((int)(gameobject->transform->scale.x * 10));
+	m_SliderControlScaleY.SetPos((int)(gameobject->transform->scale.y * 10));
+	m_SliderControlScaleZ.SetPos((int)(gameobject->transform->scale.z * 10));
 
 	UpdateData(FALSE);
 }
@@ -113,9 +113,9 @@ void DlgMapTool::Clear()
 	m_SliderControlY.SetPos(180);
 	m_SliderControlZ.SetPos(180);
 
-	m_SliderControlScaleX.SetPos(20);
-	m_SliderControlScaleY.SetPos(20);
-	m_SliderControlScaleZ.SetPos(20);
+	m_SliderControlScaleX.SetPos(10);
+	m_SliderControlScaleY.SetPos(10);
+	m_SliderControlScaleZ.SetPos(10);
 
 	m_ColliderExistence.SetCheck(true);
 
@@ -360,16 +360,16 @@ BOOL DlgMapTool::OnInitDialog()
 	}
 	//작업중여기
 	{
-		m_SliderControlScaleX.SetRange(0, 100);
-		m_SliderControlScaleX.SetPos(20);
+		m_SliderControlScaleX.SetRange(0, 200);
+		m_SliderControlScaleX.SetPos(10);
 		m_SliderControlScaleX.SetLineSize(10);
 
-		m_SliderControlScaleY.SetRange(0, 100);
-		m_SliderControlScaleY.SetPos(20);
+		m_SliderControlScaleY.SetRange(0, 200);
+		m_SliderControlScaleY.SetPos(10);
 		m_SliderControlScaleY.SetLineSize(10);
 
-		m_SliderControlScaleZ.SetRange(0, 100);
-		m_SliderControlScaleZ.SetPos(20);
+		m_SliderControlScaleZ.SetRange(0, 200);
+		m_SliderControlScaleZ.SetPos(10);
 		m_SliderControlScaleZ.SetLineSize(10);
 	}
 	NumToEdit(m_UVScaleX, 1.f);
@@ -594,7 +594,7 @@ void DlgMapTool::OnBnClickedClear()
 	m_fRotY = 0.f;
 	m_fRotZ = 0.f;
 
-	m_ColliderExistence.SetCheck(false);
+	m_ColliderExistence.SetCheck(true);
 	NumToEdit(m_UVScaleX, 1.f);
 	NumToEdit(m_UVScaleY, 1.f);
 
@@ -637,9 +637,9 @@ void DlgMapTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	m_fRotY = m_rRotY;
 	m_fRotZ = m_rRotZ;
 	//=====================================================================================
-	m_rScaleX = float(m_SliderControlScaleX.GetPos() / 20.f);
-	m_rScaleY = float(m_SliderControlScaleY.GetPos() / 20.f);
-	m_rScaleZ = float(m_SliderControlScaleZ.GetPos() / 20.f);
+	m_rScaleX = float(m_SliderControlScaleX.GetPos() / 10.f);
+	m_rScaleY = float(m_SliderControlScaleY.GetPos() / 10.f);
+	m_rScaleZ = float(m_SliderControlScaleZ.GetPos() / 10.f);
 
 	giz->GetSelectedObject()->transform->SetScale(Vec3(m_rScaleX, m_rScaleY, m_rScaleZ));
 
