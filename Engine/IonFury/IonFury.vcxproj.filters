@@ -82,6 +82,12 @@
     <ClCompile Include="WarmechTrail.cpp">
       <Filter>Monster\Warmech</Filter>
     </ClCompile>
+    <ClCompile Include="Mutant.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="MutantSpriteAnimator.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drone.h">
@@ -174,6 +180,12 @@
     <ClInclude Include="WarmechTrail.h">
       <Filter>Monster\Warmech</Filter>
     </ClInclude>
+    <ClInclude Include="Mutant.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="MutantSpriteAnimator.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -210,6 +222,9 @@
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Mutant">
+      <UniqueIdentifier>{9d048632-acb8-4288-95bf-0f2dfbf269a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

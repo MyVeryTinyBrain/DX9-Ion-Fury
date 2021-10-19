@@ -165,6 +165,8 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="MapLoad.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Mutant.h" />
+    <ClInclude Include="MutantSpriteAnimator.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="SpiderSpriteAnimator.h" />
@@ -196,6 +198,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapLoad.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="Mutant.cpp" />
+    <ClCompile Include="MutantSpriteAnimator.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="stdafx.cpp" />

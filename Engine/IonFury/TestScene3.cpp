@@ -7,6 +7,7 @@
 #include "MapLoad.h"
 #include "ObjectContainer.h"
 #include "ObjectGetItem.h"
+#include "Mutant.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -16,7 +17,7 @@ IClonable* TestScene3::Clone()
 void TestScene3::OnLoad(Scene* beforeScene)
 {
     AddSkyBox();
-    //AddMonster();
+    AddMonster();
     AddMap();
   //  MapLoad::LoadMap(L"../Data/Map/testmap.txt");
     
@@ -96,12 +97,18 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
-    for(int i = 0; i<20; ++i)
-    {
+    //for(int i = 0; i<20; ++i)
+    //{
 
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -5*i);
+    //    obj->AddComponent<Deacon>();
+    //}
+
+    {
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -5*i);
-        obj->AddComponent<Deacon>();
+        obj->transform->position = Vec3(-8, 0, 0);
+        obj->AddComponent<Mutant>();
     }
 }
 
