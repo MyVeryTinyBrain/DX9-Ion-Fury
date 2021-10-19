@@ -4,6 +4,7 @@
 #include "Skybox.h"
 #include "Deacon.h"
 #include "Drone.h"
+#include "MapLoad.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -13,9 +14,9 @@ IClonable* TestScene3::Clone()
 void TestScene3::OnLoad(Scene* beforeScene)
 {
     AddSkyBox();
-    AddMonster();
+  //  AddMonster();
+   // MapLoad::LoadMap(L"../Data/Map/")
     
-
 	{   // Create directional light
 		auto obj = CreateGameObject();
 
