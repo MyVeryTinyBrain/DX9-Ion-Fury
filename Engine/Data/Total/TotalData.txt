@@ -72,6 +72,24 @@
 			"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
 			"UVScaleX" : 1.0,
 			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MeshType" : 0,
+			"Name" : "s",
+			"PositionX" : -2.1740217208862305,
+			"PositionY" : 1.6289546489715576,
+			"PositionZ" : -7.6150321960449219,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../BuiltIn/WhiteTexture.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
 		}
 	],
 	"TriggerEvents" : 
@@ -79,9 +97,9 @@
 		[
 			{
 				"Name" : "Trigger_0",
-				"PositionX" : -6.5167970657348633,
-				"PositionY" : 0.0045377751812338829,
-				"PositionZ" : -9.6167411804199219,
+				"PositionX" : -6.5167965888977051,
+				"PositionY" : 0.0045377747155725956,
+				"PositionZ" : -9.6167402267456055,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -94,12 +112,12 @@
 			{
 				"EventType" : 6,
 				"Name" : "Event_0",
-				"PositionX" : -5.5449943542480469,
-				"PositionY" : 0.20093706250190735,
-				"PositionZ" : -9.0627975463867188,
-				"RotationX" : 38.999977111816406,
-				"RotationY" : 71.999961853027344,
-				"RotationZ" : -81.999961853027344,
+				"PositionX" : -5.5449938774108887,
+				"PositionY" : 0.20093704760074615,
+				"PositionZ" : -9.0627965927124023,
+				"RotationX" : 38.999973297119141,
+				"RotationY" : 71.999954223632812,
+				"RotationZ" : -81.999954223632812,
 				"ScaleX" : 1.5,
 				"ScaleY" : 0.69999998807907104,
 				"ScaleZ" : 0.85000002384185791

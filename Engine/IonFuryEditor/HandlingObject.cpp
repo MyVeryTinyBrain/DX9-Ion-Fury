@@ -14,17 +14,21 @@ std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
 void HandlingObject::Awake()
 {
-	m_ChildObject = CreateGameObject();
+	m_PivotObject = CreateGameObject();
 	g_HandlingVec.push_back(this);
 
-	m_ChildObject->transform->parent = GetGameObject()->transform;
-	m_ChildObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
+	m_PivotObject->transform->parent = GetGameObject()->transform;
+	m_PivotObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
 
-	m_Renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
+	m_Renderer = m_PivotObject->AddComponent<UserMeshRenderer>();
 	m_Renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInBlackTexture));
 
 	SetMaterial();
+
+	m_ChildObject = CreateGameObject();
+	m_ChildObject->transform->parent = GetGameObject()->transform;
+	m_ChildObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
 
 	EditorManager::GetInstance()->GetGizmo()->Attach(transform);
 }
@@ -60,10 +64,52 @@ void HandlingObject::RemoveMaterial()
 	}
 }
 
-void HandlingObject::AddTypeToChildObject(CString Type)
+Component* HandlingObject::GetHandlingComponent()
 {
-	if (Type == (L"ItemSMGAmmo"))
+	//if (m_HandlingObjectType == (L"ItemBowAmmo"))
+	//	return m_ChildObject->GetComponent<ItemBowAmmo>();
+	//else if (m_HandlingObjectType == (L"ItemChaingunAmmo"))
+	//	return static_cast<Component*>(m_ChildObject->GetComponent<ItemChaingunAmmo>());
+	//else if (m_HandlingObjectType == (L"ItemLauncherAmmo"))
+	//	return static_cast<Component*>(m_ChildObject->GetComponent<ItemLauncherAmmo>());
+	//else if (m_HandlingObjectType == (L"ItemRevolverAmmo"))
+	//	return static_cast<Component*>(m_ChildObject->GetComponent<ItemRevolverAmmo>());
+	//else if (m_HandlingObjectType == (L"ItemShotgunAmmo"))
+	//	return static_cast<Component*>(m_ChildObject->GetComponent<ItemShotgunAmmo>());
+	//else if (m_HandlingObjectType == (L"ItemSMGAmmo"))
+	//	return static_cast<Component*>(m_ChildObject->GetComponent<ItemSMGAmmo>());
+	//else if (m_HandlingObjectType == (L"ItemHealthPack"))
+	//	return static_cast<Component*>(m_ChildObject->GetComponent<ItemHealthPack>());
+	return nullptr;
+}
+
+void HandlingObject::AddComponentToChildObject(CString Type)
+{
+	m_ComponentType = Type;
+
+	if (Type == (L"ItemBowAmmo"))
+		m_ChildObject->AddComponent<ItemBowAmmo>();
+	else if (Type == (L"ItemChaingunAmmo"))
+		m_ChildObject->AddComponent<ItemChaingunAmmo>();
+	else if (Type == (L"ItemLauncherAmmo"))
+		m_ChildObject->AddComponent<ItemLauncherAmmo>();
+	else if (Type == (L"ItemRevolverAmmo"))
+		m_ChildObject->AddComponent<ItemRevolverAmmo>();
+	else if (Type == (L"ItemShotgunAmmo"))
+		m_ChildObject->AddComponent<ItemShotgunAmmo>();
+	else if (Type == (L"ItemSMGAmmo"))
 		m_ChildObject->AddComponent<ItemSMGAmmo>();
+	else if (Type == (L"ItemHealthPack"))
+		m_ChildObject->AddComponent<ItemHealthPack>();
+}
+
+void HandlingObject::RemoveChildObjectAndComponent()
+{
+	m_ComponentType = L"";
+	m_ChildObject->Destroy();
+	m_ChildObject = CreateGameObject();
+	m_ChildObject->transform->parent = GetGameObject()->transform;
+	m_ChildObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
 }
 
 HandlingObject* HandlingObject::Pick(float& Distance)

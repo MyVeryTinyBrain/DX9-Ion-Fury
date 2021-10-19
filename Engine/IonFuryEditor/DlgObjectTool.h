@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-
 // DlgObjectTool 대화 상자
+
+class HandlingObject;
 
 class DlgObjectTool : public CDialog
 {
@@ -22,18 +23,28 @@ protected:
 
 public:
 	CListBox m_ObjectListBox;
-	CSliderCtrl m_ScaleXSlider;
-	CSliderCtrl m_ScaleYSlider;
-	CSliderCtrl m_ScaleZSlider;
-	CSliderCtrl m_RotationXSlider;
-	CSliderCtrl m_RotationYSlider;
-	CSliderCtrl m_RotationZSlider;
-	CSliderCtrl m_PivotScaleSlider;
+	CSliderCtrl m_SliderScaleX;
+	CSliderCtrl m_SliderScaleY;
+	CSliderCtrl m_SliderScaleZ;
+	CSliderCtrl m_SliderRotationX;
+	CSliderCtrl m_SliderRotationY;
+	CSliderCtrl m_SliderRotationZ;
+	CSliderCtrl m_PivotSliderScale;
 	CComboBox m_TypeComboBox;
 	CString m_Name;
 	int m_Cnt = 0;
 public:
-	afx_msg void OnBnClickedAddButton();
+	void SetScaleScrollToDefault(HandlingObject* picked = nullptr);		
+	void SetRotationScrollToDefault(HandlingObject* picked = nullptr);	//매개변수 있으면 reset, 아니면 스크롤값 초기화
+	void SetScaleScrollToPicked(HandlingObject* picked);
+	void SetRotationScrollToPicked(HandlingObject* picked);
+public:
+
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedAddButton();
+	afx_msg void OnBnClickedResetType();
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+
+	afx_msg void OnLbnSelchangeListBox();
 };
