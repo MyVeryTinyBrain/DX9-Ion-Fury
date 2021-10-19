@@ -5,6 +5,7 @@
 #include "Deacon.h"
 #include "Drone.h"
 #include "MapLoad.h"
+#include "ObjectWoodenContainer.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -14,8 +15,8 @@ IClonable* TestScene3::Clone()
 void TestScene3::OnLoad(Scene* beforeScene)
 {
     AddSkyBox();
-    AddMonster();
-    MapLoad::LoadMap(L"../Data/Map/testmap.txt");
+    //AddMonster();
+  //  MapLoad::LoadMap(L"../Data/Map/testmap.txt");
     
 	{   // Create directional light
 		auto obj = CreateGameObject();
@@ -29,6 +30,12 @@ void TestScene3::OnLoad(Scene* beforeScene)
 		auto light = obj->AddComponent<DirectionalLight>();
 		light->ambientFactor = 0.6f;
 	}
+
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0.f, 0.f, 0.f);
+        ObjectWoodenContainer* wooden =  obj->AddComponent<ObjectWoodenContainer>();
+    }
 
 	{   // Create test player
 		auto obj = CreateGameObject();
