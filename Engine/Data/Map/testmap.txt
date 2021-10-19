@@ -1,0 +1,38 @@
+[
+	{
+		"ColliderExistence" : false,
+		"MeshType" : 0,
+		"Name" : "StrartRoomGround",
+		"PositionX" : -5.449944019317627,
+		"PositionY" : 0.0,
+		"PositionZ" : -7.3413686752319336,
+		"RotationX" : -88.997894287109375,
+		"RotationY" : 0.0,
+		"RotationZ" : 0.0,
+		"ScaleX" : 15.0,
+		"ScaleY" : 10.0,
+		"ScaleZ" : 0.34999999403953552,
+		"Tag" : "Ground",
+		"TexturePath" : "../BuiltIn/WhiteTexture.png",
+		"UVScaleX" : 1.0,
+		"UVScaleY" : 1.0
+	},
+	{
+		"ColliderExistence" : false,
+		"MeshType" : 0,
+		"Name" : "StrartRoomWall",
+		"PositionX" : -5.7196478843688965,
+		"PositionY" : 2.7592158317565918,
+		"PositionZ" : -8.2955513000488281,
+		"RotationX" : -2.4265705160761059e-20,
+		"RotationY" : 179.99998474121094,
+		"RotationZ" : 179.99998474121094,
+		"ScaleX" : 1.1499999761581421,
+		"ScaleY" : 4.75,
+		"ScaleZ" : 1.6000000238418579,
+		"Tag" : "Wall",
+		"TexturePath" : "../BuiltIn/WhiteTexture.png",
+		"UVScaleX" : 1.0,
+		"UVScaleY" : 1.0
+	}
+]
