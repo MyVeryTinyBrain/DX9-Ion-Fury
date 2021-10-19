@@ -52,7 +52,7 @@
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectStair.h" />
-    <ClInclude Include="ObjectWoodenContainer.h" />
+    <ClInclude Include="ObjectContainer.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
@@ -107,7 +107,7 @@
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
-    <ClCompile Include="ObjectWoodenContainer.cpp" />
+    <ClCompile Include="ObjectContainer.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />

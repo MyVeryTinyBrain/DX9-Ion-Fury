@@ -143,13 +143,13 @@ void Deacon::OnDead(bool& dead, DamageParameters& params)
 	m_body->useGravity = true;
 	//transform->position -= Vec3(0.f, 0.1f, 0.f);
 
-	int dieIndex = rand() % (int)DeaconSpriteAnimator::DIE::MAX;
+	//int dieIndex = rand() % (int)DeaconSpriteAnimator::DIE::MAX;
 
 
-	if (params.damageType == MonsterDamageType::Explosion)
-	{
-		dieIndex = (int)MonsterDamageType::Explosion;
-	}
+	//if (params.damageType == MonsterDamageType::Explosion)
+	//{
+	//	dieIndex = (int)MonsterDamageType::Explosion;
+	//}
 
 
 	m_realdead = true;

@@ -5,7 +5,7 @@
 #include "Deacon.h"
 #include "Drone.h"
 #include "MapLoad.h"
-#include "ObjectWoodenContainer.h"
+#include "ObjectContainer.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -16,31 +16,108 @@ void TestScene3::OnLoad(Scene* beforeScene)
 {
     AddSkyBox();
     //AddMonster();
+    AddMap();
   //  MapLoad::LoadMap(L"../Data/Map/testmap.txt");
     
-	{   // Create directional light
-		auto obj = CreateGameObject();
 
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
-		obj->transform->position = Vec3(0, 5, 0);
-		obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
-		auto light = obj->AddComponent<DirectionalLight>();
-		light->ambientFactor = 0.6f;
-	}
-
-    {
+    { //컨테이너
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0.f, 0.f, 0.f);
-        ObjectWoodenContainer* wooden =  obj->AddComponent<ObjectWoodenContainer>();
+        obj->transform->localPosition = Vec3(0, -1.5f, 0);
+        obj->transform->scale = Vec3(2.f, 2.f, 2.f);
+        auto* wooden =  obj->AddComponent<ObjectContainer>();
+        wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/123.png");
+        wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/123.png");
+        wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/123.png");
+        wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/123.png");
+        wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/456.png");
+        wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/456.png");
     }
 
-	{   // Create test player
-		auto obj = CreateGameObject();
-		auto controller = obj->AddComponent<Player>();
-	}
+    { //컨테이너
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(4.f, -2.f, 0.f);
+        obj->transform->scale = Vec3(1.5f, 1.5f, 1.5f);
+        //obj->transform->localPosition = Vec3(0, -1.5f, 0);
+        auto* wooden = obj->AddComponent<ObjectContainer>();
+        wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/789.png");
+        wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/789.png");
+        wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/789.png");
+        wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/789.png");
+        wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/987.png");
+        wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/987.png");
+    }
+
+    { //컨테이너
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(8.f, -2.f, 0.f);
+        obj->transform->scale = Vec3(1.5f, .5f, 2.5f);
+       // obj->transform->localPosition = Vec3(0, -3.5f, 0);
+        auto* wooden = obj->AddComponent<ObjectContainer>();
+        wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/111.png");
+        wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/111.png");
+        wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/111.png");
+        wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/111.png");
+        wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/222.png");
+        wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/222.png");
+    }
+
+
+
+}
+
+void TestScene3::OnUnload(Scene* nextScene)
+{
+}
+
+void TestScene3::AddSkyBox()
+{
+    {
+        auto skyboxObj = CreateGameObject();
+        Skybox* skybox = skyboxObj->AddComponent<Skybox>();
+
+        skybox->SetTopTexture(L"../SharedResource/Texture/skybox_cloudy/top.png");
+        skybox->SetLeftTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetRightTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetForwardTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetBackTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
+        skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
+    }
+}
+
+void TestScene3::AddMonster()
+{
+    for(int i = 0; i<20; ++i)
+    {
+
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -5*i);
+        obj->AddComponent<Deacon>();
+    }
+}
+
+void TestScene3::AddMap()
+{
+
+    {   // Create test player
+        auto obj = CreateGameObject();
+        auto controller = obj->AddComponent<Player>();
+    }
+
+
+    {   // Create directional light
+        auto obj = CreateGameObject();
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+        obj->transform->position = Vec3(0, 5, 0);
+        obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+        auto light = obj->AddComponent<DirectionalLight>();
+        light->ambientFactor = 0.6f;
+    }
 
 
     {   // Create ground
@@ -179,36 +256,5 @@ void TestScene3::OnLoad(Scene* beforeScene)
     //    collider->restitution = 1.0f;
     //}
 
-
-}
-
-void TestScene3::OnUnload(Scene* nextScene)
-{
-}
-
-void TestScene3::AddSkyBox()
-{
-    {
-        auto skyboxObj = CreateGameObject();
-        Skybox* skybox = skyboxObj->AddComponent<Skybox>();
-
-        skybox->SetTopTexture(L"../SharedResource/Texture/skybox_cloudy/top.png");
-        skybox->SetLeftTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
-        skybox->SetRightTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
-        skybox->SetForwardTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
-        skybox->SetBackTexture(L"../SharedResource/Texture/skybox_cloudy/side.png");
-        skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
-    }
-}
-
-void TestScene3::AddMonster()
-{
-    for(int i = 0; i<20; ++i)
-    {
-
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -5*i);
-        obj->AddComponent<Deacon>();
-    }
 }
 

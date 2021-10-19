@@ -12,5 +12,6 @@ class TestScene3 : public Scene
 
 	void AddSkyBox();
 	void AddMonster();
+	void AddMap();
 };
 
