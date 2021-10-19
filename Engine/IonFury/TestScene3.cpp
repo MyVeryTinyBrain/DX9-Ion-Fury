@@ -15,7 +15,7 @@ void TestScene3::OnLoad(Scene* beforeScene)
 {
     AddSkyBox();
   //  AddMonster();
-   // MapLoad::LoadMap(L"../Data/Map/")
+    MapLoad::LoadMap(L"../Data/Map/testmap.txt");
     
 	{   // Create directional light
 		auto obj = CreateGameObject();
