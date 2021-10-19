@@ -6,6 +6,7 @@
 #include "Drone.h"
 #include "MapLoad.h"
 #include "ObjectContainer.h"
+#include "ObjectGetItem.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -62,7 +63,14 @@ void TestScene3::OnLoad(Scene* beforeScene)
         wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/222.png");
         wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/222.png");
     }
-
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-4.f, -2.f, 0.f);
+        auto texture = obj->AddComponent<ObjectGetItem>();
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/object/trashcan0.png"));
+    }
 
 
 }

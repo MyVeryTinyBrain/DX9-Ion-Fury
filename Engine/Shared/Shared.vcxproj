@@ -51,6 +51,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
+    <ClInclude Include="ObjectGetItem.h" />
     <ClInclude Include="ObjectStair.h" />
     <ClInclude Include="ObjectContainer.h" />
     <ClInclude Include="OrthoEffect.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
+    <ClCompile Include="ObjectGetItem.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
     <ClCompile Include="ObjectContainer.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
