@@ -180,7 +180,7 @@ void TestScene3::OnLoad(Scene* beforeScene)
 
 	{
 		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0, 1, -15);
+		obj->transform->position = Vec3(0, 2, -15);
 		obj->AddComponent<Deacon>();
 	}
 

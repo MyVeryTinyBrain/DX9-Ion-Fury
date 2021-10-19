@@ -63,9 +63,13 @@ private:
 
 	void Effect();
 
+	void ShootToPlayer();
+
 private:
 
 	float createEffect = 0.f;;
 	float random = 0;
+
+	bool m_ground = false;
 };
 
