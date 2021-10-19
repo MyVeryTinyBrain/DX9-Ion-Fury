@@ -179,6 +179,21 @@ void TestScene2::OnLoad(Scene* beforeScene)
     //    obj->transform->position = Vec3(0, 2, -5);
     //    obj->AddComponent<Spider>();
     //}
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(1, 2, -5);
+    //    obj->AddComponent<Spider>();
+    //}
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(-1, 2, -5);
+    //    obj->AddComponent<Spider>();
+    //}
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -3);
+    //    obj->AddComponent<Spider>();
+    //}
 
     //{
     //    auto obj = CreateGameObject();

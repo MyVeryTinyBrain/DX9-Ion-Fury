@@ -37,7 +37,7 @@ private:
 
 	enum class AttackType { Swing, Jump, Max };
 
-	void SetAction(ActionType type, AttackType attacktype);
+	void SetAction(ActionType type);
 
 	void AttackToPlayer();
 
@@ -73,5 +73,6 @@ private:
 
 	float m_jumptime = 0.f;
 
+	float m_deadTime = 0.f;
 };
 

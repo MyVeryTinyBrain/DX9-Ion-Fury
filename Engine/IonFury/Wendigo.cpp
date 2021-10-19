@@ -5,7 +5,6 @@
 #include "PhysicsLayers.h"
 #include "BloodEffect.h"
 
-
 void Wendigo::Awake()
 {
 	Monster::Awake();
@@ -36,7 +35,7 @@ void Wendigo::FixedUpdate()
 
 	MoveToTarget();
 
-	//JumpCheck();
+	JumpCheck();
 }
 
 void Wendigo::Update()
@@ -65,15 +64,15 @@ void Wendigo::Update()
 	if (!m_attacking && (m_breakTime <= 0))
 	{
 		actionType = (ActionType)(rand() % unsigned int(ActionType::Max));
-		SetAction(actionType, attackType);
+		SetAction(actionType);
 	}
 
 	if (m_breakTime > 0 && m_animator->IsPlayingIdle())
 	{
 		m_breakTime -= Time::DeltaTime();
 	}
-	
-	
+
+
 	if (m_animator->IsPlayingIdle() && m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 	{
 		m_animator->PlayWalk();
@@ -86,6 +85,7 @@ void Wendigo::Update()
 	Attack();
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
+
 }
 
 void Wendigo::OnDestroy()
@@ -113,8 +113,8 @@ Collider* Wendigo::InitializeCollider(GameObject* colliderObj)
 void Wendigo::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
-	m_attackCount = 5;
-	m_breakTime = 0.35f;
+	//m_attackCount = 5;
+	//m_breakTime = 0.35f;
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
@@ -142,7 +142,9 @@ void Wendigo::OnDead(bool& dead, DamageParameters& params)
 	m_attackCount = 0;
 	m_breakTime = FLT_MAX;
 
+
 	m_animator->PlayDie();
+
 }
 
 void Wendigo::MoveToTarget()
@@ -231,19 +233,18 @@ void Wendigo::Jump()
 
 		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
-		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * m_moveSpeed;
+		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * 11.f;
 
 		transform->position += velocity * 0.03f;
 
 		m_animator->PlayAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Jump);
-		//m_animator->SetDefaultAnimation(m_animator->GetAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Jump), true);
+		
 
 		if (transform->position.y > m_jumpY + 2.f)
 		{
 			m_attacking = true;
 			m_hasJump = false;
 			m_animator->PlayWalk();
-			//m_animator->SetDefaultAnimation(m_animator->GetWalk(), true);
 		}
 	}
 }
@@ -253,13 +254,14 @@ void Wendigo::JumpCheck()
 
 	const Vec3& wendigoPos = transform->position;
 
-	Vec3 forward = m_targetCoord - wendigoPos;
+	Vec3 forward = Player::GetInstance()->transform->position - wendigoPos;
+	//Vec3 forward = m_targetCoord - wendigoPos;
 	forward.y = 0;
 	forward.Normalize();
 
 	transform->forward = forward;
 
-	PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
+	PhysicsRay ray(transform->position, forward.normalized(), sqrtf(20.0f));
 	RaycastHit hit1;
 
 	m_jumptime += Time::FixedDeltaTime();
@@ -292,7 +294,7 @@ void Wendigo::JumpCheck()
 	//}
 }
 
-void Wendigo::SetAction(ActionType type, AttackType attacktype)
+void Wendigo::SetAction(ActionType type)
 {
 	m_hasTargetCoord = false;
 	m_attackCount = 0;
@@ -302,7 +304,7 @@ void Wendigo::SetAction(ActionType type, AttackType attacktype)
 	{
 	case ActionType::Idle:
 	{
-		
+
 	}
 	break;
 	case ActionType::WalkToRandomCoord:
@@ -325,13 +327,13 @@ void Wendigo::SetAction(ActionType type, AttackType attacktype)
 	break;
 	case ActionType::Swing:
 	{
-		//m_animator->SetDefaultAnimation(m_animator->GetAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Swing), true);
-	//	m_animator->PlayAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Swing);
+		m_attackCount = 1;
+		m_attacking = true;
 	}
 	case ActionType::Jump:
 	{
-
-		//Jump();
+		m_attackCount = 1;
+		m_attacking = true;
 	}
 	break;
 	default:
@@ -342,9 +344,58 @@ void Wendigo::SetAction(ActionType type, AttackType attacktype)
 
 void Wendigo::AttackToPlayer()
 {
-
+	
 }
 
 void Wendigo::Attack()
 {
+	if (m_animator->IsPlayingAttack())
+	{
+		return;
+	}
+
+	if (m_attackCount > 0)
+	{
+		switch (actionType)
+		{
+		//case Wendigo::ActionType::Idle:
+		//{
+		//}
+		//	break;
+		//case Wendigo::ActionType::WalkToRandomCoord:
+		//{
+		//}
+		//	break;
+		//case Wendigo::ActionType::WalkToPlayerDirection:
+		//{
+		//}
+		//	break;
+		case Wendigo::ActionType::Swing:
+		{
+			--m_attackCount;
+
+			m_animator->PlayAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Swing);
+
+		}
+			break;
+		case Wendigo::ActionType::Jump:
+		{
+			--m_attackCount;
+
+			m_animator->PlayAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Jump);
+
+			Jump();
+		}
+			break;
+		}
+
+
+		Vec3 forward = Player::GetInstance()->transform->position - transform->position;
+		forward.y = 0;
+		forward.Normalize();
+		transform->forward = forward;
+
+	}
+	else
+		m_attacking = false;
 }

@@ -160,6 +160,8 @@ void WendigoSpriteAnimator::OnDestroy()
 
 void WendigoSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 {
+	if (currentAnimation == m_die)
+		SetTransitionMode(false);
 }
 
 void WendigoSpriteAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
