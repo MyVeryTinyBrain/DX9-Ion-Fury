@@ -64,22 +64,6 @@ void Deacon::Update()
 {
 	Monster::Update();
 
-	if (m_ground)
-	{
-		m_body->SetRotationLockAxis(PhysicsAxis::All, true);
-		m_body->SetTranslationLockAxis(PhysicsAxis::All, true);
-	}
-
-	//if (m_isDead)
-	//{
-	//	if (m_body)
-	//	{
-	//		m_body->Destroy();
-	//		m_collider->Destroy();
-	//		m_body = nullptr;
-	//		m_collider = nullptr;
-	//	}
-	//}
 	Moving(movingtype);
 
 	m_animator->SetAngle(AngleToPlayerWithSign());//플레이어기준 어디에있는지 ~몬스터 가 보는 방향과 플레이어 방향 사이의 크기 에서 보여줄 스프라이트 출력시키게 해주는거
@@ -93,6 +77,20 @@ void Deacon::Update()
 		m_defaultEmissive = Color::black();
 	}
 
+	// 몬스터의 사망이 확인되었을때
+	if (m_isDead)
+	{
+		// 바디의 속도가 매우 작다면
+		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
+		if (m_body && m_body->IsRigidbodySleep())
+		{
+			m_body->Destroy();
+			m_collider->Destroy();
+			m_body = nullptr;
+			m_collider = nullptr;
+		}
+		return;
+	}
 
 
 	if (!m_isDead)
@@ -103,7 +101,6 @@ void Deacon::OnDestroy()
 {
 	Monster::OnDestroy();
 
-	// m_animator->OnDeadAnimated -= Function<void()>(this, &Gunner::OnDeadAnimated);
 
 }
 
@@ -298,17 +295,6 @@ void Deacon::DeadPosSet()
 	}
 
 
-	/*for (int i = 0; i < 3; ++i)
-{
-	m_rendererObj->transform->localPosition -= Vec3(0, i + 0.4, 0);
-}*/
-
-
-//float randomPull = float(rand() % 1000) / 1000.0f;
-//randomPull *= 0.01f;
-//transform->position = transform->position + transform->position.normalized() * (0.01f + randomPull);
-//transform->forward = transform->position.normalized();
-
 	m_isDead = true;
 	m_realdead = false;
 
@@ -334,100 +320,3 @@ void Deacon::ShootToPlayer()
 	mosterToPlayer.Normalize();
 	Player::GetInstance()->TakeDamage(1);
 }
-
-
-
-
-
-
-
-//switch (type)
-//{
-//case Deacon::MovingType::Idle:
-//{
-//    movingtype = (MovingType)1;
-//}
-//break;
-//case Deacon::MovingType::Trace:
-//{
-//    Vec3 xzdronePos = Vec3(DeaconPos.x, 0, DeaconPos.z);
-//    float distance = Vec3::Distance(xzdronePos, Player::GetInstance()->transform->position);
-//
-//    if (distance > 8.f)
-//        m_distance = true;
-//    else
-//        m_distance = false;
-//
-//    if (m_distance)
-//    {
-//        m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-//        Vec3 targetCoord = Player::GetInstance()->transform->position;
-//        SetTargetCoord(targetCoord);
-//
-//        Vec3 velocity = forward * m_moveSpeed;
-//        velocity.y = 0;
-//        m_body->velocity = velocity;
-//    }
-//
-//    m_deltatime += Time::DeltaTime();
-//
-//    if (m_deltatime < 1.5f)
-//    {
-//        transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
-//    }
-//    else
-//    {
-//        transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
-//
-//        if (m_deltatime > 3.f)
-//        {
-//            m_deltatime = 0.f;
-//            movingtype = (MovingType)2;
-//        }
-//    }
-//}
-//break;
-//case Deacon::MovingType::leftRight:
-//{
-//    transform->up = Vec3(0, 1, 0);
-//    transform->right = Vec3::Cross(transform->up, transform->forward);
-//    transform->right.Normalize();
-//
-//    m_deltatime + Time::DeltaTime();
-//
-//    if (m_deltatime < 3.f)
-//    {
-//        transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
-//        m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-//        m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.f);
-//
-//    }
-//    else
-//    {
-//        transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
-//        m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-//        m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
-//        if (m_deltatime > 6.f)
-//        {
-//            m_deltatime = 0.f;
-//            movingtype = (MovingType)3;
-//        }
-//    }
-//}
-//break;
-//case Deacon::MovingType::Attack:
-//{
-//    m_attackCount = 10;
-//
-//    movingtype = (MovingType)4;
-//}
-//break;
-//case Deacon::MovingType::Max:
-//{
-//    if (m_attackCount == 1)
-//    {
-//        movingtype = (MovingType)0;
-//    }
-//}
-//break;
-//}
