@@ -5,6 +5,7 @@
 #include "Spider.h"
 #include "Drone.h"
 #include "Warmech.h"
+#include "ObjectVent.h"
 
 IClonable* TestScene2::Clone()
 {
@@ -42,7 +43,12 @@ void TestScene2::OnLoad(Scene* beforeScene)
         auto obj = CreateGameObject();
         auto controller = obj->AddComponent<Player>();
     }
-
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, -1.7f, 3);
+        obj->transform->scale = Vec3(2, 1, 1);
+        obj->AddComponent<ObjectVent>();
+    }
     {   // Create ground
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, -3, 0);
@@ -159,11 +165,11 @@ void TestScene2::OnLoad(Scene* beforeScene)
     //    auto collider = obj->AddComponent<BoxCollider>();
     //}
 
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -5);
-        obj->AddComponent<Warmech>();
-    }
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -5);
+    //    obj->AddComponent<Warmech>();
+    //}
 
     //{
     //    auto obj = CreateGameObject();
