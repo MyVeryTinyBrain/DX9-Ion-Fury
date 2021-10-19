@@ -9,5 +9,7 @@ class ObjectVent : public Component
 private:
 
 	GameObject* m_target = nullptr;
+
+
 };
 

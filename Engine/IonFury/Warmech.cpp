@@ -303,6 +303,8 @@ void Warmech::Attack()
 		forward.y = 0;
 		forward.Normalize();
 		transform->forward = forward;
+
+		ShootToPlayer();
 	}
 	else
 		m_attacking = false;
@@ -351,4 +353,10 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	}
 	break;
 	}
+}
+void Warmech::ShootToPlayer()
+{
+	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
+	mosterToPlayer.Normalize();
+	Player::GetInstance()->TakeDamage(1);
 }

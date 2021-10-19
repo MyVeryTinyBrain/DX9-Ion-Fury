@@ -144,56 +144,7 @@ void WarmechSpriteAnimator::LateUpdate()
 {
 	SpriteAnimator::LateUpdate();
 
-	if (IsPlayingIdle())
-	{
-		if (Abs(m_angle) < 22.5f + 45 * 0)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_WARMECH::FRONT])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT], false, true);
-			}
-
-			ResetUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 1)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL], false, true);
-			}
-
-			ChangeUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 2)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_WARMECH::SIDE])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_WARMECH::SIDE], false, true);
-			}
-
-			ChangeUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 3)
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_WARMECH::BACK_DIAGONAL])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_WARMECH::BACK_DIAGONAL], false, true);
-			}
-
-			ChangeUVDirection();
-		}
-		else
-		{
-			if (currentAnimation != m_idle[(unsigned int)DIR_WARMECH::BACK])
-			{
-				PlayAnimation(m_idle[(unsigned int)DIR_WARMECH::BACK], false, true);
-			}
-
-			ResetUVDirection();
-		}
-
-	}
-	else if (IsPlayingWalk())
+	if (IsPlayingWalk())
 	{
 		if (Abs(m_angle) < 22.5f + 45 * 0)
 		{
@@ -241,6 +192,30 @@ void WarmechSpriteAnimator::LateUpdate()
 			ResetUVDirection();
 		}
 	}
+	if (IsPlayingIdle())
+	{
+		if (Abs(m_angle) < 22.5f + 45 * 0)
+		{
+			if (currentAnimation != m_idle[(unsigned int)DIR_WARMECH::FRONT])
+			{
+				PlayAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT], false, true);
+			}
+
+			ResetUVDirection();
+		}
+		else if (Abs(m_angle) < 22.5f + 45 * 1)
+		{
+			if (currentAnimation != m_idle[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL])
+			{
+				PlayAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT_DIAGONAL], false, true);
+			}
+
+			ChangeUVDirection();
+		}
+
+
+	}
+
 }
 
 void WarmechSpriteAnimator::OnDestroy()
