@@ -329,7 +329,24 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	//=========================================================
 	if (HandlePick)
 	{
+		if (!m_dlgObjectTool)
+			return;
 
+		auto pickObj = HandlePick->GetGameObject();
+		EditorManager::GetInstance()->GetGizmo()->Attach(pickObj->transform);
+		HandlingObject* HandlingObj = pickObj->GetComponent<HandlingObject>();
+
+		if (HandlingObj == nullptr)
+			return;
+
+		m_dlgObjectTool.SetComboBoxAsSelected(HandlingObj);
+		m_dlgObjectTool.SetScaleScrollToPicked(HandlingObj);
+		m_dlgObjectTool.SetRotationScrollToPicked(HandlingObj);
+		m_dlgObjectTool.m_ObjectListBox.SetCurSel(HandlingObj->GetHandlingVectorIndex());
+	}
+	else
+	{	//혹시 이상하면 주목!!//===============
+		m_dlgObjectTool.UndoToolStatus();
 	}
 	//=========================================================
 	LightObj* LightPick = LightObj::LightPick();
@@ -517,6 +534,7 @@ void CIonFuryEditorView::OnFileSaveAs()
 		Json::Value MapObjects;
 		Json::Value TriggerEvents;
 		Json::Value Lights;
+		Json::Value HandleObjects;
 
 		{
 			std::vector<Pickable*> MapVec = Pickable::g_MapVec;
@@ -659,6 +677,31 @@ void CIonFuryEditorView::OnFileSaveAs()
 			Root["Lights"] = Lights;
 		}
 
+		{
+			std::vector<HandlingObject*> HandleVec = HandlingObject::g_HandlingVec;
+			for (int i = 0; i < (int)HandleVec.size(); ++i)
+			{
+				HandlingObject* HandleObject = HandleVec[i];
+
+				Json::Value HandleValue;
+				HandleValue["Name"] = ToString(HandleObject->GetGameObject()->GetName());
+				HandleValue["ComponentType"] = ToString(HandleObject->GetComponentType().GetString());
+				HandleValue["PositionX"] = HandleObject->GetGameObject()->GetTransform()->position.x;
+				HandleValue["PositionY"] = HandleObject->GetGameObject()->GetTransform()->position.y;
+				HandleValue["PositionZ"] = HandleObject->GetGameObject()->GetTransform()->position.z;
+				HandleValue["ChildScaleX"] = HandleObject->GetChildObject()->GetTransform()->scale.x;
+				HandleValue["ChildScaleY"] = HandleObject->GetChildObject()->GetTransform()->scale.y;
+				HandleValue["ChildScaleZ"] = HandleObject->GetChildObject()->GetTransform()->scale.z;
+				HandleValue["PivotScale"] = HandleObject->GetPivotObject()->GetTransform()->scale.x;
+				HandleValue["RotationX"] = HandleObject->GetGameObject()->transform->eulerAngle.x;
+				HandleValue["RotationY"] = HandleObject->GetGameObject()->transform->eulerAngle.y;
+				HandleValue["RotationZ"] = HandleObject->GetGameObject()->transform->eulerAngle.z;
+
+				HandleObjects[i] = HandleValue;
+			}
+			Root["HandleObjects"] = HandleObjects;
+		}
+
 		SaveToJsonFormat(Root, ToString(wstrFilePath.GetString()));
 	}
 }
@@ -690,6 +733,7 @@ void CIonFuryEditorView::OnFileOpen()
 			Json::Value MapObjects = Root["MapObjects"];
 			Json::Value TriggerEvents = Root["TriggerEvents"];
 			Json::Value	Lights = Root["Lights"];
+			Json::Value HandleObjects = Root["HandleObjects"];
 
 			//Map
 			{
@@ -847,6 +891,66 @@ void CIonFuryEditorView::OnFileOpen()
 
 				}
 			}
+
+			//Obj 
+			{
+				std::vector<HandlingObject*> HandlingVec = HandlingObject::g_HandlingVec;
+
+				//emptybeforeload
+				{
+					HandlingObject::ClearVector();
+					HandlingObject::g_HandlingVec;
+
+					m_dlgObjectTool.m_ObjectListBox.ResetContent();
+				}
+
+				int HandleValueCnt = (int)HandleObjects.size();
+
+				// value풀고 제작
+				for (int i = 0; i < HandleValueCnt; ++i)
+				{
+					Json::Value HandleValue = HandleObjects[i];
+
+					wstring Name = ToWString(HandleValue["Name"].asString());
+					wstring ComponentType = ToWString(HandleValue["ComponentType"].asString());
+
+					Vec3 Pos = Vec3(HandleValue["PositionX"].asFloat(), HandleValue["PositionY"].asFloat(), HandleValue["PositionZ"].asFloat());
+					Vec3 ChildScale = Vec3(HandleValue["ChildScaleX"].asFloat(), HandleValue["ChildScaleY"].asFloat(), HandleValue["ChildScaleZ"].asFloat());
+					Vec3 EulerAngle = Vec3(HandleValue["RotationX"].asFloat(), HandleValue["RotationY"].asFloat(), HandleValue["RotationZ"].asFloat());
+
+					Vec3 PivotScale = Vec3(HandleValue["PivotScale"].asFloat(), HandleValue["PivotScale"].asFloat(), HandleValue["PivotScale"].asFloat());
+
+					GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"HandlingObject");
+					pObj->name = Name;
+
+					pObj->transform->position = Pos;
+
+					HandlingObject* HandleObj = pObj->AddComponent<HandlingObject>();
+					HandleObj->AddComponentToChildObject(ComponentType.c_str());
+					
+					
+					GameObject* ChildObj = HandleObj->GetChildObject();
+					GameObject* PivotObj = HandleObj->GetPivotObject();
+
+
+					ChildObj->transform->scale = ChildScale;
+					PivotObj->transform->scale = PivotScale;
+
+					pObj->transform->eulerAngle = EulerAngle;
+				}
+
+				//tool 채우기
+				{
+					std::vector<HandlingObject*> HandlingVec = HandlingObject::g_HandlingVec;
+					int Size = HandlingVec.size();
+					for (int i = 0; i < Size; ++i)
+					{
+						m_dlgObjectTool.m_ObjectListBox.AddString(HandlingVec[i]->GetGameObject()->name.c_str());
+					}
+				}
+			}
+
+
 
 			DetachGizmo();
 		}

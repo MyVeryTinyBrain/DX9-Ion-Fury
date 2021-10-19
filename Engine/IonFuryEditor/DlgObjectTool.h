@@ -39,12 +39,25 @@ public:
 	void SetScaleScrollToPicked(HandlingObject* picked);
 	void SetRotationScrollToPicked(HandlingObject* picked);
 public:
-
+	void SetComboBoxAsSelected(HandlingObject* picked);
+	void UndoToolStatus();
+public:
+	void SaveToJsonFormat(const Json::Value& json, string path);
+	Json::Value LoadFromJsonFormat(string path);
+	wstring ToWString(const string& str);
+	string ToString(const wstring& wstr);
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+public:
 	afx_msg void OnBnClickedAddButton();
 	afx_msg void OnBnClickedResetType();
-	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
-
+	afx_msg void OnBnClickedRenameButton();
 	afx_msg void OnLbnSelchangeListBox();
+
+	afx_msg void OnBnClickedRemove();
+	afx_msg void OnBnClickedResetScale();
+	afx_msg void OnBnClickedResetRotation();
+	afx_msg void OnBnClickedSave();
+	afx_msg void OnBnClickedLoad();
 };

@@ -20,6 +20,9 @@ public:
 	void RemoveChildObjectAndComponent();
 public:
 	static HandlingObject* Pick(float& Distance);
+	int GetHandlingVectorIndex();
+public:
+	static void ClearVector();
 private:
 	GameObject*			m_PivotObject = nullptr;
 	GameObject*			m_ChildObject = nullptr;
