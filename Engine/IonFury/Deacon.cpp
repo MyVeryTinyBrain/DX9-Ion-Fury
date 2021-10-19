@@ -106,12 +106,12 @@ void Deacon::OnDestroy()
 
 Collider* Deacon::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-	}
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	//}
 
 	/*colliderObj->transform->localScale = Vec3::one() * 2.0f;
 	colliderObj->transform->position = m_body->transform->position;*/
@@ -215,8 +215,10 @@ void Deacon::Moving(MovingType type)
 		PhysicsRay ray(transform->position, Vec3::down(), sqrtf(0.1f));
 		RaycastHit hit;
 
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider, m_body))
+		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster) ,PhysicsQueryType::Collider, m_body))
 		{
+			float angle = Vec3::Angle(hit.normal, Vec3::up());
+
 			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
 			{
 				m_hasTargetCoord = false;

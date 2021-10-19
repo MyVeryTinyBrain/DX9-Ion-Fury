@@ -14,7 +14,7 @@ IClonable* TestScene3::Clone()
 void TestScene3::OnLoad(Scene* beforeScene)
 {
     AddSkyBox();
-  //  AddMonster();
+    AddMonster();
     MapLoad::LoadMap(L"../Data/Map/testmap.txt");
     
 	{   // Create directional light
@@ -196,9 +196,11 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
+    for(int i = 0; i<20; ++i)
     {
+
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -15);
+        obj->transform->position = Vec3(0, 2, -5*i);
         obj->AddComponent<Deacon>();
     }
 }
