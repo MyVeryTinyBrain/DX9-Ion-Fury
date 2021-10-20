@@ -4,60 +4,124 @@
 #include "Player.h"
 #include "PhysicsLayers.h"
 #include "BloodEffect.h"
+#include "MutantPoison.h"
 
 void Mutant::Awake()
 {
+
 	Monster::Awake();
 
-	m_hp = 10;
-	m_moveSpeed = 2.0f;
-
-	m_body->mass = 0.5f;
+	m_hp = 20;
+	m_moveSpeed = 3.0f;
+	m_body->mass = 4.0f;
 	m_body->interpolate = Interpolate::Extrapolate;
-	m_body->useGravity = false;
+	m_body->sleepThresholder = 0.5f;
+
+	m_rendererObj->transform->localPosition = Vec3(0, -0.5f, 0);
 
 
-	m_rendererObj->transform->scale = Vec3::one() * 3.0f;
-	m_rendererObj->transform->localPosition = Vec3(0, 0.f, 0);
+	m_attackCount = 10;
+	m_rendererObj->transform->scale = Vec3::one() * 5.0f;
+
 
 	m_renderer = CreateRenderer();
 
+	m_renderer->freezeX = false;
+	m_renderer->freezeZ = false;
+
 	m_animator = m_renderer->gameObject->AddComponent<MutantSpriteAnimator>();
+
 }
 
 void Mutant::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-	MoveToTarget();
+
+	if (m_isDead)
+	{
+		return;
+	}
 
 	if (!m_hasTargetCoord)
 	{
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
+
+
 }
 
 void Mutant::Update()
 {
 	Monster::Update();
+
+	if (create)
+	{
+		m_animator->PlayCreate();
+		create = false;
+	}
+	else if(!create)
+		m_animator->SetDefaultAnimation(m_animator->GetWalk());
+
+	MoveToTarget();
+
+	makePoisonDt += Time::DeltaTime();
+	if (m_isDead)
+	{
+		// 바디의 속도가 매우 작다면
+		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
+		if (m_body && m_body->IsRigidbodySleep())
+		{
+			m_body->Destroy();
+			m_collider->Destroy();
+			m_body = nullptr;
+			m_collider = nullptr;
+		}
+		return;
+	}
+
+
+	if (m_hp < 10)
+	{
+		if (makePoisonDt > 0.1f)
+		{
+			Attack();
+			makePoisonDt = 0;
+		}
+
+	}
+
+	m_animator->SetAngle(AngleToPlayerWithSign());
+
+	if (m_animator->IsPlayingShoot())
+	{
+		m_defaultEmissive = Color::white();
+	}
+	else
+	{
+		m_defaultEmissive = Color::black();
+	}
+
 }
 
 void Mutant::OnDestroy()
 {
 	Monster::OnDestroy();
+
+	//m_animator->OnDeadAnimated -= Function<void()>(this, &Mutant::OnDeadAnimated);
 }
 
 Collider* Mutant::InitializeCollider(GameObject* colliderObj)
 {
 	{
 		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
 		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
 		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 	}
 
-	colliderObj->transform->localScale = Vec3::one() * 1.25f;
+	colliderObj->transform->localScale = Vec3::one() * 1.5f;
 
 	return colliderObj->AddComponent<SphereCollider>();
 }
@@ -66,18 +130,18 @@ void Mutant::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
 
-	switch (params.damageType)
-	{
-	case MonsterDamageType::Bullet:
-		m_moveSpeed = 0.f;
-		break;
-	case MonsterDamageType::Explosion:
-		m_moveSpeed = 0.f;
-		break;
-	case MonsterDamageType::Zizizik:
-		//m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
-		break;
-	}
+	//switch (params.damageType)
+	//{
+	//case MonsterDamageType::Bullet:
+	//	m_moveSpeed = 0.f;
+	//	break;
+	//case MonsterDamageType::Explosion:
+	//	m_moveSpeed = 0.f;
+	//	break;
+	//case MonsterDamageType::Zizizik:
+	//	//m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
+	//	break;
+	//}
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
@@ -146,8 +210,10 @@ void Mutant::MoveToTarget()
 			}
 		}
 
-		Vec3 velocity = forward * m_moveSpeed;
-		velocity.y = m_body->velocity.y;
+
+		Vec3 acceleration = forward * m_moveSpeed;
+		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.1f));
+		velocity.y = -m_body->velocity.y;
 		m_body->velocity = velocity;
 
 
@@ -179,14 +245,14 @@ void Mutant::Attack()
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
+		m_animator->PlayShoot();
 
-		//// 거미줄 
-		//auto obj = CreateGameObject();
-		//obj->transform->position = transform->position + transform->forward;// *2.f;
-		//obj->transform->forward = transform->forward;
-		//obj->AddComponent<Web>();
+		auto obj = CreateGameObject();
+		obj->transform->position = transform->position + Vec3(0.f, 0.7f, 0.f) /*+ (-transform->right)*/;
+		obj->AddComponent<MutantPoison>();
 
 	}
+
 }
 void Mutant::ShootToPlayer()
 {

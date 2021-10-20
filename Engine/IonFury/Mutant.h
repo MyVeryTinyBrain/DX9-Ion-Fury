@@ -6,7 +6,6 @@ class MutantSpriteAnimator;
 
 class Mutant :  public Monster
 {
-public:
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(FixedUpdate);
@@ -44,5 +43,9 @@ private:
 	Vec3 m_beforeCoord;
 
 	int m_attackCount = 0;
+
+	float makePoisonDt = 0.f;
+
+	bool create = true;
 };
 

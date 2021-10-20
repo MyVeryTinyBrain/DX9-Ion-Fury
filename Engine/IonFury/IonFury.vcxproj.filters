@@ -88,6 +88,9 @@
     <ClCompile Include="MutantSpriteAnimator.cpp">
       <Filter>Monster\Mutant</Filter>
     </ClCompile>
+    <ClCompile Include="MutantPoison.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drone.h">
@@ -184,6 +187,9 @@
       <Filter>Monster\Mutant</Filter>
     </ClInclude>
     <ClInclude Include="MutantSpriteAnimator.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="MutantPoison.h">
       <Filter>Monster\Mutant</Filter>
     </ClInclude>
   </ItemGroup>

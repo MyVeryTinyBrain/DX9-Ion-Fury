@@ -23,55 +23,55 @@ void TestScene3::OnLoad(Scene* beforeScene)
     
 
 
-    { //컨테이너
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0.f, 0.f, 0.f);
-        obj->transform->localPosition = Vec3(0, -1.5f, 0);
-        obj->transform->scale = Vec3(2.f, 2.f, 2.f);
-        auto* wooden =  obj->AddComponent<ObjectContainer>();
-        wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/123.png");
-        wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/123.png");
-        wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/123.png");
-        wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/123.png");
-        wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/456.png");
-        wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/456.png");
-    }
+    //{ //컨테이너
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0.f, 0.f, 0.f);
+    //    obj->transform->localPosition = Vec3(0, -1.5f, 0);
+    //    obj->transform->scale = Vec3(2.f, 2.f, 2.f);
+    //    auto* wooden =  obj->AddComponent<ObjectContainer>();
+    //    wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/123.png");
+    //    wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/123.png");
+    //    wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/123.png");
+    //    wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/123.png");
+    //    wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/456.png");
+    //    wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/456.png");
+    //}
 
-    { //컨테이너
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(4.f, -2.f, 0.f);
-        obj->transform->scale = Vec3(1.5f, 1.5f, 1.5f);
-        //obj->transform->localPosition = Vec3(0, -1.5f, 0);
-        auto* wooden = obj->AddComponent<ObjectContainer>();
-        wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/789.png");
-        wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/789.png");
-        wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/789.png");
-        wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/789.png");
-        wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/987.png");
-        wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/987.png");
-    }
+    //{ //컨테이너
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(4.f, -2.f, 0.f);
+    //    obj->transform->scale = Vec3(1.5f, 1.5f, 1.5f);
+    //    //obj->transform->localPosition = Vec3(0, -1.5f, 0);
+    //    auto* wooden = obj->AddComponent<ObjectContainer>();
+    //    wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/789.png");
+    //    wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/789.png");
+    //    wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/789.png");
+    //    wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/789.png");
+    //    wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/987.png");
+    //    wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/987.png");
+    //}
 
-    { //컨테이너
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(8.f, -2.f, 0.f);
-        obj->transform->scale = Vec3(1.5f, .5f, 2.5f);
-       // obj->transform->localPosition = Vec3(0, -3.5f, 0);
-        auto* wooden = obj->AddComponent<ObjectContainer>();
-        wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/111.png");
-        wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/111.png");
-        wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/111.png");
-        wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/111.png");
-        wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/222.png");
-        wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/222.png");
-    }
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(-4.f, -2.f, 0.f);
-        auto texture = obj->AddComponent<ObjectGetItem>();
-        auto renderer = obj->AddComponent<UserMeshRenderer>();
-        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
-        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/object/trashcan0.png"));
-    }
+    //{ //컨테이너
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(8.f, -2.f, 0.f);
+    //    obj->transform->scale = Vec3(1.5f, .5f, 2.5f);
+    //   // obj->transform->localPosition = Vec3(0, -3.5f, 0);
+    //    auto* wooden = obj->AddComponent<ObjectContainer>();
+    //    wooden->SetLeftTexture(L"../SharedResource/Texture/object/Container/111.png");
+    //    wooden->SetRightTexture(L"../SharedResource/Texture/object/Container/111.png");
+    //    wooden->SetTopTexture(L"../SharedResource/Texture/object/Container/111.png");
+    //    wooden->SetBottomTexture(L"../SharedResource/Texture/object/Container/111.png");
+    //    wooden->SetForwardTexture(L"../SharedResource/Texture/object/Container/222.png");
+    //    wooden->SetBackTexture(L"../SharedResource/Texture/object/Container/222.png");
+    //}
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(-4.f, 0.f, 0.f);
+    //    auto texture = obj->AddComponent<ObjectGetItem>();
+    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
+    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/object/trashcan0.png"));
+    //}
 
 
 }
@@ -97,17 +97,17 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
-    //for(int i = 0; i<20; ++i)
+    //for(int i = 0; i<3; ++i)
     //{
 
     //    auto obj = CreateGameObject();
     //    obj->transform->position = Vec3(0, 2, -5*i);
     //    obj->AddComponent<Deacon>();
     //}
-
+    for (int i = 0; i < 15; ++i)
     {
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(-8, 0, 0);
+        obj->transform->position = Vec3(i * 2, 0, 0);
         obj->AddComponent<Mutant>();
     }
 }

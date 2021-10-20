@@ -61,7 +61,6 @@ private:
 
 
 private:
-	void DeadPosSet();
 
 	void Effect();
 

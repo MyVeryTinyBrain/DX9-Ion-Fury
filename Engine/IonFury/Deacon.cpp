@@ -264,43 +264,6 @@ void Deacon::Moving(MovingType type)
 	}
 }
 
-void Deacon::DeadPosSet()
-{
-	const Vec3& DeaconPos = transform->position;
-
-	Vec3 forward = Player::GetInstance()->transform->position - DeaconPos;
-	forward.y = 0;
-	forward.Normalize();
-
-	transform->forward = forward;
-
-	Vec3 xzDeaconPos = Vec3(DeaconPos.x, 0, DeaconPos.z);
-
-	float distance = Vec3::Distance(xzDeaconPos, m_targetCoord);
-
-	PhysicsRay ray(transform->position, Vec3::down(), sqrtf(0.3f));
-	RaycastHit hit;
-
-	if (distance > 0.5f) //거리 비교
-	{
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
-		{
-			float angle = Vec3::Angle(hit.normal, Vec3::down());
-
-			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain && angle > 55 && angle < 65)
-			{
-				m_body->useGravity = true;
-				m_body->mass = 5.f;
-
-			}
-		}
-	}
-
-
-	m_isDead = true;
-	m_realdead = false;
-
-}
 
 void Deacon::Effect()
 {
