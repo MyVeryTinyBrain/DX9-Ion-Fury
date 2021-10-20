@@ -11,7 +11,7 @@ void Deacon::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 30;
+	m_hp = 25;
 	m_moveSpeed = 4.f;
 
 	m_body->mass = 1.f;
@@ -36,7 +36,7 @@ void Deacon::Awake()
 	m_renderer->freezeZ = false;
 	//빌보드 
 
-	m_attackCount = 2;
+	m_attackCount = 4;
 
 	m_animator = m_renderer->gameObject->AddComponent<DeaconSpriteAnimator>();
 
@@ -64,17 +64,6 @@ void Deacon::Update()
 {
 	Monster::Update();
 
-	if (m_isDead)
-	{
-		if (m_body)
-		{
-			m_body->Destroy();
-			m_collider->Destroy();
-			m_body = nullptr;
-			m_collider = nullptr;
-		}
-	}
-
 	Moving(movingtype);
 
 	m_animator->SetAngle(AngleToPlayerWithSign());//플레이어기준 어디에있는지 ~몬스터 가 보는 방향과 플레이어 방향 사이의 크기 에서 보여줄 스프라이트 출력시키게 해주는거
@@ -88,9 +77,20 @@ void Deacon::Update()
 		m_defaultEmissive = Color::black();
 	}
 
-	if (m_realdead)
-		DeadPosSet();
-
+	// 몬스터의 사망이 확인되었을때
+	if (m_isDead)
+	{
+		// 바디의 속도가 매우 작다면
+		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
+		if (m_body && m_body->IsRigidbodySleep())
+		{
+			m_body->Destroy();
+			m_collider->Destroy();
+			m_body = nullptr;
+			m_collider = nullptr;
+		}
+		return;
+	}
 
 
 	if (!m_isDead)
@@ -101,18 +101,17 @@ void Deacon::OnDestroy()
 {
 	Monster::OnDestroy();
 
-	// m_animator->OnDeadAnimated -= Function<void()>(this, &Gunner::OnDeadAnimated);
 
 }
 
 Collider* Deacon::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-	}
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	//}
 
 	/*colliderObj->transform->localScale = Vec3::one() * 2.0f;
 	colliderObj->transform->position = m_body->transform->position;*/
@@ -136,18 +135,21 @@ void Deacon::OnDamage(DamageParameters& params)
 
 void Deacon::OnDead(bool& dead, DamageParameters& params)
 {
+	m_animator->PlayDie();
+
 	m_hasTargetCoord = false;
 	m_attackCount = 0;
+	m_moveSpeed = 0;
+	m_body->useGravity = true;
+	//transform->position -= Vec3(0.f, 0.1f, 0.f);
 
-	int dieIndex = rand() % (int)DeaconSpriteAnimator::DIE::MAX;
+	//int dieIndex = rand() % (int)DeaconSpriteAnimator::DIE::MAX;
 
 
-	if (params.damageType == MonsterDamageType::Explosion)
-	{
-		dieIndex = (int)MonsterDamageType::Explosion;
-	}
-
-	m_animator->PlayDie();
+	//if (params.damageType == MonsterDamageType::Explosion)
+	//{
+	//	dieIndex = (int)MonsterDamageType::Explosion;
+	//}
 
 
 	m_realdead = true;
@@ -163,11 +165,6 @@ void Deacon::SetTargetCoord(Vec3 xzCoord)
 
 void Deacon::Attack()
 {
-	//if (m_animator->IsPlayingShoot())
-	//{
-	//	return;
-	//}
-
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
@@ -178,16 +175,12 @@ void Deacon::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
-		//m_animator->SetDefaultAnimation(m_animator->GetShoot(), true);
-		//Vec3 forward = Player::GetInstance()->transform->position - transform->position; //플레이어 위치 - 내 위치
-		//forward.y = 0;
-		//forward.Normalize();
-		//transform->forward = forward;
+		ShootToPlayer();
 	}
 
-	else if (m_attackCount < 0)
+	else if (!m_isDead && m_attackCount <= 0)
 	{
-		m_animator->PlayMove((DeaconSpriteAnimator::DIR_DECACONE)1);
+		m_animator->PlayDefaultAnimation();
 	}
 }
 
@@ -215,20 +208,22 @@ void Deacon::Moving(MovingType type)
 
 	float distance = Vec3::Distance(xzDeaconPos, m_targetCoord);
 
-	if (distance > 3.f) //거리 비교
+	if (distance > 1.f) //거리 비교
 	{
 		//벽이랑 몬스터 체크 
 
-		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.f));
+		PhysicsRay ray(transform->position, Vec3::down(), sqrtf(0.1f));
 		RaycastHit hit;
 
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
+		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster) ,PhysicsQueryType::Collider, m_body))
 		{
 			float angle = Vec3::Angle(hit.normal, Vec3::up());
 
-			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain && angle > 55 && angle < 65)
+			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
 			{
 				m_hasTargetCoord = false;
+				m_ground = true;
+
 				return;
 			}
 			else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
@@ -244,29 +239,23 @@ void Deacon::Moving(MovingType type)
 		m_body->velocity = velocity;
 
 
-		if (m_hp > 20)
+		if (Vec3::Distance(xzDeaconPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 2.5f)
 		{
-			if (Vec3::Distance(xzDeaconPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 2.5f)
-			{
-				// 이전 몬스터 좌표와 현재 몬스터 좌표의 거리를 비교해서
-				// 지정한 거리 이내이면
-				// 몬스터가 걸려서 움직이지 못한다고 판단하여 목표 지점을 없앱니다.
-				m_hasTargetCoord = false;
-				//return;
-			}
-
-			// 현재 위치를 저장합니다.
-			m_beforeCoord = transform->position;
-			m_beforeCoord.y = 0;
+			// 이전 몬스터 좌표와 현재 몬스터 좌표의 거리를 비교해서
+			// 지정한 거리 이내이면
+			// 몬스터가 걸려서 움직이지 못한다고 판단하여 목표 지점을 없앱니다.
+			m_hasTargetCoord = false;
+			//return;
 		}
 
-		else if (m_hp > 10)
+		// 현재 위치를 저장합니다.
+		m_beforeCoord = transform->position;
+		m_beforeCoord.y = 0;
+		if (m_hp < 10)
 		{
 			Attack(); //공격
-			int randomnum = rand() % 360;
-
-			//m_
 		}
+
 	}
 	else
 	{
@@ -275,54 +264,6 @@ void Deacon::Moving(MovingType type)
 	}
 }
 
-void Deacon::DeadPosSet()
-{
-	const Vec3& DeaconPos = transform->position;
-
-	Vec3 forward = Player::GetInstance()->transform->position - DeaconPos;
-	forward.y = 0;
-	forward.Normalize();
-
-	transform->forward = forward;
-
-	Vec3 xzDeaconPos = Vec3(DeaconPos.x, 0, DeaconPos.z);
-
-	float distance = Vec3::Distance(xzDeaconPos, m_targetCoord);
-
-	PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.f));
-	RaycastHit hit;
-
-	if (distance > 1.5f) //거리 비교
-	{
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
-		{
-			float angle = Vec3::Angle(hit.normal, Vec3::up());
-
-			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain && angle > 55 && angle < 65)
-			{
-				m_body->useGravity = true;
-				m_body->mass = 5.f;
-
-			}
-		}
-	}
-
-
-	/*for (int i = 0; i < 3; ++i)
-{
-	m_rendererObj->transform->localPosition -= Vec3(0, i + 0.4, 0);
-}*/
-
-
-	//float randomPull = float(rand() % 1000) / 1000.0f;
-	//randomPull *= 0.01f;
-	//transform->position = transform->position + transform->position.normalized() * (0.01f + randomPull);
-	//transform->forward = transform->position.normalized();
-
-	m_isDead = true;
-	m_realdead = false;
-
-}
 
 void Deacon::Effect()
 {
@@ -337,102 +278,10 @@ void Deacon::Effect()
 		createEffect = 0;
 
 	}
-
 }
-
-
-
-
-
-
-
-//switch (type)
-//{
-//case Deacon::MovingType::Idle:
-//{
-//    movingtype = (MovingType)1;
-//}
-//break;
-//case Deacon::MovingType::Trace:
-//{
-//    Vec3 xzdronePos = Vec3(DeaconPos.x, 0, DeaconPos.z);
-//    float distance = Vec3::Distance(xzdronePos, Player::GetInstance()->transform->position);
-//
-//    if (distance > 8.f)
-//        m_distance = true;
-//    else
-//        m_distance = false;
-//
-//    if (m_distance)
-//    {
-//        m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-//        Vec3 targetCoord = Player::GetInstance()->transform->position;
-//        SetTargetCoord(targetCoord);
-//
-//        Vec3 velocity = forward * m_moveSpeed;
-//        velocity.y = 0;
-//        m_body->velocity = velocity;
-//    }
-//
-//    m_deltatime += Time::DeltaTime();
-//
-//    if (m_deltatime < 1.5f)
-//    {
-//        transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
-//    }
-//    else
-//    {
-//        transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
-//
-//        if (m_deltatime > 3.f)
-//        {
-//            m_deltatime = 0.f;
-//            movingtype = (MovingType)2;
-//        }
-//    }
-//}
-//break;
-//case Deacon::MovingType::leftRight:
-//{
-//    transform->up = Vec3(0, 1, 0);
-//    transform->right = Vec3::Cross(transform->up, transform->forward);
-//    transform->right.Normalize();
-//
-//    m_deltatime + Time::DeltaTime();
-//
-//    if (m_deltatime < 3.f)
-//    {
-//        transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
-//        m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-//        m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.f);
-//
-//    }
-//    else
-//    {
-//        transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
-//        m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-//        m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
-//        if (m_deltatime > 6.f)
-//        {
-//            m_deltatime = 0.f;
-//            movingtype = (MovingType)3;
-//        }
-//    }
-//}
-//break;
-//case Deacon::MovingType::Attack:
-//{
-//    m_attackCount = 10;
-//
-//    movingtype = (MovingType)4;
-//}
-//break;
-//case Deacon::MovingType::Max:
-//{
-//    if (m_attackCount == 1)
-//    {
-//        movingtype = (MovingType)0;
-//    }
-//}
-//break;
-//}
+void Deacon::ShootToPlayer()
+{
+	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
+	mosterToPlayer.Normalize();
+	Player::GetInstance()->TakeDamage(1);
+}

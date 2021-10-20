@@ -2,6 +2,7 @@
 #include "WarmechHit.h"
 #include "WarmechSpriteAnimator.h"
 #include "PhysicsLayers.h"
+#include "Player.h"
 
 void WarmechHit::Awake()
 {
@@ -55,6 +56,17 @@ void WarmechHit::Update()
 	//m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
 	m_animator->SetDefaultAnimation(m_animator->GetSpriteAnimation(SPRITE_WARMECH::Damage), true);
 
+	Vec3 playerPos = Player::GetInstance()->transform->position;
+	Vec3 missilePos = transform->position;
+
+
+	if (m_initialdir)
+	{
+		forward = playerPos - missilePos;
+		forward.Normalize();
+		transform->forward = forward;
+		m_initialdir = false;
+	}
 
 	if (m_ground)
 	{
@@ -62,7 +74,14 @@ void WarmechHit::Update()
 		m_body->SetTranslationLockAxis(PhysicsAxis::All, true);
 	}
 	else
-		transform->position += Vec3::down() * m_moveSpeed * Time::DeltaTime();
+	{
+		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
+
+		Vec3 velocity = Quat::AxisAngle(right, -22.5f) * forward * 0.5f;
+
+		transform->position += velocity * 0.03f;
+		//transform->position += Vec3::down() * m_moveSpeed * Time::DeltaTime();
+	}
 
 	m_selfDestroyCounter -= Time::DeltaTime();
 

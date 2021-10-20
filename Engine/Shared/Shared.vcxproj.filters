@@ -213,6 +213,9 @@
     <ClInclude Include="TrailRenderer.h">
       <Filter>TrailRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectAutoDoor.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -359,10 +362,11 @@
     <ClCompile Include="TrailRenderer.cpp">
       <Filter>TrailRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectAutoDoor.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint">
-      <Filter>소스 파일</Filter>
-    </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

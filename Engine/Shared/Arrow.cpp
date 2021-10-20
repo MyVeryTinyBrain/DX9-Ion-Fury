@@ -3,6 +3,7 @@
 #include "PhysicsLayers.h"
 #include "Monster.h"
 #include "TrailRenderer.h"
+#include "Player.h"
 
 void Arrow::Awake()
 {
@@ -94,9 +95,12 @@ void Arrow::OnCollisionEnter(const CollisionEnter& collider)
 		transform->position = collider.GetContact(0).point + collider.GetContact(0).normal * 0.1f;
 		m_hitOnTerrain = true;
 		RemoveBodyAndCollider();
+		transform->parent = collider.fromCollider->rigidbody->transform;
 	}
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
 	{
+		Player::GetInstance()->TakeDamage(1);
+
 		RemoveBodyAndCollider();
 		RemoveRenderer();
 	}
@@ -130,6 +134,17 @@ void Arrow::OnCollisionEnter(const CollisionEnter& collider)
 		RemoveBodyAndCollider();
 		RemoveRenderer();
 	}
+}
+
+void Arrow::SetTargetToMonster()
+{
+	m_collider->SetIgnoreLayerBits(1 << (uint32_t)PhysicsLayers::Player);
+}
+
+void Arrow::SetTargetToPlayer()
+{
+	m_collider->SetIgnoreLayerBits(1 << (uint32_t)PhysicsLayers::Monster);
+	m_trailRenderer->width = 0.1f;
 }
 
 Rigidbody* Arrow::GetRigidbody() const

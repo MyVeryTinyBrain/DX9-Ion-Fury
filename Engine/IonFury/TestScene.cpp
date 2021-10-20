@@ -2,6 +2,9 @@
 #include "TestScene.h"
 #include "Player.h"
 #include "Gunner.h"
+#include "CultistGunner.h"
+#include "CultistArcher.h"
+#include "Liberator.h"
 #include "Spider.h"
 #include "Skybox.h"
 #include "LightLoad.h"
@@ -14,7 +17,9 @@
 #include "ItemShotgunAmmo.h"
 #include "ItemSMGAmmo.h"
 #include "ObjectStair.h"
+#include "ObjectAutoDoor.h"
 #include "Cube.h"
+#include "Skull.h"
 
 IClonable* TestScene::Clone()
 {
@@ -65,9 +70,9 @@ void TestScene::OnLoad(Scene* beforeScene)
 
     {
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, -1.7f, 3);
-        obj->transform->scale = Vec3(2, 1, 1);
-        obj->AddComponent<ObjectStair>();
+        obj->transform->position = Vec3(0, 0.5f, 3);
+        obj->transform->scale = Vec3(5, 5, 1);
+        obj->AddComponent<ObjectAutoDoor>();
     }
     {
         auto obj = CreateGameObject();
@@ -119,6 +124,41 @@ void TestScene::OnLoad(Scene* beforeScene)
             obj->transform->position = Vec3(5, 5, 6);
             obj->AddComponent<ItemSMGAmmo>();
         }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(0, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(1, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(2, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(3, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(4, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(6, 0, 9);
+            obj->AddComponent<ItemHealthPack>();
+        }
     }
 
     {   // Create test player
@@ -160,6 +200,40 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
+    {   // Create obstacle
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, -1, -3);
+        obj->transform->scale = Vec3(7.5f, 1, 1);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+
+        auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
+    }
+
+    {   // Create obstacle
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 1, 8);
+        obj->transform->scale = Vec3(15, 3, 1);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+
+        auto collider = obj->AddComponent<BoxCollider>();
+        collider->friction = 1.0f;
+        collider->restitution = 1.0f;
+    }
+
     {   // Create triangle
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(10, 0, 0);
@@ -176,6 +250,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->friction = 1.0f;
         collider->restitution = 1.0f;
     }
+
 
     {   // Create rotated ground
         auto obj = CreateGameObject();
@@ -262,15 +337,36 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-    for (int i = 0; i < 5; ++i)
+    //for (int i = 0; i < 5; ++i)
+    //{
+    //    for (int j = 0; j < 5; ++j)
+    //    {
+    //        auto obj = CreateGameObject();
+    //        obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
+    //        obj->transform->eulerAngle = Vec3(0, 90, 0);
+
+    //        int r = rand() % 3;
+
+    //        switch (r)
+    //        {
+    //            case 0:
+    //                obj->AddComponent<CultistGunner>();
+    //                break;
+    //            case 1:
+    //                obj->AddComponent<CultistArcher>();
+    //                break;
+    //            case 2:
+    //                obj->AddComponent<Liberator>();
+    //                break;
+    //        }
+    //    }
+    //}
+
     {
-        for (int j = 0; j < 5; ++j)
-        {
-            auto obj = CreateGameObject();
-            obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
-            obj->transform->eulerAngle = Vec3(0, 90, 0);
-            obj->AddComponent<Gunner>();
-        }
+		auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-0, 0, -0);
+		obj->transform->eulerAngle = Vec3(0, 0, 0);
+        obj->AddComponent<Skull>();
     }
 }
 

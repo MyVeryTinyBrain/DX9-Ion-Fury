@@ -5,6 +5,8 @@
 #include "Spider.h"
 #include "Drone.h"
 #include "Warmech.h"
+#include "ObjectVent.h"
+#include "Wendigo.h"
 
 IClonable* TestScene2::Clone()
 {
@@ -42,6 +44,13 @@ void TestScene2::OnLoad(Scene* beforeScene)
         auto obj = CreateGameObject();
         auto controller = obj->AddComponent<Player>();
     }
+
+    //{    // Create Object
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, -1.7f, 3);
+    //    obj->transform->scale = Vec3(2, 1, 1);
+    //    obj->AddComponent<ObjectVent>();
+    //}
 
     {   // Create ground
         auto obj = CreateGameObject();
@@ -103,71 +112,86 @@ void TestScene2::OnLoad(Scene* beforeScene)
     //    auto collider = obj->AddComponent<BoxCollider>();
     //}
 
-    //{   // Create wall
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(-15, 0, 0);
-    //    obj->transform->eulerAngle = Vec3(0, 0, 90);
-    //    obj->transform->scale = Vec3(40, 1, 40);
-
-    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
-    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-    //    auto body = obj->AddComponent<Rigidbody>();
-    //    body->isKinematic = true;
-    //    auto collider = obj->AddComponent<BoxCollider>();
-    //}
-
-    //{   // Create wall
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(+15, 0, 0);
-    //    obj->transform->eulerAngle = Vec3(0, 0, 90);
-    //    obj->transform->scale = Vec3(40, 1, 40);
-
-    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
-    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-    //    auto body = obj->AddComponent<Rigidbody>();
-    //    body->isKinematic = true;
-    //    auto collider = obj->AddComponent<BoxCollider>();
-    //}
-
-    //{   // Create wall
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(0, 0, -15);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 90);
-    //    obj->transform->scale = Vec3(40, 1, 40);
-
-    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
-    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-    //    auto body = obj->AddComponent<Rigidbody>();
-    //    body->isKinematic = true;
-    //    auto collider = obj->AddComponent<BoxCollider>();
-    //}
-
-    //{   // Create wall
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(0, 0, +15);
-    //    obj->transform->eulerAngle = Vec3(0, 90, 90);
-    //    obj->transform->scale = Vec3(40, 1, 40);
-
-    //    auto renderer = obj->AddComponent<UserMeshRenderer>();
-    //    renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-    //    renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
-    //    auto body = obj->AddComponent<Rigidbody>();
-    //    body->isKinematic = true;
-    //    auto collider = obj->AddComponent<BoxCollider>();
-    //}
-
-    {
+    {   // Create wall
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -5);
-        obj->AddComponent<Warmech>();
+        obj->transform->position = Vec3(-15, 0, 0);
+        obj->transform->eulerAngle = Vec3(0, 0, 90);
+        obj->transform->scale = Vec3(40, 1, 40);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+        auto collider = obj->AddComponent<BoxCollider>();
+    }
+
+    {   // Create wall
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(+15, 0, 0);
+        obj->transform->eulerAngle = Vec3(0, 0, 90);
+        obj->transform->scale = Vec3(40, 1, 40);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+        auto collider = obj->AddComponent<BoxCollider>();
+    }
+
+    {   // Create wall
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 0, -15);
+        obj->transform->eulerAngle = Vec3(0, 90, 90);
+        obj->transform->scale = Vec3(40, 1, 40);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+        auto collider = obj->AddComponent<BoxCollider>();
+    }
+
+    {   // Create wall
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 0, +15);
+        obj->transform->eulerAngle = Vec3(0, 90, 90);
+        obj->transform->scale = Vec3(40, 1, 40);
+
+        auto renderer = obj->AddComponent<UserMeshRenderer>();
+        renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+        renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+        auto body = obj->AddComponent<Rigidbody>();
+        body->isKinematic = true;
+        auto collider = obj->AddComponent<BoxCollider>();
     }
 
     //{
     //    auto obj = CreateGameObject();
     //    obj->transform->position = Vec3(0, 2, -5);
+    //    obj->AddComponent<Warmech>();
+    //}
+
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -5);
+    //    obj->AddComponent<Spider>();
+    //}
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(1, 2, -5);
+    //    obj->AddComponent<Spider>();
+    //}
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(-1, 2, -5);
+    //    obj->AddComponent<Spider>();
+    //}
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -3);
     //    obj->AddComponent<Spider>();
     //}
 
@@ -176,6 +200,12 @@ void TestScene2::OnLoad(Scene* beforeScene)
     //    obj->transform->position = Vec3(0, 2, -10);
     //    obj->AddComponent<Drone>();
     //}
+    // 
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -10);
+        obj->AddComponent<Wendigo>();
+    }
 }
 
 void TestScene2::OnUnload(Scene* nextScene)

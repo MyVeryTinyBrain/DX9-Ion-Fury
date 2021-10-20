@@ -25,7 +25,7 @@ void BulletProof::Update()
 	m_selfDestroyCounter += Time::DeltaTime();
 }
 
-void BulletProof::InitializeBulletProof(const Vec3& point, const Vec3& normal)
+void BulletProof::InitializeBulletProof(const Vec3& point, const Vec3& normal, Transform* parent)
 {
 	float randomPull = float(rand() % 1000) / 1000.0f;
 	randomPull *= 0.01f;
@@ -35,6 +35,11 @@ void BulletProof::InitializeBulletProof(const Vec3& point, const Vec3& normal)
 	transform->forward = -normal;
 
 	MakeEffectOnce(point + normal * 0.1f);
+
+	if (parent)
+	{
+		transform->parent = parent;
+	}
 }
 
 void BulletProof::MakeEffectOnce(const Vec3 point)

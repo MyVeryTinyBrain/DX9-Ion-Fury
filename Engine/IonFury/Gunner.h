@@ -25,7 +25,7 @@ class Gunner : public Monster
 private:
 
 	// 플레이어에게 레이를 발사해 장애물이 있는지 확인합니다.
-	bool PlayerInSite() const;
+	bool IsPlayerInSite(Vec3& playerCoord);
 
 	// 1. 목표 지점으로 방향을 틉니다.
 	// 2. 목표 지점으로 향하는 속도를 설정합니다.
@@ -70,5 +70,9 @@ private:
 
 	// 공격할 때 이 카운터가 0보다 크다면 카운터를 1 감소시키고 공격을 합니다.
 	unsigned int m_attackCount = 0;
+
+	float m_attackWaitCounter = 0;
+
+	BehaviorType m_behavior = BehaviorType::Idle;
 };
 

@@ -35,7 +35,7 @@ void Monster::FixedUpdate()
 
 void Monster::Update()
 {
-    DamageEffectProcessing();
+    LightMateriaProcessing();
 }
 
 void Monster::LateUpdate()
@@ -93,7 +93,7 @@ void Monster::TakeDamage(const DamageParameters& params)
 
     m_hp -= damage;
     
-    if (m_refBody)
+    if (m_refBody && !m_refBody->isKinematic)
     {
         m_body->AddForce(copiedParams.force, ForceMode::Impulse);
     }
@@ -111,7 +111,7 @@ void Monster::TakeDamage(const DamageParameters& params)
         // 따라서 지형과만 충돌하는 레이어로 변경합니다.
         m_collider->layerIndex = (uint8_t)PhysicsLayers::MonsterDeadBody;
 
-        if (m_refBody)
+        if (m_refBody && !m_refBody->isKinematic)
         {
             m_body->velocity = Vec3(0, m_body->velocity.y, 0);
             m_body->ClearForce(ForceMode::Impulse);
@@ -180,14 +180,19 @@ void Monster::SetMoveSpeed(float value)
 	m_moveSpeed = value;
 }
 
-void Monster::DamageEffectProcessing()
+bool Monster::IsDead() const
+{
+    return m_isDead;
+}
+
+void Monster::LightMateriaProcessing()
 {
     float percent = m_damageEffectCounter / DAMAGE_EFFECT_DURATION;
 
     if (percent <= 0)
     {
-        m_material->params.ambient = Color::white();
-        m_material->params.diffuse = Color::white();
+        m_material->params.ambient = m_defaultLightColor;
+        m_material->params.diffuse = m_defaultLightColor;
         m_material->params.emissive = m_defaultEmissive;
         m_material->params.specular = Color::black();
     }
@@ -195,8 +200,8 @@ void Monster::DamageEffectProcessing()
     {
         float invPercent = 1.0f - percent;
 
-        m_material->params.ambient = Color::white() * invPercent;
-        m_material->params.diffuse = Color::white() * invPercent;
+        m_material->params.ambient = m_defaultLightColor * invPercent;
+        m_material->params.diffuse = m_defaultLightColor * invPercent;
         m_material->params.emissive = Color::Lerp(m_defaultEmissive, m_damageEffectColor, percent);
         m_material->params.specular = Color::black();
     }

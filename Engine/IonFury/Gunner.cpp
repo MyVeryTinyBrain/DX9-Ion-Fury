@@ -93,8 +93,20 @@ void Gunner::Update()
     // 공격해야하는 경우에 공격합니다.
     Attack();
 
+    float angleToPlayer = AngleToPlayerWithSign();
+
+    Vec3 temp;
+    if (m_attackCount == 0 &&
+        Abs(angleToPlayer) < 15 &&
+        (m_animator->IsPlayingIdle() || m_animator->IsPlayingWalk()) &&
+        IsPlayerInSite(temp))
+    {
+        SetBehavior(Gunner::BehaviorType::Attack);
+        m_attackWaitCounter = 0.1f + float(rand() % 30) * 0.1f;
+    }
+
     // 몬스터의 forward 방향과 플레이어를 바라보는 방향을 계산해서 애니메이터에 전달합니다.
-    m_animator->SetAngle(AngleToPlayerWithSign());
+    m_animator->SetAngle(angleToPlayer);
 
     // 발사 애니메이션 중에 발광합니다.
     if (m_animator->IsPlayingShoot())
@@ -183,8 +195,24 @@ void Gunner::OnDeadAnimated()
     //gameObject->Destroy();
 }
 
-bool Gunner::PlayerInSite() const
+bool Gunner::IsPlayerInSite(Vec3& playerCoord)
 {
+    Vec3 playerHead = Player::GetInstance()->perspectiveCamera->transform->position;
+    Vec3 monsterHead = transform->position + Vec3::up() * 0.5f;
+
+    Vec3 mosterToPlayer = playerHead - monsterHead;
+    mosterToPlayer.Normalize();
+
+    PhysicsRay ray(monsterHead, mosterToPlayer, FLT_MAX);
+    RaycastHit hit;
+    Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider);
+
+    if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+    {
+        playerCoord = playerHead;
+        return true;
+    }
+
     return false;
 }
 
@@ -231,6 +259,7 @@ void Gunner::MoveToTarget()
                 // 충돌한 콜라이더가 Terrain인 경우에
                 // 각도가 지정 각도 이내이면 벽이라고 판단하여 목표 지점을 없앱니다.
                 m_hasTargetCoord = false;
+                m_behavior = Gunner::BehaviorType::Idle;
                 return;
             }
             else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
@@ -238,6 +267,7 @@ void Gunner::MoveToTarget()
                 // 충돌한 콜라이더가 몬스터 콜라이더면
                 // 목표 지점을 없앱니다.
                 m_hasTargetCoord = false;
+                m_behavior = Gunner::BehaviorType::Idle;
                 return;
             }
         }
@@ -255,6 +285,7 @@ void Gunner::MoveToTarget()
             // 몬스터가 걸려서 움직이지 못한다고 판단하여 목표 지점을 없앱니다.
 
             m_hasTargetCoord = false;
+            m_behavior = Gunner::BehaviorType::Idle;
             return;
         }
 
@@ -266,6 +297,7 @@ void Gunner::MoveToTarget()
     {
         // 저정한 거리보다 가까운 경우에는 목표 지점을 없앱니다.
         m_hasTargetCoord = false;
+        m_behavior = Gunner::BehaviorType::Idle;
     }
 }
 
@@ -284,8 +316,13 @@ void Gunner::Attack()
         return;
     }
 
+    if (m_attackWaitCounter > 0)
+    {
+        m_attackWaitCounter -= Time::DeltaTime();
+    }
+
     // 공격 카운터가 남아있다면 공격합니다.
-    if (m_attackCount > 0)
+    if (m_attackCount > 0 && m_attackWaitCounter <= 0)
     {
         --m_attackCount;
         m_animator->PlayShoot();
@@ -298,6 +335,11 @@ void Gunner::Attack()
 
         // 플레이어에게 총을 쏩니다.
         ShootToPlayer();
+
+        if (m_attackCount <= 0)
+        {
+            m_behavior = Gunner::BehaviorType::Idle;
+        }
     }
 }
 
@@ -311,6 +353,7 @@ void Gunner::SetBehavior(BehaviorType type)
     {
         case BehaviorType::Idle:
             {
+                m_behavior = Gunner::BehaviorType::Idle;
             }
             break;
         case BehaviorType::WalkToRandomCoord:
@@ -332,16 +375,24 @@ void Gunner::SetBehavior(BehaviorType type)
             }
             break;
         case BehaviorType::Attack:
-            {
-                m_attackCount = 5;
+            {    
+                Vec3 playerCoord;
+                if (IsPlayerInSite(playerCoord))
+                {
+                    m_attackCount = 5;
+                }
             }
             break;
     }
+
+    m_behavior = type;
 }
 
 void Gunner::ShootToPlayer()
 {
-    Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
-    mosterToPlayer.Normalize();
-    Player::GetInstance()->TakeDamage(1);
+    Vec3 playerCoord;
+    if (IsPlayerInSite(playerCoord))
+    {
+        Player::GetInstance()->TakeDamage(1);
+    }
 }

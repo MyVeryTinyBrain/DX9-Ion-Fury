@@ -118,3 +118,8 @@ void BillboardEffect::SetIgnoreZRotation(bool value)
 {
 	m_renderer->ignoreRotationZ = value;
 }
+
+UserMeshBillboardRenderer* BillboardEffect::GetBillboardRenderer() const
+{
+	return m_renderer;
+}

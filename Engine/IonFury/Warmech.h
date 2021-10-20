@@ -36,6 +36,8 @@ private:
 
 	void SetAction(ActionType type, AttackType attacktype);
 
+	void ShootToPlayer();
+
 	void Attack();
 
 private:
