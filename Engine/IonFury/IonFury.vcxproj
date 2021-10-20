@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BasicMutant.h" />
+    <ClInclude Include="BasicMutantSpriteAnimator.h" />
     <ClInclude Include="Deacon.h" />
     <ClInclude Include="DeaconflyEffect.h" />
     <ClInclude Include="DeaconSpriteAnimator.h" />
@@ -165,6 +167,9 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="MapLoad.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Mutant.h" />
+    <ClInclude Include="MutantSpriteAnimator.h" />
+    <ClInclude Include="MutantPoison.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="SpiderSpriteAnimator.h" />
@@ -185,6 +190,8 @@
     <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasicMutant.cpp" />
+    <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
     <ClCompile Include="Deacon.cpp" />
     <ClCompile Include="DeaconflyEffect.cpp" />
     <ClCompile Include="DeaconSpriteAnimator.cpp" />
@@ -198,6 +205,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapLoad.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="Mutant.cpp" />
+    <ClCompile Include="MutantSpriteAnimator.cpp" />
+    <ClCompile Include="MutantPoison.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="stdafx.cpp" />

@@ -213,6 +213,10 @@
     <ClInclude Include="TrailRenderer.h">
       <Filter>TrailRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectContainer.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectGetItem.h">
     <ClInclude Include="ObjectVent.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -362,6 +366,10 @@
     <ClCompile Include="TrailRenderer.cpp">
       <Filter>TrailRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectContainer.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectGetItem.cpp">
     <ClCompile Include="ObjectVent.cpp">
       <Filter>Object</Filter>
     </ClCompile>

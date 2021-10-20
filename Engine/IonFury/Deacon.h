@@ -33,6 +33,8 @@ private:
 
 	void Moving(MovingType type);
 
+	void SetBehavior(MovingType type);
+
 private:
 
 	UserMeshBillboardRenderer* m_renderer = nullptr;
@@ -59,13 +61,16 @@ private:
 
 
 private:
-	void DeadPosSet();
 
 	void Effect();
+
+	void ShootToPlayer();
 
 private:
 
 	float createEffect = 0.f;;
 	float random = 0;
+
+	bool m_ground = false;
 };
 

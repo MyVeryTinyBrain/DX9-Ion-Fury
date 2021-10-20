@@ -88,6 +88,21 @@
     <ClCompile Include="WarmechTrail.cpp">
       <Filter>Monster\Warmech\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Mutant.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="MutantSpriteAnimator.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="MutantPoison.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicMutant.cpp">
+      <Filter>Monster\BasicMutant</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicMutantSpriteAnimator.cpp">
+      <Filter>Monster\BasicMutant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drone.h">
@@ -186,6 +201,21 @@
     <ClInclude Include="WarmechTrail.h">
       <Filter>Monster\Warmech\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Mutant.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="MutantSpriteAnimator.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="MutantPoison.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicMutant.h">
+      <Filter>Monster\BasicMutant</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicMutantSpriteAnimator.h">
+      <Filter>Monster\BasicMutant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -223,6 +253,11 @@
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monster\Mutant">
+      <UniqueIdentifier>{9d048632-acb8-4288-95bf-0f2dfbf269a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\BasicMutant">
+      <UniqueIdentifier>{877f20ee-036b-4a17-9b72-8e503abd7ec0}</UniqueIdentifier>
     <Filter Include="Monster\Wendigo">
       <UniqueIdentifier>{ab43e8c0-8f2b-45ec-8de8-497c354252e2}</UniqueIdentifier>
     </Filter>
