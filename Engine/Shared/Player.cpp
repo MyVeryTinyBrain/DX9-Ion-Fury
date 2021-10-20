@@ -5,7 +5,6 @@
 #include "FPSOrthoCamera.h"
 #include "Hands.h"
 #include "PlayerUI.h"
-#include "TrailRenderer.h"
 
 ImplementStaticComponent(Player);
 
@@ -14,7 +13,6 @@ void Player::Awake()
 	g_instance = this;
 
 	m_controller = gameObject->AddComponent<FPSCharacterController>();
-	gameObject->AddComponent<TrailRenderer>();
 }
 
 void Player::Update()
@@ -96,6 +94,36 @@ void Player::SubtractHP(unsigned int hp, bool effect)
 	}
 }
 
+void Player::AddArmor(unsigned int armor, bool effect)
+{
+	m_armor += armor;
+
+	if (m_armor > 100)
+	{
+		m_armor = 100;
+	}
+
+	if (effect)
+	{
+		m_controller->fpsCamera->fpsOrthoCamera->UI->ShowGreenScreenEffect();
+	}
+}
+
+void Player::SubtractArmor(unsigned int armor, bool effect)
+{
+	if (m_armor < armor)
+	{
+		armor = m_armor;
+	}
+
+	m_armor -= armor;
+
+	if (effect)
+	{
+		m_controller->fpsCamera->fpsOrthoCamera->UI->ShowRedScreenEffect();
+	}
+}
+
 void Player::SetRigidCounter(float value)
 {
 	m_rigidCounter = value;
@@ -119,7 +147,14 @@ void Player::TakeDamage(int damage, const Vec3& velocity, float rigidTime)
 		}
 	}
 
-	SubtractHP(damage);
+	if (m_armor > 0)
+	{
+		SubtractArmor(damage);
+	}
+	else
+	{
+		SubtractHP(damage);
+	}
 
 	if (velocity.sqrMagnitude() > m_damagedVelocity.sqrMagnitude())
 	{
@@ -150,6 +185,11 @@ void Player::SetHP(unsigned int hp)
 int Player::GetHP() const
 {
 	return m_hp;
+}
+
+int Player::GetArmor() const
+{
+	return m_armor;
 }
 
 void Player::AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count, bool effect)

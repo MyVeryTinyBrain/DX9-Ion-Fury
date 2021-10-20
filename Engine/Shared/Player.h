@@ -41,6 +41,10 @@ public:
 
 	void SubtractHP(unsigned int hp, bool effect = true);
 
+	void AddArmor(unsigned int armor, bool effect = true);
+
+	void SubtractArmor(unsigned int armor, bool effect = true);
+
 	void SetRigidCounter(float value);
 
 	void TakeDamage(int damage, const Vec3& velocity = Vec3::zero(), float rigidTime = 0.0f);
@@ -49,15 +53,21 @@ public:
 
 	int GetHP() const;
 
+	int GetArmor() const;
+
 	void AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count, bool effect = true);
 
 	__declspec(property(get = GetHP, put = SetHP)) int HP;
+
+	__declspec(property(get = GetArmor, put = SetArmor)) int Armor;
 
 private:
 
 	FPSCharacterController* m_controller = nullptr;
 
 	int m_hp = 100;
+
+	int m_armor = 0;
 
 	float m_rigidCounter = 0;
 

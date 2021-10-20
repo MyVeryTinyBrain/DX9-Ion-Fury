@@ -134,6 +134,11 @@ void FPSCharacterController::Update()
     {
         m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(1.65f);
     }
+
+    if (Input::GetKeyDown(Key::E))
+    {
+        m_camera->UseInput();
+    }
 }
 
 void FPSCharacterController::OnDestroy()
