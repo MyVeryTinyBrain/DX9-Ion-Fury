@@ -115,7 +115,8 @@ void MutantSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
     {
         if (current == m_die[i])
         {
-            SetTransitionMode(false);
+            SetDefaultAnimation(nullptr);
+            OnDeadAnimated();
         }
     }
 }
@@ -138,6 +139,7 @@ void MutantSpriteAnimator::PlayCreate()
     PlayAnimation(m_create, true);
     ResetUVDirection();
 
+    SetDefaultAnimation(m_walk);
 }
 
 void MutantSpriteAnimator::PlayWalk()

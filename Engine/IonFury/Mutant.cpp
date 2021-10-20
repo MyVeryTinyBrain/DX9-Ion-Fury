@@ -10,9 +10,10 @@ void Mutant::Awake()
 {
 
 	Monster::Awake();
-	m_moveSpeed = 0.f;
+
 	m_hp = 20;
-	m_body->mass = 3.f;
+	m_moveSpeed = 3.0f;
+	m_body->mass = 4.0f;
 	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->sleepThresholder = 0.5f;
 
@@ -24,6 +25,7 @@ void Mutant::Awake()
 
 
 	m_renderer = CreateRenderer();
+
 	m_renderer->freezeX = false;
 	m_renderer->freezeZ = false;
 
@@ -56,18 +58,11 @@ void Mutant::Update()
 
 	if (create)
 	{
-		m_moveSpeed = 0.f;
-		m_hasTargetCoord = true;
-		m_animator->SetDefaultAnimation(m_animator->GetCreate());
-		//m_animator->PlayCreate();
+		m_animator->PlayCreate();
 		create = false;
 	}
-	else if (!create)
-	{
+	else if(!create)
 		m_animator->SetDefaultAnimation(m_animator->GetWalk());
-		m_moveSpeed = 3.0f;
-	}
-
 
 	MoveToTarget();
 
@@ -134,7 +129,6 @@ Collider* Mutant::InitializeCollider(GameObject* colliderObj)
 void Mutant::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
-	m_attackCount = 2;
 
 	//switch (params.damageType)
 	//{
@@ -203,6 +197,7 @@ void Mutant::MoveToTarget()
 		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
 		{
 			float angle = Vec3::Angle(hit.normal, Vec3::up());
+
 			if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Terrain && angle > 85 && angle < 95)
 			{
 				m_hasTargetCoord = false;
@@ -255,8 +250,6 @@ void Mutant::Attack()
 		auto obj = CreateGameObject();
 		obj->transform->position = transform->position + Vec3(0.f, 0.7f, 0.f) /*+ (-transform->right)*/;
 		obj->AddComponent<MutantPoison>();
-
-		ShootToPlayer();
 
 	}
 
