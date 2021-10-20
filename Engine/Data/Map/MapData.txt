@@ -31,7 +31,7 @@
 		"ScaleY" : 1.0,
 		"ScaleZ" : 1.0,
 		"Tag" : "",
-		"TexturePath" : "..\\SharedResource\\Texture\\Dev.png",
+		"TexturePath" : "../SharedResource/Texture/object/brick.jpg",
 		"UVScaleX" : 1.0,
 		"UVScaleY" : 1.0
 	}

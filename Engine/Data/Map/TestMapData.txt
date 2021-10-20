@@ -88,5 +88,23 @@
 		"TexturePath" : "../SharedResource/Texture/Dev.png",
 		"UVScaleX" : 1.0,
 		"UVScaleY" : 1.0
+	},
+	{
+		"ColliderExistence" : false,
+		"MeshType" : 0,
+		"Name" : "",
+		"PositionX" : -5.9345998764038086,
+		"PositionY" : 0.048111796379089355,
+		"PositionZ" : -2.6975939273834229,
+		"RotationX" : -71.999977111816406,
+		"RotationY" : 43.999973297119141,
+		"RotationZ" : -25.999984741210938,
+		"ScaleX" : 1.25,
+		"ScaleY" : 1.1499999761581421,
+		"ScaleZ" : 1.2000000476837158,
+		"Tag" : "",
+		"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+		"UVScaleX" : 1.0,
+		"UVScaleY" : 1.0
 	}
 ]

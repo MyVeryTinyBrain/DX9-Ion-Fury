@@ -1,0 +1,127 @@
+{
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.0,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 65.999946594238281,
+			"EulerAngleY" : 180.0,
+			"EulerAngleZ" : 180.0,
+			"Name" : "Directional",
+			"PosX" : -5.3824248313903809,
+			"PosY" : 0.0,
+			"PosZ" : -7.5528874397277832,
+			"Tag" : "Directional"
+		},
+		{
+			"AmbinentFactor" : 0.0,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : -66.9998779296875,
+			"EulerAngleY" : 172.99996948242188,
+			"EulerAngleZ" : -137.99990844726562,
+			"InsideAngleRatio" : 0.5,
+			"Name" : "test2",
+			"OutsideAngle" : 90.0,
+			"PosX" : -5.652522087097168,
+			"PosY" : -2.3328084945678711,
+			"PosZ" : -2.6684672832489014,
+			"Range" : 30.0,
+			"Tag" : "Spot"
+		}
+	],
+	"MapObjects" : 
+	[
+		{
+			"ColliderExistence" : false,
+			"MeshType" : 0,
+			"Name" : "test2",
+			"PositionX" : -3.3991293907165527,
+			"PositionY" : -0.053651288151741028,
+			"PositionZ" : -2.9999992847442627,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MeshType" : 0,
+			"Name" : "test",
+			"PositionX" : -5.3217382431030273,
+			"PositionY" : -0.065115086734294891,
+			"PositionZ" : -4.515836238861084,
+			"RotationX" : -37.0,
+			"RotationY" : 31.0,
+			"RotationZ" : -47.0,
+			"ScaleX" : 1.8999999761581421,
+			"ScaleY" : 3.4500000476837158,
+			"ScaleZ" : 1.1499999761581421,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MeshType" : 0,
+			"Name" : "s",
+			"PositionX" : -2.1740217208862305,
+			"PositionY" : 1.6289546489715576,
+			"PositionZ" : -7.6150321960449219,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../BuiltIn/WhiteTexture.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		}
+	],
+	"TriggerEvents" : 
+	[
+		[
+			{
+				"Name" : "Trigger_0",
+				"PositionX" : -6.5167965888977051,
+				"PositionY" : 0.0045377747155725956,
+				"PositionZ" : -9.6167402267456055,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 2,
+				"TriggerToolAutoNum" : 1
+			},
+			{
+				"EventType" : 6,
+				"Name" : "Event_0",
+				"PositionX" : -5.5449938774108887,
+				"PositionY" : 0.20093704760074615,
+				"PositionZ" : -9.0627965927124023,
+				"RotationX" : 38.999973297119141,
+				"RotationY" : 71.999954223632812,
+				"RotationZ" : -81.999954223632812,
+				"ScaleX" : 1.5,
+				"ScaleY" : 0.69999998807907104,
+				"ScaleZ" : 0.85000002384185791
+			}
+		]
+	]
+}

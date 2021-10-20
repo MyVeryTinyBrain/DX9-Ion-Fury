@@ -1,0 +1,44 @@
+[
+	{
+		"ChildScaleX" : 1.0,
+		"ChildScaleY" : 1.0,
+		"ChildScaleZ" : 1.0,
+		"ComponentType" : "ItemChaingunAmmo",
+		"Name" : "Object_1",
+		"PivotScale" : 1.0,
+		"PositionX" : -4.5442385673522949,
+		"PositionY" : 0.0,
+		"PositionZ" : -3.3033847808837891,
+		"RotationX" : 0.0,
+		"RotationY" : 0.0,
+		"RotationZ" : 0.0
+	},
+	{
+		"ChildScaleX" : 1.0,
+		"ChildScaleY" : 1.0,
+		"ChildScaleZ" : 1.0,
+		"ComponentType" : "ItemLauncherAmmo",
+		"Name" : "Object_2",
+		"PivotScale" : 1.0,
+		"PositionX" : -6.9165158271789551,
+		"PositionY" : 0.0,
+		"PositionZ" : -3.3033847808837891,
+		"RotationX" : 0.0,
+		"RotationY" : 0.0,
+		"RotationZ" : 0.0
+	},
+	{
+		"ChildScaleX" : 1.0,
+		"ChildScaleY" : 1.0,
+		"ChildScaleZ" : 1.0,
+		"ComponentType" : "ItemRevolverAmmo",
+		"Name" : "Object_3",
+		"PivotScale" : 1.0,
+		"PositionX" : -8.9054412841796875,
+		"PositionY" : 0.0,
+		"PositionZ" : -3.3033847808837891,
+		"RotationX" : 0.0,
+		"RotationY" : 0.0,
+		"RotationZ" : 0.0
+	}
+]
