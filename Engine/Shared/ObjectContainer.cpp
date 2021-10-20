@@ -11,6 +11,7 @@ void ObjectContainer::Awake()
 		auto body = colliderObj->AddComponent<Rigidbody>();
 		auto collider = colliderObj->AddComponent<RightTriangleCollider>();
 		body->isKinematic = true;
+
 		collider->friction = 1.0f;
 		collider->restitution = 1.0f;
 

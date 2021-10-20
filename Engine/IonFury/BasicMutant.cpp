@@ -1,37 +1,38 @@
 #include "stdafx.h"
-#include "Mutant.h"
-#include "MutantSpriteAnimator.h"
+#include "BasicMutant.h"
+#include "BasicMutantSpriteAnimator.h"
 #include "Player.h"
 #include "PhysicsLayers.h"
 #include "BloodEffect.h"
-#include "MutantPoison.h"
 
-void Mutant::Awake()
+void BasicMutant::Awake()
 {
 
 	Monster::Awake();
-	m_moveSpeed = 0.f;
-	m_hp = 20;
-	m_body->mass = 3.f;
+
+	m_hp = 15;
+	m_moveSpeed = 3.0f;
+	m_body->mass = 4.0f;
 	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->sleepThresholder = 0.5f;
 
-	m_rendererObj->transform->localPosition = Vec3(0, -0.5f, 0);
+	m_rendererObj->transform->localPosition = Vec3(0, -0.8f, 0);
 
 
-	m_attackCount = 10;
+	m_attackCount = 2;
 	m_rendererObj->transform->scale = Vec3::one() * 5.0f;
 
 
 	m_renderer = CreateRenderer();
+
 	m_renderer->freezeX = false;
 	m_renderer->freezeZ = false;
 
-	m_animator = m_renderer->gameObject->AddComponent<MutantSpriteAnimator>();
-
+	m_animator = m_renderer->gameObject->AddComponent<BasicMutantSpriteAnimator>();
+	m_animator->OnDeadAnimated += Function<void()>(this, &BasicMutant::OnDeadAnimated);
 }
 
-void Mutant::FixedUpdate()
+void BasicMutant::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
@@ -50,16 +51,14 @@ void Mutant::FixedUpdate()
 
 }
 
-void Mutant::Update()
+void BasicMutant::Update()
 {
 	Monster::Update();
 
 	if (create)
 	{
 		m_moveSpeed = 0.f;
-		m_hasTargetCoord = true;
-		m_animator->SetDefaultAnimation(m_animator->GetCreate());
-		//m_animator->PlayCreate();
+		m_animator->PlayCreate();
 		create = false;
 	}
 	else if (!create)
@@ -67,7 +66,6 @@ void Mutant::Update()
 		m_animator->SetDefaultAnimation(m_animator->GetWalk());
 		m_moveSpeed = 3.0f;
 	}
-
 
 	MoveToTarget();
 
@@ -89,17 +87,13 @@ void Mutant::Update()
 
 	if (m_hp < 10)
 	{
-		if (makePoisonDt > 0.1f)
-		{
-			Attack();
-			makePoisonDt = 0;
-		}
-
+		m_moveSpeed = 8.f;
+		Attack();
 	}
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
-	if (m_animator->IsPlayingShoot())
+	if (m_animator->IsPlayingAttack())
 	{
 		m_defaultEmissive = Color::white();
 	}
@@ -110,14 +104,14 @@ void Mutant::Update()
 
 }
 
-void Mutant::OnDestroy()
+void BasicMutant::OnDestroy()
 {
 	Monster::OnDestroy();
 
-	//m_animator->OnDeadAnimated -= Function<void()>(this, &Mutant::OnDeadAnimated);
+	//m_animator->OnDeadAnimated -= Function<void()>(this, &BasicMutant::OnDeadAnimated);
 }
 
-Collider* Mutant::InitializeCollider(GameObject* colliderObj)
+Collider* BasicMutant::InitializeCollider(GameObject* colliderObj)
 {
 	{
 		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
@@ -127,14 +121,12 @@ Collider* Mutant::InitializeCollider(GameObject* colliderObj)
 	}
 
 	colliderObj->transform->localScale = Vec3::one() * 1.5f;
-
 	return colliderObj->AddComponent<SphereCollider>();
 }
 
-void Mutant::OnDamage(DamageParameters& params)
+void BasicMutant::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
-	m_attackCount = 2;
 
 	//switch (params.damageType)
 	//{
@@ -164,13 +156,10 @@ void Mutant::OnDamage(DamageParameters& params)
 	transform->forward = forward;
 }
 
-void Mutant::OnDead(bool& dead, DamageParameters& params)
+void BasicMutant::OnDead(bool& dead, DamageParameters& params)
 {
 	//m_body->useGravity = true;
-	m_hasTargetCoord = false;
-	m_attackCount = 0;
-
-	int dieIndex = rand() % (int)MutantSpriteAnimator::DIE_MUTANT::MAX;
+	int dieIndex = rand() % (int)BasicMutantSpriteAnimator::DIE_BasicMutant::MAX;
 
 
 	if (params.damageType == MonsterDamageType::Explosion)
@@ -178,10 +167,15 @@ void Mutant::OnDead(bool& dead, DamageParameters& params)
 		dieIndex = (int)MonsterDamageType::Explosion;
 	}
 
-	m_animator->PlayDie((MutantSpriteAnimator::DIE_MUTANT)dieIndex);
+	m_animator->PlayDie((BasicMutantSpriteAnimator::DIE_BasicMutant)dieIndex);
+
+
+	m_hasTargetCoord = false;
+	m_attackCount = 0;
+
 }
 
-void Mutant::MoveToTarget()
+void BasicMutant::MoveToTarget()
 {
 	if (!m_hasTargetCoord)
 		return;
@@ -203,6 +197,7 @@ void Mutant::MoveToTarget()
 		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
 		{
 			float angle = Vec3::Angle(hit.normal, Vec3::up());
+
 			if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Terrain && angle > 85 && angle < 95)
 			{
 				m_hasTargetCoord = false;
@@ -238,32 +233,30 @@ void Mutant::MoveToTarget()
 	}
 }
 
-void Mutant::SetTargetCoord(Vec3 xzCoord)
+void BasicMutant::SetTargetCoord(Vec3 xzCoord)
 {
 	m_hasTargetCoord = true;
 	m_targetCoord = xzCoord;
 	m_targetCoord.y = 0;
 }
 
-void Mutant::Attack()
+void BasicMutant::Attack()
 {
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
-		m_animator->PlayShoot();
-
-		auto obj = CreateGameObject();
-		obj->transform->position = transform->position + Vec3(0.f, 0.7f, 0.f) /*+ (-transform->right)*/;
-		obj->AddComponent<MutantPoison>();
-
+		m_animator->PlayAttack();
 		ShootToPlayer();
-
 	}
 
 }
-void Mutant::ShootToPlayer()
+void BasicMutant::ShootToPlayer()
 {
 	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayer.Normalize();
 	Player::GetInstance()->TakeDamage(1);
+}
+
+void BasicMutant::OnDeadAnimated()
+{
 }
