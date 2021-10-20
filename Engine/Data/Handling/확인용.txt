@@ -1,0 +1,30 @@
+[
+	{
+		"ChildScaleX" : 1.0,
+		"ChildScaleY" : 1.75,
+		"ChildScaleZ" : 1.0,
+		"ComponentType" : "ItemChaingunAmmo",
+		"Name" : "fefefef",
+		"PivotScale" : 0.69999998807907104,
+		"PositionX" : -8.7836494445800781,
+		"PositionY" : -0.34157350659370422,
+		"PositionZ" : -4.3171486854553223,
+		"RotationX" : 0.0,
+		"RotationY" : -126.0,
+		"RotationZ" : 62.0
+	},
+	{
+		"ChildScaleX" : 1.0,
+		"ChildScaleY" : 1.0,
+		"ChildScaleZ" : 1.0,
+		"ComponentType" : "ItemChaingunAmmo",
+		"Name" : "fefefef",
+		"PivotScale" : 0.64999997615814209,
+		"PositionX" : -9.5215787887573242,
+		"PositionY" : -0.34157350659370422,
+		"PositionZ" : -4.2655463218688965,
+		"RotationX" : 0.0,
+		"RotationY" : 0.0,
+		"RotationZ" : 0.0
+	}
+]
