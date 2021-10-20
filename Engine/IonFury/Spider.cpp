@@ -30,6 +30,11 @@ void Spider::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+	if (m_isDead)
+	{
+		return;
+	}
+
 	MoveToTarget();
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
@@ -50,8 +55,16 @@ void Spider::Update()
 {
 	Monster::Update();
 
+
 	if (m_isDead)
 	{
+		if (m_body)
+		{
+			m_body->Destroy();
+			m_collider->Destroy();
+			m_body = nullptr;
+			m_collider = nullptr;
+		}
 		return;
 	}
 
@@ -75,13 +88,14 @@ void Spider::OnDestroy()
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-	}
 
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+
+	//}
 	colliderObj->transform->localScale = Vec3::one() * 1.25f;
 
 	return colliderObj->AddComponent<SphereCollider>();
@@ -117,6 +131,8 @@ void Spider::OnDamage(DamageParameters& params)
 	forward.y = 0;
 	forward.Normalize();
 	transform->forward = forward;
+
+	params.force = Vec3::zero();
 }
 
 void Spider::OnDead(bool& dead, DamageParameters& params)
@@ -188,6 +204,8 @@ void Spider::MoveToTarget()
 	else
 	{
 		m_hasTargetCoord = false;
+		Vec3 targetCoord = Player::GetInstance()->transform->position;
+		SetTargetCoord(targetCoord);
 	}
 
 

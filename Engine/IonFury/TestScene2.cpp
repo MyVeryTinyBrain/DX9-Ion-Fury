@@ -174,21 +174,21 @@ void TestScene2::OnLoad(Scene* beforeScene)
     //    obj->AddComponent<Warmech>();
     //}
 
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(0, 2, -5);
-    //    obj->AddComponent<Spider>();
-    //}
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(1, 2, -5);
-    //    obj->AddComponent<Spider>();
-    //}
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(-1, 2, -5);
-    //    obj->AddComponent<Spider>();
-    //}
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, 2, -5);
+        obj->AddComponent<Spider>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(1, 2, -5);
+        obj->AddComponent<Spider>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-1, 2, -5);
+        obj->AddComponent<Spider>();
+    }
     //{
     //    auto obj = CreateGameObject();
     //    obj->transform->position = Vec3(0, 2, -3);
@@ -201,11 +201,11 @@ void TestScene2::OnLoad(Scene* beforeScene)
     //    obj->AddComponent<Drone>();
     //}
     // 
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, 2, -10);
-        obj->AddComponent<Wendigo>();
-    }
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -10);
+    //    obj->AddComponent<Wendigo>();
+    //}
 }
 
 void TestScene2::OnUnload(Scene* nextScene)
