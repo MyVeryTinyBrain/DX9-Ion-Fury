@@ -174,6 +174,7 @@ void DlgMonsterTool::ClickAddTrigger()
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
+	Trigger->SetMaterial();
 	Trigger->SetTriggerMethod((TriggerMethod)TouchButtonManual);
 
 	wstring name = Trigger->GetGameObject()->name;
@@ -396,6 +397,7 @@ Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Sc
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
 	Transform* trans = Trigger->GetGameObject()->GetTransform();
 
+	Trigger->SetMaterial();
 	trans->GetGameObject()->name = name;
 	trans->SetPosition(Pos);
 	trans->SetScale(Scale);

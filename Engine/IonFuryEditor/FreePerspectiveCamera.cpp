@@ -118,7 +118,7 @@ Pickable* FreePerspectiveCamera::Add_TriggerObject(int cnt)
 
 	pick->PushInVector(Type::Trigger);
 
-	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Trigger.png", true);
+	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, BuiltInTransparentGreenTexture, true);
 
 	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));

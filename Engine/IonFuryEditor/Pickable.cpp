@@ -49,6 +49,7 @@ void Pickable::OnDestroy()
 	}
 
 	DeleteMesh();
+	DeleteMaterial();
 }
 
 void Pickable::Settings(Vec2 UVScale, COMBOBOX comboBox, const wstring& localPathTexture, bool ColliderExistence)
@@ -156,6 +157,20 @@ void Pickable::PushInEventVector(Pickable* Event)
 {
 	Event->SetType(Type::EventObject);
 	m_EventVec.push_back(Event);
+}
+
+void Pickable::SetMaterial()
+{
+	m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInNolightTransparentMaterial));
+}
+
+void Pickable::DeleteMaterial()
+{
+	if (m_Material)
+	{
+		m_Material->ReleaseUnmanaged();
+		m_Material = nullptr;
+	}
 }
 
 int Pickable::GetTriggerVectorIndex()

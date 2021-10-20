@@ -123,5 +123,36 @@
 			"UVScaleY" : 2.0
 		}
 	],
-	"TriggerEvents" : null
+	"TriggerEvents" : 
+	[
+		[
+			{
+				"Name" : "Trigger_0",
+				"PositionX" : -2.8004961013793945,
+				"PositionY" : 0.25098177790641785,
+				"PositionZ" : -3.9589965343475342,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 1,
+				"TriggerToolAutoNum" : 1
+			},
+			{
+				"EventType" : 1,
+				"Name" : "Event_0",
+				"PositionX" : -2.5761229991912842,
+				"PositionY" : 1.3668663501739502,
+				"PositionZ" : -4.4689383506774902,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			}
+		]
+	]
 }
