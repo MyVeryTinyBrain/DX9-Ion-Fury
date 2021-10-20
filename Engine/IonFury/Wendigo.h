@@ -74,5 +74,11 @@ private:
 	float m_jumptime = 0.f;
 
 	float m_deadTime = 0.f;
+
+	AttackType attackType = AttackType::Max;
+
+	bool m_initialdir = true;
+
+	Vec3 forward;
 };
 

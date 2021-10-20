@@ -28,5 +28,9 @@ private:
 	float m_selfDestroyCounter = 3.0f;
 
 	bool m_ground = false;
+
+	bool m_initialdir = true;
+
+	Vec3 forward;
 };
 

@@ -283,7 +283,7 @@ void Warmech::Attack()
 			m_bodyAnimator->PlayShoot();
 
 			auto obj = CreateGameObject();
-			obj->transform->position = transform->position + (-transform->right);
+			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f , transform->position.z) + (-transform->right);
 			obj->AddComponent<WarmechBullet>();
 		}
 		break;
@@ -293,7 +293,7 @@ void Warmech::Attack()
 			m_bodyAnimator->PlayMissile();
 
 			auto obj = CreateGameObject();
-			obj->transform->position = transform->position + transform->right;
+			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f, transform->position.z) + transform->right;
 			obj->AddComponent<WarmechMissile>();
 		}
 		break;

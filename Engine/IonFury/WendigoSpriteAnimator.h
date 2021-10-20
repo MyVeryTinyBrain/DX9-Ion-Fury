@@ -38,6 +38,8 @@ public:
 
 	void PlayAttack(ATTACK_WENDIGO type);
 
+	void PlayJump();
+
 	void PlayDie();
 
 	bool IsPlayingIdle() const;

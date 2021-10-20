@@ -202,7 +202,12 @@ void WendigoSpriteAnimator::PlayAttack(ATTACK_WENDIGO type)
 	{
 		return;
 	}
-	PlayAnimation(m_walk[(unsigned int)type]);
+	PlayAnimation(m_attack[(unsigned int)type]);
+}
+
+void WendigoSpriteAnimator::PlayJump()
+{
+	PlayAnimation(m_attack[(unsigned int)ATTACK_WENDIGO::Jump], true);
 }
 
 void WendigoSpriteAnimator::PlayDie()
