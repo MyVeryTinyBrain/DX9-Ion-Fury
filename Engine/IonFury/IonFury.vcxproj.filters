@@ -13,12 +13,6 @@
     <ClCompile Include="DroneSpriteAnimator.cpp">
       <Filter>Monster\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="Gunner.cpp">
-      <Filter>Monster\Gunner</Filter>
-    </ClCompile>
-    <ClCompile Include="GunnerSpriteAnimator.cpp">
-      <Filter>Monster\Gunner</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Default</Filter>
     </ClCompile>
@@ -82,6 +76,45 @@
     <ClCompile Include="WarmechTrail.cpp">
       <Filter>Monster\Warmech</Filter>
     </ClCompile>
+    <ClCompile Include="Liberator.cpp">
+      <Filter>Monster\Liberator</Filter>
+    </ClCompile>
+    <ClCompile Include="LiberatorAnimator.cpp">
+      <Filter>Monster\Liberator</Filter>
+    </ClCompile>
+    <ClCompile Include="GunnerBase.cpp">
+      <Filter>Monster\GunnerBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GunnerBaseAnimator.cpp">
+      <Filter>Monster\GunnerBase</Filter>
+    </ClCompile>
+    <ClCompile Include="CultistGunner.cpp">
+      <Filter>Monster\CultistGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="CultistGunnerAnimator.cpp">
+      <Filter>Monster\CultistGunner</Filter>
+    </ClCompile>
+    <ClCompile Include="CultistArcher.cpp">
+      <Filter>Monster\CultistArcher</Filter>
+    </ClCompile>
+    <ClCompile Include="CultistArcherAnimator.cpp">
+      <Filter>Monster\CultistArcher</Filter>
+    </ClCompile>
+    <ClCompile Include="Skull.cpp">
+      <Filter>Monster\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="SkullAnimator.cpp">
+      <Filter>Monster\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="SkullBall.cpp">
+      <Filter>Monster\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="SkullBallAnimator.cpp">
+      <Filter>Monster\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="SkullReplica.cpp">
+      <Filter>Monster\Skull</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drone.h">
@@ -95,12 +128,6 @@
     </ClInclude>
     <ClInclude Include="DroneSpriteAnimator.h">
       <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="Gunner.h">
-      <Filter>Monster\Gunner</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerSpriteAnimator.h">
-      <Filter>Monster\Gunner</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Default</Filter>
@@ -174,6 +201,45 @@
     <ClInclude Include="WarmechTrail.h">
       <Filter>Monster\Warmech</Filter>
     </ClInclude>
+    <ClInclude Include="Liberator.h">
+      <Filter>Monster\Liberator</Filter>
+    </ClInclude>
+    <ClInclude Include="LiberatorAnimator.h">
+      <Filter>Monster\Liberator</Filter>
+    </ClInclude>
+    <ClInclude Include="GunnerBase.h">
+      <Filter>Monster\GunnerBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GunnerBaseAnimator.h">
+      <Filter>Monster\GunnerBase</Filter>
+    </ClInclude>
+    <ClInclude Include="CultistGunner.h">
+      <Filter>Monster\CultistGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="CultistGunnerAnimator.h">
+      <Filter>Monster\CultistGunner</Filter>
+    </ClInclude>
+    <ClInclude Include="CultistArcherAnimator.h">
+      <Filter>Monster\CultistArcher</Filter>
+    </ClInclude>
+    <ClInclude Include="CultistArcher.h">
+      <Filter>Monster\CultistArcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Skull.h">
+      <Filter>Monster\Skull</Filter>
+    </ClInclude>
+    <ClInclude Include="SkullAnimator.h">
+      <Filter>Monster\Skull</Filter>
+    </ClInclude>
+    <ClInclude Include="SkullBall.h">
+      <Filter>Monster\Skull</Filter>
+    </ClInclude>
+    <ClInclude Include="SkullReplica.h">
+      <Filter>Monster\Skull</Filter>
+    </ClInclude>
+    <ClInclude Include="SkullBallAnimator.h">
+      <Filter>Monster\Skull</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -193,9 +259,6 @@
     <Filter Include="Default">
       <UniqueIdentifier>{7e4f66b0-fe7a-45af-a42a-f09ccac37ad1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Monster\Gunner">
-      <UniqueIdentifier>{1b7d2333-9e45-4a83-af15-df870ea25789}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Monster\Spider">
       <UniqueIdentifier>{61140836-3f23-4a7d-b54b-a4ea99b416b1}</UniqueIdentifier>
     </Filter>
@@ -210,6 +273,21 @@
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\GunnerBase">
+      <UniqueIdentifier>{cc3e223a-11bb-494a-aae7-47840dfdac87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Liberator">
+      <UniqueIdentifier>{1c6317f1-01ad-43a4-8d7a-4314da0e16b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\CultistGunner">
+      <UniqueIdentifier>{b592fdb6-4bd2-4495-b9d2-cc175fb64e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\CultistArcher">
+      <UniqueIdentifier>{2f9160ff-08e4-47a9-a556-ff8fe781842b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Skull">
+      <UniqueIdentifier>{a8cdc852-602d-495a-a80a-d895a43867b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

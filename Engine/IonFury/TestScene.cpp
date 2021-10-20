@@ -2,6 +2,9 @@
 #include "TestScene.h"
 #include "Player.h"
 #include "Gunner.h"
+#include "CultistGunner.h"
+#include "CultistArcher.h"
+#include "Liberator.h"
 #include "Spider.h"
 #include "Skybox.h"
 #include "LightLoad.h"
@@ -14,7 +17,9 @@
 #include "ItemShotgunAmmo.h"
 #include "ItemSMGAmmo.h"
 #include "ObjectStair.h"
+#include "ObjectAutoDoor.h"
 #include "Cube.h"
+#include "Skull.h"
 
 IClonable* TestScene::Clone()
 {
@@ -65,9 +70,9 @@ void TestScene::OnLoad(Scene* beforeScene)
 
     {
         auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, -1.7f, 3);
-        obj->transform->scale = Vec3(2, 1, 1);
-        obj->AddComponent<ObjectStair>();
+        obj->transform->position = Vec3(0, 0.5f, 3);
+        obj->transform->scale = Vec3(5, 5, 1);
+        obj->AddComponent<ObjectAutoDoor>();
     }
     {
         auto obj = CreateGameObject();
@@ -332,15 +337,36 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-    for (int i = 0; i < 5; ++i)
+    //for (int i = 0; i < 5; ++i)
+    //{
+    //    for (int j = 0; j < 5; ++j)
+    //    {
+    //        auto obj = CreateGameObject();
+    //        obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
+    //        obj->transform->eulerAngle = Vec3(0, 90, 0);
+
+    //        int r = rand() % 3;
+
+    //        switch (r)
+    //        {
+    //            case 0:
+    //                obj->AddComponent<CultistGunner>();
+    //                break;
+    //            case 1:
+    //                obj->AddComponent<CultistArcher>();
+    //                break;
+    //            case 2:
+    //                obj->AddComponent<Liberator>();
+    //                break;
+    //        }
+    //    }
+    //}
+
     {
-        for (int j = 0; j < 5; ++j)
-        {
-            auto obj = CreateGameObject();
-            obj->transform->position = Vec3(i * 2, 2, j * 2) + Vec3(-10, 0, -10);
-            obj->transform->eulerAngle = Vec3(0, 90, 0);
-            obj->AddComponent<Gunner>();
-        }
+		auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-0, 0, -0);
+		obj->transform->eulerAngle = Vec3(0, 0, 0);
+        obj->AddComponent<Skull>();
     }
 }
 

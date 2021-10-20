@@ -250,7 +250,7 @@ void Revolver::Attack()
 		{
 			auto bulletProofObj = CreateGameObject();
 			auto bulletProof = bulletProofObj->AddComponent<BulletProof>();
-			bulletProof->InitializeBulletProof(hit.point, hit.normal);
+			bulletProof->InitializeBulletProof(hit.point, hit.normal, hit.collider->rigidbody->transform);
 		}
 		else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
 		{

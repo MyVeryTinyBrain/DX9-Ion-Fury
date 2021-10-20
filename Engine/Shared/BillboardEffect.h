@@ -40,6 +40,8 @@ public:
 
 	void SetIgnoreZRotation(bool value);
 
+	UserMeshBillboardRenderer* GetBillboardRenderer() const;
+
 protected:
 
 	// 이 클래스를 상속받아서 고정된 이펙트를 출력하는데 사용할 수 있습니다.
