@@ -66,7 +66,7 @@ void LightObj::LightSetting()
 	meshRendererObj->transform->localEulerAngle = Vec3(90, 0, 0);
 }
 
-LightObj* LightObj::LightPick()
+LightObj* LightObj::LightPick(float& distance)
 {
 	Vec3 rayPoint, rayDir;
 	Input::GetMouseWorldRay(rayPoint, rayDir);
@@ -84,6 +84,10 @@ LightObj* LightObj::LightPick()
 			if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 			{
 				giz->enable = true;
+
+				Vec3 Between = rayPoint - HitPoint;
+				distance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.z * Between.z));
+
 				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
 				return pickable;
 			}

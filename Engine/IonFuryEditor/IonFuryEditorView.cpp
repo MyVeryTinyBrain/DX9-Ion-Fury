@@ -268,13 +268,30 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	float PickableDistance = 90000.f;
 	float HandlingDistance = 90000.f;
+	float LightDistance = 90000.f;
+
 	Pickable* pick = Pickable::Pick(PickableDistance);
 	HandlingObject* HandlePick = HandlingObject::Pick(HandlingDistance);
+	LightObj* LightPick = LightObj::LightPick(LightDistance);
 
 	if (PickableDistance < HandlingDistance)
+	{
 		HandlePick = nullptr;
+
+		if (PickableDistance < LightDistance)
+			LightPick = nullptr;
+		else
+			pick = nullptr;
+	}
 	else if (PickableDistance > HandlingDistance)
+	{
 		pick = nullptr;
+
+		if (HandlingDistance < LightDistance)
+			LightPick = nullptr;
+		else
+			HandlePick = nullptr;
+	}
 
 
 	m_dlgMonsterTool.ClearEverything();
@@ -349,7 +366,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_dlgObjectTool.UndoToolStatus();
 	}
 	//=========================================================
-	LightObj* LightPick = LightObj::LightPick();
+	//LightObj* LightPick = LightObj::LightPick();
 	m_dlgLightTool.LightClear();
 
 	if (LightPick)
@@ -367,12 +384,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 				return;
 		}
 	}
-	//else if (!giz->PickHandle())
-	//{
-	//	cout << "조명선택안됨" << endl;
-	//	giz->Detach();
-	//	giz->enable = false;
-	//}
 
 	if (!pick && !HandlePick && !LightPick)
 	{
