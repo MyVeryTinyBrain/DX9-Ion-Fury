@@ -135,6 +135,24 @@
 			"TexturePath" : "../BuiltIn/WhiteTexture.png",
 			"UVScaleX" : 1.0,
 			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MeshType" : 6,
+			"Name" : "aa",
+			"PositionX" : -8.5168390274047852,
+			"PositionY" : -1.3614031076431274,
+			"PositionZ" : 3.2134025096893311,
+			"RotationX" : 10.0,
+			"RotationY" : 6.0,
+			"RotationZ" : 180.0,
+			"ScaleX" : 10.600000381469727,
+			"ScaleY" : 7.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/npc/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
 		}
 	],
 	"TriggerEvents" : 
