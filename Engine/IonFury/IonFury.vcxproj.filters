@@ -115,6 +115,33 @@
     <ClCompile Include="SkullReplica.cpp">
       <Filter>Monster\Skull</Filter>
     </ClCompile>
+    <ClCompile Include="TotalLoad.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSceneSeob.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicMutantSpriteAnimator.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicMutant.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="MutantSpriteAnimator.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="Mutant.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="MutantPoison.cpp">
+      <Filter>Monster\Mutant</Filter>
+    </ClCompile>
+    <ClCompile Include="Wendigo.cpp">
+      <Filter>Monster\Wendigo</Filter>
+    </ClCompile>
+    <ClCompile Include="WendigoSpriteAnimator.cpp">
+      <Filter>Monster\Wendigo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drone.h">
@@ -240,6 +267,33 @@
     <ClInclude Include="SkullBallAnimator.h">
       <Filter>Monster\Skull</Filter>
     </ClInclude>
+    <ClInclude Include="TotalLoad.h">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSceneSeob.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicMutantSpriteAnimator.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicMutant.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="MutantSpriteAnimator.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="Mutant.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="MutantPoison.h">
+      <Filter>Monster\Mutant</Filter>
+    </ClInclude>
+    <ClInclude Include="Wendigo.h">
+      <Filter>Monster\Wendigo</Filter>
+    </ClInclude>
+    <ClInclude Include="WendigoSpriteAnimator.h">
+      <Filter>Monster\Wendigo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -288,6 +342,12 @@
     </Filter>
     <Filter Include="Monster\Skull">
       <UniqueIdentifier>{a8cdc852-602d-495a-a80a-d895a43867b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Wendigo">
+      <UniqueIdentifier>{b2b9094b-391a-4a8a-8950-f631844625ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Mutant">
+      <UniqueIdentifier>{42327cc7-5fac-4f24-91d4-123d12d5214d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

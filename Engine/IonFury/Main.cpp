@@ -4,6 +4,7 @@
 #include "TestScene.h"
 #include "TestScene2.h"
 #include "TestScene3.h"
+#include "TestSceneSeob.h"
 
 #ifndef _AFX
 
@@ -20,7 +21,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	world.InitializeWithShowWindow(hInstance, 1280, 720, true, L"Ion Fury", WndProc);
 	PhysicsInitialize::Initialize();
 
-	SceneManager::ChangeScene(new TestScene2);
+	SceneManager::ChangeScene(new TestSceneSeob);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)

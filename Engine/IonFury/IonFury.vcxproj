@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BasicMutant.h" />
+    <ClInclude Include="BasicMutantSpriteAnimator.h" />
     <ClInclude Include="CultistArcher.h" />
     <ClInclude Include="CultistArcherAnimator.h" />
     <ClInclude Include="CultistGunner.h" />
@@ -171,6 +173,9 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="MapLoad.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Mutant.h" />
+    <ClInclude Include="MutantPoison.h" />
+    <ClInclude Include="MutantSpriteAnimator.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="SkullAnimator.h" />
@@ -184,6 +189,8 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TestScene3.h" />
+    <ClInclude Include="TestSceneSeob.h" />
+    <ClInclude Include="TotalLoad.h" />
     <ClInclude Include="Warmech.h" />
     <ClInclude Include="WarmechBullet.h" />
     <ClInclude Include="WarmechExplosion.h" />
@@ -192,8 +199,12 @@
     <ClInclude Include="WarmechSpriteAnimator.h" />
     <ClInclude Include="WarmechTrail.h" />
     <ClInclude Include="Web.h" />
+    <ClInclude Include="Wendigo.h" />
+    <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasicMutant.cpp" />
+    <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
     <ClCompile Include="CultistArcher.cpp" />
     <ClCompile Include="CultistArcherAnimator.cpp" />
     <ClCompile Include="CultistGunner.cpp" />
@@ -213,6 +224,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapLoad.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="Mutant.cpp" />
+    <ClCompile Include="MutantPoison.cpp" />
+    <ClCompile Include="MutantSpriteAnimator.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="SkullAnimator.cpp" />
     <ClCompile Include="SkullBall.cpp" />
@@ -224,6 +238,8 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TestScene3.cpp" />
+    <ClCompile Include="TestSceneSeob.cpp" />
+    <ClCompile Include="TotalLoad.cpp" />
     <ClCompile Include="Warmech.cpp" />
     <ClCompile Include="WarmechBullet.cpp" />
     <ClCompile Include="WarmechExplosion.cpp" />
@@ -232,6 +248,8 @@
     <ClCompile Include="WarmechSpriteAnimator.cpp" />
     <ClCompile Include="WarmechTrail.cpp" />
     <ClCompile Include="Web.cpp" />
+    <ClCompile Include="Wendigo.cpp" />
+    <ClCompile Include="WendigoSpriteAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc" />
