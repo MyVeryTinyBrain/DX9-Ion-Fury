@@ -3,6 +3,7 @@
 #include "Gizmo.h"
 #include "EditorManager.h"
 #include "EditorEnum.h"
+#include "HandlingObject.h"
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
@@ -48,6 +49,7 @@ void Pickable::OnDestroy()
 	}
 
 	DeleteMesh();
+	DeleteMaterial();
 }
 
 void Pickable::Settings(Vec2 UVScale, COMBOBOX comboBox, const wstring& localPathTexture, bool ColliderExistence)
@@ -104,14 +106,14 @@ void Pickable::DeleteMesh()
 	}
 }
 
-Pickable* Pickable::Pick()
+Pickable* Pickable::Pick(float& Distance)
 {
 	Vec3 rayPoint, rayDir;
 	Vec3 HitPoint;
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
-	float FinalDistance = 90000.f;
+	Distance = 90000.f;
 	Pickable* ClosestPicked = nullptr;
 
 	for (auto pickable : g_PickableVec)
@@ -124,11 +126,11 @@ Pickable* Pickable::Pick()
 			giz->enable = true;
 			
 			Vec3 Between = rayPoint - HitPoint;
-			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.x * Between.y));
-			if (FinalDistance >= BetweenDistance)
+			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.z * Between.z));
+			if (Distance >= BetweenDistance)
 			{
 				EditorManager::GetInstance()->GetGizmo()->Attach(pickable->GetGameObject()->transform);
-				FinalDistance = BetweenDistance;
+				Distance = BetweenDistance;
 				ClosestPicked = pickable;
 			}
 		}
@@ -155,6 +157,20 @@ void Pickable::PushInEventVector(Pickable* Event)
 {
 	Event->SetType(Type::EventObject);
 	m_EventVec.push_back(Event);
+}
+
+void Pickable::SetMaterial()
+{
+	m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInNolightTransparentMaterial));
+}
+
+void Pickable::DeleteMaterial()
+{
+	if (m_Material)
+	{
+		m_Material->ReleaseUnmanaged();
+		m_Material = nullptr;
+	}
 }
 
 int Pickable::GetTriggerVectorIndex()

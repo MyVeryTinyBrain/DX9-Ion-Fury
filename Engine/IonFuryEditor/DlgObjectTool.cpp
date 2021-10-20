@@ -3,121 +3,156 @@
 
 #include "IonFuryEditorBase.h"
 #include "IonFuryEditor.h"
+#include "afxdialogex.h"
 #include "DlgObjectTool.h"
 #include "afxdialogex.h"
 #include "EditorManager.h"
 #include "FreePerspectiveCamera.h"
 #include "Pickable.h"
+#include "HandlingObject.h"
 #include "Gizmo.h"
 #include "EditorEnum.h"
-//
-#include "MainFrm.h"
-#include "IonFuryEditorView.h"
-#include "DlgTextureTool.h"
+//#include "../IonFury/"
 //
 #include <fstream>
 #include <atlconv.h>
+
 
 // DlgObjectTool 대화 상자
 
 IMPLEMENT_DYNAMIC(DlgObjectTool, CDialog)
 
-void DlgObjectTool::SetPickableObject(GameObject* gameobject)
+DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
+	: CDialog(IDD_DlgObjTool, pParent)
+	, m_Name(_T(""))
 {
-	m_SelectName = gameobject->name.c_str();
-	m_objectName = gameobject->name.c_str();
-	m_objectTag = gameobject->tag.c_str();
 
-	m_rPosX = gameobject->transform->position.x;
-	m_rPosY = gameobject->transform->position.y;
-	m_rPosZ = gameobject->transform->position.z;
-
-	m_rScaleX = gameobject->transform->scale.x;
-	m_rScaleY = gameobject->transform->scale.y;
-	m_rScaleZ = gameobject->transform->scale.z;
-
-	m_rRotX = gameobject->transform->eulerAngle.x;
-	m_rRotY = gameobject->transform->eulerAngle.y;
-	m_rRotZ = gameobject->transform->eulerAngle.z;
-
-	m_SliderControlX.SetPos((int)(gameobject->transform->eulerAngle.x + 180));
-	m_SliderControlY.SetPos((int)(gameobject->transform->eulerAngle.y + 180));
-	m_SliderControlZ.SetPos((int)(gameobject->transform->eulerAngle.z + 180));
-
-	//============================
-	m_SliderControlScaleX.SetPos((int)(gameobject->transform->scale.x * 20));
-	m_SliderControlScaleY.SetPos((int)(gameobject->transform->scale.y * 20));
-	m_SliderControlScaleZ.SetPos((int)(gameobject->transform->scale.z * 20));
-
-	UpdateData(FALSE);
 }
 
-void DlgObjectTool::SelectObject()
+DlgObjectTool::~DlgObjectTool()
 {
-	UpdateData(TRUE);
-
-	m_fPosX = m_rPosX;
-	m_fPosY = m_rPosY;
-	m_fPosZ = m_rPosZ;
-
-	m_fScaleX = m_rScaleX;
-	m_fScaleY = m_rScaleY;
-	m_fScaleZ = m_rScaleZ;
-
-	m_fRotX = m_rRotX;
-	m_fRotY = m_rRotY;
-	m_fRotZ = m_rRotZ;
-
-	UpdateData(FALSE);
 }
 
-Vec3 DlgObjectTool::GetToolSize()
+void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
 {
-	UpdateData(TRUE);
-	return Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
-	UpdateData(FALSE);
+	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LIST1, m_ObjectListBox);
+	DDX_Control(pDX, IDC_SLIDER2, m_SliderScaleX);
+	DDX_Control(pDX, IDC_SLIDER4, m_SliderScaleY);
+	DDX_Control(pDX, IDC_SLIDER5, m_SliderScaleZ);
+	DDX_Control(pDX, IDC_SLIDER3, m_SliderRotationX);
+	DDX_Control(pDX, IDC_SLIDER6, m_SliderRotationY);
+	DDX_Control(pDX, IDC_SLIDER11, m_SliderRotationZ);
+	DDX_Control(pDX, IDC_SLIDER1, m_PivotSliderScale);
+	DDX_Text(pDX, IDC_EDIT2, m_Name);
+	DDX_Control(pDX, IDC_COMBO1, m_TypeComboBox);
 }
 
-Vec3 DlgObjectTool::GetToolRotation()
+// DlgObjectTool 메시지 처리기
+
+BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
+	ON_BN_CLICKED(IDC_BUTTON17, &DlgObjectTool::OnBnClickedAddButton)
+	ON_BN_CLICKED(IDC_BUTTON18, &DlgObjectTool::OnBnClickedResetType)
+	ON_WM_HSCROLL()
+	ON_LBN_SELCHANGE(IDC_LIST1, &DlgObjectTool::OnLbnSelchangeListBox)
+	ON_BN_CLICKED(IDC_BUTTON1, &DlgObjectTool::OnBnClickedRenameButton)
+	ON_BN_CLICKED(IDC_BUTTON19, &DlgObjectTool::OnBnClickedRemove)
+	ON_BN_CLICKED(IDC_BUTTON16, &DlgObjectTool::OnBnClickedResetScale)
+	ON_BN_CLICKED(IDC_BUTTON10, &DlgObjectTool::OnBnClickedResetRotation)
+	ON_BN_CLICKED(IDC_BUTTON2, &DlgObjectTool::OnBnClickedSave)
+	ON_BN_CLICKED(IDC_BUTTON8, &DlgObjectTool::OnBnClickedLoad)
+END_MESSAGE_MAP()
+
+
+void DlgObjectTool::SetScaleScrollToDefault(HandlingObject* picked)
 {
-	UpdateData(TRUE);
-	return Vec3(m_fRotX, m_fRotY, m_fRotZ);
-	UpdateData(FALSE);
+	m_SliderScaleX.SetPos(20);
+	m_SliderScaleY.SetPos(20);
+	m_SliderScaleZ.SetPos(20);
+
+	m_PivotSliderScale.SetPos(20);
+
+	if (picked == nullptr)
+		return;
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->GetSelectedObject()->transform->SetScale(Vec3(1.f, 1.f, 1.f));
 }
 
-void DlgObjectTool::Clear()
+
+void DlgObjectTool::SetRotationScrollToDefault(HandlingObject* picked)
 {
-	UpdateData(TRUE);
+	m_SliderRotationX.SetPos(180);
+	m_SliderRotationY.SetPos(180);
+	m_SliderRotationZ.SetPos(180);
 
-	m_objectName = L"";
-	m_objectTag = L"";
-	m_SelectName = L"";
+	if (picked == nullptr)
+		return;
 
-	m_fPosX = 0.f;			m_rPosX = 0.f;
-	m_fPosY = 0.f;			m_rPosY = 0.f;
-	m_fPosZ = 0.f;			m_rPosZ = 0.f;
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
+}
 
-	m_fScaleX = 1.f;		m_rScaleX = 1.f;
-	m_fScaleY = 1.f;		m_rScaleY = 1.f;
-	m_fScaleZ = 1.f;		m_rScaleZ = 1.f;
 
-	m_fRotX = 0.f;			m_rRotX = 0.f;
-	m_fRotY = 0.f;			m_rRotY = 0.f;
-	m_fRotZ = 0.f;			m_rRotZ = 0.f;
+void DlgObjectTool::SetScaleScrollToPicked(HandlingObject* picked)
+{
+	Transform* PivotTransform = picked->GetPivotObject()->GetTransform();
+	Transform* ChildTransform = picked->GetChildObject()->GetTransform();
+	
+	Vec3 Scale = ChildTransform->scale;
+	float ScaleX = Scale.x * 20.f;
+	float ScaleY = Scale.y * 20.f;
+	float ScaleZ = Scale.z * 20.f;
+	m_SliderScaleX.SetPos((int)ScaleX);
+	m_SliderScaleY.SetPos((int)ScaleY);
+	m_SliderScaleZ.SetPos((int)ScaleZ);
 
-	m_ColliderExistence.SetCheck(false);
-	NumToEdit(m_UVScaleX, 1.f);
-	NumToEdit(m_UVScaleY, 1.f);
+	Scale = PivotTransform->scale;
+	m_PivotSliderScale.SetPos((int)(Scale.x * 20));
+}
 
-	m_SliderControlX.SetPos(180);
-	m_SliderControlY.SetPos(180);
-	m_SliderControlZ.SetPos(180);
 
-	m_SliderControlScaleX.SetPos(20);
-	m_SliderControlScaleY.SetPos(20);
-	m_SliderControlScaleZ.SetPos(20);
+void DlgObjectTool::SetRotationScrollToPicked(HandlingObject* picked)
+{
+	Transform* ParentTransform = picked->GetGameObject()->GetTransform();
 
-	UpdateData(FALSE);
+	Vec3 EulerAngle = ParentTransform->GetEulerAngle();
+
+	float RotationX = EulerAngle.x + 180.f;
+	float RotationY = EulerAngle.y + 180.f;
+	float RotationZ = EulerAngle.z + 180.f;
+
+	m_SliderRotationX.SetPos((int)RotationX);
+	m_SliderRotationY.SetPos((int)RotationY);
+	m_SliderRotationZ.SetPos((int)RotationZ);
+}
+
+void DlgObjectTool::SetComboBoxAsSelected(HandlingObject* picked)
+{
+	int ComponentSelect = -1;
+	CString CompType = picked->GetComponentType();
+	ComponentSelect = m_TypeComboBox.FindStringExact(-1, CompType);
+	m_TypeComboBox.SetCurSel(ComponentSelect);
+}
+
+void DlgObjectTool::UndoToolStatus()
+{
+//	Transform* Selected = EditorManager::GetInstance()->GetGizmo()->GetSelectedObject();
+//	if (Selected == nullptr)
+//	{
+		m_ObjectListBox.SetCurSel(-1);
+		m_TypeComboBox.SetCurSel(-1);
+		SetRotationScrollToDefault();
+		SetScaleScrollToDefault();
+	//	return;
+	//}
+	//if (Selected->GetGameObject()->GetComponent<HandlingObject>() == nullptr)
+	//{
+	//	m_ObjectListBox.SetCurSel(-1);
+	//	m_TypeComboBox.SetCurSel(-1);
+	//	SetRotationScrollToDefault();
+	//	SetScaleScrollToDefault();
+	//}
 }
 
 void DlgObjectTool::SaveToJsonFormat(const Json::Value& json, string path)
@@ -178,429 +213,146 @@ string DlgObjectTool::ToString(const wstring& wstr)
 	return string(W2A(wstr.c_str()));
 }
 
-DlgObjectTool::DlgObjectTool(CWnd* pParent /*=nullptr*/)
-	: CDialog(IDD_DlgObjectTool, pParent)
-	, m_objectName(_T(""))
-	, m_fPosX(0.f)
-	, m_fPosY(0.f)
-	, m_fPosZ(0.f)
-	, m_fRotX(0.f)
-	, m_fRotY(0.f)
-	, m_fRotZ(0.f)
-	, m_fScaleX(1.f)
-	, m_fScaleY(1.f)
-	, m_fScaleZ(1.f)
-	, m_MeshType(COMBOBOX::Cube)
-	, m_objectTag(_T(""))
-	, m_SelectName(_T(""))
-	, m_rPosX(0)
-	, m_rRotX(0)
-	, m_rScaleX(0)
-	, m_rPosY(0)
-	, m_rPosZ(0)
-	, m_rRotY(0)
-	, m_rRotZ(0)
-	, m_rScaleZ(0)
-	, m_rScaleY(0)
-{
-
-}
-
-DlgObjectTool::~DlgObjectTool()
-{
-}
-
-void DlgObjectTool::DoDataExchange(CDataExchange* pDX)
-{
-	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_COMBO1, m_comboBox);
-	DDX_Text(pDX, IDC_EDIT1, m_objectName);
-	DDX_Text(pDX, IDC_EDIT2, m_fPosX);
-	DDX_Text(pDX, IDC_EDIT3, m_fPosY);
-	DDX_Text(pDX, IDC_EDIT4, m_fPosZ);
-	DDX_Text(pDX, IDC_EDIT5, m_fRotX);
-	DDX_Text(pDX, IDC_EDIT6, m_fRotY);
-	DDX_Text(pDX, IDC_EDIT7, m_fRotZ);
-	DDX_Text(pDX, IDC_EDIT8, m_fScaleX);
-	DDX_Text(pDX, IDC_EDIT9, m_fScaleY);
-	DDX_Text(pDX, IDC_EDIT10, m_fScaleZ);
-	DDX_Text(pDX, IDC_EDIT17, m_objectTag);
-	DDX_Text(pDX, OBJECT_1, m_SelectName);
-	DDX_Text(pDX, OBJECT_2, m_rPosX);
-	DDX_Text(pDX, OBJECT_8, m_rPosZ);
-	DDX_Text(pDX, OBJECT_5, m_rPosY);
-	DDX_Text(pDX, OBJECT_3, m_rRotX);
-	DDX_Text(pDX, OBJECT_6, m_rRotY);
-	DDX_Text(pDX, OBJECT_9, m_rRotZ);
-	DDX_Text(pDX, OBJECT_4, m_rScaleX);
-	DDX_Text(pDX, OBJECT_7, m_rScaleY);
-	DDX_Text(pDX, OBJECT_10, m_rScaleZ);
-
-	DDX_Control(pDX, IDC_RotSlider, m_SliderControlX);
-	DDX_Control(pDX, IDC_RotSlider2, m_SliderControlY);
-	DDX_Control(pDX, IDC_RotSlider3, m_SliderControlZ);
-
-
-	DDX_Control(pDX, IDC_EDIT12, m_UVScaleX);
-	DDX_Control(pDX, IDC_EDIT11, m_UVScaleY);
-	DDX_Control(pDX, IDC_CHECK1, m_ColliderExistence);
-
-	DDX_Control(pDX, IDC_ScaleSlider, m_SliderControlScaleX);
-	DDX_Control(pDX, IDC_ScaleSlider2, m_SliderControlScaleY);
-	DDX_Control(pDX, IDC_ScaleSlider3, m_SliderControlScaleZ);
-}
-
-
-BEGIN_MESSAGE_MAP(DlgObjectTool, CDialog)
-	ON_EN_CHANGE(IDC_EDIT1, &DlgObjectTool::OnObjectName)
-	ON_CBN_SELCHANGE(IDC_COMBO1, &DlgObjectTool::OnSelectMesh)
-	ON_EN_CHANGE(IDC_EDIT17, &DlgObjectTool::OnObjectTag)
-	ON_BN_CLICKED(IDC_BUTTON1, &DlgObjectTool::OnBnClickedSave)
-	ON_BN_CLICKED(IDC_BUTTON4, &DlgObjectTool::OnBnClickedApply)
-	ON_BN_CLICKED(IDC_BUTTON2, &DlgObjectTool::OnBnClickedLoad)
-	ON_BN_CLICKED(IDC_BUTTON5, &DlgObjectTool::OnBnClickedClear)
-	ON_NOTIFY(NM_CUSTOMDRAW, IDC_RotSlider, &DlgObjectTool::OnNMCustomdrawRotslider)
-	ON_WM_HSCROLL()
-	ON_BN_CLICKED(IDC_BUTTON6, &DlgObjectTool::ClickAddButton)
-END_MESSAGE_MAP()
-
-
-// DlgObjectTool 메시지 처리기
-
-
-void DlgObjectTool::ResetScroll()
-{
-	m_SliderControlX.SetPos(0);
-	m_SliderControlY.SetPos(0);
-	m_SliderControlZ.SetPos(0);
-}
-
-void DlgObjectTool::ReturnComboBoxSelect(Pickable* pick)
-{
-	int sel = (int)pick->GetMeshType();
-	m_comboBox.SetCurSel(sel);
-
-	m_MeshType = (COMBOBOX)m_comboBox.GetCurSel();
-}
-
-void DlgObjectTool::ReturnCollisionExistenceSelect(Pickable* pick)
-{
-	m_ColliderExistence.SetCheck(pick->GetCollisionExistence());
-}
-
-void DlgObjectTool::UpdateUVScale(Pickable* pick)
-{
-	float x = pick->GetUserMesh()->uvScale.x;
-	float y = pick->GetUserMesh()->uvScale.y;
-
-	NumToEdit(m_UVScaleX, x);
-	NumToEdit(m_UVScaleY, y);
-}
-
-bool DlgObjectTool::GetColliderExistence()
-{
-	return m_ColliderExistence.GetCheck();
-}
-
-float DlgObjectTool::EditToNum(const CEdit& edit)
-{
-	CString str;
-	edit.GetWindowTextW(str);
-	wchar_t* test;
-	
-	return wcstof(str.GetString(), &test);
-}
-
-void DlgObjectTool::NumToEdit(CEdit& edit, float num)
-{
-	wstring str = std::to_wstring(num);
-	edit.SetWindowTextW(str.c_str());
-}
-
-Vec2 DlgObjectTool::GetToolUVScale()
-{
-	float x = EditToNum(m_UVScaleX);
-	float y = EditToNum(m_UVScaleY);
-
-	return Vec2(x,y);
-}
 
 BOOL DlgObjectTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
-
-	m_comboBox.AddString(_T("Cube"));
-	m_comboBox.AddString(_T("Cyilinder"));
-	m_comboBox.AddString(_T("Quad"));
-	m_comboBox.AddString(_T("Sphere"));
-	m_comboBox.AddString(_T("Capsule"));
-	m_comboBox.AddString(_T("RightTriangle"));
-	m_comboBox.AddString(_T("Triangle"));
-
-	m_comboBox.SetCurSel(0);
-	m_ColliderExistence.SetCheck(false);
-	m_MeshType = COMBOBOX::Cube;
 	{
-		m_SliderControlX.SetRange(0, 360);
-		m_SliderControlX.SetPos(180);
-		m_SliderControlX.SetLineSize(10);
-
-		m_SliderControlY.SetRange(0, 360);
-		m_SliderControlY.SetPos(180);
-		m_SliderControlY.SetLineSize(10);
-
-		m_SliderControlZ.SetRange(0, 360);
-		m_SliderControlZ.SetPos(180);
-		m_SliderControlZ.SetLineSize(10);
+		m_TypeComboBox.AddString(_T("ItemBowAmmo"));
+		m_TypeComboBox.AddString(_T("ItemChaingunAmmo"));
+		m_TypeComboBox.AddString(_T("ItemLauncherAmmo"));
+		m_TypeComboBox.AddString(_T("ItemRevolverAmmo"));
+		m_TypeComboBox.AddString(_T("ItemShotgunAmmo"));
+		m_TypeComboBox.AddString(_T("ItemSMGAmmo"));
+		m_TypeComboBox.AddString(_T("ItemHealthPack"));
+		m_TypeComboBox.AddString(_T("ObjectStair"));
 	}
-	//작업중여기
-	{
-		m_SliderControlScaleX.SetRange(0, 100);
-		m_SliderControlScaleX.SetPos(20);
-		m_SliderControlScaleX.SetLineSize(10);
 
-		m_SliderControlScaleY.SetRange(0, 100);
-		m_SliderControlScaleY.SetPos(20);
-		m_SliderControlScaleY.SetLineSize(10);
+	{	//RotSlider 설정
+		m_SliderRotationX.SetRange(0, 360);
+		m_SliderRotationX.SetPos(180);
+		m_SliderRotationX.SetLineSize(10);
 
-		m_SliderControlScaleZ.SetRange(0, 100);
-		m_SliderControlScaleZ.SetPos(20);
-		m_SliderControlScaleZ.SetLineSize(10);
+		m_SliderRotationY.SetRange(0, 360);
+		m_SliderRotationY.SetPos(180);
+		m_SliderRotationY.SetLineSize(10);
+
+		m_SliderRotationZ.SetRange(0, 360);
+		m_SliderRotationZ.SetPos(180);
+		m_SliderRotationZ.SetLineSize(10);
 	}
-	NumToEdit(m_UVScaleX, 1.f);
-	NumToEdit(m_UVScaleY, 1.f);
+
+	{	//ScaleSlider 설정
+		m_SliderScaleX.SetRange(0, 100);
+		m_SliderScaleX.SetPos(20);
+		m_SliderScaleX.SetLineSize(10);
+
+		m_SliderScaleY.SetRange(0, 100);
+		m_SliderScaleY.SetPos(20);
+		m_SliderScaleY.SetLineSize(10);
+
+		m_SliderScaleZ.SetRange(0, 100);
+		m_SliderScaleZ.SetPos(20);
+		m_SliderScaleZ.SetLineSize(10);
+	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
 
-void DlgObjectTool::OnObjectName()
-{
-	UpdateData(TRUE);
-
-
-	UpdateData(FALSE);
-}
-
-
-void DlgObjectTool::OnSelectMesh()
-{
-	UpdateData(TRUE);
-
-	m_MeshType = (COMBOBOX)m_comboBox.GetCurSel();
-
-	UpdateData(FALSE);
-
-}
-
-void DlgObjectTool::OnObjectTag()
-{
-	UpdateData(TRUE);
-
-
-	UpdateData(FALSE);
-}
-
-void DlgObjectTool::OnBnClickedApply()
+void DlgObjectTool::OnBnClickedAddButton()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
-	UpdateData(TRUE);
+	if (m_TypeComboBox.GetCurSel() == -1)
+		return;
 
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	auto trans = giz->GetSelectedObject();
+	HandlingObject* Obj = EditorManager::GetInstance()->GetPerspectiveCamera()->Add_HandlingObject(m_Cnt);
+	++m_Cnt;
+	
+	UpdateData(true);
+	if (m_Name != L"")
+		Obj->GetGameObject()->name = m_Name.GetString();
 
-	if (trans)
+	CString Type = L"";
+	m_TypeComboBox.GetLBText(m_TypeComboBox.GetCurSel(), Type);
+	Obj->AddComponentToChildObject(Type);
+
+	wstring name = Obj->GetGameObject()->name;
+	m_ObjectListBox.AddString(name.c_str());
+
+	int i = m_ObjectListBox.GetCount();
+	m_ObjectListBox.SetCurSel(i - 1);
+	
+	m_Name = L"";
+	m_TypeComboBox.SetCurSel(-1);
+	SetScaleScrollToDefault();
+	SetRotationScrollToDefault();
+
+	UpdateData(false);
+}
+
+
+void DlgObjectTool::OnBnClickedResetType()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	int TypeSelect = m_TypeComboBox.GetCurSel();
+	if (TypeSelect == -1)
+		return;
+
+	int ObjSelect = m_ObjectListBox.GetCurSel();
+	if (ObjSelect == -1)
+		return;
+
+	Transform* SelectedTransform = EditorManager::GetInstance()->GetGizmo()->GetSelectedObject();
+	if (SelectedTransform == nullptr)
+		return;
+	if (SelectedTransform->GetGameObject()->GetComponent<HandlingObject>() == nullptr)
+		return;
+
+	HandlingObject* Obj = HandlingObject::g_HandlingVec[ObjSelect];
+
+	CString Type = L"";
+	m_TypeComboBox.GetLBText(TypeSelect, Type);
+	Obj->RemoveChildObjectAndComponent();
+	Obj->AddComponentToChildObject(Type);
+
+	SetRotationScrollToDefault();
+	m_SliderScaleX.SetPos(20);
+	m_SliderScaleY.SetPos(20);
+	m_SliderScaleZ.SetPos(20);
+}
+
+
+void DlgObjectTool::OnBnClickedRenameButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int ObjSelect = m_ObjectListBox.GetCurSel();
+	if (ObjSelect == -1)
+		return;
+
+	Transform* SelectedTransform = EditorManager::GetInstance()->GetGizmo()->GetSelectedObject();
+	if (SelectedTransform == nullptr)
+		return;
+	if (SelectedTransform->GetGameObject()->GetComponent<HandlingObject>() == nullptr)
+		return;
+
+	UpdateData(true);
+	std::vector<HandlingObject*> ObjVec = HandlingObject::g_HandlingVec;
+	HandlingObject* Obj = ObjVec[ObjSelect];
+	Obj->GetGameObject()->name = m_Name.GetString();
+
+	m_ObjectListBox.ResetContent();
+	for (unsigned int i = 0; i < ObjVec.size(); ++i)
 	{
-		GameObject* parentObj = trans->GetGameObject();
-
-		Pickable* pick = parentObj->GetComponent<Pickable>();
-
-		if (!pick)
-			return;
-		if (pick->GetType() != Type::Map)
-			return;
-
-		parentObj->SetName(m_objectName.GetString());
-		parentObj->SetTag(m_objectTag.GetString());
-
-		giz->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
-
-		parentObj->transform->position = Vec3(m_fPosX, m_fPosY, m_fPosZ);
-		parentObj->transform->eulerAngle = Vec3(m_fRotX, m_fRotY, m_fRotZ);
-		parentObj->transform->scale = Vec3(m_fScaleX, m_fScaleY, m_fScaleZ);
-
-		m_SelectName = m_objectName;
-		
-		//////////////////////////////////////////////////////////////////////
-		
-		pick->SetMesh(m_MeshType);
-
-		float X = EditToNum(m_UVScaleX);
-		float Y = EditToNum(m_UVScaleY);
-		pick->GetUserMesh()->SetUVScale(Vec2(X, Y));
-		pick->SetCollisionExistence(m_ColliderExistence.GetCheck());
-
-		SetPickableObject(trans->GetGameObject());
+		CString name = ObjVec[i]->GetGameObject()->name.c_str();
+		m_ObjectListBox.AddString(name);
 	}
-
-	//SetPickableObject(trans->GetGameObject());
-
-	UpdateData(FALSE);
-}
-
-void DlgObjectTool::OnBnClickedSave()
-{	
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	{
-		// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-		CFileDialog Dlg(FALSE, L"txt", L"MapData.txt", OFN_OVERWRITEPROMPT);
-
-		TCHAR szFilePath[MAX_PATH];
-
-		GetCurrentDirectory(MAX_PATH, szFilePath);
-
-		PathRemoveFileSpec(szFilePath);
-
-		lstrcat(szFilePath, L"\\Data\\Map");
-
-		Dlg.m_ofn.lpstrInitialDir = szFilePath;
-
-		if (IDOK == Dlg.DoModal())
-		{
-			CString wstrFilePath = Dlg.GetPathName();
-			Json::Value Root;
-
-			std::vector<Pickable*> MapVec = Pickable::g_MapVec;
-			for (unsigned int i = 0; i < MapVec.size(); ++i)
-			{
-				Pickable* MapObject = MapVec[i];
-
-				Json::Value MapValue;
-				MapValue["Name"] = ToString(MapObject->GetGameObject()->GetName());
-				MapValue["Tag"] = ToString(MapObject->GetGameObject()->GetTag());
-				MapValue["TexturePath"] = ToString(MapObject->GetRenderer()->GetTexture(0)->GetLocalPath());
-				MapValue["MeshType"] = (int)MapObject->GetMeshType();
-				MapValue["PositionX"] = MapObject->GetGameObject()->GetTransform()->position.x;
-				MapValue["PositionY"] = MapObject->GetGameObject()->GetTransform()->position.y;
-				MapValue["PositionZ"] = MapObject->GetGameObject()->GetTransform()->position.z;
-				MapValue["ScaleX"] = MapObject->GetGameObject()->GetTransform()->scale.x;
-				MapValue["ScaleY"] = MapObject->GetGameObject()->GetTransform()->scale.y;
-				MapValue["ScaleZ"] = MapObject->GetGameObject()->GetTransform()->scale.z;
-				MapValue["RotationX"] = MapObject->GetGameObject()->transform->eulerAngle.x;
-				MapValue["RotationY"] = MapObject->GetGameObject()->transform->eulerAngle.y;
-				MapValue["RotationZ"] = MapObject->GetGameObject()->transform->eulerAngle.z;
-				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
-				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
-				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
-
-				Root[i] = MapValue;
-			}
-
-			SaveToJsonFormat(Root, ToString(wstrFilePath.GetString()));
-		}
-	}
-	return;
-}
-
-void DlgObjectTool::OnBnClickedLoad()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	{
-		CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
-
-		TCHAR szFilePath[MAX_PATH]{};
-
-		GetCurrentDirectory(MAX_PATH, szFilePath);
-
-		PathRemoveFileSpec(szFilePath);
-
-		lstrcat(szFilePath, L"\\Data\\Map");
-
-		Dlg.m_ofn.lpstrInitialDir = szFilePath;
-
-		if (IDOK == Dlg.DoModal())
-		{
-			Pickable::ClearMapVector();
-
-			CString wstrFilePath = Dlg.GetPathName();
-
-			Json::Value root = LoadFromJsonFormat(ToString(wstrFilePath.GetString()));
-			int RootSize = (int)root.size();
-
-			for (int i = 0; i < RootSize; ++i)
-			{
-				//MapObj
-				Json::Value MapValue = root[i];
-
-				wstring Name = ToWString(MapValue["Name"].asString());
-				wstring Tag = ToWString(MapValue["Tag"].asString());
-				wstring TexturePath = ToWString(MapValue["TexturePath"].asString());
-				int temp = MapValue["MeshType"].asInt();
-				COMBOBOX MeshType = (COMBOBOX)temp;
-			
-				Vec3 Pos = Vec3(MapValue["PositionX"].asFloat(), MapValue["PositionY"].asFloat(), MapValue["PositionZ"].asFloat());
-				Vec3 Scale = Vec3(MapValue["ScaleX"].asFloat(), MapValue["ScaleY"].asFloat(), MapValue["ScaleZ"].asFloat());
-				Vec3 EulerAngle = Vec3(MapValue["RotationX"].asFloat(), MapValue["RotationY"].asFloat(), MapValue["RotationZ"].asFloat());
-				
-				Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
-				bool ColliderExistence = MapValue["ColliderExistence"].asBool();
-				//==
-				GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
-				pObj->name = Name;
-
-				Pickable* pick = pObj->AddComponent<Pickable>();
-				pick->PushInVector(Type::Map);
-				pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
-
-				pObj->transform->position = Pos;
-				pObj->transform->scale = Scale;
-				pObj->transform->eulerAngle = EulerAngle;
-			}
-			Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-			giz->Detach();
-			giz->enable= false;
-		}
-	}
-
-	return;
-}
-
-void DlgObjectTool::OnBnClickedClear()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
-	UpdateData(TRUE);
-
-	//m_objectName = L"";	이름 마찬가지
-
-	//m_fPosX = 0.f;
-	//m_fPosY = 0.f;
-	//m_fPosZ = 0.f;		0,0,0으로 이동시킬일은 거의 없을거같아서 포지션은 냅둔다.
-
-	m_fScaleX = 1.f;
-	m_fScaleY = 1.f;
-	m_fScaleZ = 1.f;
-
-	m_fRotX = 0.f;
-	m_fRotY = 0.f;
-	m_fRotZ = 0.f;
-
-	m_ColliderExistence.SetCheck(false);
-	NumToEdit(m_UVScaleX, 1.f);
-	NumToEdit(m_UVScaleY, 1.f);
-
-	UpdateData(FALSE);
-}
-
-void DlgObjectTool::OnNMCustomdrawRotslider(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	*pResult = 0;
+	m_ObjectListBox.SetCurSel(ObjSelect);
 }
 
 
@@ -612,35 +364,24 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	Transform* trans = giz->GetSelectedObject();
 	if (!trans)
 		return;
+
+	HandlingObject* Picked = trans->GetGameObject()->GetComponent<HandlingObject>();
+
+	if (!Picked)
+		return;
+
+	float ScaleX = float(m_SliderScaleX.GetPos() / 20.f);
+	float ScaleY = float(m_SliderScaleY.GetPos() / 20.f);
+	float ScaleZ = float(m_SliderScaleZ.GetPos() / 20.f);
+	Picked->GetChildObject()->transform->scale = Vec3(ScaleX, ScaleY, ScaleZ);				//CompObj Scale
 	
-	Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+	float PivotScale = float(m_PivotSliderScale.GetPos() / 20.f);
+	Picked->GetPivotObject()->transform->scale = Vec3(PivotScale, PivotScale, PivotScale);	//Pivot Scale
 
-	if (!picked)
-		return;
-
-	if (picked->GetType() != Type::Map)
-		return;
-
-
-	m_rRotX = float(m_SliderControlX.GetPos() - 180);
-	m_rRotY = float(m_SliderControlY.GetPos() - 180);
-	m_rRotZ = float(m_SliderControlZ.GetPos() - 180);
-
-	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(m_rRotX, m_rRotY, m_rRotZ));
-
-	m_fRotX = m_rRotX;
-	m_fRotY = m_rRotY;
-	m_fRotZ = m_rRotZ;
-	//=====================================================================================
-	m_rScaleX = float(m_SliderControlScaleX.GetPos() / 20.f);
-	m_rScaleY = float(m_SliderControlScaleY.GetPos() / 20.f);
-	m_rScaleZ = float(m_SliderControlScaleZ.GetPos() / 20.f);
-
-	giz->GetSelectedObject()->transform->SetScale(Vec3(m_rScaleX, m_rScaleY, m_rScaleZ));
-
-	m_fScaleX = m_rScaleX;
-	m_fScaleY = m_rScaleY;
-	m_fScaleZ = m_rScaleZ;
+	float RotateX = float(m_SliderRotationX.GetPos() - 180);
+	float RotateY = float(m_SliderRotationY.GetPos() - 180);
+	float RotateZ = float(m_SliderRotationZ.GetPos() - 180);
+	Picked->GetGameObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));		//Parent Rotation
 
 	UpdateData(FALSE);
 
@@ -648,29 +389,209 @@ void DlgObjectTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 }
 
 
-void DlgObjectTool::ClickAddButton()
+void DlgObjectTool::OnLbnSelchangeListBox()
 {
-	CMainFrame* pMainFrame = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
-	CIonFuryEditorView* pView = dynamic_cast<CIonFuryEditorView*>(pMainFrame->GetActiveView());
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int Select = m_ObjectListBox.GetCurSel();
+	if (Select == -1)
+		return;
 
-	DlgTextureTool* textool = pView->GetTextureTool();
-	CString TexturePath = textool->GetmemberTexturePathString();
+	HandlingObject* Obj = HandlingObject::g_HandlingVec[Select];
 
-	FreePerspectiveCamera* camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-	Pickable* pick = nullptr;
-	pick = camera->Add_MapObject(
-		GetColliderExistence(),
-		GetToolSize(),
-		GetToolRotation(),
-		GetToolUVScale(),
-		m_MeshType,
-		m_objectTag.GetString(),
-		m_objectName.GetString(),
-		TexturePath.GetString());
+	SetComboBoxAsSelected(Obj);
 
-	SetPickableObject(pick->GetGameObject());
-	SelectObject();
-	UpdateUVScale(pick);
-	ReturnComboBoxSelect(pick);
-	ReturnCollisionExistenceSelect(pick);
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+
+	giz->Attach(Obj->transform);
+
+	//ScaleRot picked값으로 scroll 변경
+	SetScaleScrollToPicked(Obj);
+	SetRotationScrollToPicked(Obj);
+}
+
+
+void DlgObjectTool::OnBnClickedRemove()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int Select = m_ObjectListBox.GetCurSel();
+	if (Select == -1)
+		return;
+
+	std::vector<HandlingObject*> ObjVec = HandlingObject::g_HandlingVec;
+	ObjVec[Select]->GetGameObject()->Destroy();
+
+	m_ObjectListBox.DeleteString(Select);
+	m_ObjectListBox.SetCurSel(-1);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->Detach();
+	giz->enable = false;
+
+}
+
+
+void DlgObjectTool::OnBnClickedResetScale()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_SliderScaleX.SetPos(20);
+	m_SliderScaleY.SetPos(20);
+	m_SliderScaleZ.SetPos(20);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+	
+	HandlingObject* Obj = trans->GetGameObject()->GetComponent<HandlingObject>();
+	if (Obj == nullptr)
+		return;
+
+	Obj->GetChildObject()->GetTransform()->scale = Vec3(1.f, 1.f, 1.f);
+}
+
+
+void DlgObjectTool::OnBnClickedResetRotation()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_SliderRotationX.SetPos(180);
+	m_SliderRotationY.SetPos(180);
+	m_SliderRotationZ.SetPos(180);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	HandlingObject* Obj = trans->GetGameObject()->GetComponent<HandlingObject>();
+	if (Obj == nullptr)
+		return;
+
+	Obj->GetGameObject()->GetTransform()->eulerAngle = Vec3(0.f, 0.f, 0.f);
+}
+
+
+void DlgObjectTool::OnBnClickedSave()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	{
+		// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CFileDialog Dlg(FALSE, L"txt", L"HandlingData.txt", OFN_OVERWRITEPROMPT);
+
+		TCHAR szFilePath[MAX_PATH];
+
+		GetCurrentDirectory(MAX_PATH, szFilePath);
+
+		PathRemoveFileSpec(szFilePath);
+
+		lstrcat(szFilePath, L"\\Data\\Handling");
+
+		Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+		if (IDOK == Dlg.DoModal())
+		{
+			CString wstrFilePath = Dlg.GetPathName();
+			Json::Value Root;
+
+			std::vector<HandlingObject*> ObjVec = HandlingObject::g_HandlingVec;
+			for (unsigned int i = 0; i < ObjVec.size(); ++i)
+			{
+				HandlingObject* HandleObject = ObjVec[i];
+
+				Json::Value ObjValue;
+				ObjValue["Name"] = ToString(HandleObject->GetGameObject()->GetName());
+				ObjValue["ComponentType"] = ToString(HandleObject->GetComponentType().GetString());
+				ObjValue["PositionX"] = HandleObject->GetGameObject()->GetTransform()->position.x;
+				ObjValue["PositionY"] = HandleObject->GetGameObject()->GetTransform()->position.y;
+				ObjValue["PositionZ"] = HandleObject->GetGameObject()->GetTransform()->position.z;
+				ObjValue["ChildScaleX"] = HandleObject->GetChildObject()->GetTransform()->scale.x;
+				ObjValue["ChildScaleY"] = HandleObject->GetChildObject()->GetTransform()->scale.y;
+				ObjValue["ChildScaleZ"] = HandleObject->GetChildObject()->GetTransform()->scale.z;
+				ObjValue["PivotScale"] = HandleObject->GetPivotObject()->GetTransform()->scale.x;
+				ObjValue["RotationX"] = HandleObject->GetGameObject()->transform->eulerAngle.x;
+				ObjValue["RotationY"] = HandleObject->GetGameObject()->transform->eulerAngle.y;
+				ObjValue["RotationZ"] = HandleObject->GetGameObject()->transform->eulerAngle.z;
+
+				Root[i] = ObjValue;
+			}
+
+			SaveToJsonFormat(Root, ToString(wstrFilePath.GetString()));
+		}
+	}
+	return;
+}
+
+
+void DlgObjectTool::OnBnClickedLoad()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH]{};
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data\\Handling");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+	if (IDOK == Dlg.DoModal())
+	{
+		std::vector<HandlingObject*> HandlingVec = HandlingObject::g_HandlingVec;
+		
+		{
+			HandlingObject::ClearVector();
+			HandlingObject::g_HandlingVec;
+			
+			m_ObjectListBox.ResetContent();
+		}
+
+		CString wstrFilePath = Dlg.GetPathName();
+
+		Json::Value root = LoadFromJsonFormat(ToString(wstrFilePath.GetString()));
+		int RootSize = (int)root.size();
+
+		for (int i = 0; i < RootSize; ++i)
+		{
+			//MapObj
+			Json::Value ObjValue = root[i];
+
+			wstring Name = ToWString(ObjValue["Name"].asString());
+			wstring ComponentType = ToWString(ObjValue["ComponentType"].asString());
+
+			Vec3 Pos = Vec3(ObjValue["PositionX"].asFloat(), ObjValue["PositionY"].asFloat(), ObjValue["PositionZ"].asFloat());
+			Vec3 ChildScale = Vec3(ObjValue["ChildScaleX"].asFloat(), ObjValue["ChildScaleY"].asFloat(), ObjValue["ChildScaleZ"].asFloat());
+			Vec3 EulerAngle = Vec3(ObjValue["RotationX"].asFloat(), ObjValue["RotationY"].asFloat(), ObjValue["RotationZ"].asFloat());
+
+			Vec3 PivotScale = Vec3(ObjValue["PivotScale"].asFloat(), ObjValue["PivotScale"].asFloat(), ObjValue["PivotScale"].asFloat());
+
+			GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"HandlingObject");
+			pObj->name = Name;
+
+			pObj->transform->position = Pos;
+
+			HandlingObject* HandleObj = pObj->AddComponent<HandlingObject>();
+			HandleObj->AddComponentToChildObject(ComponentType.c_str());
+			GameObject* ChildObj = HandleObj->GetChildObject();
+			GameObject* PivotObj = HandleObj->GetPivotObject();
+
+			ChildObj->transform->scale = ChildScale;
+			PivotObj->transform->scale = PivotScale;
+
+			pObj->transform->eulerAngle = EulerAngle;
+		}
+
+		HandlingVec = HandlingObject::g_HandlingVec;
+		int Size = HandlingVec.size();
+		for (int i = 0; i < Size; ++i)
+		{
+			m_ObjectListBox.AddString(HandlingVec[i]->GetGameObject()->name.c_str());
+		}
+
+		Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+		giz->Detach();
+		giz->enable = false;
+	}
 }

@@ -161,6 +161,7 @@ protected:
 // 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -196,4 +197,3 @@ BOOL CIonFuryEditorApp::PreTranslateMessage(MSG* pMsg)
 	engine.WindowProcedure(pMsg->message, pMsg->wParam, pMsg->lParam);
 	return CWinApp::PreTranslateMessage(pMsg);
 }
-

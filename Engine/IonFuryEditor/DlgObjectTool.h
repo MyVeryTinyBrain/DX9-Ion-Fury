@@ -2,30 +2,11 @@
 
 // DlgObjectTool 대화 상자
 
-#include "EditorEnum.h"
-
-class Pickable;
+class HandlingObject;
 
 class DlgObjectTool : public CDialog
 {
 	DECLARE_DYNAMIC(DlgObjectTool)
-
-public:
-	void SetPickableObject(GameObject* gameobject = nullptr);
-	void SelectObject();
-
-	//void ScrollUpdatePick(GameObject* gam);
-
-	Vec3 GetToolSize();
-	Vec3 GetToolRotation();
-
-	void Clear();
-
-public:
-	void SaveToJsonFormat(const Json::Value& json, string path);
-	Json::Value LoadFromJsonFormat(string path);
-	wstring ToWString(const string& str);
-	string ToString(const wstring& wstr);
 
 public:
 	DlgObjectTool(CWnd* pParent = nullptr);   // 표준 생성자입니다.
@@ -33,79 +14,50 @@ public:
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_DlgObjectTool };
+	enum { IDD = IDD_DlgObjTool };
 #endif
-
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
-public:
-	void ResetScroll();
-	void ReturnComboBoxSelect(Pickable* pick);
-	void ReturnCollisionExistenceSelect(Pickable* pick);
-
-	void UpdateUVScale(Pickable* pick);
-
-	bool GetColliderExistence();
-public:
-	float EditToNum(const CEdit& edit);
-	void NumToEdit(CEdit& edit, float num);
 
 public:
-	Vec2 GetToolUVScale();
+	CListBox m_ObjectListBox;
+	CSliderCtrl m_SliderScaleX;
+	CSliderCtrl m_SliderScaleY;
+	CSliderCtrl m_SliderScaleZ;
+	CSliderCtrl m_SliderRotationX;
+	CSliderCtrl m_SliderRotationY;
+	CSliderCtrl m_SliderRotationZ;
+	CSliderCtrl m_PivotSliderScale;
+	CComboBox m_TypeComboBox;
+	CString m_Name;
+	int m_Cnt = 0;
 public:
-	CComboBox m_comboBox;
-
-	CString m_objectName;
-	
-	CString m_meshPath;
-
-	COMBOBOX m_MeshType;
-
+	void SetScaleScrollToDefault(HandlingObject* picked = nullptr);		
+	void SetRotationScrollToDefault(HandlingObject* picked = nullptr);	//매개변수 있으면 reset, 아니면 스크롤값 초기화
+	void SetScaleScrollToPicked(HandlingObject* picked);
+	void SetRotationScrollToPicked(HandlingObject* picked);
+public:
+	void SetComboBoxAsSelected(HandlingObject* picked);
+	void UndoToolStatus();
+public:
+	void SaveToJsonFormat(const Json::Value& json, string path);
+	Json::Value LoadFromJsonFormat(string path);
+	wstring ToWString(const string& str);
+	string ToString(const wstring& wstr);
+public:
 	virtual BOOL OnInitDialog();
-	afx_msg void OnObjectName();
-	afx_msg void OnSelectMesh();
-	float m_fPosX;
-	float m_fPosY;
-	float m_fPosZ;
-	float m_fRotX;
-	float m_fRotY;
-	float m_fRotZ;
-	float m_fScaleX;
-	float m_fScaleY;
-	float m_fScaleZ;
-	CString m_objectTag;
-	afx_msg void OnObjectTag();
-	CString m_SelectName;
-	
-	float m_rPosX;
-	float m_rPosY;
-	float m_rPosZ;
-
-	float m_rRotX;
-	float m_rRotY;
-	float m_rRotZ;
-
-	float m_rScaleX;
-	float m_rScaleZ;
-	float m_rScaleY;
-	afx_msg void OnBnClickedSave();
-	afx_msg void OnBnClickedApply();
-	afx_msg void OnBnClickedLoad();
-	afx_msg void OnBnClickedClear();
-	afx_msg void OnNMCustomdrawRotslider(NMHDR* pNMHDR, LRESULT* pResult);
-	CSliderCtrl m_SliderControlX;
-	CSliderCtrl m_SliderControlY;
-	CSliderCtrl m_SliderControlZ;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+public:
+	afx_msg void OnBnClickedAddButton();
+	afx_msg void OnBnClickedResetType();
+	afx_msg void OnBnClickedRenameButton();
+	afx_msg void OnLbnSelchangeListBox();
 
-	CEdit m_UVScaleX;
-	CEdit m_UVScaleY;
-
-	CButton m_ColliderExistence;
-	afx_msg void ClickAddButton();
-	CSliderCtrl m_SliderControlScaleX;
-	CSliderCtrl m_SliderControlScaleY;
-	CSliderCtrl m_SliderControlScaleZ;
+	afx_msg void OnBnClickedRemove();
+	afx_msg void OnBnClickedResetScale();
+	afx_msg void OnBnClickedResetRotation();
+	afx_msg void OnBnClickedSave();
+	afx_msg void OnBnClickedLoad();
 };

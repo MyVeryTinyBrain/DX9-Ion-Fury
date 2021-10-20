@@ -2,6 +2,7 @@
 #include "FreePerspectiveCamera.h"
 #include "Gizmo.h"
 #include "Pickable.h"
+#include "HandlingObject.h"
 #include "EditorManager.h"
 #include "LightObj.h"
 #include "EditorEnum.h"
@@ -117,7 +118,7 @@ Pickable* FreePerspectiveCamera::Add_TriggerObject(int cnt)
 
 	pick->PushInVector(Type::Trigger);
 
-	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Trigger.png", true);
+	pick->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, BuiltInTransparentGreenTexture, true);
 
 	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
@@ -147,5 +148,26 @@ Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
 
 	return Event;
+}
+
+HandlingObject* FreePerspectiveCamera::Add_HandlingObject(int cnt)
+{
+	GameObject* Obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"HandlingObject");
+
+	CString name = L"Object_";
+	CString num;
+	num.Format(_T("%d"), cnt);
+	name += num;
+	Obj->name = name.GetString();
+
+	Vec3 Position = transform->position + transform->forward * 2;
+	Obj->transform->position = Position;
+
+	HandlingObject* Handling = Obj->AddComponent<HandlingObject>();
+
+	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
+	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
+
+	return Handling;
 }
 

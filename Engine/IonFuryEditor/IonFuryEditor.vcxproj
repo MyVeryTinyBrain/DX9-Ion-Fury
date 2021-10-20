@@ -197,6 +197,7 @@
   <ItemGroup>
     <ClInclude Include="DlgLightTool.h" />
     <ClInclude Include="DlgMonsterTool.h" />
+    <ClInclude Include="DlgMapTool.h" />
     <ClInclude Include="DlgObjectTool.h" />
     <ClInclude Include="DlgTextureTool.h" />
     <ClInclude Include="EditorEnum.h" />
@@ -213,12 +214,14 @@
     <ClInclude Include="LightObj.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Pickable.h" />
+    <ClInclude Include="HandlingObject.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DlgLightTool.cpp" />
     <ClCompile Include="DlgMonsterTool.cpp" />
+    <ClCompile Include="DlgMapTool.cpp" />
     <ClCompile Include="DlgObjectTool.cpp" />
     <ClCompile Include="DlgTextureTool.cpp" />
     <ClCompile Include="EditorManager.cpp" />
@@ -233,6 +236,7 @@
     <ClCompile Include="LightObj.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Pickable.cpp" />
+    <ClCompile Include="HandlingObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFuryEditor.rc" />

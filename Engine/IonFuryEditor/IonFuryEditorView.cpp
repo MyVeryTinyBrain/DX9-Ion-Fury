@@ -19,6 +19,7 @@
 #include "EditorScene.h"
 #include "Gizmo.h"
 #include "EditorEnum.h"
+#include "HandlingObject.h"
 
 #ifdef new
 #undef new
@@ -38,7 +39,7 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_SIZE()
 	ON_WM_TIMER()
-	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnObject)
+	ON_COMMAND(ID_32771, &CIonFuryEditorView::OnMap)
 	ON_COMMAND(ID_32772, &CIonFuryEditorView::OnLight)
 	ON_WM_KEYDOWN()
 	ON_COMMAND(ID_32773, &CIonFuryEditorView::OnTextureTool)
@@ -46,6 +47,9 @@ BEGIN_MESSAGE_MAP(CIonFuryEditorView, CView)
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
 	ON_COMMAND(ID_Menu, &CIonFuryEditorView::OnMonsterTool)
+	ON_COMMAND(ID_FILE_SAVE_AS, &CIonFuryEditorView::OnFileSaveAs)
+	ON_COMMAND(ID_FILE_OPEN, &CIonFuryEditorView::OnFileOpen)
+	ON_COMMAND(ID_32776, &CIonFuryEditorView::OnObject)
 END_MESSAGE_MAP()
 
 // CIonFuryEditorView 생성/소멸
@@ -143,8 +147,8 @@ void CIonFuryEditorView::OnInitialUpdate()
 
 	// 여기에서 우선 다이얼로그를 생성합니다.
 
-	if (!m_dlgObjectTool.GetSafeHwnd())
-		m_dlgObjectTool.Create(IDD_DlgObjectTool);
+	if (!m_dlgMapTool.GetSafeHwnd())
+		m_dlgMapTool.Create(IDD_DlgMapTool);
 
 	if (!m_dlgLightTool.GetSafeHwnd())
 		m_dlgLightTool.Create(IDD_DlgLightTool);
@@ -155,6 +159,9 @@ void CIonFuryEditorView::OnInitialUpdate()
 	//터질경우 의심해볼 코드
 	if (!m_dlgMonsterTool.GetSafeHwnd())
 		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
+
+	if (!m_dlgObjectTool.GetSafeHwnd())
+		m_dlgObjectTool.Create(IDD_DlgObjTool);
 }
 
 
@@ -187,12 +194,12 @@ BOOL CIonFuryEditorView::DestroyWindow()
 }
 
 
-void CIonFuryEditorView::OnObject()
+void CIonFuryEditorView::OnMap()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	if (!m_dlgObjectTool.GetSafeHwnd())
-		m_dlgObjectTool.Create(IDD_DlgObjectTool);
-	m_dlgObjectTool.ShowWindow(SW_SHOW);
+	if (!m_dlgMapTool.GetSafeHwnd())
+		m_dlgMapTool.Create(IDD_DlgMapTool);
+	m_dlgMapTool.ShowWindow(SW_SHOW);
 }
 
 
@@ -204,6 +211,13 @@ void CIonFuryEditorView::OnLight()
 	m_dlgLightTool.ShowWindow(SW_SHOW);
 }
 
+void CIonFuryEditorView::OnObject()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (!m_dlgObjectTool.GetSafeHwnd())
+		m_dlgObjectTool.Create(IDD_DlgObjTool);
+	m_dlgObjectTool.ShowWindow(SW_SHOW);
+}
 
 void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
@@ -221,7 +235,7 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		giz->DeleteAttachedObject();
 		giz->Detach();
 		giz->enable = false;
-		m_dlgObjectTool.Clear();
+		m_dlgMapTool.Clear();
 		break;
 	default:
 		break;
@@ -252,16 +266,43 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 	//기즈모를 가장 우선적으로 선택하도록한 어거지코드!! 문제터지면 삭제
 	//========================================================================
 
-	Pickable* pick = Pickable::Pick();
+	float PickableDistance = 90000.f;
+	float HandlingDistance = 90000.f;
+	float LightDistance = 90000.f;
+
+	Pickable* pick = Pickable::Pick(PickableDistance);
+	HandlingObject* HandlePick = HandlingObject::Pick(HandlingDistance);
+	LightObj* LightPick = LightObj::LightPick(LightDistance);
+
+	if (PickableDistance < HandlingDistance)
+	{
+		HandlePick = nullptr;
+
+		if (PickableDistance < LightDistance)
+			LightPick = nullptr;
+		else
+			pick = nullptr;
+	}
+	else if (PickableDistance > HandlingDistance)
+	{
+		pick = nullptr;
+
+		if (HandlingDistance < LightDistance)
+			LightPick = nullptr;
+		else
+			HandlePick = nullptr;
+	}
+
 
 	m_dlgMonsterTool.ClearEverything();
-	m_dlgObjectTool.Clear();
+	m_dlgMapTool.Clear();
 
 	if (pick)
 	{
 		auto pickObj = pick->GetGameObject();
+		EditorManager::GetInstance()->GetGizmo()->Attach(pickObj->transform);
 
-		if (!m_dlgObjectTool)
+		if (!m_dlgMapTool)
 			return;
 
 		Type PickType = pick->GetType();
@@ -269,11 +310,11 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		switch (PickType)
 		{
 		case Type::Map:
-			m_dlgObjectTool.SetPickableObject(pickObj);
-			m_dlgObjectTool.SelectObject();
-			m_dlgObjectTool.UpdateUVScale(pick);
-			m_dlgObjectTool.ReturnComboBoxSelect(pick);
-			m_dlgObjectTool.ReturnCollisionExistenceSelect(pick);
+			m_dlgMapTool.SetPickableObject(pickObj);
+			m_dlgMapTool.SelectObject();
+			m_dlgMapTool.UpdateUVScale(pick);
+			m_dlgMapTool.ReturnComboBoxSelect(pick);
+			m_dlgMapTool.ReturnCollisionExistenceSelect(pick);
 
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
@@ -294,23 +335,43 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgMonsterTool.SetScaleScrollToPicked(pick);
 			break;
 		}
-		return;						//pickable 대상으로 pick을 성공하면 더이상 레이캐스팅을 진행하지 않는다.
+		return;
 	}
-	else if (!giz->PickHandle())
-	{
-		giz->Detach();
-		giz->enable = false;
-		//m_dlgObjectTool.Clear();
-	}
+	//else if (!giz->PickHandle())
+	//{
+	//	giz->Detach();
+	//	giz->enable = false;
+	//}
 
 	//=========================================================
+	if (HandlePick)
+	{
+		if (!m_dlgObjectTool)
+			return;
 
-	LightObj* light = LightObj::LightPick();
+		auto pickObj = HandlePick->GetGameObject();
+		EditorManager::GetInstance()->GetGizmo()->Attach(pickObj->transform);
+		HandlingObject* HandlingObj = pickObj->GetComponent<HandlingObject>();
+
+		if (HandlingObj == nullptr)
+			return;
+
+		m_dlgObjectTool.SetComboBoxAsSelected(HandlingObj);
+		m_dlgObjectTool.SetScaleScrollToPicked(HandlingObj);
+		m_dlgObjectTool.SetRotationScrollToPicked(HandlingObj);
+		m_dlgObjectTool.m_ObjectListBox.SetCurSel(HandlingObj->GetHandlingVectorIndex());
+	}
+	else
+	{	//혹시 이상하면 주목!!//===============
+		m_dlgObjectTool.UndoToolStatus();
+	}
+	//=========================================================
+	//LightObj* LightPick = LightObj::LightPick();
 	m_dlgLightTool.LightClear();
 
-	if (light)
+	if (LightPick)
 	{
-		auto lightobj = light->GetGameObject();
+		auto lightobj = LightPick->GetGameObject();
 
 		for (auto& light : LightObj::g_vecLight)
 		{
@@ -324,15 +385,11 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 	}
 
-
-	else if (!giz->PickHandle())
+	if (!pick && !HandlePick && !LightPick)
 	{
-		cout << "조명선택안됨" << endl;
 		giz->Detach();
 		giz->enable = false;
 	}
-
-
 }
 
 void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
@@ -367,8 +424,8 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			{
 			case Type::Map:
 				auto pickObj = trans->GetGameObject();
-				m_dlgObjectTool.SetPickableObject(pickObj);
-				m_dlgObjectTool.SelectObject();
+				m_dlgMapTool.SetPickableObject(pickObj);
+				m_dlgMapTool.SelectObject();
 				break;
 			}
 		}
@@ -387,6 +444,8 @@ DlgTextureTool* CIonFuryEditorView::GetTextureTool()
 {
 	if (m_dlgTextureTool)
 		return &m_dlgTextureTool;
+	else
+		return nullptr;
 }
 
 
@@ -397,3 +456,514 @@ void CIonFuryEditorView::OnMonsterTool()
 		m_dlgMonsterTool.Create(IDD_DlgMonsterTool);
 	m_dlgMonsterTool.ShowWindow(SW_SHOW);
 }
+
+void CIonFuryEditorView::DetachGizmo()
+{
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	giz->Detach();
+	giz->enable = false;
+}
+
+void CIonFuryEditorView::SaveToJsonFormat(const Json::Value& json, string path)
+{
+	Json::StreamWriterBuilder builder;
+	string jsonFormatText = Json::writeString(builder, json);
+
+	std::ofstream out;
+	out.open(path);
+
+	out << jsonFormatText;
+
+	out.close();
+}
+
+Json::Value CIonFuryEditorView::LoadFromJsonFormat(string path)
+{
+	std::ifstream in;
+	in.open(path);
+
+	if (!in.is_open())
+	{
+		cout << "json read error: not exist file" << endl;
+		return Json::Value();
+	}
+
+	in.seekg(0, std::ios::end);
+	size_t size = in.tellg();
+	std::string jsonFormatText(size, ' ');
+	in.seekg(0);
+	in.read(&jsonFormatText[0], size);
+
+	in.close();
+
+	Json::Value root;
+	JSONCPP_STRING err;
+
+	Json::CharReaderBuilder charReaderBuilder;
+	const std::unique_ptr<Json::CharReader> reader(charReaderBuilder.newCharReader());
+	if (!reader->parse(jsonFormatText.c_str(), jsonFormatText.c_str() + jsonFormatText.length(), &root, &err))
+	{
+		cout << "json read error: invalid format" << endl;
+		return EXIT_FAILURE;
+	}
+
+	return root;
+}
+
+wstring CIonFuryEditorView::ToWString(const string& str)
+{
+	USES_CONVERSION;
+	return wstring(A2W(str.c_str()));
+}
+
+string CIonFuryEditorView::ToString(const wstring& wstr)
+{
+	USES_CONVERSION;
+	return string(W2A(wstr.c_str()));
+}
+
+
+void CIonFuryEditorView::OnFileSaveAs()
+{
+	//TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CFileDialog Dlg(FALSE, L"txt", L"TotalData.txt", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH];
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data\\Total");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+	if (IDOK == Dlg.DoModal())
+	{
+		CString wstrFilePath = Dlg.GetPathName();
+		Json::Value Root;
+		Json::Value MapObjects;
+		Json::Value TriggerEvents;
+		Json::Value Lights;
+		Json::Value HandleObjects;
+
+		{
+			std::vector<Pickable*> MapVec = Pickable::g_MapVec;
+			for (unsigned int i = 0; i < MapVec.size(); ++i)
+			{
+				Pickable* MapObject = MapVec[i];
+
+				Json::Value MapValue;
+				MapValue["Name"] = ToString(MapObject->GetGameObject()->GetName());
+				MapValue["Tag"] = ToString(MapObject->GetGameObject()->GetTag());
+				MapValue["TexturePath"] = ToString(MapObject->GetRenderer()->GetTexture(0)->GetLocalPath());
+				MapValue["MeshType"] = (int)MapObject->GetMeshType();
+				MapValue["PositionX"] = MapObject->GetGameObject()->GetTransform()->position.x;
+				MapValue["PositionY"] = MapObject->GetGameObject()->GetTransform()->position.y;
+				MapValue["PositionZ"] = MapObject->GetGameObject()->GetTransform()->position.z;
+				MapValue["ScaleX"] = MapObject->GetGameObject()->GetTransform()->scale.x;
+				MapValue["ScaleY"] = MapObject->GetGameObject()->GetTransform()->scale.y;
+				MapValue["ScaleZ"] = MapObject->GetGameObject()->GetTransform()->scale.z;
+				MapValue["RotationX"] = MapObject->GetGameObject()->transform->eulerAngle.x;
+				MapValue["RotationY"] = MapObject->GetGameObject()->transform->eulerAngle.y;
+				MapValue["RotationZ"] = MapObject->GetGameObject()->transform->eulerAngle.z;
+				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
+				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
+				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
+
+				MapObjects[i] = MapValue;
+			}
+			Root["MapObjects"] = MapObjects;
+		}
+
+		{
+			std::vector<Pickable*> TriggerVec = Pickable::g_TriggerVec;
+			for (unsigned int i = 0; i < TriggerVec.size(); ++i)
+			{
+				Pickable* TriggerObject = TriggerVec[i];
+
+				Json::Value TriggerEvent;
+
+				//Trigger[0] = trigger
+				{
+					Json::Value TriggerValue;
+					TriggerValue["Name"] = ToString(TriggerObject->GetGameObject()->GetName());
+					TriggerValue["PositionX"] = TriggerObject->GetGameObject()->GetTransform()->position.x;
+					TriggerValue["PositionY"] = TriggerObject->GetGameObject()->GetTransform()->position.y;
+					TriggerValue["PositionZ"] = TriggerObject->GetGameObject()->GetTransform()->position.z;
+					TriggerValue["ScaleX"] = TriggerObject->GetGameObject()->GetTransform()->scale.x;
+					TriggerValue["ScaleY"] = TriggerObject->GetGameObject()->GetTransform()->scale.y;
+					TriggerValue["ScaleZ"] = TriggerObject->GetGameObject()->GetTransform()->scale.z;
+					TriggerValue["RotationX"] = TriggerObject->GetGameObject()->transform->eulerAngle.x;
+					TriggerValue["RotationY"] = TriggerObject->GetGameObject()->transform->eulerAngle.y;
+					TriggerValue["RotationZ"] = TriggerObject->GetGameObject()->transform->eulerAngle.z;
+					TriggerValue["TriggerMethod"] = (int)TriggerObject->GetTriggerMethod();
+					TriggerValue["TriggerToolAutoNum"] = m_dlgMonsterTool.m_TriggerCnt; //m_TriggerCnt;
+
+					TriggerEvent[0] = TriggerValue;
+				}
+
+				//Trigger[1~] = Event
+				std::vector<Pickable*> EventVec = TriggerObject->GetEventVec();
+				for (unsigned int j = 0; j < EventVec.size(); ++j)
+				{
+					Json::Value Event;
+					Pickable* EventObject = EventVec[j];
+					Event["Name"] = ToString(EventObject->GetGameObject()->GetName());
+					Event["PositionX"] = EventObject->GetGameObject()->GetTransform()->position.x;
+					Event["PositionY"] = EventObject->GetGameObject()->GetTransform()->position.y;
+					Event["PositionZ"] = EventObject->GetGameObject()->GetTransform()->position.z;
+					Event["ScaleX"] = EventObject->GetGameObject()->GetTransform()->scale.x;
+					Event["ScaleY"] = EventObject->GetGameObject()->GetTransform()->scale.y;
+					Event["ScaleZ"] = EventObject->GetGameObject()->GetTransform()->scale.z;
+					Event["RotationX"] = EventObject->GetGameObject()->transform->eulerAngle.x;
+					Event["RotationY"] = EventObject->GetGameObject()->transform->eulerAngle.y;
+					Event["RotationZ"] = EventObject->GetGameObject()->transform->eulerAngle.z;
+					Event["EventType"] = (int)(EventObject->GetEventType());
+
+					TriggerEvent[j + 1] = Event;
+				}
+
+				TriggerEvents[i] = TriggerEvent;
+			}
+			Root["TriggerEvents"] = TriggerEvents;
+		}
+
+		{
+			std::vector<LightObj*> LightVec = LightObj::g_vecLight;
+			Json::Value Lights;
+			for (unsigned int i = 0; i < LightVec.size(); ++i)
+			{
+				LightObj* LightObject = LightVec[i];
+				Json::Value LightValue;
+
+				LightValue["Name"] = ToString(LightObject->GetGameObject()->name.c_str());
+				LightValue["Tag"] = ToString(LightObject->GetGameObject()->tag.c_str());
+
+				LightValue["PosX"] = LightObject->GetGameObject()->transform->position.x;
+				LightValue["PosY"] = LightObject->GetGameObject()->transform->position.y;
+				LightValue["PosZ"] = LightObject->GetGameObject()->transform->position.z;
+
+				LightValue["EulerAngleX"] = LightObject->GetGameObject()->transform->eulerAngle.x;
+				LightValue["EulerAngleY"] = LightObject->GetGameObject()->transform->eulerAngle.y;
+				LightValue["EulerAngleZ"] = LightObject->GetGameObject()->transform->eulerAngle.z;
+
+				if (LightObject->GetGameObject()->tag == L"Point")							//포인트 라인트	
+				{
+					auto lightcom = LightObject->GetGameObject()->GetComponentInChild<PointLight>();
+					LightValue["AmbinentFactor"] = lightcom->ambientFactor;
+					LightValue["ColorR"] = lightcom->color.r;
+					LightValue["ColorG"] = lightcom->color.g;
+					LightValue["ColorB"] = lightcom->color.b;
+					LightValue["ColorA"] = lightcom->color.a;
+
+					LightValue["Range"] = lightcom->range;
+				}
+				else if (LightObject->GetGameObject()->tag == L"Spot")						//스포트라이트
+				{
+					auto lightcom = LightObject->GetGameObject()->GetComponentInChild<SpotLight>();
+					LightValue["AmbinentFactor"] = lightcom->ambientFactor;
+					LightValue["ColorR"] = lightcom->color.r;
+					LightValue["ColorG"] = lightcom->color.g;
+					LightValue["ColorB"] = lightcom->color.b;
+					LightValue["ColorA"] = lightcom->color.a;
+
+					LightValue["Range"] = lightcom->range;
+
+					LightValue["OutsideAngle"] = lightcom->outsideAngle;
+					LightValue["InsideAngleRatio"] = lightcom->insideAngleRatio;
+				}
+				else if (LightObject->GetGameObject()->tag == L"Directional")					//디렉셔널라이트 
+				{
+					auto lightcom = LightObject->GetGameObject()->GetComponentInChild<DirectionalLight>();
+					LightValue["AmbinentFactor"] = lightcom->ambientFactor;
+					LightValue["ColorR"] = lightcom->color.r;
+					LightValue["ColorG"] = lightcom->color.g;
+					LightValue["ColorB"] = lightcom->color.b;
+					LightValue["ColorA"] = lightcom->color.a;
+				}
+
+				Lights[i] = LightValue;
+			}
+			Root["Lights"] = Lights;
+		}
+
+		{
+			std::vector<HandlingObject*> HandleVec = HandlingObject::g_HandlingVec;
+			for (int i = 0; i < (int)HandleVec.size(); ++i)
+			{
+				HandlingObject* HandleObject = HandleVec[i];
+
+				Json::Value HandleValue;
+				HandleValue["Name"] = ToString(HandleObject->GetGameObject()->GetName());
+				HandleValue["ComponentType"] = ToString(HandleObject->GetComponentType().GetString());
+				HandleValue["PositionX"] = HandleObject->GetGameObject()->GetTransform()->position.x;
+				HandleValue["PositionY"] = HandleObject->GetGameObject()->GetTransform()->position.y;
+				HandleValue["PositionZ"] = HandleObject->GetGameObject()->GetTransform()->position.z;
+				HandleValue["ChildScaleX"] = HandleObject->GetChildObject()->GetTransform()->scale.x;
+				HandleValue["ChildScaleY"] = HandleObject->GetChildObject()->GetTransform()->scale.y;
+				HandleValue["ChildScaleZ"] = HandleObject->GetChildObject()->GetTransform()->scale.z;
+				HandleValue["PivotScale"] = HandleObject->GetPivotObject()->GetTransform()->scale.x;
+				HandleValue["RotationX"] = HandleObject->GetGameObject()->transform->eulerAngle.x;
+				HandleValue["RotationY"] = HandleObject->GetGameObject()->transform->eulerAngle.y;
+				HandleValue["RotationZ"] = HandleObject->GetGameObject()->transform->eulerAngle.z;
+
+				HandleObjects[i] = HandleValue;
+			}
+			Root["HandleObjects"] = HandleObjects;
+		}
+
+		SaveToJsonFormat(Root, ToString(wstrFilePath.GetString()));
+	}
+}
+
+
+void CIonFuryEditorView::OnFileOpen()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	{
+		CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
+
+		TCHAR szFilePath[MAX_PATH]{};
+
+		GetCurrentDirectory(MAX_PATH, szFilePath);
+
+		PathRemoveFileSpec(szFilePath);
+
+		lstrcat(szFilePath, L"\\Data\\Total");
+
+		Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+		if (IDOK == Dlg.DoModal())
+		{
+			Pickable::ClearMapVector();
+
+			CString wstrFilePath = Dlg.GetPathName();
+
+			Json::Value Root = LoadFromJsonFormat(ToString(wstrFilePath.GetString()));
+			Json::Value MapObjects = Root["MapObjects"];
+			Json::Value TriggerEvents = Root["TriggerEvents"];
+			Json::Value	Lights = Root["Lights"];
+			Json::Value HandleObjects = Root["HandleObjects"];
+
+			//Map
+			{
+				int MapObjectsCnt = (int)MapObjects.size();
+				for (int i = 0; i < MapObjectsCnt; ++i)
+				{
+					//MapObj
+					Json::Value MapValue = MapObjects[i];
+
+					wstring Name = ToWString(MapValue["Name"].asString());
+					wstring Tag = ToWString(MapValue["Tag"].asString());
+					wstring TexturePath = ToWString(MapValue["TexturePath"].asString());
+					int temp = MapValue["MeshType"].asInt();
+					COMBOBOX MeshType = (COMBOBOX)temp;
+
+					Vec3 Pos = Vec3(MapValue["PositionX"].asFloat(), MapValue["PositionY"].asFloat(), MapValue["PositionZ"].asFloat());
+					Vec3 Scale = Vec3(MapValue["ScaleX"].asFloat(), MapValue["ScaleY"].asFloat(), MapValue["ScaleZ"].asFloat());
+					Vec3 EulerAngle = Vec3(MapValue["RotationX"].asFloat(), MapValue["RotationY"].asFloat(), MapValue["RotationZ"].asFloat());
+
+					Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
+					bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+					//==
+					GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
+					pObj->name = Name;
+
+					Pickable* pick = pObj->AddComponent<Pickable>();
+					pick->PushInVector(Type::Map);
+					pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
+
+					pObj->transform->position = Pos;
+					pObj->transform->scale = Scale;
+					pObj->transform->eulerAngle = EulerAngle;
+				}
+				DetachGizmo();
+			}
+
+			//trigger
+			{
+				m_dlgMonsterTool.EmptyBeforeLoad();
+
+				int RootSize = (int)TriggerEvents.size();
+
+				for (int i = 0; i < RootSize; ++i)
+				{
+					//Trigger
+					Json::Value TriggerEvent = TriggerEvents[i];
+					Json::Value TriggerValue = TriggerEvent[0];
+					wstring Name = ToWString(TriggerValue["Name"].asString());
+					Vec3 Pos = Vec3(TriggerValue["PositionX"].asFloat(), TriggerValue["PositionY"].asFloat(), TriggerValue["PositionZ"].asFloat());
+					Vec3 Scale = Vec3(TriggerValue["ScaleX"].asFloat(), TriggerValue["ScaleY"].asFloat(), TriggerValue["ScaleZ"].asFloat());
+					Vec3 EulerAngle = Vec3(TriggerValue["RotationX"].asFloat(), TriggerValue["RotationY"].asFloat(), TriggerValue["RotationZ"].asFloat());
+					int temp = TriggerValue["TriggerMethod"].asInt();
+					TriggerMethod method = (TriggerMethod)temp;
+
+					Pickable* TriggerObject = m_dlgMonsterTool.AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method);	//트리거 로딩
+					m_dlgMonsterTool.m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();									//트리거 이름 자동완성 번호 셋팅
+
+
+					int TriggerSize = TriggerEvent.size();
+					for (int i = 1; i < TriggerSize; ++i)
+					{
+						Json::Value Event = TriggerEvent[i];
+
+						wstring Name = ToWString(Event["Name"].asString());
+						Vec3 Pos = Vec3(Event["PositionX"].asFloat(), Event["PositionY"].asFloat(), Event["PositionZ"].asFloat());
+						Vec3 Scale = Vec3(Event["ScaleX"].asFloat(), Event["ScaleY"].asFloat(), Event["ScaleZ"].asFloat());
+						Vec3 EulerAngle = Vec3(Event["RotationX"].asFloat(), Event["RotationY"].asFloat(), Event["RotationZ"].asFloat());
+						int temp = Event["EventType"].asInt();
+						EventType evtType = (EventType)(temp);
+
+						m_dlgMonsterTool.AddEventLoadingStyle(TriggerObject, Name, Pos, Scale, EulerAngle, evtType);			//해당 트리거의 이벤트 로딩
+					}
+				}
+
+				m_dlgMonsterTool.EmptyAfterLoad();
+
+			}
+
+			//light
+			{
+				m_dlgLightTool.EmptyListBoxBeforeLoad();
+
+				int vecSize = LightObj::g_vecLight.size();
+				for (int i = 0; i < vecSize; ++i)
+				{
+					LightObj::g_vecLight[0]->gameObject->Destroy();
+				}
+
+				float Range = 0.f;
+				float OutsideAngle = 0.f;
+				float InsideAngleRatio = 0.f;
+
+				int LightJsonSize = (int)Lights.size();
+
+				for (int i = 0; i < LightJsonSize; ++i)
+				{
+					Json::Value Light = Lights[i];
+					wstring Name = ToWString(Light["Name"].asString());
+					wstring Tag = ToWString(Light["Tag"].asString());
+
+					Vec3 Pos = Vec3(Light["PosX"].asFloat(), Light["PosY"].asFloat(), Light["PosZ"].asFloat());
+					Vec3 EulerAngle = Vec3(Light["EulerAngleX"].asFloat(), Light["EulerAngleY"].asFloat(), Light["EulerAngleZ"].asFloat());
+					float AmbinentFactor = Light["AmbinentFactor"].asFloat();
+					Vec4 VColor = Vec4((float)Light["ColorR"].asInt(), (float)Light["ColorG"].asInt(), (float)Light["ColorB"].asInt(), (float)Light["ColorA"].asInt());
+
+					if (Tag == L"Point")
+					{
+						Range = Light["Range"].asFloat();
+					}
+					else if (Tag == L"Spot")
+					{
+						Range = Light["Range"].asFloat();
+						OutsideAngle = Light["OutsideAngle"].asFloat();
+						InsideAngleRatio = Light["InsideAngleRatio"].asFloat();
+					}
+
+					GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
+					LightObj* lightobj = pObj->AddComponent<LightObj>();
+					pObj->name = Name;
+					pObj->tag = Tag;
+					pObj->transform->position = Pos;
+					pObj->transform->eulerAngle = EulerAngle;
+
+					if (Tag == L"Point")
+					{
+						PointLight* point = pObj->GetComponentInChild<PointLight>();
+						point->ambientFactor = AmbinentFactor;
+						point->color = VColor;
+						point->range = Range;
+
+						lightobj->LightSetting();
+
+					}
+					else if (Tag == L"Spot")
+					{
+						SpotLight* spot = pObj->GetComponentInChild<SpotLight>();
+						spot->ambientFactor = AmbinentFactor;
+						spot->color = VColor;
+						spot->range = Range;
+						spot->outsideAngle = OutsideAngle;
+						spot->insideAngleRatio = InsideAngleRatio;
+
+						lightobj->LightSetting();
+					}
+					else if (Tag == L"Directional")
+					{
+						DirectionalLight* spot = pObj->GetComponentInChild<DirectionalLight>();
+						spot->ambientFactor = AmbinentFactor;
+						spot->color = VColor;
+
+						lightobj->LightSetting();
+					}
+
+					m_dlgLightTool.m_LT_ListBox.InsertString(-1, pObj->name.c_str());
+
+				}
+			}
+
+			//Obj 
+			{
+				std::vector<HandlingObject*> HandlingVec = HandlingObject::g_HandlingVec;
+
+				//emptybeforeload
+				{
+					HandlingObject::ClearVector();
+					HandlingObject::g_HandlingVec;
+
+					m_dlgObjectTool.m_ObjectListBox.ResetContent();
+				}
+
+				int HandleValueCnt = (int)HandleObjects.size();
+
+				// value풀고 제작
+				for (int i = 0; i < HandleValueCnt; ++i)
+				{
+					Json::Value HandleValue = HandleObjects[i];
+
+					wstring Name = ToWString(HandleValue["Name"].asString());
+					wstring ComponentType = ToWString(HandleValue["ComponentType"].asString());
+
+					Vec3 Pos = Vec3(HandleValue["PositionX"].asFloat(), HandleValue["PositionY"].asFloat(), HandleValue["PositionZ"].asFloat());
+					Vec3 ChildScale = Vec3(HandleValue["ChildScaleX"].asFloat(), HandleValue["ChildScaleY"].asFloat(), HandleValue["ChildScaleZ"].asFloat());
+					Vec3 EulerAngle = Vec3(HandleValue["RotationX"].asFloat(), HandleValue["RotationY"].asFloat(), HandleValue["RotationZ"].asFloat());
+
+					Vec3 PivotScale = Vec3(HandleValue["PivotScale"].asFloat(), HandleValue["PivotScale"].asFloat(), HandleValue["PivotScale"].asFloat());
+
+					GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"HandlingObject");
+					pObj->name = Name;
+
+					pObj->transform->position = Pos;
+
+					HandlingObject* HandleObj = pObj->AddComponent<HandlingObject>();
+					HandleObj->AddComponentToChildObject(ComponentType.c_str());
+					
+					
+					GameObject* ChildObj = HandleObj->GetChildObject();
+					GameObject* PivotObj = HandleObj->GetPivotObject();
+
+
+					ChildObj->transform->scale = ChildScale;
+					PivotObj->transform->scale = PivotScale;
+
+					pObj->transform->eulerAngle = EulerAngle;
+				}
+
+				//tool 채우기
+				{
+					std::vector<HandlingObject*> HandlingVec = HandlingObject::g_HandlingVec;
+					int Size = HandlingVec.size();
+					for (int i = 0; i < Size; ++i)
+					{
+						m_dlgObjectTool.m_ObjectListBox.AddString(HandlingVec[i]->GetGameObject()->name.c_str());
+					}
+				}
+			}
+			DetachGizmo();
+		}
+	}
+}
+
+
+
