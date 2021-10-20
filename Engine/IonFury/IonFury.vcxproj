@@ -186,6 +186,8 @@
     <ClInclude Include="WarmechSpriteAnimator.h" />
     <ClInclude Include="WarmechTrail.h" />
     <ClInclude Include="Web.h" />
+    <ClInclude Include="Wendigo.h" />
+    <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicMutant.cpp" />
@@ -220,6 +222,8 @@
     <ClCompile Include="WarmechSpriteAnimator.cpp" />
     <ClCompile Include="WarmechTrail.cpp" />
     <ClCompile Include="Web.cpp" />
+    <ClCompile Include="Wendigo.cpp" />
+    <ClCompile Include="WendigoSpriteAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc" />

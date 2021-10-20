@@ -283,7 +283,7 @@ void Warmech::Attack()
 			m_bodyAnimator->PlayShoot();
 
 			auto obj = CreateGameObject();
-			obj->transform->position = transform->position + (-transform->right);
+			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f , transform->position.z) + (-transform->right);
 			obj->AddComponent<WarmechBullet>();
 		}
 		break;
@@ -293,7 +293,7 @@ void Warmech::Attack()
 			m_bodyAnimator->PlayMissile();
 
 			auto obj = CreateGameObject();
-			obj->transform->position = transform->position + transform->right;
+			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f, transform->position.z) + transform->right;
 			obj->AddComponent<WarmechMissile>();
 		}
 		break;
@@ -303,6 +303,8 @@ void Warmech::Attack()
 		forward.y = 0;
 		forward.Normalize();
 		transform->forward = forward;
+
+		ShootToPlayer();
 	}
 	else
 		m_attacking = false;
@@ -351,4 +353,10 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	}
 	break;
 	}
+}
+void Warmech::ShootToPlayer()
+{
+	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
+	mosterToPlayer.Normalize();
+	Player::GetInstance()->TakeDamage(1);
 }

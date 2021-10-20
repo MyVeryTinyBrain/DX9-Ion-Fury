@@ -54,6 +54,7 @@
     <ClInclude Include="ObjectGetItem.h" />
     <ClInclude Include="ObjectStair.h" />
     <ClInclude Include="ObjectContainer.h" />
+    <ClInclude Include="ObjectVent.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="ObjectGetItem.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
     <ClCompile Include="ObjectContainer.cpp" />
+    <ClCompile Include="ObjectVent.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />
