@@ -8,6 +8,8 @@
 #include "Gizmo.h"
 #include "EditorManager.h"
 #include "FileInfo.h"
+#include "Pickable.h"
+#include "HandlingObject.h"
 
 
 // DlgTextureTool 대화 상자
@@ -182,9 +184,11 @@ void DlgTextureTool::SelectImage()
 
 void DlgTextureTool::SetTextureToPicked()
 {
-	Gizmo* pGizmo = EditorManager::GetInstance()->GetGizmo();
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* Selected = giz->GetSelectedObject();
 
-	pGizmo->ChangeTextureAttachedObject(m_texturePath);
+	if (Selected->GetGameObject()->GetComponent<Pickable>())
+		giz->ChangeTextureAttachedObject(m_texturePath);
 }
 
 void DlgTextureTool::OnDropFiles(HDROP hDropInfo)

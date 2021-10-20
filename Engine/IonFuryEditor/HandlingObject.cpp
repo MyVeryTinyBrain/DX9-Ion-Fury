@@ -9,6 +9,7 @@
 #include <ItemShotgunAmmo.h>
 #include <ItemSMGAmmo.h>
 #include <ItemHealthPack.h>
+#include <ObjectStair.h>
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -21,7 +22,7 @@ void HandlingObject::Awake()
 	m_PivotObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
 
 	m_Renderer = m_PivotObject->AddComponent<UserMeshRenderer>();
-	m_Renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+	m_Renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
 	m_Renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInBlackTexture));
 
 	SetMaterial();
@@ -105,6 +106,10 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 		m_ChildObject->AddComponent<ItemSMGAmmo>();
 	else if (Type == (L"ItemHealthPack"))
 		m_ChildObject->AddComponent<ItemHealthPack>();
+	else if (Type == (L"ItemHealthPack"))
+		m_ChildObject->AddComponent<ItemHealthPack>();
+	else if (Type == (L"ObjectStair"))
+		m_ChildObject->AddComponent<ObjectStair>();
 }
 
 void HandlingObject::RemoveChildObjectAndComponent()

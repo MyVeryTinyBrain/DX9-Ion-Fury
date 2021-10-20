@@ -227,6 +227,7 @@ BOOL DlgObjectTool::OnInitDialog()
 		m_TypeComboBox.AddString(_T("ItemShotgunAmmo"));
 		m_TypeComboBox.AddString(_T("ItemSMGAmmo"));
 		m_TypeComboBox.AddString(_T("ItemHealthPack"));
+		m_TypeComboBox.AddString(_T("ObjectStair"));
 	}
 
 	{	//RotSlider 설정

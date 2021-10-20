@@ -1,0 +1,127 @@
+{
+	"HandleObjects" : 
+	[
+		{
+			"ChildScaleX" : 3.2000000476837158,
+			"ChildScaleY" : 3.1500000953674316,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemHealthPack",
+			"Name" : "Heal",
+			"PivotScale" : 0.55000001192092896,
+			"PositionX" : 4.3610591888427734,
+			"PositionY" : -0.23475638031959534,
+			"PositionZ" : -2.9484419822692871,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.8500000238418579,
+			"ChildScaleY" : 2.9500000476837158,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemSMGAmmo",
+			"Name" : "Smg",
+			"PivotScale" : 0.44999998807907104,
+			"PositionX" : 2.0466663837432861,
+			"PositionY" : -0.0067736515775322914,
+			"PositionZ" : 3.1942007541656494,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		}
+	],
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.0,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : 
+	[
+		{
+			"ColliderExistence" : true,
+			"MeshType" : 0,
+			"Name" : "Base Ground",
+			"PositionX" : -1.1924599409103394,
+			"PositionY" : -1.8003300428390503,
+			"PositionZ" : -0.0,
+			"RotationX" : 0.0,
+			"RotationY" : 62.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 14.600000381469727,
+			"ScaleY" : 0.80000001192092896,
+			"ScaleZ" : 14.600000381469727,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MeshType" : 3,
+			"Name" : "test1",
+			"PositionX" : 1.8988698720932007,
+			"PositionY" : 2.2221152782440186,
+			"PositionZ" : 0.0,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 5.4327502250671387,
+			"PositionY" : -1.2292799949645996,
+			"PositionZ" : -0.0,
+			"RotationX" : 57.999900817871094,
+			"RotationY" : -118.0,
+			"RotationZ" : 179.0,
+			"ScaleX" : 13.699999809265137,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 3.2837200164794922,
+			"PositionY" : 2.2243399620056152,
+			"PositionZ" : -0.0,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 2.9000000953674316,
+			"ScaleY" : 2.7999999523162842,
+			"ScaleZ" : 1.2000000476837158,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+			"UVScaleX" : 2.0,
+			"UVScaleY" : 2.0
+		}
+	],
+	"TriggerEvents" : null
+}
