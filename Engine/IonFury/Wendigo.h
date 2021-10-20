@@ -2,9 +2,9 @@
 
 #include "Monster.h"
 
-class WarmechSpriteAnimator;
+class WendigoSpriteAnimator;
 
-class Warmech : public Monster
+class Wendigo : public Monster
 {
 	OverrideComponentFunction(Awake);
 
@@ -26,31 +26,30 @@ private:
 
 	void SetTargetCoord(Vec3 xzCoord);
 
-	void Explosion();
+	void Jump();
+
+	void JumpCheck();
 
 private:
 
-	enum class ActionType { Idle, WalkToRandomCoord, WalkToPlayerDirection, Bullet, Missile, Max };
 
-	enum class AttackType { Bullet, Missile, Max };
+	enum class ActionType { Idle, WalkToRandomCoord, WalkToPlayerDirection, Swing, Jump, Max };
 
-	void SetAction(ActionType type, AttackType attacktype);
+	enum class AttackType { Swing, Jump, Max };
 
-	void ShootToPlayer();
+	void SetAction(ActionType type);
+
+	void AttackToPlayer();
 
 	void Attack();
 
 private:
 
+	UserMeshBillboardRenderer* m_renderer = nullptr;
+
 	CapsuleCollider* m_capsuleCollider = nullptr;
 
-	WarmechSpriteAnimator* m_bodyAnimator = nullptr;
-
-	WarmechSpriteAnimator* m_legAnimator = nullptr;
-
-	GameObject* m_bodyWarmech = nullptr;
-
-	GameObject* m_legWarmech = nullptr;
+	WendigoSpriteAnimator* m_animator = nullptr;
 
 	bool m_hasTargetCoord = false;
 
@@ -58,12 +57,28 @@ private:
 
 	Vec3 m_beforeCoord;
 
-	float m_breakTime = 0;
+	float m_breakTime = 0.f;
 
 	unsigned int m_attackCount = 0;
 
 	ActionType actionType = ActionType::Max;
 
 	bool m_attacking = false;
+
+	bool m_hasJump = false;
+
+	float m_jumpY = 0.f;
+
+	bool m_jump = true;
+
+	float m_jumptime = 0.f;
+
+	float m_deadTime = 0.f;
+
+	AttackType attackType = AttackType::Max;
+
+	bool m_initialdir = true;
+
+	Vec3 forward;
 };
 

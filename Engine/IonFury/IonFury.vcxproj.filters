@@ -67,20 +67,26 @@
     <ClCompile Include="DeaconflyEffect.cpp">
       <Filter>Monster\Deacon</Filter>
     </ClCompile>
+    <ClCompile Include="Wendigo.cpp">
+      <Filter>Monster\Wendigo</Filter>
+    </ClCompile>
+    <ClCompile Include="WendigoSpriteAnimator.cpp">
+      <Filter>Monster\Wendigo</Filter>
+    </ClCompile>
     <ClCompile Include="WarmechBullet.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechExplosion.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechHit.cpp">
-      <Filter>Monster\Warmech</Filter>
+      <Filter>Monster\Warmech\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="WarmechMissile.cpp">
-      <Filter>Monster\Warmech</Filter>
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechExplosion.cpp">
+      <Filter>Monster\Warmech\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="WarmechHit.cpp">
+      <Filter>Monster\Warmech\Effect</Filter>
     </ClCompile>
     <ClCompile Include="WarmechTrail.cpp">
-      <Filter>Monster\Warmech</Filter>
+      <Filter>Monster\Warmech\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,20 +165,26 @@
     <ClInclude Include="DeaconflyEffect.h">
       <Filter>Monster\Deacon</Filter>
     </ClInclude>
+    <ClInclude Include="Wendigo.h">
+      <Filter>Monster\Wendigo</Filter>
+    </ClInclude>
+    <ClInclude Include="WendigoSpriteAnimator.h">
+      <Filter>Monster\Wendigo</Filter>
+    </ClInclude>
     <ClInclude Include="WarmechBullet.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechExplosion.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechHit.h">
-      <Filter>Monster\Warmech</Filter>
+      <Filter>Monster\Warmech\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="WarmechMissile.h">
-      <Filter>Monster\Warmech</Filter>
+      <Filter>Monster\Warmech\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechExplosion.h">
+      <Filter>Monster\Warmech\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="WarmechHit.h">
+      <Filter>Monster\Warmech\Effect</Filter>
     </ClInclude>
     <ClInclude Include="WarmechTrail.h">
-      <Filter>Monster\Warmech</Filter>
+      <Filter>Monster\Warmech\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +222,15 @@
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Wendigo">
+      <UniqueIdentifier>{ab43e8c0-8f2b-45ec-8de8-497c354252e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Warmech\Effect">
+      <UniqueIdentifier>{72a7048d-e730-465e-b599-a8162164af28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\Warmech\Weapon">
+      <UniqueIdentifier>{d056cdfd-ca83-49e7-a8ab-2acf244170e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

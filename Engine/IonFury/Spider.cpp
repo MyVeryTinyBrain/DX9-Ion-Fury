@@ -50,6 +50,10 @@ void Spider::Update()
 {
 	Monster::Update();
 
+	if (m_isDead)
+	{
+		return;
+	}
 
 	Jump();
 
