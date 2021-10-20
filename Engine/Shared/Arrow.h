@@ -18,6 +18,10 @@ class Arrow : public Component
 
 public:
 
+	void SetTargetToMonster();
+
+	void SetTargetToPlayer();
+
 	Rigidbody* GetRigidbody() const;
 
 	__declspec(property(get = GetRigidbody)) Rigidbody* rigidbody;

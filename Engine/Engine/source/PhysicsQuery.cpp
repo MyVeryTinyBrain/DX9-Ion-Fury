@@ -25,6 +25,7 @@ const PxQueryFilterData PhysicsQuery::fastFilterData
     PxQueryFlag::eSTATIC |          // 정적 바디에 적중할수 있습니다.
     PxQueryFlag::ePREFILTER |       // 사전 필터링만을 사용합니다.
     PxQueryFlag::eANY_HIT           // 거리에 상관없이 처음 적중하면 종료합니다.
+                                    // 충돌 데이터가 없습니다.
 );
 
 bool PhysicsQuery::RaycastTest(const PhysicsRay& ray, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
@@ -137,7 +138,7 @@ Collider* PhysicsQuery::OverlapPoint(const Vec3& point, PxU32 layerMask, Physics
 
     PxOverlapBuffer overlapBuffer;
 
-    bool result = scene->overlap(geometry, pose, overlapBuffer, fastFilterData, &filterCallback);
+    bool result = scene->overlap(geometry, pose, overlapBuffer, defaultFilterData, &filterCallback);
 
     if (result)
     {
@@ -203,26 +204,16 @@ bool PhysicsQuery::OverlapGeometryTest(PxGeometryHolder geometry, const Vec3& po
 
 Collider* PhysicsQuery::OverlapGeometry(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
-    auto device = PhysicsDevice::GetInstance();
-    auto scene = device->scene;
+    std::vector<Collider*> test = OverlapGeometryAll(geometry, point, rotation, layerMask, queryType, 1, ignoreBody);
 
-    PxTransform pose;
-    pose.p = ToPxVec3(point);
-    pose.q = PxQuat(PxIdentity);
-
-    PhysicsQueryFilterCallback filterCallback(layerMask, queryType, true, ignoreBody);
-
-    PxOverlapBuffer overlapBuffer;
-
-    bool result = scene->overlap(geometry.any(), pose, overlapBuffer, fastFilterData, &filterCallback);
-
-    if (result)
+    if (test.size() == 0)
     {
-        const PxOverlapHit& hit = overlapBuffer.getAnyHit(0);
-        return (Collider*)hit.shape;
+        return nullptr;
     }
-
-    return nullptr;
+    else
+    {
+        return test.front();
+    }
 }
 
 std::vector<Collider*> PhysicsQuery::OverlapGeometryAll(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)

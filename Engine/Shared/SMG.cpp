@@ -364,7 +364,7 @@ void SMG::AttackOnce(int recoilAngleRange)
 		{
 			auto bulletProofObj = CreateGameObject();
 			auto bulletProof = bulletProofObj->AddComponent<BulletProof>();
-			bulletProof->InitializeBulletProof(hit.point, hit.normal);
+			bulletProof->InitializeBulletProof(hit.point, hit.normal, hit.collider->rigidbody->transform);
 		}
 		else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
 		{
@@ -374,8 +374,8 @@ void SMG::AttackOnce(int recoilAngleRange)
 				DamageParameters params;
 				params.monsterHitCollider = hit.collider;
 				params.damageType = MonsterDamageType::Bullet;
-				params.damage = 2.5f;
-				params.force = ray.direction * 10;
+				params.damage = 1.85f;
+				params.force = ray.direction * 5;
 				params.includeDamageDirection = true;
 				params.damageDirection = ray.direction;
 				params.includeAttackBeginPoint = true;

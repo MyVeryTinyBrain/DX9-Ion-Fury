@@ -9,5 +9,5 @@ wstring ItemHealthPack::InitTextureLocalPath() const
 
 void ItemHealthPack::OnTrigger(Player* player)
 {
-	player->AddHP(5);
+	player->AddHP(20);
 }

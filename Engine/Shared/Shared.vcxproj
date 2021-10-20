@@ -51,10 +51,8 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
-    <ClInclude Include="ObjectGetItem.h" />
+    <ClInclude Include="ObjectAutoDoor.h" />
     <ClInclude Include="ObjectStair.h" />
-    <ClInclude Include="ObjectContainer.h" />
-    <ClInclude Include="ObjectVent.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
@@ -108,10 +106,8 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
-    <ClCompile Include="ObjectGetItem.cpp" />
+    <ClCompile Include="ObjectAutoDoor.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
-    <ClCompile Include="ObjectContainer.cpp" />
-    <ClCompile Include="ObjectVent.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -218,7 +214,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -235,7 +231,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -252,7 +248,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -269,7 +265,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>

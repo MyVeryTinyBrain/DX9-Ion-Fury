@@ -151,8 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BasicMutant.h" />
-    <ClInclude Include="BasicMutantSpriteAnimator.h" />
+    <ClInclude Include="CultistArcher.h" />
+    <ClInclude Include="CultistArcherAnimator.h" />
+    <ClInclude Include="CultistGunner.h" />
+    <ClInclude Include="CultistGunnerAnimator.h" />
     <ClInclude Include="Deacon.h" />
     <ClInclude Include="DeaconflyEffect.h" />
     <ClInclude Include="DeaconSpriteAnimator.h" />
@@ -161,16 +163,20 @@
     <ClInclude Include="DroneSmoke.h" />
     <ClInclude Include="DroneSpriteAnimator.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Gunner.h" />
-    <ClInclude Include="GunnerSpriteAnimator.h" />
+    <ClInclude Include="GunnerBase.h" />
+    <ClInclude Include="GunnerBaseAnimator.h" />
+    <ClInclude Include="Liberator.h" />
+    <ClInclude Include="LiberatorAnimator.h" />
     <ClInclude Include="LightLoad.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MapLoad.h" />
     <ClInclude Include="MapObject.h" />
-    <ClInclude Include="Mutant.h" />
-    <ClInclude Include="MutantSpriteAnimator.h" />
-    <ClInclude Include="MutantPoison.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Skull.h" />
+    <ClInclude Include="SkullAnimator.h" />
+    <ClInclude Include="SkullBall.h" />
+    <ClInclude Include="SkullBallAnimator.h" />
+    <ClInclude Include="SkullReplica.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="SpiderSpriteAnimator.h" />
     <ClInclude Include="stdafx.h" />
@@ -186,12 +192,12 @@
     <ClInclude Include="WarmechSpriteAnimator.h" />
     <ClInclude Include="WarmechTrail.h" />
     <ClInclude Include="Web.h" />
-    <ClInclude Include="Wendigo.h" />
-    <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BasicMutant.cpp" />
-    <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
+    <ClCompile Include="CultistArcher.cpp" />
+    <ClCompile Include="CultistArcherAnimator.cpp" />
+    <ClCompile Include="CultistGunner.cpp" />
+    <ClCompile Include="CultistGunnerAnimator.cpp" />
     <ClCompile Include="Deacon.cpp" />
     <ClCompile Include="DeaconflyEffect.cpp" />
     <ClCompile Include="DeaconSpriteAnimator.cpp" />
@@ -199,15 +205,19 @@
     <ClCompile Include="DroneExplosion.cpp" />
     <ClCompile Include="DroneSmoke.cpp" />
     <ClCompile Include="DroneSpriteAnimator.cpp" />
-    <ClCompile Include="Gunner.cpp" />
-    <ClCompile Include="GunnerSpriteAnimator.cpp" />
+    <ClCompile Include="GunnerBase.cpp" />
+    <ClCompile Include="GunnerBaseAnimator.cpp" />
+    <ClCompile Include="Liberator.cpp" />
+    <ClCompile Include="LiberatorAnimator.cpp" />
     <ClCompile Include="LightLoad.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapLoad.cpp" />
     <ClCompile Include="MapObject.cpp" />
-    <ClCompile Include="Mutant.cpp" />
-    <ClCompile Include="MutantSpriteAnimator.cpp" />
-    <ClCompile Include="MutantPoison.cpp" />
+    <ClCompile Include="Skull.cpp" />
+    <ClCompile Include="SkullAnimator.cpp" />
+    <ClCompile Include="SkullBall.cpp" />
+    <ClCompile Include="SkullBallAnimator.cpp" />
+    <ClCompile Include="SkullReplica.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -222,8 +232,6 @@
     <ClCompile Include="WarmechSpriteAnimator.cpp" />
     <ClCompile Include="WarmechTrail.cpp" />
     <ClCompile Include="Web.cpp" />
-    <ClCompile Include="Wendigo.cpp" />
-    <ClCompile Include="WendigoSpriteAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc" />
