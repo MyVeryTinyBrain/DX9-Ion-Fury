@@ -960,9 +960,6 @@ void CIonFuryEditorView::OnFileOpen()
 					}
 				}
 			}
-
-
-
 			DetachGizmo();
 		}
 	}
