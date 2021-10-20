@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BasicMutant.h" />
+    <ClInclude Include="BasicMutantSpriteAnimator.h" />
     <ClInclude Include="Deacon.h" />
     <ClInclude Include="DeaconflyEffect.h" />
     <ClInclude Include="DeaconSpriteAnimator.h" />
@@ -186,6 +188,8 @@
     <ClInclude Include="Web.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasicMutant.cpp" />
+    <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
     <ClCompile Include="Deacon.cpp" />
     <ClCompile Include="DeaconflyEffect.cpp" />
     <ClCompile Include="DeaconSpriteAnimator.cpp" />
