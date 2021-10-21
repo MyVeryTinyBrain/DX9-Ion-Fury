@@ -55,6 +55,9 @@
     <Filter Include="Trigger">
       <UniqueIdentifier>{7b05d5f5-67ca-4892-bf3c-5c9545582199}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{01d85ffe-e386-476f-b88e-729b92f3cda6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -234,6 +237,9 @@
     <ClInclude Include="ItemArmor.h">
       <Filter>Item</Filter>
     </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -397,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="ItemArmor.cpp">
       <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "FPSOrthoCamera.h"
 #include "Hands.h"
 #include "PlayerUI.h"
+#include "SoundMgr.h"
 
 ImplementStaticComponent(Player);
 
@@ -21,6 +22,11 @@ void Player::Update()
 	if (m_rigidCounter > 0)
 	{
 		m_rigidCounter -= Time::DeltaTime();
+	}
+
+	if (Input::GetKeyDown(Key::Zero))
+	{
+		CSoundMgr::Get_Instance()->Play(L"../SharedResource/Sound/tdryes00.wav", CSoundMgr::CHANNELID::PLAYER);
 	}
 }
 
