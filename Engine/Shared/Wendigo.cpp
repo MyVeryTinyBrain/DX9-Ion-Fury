@@ -39,6 +39,10 @@ void Wendigo::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+#ifdef _AFX
+	return;
+#endif
+
 	//if (m_isDead)
 	//{
 	//	return;
@@ -53,14 +57,18 @@ void Wendigo::Update()
 {
 	Monster::Update();
 
+	float angleToPlayer = AngleToPlayerWithSign();
+
+	m_animator->SetAngle(angleToPlayer);
+
+#ifdef _AFX
+	return;
+#endif
+
 	if (isDead)
 	{
 		return;
 	}
-
-	float angleToPlayer = AngleToPlayerWithSign();
-
-	m_animator->SetAngle(angleToPlayer);
 
 	BehaviorUpdate();
 
@@ -117,7 +125,9 @@ void Wendigo::LateUpdate()
 {
 	Monster::LateUpdate();
 
-
+#ifdef _AFX
+	return;
+#endif
 }
 
 void Wendigo::OnDestroy()
@@ -128,7 +138,9 @@ void Wendigo::OnDestroy()
 	m_animator->OnPlayedSwing -= Function<void()>(this, &Wendigo::OnPlayedSwing);
 	m_animator->OnPlayedAttack -= Function<void()>(this, &Wendigo::OnPlayedAttack);
 
-
+#ifdef _AFX
+	return;
+#endif
 }
 
 Collider* Wendigo::InitializeCollider(GameObject* colliderObj)

@@ -39,20 +39,28 @@ void Skull::Awake()
 void Skull::FixedUpdate()
 {
     Monster::FixedUpdate();
+
+#ifdef _AFX
+    return;
+#endif
 }
 
 void Skull::Update()
 {
     Monster::Update();
 
+    float angleToPlayer = AngleToPlayerWithSign();
+
+    m_animator->SetAngle(angleToPlayer);
+
+#ifdef _AFX
+    return;
+#endif
+
     if (isDead)
     {
         return;
     }
-
-    float angleToPlayer = AngleToPlayerWithSign();
-
-    m_animator->SetAngle(angleToPlayer);
 
     BehaviorUpdate();
 }
@@ -60,6 +68,10 @@ void Skull::Update()
 void Skull::LateUpdate()
 {
     Monster::LateUpdate();
+
+#ifdef _AFX
+    return;
+#endif
 
     if (m_flyEffectCounter > 0)
     {
@@ -86,6 +98,10 @@ void Skull::OnDestroy()
         m_colliderDebugMesh->ReleaseUnmanaged();
         m_colliderDebugMesh = nullptr;
     }
+
+#ifdef _AFX
+    return;
+#endif
 }
 
 Collider* Skull::InitializeCollider(GameObject* colliderObj)

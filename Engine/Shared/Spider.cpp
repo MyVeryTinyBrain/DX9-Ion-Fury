@@ -30,14 +30,18 @@ void Spider::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+	m_animator->SetAngle(AngleToPlayerWithSign());
+
+#ifdef _AFX
+	return;
+#endif
+
 	if (m_isDead)
 	{
 		return;
 	}
 
 	MoveToTarget();
-
-	m_animator->SetAngle(AngleToPlayerWithSign());
 
 
 	JumpCheck();
@@ -55,6 +59,9 @@ void Spider::Update()
 {
 	Monster::Update();
 
+#ifdef _AFX
+	return;
+#endif
 
 	if (m_isDead)
 	{
@@ -84,6 +91,10 @@ void Spider::Update()
 void Spider::OnDestroy()
 {
 	Monster::OnDestroy();
+
+#ifdef _AFX
+	return;
+#endif
 }
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)

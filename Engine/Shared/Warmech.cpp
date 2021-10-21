@@ -55,6 +55,10 @@ void Warmech::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+#ifdef _AFX
+	return;
+#endif
+
 	if (m_isDead)
 	{
 		return;
@@ -73,6 +77,11 @@ void Warmech::Update()
 {
 	Monster::Update();
 
+	m_bodyAnimator->SetAngle(AngleToPlayerWithSign());
+
+#ifdef _AFX
+	return;
+#endif
 
 	if (m_isDead)
 	{
@@ -113,9 +122,6 @@ void Warmech::Update()
 	Attack();
 
 
-	m_bodyAnimator->SetAngle(AngleToPlayerWithSign());
-
-
 	if (m_bodyAnimator->IsPlayingShoot() | m_bodyAnimator->IsPlayingMissile())
 	{
 		m_defaultEmissive = Color::white();
@@ -130,6 +136,9 @@ void Warmech::OnDestroy()
 {
 	Monster::OnDestroy();
 
+#ifdef _AFX
+	return;
+#endif
 }
 
 Collider* Warmech::InitializeCollider(GameObject* colliderObj)

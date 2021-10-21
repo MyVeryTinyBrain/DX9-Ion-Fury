@@ -312,9 +312,6 @@
     <ClInclude Include="DroneSpriteAnimator.h">
       <Filter>Monster\Drone</Filter>
     </ClInclude>
-    <ClInclude Include="Gunner.h">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClInclude>
     <ClInclude Include="GunnerBase.h">
       <Filter>Monster\GunnerBase</Filter>
     </ClInclude>
@@ -595,9 +592,6 @@
     </ClCompile>
     <ClCompile Include="DroneSpriteAnimator.cpp">
       <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="Gunner.cpp">
-      <Filter>Monster\GunnerBase</Filter>
     </ClCompile>
     <ClCompile Include="GunnerBase.cpp">
       <Filter>Monster\GunnerBase</Filter>

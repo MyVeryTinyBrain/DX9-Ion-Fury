@@ -34,6 +34,10 @@ void Drone::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+#ifdef _AFX
+	return;
+#endif
+
 	if (m_isDead)
 	{
 		return;
@@ -50,6 +54,11 @@ void Drone::Update()
 {
 	Monster::Update();
 
+	m_animator->SetAngle(AngleToPlayerWithSign());
+
+#ifdef _AFX
+	return;
+#endif
 
 	if (m_isDead)
 	{
@@ -68,8 +77,6 @@ void Drone::Update()
 
 	Attack();
 
-	m_animator->SetAngle(AngleToPlayerWithSign());
-
 	if (m_animator->IsPlayingShoot() | m_animator->IsPlayingMoveShoot())
 	{
 		m_defaultEmissive = Color::white();
@@ -83,6 +90,10 @@ void Drone::Update()
 void Drone::OnDestroy()
 {
 	Monster::OnDestroy();
+
+#ifdef _AFX
+	return;
+#endif
 }
 
 Collider* Drone::InitializeCollider(GameObject* colliderObj)

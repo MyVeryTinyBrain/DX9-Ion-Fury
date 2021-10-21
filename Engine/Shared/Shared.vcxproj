@@ -49,7 +49,6 @@
     <ClInclude Include="FPSCharacterController.h" />
     <ClInclude Include="FPSOrthoCamera.h" />
     <ClInclude Include="GranadeTrail.h" />
-    <ClInclude Include="Gunner.h" />
     <ClInclude Include="GunnerBase.h" />
     <ClInclude Include="GunnerBaseAnimator.h" />
     <ClInclude Include="GunnerSpriteAnimator.h" />
@@ -149,7 +148,6 @@
     <ClCompile Include="FPSCharacterController.cpp" />
     <ClCompile Include="FPSOrthoCamera.cpp" />
     <ClCompile Include="GranadeTrail.cpp" />
-    <ClCompile Include="Gunner.cpp" />
     <ClCompile Include="GunnerBase.cpp" />
     <ClCompile Include="GunnerBaseAnimator.cpp" />
     <ClCompile Include="GunnerSpriteAnimator.cpp" />

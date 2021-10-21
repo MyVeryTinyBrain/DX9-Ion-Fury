@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "TestScene.h"
 #include "Player.h"
-#include "Gunner.h"
 #include "CultistGunner.h"
 #include "CultistArcher.h"
 #include "Liberator.h"

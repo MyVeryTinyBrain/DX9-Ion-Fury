@@ -35,6 +35,9 @@ void Mutant::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+#ifdef _AFX
+	return;
+#endif
 
 	if (m_isDead)
 	{
@@ -46,13 +49,17 @@ void Mutant::FixedUpdate()
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
-
-
 }
 
 void Mutant::Update()
 {
 	Monster::Update();
+
+	m_animator->SetAngle(AngleToPlayerWithSign());
+
+#ifdef _AFX
+	return;
+#endif
 
 	if (create)
 	{
@@ -97,8 +104,6 @@ void Mutant::Update()
 
 	}
 
-	m_animator->SetAngle(AngleToPlayerWithSign());
-
 	if (m_animator->IsPlayingShoot())
 	{
 		m_defaultEmissive = Color::white();
@@ -115,6 +120,10 @@ void Mutant::OnDestroy()
 	Monster::OnDestroy();
 
 	//m_animator->OnDeadAnimated -= Function<void()>(this, &Mutant::OnDeadAnimated);
+
+#ifdef _AFX
+	return;
+#endif
 }
 
 Collider* Mutant::InitializeCollider(GameObject* colliderObj)

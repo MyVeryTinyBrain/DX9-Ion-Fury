@@ -41,6 +41,10 @@ void MutantPoison::Awake()
 
 void MutantPoison::FixedUpdate()
 {
+#ifdef _AFX
+	return;
+#endif
+
 	Collider* collider = Physics::OverlapSphere(
 		transform->position,
 		m_radius,
@@ -62,6 +66,10 @@ void MutantPoison::FixedUpdate()
 
 void MutantPoison::Update()
 {
+#ifdef _AFX
+	return;
+#endif
+
 	//m_animator->SetDefaultAnimation(m_animator->GetBullet(), true);
 	m_animator->SetDefaultAnimation(m_animator->GetMutantPoison());
 
@@ -89,12 +97,18 @@ void MutantPoison::Update()
 
 void MutantPoison::LateUpdate()
 {
-
+#ifdef _AFX
+	return;
+#endif
 }
 
 void MutantPoison::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
+
+#ifdef _AFX
+	return;
+#endif
 }
 

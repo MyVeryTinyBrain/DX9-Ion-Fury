@@ -36,6 +36,9 @@ void BasicMutant::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+#ifdef _AFX
+	return;
+#endif
 
 	if (m_isDead)
 	{
@@ -54,6 +57,12 @@ void BasicMutant::FixedUpdate()
 void BasicMutant::Update()
 {
 	Monster::Update();
+
+	m_animator->SetAngle(AngleToPlayerWithSign());
+
+#ifdef _AFX
+	return;
+#endif
 
 	createdt += Time::DeltaTime();
 	if (create)
@@ -90,8 +99,6 @@ void BasicMutant::Update()
 		Attack();
 	}
 
-	m_animator->SetAngle(AngleToPlayerWithSign());
-
 	if (m_animator->IsPlayingAttack())
 	{
 		m_defaultEmissive = Color::white();
@@ -108,6 +115,10 @@ void BasicMutant::OnDestroy()
 	Monster::OnDestroy();
 
 	//m_animator->OnDeadAnimated -= Function<void()>(this, &BasicMutant::OnDeadAnimated);
+
+#ifdef _AFX
+	return;
+#endif
 }
 
 Collider* BasicMutant::InitializeCollider(GameObject* colliderObj)
