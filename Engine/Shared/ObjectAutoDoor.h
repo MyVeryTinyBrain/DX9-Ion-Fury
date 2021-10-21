@@ -6,6 +6,14 @@ class ObjectAutoDoor : public Component
 
 	OverrideComponentFunction(Update);
 
+public:
+
+	void Toggle();
+
+	void Open();
+
+	void Close();
+
 protected:
 
 	GameObject* m_root = nullptr;
@@ -22,8 +30,12 @@ protected:
 
 	Vec3 m_targetLocalPosition = Vec3::zero();
 
-public:
+protected:
 
 	bool autoOpen = true;
+
+private:
+
+	bool m_state = false;
 };
 

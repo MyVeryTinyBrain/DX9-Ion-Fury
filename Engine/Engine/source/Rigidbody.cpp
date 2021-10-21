@@ -101,6 +101,20 @@ void Rigidbody::OnDestroy()
 	SafeDelete(m_extrapolater);
 }
 
+void Rigidbody::OnWake()
+{
+	SetVelocity(Vec3::zero());
+	ClearForce(ForceMode::Acceleration);
+	ClearForce(ForceMode::Force);
+	ClearForce(ForceMode::Impulse);
+	ClearForce(ForceMode::Velocity);
+	SetRigidbodySleep(false);
+}
+
+void Rigidbody::OnSleep()
+{
+}
+
 bool Rigidbody::UseGravity() const
 {
 	return !m_body->getActorFlags().isSet(PxActorFlag::eDISABLE_GRAVITY);
@@ -222,6 +236,11 @@ bool Rigidbody::IsRigidbodySleep() const
 
 void Rigidbody::SetRigidbodySleep(bool value)
 {
+	if (isKinematic)
+	{
+		return;
+	}
+
 	if (!value) m_body->wakeUp();
 	else		m_body->putToSleep();
 }
@@ -338,18 +357,33 @@ Vec3 Rigidbody::GetVelocity() const
 
 void Rigidbody::SetVelocity(const Vec3& velocity)
 {
+	if (isKinematic)
+	{
+		return;
+	}
+
 	PxVec3 pxVelocity = ToPxVec3(velocity);
 	m_body->setLinearVelocity(pxVelocity);
 }
 
 void Rigidbody::AddForce(const Vec3& force, ForceMode forceMode)
 {
+	if (isKinematic)
+	{
+		return;
+	}
+
 	PxVec3 pxForce = ToPxVec3(force);
 	m_body->addForce(pxForce, (PxForceMode::Enum)forceMode);
 }
 
 void Rigidbody::ClearForce(ForceMode forceMode)
 {
+	if (isKinematic)
+	{
+		return;
+	}
+
 	m_body->clearForce((PxForceMode::Enum)forceMode);
 }
 

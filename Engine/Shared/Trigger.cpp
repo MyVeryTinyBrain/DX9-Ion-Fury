@@ -29,8 +29,8 @@ void Trigger::Update()
 	if (m_method == Method::Touch)
 	{
 		Collider* collider = Physics::OverlapBox(
-			transform->position,
 			transform->scale,
+			transform->position,
 			transform->rotation,
 			1 << (uint8_t)PhysicsLayers::Player,
 			PhysicsQueryType::Collider);
@@ -101,11 +101,10 @@ void Trigger::AddSubordinationComponent(Component* value)
 {
 	IDontDeactive* includedInterface = dynamic_cast<IDontDeactive*>(value);
 
-	// 사용시 주석 해제
-	//if (!includedInterface && value)
-	//{
-	//	value->gameObject->activeSelf = false;
-	//}
+	if (!includedInterface && value)
+	{
+		value->gameObject->activeSelf = false;
+	}
 
 	m_connected.push_back(value);
 }

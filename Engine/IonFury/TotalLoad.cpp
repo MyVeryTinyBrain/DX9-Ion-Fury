@@ -16,6 +16,12 @@
 #include "ItemSMGAmmo.h"
 #include "ItemHealthPack.h"
 #include "ObjectStair.h"
+#include <Player.h>
+
+#include <EditorEnum.h>
+#include <CultistArcher.h>
+#include <CultistGunner.h>
+#include <Liberator.h>
 
 HRESULT TotalLoad::Load(const wstring& wstrFilePath)
 {
@@ -112,6 +118,8 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ItemHealthPack>();
 	else if (ComponentType == (L"ObjectStair"))
 		pObj->AddComponent<ObjectStair>();
+	else if (ComponentType == (L"Player"))
+		pObj->AddComponent<Player>();
 	else
 		pObj->Destroy();
 }
@@ -157,8 +165,17 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 
 	Component* comp = nullptr;
 
-	switch (data.type)
+	switch ((EventType)data.type)
 	{
+		case EventType::CultistArcher:
+			comp = obj->AddComponent<CultistArcher>();
+			break;
+		case EventType::CultistGunner:
+			comp = obj->AddComponent<CultistGunner>();
+			break;
+		case EventType::Liberator:
+			comp = obj->AddComponent<Liberator>();
+			break;
 		default:
 			obj->Destroy();
 			break;
