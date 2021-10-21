@@ -334,6 +334,7 @@ void Skull::MoveToPlayer()
     if (d < 3.0f)
     {
         SetBehavior(Behavior::Idle);
+        return;
     }
     else if (WallTest(dir))
     {
@@ -343,6 +344,7 @@ void Skull::MoveToPlayer()
     else if (m_moveToPlayerAccumulate > 3.0f)
     {
         SetBehavior(Behavior::ShootBall);
+        return;
     }
     else
     {
