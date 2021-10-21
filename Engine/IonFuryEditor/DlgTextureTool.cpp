@@ -53,11 +53,11 @@ BOOL DlgTextureTool::OnInitDialog()
 		TCITEM item;
 		item.mask = TCIF_TEXT;
 		//tab 이름 자유롭게 설정. 설정 했다면 밑에 있는 define값에 경로 수정해줘요.
-		item.pszText = L"obj";
+		item.pszText = L"Filter1";
 		m_TabControl.InsertItem(0, &item);
-		item.pszText = L"npc";
+		item.pszText = L"Filter2";
 		m_TabControl.InsertItem(1, &item);
-		item.pszText = L"sans";
+		item.pszText = L"Filter3";
 		m_TabControl.InsertItem(2, &item);
 
 		item.pszText = L"DragAndDrop";			//드래그 드롭 써서 이미지 호출하고 싶다면 4번탭을 사용
