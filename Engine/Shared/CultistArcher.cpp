@@ -4,6 +4,11 @@
 #include "Player.h"
 #include "Arrow.h"
 
+void CultistArcher::Update()
+{
+    GunnerBase::Update();
+}
+
 GunnerBaseAnimator* CultistArcher::InitAnimator(GameObject* rendererObject)
 {
     return rendererObject->AddComponent<CultistArcherAnimator>();

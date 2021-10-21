@@ -387,6 +387,12 @@
     <ClInclude Include="Web.h">
       <Filter>Monster\Spider</Filter>
     </ClInclude>
+    <ClInclude Include="EditorEnum.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManualDoor.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -667,6 +673,9 @@
     </ClCompile>
     <ClCompile Include="Web.cpp">
       <Filter>Monster\Spider</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManualDoor.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
