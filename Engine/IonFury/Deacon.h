@@ -33,7 +33,6 @@ private:
 
 	void Moving(MovingType type);
 
-	void SetBehavior(MovingType type);
 
 private:
 
@@ -72,5 +71,15 @@ private:
 	float random = 0;
 
 	bool m_ground = false;
+
+	bool attackcountzero = false;
+	float attackcountZeroDt = 0.f;
+
+private:
+	void angle();
+
+	float GetXZDistance(const Vec3& point) const;
+
+	Vec3 GetXZDirection(const Vec3& point) const;
 };
 

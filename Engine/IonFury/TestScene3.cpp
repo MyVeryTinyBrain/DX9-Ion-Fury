@@ -130,13 +130,13 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
-	//for(int i = 0; i<3; ++i)
-	//{
+	for(int i = 0; i<5; ++i)
+	{
 
-	//    auto obj = CreateGameObject();
-	//    obj->transform->position = Vec3(0, 2, -5*i);
-	//    obj->AddComponent<Deacon>();
-	//}
+	    auto obj = CreateGameObject();
+	    obj->transform->position = Vec3(0, 2, -5*i);
+	    obj->AddComponent<Deacon>();
+	}
 	//for (int i = 0; i < 15; ++i)
 	//{
 		//auto obj = CreateGameObject();
@@ -150,11 +150,11 @@ void TestScene3::AddMonster()
 	//	obj->AddComponent<Mutant>();
 	//}
 
-	{
-		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0, 0, -17);
-		obj->AddComponent<BasicMutant>();
-	}
+	//{
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(0, 0, -17);
+	//	obj->AddComponent<BasicMutant>();
+	//}
 }
 
 void TestScene3::AddMap()
