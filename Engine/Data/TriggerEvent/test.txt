@@ -1,0 +1,62 @@
+[
+	[
+		{
+			"Name" : "Trigger_0",
+			"PositionX" : -3.8922216892242432,
+			"PositionY" : 0.0,
+			"PositionZ" : -2.9999995231628418,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"TriggerMethod" : 2,
+			"TriggerOnce" : true,
+			"TriggerToolAutoNum" : 2
+		},
+		{
+			"EventType" : 1,
+			"Name" : "Event_0",
+			"PositionX" : -6.4708547592163086,
+			"PositionY" : 0.0,
+			"PositionZ" : -3.0,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0
+		},
+		{
+			"EventType" : 0,
+			"Name" : "Event_1",
+			"PositionX" : -7.965303897857666,
+			"PositionY" : 0.0,
+			"PositionZ" : -3.0,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0
+		}
+	],
+	[
+		{
+			"Name" : "Trigger_1",
+			"PositionX" : -6.9322719573974609,
+			"PositionY" : 1.2088172435760498,
+			"PositionZ" : -4.1098155975341797,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"TriggerMethod" : 2,
+			"TriggerOnce" : false,
+			"TriggerToolAutoNum" : 2
+		}
+	]
+]

@@ -599,6 +599,7 @@ void CIonFuryEditorView::OnFileSaveAs()
 					TriggerValue["RotationY"] = TriggerObject->GetGameObject()->transform->eulerAngle.y;
 					TriggerValue["RotationZ"] = TriggerObject->GetGameObject()->transform->eulerAngle.z;
 					TriggerValue["TriggerMethod"] = (int)TriggerObject->GetTriggerMethod();
+					TriggerValue["TriggerOnce"] = TriggerObject->GetTriggerOnce();
 					TriggerValue["TriggerToolAutoNum"] = m_dlgMonsterTool.m_TriggerCnt; //m_TriggerCnt;
 
 					TriggerEvent[0] = TriggerValue;
@@ -799,8 +800,9 @@ void CIonFuryEditorView::OnFileOpen()
 					Vec3 EulerAngle = Vec3(TriggerValue["RotationX"].asFloat(), TriggerValue["RotationY"].asFloat(), TriggerValue["RotationZ"].asFloat());
 					int temp = TriggerValue["TriggerMethod"].asInt();
 					TriggerMethod method = (TriggerMethod)temp;
+					bool TriggerOnce = TriggerValue["TriggerOnce"].asBool();
 
-					Pickable* TriggerObject = m_dlgMonsterTool.AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method);	//트리거 로딩
+					Pickable* TriggerObject = m_dlgMonsterTool.AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method, TriggerOnce);	//트리거 로딩
 					m_dlgMonsterTool.m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();									//트리거 이름 자동완성 번호 셋팅
 
 

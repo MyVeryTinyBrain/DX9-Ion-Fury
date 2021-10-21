@@ -47,6 +47,7 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER4, m_SliderRotationY);
 	DDX_Control(pDX, IDC_SLIDER7, m_SliderRotationZ);
 	DDX_Text(pDX, IDC_EDIT1, m_ChangingName);
+	DDX_Control(pDX, IDC_CHECK1, m_TriggerOnce);
 }
 
 
@@ -76,14 +77,19 @@ BOOL DlgMonsterTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_EventTypeComboBox.AddString(_T("Monster0"));
-	m_EventTypeComboBox.AddString(_T("Monster1"));
-	m_EventTypeComboBox.AddString(_T("Monster2"));
-	m_EventTypeComboBox.AddString(_T("Monster3"));
-	m_EventTypeComboBox.AddString(_T("Door1"));
-	m_EventTypeComboBox.AddString(_T("Door2"));
-	m_EventTypeComboBox.AddString(_T("Door3"));
-
+	m_EventTypeComboBox.AddString(_T("Armored Mutant"));
+	m_EventTypeComboBox.AddString(_T("Cultist"));
+	m_EventTypeComboBox.AddString(_T("Deacon"));
+	m_EventTypeComboBox.AddString(_T("Drone"));
+	m_EventTypeComboBox.AddString(_T("Greater Cultist"));
+	m_EventTypeComboBox.AddString(_T("Liberator"));
+	m_EventTypeComboBox.AddString(_T("Mechsect"));
+	m_EventTypeComboBox.AddString(_T("Mutant"));
+	m_EventTypeComboBox.AddString(_T("Skinjob")); //Skull?
+	m_EventTypeComboBox.AddString(_T("Warmech"));
+	m_EventTypeComboBox.AddString(_T("Wendigo"));
+	m_EventTypeComboBox.AddString(_T("Door"));
+	
 	m_EventTypeComboBox.SetCurSel(-1);
 
 	{	//RotSlider 설정
@@ -172,11 +178,14 @@ void DlgMonsterTool::ClickAddTrigger()
 	if (TouchButtonManual == (int)(TriggerMethod::End))	//Touch Button Manual 정하지 않았다면 취소
 		return;
 
+	bool TriggerOnce = m_TriggerOnce.GetCheck();
+
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
 	Trigger->SetMaterial();
 	Trigger->SetTriggerMethod((TriggerMethod)TouchButtonManual);
-
+	Trigger->SetTriggerOnce(TriggerOnce);
+	
 	wstring name = Trigger->GetGameObject()->name;
 	m_TriggerListBox.AddString(name.c_str());
 
@@ -231,6 +240,7 @@ void DlgMonsterTool::OnLbnSelChangeTrigger()
 	giz->Attach(pick->GetTransform());
 
 	SetCheckedButton(pick->GetTriggerMethod());
+	m_TriggerOnce.SetCheck(pick->GetTriggerOnce());
 
 	//몬스터상자 비우기. 추후 확인
 	for (int i = m_EventListBox.GetCount(); i > 0; --i)
@@ -390,7 +400,7 @@ void DlgMonsterTool::EmptyAfterLoad()
 	giz->enable = false;
 }
 
-Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method)
+Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method, bool TriggerOnce)
 {
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	
@@ -403,6 +413,7 @@ Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Sc
 	trans->SetScale(Scale);
 	trans->SetEulerAngle(Euler);
 	Trigger->SetTriggerMethod(method);
+	Trigger->SetTriggerOnce(TriggerOnce);
 
 	m_TriggerListBox.AddString(name.c_str());
 
@@ -579,7 +590,9 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	m_EventTypeComboBox.SetCurSel(check2);
 
 	TriggerMethod method = trigger->GetTriggerMethod();
+	bool TriggerOnce = trigger->GetTriggerOnce();
 	SetCheckedButton(method);
+	m_TriggerOnce.SetCheck(TriggerOnce);
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
@@ -630,9 +643,13 @@ void DlgMonsterTool::OnClickedTriggerMethodApply()
 	int TriggerIndex = m_TriggerListBox.GetCurSel();
 	if (TriggerIndex == -1)
 		return;
-	
+	bool TriggerOnce = m_TriggerOnce.GetCheck();
+
+
 	Pickable* Trigger = Pickable::g_TriggerVec[TriggerIndex];
 	Trigger->SetTriggerMethod((TriggerMethod)GetCheckedButton());
+
+	Trigger->SetTriggerOnce(TriggerOnce);
 	
 }
 
@@ -784,6 +801,7 @@ void DlgMonsterTool::OnBnClickedSaveButton()
 				TriggerValue["RotationY"] = TriggerObject->GetGameObject()->transform->eulerAngle.y;
 				TriggerValue["RotationZ"] = TriggerObject->GetGameObject()->transform->eulerAngle.z;
 				TriggerValue["TriggerMethod"] = (int)TriggerObject->GetTriggerMethod();
+				TriggerValue["TriggerOnce"] = TriggerObject->GetTriggerOnce();
 				TriggerValue["TriggerToolAutoNum"] = m_TriggerCnt;
 
 				Trigger[0] = TriggerValue;
@@ -854,9 +872,10 @@ void DlgMonsterTool::OnBnClickedLoadButton()
 			Vec3 EulerAngle = Vec3(TriggerValue["RotationX"].asFloat(), TriggerValue["RotationY"].asFloat(), TriggerValue["RotationZ"].asFloat());
 			int temp = TriggerValue["TriggerMethod"].asInt();
 			TriggerMethod method = (TriggerMethod)temp;
+			bool TriggerOnce = TriggerValue["TriggerOnce"].asBool();
 
-			Pickable* TriggerObject = AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method);	//트리거 로딩
-			m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();								//트리거 이름 자동완성 번호 셋팅
+			Pickable* TriggerObject = AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method, TriggerOnce);	//트리거 로딩
+			m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();												//트리거 이름 자동완성 번호 셋팅
 
 
 			int TriggerSize = Trigger.size();

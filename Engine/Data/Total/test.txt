@@ -1,0 +1,75 @@
+{
+	"HandleObjects" : 
+	[
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "Player",
+			"Name" : "Object_0",
+			"PivotScale" : 1.0,
+			"PositionX" : -6.255864143371582,
+			"PositionY" : 1.5748132467269897,
+			"PositionZ" : -5.7200570106506348,
+			"RotationX" : -72.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		}
+	],
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.0,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : null,
+	"TriggerEvents" : 
+	[
+		[
+			{
+				"Name" : "Trigger_0",
+				"PositionX" : -3.4946930408477783,
+				"PositionY" : 0.15762422978878021,
+				"PositionZ" : -2.537555456161499,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 2,
+				"TriggerOnce" : true,
+				"TriggerToolAutoNum" : 2
+			}
+		],
+		[
+			{
+				"Name" : "Trigger_1",
+				"PositionX" : -4.7927227020263672,
+				"PositionY" : 0.0,
+				"PositionZ" : -2.1146144866943359,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 2,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 2
+			}
+		]
+	]
+}
