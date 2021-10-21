@@ -58,10 +58,8 @@ void GunnerBase::Update()
     float angleToPlayer = AngleToPlayerWithSign();
 
     // 데미지 모션 중에는 동작을 하지 않습니다.
-    if (m_animator->IsPlayingDamage())
-    {
-        return;
-    }
+  
+
 
     if (!m_holdPosition)
     {

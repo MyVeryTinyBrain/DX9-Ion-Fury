@@ -49,5 +49,7 @@ private:
 	float makePoisonDt = 0.f;
 
 	bool create = true;
+
+	float createdt = 0.f;
 };
 

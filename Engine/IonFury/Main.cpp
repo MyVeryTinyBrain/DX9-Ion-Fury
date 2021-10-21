@@ -21,6 +21,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	world.InitializeWithShowWindow(hInstance, 1280, 720, true, L"Ion Fury", WndProc);
 	PhysicsInitialize::Initialize();
 
+
 	SceneManager::ChangeScene(new TestScene);
 
 	MSG msg = {};
