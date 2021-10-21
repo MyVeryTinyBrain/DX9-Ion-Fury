@@ -5,81 +5,77 @@ class DeaconSpriteAnimator;
 
 class Deacon : public Monster
 {
+	enum class Behavior {FlyToPlayer, ShootBall, RandomMax, Idle, Landing, None };
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(FixedUpdate);
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(LateUpdate);
+
 	OverrideComponentFunction(OnDestroy);
 
 	virtual Collider* InitializeCollider(GameObject* colliderObj) override;
-	
+
 	virtual void OnDamage(DamageParameters& params) override;
 
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
-private:
+	void OnPlayedFly();
 
-	void SetTargetCoord(Vec3 xzCoord);
+	void OnPlayedLand();
 
-	void Attack();
+	void OnPlayedAttack();
 
-	void Explosion();
-
-private:
-
-	enum class MovingType { Idle, Trace, leftRight, Attack, Max };
-
-	void Moving(MovingType type);
-
+	void OnPlayedDie();
 
 private:
-
-	UserMeshBillboardRenderer* m_renderer = nullptr;
-
-	DeaconSpriteAnimator* m_animator = nullptr;
-
-	Vec3 m_targetCoord;
-
-	Vec3 m_beforeCoord;
-
-	bool m_hasTargetCoord = false;
-
-	float m_deltatime = 0.f;
-
-	unsigned int m_attackCount = 0;
-
-	bool m_distance = false;
-
-	float m_breakTime = 0;
-
-	MovingType movingtype = (MovingType)0;
-
-	bool m_realdead = false;
-
-
-private:
-
-	void Effect();
-
-	void ShootToPlayer();
-
-private:
-
-	float createEffect = 0.f;;
-	float random = 0;
-
-	bool m_ground = false;
-
-	bool attackcountzero = false;
-	float attackcountZeroDt = 0.f;
-
-private:
-	void angle();
 
 	float GetXZDistance(const Vec3& point) const;
 
 	Vec3 GetXZDirection(const Vec3& point) const;
+
+	bool WallTest(const Vec3& direction) const;
+
+	void MakeFlyEffect();
+
+private:
+
+	void SetBehavior(Behavior value);
+
+	void BehaviorUpdate();
+
+	void OnIdle();
+
+	void Idle();
+
+	void OnFlyToPlayer();
+
+	void FlyToPlayer();
+
+	void OnLanding();
+
+	void Landing();
+
+	void OnShootBall();
+
+	void ShootBall();
+
+private:
+
+
+	SphereCollider* m_collider = nullptr;
+
+	class DeaconAnimator* m_animator = nullptr;
+
+	Behavior m_behavior = Behavior::None;
+
+	float m_idleAccumulate = 0.0f;
+
+	float m_shootWait = 0.0f;
+
+	int m_shootCount = 0;
 };
 
