@@ -19,8 +19,8 @@ void Wendigo::Awake()
 	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->sleepThresholder = 2.0f;
 
-	m_rendererObj->transform->localScale = Vec3::one() * 8.0f;
-	m_rendererObj->transform->localPosition = Vec3(0, -2.f, 0);
+	m_rendererObj->transform->localScale = Vec3::one() * 6.0f;
+	m_rendererObj->transform->localPosition = Vec3(0, -1.f, 0);
 
 	m_renderer = CreateRenderer();
 	m_animator = m_renderer->gameObject->AddComponent<WendigoSpriteAnimator>();
@@ -138,11 +138,14 @@ Collider* Wendigo::InitializeCollider(GameObject* colliderObj)
 		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
 		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
 		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-		renderer->transform->scale = Vec3(2.f, 1.5f, 1.5f);
-		renderer->transform->position = Vec3(transform->position.x, transform->position.y - 0.5f, transform->position.z);
+		//renderer->transform->scale = Vec3(2.f, 1.5f, 1.5f);
+		//renderer->transform->position = Vec3(transform->position.x, transform->position.y - 0.5f, transform->position.z);
 	}
 
 	m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
+	/*m_capsuleCollider->transform->scale = Vec3(2.f, 1.3f, 2.f);
+	m_capsuleCollider->transform->position = Vec3(transform->position.x, transform->position.y - 0.8f, transform->position.z);*/
+
 
 	return m_capsuleCollider;
 }
@@ -230,9 +233,9 @@ void Wendigo::SetBehavior(Behavior value)
 	case Wendigo::Behavior::Swing:
 		OnSwing();
 		break;
-	case Wendigo::Behavior::WalkToRandomCoord:
-		OnWalkToRandomCoord();
-		break;
+	//case Wendigo::Behavior::WalkToRandomCoord:
+	//	OnWalkToRandomCoord();
+	//	break;
 	}
 
 }
@@ -253,9 +256,9 @@ void Wendigo::BehaviorUpdate()
 	case Wendigo::Behavior::Swing:
 		Swing();
 		break;
-	case Wendigo::Behavior::WalkToRandomCoord:
-		WalkToRandomCoord();
-		break;
+	//case Wendigo::Behavior::WalkToRandomCoord:
+	//	WalkToRandomCoord();
+	//	break;
 	}
 }
 
@@ -370,6 +373,9 @@ void Wendigo::OnJump()
 	//{
 	//	m_animator->PlayJump();
 	//}
+
+	m_hasJump = true;
+
 	m_animator->PlayJump();
 }
 
@@ -384,6 +390,8 @@ void Wendigo::OnWalkToRandomCoord()
 
 void Wendigo::Swing()
 {
+	m_animator->PlaySwing();
+
 	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayerDir.y = 0;
 	mosterToPlayerDir.Normalize();
@@ -506,90 +514,91 @@ void Wendigo::Jump()
 
 		Vec3 velocity = Quat::AxisAngle(right, -22.5f) * forward * m_moveSpeed;
 
-		transform->position += velocity * 0.03f;
+		transform->position += velocity * Time::DeltaTime() * 2.5f;
 
+		if (transform->position.y > m_jumpY + 1.f)
+		{
+			m_hasJump = false;
+			m_animator->PlayWalk();
+		}
 
-	}
-	else if(attackType == AttackType::Jump && !m_hasJump)
-	{
-		m_animator->PlayWalk();
 	}
 }
 
 void Wendigo::JumpCheck()
 {
-	PhysicsRay ray(transform->position, Vec3::down(), sqrtf(0.1f));
-	RaycastHit hit;
-
-	if (m_hasJump)
-	{
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider, m_body))
-		{
-
-			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
-			{
-				//if (transform->position.y > m_jumpY + 2.f)
-				//{
-					m_hasJump = false;
-					//m_moveSpeed = 0.f;
-
-//				}
-			}
-		}
-	}
+//	PhysicsRay ray(transform->position, Vec3::down(), sqrtf(0.1f));
+//	RaycastHit hit;
+//
+//	if (m_hasJump)
+//	{
+//		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider, m_body))
+//		{
+//
+//			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
+//			{
+//				//if (transform->position.y > m_jumpY + 2.f)
+//				//{
+//					m_hasJump = false;
+//					//m_moveSpeed = 0.f;
+//
+////				}
+//			}
+//		}
+//	}
 }
 
 void Wendigo::SetAction(ActionType type)
 {
-	m_hasTargetCoord = false;
-	m_attackCount = 0;
-	m_breakTime = 0.35f;
+	//m_hasTargetCoord = false;
+	//m_attackCount = 0;
+	//m_breakTime = 0.35f;
 
-	switch (type)
-	{
-	case ActionType::Idle:
-	{
+	//switch (type)
+	//{
+	//case ActionType::Idle:
+	//{
 
-	}
-	break;
-	case ActionType::WalkToRandomCoord:
-	{
-		float randomRadian = (rand() % 360) * Deg2Rad;
-		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
-		Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
-		SetTargetCoord(targetCoord);
-	}
-	break;
-	case ActionType::WalkToPlayerDirection:
-	{
-		const Vec3& monsterPos = transform->position;
-		const Vec3& playerPos = Player::GetInstance()->transform->position;
-		Vec3 relative = playerPos - monsterPos;
-		float distance = Clamp(relative.magnitude(), 0, 8.0f);
-		Vec3 direction = relative.normalized();
-		SetTargetCoord(monsterPos + direction * distance);
-	}
-	break;
-	case ActionType::Swing:
-	{
-		m_attackCount = 2;
-		attackType = AttackType::Swing;
-		m_animator->PlayAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Swing);
-		m_attacking = true;
-	}
-	case ActionType::Jump:
-	{
-		m_attackCount = 2;
-		attackType = AttackType::Jump;
+	//}
+	//break;
+	//case ActionType::WalkToRandomCoord:
+	//{
+	//	float randomRadian = (rand() % 360) * Deg2Rad;
+	//	float randomDistance = (rand() % 15) + 2.1f + 0.1f;
+	//	Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
+	//	SetTargetCoord(targetCoord);
+	//}
+	//break;
+	//case ActionType::WalkToPlayerDirection:
+	//{
+	//	const Vec3& monsterPos = transform->position;
+	//	const Vec3& playerPos = Player::GetInstance()->transform->position;
+	//	Vec3 relative = playerPos - monsterPos;
+	//	float distance = Clamp(relative.magnitude(), 0, 8.0f);
+	//	Vec3 direction = relative.normalized();
+	//	SetTargetCoord(monsterPos + direction * distance);
+	//}
+	//break;
+	//case ActionType::Swing:
+	//{
+	//	m_attackCount = 2;
+	//	attackType = AttackType::Swing;
+	//	m_animator->PlayAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Swing);
+	//	m_attacking = true;
+	//}
+	//case ActionType::Jump:
+	//{
+	//	m_attackCount = 2;
+	//	attackType = AttackType::Jump;
 
-		m_hasJump = true;
-		m_jump = true;
-		m_attacking = true;
-	}
-	break;
-	default:
-		break;
-	}
+	//	m_hasJump = true;
+	//	m_jump = true;
+	//	m_attacking = true;
+	//}
+	//break;
+	//default:
+	//	break;
+	//}
 
 }
 
@@ -605,32 +614,32 @@ void Wendigo::Attack()
 	//	return;
 	//}
 
-	if (m_attackCount > 0)
-	{
-		switch (attackType)
-		{
-		case Wendigo::AttackType::Swing:
-		{
-			--m_attackCount;
+	//if (m_attackCount > 0)
+	//{
+	//	switch (attackType)
+	//	{
+	//	case Wendigo::AttackType::Swing:
+	//	{
+	//		--m_attackCount;
 
-		}
-		break;
-		case Wendigo::AttackType::Jump:
-		{
-			--m_attackCount;
-
-
-		}
-		break;
-		}
+	//	}
+	//	break;
+	//	case Wendigo::AttackType::Jump:
+	//	{
+	//		--m_attackCount;
 
 
-		Vec3 forward = Player::GetInstance()->transform->position - transform->position;
-		forward.y = 0;
-		forward.Normalize();
-		transform->forward = forward;
+	//	}
+	//	break;
+	//	}
 
-	}
-	else
-		m_attacking = false;
+
+	//	Vec3 forward = Player::GetInstance()->transform->position - transform->position;
+	//	forward.y = 0;
+	//	forward.Normalize();
+	//	transform->forward = forward;
+
+	//}
+	//else
+	//	m_attacking = false;
 }
