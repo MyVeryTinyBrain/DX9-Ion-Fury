@@ -18,7 +18,6 @@
 #include <Wendigo.h>
 
 #include <ItemBowAmmo.h>
-//#include <Door.h>?
 
 
 std::vector<Pickable*> Pickable::g_PickableVec;
@@ -276,37 +275,37 @@ void Pickable::SetComponentToPickable(EventType type)
 	switch (m_EventType)
 	{
 	case EventType::BasicMutant:
+		m_ComponentObject->AddComponent<BasicMutant>();
+		break;
+	case EventType::Mutant:
 		m_ComponentObject->AddComponent<Mutant>();
 		break;
-	//case EventType::Mutant:
-	//	m_ComponentObject->AddComponent<Mutant>();
-	//	break;
-	//case EventType::CultistArcher:
-	//	m_ComponentObject->AddComponent<CultistArcher>();
-	//	break;
-	//case EventType::CultistGunner:
-	//	m_ComponentObject->AddComponent<CultistGunner>();
-	//	break;
-	//case EventType::Deacon:
-	//	m_ComponentObject->AddComponent<Deacon>();
-	//	break;
-	//case EventType::Drone:
-	//	m_ComponentObject->AddComponent<Drone>();
-	//	break;
-	//case EventType::Liberator:
-	//	m_ComponentObject->AddComponent<Liberator>();
-	//	break;
-	//case EventType::Spider:
-	//	m_ComponentObject->AddComponent<Spider>();
-	//	break;
-	//case EventType::Skull:
-	//	m_ComponentObject->AddComponent<Skull>();
-	//	break;
-	//case EventType::Wendigo:
-	//	m_ComponentObject->AddComponent<Wendigo>();
-	//	break;
+	case EventType::CultistArcher:
+		m_ComponentObject->AddComponent<CultistArcher>();
+		break;
+	case EventType::CultistGunner:
+		m_ComponentObject->AddComponent<CultistGunner>();
+		break;
+	case EventType::Deacon:
+		m_ComponentObject->AddComponent<Deacon>();
+		break;
+	case EventType::Drone:
+		m_ComponentObject->AddComponent<Drone>();
+		break;
+	case EventType::Liberator:
+		m_ComponentObject->AddComponent<Liberator>();
+		break;
+	case EventType::Spider:
+		m_ComponentObject->AddComponent<Spider>();
+		break;
+	case EventType::Skull:
+		m_ComponentObject->AddComponent<Skull>();
+		break;
+	case EventType::Wendigo:
+		m_ComponentObject->AddComponent<Wendigo>();
+		break;
 	//case EventType::Door:
-	//	m_ChildObject->AddComponent<Door>();
+	//	m_ChildObject->AddComponent<ObjectAutoDoor>();
 	//	break;
 	}
 }

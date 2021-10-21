@@ -14,7 +14,6 @@ void BasicMutantSpriteAnimator::Awake()
     m_create->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Create4.png");
     m_create->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Create5.png");
     m_create->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Create6.png");
-    m_create->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Create7.png");
     m_create->interval = 0.3f;
 
     m_die[(unsigned int)DIE_BasicMutant::DIE_HEADSHOT] = new SpriteAnimation;

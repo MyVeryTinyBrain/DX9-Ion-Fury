@@ -24,8 +24,8 @@ void Mutant::Awake()
 
 
 	m_renderer = CreateRenderer();
-	m_renderer->freezeX = false;
-	m_renderer->freezeZ = false;
+	m_renderer->freezeX = true;
+	m_renderer->freezeZ = true;
 
 	m_animator = m_renderer->gameObject->AddComponent<MutantSpriteAnimator>();
 
@@ -35,9 +35,8 @@ void Mutant::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::FixedTimeScale() == 0)
+		return;
 
 	if (m_isDead)
 	{
@@ -57,9 +56,8 @@ void Mutant::Update()
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 
 	if (create)
 	{
@@ -121,9 +119,8 @@ void Mutant::OnDestroy()
 
 	//m_animator->OnDeadAnimated -= Function<void()>(this, &Mutant::OnDeadAnimated);
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 }
 
 Collider* Mutant::InitializeCollider(GameObject* colliderObj)

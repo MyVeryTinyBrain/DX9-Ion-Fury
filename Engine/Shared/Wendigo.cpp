@@ -39,9 +39,8 @@ void Wendigo::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::FixedTimeScale() == 0)
+		return;
 
 	//if (m_isDead)
 	//{
@@ -61,9 +60,8 @@ void Wendigo::Update()
 
 	m_animator->SetAngle(angleToPlayer);
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 
 	if (isDead)
 	{
@@ -125,9 +123,8 @@ void Wendigo::LateUpdate()
 {
 	Monster::LateUpdate();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 }
 
 void Wendigo::OnDestroy()
@@ -138,9 +135,8 @@ void Wendigo::OnDestroy()
 	m_animator->OnPlayedSwing -= Function<void()>(this, &Wendigo::OnPlayedSwing);
 	m_animator->OnPlayedAttack -= Function<void()>(this, &Wendigo::OnPlayedAttack);
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 }
 
 Collider* Wendigo::InitializeCollider(GameObject* colliderObj)

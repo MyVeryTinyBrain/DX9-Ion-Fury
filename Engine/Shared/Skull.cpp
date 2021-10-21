@@ -40,9 +40,8 @@ void Skull::FixedUpdate()
 {
     Monster::FixedUpdate();
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::FixedTimeScale() == 0)
+        return;
 }
 
 void Skull::Update()
@@ -53,9 +52,8 @@ void Skull::Update()
 
     m_animator->SetAngle(angleToPlayer);
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 
     if (isDead)
     {
@@ -69,9 +67,8 @@ void Skull::LateUpdate()
 {
     Monster::LateUpdate();
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 
     if (m_flyEffectCounter > 0)
     {
@@ -99,9 +96,8 @@ void Skull::OnDestroy()
         m_colliderDebugMesh = nullptr;
     }
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 }
 
 Collider* Skull::InitializeCollider(GameObject* colliderObj)

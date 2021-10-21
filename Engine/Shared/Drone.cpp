@@ -34,9 +34,8 @@ void Drone::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::FixedTimeScale() == 0)
+		return;
 
 	if (m_isDead)
 	{
@@ -56,9 +55,8 @@ void Drone::Update()
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 
 	if (m_isDead)
 	{
@@ -91,9 +89,8 @@ void Drone::OnDestroy()
 {
 	Monster::OnDestroy();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 }
 
 Collider* Drone::InitializeCollider(GameObject* colliderObj)

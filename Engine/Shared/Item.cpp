@@ -23,9 +23,10 @@ void Item::Awake()
 
 void Item::Start()
 {
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+	{
+		return;
+	}
 
 	PhysicsRay ray(transform->position, Vec3::down(), 50.0f);
 	RaycastHit hit;
@@ -37,9 +38,10 @@ void Item::Start()
 
 void Item::Update()
 {
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+	{
+		return;
+	}
 
 	auto collider = Physics::OverlapSphere(
 		transform->position,

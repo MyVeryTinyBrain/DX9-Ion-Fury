@@ -139,7 +139,7 @@ float Monster::AngleToPlayer() const
 
 float Monster::AngleToPlayerWithSign() const
 {
-    const Vec3& playerPos = Player::GetInstance()->transform->position;
+    const Vec3& playerPos = Camera::GetMainCamera()->transform->position;
     const Vec3& monsterPos = transform->position;
 
     Vec3 monsterToPlayer = playerPos - monsterPos;

@@ -32,9 +32,8 @@ void Spider::FixedUpdate()
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::FixedTimeScale() == 0)
+		return;
 
 	if (m_isDead)
 	{
@@ -59,9 +58,8 @@ void Spider::Update()
 {
 	Monster::Update();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 
 	if (m_isDead)
 	{
@@ -92,9 +90,8 @@ void Spider::OnDestroy()
 {
 	Monster::OnDestroy();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 }
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)

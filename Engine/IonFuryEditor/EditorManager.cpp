@@ -14,6 +14,9 @@ void EditorManager::Awake()
 	// 정적 변수에 대입합니다.
 	g_instance = this;
 
+	Time::SetTimeScale(0);
+	Time::SetFixedTimeScale(0);
+
 	// 여기에서 님들이 만든 컴포넌트같은거 추가하셈.
 	{
 		GameObject* cameraObj = CreateGameObject(L"FreePerspectiveCamera");

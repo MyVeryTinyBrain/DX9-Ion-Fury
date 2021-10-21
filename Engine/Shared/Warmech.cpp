@@ -55,9 +55,8 @@ void Warmech::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::FixedTimeScale() == 0)
+		return;
 
 	if (m_isDead)
 	{
@@ -79,9 +78,8 @@ void Warmech::Update()
 
 	m_bodyAnimator->SetAngle(AngleToPlayerWithSign());
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 
 	if (m_isDead)
 	{
@@ -136,9 +134,8 @@ void Warmech::OnDestroy()
 {
 	Monster::OnDestroy();
 
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+		return;
 }
 
 Collider* Warmech::InitializeCollider(GameObject* colliderObj)

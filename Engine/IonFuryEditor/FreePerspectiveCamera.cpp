@@ -16,27 +16,18 @@ void FreePerspectiveCamera::Update()
 
 	float acceleration = Input::GetKey(Key::LShift) ? m_accelerateFactor : 1.0f;
 
-	if (Input::GetKey(Key::A))
-		pos += -transform->right * m_linearSpeed * acceleration * Time::DeltaTime();
-	if (Input::GetKey(Key::D))
-		pos += transform->right * m_linearSpeed * acceleration * Time::DeltaTime();
-	if (Input::GetKey(Key::W))
-		pos += transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
-	if (Input::GetKey(Key::S))
-		pos += -transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
+	if (Input::GetKey(Key::Left))
+		pos += -transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+	if (Input::GetKey(Key::Right))
+		pos += transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+	if (Input::GetKey(Key::Up))
+		pos += transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+	if (Input::GetKey(Key::Down))
+		pos += -transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
 
 	//if (Input::GetKeyDown(Key::O))
 	//	EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
 
-
-	if (Input::GetKey(Key::Left))
-		ang.y -= m_angularSpeed * Time::DeltaTime();
-	if (Input::GetKey(Key::Right))
-		ang.y += m_angularSpeed * Time::DeltaTime();
-	if (Input::GetKey(Key::Up))
-		ang.x -= m_angularSpeed * Time::DeltaTime();
-	if (Input::GetKey(Key::Down))
-		ang.x += m_angularSpeed * Time::DeltaTime();
 	ang.z = 0;
 
 	// angle lock

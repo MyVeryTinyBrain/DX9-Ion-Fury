@@ -26,36 +26,32 @@ void Deacon::FixedUpdate()
 {
     Monster::FixedUpdate();
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::FixedTimeScale() == 0)
+        return;
 }
 
 void Deacon::Update()
 {
     Monster::Update();
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 }
 
 void Deacon::LateUpdate()
 {
     Monster::LateUpdate();
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 }
 
 void Deacon::OnDestroy()
 {
     Monster::OnDestroy();
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 }
 
 Collider* Deacon::InitializeCollider(GameObject* colliderObj)

@@ -27,9 +27,8 @@ void GunnerBase::FixedUpdate()
 {
     Monster::FixedUpdate();
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::FixedTimeScale() == 0)
+        return;
 
     if (m_isDead)
     {
@@ -49,9 +48,8 @@ void GunnerBase::Update()
     // 몬스터의 forward 방향과 플레이어를 바라보는 방향을 계산해서 애니메이터에 전달합니다.
     m_animator->SetAngle(angleToPlayer);
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 
     // 몬스터의 사망이 확인되었을때
     if (m_isDead)
@@ -165,9 +163,8 @@ void GunnerBase::OnDestroy()
 
     m_animator->OnDeadAnimated -= Function<void()>(this, &GunnerBase::OnDeadAnimated);
 
-#ifdef _AFX
-    return;
-#endif
+    if (Time::TimeScale() == 0)
+        return;
 }
 
 Collider* GunnerBase::InitializeCollider(GameObject* colliderObj)
