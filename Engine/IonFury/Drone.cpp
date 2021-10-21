@@ -95,7 +95,7 @@ Collider* Drone::InitializeCollider(GameObject* colliderObj)
 	//}
 
 	colliderObj->transform->localScale = Vec3::one() * 2.0f;
-	
+
 	return colliderObj->AddComponent<SphereCollider>();
 }
 
@@ -161,28 +161,25 @@ void Drone::Moving(MovingType type)
 		const Vec3& dronePos = transform->position;
 
 		float distanceY = Vec3::Distance(xzdronePos, dronePos);			// y ±Ê¿Ã
-		
 
-		if (distanceY < 4.1f)
+
+		if (m_deltatime < 1.5f)
 		{
-			if (m_deltatime < 1.5f)
-			{
+			if (distanceY < 10.1f)
 				transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
-			}
-			else
-			{
-				transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
-
-				if (m_deltatime > 3.f)
-				{
-					m_deltatime = 0.f;
-					//movingtype = (MovingType)2;
-					movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
-				}
-			}
 		}
 		else
-			movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
+		{
+			transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
+
+			if (m_deltatime > 3.f)
+			{
+				m_deltatime = 0.f;
+				//movingtype = (MovingType)2;
+				movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
+			}
+		}
+
 	}
 	break;
 	case Drone::MovingType::leftRight:
@@ -197,7 +194,7 @@ void Drone::Moving(MovingType type)
 		Vec3 playerPos = Player::GetInstance()->transform->position;
 		float distanceP = Vec3::Distance(playerPos, dronePos);
 
-		if (distanceP < 4.1f)
+		if (distanceP < 15.1f)
 		{
 			if (m_deltatime < 3.f)
 			{
@@ -219,7 +216,10 @@ void Drone::Moving(MovingType type)
 			}
 		}
 		else
-			movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
+		{
+			//movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
+			movingtype = Drone::MovingType::Trace;
+		}
 	}
 	break;
 	case Drone::MovingType::Attack:
@@ -261,7 +261,7 @@ void Drone::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
-		ShootToPlayer();
+		//ShootToPlayer();
 	}
 
 }
