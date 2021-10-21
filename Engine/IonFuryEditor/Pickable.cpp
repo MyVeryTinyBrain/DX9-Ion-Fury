@@ -276,7 +276,7 @@ void Pickable::SetComponentToPickable(EventType type)
 	switch (m_EventType)
 	{
 	case EventType::BasicMutant:
-		m_ComponentObject->AddComponent<Skull>();
+		m_ComponentObject->AddComponent<Mutant>();
 		break;
 	//case EventType::Mutant:
 	//	m_ComponentObject->AddComponent<Mutant>();

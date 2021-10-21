@@ -275,7 +275,6 @@ void DlgMonsterTool::ClickAddEvent()
 	if (evtType == -1)
 		return;
 
-
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
