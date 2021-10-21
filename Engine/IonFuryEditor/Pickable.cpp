@@ -301,6 +301,9 @@ void Pickable::SetComponentToPickable(EventType type)
 	case EventType::Skull:
 		m_ComponentObject->AddComponent<Skull>();
 		break;
+	case EventType::Warmech:
+		m_ComponentObject->AddComponent<Warmech>();
+		break;
 	case EventType::Wendigo:
 		m_ComponentObject->AddComponent<Wendigo>();
 		break;
