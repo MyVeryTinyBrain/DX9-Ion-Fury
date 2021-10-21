@@ -1,6 +1,7 @@
 #include "shared_stdafx.h"
 #include "BowAnimator.h"
 #include "SpriteAnimation.h"
+#include "SoundMgr.h"
 
 void BowAnimator::Awake()
 {
@@ -104,11 +105,15 @@ void BowAnimator::PlayIdle()
 void BowAnimator::PlayShoot()
 {
 	PlayAnimation(m_beginShoot);
+
+	SoundMgr::Play(L"../SharedResource/Sound/bow/slam_000.ogg", CHANNELID::PLAYER_WEAPON_FIRE0);
 }
 
 void BowAnimator::PlayReload()
 {
 	PlayAnimation(m_reload);
+
+	SoundMgr::Play(L"../SharedResource/Sound/bow/load.ogg", CHANNELID::PLAYER_WEAPON_RELOAD);
 }
 
 bool BowAnimator::IsPlayingIdle() const
