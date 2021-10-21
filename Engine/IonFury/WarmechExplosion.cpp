@@ -28,9 +28,8 @@ void WarmechExplosion::Update()
 {
 	m_animationTime += Time::DeltaTime();
 
-	if (m_animationTime < 3.2f)
+	if (m_animationTime < 2.4f)
 		m_animator->SetDefaultAnimation(m_animator->GetSpriteAnimation(SPRITE_WARMECH::Explosion), true);
-		//m_animator->SetDefaultAnimation(m_animator->GetExplosion(), true);
 	else
 		gameObject->Destroy();
 }

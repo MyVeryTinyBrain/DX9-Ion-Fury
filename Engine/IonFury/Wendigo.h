@@ -6,11 +6,15 @@ class WendigoSpriteAnimator;
 
 class Wendigo : public Monster
 {
+	enum class Behavior { MoveToPlayer, Jump, Swing, WalkToRandomCoord,  RandomMax, Idle,  None };
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(FixedUpdate);
 
 	OverrideComponentFunction(Update);
+
+	OverrideComponentFunction(LateUpdate);
 
 	OverrideComponentFunction(OnDestroy);
 
@@ -19,6 +23,38 @@ class Wendigo : public Monster
 	virtual void OnDamage(DamageParameters& params) override;
 
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
+
+	void OnPlayedJump();
+
+	void OnPlayedSwing();
+
+	void OnPlayedAttack();
+
+	void OnPlayedDie();
+
+private:
+
+	void SetBehavior(Behavior value);
+
+	void BehaviorUpdate();
+
+	void OnIdle();
+
+	void Idle();
+
+	void OnMoveToPlayer();
+
+	void MoveToPlayer();
+
+	void OnJump();
+
+	void OnSwing();
+
+	void OnWalkToRandomCoord();
+
+	void Swing();
+
+	void WalkToRandomCoord();
 
 private:
 
@@ -80,5 +116,11 @@ private:
 	bool m_initialdir = true;
 
 	Vec3 forward;
+
+	Behavior m_behavior = Behavior::None;
+
+	float m_idleAccumulate = 0.0f;
+
+	float m_moveToPlayerAccumulate = 0.0f;
 };
 

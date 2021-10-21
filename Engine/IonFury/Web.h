@@ -12,6 +12,9 @@ class Web : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
+private:
+
+	void AttackToPlayer();
 
 private:
 

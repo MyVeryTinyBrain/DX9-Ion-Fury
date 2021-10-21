@@ -32,11 +32,15 @@ private:
 
 	void Jump();
 
+	void AttackToPlayer();
+
 private:
 
 	enum class JumpType { BASIC, WEB, MAX };
 
 private:
+
+	SphereCollider* m_sphereCollider = nullptr;
 
 	UserMeshBillboardRenderer* m_renderer = nullptr;
 

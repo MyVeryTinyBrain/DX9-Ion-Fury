@@ -210,6 +210,10 @@ void WendigoSpriteAnimator::PlayJump()
 	PlayAnimation(m_attack[(unsigned int)ATTACK_WENDIGO::Jump], true);
 }
 
+void WendigoSpriteAnimator::PlaySwing()
+{
+	PlayAnimation(m_attack[(unsigned int)ATTACK_WENDIGO::Swing], true);
+}
 void WendigoSpriteAnimator::PlayDie()
 {
 	PlayAnimation(m_die, true);

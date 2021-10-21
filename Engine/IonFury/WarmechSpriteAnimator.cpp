@@ -135,7 +135,7 @@ void WarmechSpriteAnimator::Awake()
 	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/30.png");
 	m_explosion->AddTexture(L"../SharedResource/Texture/warmech_explosion/31.png");
 	m_explosion->interval = 0.08f;
-	m_explosion->isLoop = true;
+	
 
 	SetDefaultAnimation(m_idle[(unsigned int)DIR_WARMECH::FRONT]);
 }

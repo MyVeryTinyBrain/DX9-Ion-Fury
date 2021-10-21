@@ -40,6 +40,8 @@ public:
 
 	void PlayJump();
 
+	void PlaySwing();
+
 	void PlayDie();
 
 	bool IsPlayingIdle() const;
@@ -81,5 +83,15 @@ private:
 	SpriteAnimation* m_damage;
 
 	float m_angle = 0.f;
+
+public:
+
+	Delegate<void()> OnPlayedJump;
+
+	Delegate<void()> OnPlayedSwing;
+
+	Delegate<void()> OnPlayedAttack;
+
+	Delegate<void()> OnPlayedDie;
 };
 

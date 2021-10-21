@@ -50,10 +50,6 @@ void Drone::Update()
 {
 	Monster::Update();
 
-	if (m_isDead)
-	{
-		return;
-	}
 
 	if (m_isDead)
 	{
@@ -91,12 +87,12 @@ void Drone::OnDestroy()
 
 Collider* Drone::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-	}
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	//}
 
 	colliderObj->transform->localScale = Vec3::one() * 2.0f;
 	
@@ -141,7 +137,8 @@ void Drone::Moving(MovingType type)
 	case Drone::MovingType::Trace:
 	{
 		Vec3 xzdronePos = Vec3(dronePos.x, 0, dronePos.z);
-		float distance = Vec3::Distance(xzdronePos, Player::GetInstance()->transform->position);
+		Vec3 playerPos = Player::GetInstance()->transform->position;
+		float distance = Vec3::Distance(xzdronePos, playerPos);
 
 		if (distance > 8.f)
 			m_distance = true;
@@ -161,20 +158,31 @@ void Drone::Moving(MovingType type)
 
 		m_deltatime += Time::DeltaTime();
 
-		if (m_deltatime < 1.5f)
-		{
-			transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
-		}
-		else
-		{
-			transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
+		const Vec3& dronePos = transform->position;
 
-			if (m_deltatime > 3.f)
+		float distanceY = Vec3::Distance(xzdronePos, dronePos);			// y ±Ê¿Ã
+		
+
+		if (distanceY < 4.1f)
+		{
+			if (m_deltatime < 1.5f)
 			{
-				m_deltatime = 0.f;
-				movingtype = (MovingType)2;
+				transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
+			}
+			else
+			{
+				transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
+
+				if (m_deltatime > 3.f)
+				{
+					m_deltatime = 0.f;
+					//movingtype = (MovingType)2;
+					movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
+				}
 			}
 		}
+		else
+			movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
 	}
 	break;
 	case Drone::MovingType::leftRight:
@@ -185,30 +193,41 @@ void Drone::Moving(MovingType type)
 
 		m_deltatime += Time::DeltaTime();
 
-		if (m_deltatime < 3.f)
+		const Vec3& dronePos = transform->position;
+		Vec3 playerPos = Player::GetInstance()->transform->position;
+		float distanceP = Vec3::Distance(playerPos, dronePos);
+
+		if (distanceP < 4.1f)
 		{
-			transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
-			m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-			m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
-		}
-		else
-		{
-			transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
-			m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-			m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
-			if (m_deltatime > 6.f)
+			if (m_deltatime < 3.f)
 			{
-				m_deltatime = 0.f;
-				movingtype = (MovingType)3;
+				transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
+				m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
+				m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
+			}
+			else
+			{
+				transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
+				m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
+				m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
+				if (m_deltatime > 6.f)
+				{
+					m_deltatime = 0.f;
+					//movingtype = (MovingType)3;
+					movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
+				}
 			}
 		}
+		else
+			movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
 	}
 	break;
 	case Drone::MovingType::Attack:
 	{
 		m_attackCount = 10;
 
-		movingtype = (MovingType)4;
+		//movingtype = (MovingType)4;
+		movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
 	}
 	break;
 	case Drone::MovingType::Max:
@@ -242,6 +261,7 @@ void Drone::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
+		ShootToPlayer();
 	}
 
 }
@@ -252,5 +272,35 @@ void Drone::Explosion()
 		GameObject* effectObj = CreateGameObject();
 		effectObj->transform->position = transform->position;
 		effectObj->AddComponent<DroneExplosion>();
+	}
+}
+
+void Drone::ShootToPlayer()
+{
+	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
+	mosterToPlayer.Normalize();
+	Player::GetInstance()->TakeDamage(1);
+}
+
+void Drone::DistanceCheck()
+{
+	const Vec3& dronePos = transform->position;
+	Vec3 xzdronePos = Vec3(dronePos.x, 0, dronePos.z);
+
+	Vec3 forward = m_targetCoord - dronePos;
+	forward.y = 0;
+	forward.Normalize();
+	transform->forward = forward;
+
+	float distance = Vec3::Distance(xzdronePos, m_targetCoord);
+
+	if (distance > 2.1f)
+	{
+		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
+		RaycastHit hit;
+
+		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
+		{
+		}
 	}
 }
