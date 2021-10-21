@@ -1,50 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Drone.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneExplosion.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneSmoke.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneSpriteAnimator.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="Spider.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
-    <ClCompile Include="SpiderSpriteAnimator.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Web.cpp">
-      <Filter>Monster\Spider</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene2.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DeaconSpriteAnimator.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="Deacon.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechSpriteAnimator.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="Warmech.cpp">
-      <Filter>Monster\Warmech</Filter>
     </ClCompile>
     <ClCompile Include="LightLoad.cpp">
       <Filter>Loader</Filter>
@@ -58,104 +25,14 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>Loader</Filter>
     </ClCompile>
-    <ClCompile Include="DeaconflyEffect.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechBullet.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechExplosion.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechHit.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechMissile.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechTrail.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="Liberator.cpp">
-      <Filter>Monster\Liberator</Filter>
-    </ClCompile>
-    <ClCompile Include="LiberatorAnimator.cpp">
-      <Filter>Monster\Liberator</Filter>
-    </ClCompile>
-    <ClCompile Include="GunnerBase.cpp">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClCompile>
-    <ClCompile Include="GunnerBaseAnimator.cpp">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistGunner.cpp">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistGunnerAnimator.cpp">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistArcher.cpp">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistArcherAnimator.cpp">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClCompile>
-    <ClCompile Include="Skull.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullAnimator.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullBall.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullBallAnimator.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullReplica.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
     <ClCompile Include="TotalLoad.cpp">
       <Filter>Loader</Filter>
     </ClCompile>
     <ClCompile Include="TestSceneSeob.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="BasicMutantSpriteAnimator.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicMutant.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="MutantSpriteAnimator.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="Mutant.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="MutantPoison.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="Wendigo.cpp">
-      <Filter>Monster\Wendigo</Filter>
-    </ClCompile>
-    <ClCompile Include="WendigoSpriteAnimator.cpp">
-      <Filter>Monster\Wendigo</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Drone.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneExplosion.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneSmoke.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneSpriteAnimator.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Default</Filter>
     </ClInclude>
@@ -165,38 +42,17 @@
     <ClInclude Include="Resource.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Spider.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="SpiderSpriteAnimator.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Web.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
     <ClInclude Include="TestScene2.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DeaconSpriteAnimator.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="Deacon.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="Warmech.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechSpriteAnimator.h">
-      <Filter>Monster\Warmech</Filter>
     </ClInclude>
     <ClInclude Include="LightLoad.h">
       <Filter>Loader</Filter>
@@ -210,89 +66,11 @@
     <ClInclude Include="MapObject.h">
       <Filter>Loader</Filter>
     </ClInclude>
-    <ClInclude Include="DeaconflyEffect.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechBullet.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechExplosion.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechHit.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechMissile.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechTrail.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="Liberator.h">
-      <Filter>Monster\Liberator</Filter>
-    </ClInclude>
-    <ClInclude Include="LiberatorAnimator.h">
-      <Filter>Monster\Liberator</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerBase.h">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerBaseAnimator.h">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistGunner.h">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistGunnerAnimator.h">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistArcherAnimator.h">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistArcher.h">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClInclude>
-    <ClInclude Include="Skull.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullAnimator.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullBall.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullReplica.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullBallAnimator.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
     <ClInclude Include="TotalLoad.h">
       <Filter>Loader</Filter>
     </ClInclude>
     <ClInclude Include="TestSceneSeob.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicMutantSpriteAnimator.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicMutant.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="MutantSpriteAnimator.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="Mutant.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="MutantPoison.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="Wendigo.h">
-      <Filter>Monster\Wendigo</Filter>
-    </ClInclude>
-    <ClInclude Include="WendigoSpriteAnimator.h">
-      <Filter>Monster\Wendigo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -304,50 +82,14 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Monster">
-      <UniqueIdentifier>{1b8100b6-93f2-40eb-8767-472518a9dc9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Drone">
-      <UniqueIdentifier>{49a8b4a5-1355-4987-aa5f-34be7d907343}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Default">
       <UniqueIdentifier>{7e4f66b0-fe7a-45af-a42a-f09ccac37ad1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Spider">
-      <UniqueIdentifier>{61140836-3f23-4a7d-b54b-a4ea99b416b1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{9ad150aa-2c96-4258-b22d-361ad658c3df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Monster\Deacon">
-      <UniqueIdentifier>{09c9aea7-78e2-4bd4-9a43-62f748871dde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Warmech">
-      <UniqueIdentifier>{79b22bc4-b8b7-445e-9640-0f3d339ba063}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\GunnerBase">
-      <UniqueIdentifier>{cc3e223a-11bb-494a-aae7-47840dfdac87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Liberator">
-      <UniqueIdentifier>{1c6317f1-01ad-43a4-8d7a-4314da0e16b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\CultistGunner">
-      <UniqueIdentifier>{b592fdb6-4bd2-4495-b9d2-cc175fb64e38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\CultistArcher">
-      <UniqueIdentifier>{2f9160ff-08e4-47a9-a556-ff8fe781842b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Skull">
-      <UniqueIdentifier>{a8cdc852-602d-495a-a80a-d895a43867b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Wendigo">
-      <UniqueIdentifier>{b2b9094b-391a-4a8a-8950-f631844625ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Mutant">
-      <UniqueIdentifier>{42327cc7-5fac-4f24-91d4-123d12d5214d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
