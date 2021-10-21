@@ -19,7 +19,6 @@ void CultistArcherAnimator::InitAnimations()
 	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/cultist_archer/walk_front2.png");
 	m_walk[(unsigned int)DIR::FRONT]->AddTexture(L"../SharedResource/Texture/cultist_archer/walk_front3.png");
 
-	m_walk[(unsigned int)DIR::FRONT_DIAGONAL] = new SpriteAnimation;
 	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/cultist_archer/walk_front_diagonal0.png");
 	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/cultist_archer/walk_front_diagonal1.png");
 	m_walk[(unsigned int)DIR::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/cultist_archer/walk_front_diagonal2.png");
