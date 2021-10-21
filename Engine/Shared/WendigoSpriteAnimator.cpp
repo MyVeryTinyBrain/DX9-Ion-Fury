@@ -82,8 +82,8 @@ void WendigoSpriteAnimator::Awake()
 	m_damage->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_damage.png");
 	m_damage->isLoop = true;
 
-	//SetDefaultAnimation(m_walk[(unsigned int)DIR_WENDIGO::FRONT]);
-	SetDefaultAnimation(m_idle);
+	SetDefaultAnimation(m_walk[(unsigned int)DIR_WENDIGO::FRONT]);
+	//SetDefaultAnimation(m_idle);
 }
 
 void WendigoSpriteAnimator::LateUpdate()

@@ -136,8 +136,8 @@ void Spider::OnDamage(DamageParameters& params)
 	}
 
 	const Vec3& playerPos = Player::GetInstance()->transform->position;
-	const Vec3& gunnerPos = transform->position;
-	Vec3 forward = playerPos - gunnerPos;
+	const Vec3& spiderPos = transform->position;
+	Vec3 forward = playerPos - spiderPos;
 	forward.y = 0;
 	forward.Normalize();
 	transform->forward = forward;
