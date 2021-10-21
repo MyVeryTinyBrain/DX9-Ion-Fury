@@ -5,6 +5,7 @@
 #include "FPSOrthoCamera.h"
 #include "Hands.h"
 #include "PlayerUI.h"
+#include "SoundMgr.h"
 
 ImplementStaticComponent(Player);
 

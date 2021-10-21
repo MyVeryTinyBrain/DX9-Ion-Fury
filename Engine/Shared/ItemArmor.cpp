@@ -9,5 +9,5 @@ wstring ItemArmor::InitTextureLocalPath() const
 
 void ItemArmor::OnTrigger(Player* player)
 {
-	player->AddArmor(5);
+	player->AddArmor(10);
 }
