@@ -442,6 +442,7 @@ void DlgMonsterTool::AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 
 	trans->SetScale(Scale);
 	trans->SetEulerAngle(Euler);
 	EventObject->SetEventType(type);
+	EventObject->SetComponentToPickable(type);
 
 	m_EventListBox.AddString(name.c_str());
 
