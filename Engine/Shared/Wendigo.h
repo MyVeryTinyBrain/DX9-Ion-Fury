@@ -24,37 +24,6 @@ class Wendigo : public Monster
 
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
-	//void OnPlayedJump();
-
-	//void OnPlayedSwing();
-
-	//void OnPlayedAttack();
-
-	//void OnPlayedDie();
-
-private:
-
-	//void SetBehavior(Behavior value);
-
-	//void BehaviorUpdate();
-
-	//void OnIdle();
-
-	//void Idle();
-
-	//void OnMoveToPlayer();
-
-	//void MoveToPlayer();
-
-	//void OnJump();
-
-	//void OnSwing();
-
-	//void OnWalkToRandomCoord();
-
-	//void Swing();
-
-	//void WalkToRandomCoord();
 
 private:
 
@@ -99,8 +68,6 @@ private:
 
 	ActionType actionType = ActionType::Max;
 
-	bool m_attacking = false;
-
 	bool m_hasJump = false;
 
 	float m_jumpY = 0.f;
@@ -109,19 +76,9 @@ private:
 
 	float m_jumptime = 0.f;
 
-	float m_deadTime = 0.f;
-
 	AttackType attackType = AttackType::Max;
 
-	bool m_initialdir = true;
-
 	Vec3 forward;
-
-	Behavior m_behavior = Behavior::None;
-
-	float m_idleAccumulate = 0.0f;
-
-	float m_moveToPlayerAccumulate = 0.0f;
 
 	float m_PatternTime = 0;
 };

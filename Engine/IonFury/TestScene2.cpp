@@ -175,23 +175,23 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//    obj->AddComponent<Warmech>();
 	//}
 
-	for (int i = 0; i < 5; ++i)
-	{
-		for (int j = 0; j < 5; ++j)
-		{
-			auto obj = CreateGameObject();
-			obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
-			obj->transform->eulerAngle = Vec3(0, 90, 0);
-			obj->AddComponent<Drone>();
-			//obj->AddComponent<Spider>();
-		}
-	}
+	//for (int i = 0; i < 5; ++i)
+	//{
+	//	for (int j = 0; j < 5; ++j)
+	//	{
+	//		auto obj = CreateGameObject();
+	//		obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
+	//		obj->transform->eulerAngle = Vec3(0, 90, 0);
+	//		obj->AddComponent<Drone>();
+	//		//obj->AddComponent<Spider>();
+	//	}
+	//}
 	 
-	/*{
+	{
 	    auto obj = CreateGameObject();
 	    obj->transform->position = Vec3(0, 2, -10);
 	    obj->AddComponent<Wendigo>();
-	}*/
+	}
 
 }
 

@@ -145,7 +145,7 @@ void Wendigo::OnDamage(DamageParameters& params)
 	forward.Normalize();
 	transform->forward = forward;
 
-	//params.force = Vec3::zero();
+	params.force = Vec3::zero();
 }
 
 void Wendigo::OnDead(bool& dead, DamageParameters& params)
@@ -161,7 +161,7 @@ void Wendigo::MoveToTarget()
 	if (!m_hasTargetCoord)
 		return;
 
-	const Vec3& wendigoPos = transform->position;
+	const Vec3& wendigoPos = Vec3(transform->position.x, transform->position.y - 0.5f, transform->position.z);
 	Vec3 forward = m_targetCoord - wendigoPos;
 	forward.y = 0;
 	forward.Normalize();
@@ -172,7 +172,7 @@ void Wendigo::MoveToTarget()
 
 	if (distance > 2.1f)
 	{
-		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
+		PhysicsRay ray(wendigoPos, forward.normalized(), sqrtf(2.0f));
 		RaycastHit hit;
 
 		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
@@ -226,6 +226,8 @@ void Wendigo::Jump()
 {
 	if (m_hasJump)		// มกวม
 	{
+		//m_animator->PlayJump();
+
 		Vec3 playerPos = Player::GetInstance()->transform->position;
 		Vec3 monsterPos = transform->position;
 
@@ -239,8 +241,9 @@ void Wendigo::Jump()
 		Vec3 velocity = Quat::AxisAngle(right, -22.5f) * forward * m_moveSpeed;
 
 		transform->position += velocity * Time::DeltaTime() * 2.5f;
-
-		m_animator->PlayJump();
+		
+		//m_animator->PlayJump();
+		m_animator->SetDefaultAnimation(m_animator->GetAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Jump), true);
 
 		AttackToPlayer();
 

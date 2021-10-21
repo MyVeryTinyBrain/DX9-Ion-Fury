@@ -30,7 +30,7 @@ void Spider::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-	m_animator->SetAngle(AngleToPlayerWithSign());
+	
 
 	if (Time::FixedTimeScale() == 0)
 		return;
@@ -40,23 +40,25 @@ void Spider::FixedUpdate()
 		return;
 	}
 
-	MoveToTarget();
-
-
-	JumpCheck();
-
-
-
 	if (!m_hasTargetCoord)
 	{
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
+
+
+	MoveToTarget();
+
+
+	JumpCheck();
+
 }
 
 void Spider::Update()
 {
 	Monster::Update();
+
+	m_animator->SetAngle(AngleToPlayerWithSign());
 
 	if (Time::TimeScale() == 0)
 		return;
@@ -84,6 +86,8 @@ void Spider::Update()
 		jumpingtype = (JumpType)(rand() % unsigned int(JumpType::MAX));
 		m_PatternTime = 0.f;
 	}
+
+
 }
 
 void Spider::OnDestroy()
@@ -113,6 +117,7 @@ Collider* Spider::InitializeCollider(GameObject* colliderObj)
 
 void Spider::OnDamage(DamageParameters& params)
 {
+	
 	m_hasTargetCoord = false;
 
 	switch (params.damageType)
@@ -143,6 +148,9 @@ void Spider::OnDamage(DamageParameters& params)
 	transform->forward = forward;
 
 	params.force = Vec3::zero();
+	/*m_animator->PlayWalk();
+	m_hasTargetCoord = false;*/
+
 }
 
 void Spider::OnDead(bool& dead, DamageParameters& params)
@@ -210,6 +218,7 @@ void Spider::MoveToTarget()
 		m_beforeCoord = transform->position;
 		m_beforeCoord.y = 0;
 
+
 	}
 	else
 	{
@@ -218,7 +227,13 @@ void Spider::MoveToTarget()
 		SetTargetCoord(targetCoord);
 	}
 
-
+	if (distance > 10.f)
+	{
+		m_hasTargetCoord = false;
+		Vec3 velocity = forward * m_moveSpeed;
+		velocity.y = m_body->velocity.y;
+		m_body->velocity = velocity;
+	}
 }
 
 void Spider::SetTargetCoord(Vec3 xzCoord)
@@ -254,7 +269,7 @@ void Spider::JumpCheck()
 	mosterToPlayerDir.Normalize();
 
 	RaycastHit hit1;
-	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(20.0f));
+	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(5.0f));
 
 	m_jumptime += Time::FixedDeltaTime();
 
@@ -326,6 +341,7 @@ void Spider::Jump()
 			m_animator->SetDefaultAnimation(m_animator->GetWalk(), true);
 		}
 	}
+
 }
 
 void Spider::AttackToPlayer()
