@@ -190,7 +190,7 @@ void DlgTextureTool::SetTextureToPicked()
 	if (Selected == nullptr)
 		return;
 
-	if (Selected->GetGameObject()->GetComponent<HandlingObject>() == nullptr)
+	if (Selected->GetGameObject()->GetComponent<HandlingObject>())
 		return;
 
 	if (Selected->GetGameObject()->GetComponent<Pickable>())
