@@ -223,6 +223,12 @@ void DeaconSpriteAnimator::PlayDie()
 	ResetUVDirection();
 }
 
+void DeaconSpriteAnimator::PlayDamage()
+{
+	PlayAnimation(m_damage, true);
+	ResetUVDirection();
+}
+
 void DeaconSpriteAnimator::PlaySmoke()
 {
 	PlayAnimation(m_flyeffect, true);
@@ -256,6 +262,11 @@ bool DeaconSpriteAnimator::IsPlayingSmoke() const
 	return currentAnimation == m_flyeffect;
 }
 
+bool DeaconSpriteAnimator::IsPlayingDamage() const
+{
+	return currentAnimation == m_damage;
+}
+
 
 SpriteAnimation* DeaconSpriteAnimator::GetMove() const
 {
@@ -275,6 +286,11 @@ SpriteAnimation* DeaconSpriteAnimator::GetExplosion() const
 SpriteAnimation* DeaconSpriteAnimator::GetSmoke() const
 {
 	return  m_flyeffect;
+}
+
+SpriteAnimation* DeaconSpriteAnimator::GetDamage() const
+{
+	return m_damage;
 }
 
 void DeaconSpriteAnimator::ChangeUVDirection()

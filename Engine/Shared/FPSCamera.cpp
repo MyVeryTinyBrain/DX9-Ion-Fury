@@ -1,6 +1,8 @@
 #include "shared_stdafx.h"
 #include "FPSCamera.h"
 #include "FPSOrthoCamera.h"
+#include "PhysicsLayers.h"
+#include "Trigger.h"
 
 void FPSCamera::Awake()
 {
@@ -99,5 +101,27 @@ void FPSCamera::Recoiling()
 		transform->eulerAngle = angle;
 
 		m_recoilCounter -= Time::DeltaTime();
+	}
+}
+
+void FPSCamera::UseInput()
+{
+	PhysicsRay ray(m_camera->transform->position, m_camera->transform->forward, 1.5f);
+	RaycastHit hit;
+	bool result =
+		Physics::Raycast(
+			hit,
+			ray,
+			1 << (uint8_t)PhysicsLayers::InputTrigger | 1 << (uint8_t)PhysicsLayers::Terrain,
+			PhysicsQueryType::Trigger);
+
+	if (result && hit.collider->layerIndex == (uint8_t)PhysicsLayers::InputTrigger)
+	{
+		Trigger* trigger = hit.collider->rigidbody->gameObject->GetComponent<Trigger>();
+
+		if (trigger)
+		{
+			trigger->Use();
+		}
 	}
 }

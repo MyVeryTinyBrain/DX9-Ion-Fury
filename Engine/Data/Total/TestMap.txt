@@ -2,10 +2,10 @@
 	"HandleObjects" : 
 	[
 		{
-			"ChildScaleX" : 3.2000000476837158,
-			"ChildScaleY" : 3.1500000953674316,
-			"ChildScaleZ" : 1.0,
-			"ComponentType" : "ItemHealthPack",
+			"ChildScaleX" : 3,
+			"ChildScaleY" : 3,
+			"ChildScaleZ" : 3,
+			"ComponentType" : "ObjectStair",
 			"Name" : "Heal",
 			"PivotScale" : 0.55000001192092896,
 			"PositionX" : 4.3610591888427734,
@@ -33,13 +33,13 @@
 	"Lights" : 
 	[
 		{
-			"AmbinentFactor" : 0.0,
+			"AmbinentFactor" : 0.5,
 			"ColorA" : 1.0,
 			"ColorB" : 1.0,
 			"ColorG" : 1.0,
 			"ColorR" : 1.0,
-			"EulerAngleX" : 0.0,
-			"EulerAngleY" : 0.0,
+			"EulerAngleX" : 80.0,
+			"EulerAngleY" : 20.0,
 			"EulerAngleZ" : 0.0,
 			"Name" : "Directional",
 			"PosX" : 0.0,

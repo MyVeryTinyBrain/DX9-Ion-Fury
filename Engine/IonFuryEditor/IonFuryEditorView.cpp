@@ -61,6 +61,7 @@ CIonFuryEditorView::CIonFuryEditorView() noexcept
 
 CIonFuryEditorView::~CIonFuryEditorView()
 {
+	engine.Release();
 }
 
 BOOL CIonFuryEditorView::PreCreateWindow(CREATESTRUCT& cs)

@@ -33,6 +33,8 @@ public:
 
 	void PlayDie();
 
+	void PlayDamage();
+
 	void PlaySmoke();
 
 	bool IsPlayingMove() const;
@@ -43,6 +45,8 @@ public:
 
 	bool IsPlayingSmoke() const;
 
+	bool IsPlayingDamage() const;
+
 	SpriteAnimation* GetMove() const;
 
 	SpriteAnimation* GetShoot() const;
@@ -50,6 +54,9 @@ public:
 	SpriteAnimation* GetExplosion() const;
 
 	SpriteAnimation* GetSmoke() const;
+
+	SpriteAnimation* GetDamage() const;
+
 
 private:
 
@@ -68,6 +75,8 @@ private:
 	SpriteAnimation* m_dead;	//¡◊¿ª∂ß
 
 	SpriteAnimation* m_smoke;	//¿Ã∆Â∆Æ
+
+	SpriteAnimation* m_damage;	//¿Ã∆Â∆Æ
 
 	float m_angle = 0.f;
 

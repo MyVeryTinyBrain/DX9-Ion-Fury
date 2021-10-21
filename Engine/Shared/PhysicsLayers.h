@@ -10,8 +10,5 @@ enum class PhysicsLayers
 
 	Projectile = 4,
 
-	MonsterHit = 10,
-
-	PlayerAttack = 11,
-	MonsterAttack = 12,
+	InputTrigger = 5,
 };

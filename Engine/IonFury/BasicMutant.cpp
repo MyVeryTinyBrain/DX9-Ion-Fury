@@ -55,18 +55,17 @@ void BasicMutant::Update()
 {
 	Monster::Update();
 
+	createdt += Time::DeltaTime();
 	if (create)
 	{
 		m_moveSpeed = 0.f;
 		m_animator->PlayCreate();
-		create = false;
+		if (createdt > 0.9f)
+		{
+			create = false;
+		}
 	}
-	else if (!create)
-	{
-		m_animator->SetDefaultAnimation(m_animator->GetWalk());
-		m_moveSpeed = 3.0f;
-	}
-
+	
 	MoveToTarget();
 
 	makePoisonDt += Time::DeltaTime();
