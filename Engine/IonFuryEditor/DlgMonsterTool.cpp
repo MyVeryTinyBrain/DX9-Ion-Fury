@@ -182,7 +182,7 @@ void DlgMonsterTool::ClickAddTrigger()
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
-	Trigger->SetMaterial();
+	Trigger->SetNoLightTransparentMaterial();
 	Trigger->SetTriggerMethod((TriggerMethod)TouchButtonManual);
 	Trigger->SetTriggerOnce(TriggerOnce);
 	
@@ -282,6 +282,7 @@ void DlgMonsterTool::ClickAddEvent()
 	EventType check = (EventType)m_EventTypeComboBox.GetCurSel();
 	EventObject->SetEventType(check);
 	EventObject->SetComponentToPickable(check);
+	EventObject->SetOverSeeBlackMaterial();
 
 
 	++m_EventCnt;
@@ -408,7 +409,7 @@ Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Sc
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
 	Transform* trans = Trigger->GetGameObject()->GetTransform();
 
-	Trigger->SetMaterial();
+	Trigger->SetNoLightTransparentMaterial();
 	trans->GetGameObject()->name = name;
 	trans->SetPosition(Pos);
 	trans->SetScale(Scale);

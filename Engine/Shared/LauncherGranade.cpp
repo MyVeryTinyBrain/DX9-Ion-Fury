@@ -4,6 +4,7 @@
 #include "Monster.h"
 #include "BillboardEffect.h"
 #include "GranadeTrail.h"
+#include "SoundMgr.h"
 
 void LauncherGranade::Awake()
 {
@@ -79,6 +80,8 @@ void LauncherGranade::OnCollisionEnter(const CollisionEnter& collider)
 {
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
 	{
+		SoundMgr::Play(L"../SharedResource/Sound/launcher/grenadebounce_001.ogg", CHANNELID::PLAYER_PROJECTILE);
+
 		m_groundCollision = true;
 	}
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
@@ -97,6 +100,11 @@ void LauncherGranade::Explosion()
 	{
 		return;
 	}
+
+	int soundIndex = rand() % 5;
+	wchar_t buffer[256];
+	swprintf_s(buffer, L"../SharedResource/Sound/explosion/explo_sm_00%d.ogg", soundIndex);
+	SoundMgr::Play(buffer, CHANNELID::PLAYER_EXPLOSION);
 
 	m_exploded = true;
 
