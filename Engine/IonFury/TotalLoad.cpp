@@ -5,6 +5,8 @@
 #include <fstream>
 #include <atlconv.h>
 
+#include "Trigger.h"
+
 #include "ItemBowAmmo.h"
 #include "ItemChaingunAmmo.h"
 #include "ItemLauncherAmmo.h"
@@ -23,61 +25,13 @@ HRESULT TotalLoad::Load(const wstring& wstrFilePath)
 	Json::Value Lights = Root["Lights"];
 	Json::Value HandleObjects = Root["HandleObjects"];
 
-	int MapSize = (int)MapObjects.size();
-	int HandleSize = (int)HandleObjects.size();
+	LoadFromMapData(MapObjects);
 
-	//Map
-	for (int i = 0; i < MapSize; ++i)
-	{
-		//MapObj
-		Json::Value MapValue = MapObjects[i];
+	LoadFromTriggerEventData(TriggerEvents);
 
-		wstring Name = ToWString(MapValue["Name"].asString());
-		wstring Tag = ToWString(MapValue["Tag"].asString());
-		wstring TexturePath = ToWString(MapValue["TexturePath"].asString());
-		int iMeshType = MapValue["MeshType"].asInt();
+	LoadFromLightData(Lights);
 
-		Vec3 Pos = Vec3(MapValue["PositionX"].asFloat(), MapValue["PositionY"].asFloat(), MapValue["PositionZ"].asFloat());
-		Vec3 Scale = Vec3(MapValue["ScaleX"].asFloat(), MapValue["ScaleY"].asFloat(), MapValue["ScaleZ"].asFloat());
-		Vec3 EulerAngle = Vec3(MapValue["RotationX"].asFloat(), MapValue["RotationY"].asFloat(), MapValue["RotationZ"].asFloat());
-
-		Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
-		bool ColliderExistence = MapValue["ColliderExistence"].asBool();
-
-		GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
-		pObj->name = Name;
-
-		pObj->transform->position = Pos;
-		pObj->transform->scale = Scale;
-		pObj->transform->eulerAngle = EulerAngle;
-
-		MapObject* compMapObj = pObj->AddComponent<MapObject>();
-		compMapObj->InitializeMapObject(TexturePath, UVScale, iMeshType, ColliderExistence);
-	}
-
-	//HandleSize	(tag´Â SpecialObjects)
-	for (int i = 0; i < HandleSize; ++i)
-	{
-		Json::Value HandleValue = HandleObjects[i];
-		wstring Name = ToWString(HandleValue["Name"].asString());
-		wstring ComponentType = ToWString(HandleValue["ComponentType"].asString());
-
-		Vec3 Pos = Vec3(HandleValue["PositionX"].asFloat(), HandleValue["PositionY"].asFloat(), HandleValue["PositionZ"].asFloat());
-		Vec3 Scale = Vec3(HandleValue["ChildScaleX"].asFloat(), HandleValue["ChildScaleY"].asFloat(), HandleValue["ChildScaleZ"].asFloat());
-		Vec3 EulerAngle = Vec3(HandleValue["RotationX"].asFloat(), HandleValue["RotationY"].asFloat(), HandleValue["RotationZ"].asFloat());
-
-		GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"SpecialObjects");
-		if (pObj == nullptr)
-			return E_FAIL;
-
-		pObj->name = Name;
-
-		pObj->transform->position = Pos;
-		pObj->transform->scale = Scale;
-		pObj->transform->eulerAngle = EulerAngle;
-
-		EnchantComponent(pObj, ComponentType);
-	}
+	LoadFromHandleObjectData(HandleObjects);
 
 	return S_OK;
 }
@@ -160,5 +114,256 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ObjectStair>();
 	else
 		pObj->Destroy();
+}
+
+Trigger* TotalLoad::CreateTrigger(const TriggerData& data)
+{
+	GameObject* obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"Trigger");
+
+	obj->name = data.sd.name;
+	obj->transform->position = data.sd.position;
+	obj->transform->eulerAngle = data.sd.eulerAngle;
+	obj->transform->scale = data.sd.scale;
+
+	Trigger* trigger = obj->AddComponent<Trigger>();
+	Trigger::Method method = Trigger::Method::None;
+
+	switch (data.method)
+	{
+		case 0:
+			method = Trigger::Method::Touch;
+			break;
+		case 1:
+			method = Trigger::Method::Button;
+			break;
+		case 2:
+			method = Trigger::Method::Manual;
+			break;
+	}
+
+	trigger->SetMethod(method);
+	trigger->SetTriggerOnce(data.once);
+
+	return trigger;
+}
+
+Component* TotalLoad::CreateEventObject(const EventObjectData& data)
+{
+	GameObject* obj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject();
+	obj->name = data.sd.name;
+	obj->transform->position = data.sd.position;
+	obj->transform->eulerAngle = data.sd.eulerAngle;
+	obj->transform->scale = data.sd.scale;
+
+	Component* comp = nullptr;
+
+	switch (data.type)
+	{
+		default:
+			obj->Destroy();
+			break;
+	}
+
+	return comp;
+}
+
+HRESULT TotalLoad::LoadFromMapData(const Json::Value& json)
+{
+	int MapSize = json.size();
+
+	for (int i = 0; i < MapSize; ++i)
+	{
+		//MapObj
+		Json::Value MapValue = json[i];
+
+		wstring Name = ToWString(MapValue["Name"].asString());
+		wstring Tag = ToWString(MapValue["Tag"].asString());
+		wstring TexturePath = ToWString(MapValue["TexturePath"].asString());
+		int iMeshType = MapValue["MeshType"].asInt();
+
+		Vec3 Pos = Vec3(MapValue["PositionX"].asFloat(), MapValue["PositionY"].asFloat(), MapValue["PositionZ"].asFloat());
+		Vec3 Scale = Vec3(MapValue["ScaleX"].asFloat(), MapValue["ScaleY"].asFloat(), MapValue["ScaleZ"].asFloat());
+		Vec3 EulerAngle = Vec3(MapValue["RotationX"].asFloat(), MapValue["RotationY"].asFloat(), MapValue["RotationZ"].asFloat());
+
+		Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
+		bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+
+		GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
+		pObj->name = Name;
+
+		pObj->transform->position = Pos;
+		pObj->transform->scale = Scale;
+		pObj->transform->eulerAngle = EulerAngle;
+
+		MapObject* compMapObj = pObj->AddComponent<MapObject>();
+		compMapObj->InitializeMapObject(TexturePath, UVScale, iMeshType, ColliderExistence);
+	}
+
+	return S_OK;
+}
+
+HRESULT TotalLoad::LoadFromLightData(const Json::Value& json)
+{
+	auto to_wstring = [](const string& str)
+	{
+		USES_CONVERSION;
+		return wstring(A2W(str.c_str()));
+	};
+
+	GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject();
+	float Range = 0.f;
+	float OutsideAngle = 0.f;
+	float InsideAngleRatio = 0.f;
+
+	for (Json::ArrayIndex i = 0; i < json.size(); ++i)
+	{
+
+		Json::Value Light = json[i];
+		//	Json::Value LightValue = Light[i];
+		wstring Name = ToWString(Light["Name"].asString());
+		wstring Tag = ToWString(Light["Tag"].asString());
+
+		Vec3 Pos = Vec3(Light["PosX"].asFloat(), Light["PosY"].asFloat(), Light["PosZ"].asFloat());
+		Vec3 EulerAngle = Vec3(Light["EulerAngleX"].asFloat(), Light["EulerAngleY"].asFloat(), Light["EulerAngleZ"].asFloat());
+		float AmbinentFactor = Light["AmbinentFactor"].asFloat();
+		Vec4 VColor = Vec4((float)Light["ColorR"].asInt(), (float)Light["ColorG"].asInt(), (float)Light["ColorB"].asInt(), (float)Light["ColorA"].asInt());
+
+
+		if (Tag == L"Point")
+		{
+			Range = Light["Range"].asFloat();
+		}
+		else if (Tag == L"Spot")
+		{
+			Range = Light["Range"].asFloat();
+			OutsideAngle = Light["OutsideAngle"].asFloat();
+			InsideAngleRatio = Light["InsideAngleRatio"].asFloat();
+		}
+
+		GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject();
+		pObj->name = Name;
+		pObj->tag = Tag;
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		pObj->transform->position = Pos;
+		pObj->transform->eulerAngle = EulerAngle;
+
+		if (Tag == L"Point")
+		{
+			PointLight* point = pObj->AddComponent<PointLight>();
+
+			point->ambientFactor = AmbinentFactor;
+			point->color = VColor;
+			point->range = Range;
+		}
+		else if (Tag == L"Spot")
+		{
+			SpotLight* spot = pObj->AddComponent<SpotLight>();
+
+			spot->ambientFactor = AmbinentFactor;
+			spot->color = VColor;
+			spot->range = Range;
+			spot->outsideAngle = OutsideAngle;
+			spot->insideAngleRatio = InsideAngleRatio;
+		}
+		else if (Tag == L"Directional")
+		{
+			DirectionalLight* directional = pObj->AddComponent<DirectionalLight>();
+
+			directional->ambientFactor = AmbinentFactor;
+			directional->color = VColor;
+		}
+	}
+
+	return S_OK;
+}
+
+HRESULT TotalLoad::LoadFromHandleObjectData(const Json::Value& json)
+{
+	int HandleSize = json.size();
+
+	//HandleSize	(tag´Â SpecialObjects)
+	for (int i = 0; i < HandleSize; ++i)
+	{
+		Json::Value HandleValue = json[i];
+		wstring Name = ToWString(HandleValue["Name"].asString());
+		wstring ComponentType = ToWString(HandleValue["ComponentType"].asString());
+
+		Vec3 Pos = Vec3(HandleValue["PositionX"].asFloat(), HandleValue["PositionY"].asFloat(), HandleValue["PositionZ"].asFloat());
+		Vec3 Scale = Vec3(HandleValue["ChildScaleX"].asFloat(), HandleValue["ChildScaleY"].asFloat(), HandleValue["ChildScaleZ"].asFloat());
+		Vec3 EulerAngle = Vec3(HandleValue["RotationX"].asFloat(), HandleValue["RotationY"].asFloat(), HandleValue["RotationZ"].asFloat());
+
+		GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(L"SpecialObjects");
+		if (pObj == nullptr)
+			return E_FAIL;
+
+		pObj->name = Name;
+
+		pObj->transform->position = Pos;
+		pObj->transform->scale = Scale;
+		pObj->transform->eulerAngle = EulerAngle;
+
+		EnchantComponent(pObj, ComponentType);
+	}
+
+	return S_OK;
+}
+
+HRESULT TotalLoad::LoadFromTriggerEventData(const Json::Value& json)
+{
+	auto MakeSharedData = [&](const Json::Value& data) -> SharedData
+	{
+		SharedData sd;
+		sd.name = ToWString(data["Name"].asString());
+		sd.position.x = data["PositionX"].asFloat();
+		sd.position.y = data["PositionY"].asFloat();
+		sd.position.z = data["PositionZ"].asFloat();
+		sd.eulerAngle.x = data["RotationX"].asFloat();
+		sd.eulerAngle.y = data["RotationY"].asFloat();
+		sd.eulerAngle.z = data["RotationZ"].asFloat();
+		sd.scale.x = data["ScaleX"].asFloat();
+		sd.scale.y = data["ScaleY"].asFloat();
+		sd.scale.z = data["ScaleZ"].asFloat();
+		return sd;
+	};
+
+	auto MakeTriggerData = [&](const Json::Value& data) -> TriggerData
+	{
+		TriggerData td;
+		td.sd = MakeSharedData(data);
+		td.method = data["TriggerMethod"].asInt();
+		td.once = false;
+		return td;
+	};
+
+	auto MakeEventObjectData = [&](const Json::Value& data) -> EventObjectData
+	{
+		EventObjectData eod;
+		eod.sd = MakeSharedData(data);
+		eod.type = data["EventType"].asInt();
+		return eod;
+	};
+
+	for (Json::ArrayIndex i = 0; i < json.size(); ++i)
+	{
+		Json::Value innerValue = json[i];
+
+		TriggerData td = MakeTriggerData(innerValue[0]);
+		Trigger* trigger = CreateTrigger(td);
+
+		for (Json::ArrayIndex j = 1; j < innerValue.size(); ++j)
+		{
+			EventObjectData eod = MakeEventObjectData(innerValue[j]);
+			Component* comp = CreateEventObject(eod);
+
+			if (!comp)
+			{
+				continue;
+			}
+
+			trigger->AddSubordinationComponent(comp);
+		}
+	}
+
+	return S_OK;
 }
 

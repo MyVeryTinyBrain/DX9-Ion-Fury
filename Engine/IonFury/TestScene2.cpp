@@ -195,17 +195,17 @@ void TestScene2::OnLoad(Scene* beforeScene)
     //    obj->AddComponent<Spider>();
     //}
 
-    //{
-    //    auto obj = CreateGameObject();
-    //    obj->transform->position = Vec3(0, 2, -10);
-    //    obj->AddComponent<Drone>();
-    //}
-    // 
     {
         auto obj = CreateGameObject();
         obj->transform->position = Vec3(0, 2, -10);
-        obj->AddComponent<Wendigo>();
+        obj->AddComponent<Drone>();
     }
+    // 
+    //{
+    //    auto obj = CreateGameObject();
+    //    obj->transform->position = Vec3(0, 2, -10);
+    //    obj->AddComponent<Wendigo>();
+    //}
 }
 
 void TestScene2::OnUnload(Scene* nextScene)
