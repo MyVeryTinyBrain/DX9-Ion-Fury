@@ -9,6 +9,7 @@
 #include "ObjectGetItem.h"
 #include "Mutant.h"
 #include "BasicMutant.h"
+#include "Skull.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -130,14 +131,22 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
-	for (int i = 0; i < 4; ++i)
-	{
 
-		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(i , 1, 0); //+ Vec3(-10, 0, -10);
-		obj->AddComponent<Deacon>();
+	  {
+	  auto obj = CreateGameObject();
+      obj->transform->position = Vec3(-0, 0, -0);
+	  obj->transform->eulerAngle = Vec3(0, 0, 0);
+      obj->AddComponent<Skull>();
+  }
+// 
+	//for (int i = 0; i < 4; ++i)
+	//{
 
-	}
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(i , 1, 0); //+ Vec3(-10, 0, -10);
+	//	obj->AddComponent<Deacon>();
+
+	//}
 	//for (int i = 0; i < 15; ++i)
 	//{
 		//auto obj = CreateGameObject();
@@ -202,7 +211,7 @@ void TestScene3::AddMap()
 	{   // Create obstacle
 		auto obj = CreateGameObject();
 		obj->transform->position = Vec3(0, -2, -3);
-		obj->transform->scale = Vec3(15, 15, 1);
+		obj->transform->scale = Vec3(15, 1, 1);
 
 		auto renderer = obj->AddComponent<UserMeshRenderer>();
 		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
@@ -216,6 +225,22 @@ void TestScene3::AddMap()
 		collider->restitution = 1.0f;
 	}
 
+	{   // Create obstacle
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(0, -1, -3);
+		obj->transform->scale = Vec3(7.5f, 1, 1);
+
+		auto renderer = obj->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+		auto body = obj->AddComponent<Rigidbody>();
+		body->isKinematic = true;
+
+		auto collider = obj->AddComponent<BoxCollider>();
+		collider->friction = 1.0f;
+		collider->restitution = 1.0f;
+	}
 	//{   // Create triangle
 	//    auto obj = CreateGameObject();
 	//    obj->transform->position = Vec3(10, 0, 0);
