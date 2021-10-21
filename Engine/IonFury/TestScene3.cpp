@@ -131,11 +131,14 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
-	{
-		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(-0, 0, 0);
-		obj->AddComponent<Deacon>();
-	}
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(i*5, 0, 0);
+	//	obj->AddComponent<Deacon>();
+	//}
+
+
 
 	// {
 	// auto obj = CreateGameObject();
@@ -144,20 +147,26 @@ void TestScene3::AddMonster()
  //    obj->AddComponent<Skull>();
  //}
 // 
-	//for (int i = 0; i < 4; ++i)
-	//{
+	for (int i = 0; i < 4; ++i)
+	{
 
-	//	auto obj = CreateGameObject();
-	//	obj->transform->position = Vec3(i , 1, 0); //+ Vec3(-10, 0, -10);
-	//	obj->AddComponent<Deacon>();
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(i , 1, 0); //+ Vec3(-10, 0, -10);
+		obj->AddComponent<Deacon>();
 
-	//}
+	}
 	//for (int i = 0; i < 15; ++i)
 	//{
-		//auto obj = CreateGameObject();
-		//obj->transform->position = Vec3(i * 2, 0, 0);
-		//obj->AddComponent<Mutant>();
+	//// //¹ÂÅÏÆ®
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(0, 0, -17);
+	//	obj->AddComponent<Mutant>();
 	//}
+
+		//º£ÀÌÁ÷ ¹ÂÅÏÆ®
+		//auto obj = CreateGameObject();
+		//obj->transform->position = Vec3(0, 0, -20);
+		//obj->AddComponent<BasicMutant>();
 
 	//{
 	//	auto obj = CreateGameObject();

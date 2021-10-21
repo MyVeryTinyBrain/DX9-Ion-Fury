@@ -59,7 +59,11 @@ void Deacon::Update()
     float angleToPlayer = AngleToPlayerWithSign();
 
     m_animator->SetAngle(angleToPlayer);
-    MakeFlyEffect();
+    
+    if (m_animator->GetCurrentAnimation() != m_animator->GetShoot() || !notcreatflyeffect)
+    {
+        MakeFlyEffect();
+    }
 
     if (Time::TimeScale() == 0)
         return;
@@ -123,6 +127,7 @@ void Deacon::OnDamage(DamageParameters& params)
 
 void Deacon::OnDead(bool& dead, DamageParameters& params)
 {
+    notcreatflyeffect = true;
     m_animator->PlayDie();
     m_body->useGravity = true;
    // m_body->SetTranslationLockAxis(PhysicsAxis::All, false);
@@ -190,7 +195,7 @@ bool Deacon::WallTest(const Vec3& direction) const
     else
     {
         float angle = Vec3::Angle(hit.normal, Vec3::up());
-        bool isWall = angle > 75 && angle < 95;
+        bool isWall = angle > 30 && angle < 55;
         return isWall;
     }
 
@@ -200,10 +205,6 @@ bool Deacon::WallTest(const Vec3& direction) const
 void Deacon::MakeFlyEffect()
 {
 
-   // BillboardEffect * effect = obj->AddComponent<BillboardEffect>();
-    //obj->AddComponent<DeaconflyEffect>();
-    //effect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly3.png");
-    //effect->SetInterval(0.2f);
     createEffect += Time::DeltaTime();
 
     if (createEffect > 0.2f)
@@ -213,7 +214,7 @@ void Deacon::MakeFlyEffect()
 
         obj->transform->position = m_renderer->transform->position - m_renderer->transform->forward * depth * 0.01f;
         obj->transform->scale = m_renderer->transform->scale;
-        obj->AddComponent<DeaconflyEffect>();
+        auto effect  = obj->AddComponent<DeaconflyEffect>();
         createEffect = 0;
     }
 }
@@ -249,6 +250,9 @@ void Deacon::SetBehavior(Behavior value)
     case Behavior::ShootBall:
         OnShootBall();
         break;
+    case Behavior::LeftRight:
+        OnLeftRight();
+        break;
     }
 }
 
@@ -271,6 +275,9 @@ void Deacon::BehaviorUpdate()
     case Behavior::ShootBall:
         ShootBall();
         break;
+    case Behavior::LeftRight:
+        LeftRight();
+        break;
     }
 }
 
@@ -285,9 +292,13 @@ void Deacon::Idle()
 {
     m_idleAccumulate += Time::DeltaTime();
 
-    if (m_idleAccumulate > 5.0f)
+    if (m_idleAccumulate > 1.0f)
     {
+        //int iBehavior = (rand() % (int)Behavior::RandomMax);
+        //SetBehavior((Behavior)iBehavior);
+
         SetBehavior(Behavior::MoveToPlayer);
+        m_idleAccumulate = 0;
         return;
     }
 }
@@ -297,14 +308,14 @@ void Deacon::OnMoveToPlayer()
 
     Vec3 target = Player::GetInstance()->transform->position;
     float d = GetXZDistance(target);
-    if (d < 3.0f + 0.1f)
+    if (d < 8)
     {
         SetBehavior(Behavior::ShootBall);
         return;
     }
 
     Vec3 dir = GetXZDirection(Player::GetInstance()->transform->position);
-    transform->forward = dir;
+    transform->forward = dir * 0.5f;
     m_moveToPlayerAccumulate = 0;
 }
 
@@ -312,6 +323,10 @@ void Deacon::MoveToPlayer()
 {
     float d = GetXZDistance(Player::GetInstance()->transform->position);
     Vec3 dir = GetXZDirection(Player::GetInstance()->transform->position);
+
+    float x = transform->position.x;
+    float y = transform->position.y;
+    float z = transform->position.z;
 
     if (m_body->velocity.magnitude() > m_moveSpeed * 0.5f)
     {
@@ -322,22 +337,32 @@ void Deacon::MoveToPlayer()
         m_animator->PlayIdle();
     }
 
-    if (d < 3.0f)
+    if (d < 8.0f && dir < Vec3(0,3,0))
     {
-        SetBehavior(Behavior::Idle);
+        const Vec3& playerPos = Player::GetInstance()->transform->position;
+        const Vec3& gunnerPos = transform->position;
+        Vec3 forward = playerPos - gunnerPos;
+        forward.y = 0;
+        forward.Normalize();
+        transform->forward = forward;
+
+       // m_body->SetTranslationLockAxis(PhysicsAxis::All, false);
+        SetBehavior(Behavior::ShootBall);
         return;
     }
-    else if (m_moveToPlayerAccumulate > 3.0f)
+    else if (m_moveToPlayerAccumulate > 1.5f)
     {
-        SetBehavior(Behavior::ShootBall);
+        SetBehavior(Behavior::Idle);
+        m_moveToPlayerAccumulate = 0;
         return;
     }
     else
     {
-
+        //x += dir.x * Time::DeltaTime() * 2.0f;
+        //z += dir.z * Time::DeltaTime() * 2.0f;
 
         Vec3 vel = dir * m_moveSpeed;
-        vel = ToSlopeVelocity(vel, sqrtf(2.0f)/* * 1.5f*/);
+        vel = ToSlopeVelocity(vel, sqrtf(1.0f));
 
         if (Abs(vel.y) < 0.1f)
         {
@@ -350,11 +375,6 @@ void Deacon::MoveToPlayer()
 
         transform->forward = dir;
     }
-
-
-    float x = transform->position.x;
-    float y = transform->position.y;
-    float z = transform->position.z;
 
     {   // Change y
         PhysicsRay ray(transform->position, Vec3::down());
@@ -369,27 +389,6 @@ void Deacon::MoveToPlayer()
         if (result)
         {
             y = MathEx::Lerp(y, hit.point.y + 3.0f, Time::DeltaTime() * 1.5f);
-        }
-    }
-
-    {
-        //Change x, z
-        Vec3 target = Player::GetInstance()->transform->position;
-        float d = GetXZDistance(target);
-        Vec3 dir = GetXZDirection(target);
-
-        if (d < 3.0f)
-        {
-            m_body->SetTranslationLockAxis(PhysicsAxis::All, false);
-            m_body->useGravity = true;
-
-           // SetBehavior(Behavior::ShootBall);
-            return;
-        }
-        else
-        {
-            x += dir.x * Time::DeltaTime() * 2.0f;
-            z += dir.z * Time::DeltaTime() * 2.0f;
         }
     }
 
@@ -497,14 +496,58 @@ void Deacon::ShootBall()
     }
 
     m_animator->PlayShoot();
-    ShootToPlayer();
     m_shootWait = 0.1f;
 
     --m_shootCount;
 
+      ShootToPlayer();
+
     if (m_shootCount <= 0)
     {
         SetBehavior(Behavior::Idle);
+    }
+}
+void Deacon::OnLeftRight()
+{
+}
+void Deacon::LeftRight()
+{
+    Vec3 target = Player::GetInstance()->transform->position;
+    float d = GetXZDistance(target);
+
+    float distanceP = Vec3::Distance(target, transform->position);
+
+    //transform->up = Vec3(0, 1, 0);
+    //transform->right = Vec3::Cross(transform->up, transform->forward);
+    //transform->right.Normalize();
+
+    m_leftrightAccumulate += Time::DeltaTime();
+
+    if (distanceP < 15.1f)
+    {
+        if (m_leftrightAccumulate < 2.f)
+        {
+            transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
+            m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
+            m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
+        }
+        else
+        {
+            transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
+            m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
+            m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
+            if (m_leftrightAccumulate > 3.f)
+            {
+                m_leftrightAccumulate = 0.f;
+                //movingtype = (MovingType)3;
+                SetBehavior(Deacon::Behavior::Idle);
+            }
+        }
+    }
+    else
+    {
+        //movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
+        SetBehavior(Deacon::Behavior::Idle);
     }
 }
 void Deacon::ShootToPlayer()

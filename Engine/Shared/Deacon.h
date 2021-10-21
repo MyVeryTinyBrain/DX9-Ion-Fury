@@ -5,7 +5,7 @@ class DeaconSpriteAnimator;
 
 class Deacon : public Monster
 {
-	enum class Behavior { MoveToPlayer, ShootBall, RandomMax, Idle, Landing, None };
+	enum class Behavior { MoveToPlayer, ShootBall, LeftRight, RandomMax, Idle, Landing, None };
 	//enum class Behavior { MoveToPlayer, FlyToPlayer, ShootBall, RandomMax, Idle, Landing, None };
 	//enum class Behavior { MoveToPlayer , RandomMax, FlyToPlayer, ShootBall, Idle, Landing, None };
 
@@ -69,6 +69,10 @@ private:
 
 	void ShootBall();
 
+	void OnLeftRight();
+
+	void LeftRight();
+
 	void ShootToPlayer();
 
 private:
@@ -87,6 +91,9 @@ private:
 
 	float m_idleAccumulate = 0.0f;
 
+	float m_leftrightAccumulate = 0.0f;
+
+
 	float m_shootWait = 0.0f;
 
 	int m_shootCount = 0;
@@ -94,5 +101,7 @@ private:
 	float m_moveToPlayerAccumulate = 0.0f;
 
 	float createEffect = 0.f;
+
+	bool notcreatflyeffect= false;
 };
 
