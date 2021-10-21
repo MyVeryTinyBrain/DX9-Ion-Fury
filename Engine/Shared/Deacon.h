@@ -5,7 +5,9 @@ class DeaconSpriteAnimator;
 
 class Deacon : public Monster
 {
-	enum class Behavior {FlyToPlayer, ShootBall, RandomMax, Idle, Landing, None };
+	enum class Behavior { MoveToPlayer, ShootBall, RandomMax, Idle, Landing, None };
+	//enum class Behavior { MoveToPlayer, FlyToPlayer, ShootBall, RandomMax, Idle, Landing, None };
+	//enum class Behavior { MoveToPlayer , RandomMax, FlyToPlayer, ShootBall, Idle, Landing, None };
 
 	OverrideComponentFunction(Awake);
 
@@ -23,9 +25,9 @@ class Deacon : public Monster
 
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
-	void OnPlayedFly();
+	//void OnPlayedFly();
 
-	void OnPlayedLand();
+	//void OnPlayedLand();
 
 	void OnPlayedAttack();
 
@@ -51,24 +53,35 @@ private:
 
 	void Idle();
 
-	void OnFlyToPlayer();
+	void OnMoveToPlayer();
 
-	void FlyToPlayer();
+	void MoveToPlayer();
 
-	void OnLanding();
+//	void OnFlyToPlayer();
 
-	void Landing();
+//	void FlyToPlayer();
+
+//	void OnLanding();
+
+//	void Landing();
 
 	void OnShootBall();
 
 	void ShootBall();
 
+	void ShootToPlayer();
+
 private:
 
+	UserMeshRenderer* m_renderer = nullptr;
 
-	SphereCollider* m_collider = nullptr;
+	CapsuleCollider* m_collider = nullptr;
 
-	class DeaconAnimator* m_animator = nullptr;
+	CapsuleUserMesh* m_colliderDebugMesh = nullptr;
+
+	UserMeshRenderer* m_colliderDebugRenderer = nullptr;
+
+	DeaconSpriteAnimator* m_animator = nullptr;
 
 	Behavior m_behavior = Behavior::None;
 
@@ -77,5 +90,9 @@ private:
 	float m_shootWait = 0.0f;
 
 	int m_shootCount = 0;
+
+	float m_moveToPlayerAccumulate = 0.0f;
+
+	float createEffect = 0.f;
 };
 

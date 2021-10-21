@@ -19,8 +19,8 @@ IClonable* TestScene3::Clone()
 void TestScene3::OnLoad(Scene* beforeScene)
 {
 	AddSkyBox();
-	AddMonster();
 	AddMap();
+	AddMonster();
 	//  MapLoad::LoadMap(L"../Data/Map/testmap.txt");
 
 
@@ -131,13 +131,18 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
+	{
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(-0, 0, 0);
+		obj->AddComponent<Deacon>();
+	}
 
-	  {
-	  auto obj = CreateGameObject();
-      obj->transform->position = Vec3(-0, 0, -0);
-	  obj->transform->eulerAngle = Vec3(0, 0, 0);
-      obj->AddComponent<Skull>();
-  }
+	// {
+	// auto obj = CreateGameObject();
+ //    obj->transform->position = Vec3(-0, 0, -0);
+	// obj->transform->eulerAngle = Vec3(0, 0, 0);
+ //    obj->AddComponent<Skull>();
+ //}
 // 
 	//for (int i = 0; i < 4; ++i)
 	//{
