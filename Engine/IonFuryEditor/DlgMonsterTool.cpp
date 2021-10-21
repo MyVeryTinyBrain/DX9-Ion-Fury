@@ -77,15 +77,15 @@ BOOL DlgMonsterTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_EventTypeComboBox.AddString(_T("Armored Mutant"));
-	m_EventTypeComboBox.AddString(_T("Cultist"));
+	m_EventTypeComboBox.AddString(_T("Basic Mutant"));
+	m_EventTypeComboBox.AddString(_T("Mutant"));
+	m_EventTypeComboBox.AddString(_T("Cultist Archer"));
+	m_EventTypeComboBox.AddString(_T("Greater Gunner"));
 	m_EventTypeComboBox.AddString(_T("Deacon"));
 	m_EventTypeComboBox.AddString(_T("Drone"));
-	m_EventTypeComboBox.AddString(_T("Greater Cultist"));
 	m_EventTypeComboBox.AddString(_T("Liberator"));
-	m_EventTypeComboBox.AddString(_T("Mechsect"));
-	m_EventTypeComboBox.AddString(_T("Mutant"));
-	m_EventTypeComboBox.AddString(_T("Skinjob")); //Skull?
+	m_EventTypeComboBox.AddString(_T("Spider"));
+	m_EventTypeComboBox.AddString(_T("Skull"));
 	m_EventTypeComboBox.AddString(_T("Warmech"));
 	m_EventTypeComboBox.AddString(_T("Wendigo"));
 	m_EventTypeComboBox.AddString(_T("Door"));
@@ -282,6 +282,8 @@ void DlgMonsterTool::ClickAddEvent()
 	Pickable* EventObject = cam->Add_EventObject(trigger, m_EventCnt);
 	EventType check = (EventType)m_EventTypeComboBox.GetCurSel();
 	EventObject->SetEventType(check);
+	EventObject->SetComponentToPickable(check);
+
 
 	++m_EventCnt;
 
