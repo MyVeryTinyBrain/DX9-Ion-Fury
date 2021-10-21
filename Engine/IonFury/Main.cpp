@@ -22,7 +22,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	PhysicsInitialize::Initialize();
 
 
-	SceneManager::ChangeScene(new TestScene);
+	SceneManager::ChangeScene(new TestScene3);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)

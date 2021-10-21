@@ -76,7 +76,6 @@ private:
 	float attackcountZeroDt = 0.f;
 
 private:
-	void angle();
 
 	float GetXZDistance(const Vec3& point) const;
 

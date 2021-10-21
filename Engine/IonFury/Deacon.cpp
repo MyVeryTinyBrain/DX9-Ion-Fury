@@ -101,7 +101,7 @@ void Deacon::Update()
 	}
 
 
-	Attack(); //공격
+
 
 	if (!m_isDead)
 		Effect();
@@ -161,6 +161,11 @@ void Deacon::SetTargetCoord(Vec3 xzCoord)
 	m_hasTargetCoord = true;
 	m_targetCoord = xzCoord;
 	m_targetCoord.y = 0;
+
+	Vec3 forward = xzCoord - transform->position;
+	forward.y = 0;
+	forward.Normalize();
+	transform->forward = forward;
 }
 
 void Deacon::Attack()
@@ -179,8 +184,6 @@ void Deacon::Attack()
 
 	}
 
-
-
 }
 
 void Deacon::Explosion()
@@ -197,12 +200,15 @@ void Deacon::Moving(MovingType type)
 
 	const Vec3& DeaconPos = transform->position;
 
-	//Vec3 forward = Player::GetInstance()->transform->position - DeaconPos;
+	//Vec3 forwardY = Player::GetInstance()->transform->position - DeaconPos;
 	Vec3 forward = m_targetCoord - DeaconPos;
 	forward.y = 0;
 	forward.Normalize();
-
+	Vec3 playerPos = Player::GetInstance()->transform->position;
 	transform->forward = forward;
+	Vec3 xzDeaconPos = Vec3(DeaconPos.x, 0, DeaconPos.z);
+	float distance = Vec3::Distance(xzDeaconPos, m_targetCoord);
+
 
 	switch (type)
 	{
@@ -213,78 +219,61 @@ void Deacon::Moving(MovingType type)
 	break;
 	case Deacon::MovingType::Trace:
 	{
-		//angle();
-		m_animator->PlayDefaultAnimation();
 
-		Vec3 xzDeaconePos = Vec3(DeaconPos.x, 0, DeaconPos.z);
-		float distance = Vec3::Distance(xzDeaconePos, Player::GetInstance()->transform->position);
+		if (distance > 0.5f) //거리 비교
+		{        // 지정한 거리보다 먼 경우에 실행됩니다.
+			//벽이랑 몬스터 체크 
 
-		//if (distance > 2.f)
-		//	m_distance = true;
-		//else
-		//	m_distance = false;
-
-		if (distance > 2.f)
-		{
-			////m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-			//Vec3 targetCoord = Player::GetInstance()->transform->position;
-			//SetTargetCoord(targetCoord);
-
-			//Vec3 velocity = forward * m_moveSpeed;
-			//velocity.y = 0;
-			//m_body->velocity = velocity;
-
-			PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
+			PhysicsRay ray(transform->position, Vec3::down(), sqrtf(3.1f));
 			RaycastHit hit;
+
 			if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
 			{
-				float angle = Vec3::Angle(hit.normal, Vec3::up());
-				if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain && angle > 85 && angle < 95)
+
+				if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
 				{
-					// 충돌한 콜라이더가 Terrain인 경우에
-					// 각도가 지정 각도 이내이면 벽이라고 판단하여 목표 지점을 없앱니다.
 					m_hasTargetCoord = false;
-					//SetBehavior(BehaviorType::Idle);
+					m_ground = true;
+
 					return;
 				}
 				else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
 				{
-					// 충돌한 콜라이더가 몬스터 콜라이더면
-					// 목표 지점을 없앱니다.
 					m_hasTargetCoord = false;
-					//SetBehavior(BehaviorType::Idle);
 					return;
 				}
 			}
-			Vec3 acceleration = forward * m_moveSpeed;
-			Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
-			velocity.y = -m_body->velocity.y;
-			m_body->velocity = velocity;
-			if (Vec3::Distance(xzDeaconePos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 0.5f)
+
+			if (Vec3::Distance(xzDeaconPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 2.5f)
 			{
 				// 이전 몬스터 좌표와 현재 몬스터 좌표의 거리를 비교해서
 				// 지정한 거리 이내이면
 				// 몬스터가 걸려서 움직이지 못한다고 판단하여 목표 지점을 없앱니다.
-
 				m_hasTargetCoord = false;
-				//SetBehavior(BehaviorType::Idle);
-				return;
+				//return;
 			}
+
 			// 현재 위치를 저장합니다.
 			m_beforeCoord = transform->position;
 			m_beforeCoord.y = 0;
+
 		}
 		else
 		{
 			// 저정한 거리보다 가까운 경우에는 목표 지점을 없앱니다.
 			m_hasTargetCoord = false;
-			//SetBehavior(BehaviorType::Idle);
 		}
 
-		m_deltatime += Time::DeltaTime();
+		Vec3 acceleration = forward * m_moveSpeed;
+		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(5));
+		velocity.y = -m_body->velocity.y;
+		m_body->velocity = velocity;
 
-		if (m_deltatime > 5.f)
-			movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
+		m_deltatime += Time::DeltaTime();
+		if (m_deltatime > 4.f)
+		{
+			movingtype = (MovingType)(rand() % unsigned int(Deacon::MovingType::Max));
+		}
 	}
 	break;
 	case Deacon::MovingType::leftRight:
@@ -300,21 +289,28 @@ void Deacon::Moving(MovingType type)
 
 		m_deltatime += Time::DeltaTime();
 
-		if (distance < 7.f)
-		{
+		float distanceP = Vec3::Distance(playerPos, DeaconPos);
 
+		if (distanceP < 4.1f)
+		{
 			if (m_deltatime < 2.f)
 			{
-				transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
-				m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-				m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
+				Vec3 acceleration = forward * m_moveSpeed;
+				Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(5));
+				velocity.y = -m_body->velocity.y;
+				m_body->velocity = velocity;
+
+				//m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
 			}
 			else
 			{
-				transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
-				m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-				m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
-				if (m_deltatime > 6.f)
+				Vec3 acceleration = forward * m_moveSpeed;
+				Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(5));
+				velocity.y = -m_body->velocity.y;
+				m_body->velocity = velocity;
+
+				//m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
+				if (m_deltatime > 3.f)
 				{
 					m_deltatime = 0.f;
 					movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
@@ -322,16 +318,36 @@ void Deacon::Moving(MovingType type)
 			}
 		}
 
-		Vec3 acceleration = forward * m_moveSpeed;
-		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(1.f)); //언덕에서 속도조절하는거 
-		velocity.y = -m_body->velocity.y;
-		m_body->velocity = velocity;
 	}
 	break;
 	case Deacon::MovingType::Attack:
 	{
-		m_attackCount = 3;
-		movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
+		float angleToPlayer = AngleToPlayerWithSign();
+		{
+			// 플레이어가 시야각 내에 있다면 공격합니다.
+			Vec3 temp;
+			if (Abs(angleToPlayer) < 30 && (m_animator->IsPlayingMove()))
+			{
+				int attack = rand() % 2;
+				if (attack)
+				{
+					MovingType();
+				}
+				else
+				{
+					movingtype = Deacon::MovingType::Attack;
+					m_attackCount = 3;
+					Attack(); //공격
+				}
+			}
+			else
+			{
+				movingtype = (MovingType)(rand() % unsigned int(Deacon::MovingType::Max));
+			}
+		}
+
+		//m_attackCount = 3;
+		//movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
 	}
 	break;
 	}
@@ -359,74 +375,6 @@ void Deacon::ShootToPlayer()
 	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayer.Normalize();
 	Player::GetInstance()->TakeDamage(1);
-}
-
-void Deacon::angle()
-{
-	float x = transform->position.x;
-	float y = transform->position.y;
-	float z = transform->position.z;
-
-	{   // Change y
-		PhysicsRay ray(transform->position, Vec3::down(), sqrtf(5.f));
-		RaycastHit hit;
-		bool result =
-			Physics::Raycast(
-				hit,
-				ray,
-				(1 << (PxU32)PhysicsLayers::Terrain),
-				PhysicsQueryType::Collider);
-
-		if (result)
-		{
-			y = MathEx::Lerp(y, hit.point.y + 5.0f, Time::DeltaTime() * 3.5f);
-		}
-	}
-
-	//{   // Change x, z
-	//	Vec3 target = Player::GetInstance()->transform->position;
-	//	float d = GetXZDistance(target);
-	//	Vec3 dir = GetXZDirection(target);
-
-	//	if (d < 3.0f)
-	//	{
-	//		m_body->SetTranslationLockAxis(PhysicsAxis::All, false);
-	//		//m_body->useGravity = true;
-
-	//		movingtype = (MovingType)(rand() % unsigned int(MovingType::Max));
-	//		return;
-	//	}
-	//	else
-	//	{
-	//		x += dir.x * Time::DeltaTime() * 7.5f;
-	//		z += dir.z * Time::DeltaTime() * 7.5f;
-	//	}
-	//}
-
-	transform->position = Vec3(x, y, z);
-
-	/*if (transform->position.y > 7.f)
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			transform->position -= Vec3(0, i * 0.5f, 0);
-
-		}
-	}
-
-	else if (transform->position.y <= 2.f)
-	{
-		const Vec3& gunnerPos = transform->position;
-		Vec3 forward = m_targetCoord - gunnerPos;
-		forward.y = 0;
-		forward.Normalize();
-
-
-		Vec3 acceleration = forward * m_moveSpeed;
-		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
-		velocity.y = m_body->velocity.y;
-		m_body->velocity = velocity;
-	}*/
 }
 
 float Deacon::GetXZDistance(const Vec3& point) const
