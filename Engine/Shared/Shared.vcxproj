@@ -45,6 +45,7 @@
     <ClInclude Include="DroneExplosion.h" />
     <ClInclude Include="DroneSmoke.h" />
     <ClInclude Include="DroneSpriteAnimator.h" />
+    <ClInclude Include="EditorEnum.h" />
     <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="FPSCharacterController.h" />
     <ClInclude Include="FPSOrthoCamera.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
     <ClInclude Include="ObjectButton.h" />
+    <ClInclude Include="ObjectManualDoor.h" />
     <ClInclude Include="ObjectStair.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
@@ -176,6 +178,7 @@
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />
     <ClCompile Include="ObjectButton.cpp" />
+    <ClCompile Include="ObjectManualDoor.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />

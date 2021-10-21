@@ -200,7 +200,6 @@
     <ClInclude Include="DlgMapTool.h" />
     <ClInclude Include="DlgObjectTool.h" />
     <ClInclude Include="DlgTextureTool.h" />
-    <ClInclude Include="EditorEnum.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="EditorScene.h" />
     <ClInclude Include="FileInfo.h" />

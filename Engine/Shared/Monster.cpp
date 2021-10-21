@@ -48,6 +48,11 @@ void Monster::OnDestroy()
     m_quad->ReleaseUnmanaged();
 }
 
+void Monster::OnWake()
+{
+    m_body->velocity = Vec3::zero();
+}
+
 Vec3 Monster::ToSlopeVelocity(const Vec3& velocity, float rayLength) const
 {
     if (velocity.sqrMagnitude() > 0)
