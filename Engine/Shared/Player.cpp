@@ -23,11 +23,6 @@ void Player::Update()
 	{
 		m_rigidCounter -= Time::DeltaTime();
 	}
-
-	if (Input::GetKeyDown(Key::Zero))
-	{
-		CSoundMgr::Get_Instance()->Play(L"../SharedResource/Sound/tdryes00.wav", CSoundMgr::CHANNELID::PLAYER);
-	}
 }
 
 void Player::FixedUpdate()
