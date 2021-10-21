@@ -50,7 +50,7 @@ public:
 
 	void EmptyBeforeLoad();
 	void EmptyAfterLoad();
-	Pickable* AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method);
+	Pickable* AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method, bool TriggerOnce);
 	void AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, EventType type);
 public:
 	int m_TriggerCnt = 0;
@@ -74,6 +74,7 @@ public:
 	CSliderCtrl m_SliderScaleZ;
 
 	CString m_ChangingName;
+	CButton m_TriggerOnce;
 public:
 	afx_msg void ClickRemoveTrigger();
 	afx_msg void ClickAddTrigger();

@@ -331,7 +331,8 @@ HRESULT TotalLoad::LoadFromTriggerEventData(const Json::Value& json)
 		TriggerData td;
 		td.sd = MakeSharedData(data);
 		td.method = data["TriggerMethod"].asInt();
-		td.once = false;
+		td.once = data["TriggerOnce"].asBool();
+
 		return td;
 	};
 

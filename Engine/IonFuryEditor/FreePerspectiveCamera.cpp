@@ -142,10 +142,12 @@ Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
 	Pickable* Event = Obj->AddComponent<Pickable>();
 	Trigger->PushInEventVector(Event);
 
-	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Event.png", true);
+	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Sphere, BuiltInBlackTexture, true);
 
-	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
+	Obj->transform->scale = Vec3(1.f, 1.f, 1.f); //Vec3(0.5f, 0.5f, 0.5f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
+
+	Event->CreateComponentObject();
 
 	return Event;
 }

@@ -110,6 +110,8 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 		m_ChildObject->AddComponent<ItemHealthPack>();
 	else if (Type == (L"ObjectStair"))
 		m_ChildObject->AddComponent<ObjectStair>();
+	else if (Type == (L"Player"))
+		MakePlayerCapsule();
 }
 
 void HandlingObject::RemoveChildObjectAndComponent()
@@ -174,4 +176,15 @@ void HandlingObject::ClearVector()
 	}
 
 	Size = g_HandlingVec.size();
+}
+
+void HandlingObject::MakePlayerCapsule()
+{
+	UserMeshRenderer* renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
+	UserMesh* mesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+	renderer->userMesh = mesh;
+
+	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInBlueTexture));
+
+	m_ChildObject->transform->parent = GetGameObject()->transform;
 }
