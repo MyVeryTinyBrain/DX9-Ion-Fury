@@ -10,6 +10,7 @@
 #include "LightLoad.h"
 #include "MapLoad.h"
 #include "ItemHealthPack.h"
+#include "ItemArmor.h"
 #include "ItemBowAmmo.h"
 #include "ItemChaingunAmmo.h"
 #include "ItemLauncherAmmo.h"
@@ -158,6 +159,41 @@ void TestScene::OnLoad(Scene* beforeScene)
             auto obj = CreateGameObject();
             obj->transform->position = Vec3(6, 0, 9);
             obj->AddComponent<ItemHealthPack>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(0, 0, 10);
+            obj->AddComponent<ItemArmor>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(1, 0, 10);
+            obj->AddComponent<ItemArmor>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(2, 0, 10);
+            obj->AddComponent<ItemArmor>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(3, 0, 10);
+            obj->AddComponent<ItemArmor>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(4, 0, 10);
+            obj->AddComponent<ItemArmor>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(5, 0, 10);
+            obj->AddComponent<ItemArmor>();
+        }
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(6, 0, 10);
+            obj->AddComponent<ItemArmor>();
         }
     }
 
@@ -337,37 +373,37 @@ void TestScene::OnLoad(Scene* beforeScene)
         collider->restitution = 1.0f;
     }
 
-    //for (int i = 0; i < 5; ++i)
-    //{
-    //    for (int j = 0; j < 5; ++j)
-    //    {
-    //        auto obj = CreateGameObject();
-    //        obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
-    //        obj->transform->eulerAngle = Vec3(0, 90, 0);
-
-    //        int r = rand() % 3;
-
-    //        switch (r)
-    //        {
-    //            case 0:
-    //                obj->AddComponent<CultistGunner>();
-    //                break;
-    //            case 1:
-    //                obj->AddComponent<CultistArcher>();
-    //                break;
-    //            case 2:
-    //                obj->AddComponent<Liberator>();
-    //                break;
-    //        }
-    //    }
-    //}
-
+    for (int i = 0; i < 5; ++i)
     {
-		auto obj = CreateGameObject();
-        obj->transform->position = Vec3(-0, 0, -0);
-		obj->transform->eulerAngle = Vec3(0, 0, 0);
-        obj->AddComponent<Skull>();
+        for (int j = 0; j < 5; ++j)
+        {
+            auto obj = CreateGameObject();
+            obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
+            obj->transform->eulerAngle = Vec3(0, 90, 0);
+
+            int r = rand() % 4;
+
+            switch (r)
+            {
+                case 0:
+                    obj->AddComponent<CultistGunner>();
+                    break;
+                case 1:
+                    obj->AddComponent<CultistArcher>();
+                    break;
+                case 2:
+                    obj->AddComponent<Liberator>();
+                    break;
+            }
+        }
     }
+
+  //  {
+		//auto obj = CreateGameObject();
+  //      obj->transform->position = Vec3(-0, 0, -0);
+		//obj->transform->eulerAngle = Vec3(0, 0, 0);
+  //      obj->AddComponent<Skull>();
+  //  }
 }
 
 void TestScene::OnUnload(Scene* nextScene)

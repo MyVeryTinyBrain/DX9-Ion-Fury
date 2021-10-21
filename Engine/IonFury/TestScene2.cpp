@@ -15,6 +15,7 @@ IClonable* TestScene2::Clone()
 
 void TestScene2::OnLoad(Scene* beforeScene)
 {
+
 	{
 		auto skyboxObj = CreateGameObject();
 		Skybox* skybox = skyboxObj->AddComponent<Skybox>();
@@ -191,6 +192,7 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	    obj->transform->position = Vec3(0, 2, -10);
 	    obj->AddComponent<Wendigo>();
 	}
+
 }
 
 void TestScene2::OnUnload(Scene* nextScene)

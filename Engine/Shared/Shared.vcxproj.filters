@@ -52,6 +52,9 @@
     <Filter Include="TrailRenderer">
       <UniqueIdentifier>{06247398-5b55-4716-8d4c-e1ecbf815bc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Trigger">
+      <UniqueIdentifier>{7b05d5f5-67ca-4892-bf3c-5c9545582199}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -216,6 +219,21 @@
     <ClInclude Include="ObjectAutoDoor.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="IDontDeactive.h">
+      <Filter>Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="IUsable.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectButton.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemArmor.h">
+      <Filter>Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -364,6 +382,21 @@
     </ClCompile>
     <ClCompile Include="ObjectAutoDoor.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="IDontDeactive.cpp">
+      <Filter>Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="IUsable.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectButton.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemArmor.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

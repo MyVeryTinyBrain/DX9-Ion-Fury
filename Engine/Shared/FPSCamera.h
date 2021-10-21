@@ -22,6 +22,8 @@ public:
 
 	void MakeRecoil(const Vec2& velocity, float time, float recoilPow = 1.0f);
 
+	void UseInput();
+
 private:
 
 	void MoveMouseToCenter();

@@ -37,7 +37,9 @@
     <ClInclude Include="FPSOrthoCamera.h" />
     <ClInclude Include="GranadeTrail.h" />
     <ClInclude Include="Hands.h" />
+    <ClInclude Include="IDontDeactive.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemArmor.h" />
     <ClInclude Include="ItemBowAmmo.h" />
     <ClInclude Include="ItemChaingunAmmo.h" />
     <ClInclude Include="ItemHealthPack.h" />
@@ -45,6 +47,7 @@
     <ClInclude Include="ItemRevolverAmmo.h" />
     <ClInclude Include="ItemShotgunAmmo.h" />
     <ClInclude Include="ItemSMGAmmo.h" />
+    <ClInclude Include="IUsable.h" />
     <ClInclude Include="Launcher.h" />
     <ClInclude Include="LauncherAnimator.h" />
     <ClInclude Include="LauncherGranade.h" />
@@ -52,6 +55,7 @@
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
+    <ClInclude Include="ObjectButton.h" />
     <ClInclude Include="ObjectStair.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
@@ -70,6 +74,7 @@
     <ClInclude Include="SpriteAnimator.h" />
     <ClInclude Include="TrailRenderer.h" />
     <ClInclude Include="TriangleStair.h" />
+    <ClInclude Include="Trigger.h" />
     <ClInclude Include="UserMixMesh.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponTypes.h" />
@@ -92,7 +97,9 @@
     <ClCompile Include="FPSOrthoCamera.cpp" />
     <ClCompile Include="GranadeTrail.cpp" />
     <ClCompile Include="Hands.cpp" />
+    <ClCompile Include="IDontDeactive.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemArmor.cpp" />
     <ClCompile Include="ItemBowAmmo.cpp" />
     <ClCompile Include="ItemChaingunAmmo.cpp" />
     <ClCompile Include="ItemHealthPack.cpp" />
@@ -100,6 +107,7 @@
     <ClCompile Include="ItemRevolverAmmo.cpp" />
     <ClCompile Include="ItemShotgunAmmo.cpp" />
     <ClCompile Include="ItemSMGAmmo.cpp" />
+    <ClCompile Include="IUsable.cpp" />
     <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="LauncherAnimator.cpp" />
     <ClCompile Include="LauncherGranade.cpp" />
@@ -107,6 +115,7 @@
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />
+    <ClCompile Include="ObjectButton.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
@@ -122,6 +131,7 @@
     <ClCompile Include="SpriteAnimator.cpp" />
     <ClCompile Include="TrailRenderer.cpp" />
     <ClCompile Include="TriangleStair.cpp" />
+    <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="UserMixMesh.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>

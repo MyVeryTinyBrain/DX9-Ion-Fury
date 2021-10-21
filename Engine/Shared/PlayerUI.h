@@ -20,6 +20,8 @@ public:
 
 	void SetHP(unsigned int value);
 
+	void SetArmor(unsigned int value);
+
 	void SetLoadedAmmo0State(bool value);
 
 	void SetLoadedAmmo1State(bool value);
@@ -47,6 +49,14 @@ private:
 	GameObject* m_hpObj = nullptr;
 
 	Numbers* m_hpNumbers = nullptr;
+
+	GameObject* m_armorImageObj = nullptr;
+
+	UserMeshRenderer* m_armorImageRenderer = nullptr;
+
+	GameObject* m_armorObj = nullptr;
+
+	Numbers* m_armorNumbers = nullptr;
 
 	GameObject* m_ammoObj0 = nullptr;
 
