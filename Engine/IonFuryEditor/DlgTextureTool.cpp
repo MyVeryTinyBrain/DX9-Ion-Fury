@@ -187,6 +187,12 @@ void DlgTextureTool::SetTextureToPicked()
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 	Transform* Selected = giz->GetSelectedObject();
 
+	if (Selected == nullptr)
+		return;
+
+	if (Selected->GetGameObject()->GetComponent<HandlingObject>() == nullptr)
+		return;
+
 	if (Selected->GetGameObject()->GetComponent<Pickable>())
 		giz->ChangeTextureAttachedObject(m_texturePath);
 }

@@ -178,7 +178,7 @@ void Pickable::PushInEventVector(Pickable* Event)
 	m_EventVec.push_back(Event);
 }
 
-void Pickable::SetMaterial()
+void Pickable::SetNoLightTransparentMaterial()
 {
 	m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInNolightTransparentMaterial));
 }
@@ -325,4 +325,16 @@ void Pickable::CreateComponentObject()
 	m_ComponentObject = CreateGameObject();
 	m_ComponentObject->transform->parent = GetGameObject()->transform;
 	m_ComponentObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
+}
+
+void Pickable::SetOverSeeBlackMaterial()
+{
+	MaterialParameters param;
+	param.renderQueue = RenderQueue::GeometryLast;
+	param.zRead = false;
+	param.zWrite = false;
+	param.useLight = false;
+
+	m_Material = Material::CreateUnmanaged(param);
+	m_Renderer->material = m_Material;//////////////////////
 }
