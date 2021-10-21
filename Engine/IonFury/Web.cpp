@@ -2,6 +2,7 @@
 #include "Web.h"
 #include "Player.h"
 #include "SpiderSpriteAnimator.h"
+#include "PhysicsLayers.h"
 
 void Web::Awake()
 {
@@ -44,9 +45,8 @@ void Web::Update()
 	if (m_animationtime < 0.4f)
 	{
 		m_animator->SetDefaultAnimation(m_animator->GetWeb(), true);
-		
-		
-		//m_body->isKinematic = true;
+
+
 		m_body->SetRotationLockAxis(PhysicsAxis::All, true);
 		m_body->SetTranslationLockAxis(PhysicsAxis::All, true);
 
@@ -60,6 +60,7 @@ void Web::Update()
 		m_animator->Pause();
 	}
 
+	AttackToPlayer();
 
 }
 
@@ -73,5 +74,25 @@ void Web::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
+}
+
+void Web::AttackToPlayer()
+{
+
+	Vec3 webToPlayerDir = Player::GetInstance()->transform->position - transform->position;
+	webToPlayerDir.y = 0;
+	webToPlayerDir.Normalize();
+
+	RaycastHit hit;
+	PhysicsRay ray(transform->position, webToPlayerDir, sqrtf(0.1f));
+
+	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body))
+	{
+		if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+		{
+			Player::GetInstance()->TakeDamage(1);
+		}
+	}
+
 }
 

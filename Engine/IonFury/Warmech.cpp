@@ -61,16 +61,19 @@ void Warmech::FixedUpdate()
 	}
 
 	MoveToTarget();
+
+	if (!m_hasTargetCoord)
+	{
+		Vec3 targetCoord = Player::GetInstance()->transform->position;
+		SetTargetCoord(targetCoord);
+	}
 }
 
 void Warmech::Update()
 {
 	Monster::Update();
 
-	if (m_isDead)
-	{
-		return;
-	}
+
 	if (m_isDead)
 	{
 		if (m_body)
@@ -113,7 +116,7 @@ void Warmech::Update()
 	m_bodyAnimator->SetAngle(AngleToPlayerWithSign());
 
 
-	if (m_bodyAnimator->IsPlayingShoot())
+	if (m_bodyAnimator->IsPlayingShoot() | m_bodyAnimator->IsPlayingMissile())
 	{
 		m_defaultEmissive = Color::white();
 	}
@@ -131,15 +134,15 @@ void Warmech::OnDestroy()
 
 Collider* Warmech::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-		renderer->transform->scale = Vec3::one() * 1.6f;
-	}
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	//}
 
 	m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
+	m_capsuleCollider->transform->localScale = Vec3::one() * 1.6f;
 
 	return m_capsuleCollider;
 }
@@ -342,12 +345,16 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	}
 	break;
 	case ActionType::Bullet:
-	{
+	{		
+		if (m_bodyAnimator->IsPlayingMissile())
+			return;
 		m_attackCount = 10;
 		m_attacking = true;
 	}
 	case ActionType::Missile:
 	{
+		if (m_bodyAnimator->IsPlayingShoot())
+			return;
 		m_attackCount = 1;
 		m_attacking = true;
 	}

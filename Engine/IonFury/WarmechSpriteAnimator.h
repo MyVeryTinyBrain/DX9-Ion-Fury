@@ -3,10 +3,11 @@
 #include "SpriteAnimator.h"
 
 
-enum class SPRITE_WARMECH { Idle, Walk, WalkIdle, Shoot, Missile, Bullet, MissileBullet, Damage, Explosion, Max };
+	enum class SPRITE_WARMECH { Idle, Walk, WalkIdle, Shoot, Missile, Bullet, MissileBullet, Damage, Explosion, Max };
 
 class WarmechSpriteAnimator : public SpriteAnimator
 {
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(LateUpdate);

@@ -28,6 +28,10 @@ private:
 
 	void Explosion();
 
+	void ShootToPlayer();
+
+	void DistanceCheck();
+
 private:
 
 	enum class MovingType { Idle, Trace, leftRight, Attack, Max };

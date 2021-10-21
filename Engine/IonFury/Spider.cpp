@@ -30,6 +30,11 @@ void Spider::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
+	if (m_isDead)
+	{
+		return;
+	}
+
 	MoveToTarget();
 
 	m_animator->SetAngle(AngleToPlayerWithSign());
@@ -50,8 +55,16 @@ void Spider::Update()
 {
 	Monster::Update();
 
+
 	if (m_isDead)
 	{
+		if (m_body)
+		{
+			m_body->Destroy();
+			m_collider->Destroy();
+			m_body = nullptr;
+			m_collider = nullptr;
+		}
 		return;
 	}
 
@@ -75,16 +88,19 @@ void Spider::OnDestroy()
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-	}
 
-	colliderObj->transform->localScale = Vec3::one() * 1.25f;
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 
-	return colliderObj->AddComponent<SphereCollider>();
+	//}
+	m_sphereCollider = colliderObj->AddComponent<SphereCollider>();
+	m_sphereCollider->transform->localScale = Vec3::one() * 1.25f;
+
+
+	return m_sphereCollider;
 }
 
 void Spider::OnDamage(DamageParameters& params)
@@ -117,6 +133,8 @@ void Spider::OnDamage(DamageParameters& params)
 	forward.y = 0;
 	forward.Normalize();
 	transform->forward = forward;
+
+	params.force = Vec3::zero();
 }
 
 void Spider::OnDead(bool& dead, DamageParameters& params)
@@ -188,6 +206,8 @@ void Spider::MoveToTarget()
 	else
 	{
 		m_hasTargetCoord = false;
+		Vec3 targetCoord = Player::GetInstance()->transform->position;
+		SetTargetCoord(targetCoord);
 	}
 
 
@@ -282,18 +302,38 @@ void Spider::Jump()
 
 		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
-		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * 2.f;
+		Vec3 velocity = Quat::AxisAngle(right, -65) * forward * m_moveSpeed;
 
-		transform->position += velocity * 0.03f;
+		transform->position += velocity * Time::DeltaTime() * 2.5f;
 
 		m_animator->SetDefaultAnimation(m_animator->GetJump(), true);
 
-		if (transform->position.y > m_jumpY + 2.f)
+		AttackToPlayer();
+
+		if (transform->position.y > m_jumpY + 1.f)
 		{
 			if(jumpingtype == JumpType::WEB)
 				m_attack = true;
 			m_hasJump = false;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk(), true);
+		}
+	}
+}
+
+void Spider::AttackToPlayer()
+{
+	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
+	mosterToPlayerDir.y = 0;
+	mosterToPlayerDir.Normalize();
+
+	RaycastHit hit;
+	PhysicsRay ray(transform->position, mosterToPlayerDir, sqrtf(0.1f));
+
+	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body))
+	{
+		if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+		{
+			Player::GetInstance()->TakeDamage(1);
 		}
 	}
 }
