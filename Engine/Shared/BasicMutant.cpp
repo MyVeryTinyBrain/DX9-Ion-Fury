@@ -11,7 +11,7 @@ void BasicMutant::Awake()
 	Monster::Awake();
 
 	m_hp = 15;
-	m_moveSpeed = 5.0f;
+	m_moveSpeed = 2.0f;
 	m_body->mass = 3.0f;
 	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->sleepThresholder = 0.5f;
@@ -82,12 +82,12 @@ void BasicMutant::Update()
 	{
 		chageanimation += Time::DeltaTime();
 
-		if (chageanimation > 1.2f)
+		if (chageanimation > 2.f)
 		{
 			m_hasTargetCoord = true;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk());
-			if (m_hp > 10)
-				m_moveSpeed = 3.0f;
+			//if (m_hp > 10)
+			//	m_moveSpeed = 2.0f;
 		}
 	}
 

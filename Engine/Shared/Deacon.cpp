@@ -60,7 +60,7 @@ void Deacon::Update()
 
     m_animator->SetAngle(angleToPlayer);
     
-    if (m_animator->GetCurrentAnimation() != m_animator->GetShoot() || !notcreatflyeffect)
+    if (!m_isDead && m_animator->GetCurrentAnimation() != m_animator->GetShoot() || !notcreatflyeffect)
     {
         MakeFlyEffect();
     }

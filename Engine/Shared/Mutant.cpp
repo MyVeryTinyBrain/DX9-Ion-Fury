@@ -76,11 +76,11 @@ void Mutant::Update()
 	{
 		chageanimation += Time::DeltaTime();
 
-		if (chageanimation > 1.f)
+		if (chageanimation > 2.f)
 		{
 			m_hasTargetCoord = true;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk());
-			m_moveSpeed = 3.0f;
+			m_moveSpeed = 2.0f;
 		}
 	}
 
