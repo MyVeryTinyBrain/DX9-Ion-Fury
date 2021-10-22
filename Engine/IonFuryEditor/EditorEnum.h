@@ -4,7 +4,7 @@ enum class COMBOBOX { Cube, Cyilinder, Quad, Sphere, Capsule, RightTriangle, Tri
 
 enum class Type { EventObject, Trigger, Map, TypeEnd };
 
-enum class EventType { BasicMutant, Mutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo, 
+enum class EventType { BasicMutant, Mutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo,
 	ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
 	EventObjectEnd };	//추후 몬스터가 정해지면 수정
 

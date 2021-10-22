@@ -62,6 +62,7 @@ public:
 	CButton m_TouchButtonManual1;
 	CButton m_TouchButtonManual2;
 	CButton m_TouchButtonManual3;
+	CButton m_TouchButtonManual4;
 	
 	CComboBox m_EventTypeComboBox;
 	
