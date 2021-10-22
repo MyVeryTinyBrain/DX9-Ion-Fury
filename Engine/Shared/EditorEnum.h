@@ -8,4 +8,6 @@ enum class EventType { BasicMutant, Mutant, CultistArcher, CultistGunner, Deacon
 enum class TriggerMethod { Touch, Button, Manual, CardCheck, End };
 
 enum class HandleObjectType { ItemBowAmmo, ItemChaingunAmmo, ItemLauncherAmmo,
-	ItemRevolverAmmo, ItemShotgunAmmo, ItemSMGAmmo, ItemHealthPack, End};
+	ItemRevolverAmmo, ItemShotgunAmmo, ItemSMGAmmo, ItemHealthPack,
+	ObjectAutoDoor, ObjectManualDoor, ObjectStair,// ObjectButton, ObjectGetItem,
+	End};
