@@ -1,10 +1,15 @@
 #pragma once
 
-class ObjectAutoDoor : public Component
+#include "IUsable.h"
+#include "IDontDeactive.h"
+
+class ObjectAutoDoor : public Component, public IUsable, public IDontDeactive
 {
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Update);
+
+	virtual void OnUse(bool valid) override;
 
 public:
 
@@ -13,6 +18,8 @@ public:
 	void Open();
 
 	void Close();
+
+	void SetAutoOpen(bool value);
 
 protected:
 
@@ -32,7 +39,7 @@ protected:
 
 protected:
 
-	bool autoOpen = true;
+	bool m_autoOpen = true;
 
 private:
 

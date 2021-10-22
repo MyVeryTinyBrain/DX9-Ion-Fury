@@ -9,7 +9,7 @@ void ObjectButton::Awake()
 	m_sideTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/button/button2.png");
 
 	m_root = CreateGameObjectToChild(transform);
-	m_root->transform->localScale = Vec3(0.5f, 0.5f, 0.1f);
+	m_root->transform->localScale = Vec3(1.0f, 1.0f, 0.1f);
 
 	m_cube = m_root->AddComponent<Cube>();
 
@@ -39,7 +39,7 @@ void ObjectButton::Update()
 	}
 }
 
-void ObjectButton::OnUse()
+void ObjectButton::OnUse(bool valid)
 {
 	m_cube->forward->SetTexture(0, m_pressTexture);
 }

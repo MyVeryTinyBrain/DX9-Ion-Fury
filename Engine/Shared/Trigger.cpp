@@ -4,6 +4,7 @@
 #include "PhysicsLayers.h"
 #include "IUsable.h"
 #include "ObjectButton.h"
+#include "Player.h"
 
 void Trigger::Awake()
 {
@@ -59,29 +60,31 @@ void Trigger::SetMethod(Method value)
 
 	m_method = value;
 
-	if (value == Method::Button)
+	if (value == Method::Button || value == Method::CardKey)
 	{
 		if (!m_body)
 		{
 			m_body = gameObject->AddComponent<Rigidbody>();
-			m_body->isKinematic = true;
 		}
 
 		if (!m_trigger)
 		{
 			m_trigger = gameObject->AddComponent<BoxCollider>();
-			m_trigger->isTrigger = true;
-			m_trigger->layerIndex = (uint8_t)PhysicsLayers::InputTrigger;
 		}
 
 		if (m_body)
 		{
 			m_body->enable = true;
+
+			m_body->isKinematic = true;
 		}
 
 		if (m_trigger)
 		{
 			m_trigger->enable = true;
+
+			m_trigger->isTrigger = true;
+			m_trigger->layerIndex = (uint8_t)PhysicsLayers::InputTrigger;
 		}
 	}
 	else
@@ -124,6 +127,18 @@ void Trigger::ActiveAllGameObjects()
 
 void Trigger::Use()
 {
+	bool valid = true;
+
+	switch (m_method)
+	{
+		case Method::CardKey:
+			{
+				valid = Player::GetInstance()->cardKey;
+				Player::GetInstance()->cardKey = false;
+			}
+			break;
+	}
+
 	for (auto& comp : m_connected)
 	{
 		if (comp.IsNull())
@@ -134,7 +149,7 @@ void Trigger::Use()
 		IUsable* usable = dynamic_cast<IUsable*>(comp.GetPointer());
 		if (usable)
 		{
-			usable->OnUse();
+			usable->OnUse(valid);
 		}
 	}
 }
@@ -142,4 +157,9 @@ void Trigger::Use()
 const std::vector<Ref<Component>>& Trigger::GetConnections() const
 {
 	return m_connected;
+}
+
+Trigger::Method Trigger::GetMethod() const
+{
+	return m_method;
 }

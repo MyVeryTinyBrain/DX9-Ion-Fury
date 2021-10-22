@@ -52,8 +52,14 @@ void Item::Update()
 
 	if (collider)
 	{
-		OnTrigger(Player::GetInstance());
-		gameObject->Destroy();
+		bool destroy = true;
+
+		OnTrigger(Player::GetInstance(), destroy);
+		
+		if (destroy)
+		{
+			gameObject->Destroy();
+		}
 	}
 
 	if (m_debugRenderer)

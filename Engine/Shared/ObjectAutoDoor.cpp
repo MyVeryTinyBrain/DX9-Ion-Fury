@@ -79,7 +79,7 @@ void ObjectAutoDoor::Update()
 		return;
 	}
 
-	if (autoOpen)
+	if (m_autoOpen)
 	{
 		Vec3 player = Player::GetInstance()->transform->position;
 		Vec3 pos = transform->position;
@@ -107,6 +107,15 @@ void ObjectAutoDoor::Update()
 		Vec3::Lerp(m_doorObj->transform->localPosition, m_targetLocalPosition, Time::DeltaTime() * 5.0f);
 }
 
+void ObjectAutoDoor::OnUse(bool valid)
+{
+	if (valid)
+	{
+		SetAutoOpen(false);
+		Open();
+	}
+}
+
 void ObjectAutoDoor::Toggle()
 {
 	if (!m_state)
@@ -131,4 +140,9 @@ void ObjectAutoDoor::Close()
 {
 	m_targetLocalPosition = Vec3(0, 0, 0);
 	m_state = false;
+}
+
+void ObjectAutoDoor::SetAutoOpen(bool value)
+{
+	m_autoOpen = value;
 }
