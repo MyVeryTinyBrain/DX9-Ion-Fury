@@ -48,6 +48,7 @@ void Gizmo::Update()
 	if (Input::GetKeyDown(Key::LeftMouse))
 	{
 		PickHandle();
+		cout << "giz³»ºÎ ÀâÈû" << endl;
 	}
 	else if (HasSelect() && Input::GetKey(Key::LeftMouse))
 	{
