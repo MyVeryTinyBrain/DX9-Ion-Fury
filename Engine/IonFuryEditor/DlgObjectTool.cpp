@@ -228,8 +228,8 @@ BOOL DlgObjectTool::OnInitDialog()
 		m_TypeComboBox.AddString(_T("ItemSMGAmmo"));
 		m_TypeComboBox.AddString(_T("ItemHealthPack"));
 
-		m_TypeComboBox.AddString(_T("ObjectAutoDoor"));
-		m_TypeComboBox.AddString(_T("ObjectManualDoor"));
+		m_TypeComboBox.AddString(_T("ItemCardKey"));
+		m_TypeComboBox.AddString(_T("ItemArmor"));
 		m_TypeComboBox.AddString(_T("ObjectStair"));
 		m_TypeComboBox.AddString(_T("ObjectVent"));
 		m_TypeComboBox.AddString(_T("ObjectContainer"));

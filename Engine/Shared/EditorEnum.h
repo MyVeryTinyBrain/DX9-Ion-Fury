@@ -9,5 +9,5 @@ enum class TriggerMethod { Touch, Button, Manual, CardCheck, End };
 
 enum class HandleObjectType { ItemBowAmmo, ItemChaingunAmmo, ItemLauncherAmmo,
 	ItemRevolverAmmo, ItemShotgunAmmo, ItemSMGAmmo, ItemHealthPack,
-	ObjectAutoDoor, ObjectManualDoor, ObjectStair,// ObjectButton, ObjectGetItem,
+	ItemArmor, ItemCardKey, Mouse,
 	End};
