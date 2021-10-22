@@ -8,12 +8,12 @@
 
 void Trigger::Awake()
 {
-#ifdef _DEBUG
-	m_debugRenderer = gameObject->AddComponent<UserMeshRenderer>();
-	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-	m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-#endif
+//#ifdef _DEBUG
+//	m_debugRenderer = gameObject->AddComponent<UserMeshRenderer>();
+//	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
+//	m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+//	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+//#endif
 
 	// 버튼 테스트
 	//auto button = gameObject->AddComponent<ObjectButton>();
@@ -38,10 +38,7 @@ void Trigger::Update()
 
 		if (collider)
 		{
-			ActiveAllGameObjects();
 			Use();
-			OnTrigger();
-			m_used = true;
 		}
 	}
 }
@@ -138,6 +135,15 @@ void Trigger::Use()
 			}
 			break;
 	}
+
+	if (!valid)
+	{
+		m_used = true;
+	}
+
+	ActiveAllGameObjects();
+
+	OnTrigger();
 
 	for (auto& comp : m_connected)
 	{

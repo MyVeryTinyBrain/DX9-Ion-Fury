@@ -25,13 +25,23 @@
 #include <EditorEnum.h>
 
 // Events
-#include <CultistArcher.h>
-#include <CultistGunner.h>
-#include <Liberator.h>
 #include <ObjectAutoDoor.h>
 #include <ObjectManualDoor.h>
 #include <ObjectButton.h>
 #include <ObjectCardScreen.h>
+
+#include <Drone.h>
+#include <BasicMutant.h>
+#include <Mutant.h>
+#include <MutantPoison.h>
+#include <Deacon.h>
+#include <Drone.h>
+#include <Spider.h>
+#include <Skull.h>
+#include <Warmech.h>
+#include <CultistArcher.h>
+#include <CultistGunner.h>
+#include <Liberator.h>
 
 HRESULT TotalLoad::Load(const wstring& wstrFilePath)
 {
@@ -168,15 +178,6 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 
 	switch ((EventType)data.type)
 	{
-		case EventType::CultistArcher:
-			comp = obj->AddComponent<CultistArcher>();
-			break;
-		case EventType::CultistGunner:
-			comp = obj->AddComponent<CultistGunner>();
-			break;
-		case EventType::Liberator:
-			comp = obj->AddComponent<Liberator>();
-			break;
 		case EventType::ObjectAutoDoor:
 			comp = obj->AddComponent<ObjectAutoDoor>();
 			break;
@@ -189,6 +190,44 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 		case EventType::ObjectCardScreen:
 			comp = obj->AddComponent<ObjectCardScreen>();
 			break;
+
+			/*
+			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo, 
+	ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
+	EventObjectEnd };	//추후 몬스터가 정해지면 수정
+			*/
+
+		case EventType::Mutant:
+			comp = obj->AddComponent<Mutant>();
+			break;
+		case EventType::BasicMutant:
+			comp = obj->AddComponent<BasicMutant>();
+			break;
+		case EventType::CultistArcher:
+			comp = obj->AddComponent<CultistArcher>();
+			break;
+		case EventType::CultistGunner:
+			comp = obj->AddComponent<CultistGunner>();
+			break;
+		case EventType::Deacon:
+			comp = obj->AddComponent<Deacon>();
+			break;
+		case EventType::Drone:
+			comp = obj->AddComponent<Drone>();
+			break;
+		case EventType::Liberator:
+			comp = obj->AddComponent<Liberator>();
+			break;
+		case EventType::Spider:
+			comp = obj->AddComponent<Spider>();
+			break;
+		case EventType::Skull:
+			comp = obj->AddComponent<Skull>();
+			break;
+		case EventType::Warmech:
+			comp = obj->AddComponent<Warmech>();
+			break;
+
 		default:
 			obj->Destroy();
 			break;

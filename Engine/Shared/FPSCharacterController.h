@@ -59,7 +59,7 @@ private:
 
 	Vec3 m_moveDirection;
 
-	float m_footstepDelay = 0.15f;
+	float m_footstepDelay = 0.4f;
 
 	float m_footstepCounter = m_footstepDelay;
 };

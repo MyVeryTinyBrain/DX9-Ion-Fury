@@ -103,7 +103,7 @@ void FPSCharacterController::FixedUpdate()
             speedFactor = 1.65f;
         }
 
-        m_footstepCounter -= Time::DeltaTime() * speedFactor;
+        m_footstepCounter -= Time::FixedDeltaTime() * speedFactor;
 
         if (m_footstepCounter <= 0 && m_hasGround)
         {

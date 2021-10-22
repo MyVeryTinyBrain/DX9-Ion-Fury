@@ -105,7 +105,7 @@ void ObjectAutoDoor::Update()
 	}
 
 	m_doorObj->transform->localPosition =
-		Vec3::Lerp(m_doorObj->transform->localPosition, m_targetLocalPosition, Time::DeltaTime() * 5.0f);
+		Vec3::Lerp(m_doorObj->transform->localPosition, m_targetLocalPosition, Time::DeltaTime() * 2.0f);
 }
 
 void ObjectAutoDoor::OnUse(bool valid)
@@ -141,7 +141,7 @@ void ObjectAutoDoor::Open()
 	m_targetLocalPosition = Vec3(0, 0.8f, 0);
 	m_state = true;
 
-	SoundMgr::Play(L"../SharedResource/Sound/door/door_scifi02_open.ogg", CHANNELID::OBJECT_INPUT);
+	SoundMgr::Play(L"../SharedResource/Sound/door/door_scifi02_open.ogg", CHANNELID::OBJECT);
 }
 
 void ObjectAutoDoor::Close()
@@ -154,7 +154,7 @@ void ObjectAutoDoor::Close()
 	m_targetLocalPosition = Vec3(0, 0, 0);
 	m_state = false;
 
-	SoundMgr::Play(L"../SharedResource/Sound/door/door_scifi02_close.ogg", CHANNELID::OBJECT_INPUT);
+	SoundMgr::Play(L"../SharedResource/Sound/door/door_scifi02_close.ogg", CHANNELID::OBJECT);
 }
 
 void ObjectAutoDoor::SetAutoOpen(bool value)
