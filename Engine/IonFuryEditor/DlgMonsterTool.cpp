@@ -452,10 +452,14 @@ void DlgMonsterTool::AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 
 	Transform* trans = EventObject->GetGameObject()->GetTransform();
 	trans->GetGameObject()->name = name;
 	trans->SetPosition(Pos);
-	trans->SetScale(Scale);
-	trans->SetEulerAngle(Euler);
+	//trans->SetScale(Scale);
+	//trans->SetEulerAngle(Euler);
 	EventObject->SetEventType(type);
 	EventObject->SetComponentToPickable(type);
+	trans->SetScale(Scale);
+	trans->SetEulerAngle(Euler);
+	EventObject->GetChildObject()->transform->scale = Vec3(0.5, 0.5f, 0.5f);
+	EventObject->SetOverSeeBlackMaterial();
 
 	m_EventListBox.AddString(name.c_str());
 
@@ -473,6 +477,7 @@ void DlgMonsterTool::SetScaleScrollToDefault(Pickable* picked)
 	
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 	giz->GetSelectedObject()->transform->SetScale(Vec3(1.f, 1.f, 1.f));
+	giz->GetSelectedObject()->GetGameObject()->GetComponent<Pickable>()->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
 }
 
 void DlgMonsterTool::SetRotationScrollToDefault(Pickable* picked)
@@ -592,6 +597,9 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	if (EventSelect == -1)
 		return;
 
+	if (TriggerSelect >= Pickable::g_TriggerVec.size())/////////////////////////1022추가
+		return;
+
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
 
 	std::vector<Pickable*> EventVec = trigger->GetEventVec();
@@ -640,11 +648,18 @@ void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	float ScaleY = float(m_SliderScaleY.GetPos() / 20.f);
 	float ScaleZ = float(m_SliderScaleZ.GetPos() / 20.f);
 	giz->GetSelectedObject()->transform->SetScale(Vec3(ScaleX, ScaleY, ScaleZ));
+	
+	if (picked->GetType() == Type::EventObject)
+	{
+		picked->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
+	}
+	
 
 	float RotateX = float(m_SliderRotationX.GetPos() - 180);
 	float RotateY = float(m_SliderRotationY.GetPos() - 180);
 	float RotateZ = float(m_SliderRotationZ.GetPos() - 180);
-	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
+	//giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
+	picked->GetGameObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
 
 	UpdateData(FALSE);
 
