@@ -23,6 +23,15 @@ IMPLEMENT_DYNAMIC(DlgMonsterTool, CDialog)
 DlgMonsterTool::DlgMonsterTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgMonsterTool, pParent)
 	, m_ChangingName(_T(""))
+	, m_PosX(0)
+	, m_PosY(0)
+	, m_PosZ(0)
+	, m_ScaleX(0)
+	, m_ScaleY(0)
+	, m_RotX(0)
+	, m_RotY(0)
+	, m_RotZ(0)
+	, m_ScaleZ(0)
 {
 
 }
@@ -49,6 +58,15 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER7, m_SliderRotationZ);
 	DDX_Text(pDX, IDC_EDIT1, m_ChangingName);
 	DDX_Control(pDX, IDC_CHECK1, m_TriggerOnce);
+	DDX_Text(pDX, IDC_EDIT2, m_PosX);
+	DDX_Text(pDX, IDC_EDIT3, m_PosY);
+	DDX_Text(pDX, IDC_EDIT4, m_PosZ);
+	DDX_Text(pDX, IDC_EDIT5, m_ScaleX);
+	DDX_Text(pDX, IDC_EDIT6, m_ScaleY);
+	DDX_Text(pDX, IDC_EDIT7, m_ScaleZ);
+	DDX_Text(pDX, IDC_EDIT8, m_RotX);
+	DDX_Text(pDX, IDC_EDIT9, m_RotY);
+	DDX_Text(pDX, IDC_EDIT10, m_RotZ);
 }
 
 
@@ -68,6 +86,9 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON10, &DlgMonsterTool::OnBnClickedResetRotation)
 	ON_BN_CLICKED(IDC_BUTTON11, &DlgMonsterTool::OnBnClickedSaveButton)
 	ON_BN_CLICKED(IDC_BUTTON12, &DlgMonsterTool::OnBnClickedLoadButton)
+	ON_BN_CLICKED(IDC_BUTTON6, &DlgMonsterTool::OnBnClickedPositionApplyButton)
+	ON_BN_CLICKED(IDC_BUTTON7, &DlgMonsterTool::OnBnClickedScaleApplyButton)
+	ON_BN_CLICKED(IDC_BUTTON20, &DlgMonsterTool::OnBnClickedRotationApplyButton)
 END_MESSAGE_MAP()
 
 
@@ -271,6 +292,9 @@ void DlgMonsterTool::OnLbnSelChangeTrigger()
 	//ScaleRot picked값으로 scroll 변경
 	SetScaleScrollToPicked(pick);
 	SetRotationScrollToPicked(pick);
+
+	Transform* trans = giz->GetSelectedObject();
+	SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 }
 
 
@@ -528,6 +552,34 @@ void DlgMonsterTool::SetRotationScrollToPicked(Pickable* picked)
 	m_SliderRotationZ.SetPos((int)RotationZ);
 }
 
+void DlgMonsterTool::SetEditStatusFromGiz(Vec3 Pos, Vec3 Scale, Vec3 EulerAngle)
+{
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	m_PosX = Pos.x;
+	m_PosY = Pos.y;
+	m_PosZ = Pos.z;
+	m_ScaleX = Scale.x;
+	m_ScaleY = Scale.y;
+	m_ScaleZ = Scale.z;
+	m_RotX = EulerAngle.x;
+	m_RotY = EulerAngle.y;
+	m_RotZ = EulerAngle.z;
+
+	UpdateData(FALSE);
+}
+
 void DlgMonsterTool::SaveToJsonFormat(const Json::Value& json, string path)
 {
 	Json::StreamWriterBuilder builder;
@@ -624,6 +676,9 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	//ScaleRot picked값으로 scroll 변경
 	SetScaleScrollToPicked(Event);
 	SetRotationScrollToPicked(Event);
+
+	Transform* trans = giz->GetSelectedObject();
+	SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 }
 
 
@@ -658,9 +713,10 @@ void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	float RotateX = float(m_SliderRotationX.GetPos() - 180);
 	float RotateY = float(m_SliderRotationY.GetPos() - 180);
 	float RotateZ = float(m_SliderRotationZ.GetPos() - 180);
-	//giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
 	picked->GetGameObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
 
+
+	SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 	UpdateData(FALSE);
 
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
@@ -926,4 +982,72 @@ void DlgMonsterTool::OnBnClickedLoadButton()
 
 		EmptyAfterLoad();
 	}
+}
+
+
+void DlgMonsterTool::OnBnClickedPositionApplyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	trans->position = Vec3(m_PosX, m_PosY, m_PosZ);
+}
+
+
+void DlgMonsterTool::OnBnClickedScaleApplyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	trans->scale = Vec3(m_ScaleX, m_ScaleY, m_ScaleZ);
+	if (Picked->GetType() == Type::EventObject)
+		Picked->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
+}
+
+
+void DlgMonsterTool::OnBnClickedRotationApplyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	trans->eulerAngle = Vec3(m_RotX, m_RotY, m_RotZ);
 }

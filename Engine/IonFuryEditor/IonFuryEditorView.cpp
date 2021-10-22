@@ -273,7 +273,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		cout << "giz찍힘 Pick입구컷" << endl;
 		return;
 	}
-	//기즈모를 가장 우선적으로 선택하도록한 어거지코드!! 문제터지면 삭제
 	//========================================================================
 
 	float PickableDistance = 90000.f;
@@ -316,6 +315,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			return;
 
 		Type PickType = pick->GetType();
+		Transform* trans = giz->GetSelectedObject();
 
 		switch (PickType)
 		{
@@ -331,6 +331,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 		case Type::Trigger:
 			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
 			m_dlgMonsterTool.OnLbnSelChangeTrigger();
+			m_dlgMonsterTool.SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 			break;
 		case Type::EventObject:
 			int TriggerIndex = -1;
@@ -343,6 +344,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			//rotScale원래대로
 			m_dlgMonsterTool.SetRotationScrollToPicked(pick);
 			m_dlgMonsterTool.SetScaleScrollToPicked(pick);
+			m_dlgMonsterTool.SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 			break;
 		}
 		return;
