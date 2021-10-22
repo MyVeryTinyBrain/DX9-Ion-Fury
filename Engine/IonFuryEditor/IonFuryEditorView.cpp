@@ -258,12 +258,21 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
+	cout << "view눌림" << endl;
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	//========================================================================
-	giz->Click();
+	//giz->Click();
+	//if (giz->HasSelect())
+	//{
+	//	cout << "giz찍힘 Pick입구컷" << endl;
+	//	return;
+	//}
 	if (giz->PickHandle())
-		return;						
+	{
+		cout << "giz찍힘 Pick입구컷" << endl;
+		return;
+	}
 	//기즈모를 가장 우선적으로 선택하도록한 어거지코드!! 문제터지면 삭제
 	//========================================================================
 
