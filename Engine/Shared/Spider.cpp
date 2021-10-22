@@ -87,7 +87,12 @@ void Spider::Update()
 		m_PatternTime = 0.f;
 	}
 
-
+	if (m_playerHit)
+	{
+		Player::GetInstance()->TakeDamage(1);
+		transform->position += Player::GetInstance()->transform->forward * Time::DeltaTime() * 2.f;
+		m_playerHit = false;
+	}
 }
 
 void Spider::OnDestroy()
@@ -119,19 +124,6 @@ void Spider::OnDamage(DamageParameters& params)
 {
 	
 	m_hasTargetCoord = false;
-
-	//switch (params.damageType)
-	//{
-	//case MonsterDamageType::Bullet:
-	//	m_moveSpeed = 0.f;
-	//	break;
-	//case MonsterDamageType::Explosion:
-	//	m_moveSpeed = 0.f;
-	//	break;
-	//case MonsterDamageType::Zizizik:
-	//	m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
-	//	break;
-	//}
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
@@ -223,14 +215,6 @@ void Spider::MoveToTarget()
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
-
-	//if (distance > 10.f)
-	//{
-	//	m_hasTargetCoord = false;
-	//	Vec3 velocity = forward * m_moveSpeed;
-	//	velocity.y = m_body->velocity.y;
-	//	m_body->velocity = velocity;
-	//}
 }
 
 void Spider::SetTargetCoord(Vec3 xzCoord)
@@ -345,18 +329,24 @@ void Spider::Jump()
 
 void Spider::AttackToPlayer()
 {
+	if ((!m_animator->IsPlayingJump()) | m_playerHit)
+	{
+		return;
+	}
+
 	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayerDir.y = 0;
 	mosterToPlayerDir.Normalize();
 
 	RaycastHit hit;
-	PhysicsRay ray(transform->position, mosterToPlayerDir, sqrtf(0.5f));
+	PhysicsRay ray(transform->position, mosterToPlayerDir, sqrtf(0.33f));
 
 	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body))
 	{
 		if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
 		{
-			Player::GetInstance()->TakeDamage(1);
+			m_playerHit = true;
+
 		}
 	}
 }

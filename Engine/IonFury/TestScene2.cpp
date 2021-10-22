@@ -186,11 +186,11 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//    auto collider = obj->AddComponent<BoxCollider>();
 	//}
 
-	//{
-	//    auto obj = CreateGameObject();
-	//    obj->transform->position = Vec3(0, 2, -5);
-	//    obj->AddComponent<Warmech>();
-	//}
+	{
+	    auto obj = CreateGameObject();
+	    obj->transform->position = Vec3(0, 2, -5);
+	    obj->AddComponent<Warmech>();
+	}
 
 	//for (int i = 0; i < 5; ++i)
 	//{
@@ -204,11 +204,11 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//	}
 	//}
 	 
-	{
-	    auto obj = CreateGameObject();
-	    obj->transform->position = Vec3(0, 2, -10);
-	    obj->AddComponent<Wendigo>();
-	}
+	//{
+	//    auto obj = CreateGameObject();
+	//    obj->transform->position = Vec3(0, 2, -10);
+	//    obj->AddComponent<Wendigo>();
+	//}
 
 }
 

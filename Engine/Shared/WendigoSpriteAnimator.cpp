@@ -57,12 +57,12 @@ void WendigoSpriteAnimator::Awake()
 
 
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump] = new SpriteAnimation;
-	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump0.png");
-	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump1.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump2.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump3.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump4.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump5.png");
+	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump1.png");
+	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump0.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->interval = 0.1f;
 
 
