@@ -8,12 +8,12 @@
 
 void Trigger::Awake()
 {
-#ifdef _DEBUG
-	m_debugRenderer = gameObject->AddComponent<UserMeshRenderer>();
-	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-	m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-#endif
+//#ifdef _DEBUG
+//	m_debugRenderer = gameObject->AddComponent<UserMeshRenderer>();
+//	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
+//	m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+//	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+//#endif
 
 	// 버튼 테스트
 	//auto button = gameObject->AddComponent<ObjectButton>();
@@ -27,7 +27,7 @@ void Trigger::Update()
 		return;
 	}
 
-	if (m_method == Method::Touch)
+	if (m_method == TriggerMethod::Touch)
 	{
 		Collider* collider = Physics::OverlapBox(
 			transform->scale,
@@ -38,10 +38,7 @@ void Trigger::Update()
 
 		if (collider)
 		{
-			ActiveAllGameObjects();
 			Use();
-			OnTrigger();
-			m_used = true;
 		}
 	}
 }
@@ -51,7 +48,7 @@ void Trigger::SetTriggerOnce(bool value)
 	m_once = value;
 }
 
-void Trigger::SetMethod(Method value)
+void Trigger::SetMethod(TriggerMethod value)
 {
 	if (value == m_method)
 	{
@@ -60,7 +57,7 @@ void Trigger::SetMethod(Method value)
 
 	m_method = value;
 
-	if (value == Method::Button || value == Method::CardKey)
+	if (value == TriggerMethod::Button || value == TriggerMethod::CardCheck)
 	{
 		if (!m_body)
 		{
@@ -131,13 +128,22 @@ void Trigger::Use()
 
 	switch (m_method)
 	{
-		case Method::CardKey:
+		case TriggerMethod::CardCheck:
 			{
 				valid = Player::GetInstance()->cardKey;
 				Player::GetInstance()->cardKey = false;
 			}
 			break;
 	}
+
+	if (!valid)
+	{
+		m_used = true;
+	}
+
+	ActiveAllGameObjects();
+
+	OnTrigger();
 
 	for (auto& comp : m_connected)
 	{
@@ -159,7 +165,7 @@ const std::vector<Ref<Component>>& Trigger::GetConnections() const
 	return m_connected;
 }
 
-Trigger::Method Trigger::GetMethod() const
+TriggerMethod Trigger::GetMethod() const
 {
 	return m_method;
 }

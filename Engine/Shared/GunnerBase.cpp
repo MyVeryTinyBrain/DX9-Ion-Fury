@@ -168,6 +168,16 @@ void GunnerBase::OnDestroy()
         return;
 }
 
+void GunnerBase::OnWake()
+{
+    Monster::OnWake();
+
+    if (Player::GetInstance())
+    {
+        SetBehavior(BehaviorType::Attack);
+    }
+}
+
 Collider* GunnerBase::InitializeCollider(GameObject* colliderObj)
 {
     //{
