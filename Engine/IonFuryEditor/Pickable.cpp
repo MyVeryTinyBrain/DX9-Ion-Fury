@@ -22,6 +22,8 @@
 #include <ObjectCardScreen.h>
 #include <ObjectButton.h>
 
+#include <ObjectStair.h>
+
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
@@ -42,7 +44,6 @@ void Pickable::Awake()
 
 void Pickable::Update()
 {
-	m_ChildObject->transform->position = this->transform->position;
 }
 
 void Pickable::OnDestroy()
@@ -196,11 +197,6 @@ void Pickable::DeleteMaterial()
 	}
 }
 
-void Pickable::RemoveFamilyTransFromChildObj()
-{
-	m_ChildObject->transform->parent = nullptr;
-}
-
 int Pickable::GetTriggerVectorIndex()
 {
 	if(m_Type != Type::Trigger)
@@ -285,6 +281,7 @@ void Pickable::SetComponentToPickable(EventType type)
 	{
 	case EventType::BasicMutant:
 		m_ComponentObject->AddComponent<BasicMutant>();
+		//m_ComponentObject->AddComponent<ObjectStair>();
 		break;
 	case EventType::Mutant:
 		m_ComponentObject->AddComponent<Mutant>();
