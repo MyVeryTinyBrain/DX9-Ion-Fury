@@ -148,7 +148,7 @@ Pickable* Pickable::Pick(float& Distance)
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
 			giz->enable = true;
-			
+
 			Vec3 Between = rayPoint - HitPoint;
 			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.z * Between.z));
 			if (Distance >= BetweenDistance)
@@ -181,6 +181,20 @@ void Pickable::PushInEventVector(Pickable* Event)
 {
 	Event->SetType(Type::EventObject);
 	m_EventVec.push_back(Event);
+}
+
+void Pickable::SetMaterialTypeAs(CString MaterialType)
+{
+	if (MaterialType == L"Geometry")
+	{
+		m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInGeometryMaterial));
+		m_MaterialType = L"Geometry";
+	}
+	else if (MaterialType == L"AlphaTest")
+	{
+		m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInAlphaTestMaterial));
+		m_MaterialType = L"AlphaTest";
+	}
 }
 
 void Pickable::SetNoLightTransparentMaterial()

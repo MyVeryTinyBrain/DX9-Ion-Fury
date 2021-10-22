@@ -99,6 +99,7 @@
 #define IDC_RotSlider                   1047
 #define IDC_BUTTON6                     1049
 #define IDC_BUTTON7                     1050
+#define IDC_BUTTON20                    1051
 #define IDC_RotSlider2                  1052
 #define IDC_RADIO2                      1052
 #define IDC_RotSlider3                  1053

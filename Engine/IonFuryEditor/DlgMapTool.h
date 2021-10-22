@@ -44,6 +44,7 @@ public:
 	void ResetScroll();
 	void ReturnComboBoxSelect(Pickable* pick);
 	void ReturnCollisionExistenceSelect(Pickable* pick);
+	void ReturnGeometryOrAlphaTest(Pickable* pick);
 
 	void UpdateUVScale(Pickable* pick);
 
@@ -52,6 +53,9 @@ public:
 	float EditToNum(const CEdit& edit);
 	void NumToEdit(CEdit& edit, float num);
 
+public:
+	CString GetCheckedButton();
+	void SetCheckedButton(CString MaterialType);
 public:
 	Vec2 GetToolUVScale();
 public:
@@ -108,4 +112,6 @@ public:
 	CSliderCtrl m_SliderControlScaleX;
 	CSliderCtrl m_SliderControlScaleY;
 	CSliderCtrl m_SliderControlScaleZ;
+	CButton m_ButtonGeometry;
+	CButton m_ButtonAlphaTest;
 };
