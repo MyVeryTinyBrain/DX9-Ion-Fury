@@ -7,6 +7,7 @@
 
 #include "Trigger.h"
 
+// Objects
 #include "ItemBowAmmo.h"
 #include "ItemChaingunAmmo.h"
 #include "ItemLauncherAmmo.h"
@@ -15,13 +16,22 @@
 #include "ItemBowAmmo.h"
 #include "ItemSMGAmmo.h"
 #include "ItemHealthPack.h"
+#include <ItemArmor.h>
+#include <ItemCardKey.h>
+#include <ObjectRat.h>
 #include "ObjectStair.h"
 #include <Player.h>
 
 #include <EditorEnum.h>
+
+// Events
 #include <CultistArcher.h>
 #include <CultistGunner.h>
 #include <Liberator.h>
+#include <ObjectAutoDoor.h>
+#include <ObjectManualDoor.h>
+#include <ObjectButton.h>
+#include <ObjectCardScreen.h>
 
 HRESULT TotalLoad::Load(const wstring& wstrFilePath)
 {
@@ -116,8 +126,12 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ItemSMGAmmo>();
 	else if (ComponentType == (L"ItemHealthPack"))
 		pObj->AddComponent<ItemHealthPack>();
-	else if (ComponentType == (L"ObjectStair"))
-		pObj->AddComponent<ObjectStair>();
+	else if (ComponentType == (L"ItemArmor"))
+		pObj->AddComponent<ItemArmor>();
+	else if (ComponentType == (L"ItemCardKey"))
+		pObj->AddComponent<ItemCardKey>();
+	else if (ComponentType == (L"ObjectRat"))
+		pObj->AddComponent<ObjectRat>();
 	else if (ComponentType == (L"Player"))
 		pObj->AddComponent<Player>();
 	else
@@ -134,20 +148,7 @@ Trigger* TotalLoad::CreateTrigger(const TriggerData& data)
 	obj->transform->scale = data.sd.scale;
 
 	Trigger* trigger = obj->AddComponent<Trigger>();
-	Trigger::Method method = Trigger::Method::None;
-
-	switch (data.method)
-	{
-		case 0:
-			method = Trigger::Method::Touch;
-			break;
-		case 1:
-			method = Trigger::Method::Button;
-			break;
-		case 2:
-			method = Trigger::Method::Manual;
-			break;
-	}
+	TriggerMethod method = (TriggerMethod)data.method;
 
 	trigger->SetMethod(method);
 	trigger->SetTriggerOnce(data.once);
@@ -175,6 +176,18 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 			break;
 		case EventType::Liberator:
 			comp = obj->AddComponent<Liberator>();
+			break;
+		case EventType::ObjectAutoDoor:
+			comp = obj->AddComponent<ObjectAutoDoor>();
+			break;
+		case EventType::ObjectManualDoor:
+			comp = obj->AddComponent<ObjectManualDoor>();
+			break;
+		case EventType::ObjectButton:
+			comp = obj->AddComponent<ObjectButton>();
+			break;
+		case EventType::ObjectCardScreen:
+			comp = obj->AddComponent<ObjectCardScreen>();
 			break;
 		default:
 			obj->Destroy();

@@ -92,7 +92,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         obj->transform->localScale = Vec3(1, 2, 1);
 
         auto trigger = obj->AddComponent<Trigger>();
-        trigger->SetMethod(Trigger::Method::Button);
+        trigger->SetMethod(TriggerMethod::Button);
 
         auto button = obj->AddComponent<ObjectButton>();
         trigger->AddSubordinationComponent(button);
@@ -106,7 +106,7 @@ void TestScene::OnLoad(Scene* beforeScene)
         obj->transform->localScale = Vec3(1, 2, 1);
 
         auto trigger = obj->AddComponent<Trigger>();
-        trigger->SetMethod(Trigger::Method::CardKey);
+        trigger->SetMethod(TriggerMethod::CardCheck);
 
         auto cardScreen = obj->AddComponent<ObjectCardScreen>();
         trigger->AddSubordinationComponent(cardScreen);

@@ -1,10 +1,9 @@
 #pragma once
 
+#include "EditorEnum.h"
+
 class Trigger : public Component
 {
-public:
-
-	enum class Method { Touch, Button, CardKey, Manual, Max, None };
 
 private:
 
@@ -16,7 +15,7 @@ public:
 
 	void SetTriggerOnce(bool value);
 
-	void SetMethod(Method value);
+	void SetMethod(TriggerMethod value);
 
 	void AddSubordinationComponent(Component* value);
 
@@ -26,13 +25,13 @@ public:
 
 	const std::vector<Ref<Component>>& GetConnections() const;
 
-	Method GetMethod() const;
+	TriggerMethod GetMethod() const;
 
 private:
 
 	UserMeshRenderer* m_debugRenderer = nullptr;
 
-	Method m_method = Method::None;
+	TriggerMethod m_method = TriggerMethod::End;
 
 	std::vector<Ref<Component>> m_connected;
 

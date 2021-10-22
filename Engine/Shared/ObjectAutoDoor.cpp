@@ -1,6 +1,7 @@
 #include "shared_stdafx.h"
 #include "ObjectAutoDoor.h"
 #include "Player.h"
+#include "SoundMgr.h"
 
 void ObjectAutoDoor::Awake()
 {
@@ -132,14 +133,28 @@ void ObjectAutoDoor::Toggle()
 
 void ObjectAutoDoor::Open()
 {
+	if (m_state)
+	{
+		return;
+	}
+
 	m_targetLocalPosition = Vec3(0, 0.8f, 0);
 	m_state = true;
+
+	SoundMgr::Play(L"../SharedResource/Sound/door/door_scifi02_open.ogg", CHANNELID::OBJECT_INPUT);
 }
 
 void ObjectAutoDoor::Close()
 {
+	if (!m_state)
+	{
+		return;
+	}
+
 	m_targetLocalPosition = Vec3(0, 0, 0);
 	m_state = false;
+
+	SoundMgr::Play(L"../SharedResource/Sound/door/door_scifi02_close.ogg", CHANNELID::OBJECT_INPUT);
 }
 
 void ObjectAutoDoor::SetAutoOpen(bool value)

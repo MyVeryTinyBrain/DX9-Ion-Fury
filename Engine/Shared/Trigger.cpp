@@ -27,7 +27,7 @@ void Trigger::Update()
 		return;
 	}
 
-	if (m_method == Method::Touch)
+	if (m_method == TriggerMethod::Touch)
 	{
 		Collider* collider = Physics::OverlapBox(
 			transform->scale,
@@ -51,7 +51,7 @@ void Trigger::SetTriggerOnce(bool value)
 	m_once = value;
 }
 
-void Trigger::SetMethod(Method value)
+void Trigger::SetMethod(TriggerMethod value)
 {
 	if (value == m_method)
 	{
@@ -60,7 +60,7 @@ void Trigger::SetMethod(Method value)
 
 	m_method = value;
 
-	if (value == Method::Button || value == Method::CardKey)
+	if (value == TriggerMethod::Button || value == TriggerMethod::CardCheck)
 	{
 		if (!m_body)
 		{
@@ -131,7 +131,7 @@ void Trigger::Use()
 
 	switch (m_method)
 	{
-		case Method::CardKey:
+		case TriggerMethod::CardCheck:
 			{
 				valid = Player::GetInstance()->cardKey;
 				Player::GetInstance()->cardKey = false;
@@ -159,7 +159,7 @@ const std::vector<Ref<Component>>& Trigger::GetConnections() const
 	return m_connected;
 }
 
-Trigger::Method Trigger::GetMethod() const
+TriggerMethod Trigger::GetMethod() const
 {
 	return m_method;
 }
