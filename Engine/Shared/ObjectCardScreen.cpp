@@ -1,6 +1,7 @@
 #include "shared_stdafx.h"
 #include "ObjectCardScreen.h"
 #include "Cube.h"
+#include "SoundMgr.h"
 
 void ObjectCardScreen::Awake()
 {
@@ -45,9 +46,13 @@ void ObjectCardScreen::OnUse(bool valid)
 	if (valid)
 	{
 		m_cube->forward->SetTexture(0, m_acceptTexture);
+
+		SoundMgr::Play(L"../SharedResource/Sound/input/keycard_unlock.ogg", CHANNELID::OBJECT_INPUT);
 	}
 	else
 	{
 		m_cube->forward->SetTexture(0, m_deniedTexture);
+
+		SoundMgr::Play(L"../SharedResource/Sound/input/keycard_locked.ogg", CHANNELID::OBJECT_INPUT);
 	}
 }

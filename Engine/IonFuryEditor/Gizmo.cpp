@@ -229,7 +229,7 @@ void Gizmo::ResetGizmoTransform()
 
 void Gizmo::Handling()
 {
-	float gap = 0.2f;
+	float gap = 0.1f;
 
 	Vec3 dragCoord = CalcGizmoHandlingCoord();
 	Vec3 delta = dragCoord - m_selectCoord;

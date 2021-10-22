@@ -15,7 +15,7 @@ unsigned int Liberator::GetAttackCount()
 
 float Liberator::GetDamagedRevengeAttackWaitTime()
 {
-    return 0.0f;
+    return 0.35f;
 }
 
 float Liberator::GetBreakTime()
