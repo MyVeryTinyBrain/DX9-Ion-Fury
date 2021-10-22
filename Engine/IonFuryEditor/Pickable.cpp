@@ -281,7 +281,6 @@ void Pickable::SetComponentToPickable(EventType type)
 	{
 	case EventType::BasicMutant:
 		m_ComponentObject->AddComponent<BasicMutant>();
-		//m_ComponentObject->AddComponent<ObjectStair>();
 		break;
 	case EventType::Mutant:
 		m_ComponentObject->AddComponent<Mutant>();

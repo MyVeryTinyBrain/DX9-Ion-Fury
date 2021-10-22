@@ -98,8 +98,7 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 	m_ComponentType = Type;
 
 	if (Type == (L"ItemBowAmmo"))
-		//m_ChildObject->AddComponent<ItemBowAmmo>();
-		m_ChildObject->AddComponent<Skull>();
+		m_ChildObject->AddComponent<ItemBowAmmo>();
 	else if (Type == (L"ItemChaingunAmmo"))
 		m_ChildObject->AddComponent<ItemChaingunAmmo>();
 	else if (Type == (L"ItemLauncherAmmo"))
