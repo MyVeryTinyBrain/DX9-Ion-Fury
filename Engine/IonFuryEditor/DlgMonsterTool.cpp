@@ -36,6 +36,7 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_TriggerListBox);
 	DDX_Control(pDX, IDC_LIST2, m_EventListBox);
+	DDX_Control(pDX, IDC_RADIO1, m_TouchButtonManual4);
 	DDX_Control(pDX, IDC_RADIO2, m_TouchButtonManual1);
 	DDX_Control(pDX, IDC_RADIO3, m_TouchButtonManual2);
 	DDX_Control(pDX, IDC_RADIO4, m_TouchButtonManual3);
@@ -88,7 +89,11 @@ BOOL DlgMonsterTool::OnInitDialog()
 	m_EventTypeComboBox.AddString(_T("Skull"));
 	m_EventTypeComboBox.AddString(_T("Warmech"));
 	m_EventTypeComboBox.AddString(_T("Wendigo"));
-	m_EventTypeComboBox.AddString(_T("Door"));
+
+	m_EventTypeComboBox.AddString(_T("ObjectAutoDoor"));
+	m_EventTypeComboBox.AddString(_T("ObjectManualDoor"));
+	m_EventTypeComboBox.AddString(_T("ObjectCardScreen"));
+	m_EventTypeComboBox.AddString(_T("ObjectButton"));
 	
 	m_EventTypeComboBox.SetCurSel(-1);
 
@@ -137,6 +142,7 @@ int DlgMonsterTool::GetCheckedButton()
 	int Touch = m_TouchButtonManual1.GetCheck();
 	int Button = m_TouchButtonManual2.GetCheck();
 	int Manual = m_TouchButtonManual3.GetCheck();
+	int CardCheck = m_TouchButtonManual4.GetCheck();
 
 	if (Touch)
 		TouchButtonManual = (int)(TriggerMethod::Touch);
@@ -144,6 +150,8 @@ int DlgMonsterTool::GetCheckedButton()
 		TouchButtonManual = (int)(TriggerMethod::Button);
 	else if (Manual)
 		TouchButtonManual = (int)(TriggerMethod::Manual);
+	else if (CardCheck)
+		TouchButtonManual = (int)(TriggerMethod::CardCheck);
 
 	return TouchButtonManual;
 }
@@ -154,6 +162,7 @@ void DlgMonsterTool::SetCheckedButton(TriggerMethod Select)
 	m_TouchButtonManual1.SetCheck(0);
 	m_TouchButtonManual2.SetCheck(0);
 	m_TouchButtonManual3.SetCheck(0);
+	m_TouchButtonManual4.SetCheck(0);
 
 	switch (Select)
 	{
@@ -165,6 +174,9 @@ void DlgMonsterTool::SetCheckedButton(TriggerMethod Select)
 		break;
 	case TriggerMethod::Manual:
 		m_TouchButtonManual3.SetCheck(1);
+		break;
+	case TriggerMethod::CardCheck:
+		m_TouchButtonManual4.SetCheck(1);
 		break;
 	}
 }

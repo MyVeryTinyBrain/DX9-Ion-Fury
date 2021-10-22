@@ -17,7 +17,10 @@
 #include <Warmech.h>
 #include <Wendigo.h>
 
-#include <ItemBowAmmo.h>
+#include <ObjectAutoDoor.h>
+#include <ObjectManualDoor.h>
+#include <ObjectCardScreen.h>
+#include <ObjectButton.h>
 
 
 std::vector<Pickable*> Pickable::g_PickableVec;
@@ -39,6 +42,7 @@ void Pickable::Awake()
 
 void Pickable::Update()
 {
+	m_ChildObject->transform->position = this->transform->position;
 }
 
 void Pickable::OnDestroy()
@@ -192,6 +196,11 @@ void Pickable::DeleteMaterial()
 	}
 }
 
+void Pickable::RemoveFamilyTransFromChildObj()
+{
+	m_ChildObject->transform->parent = nullptr;
+}
+
 int Pickable::GetTriggerVectorIndex()
 {
 	if(m_Type != Type::Trigger)
@@ -307,9 +316,19 @@ void Pickable::SetComponentToPickable(EventType type)
 	case EventType::Wendigo:
 		m_ComponentObject->AddComponent<Wendigo>();
 		break;
-	//case EventType::Door:
-	//	m_ChildObject->AddComponent<ObjectAutoDoor>();
-	//	break;
+
+	case EventType::ObjectAutoDoor:
+		m_ComponentObject->AddComponent<ObjectAutoDoor>();
+		break;
+	case EventType::ObjectManualDoor:
+		m_ComponentObject->AddComponent<ObjectManualDoor>();
+		break;
+	case EventType::ObjectCardScreen:
+		m_ComponentObject->AddComponent<ObjectCardScreen>();
+		break;
+	case EventType::ObjectButton:
+		m_ComponentObject->AddComponent<ObjectButton>();
+		break;
 	}
 }
 
