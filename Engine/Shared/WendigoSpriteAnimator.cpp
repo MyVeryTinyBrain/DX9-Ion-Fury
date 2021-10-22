@@ -236,6 +236,11 @@ bool WendigoSpriteAnimator::IsPlayingWalk() const
 	return false;
 }
 
+bool WendigoSpriteAnimator::IsPlayingJump() const
+{
+	return currentAnimation == m_attack[(unsigned int)ATTACK_WENDIGO::Jump];
+}
+
 bool WendigoSpriteAnimator::IsPlayingAttack() const
 {
 	for (auto attack : m_attack)

@@ -120,18 +120,18 @@ void Spider::OnDamage(DamageParameters& params)
 	
 	m_hasTargetCoord = false;
 
-	switch (params.damageType)
-	{
-	case MonsterDamageType::Bullet:
-		m_moveSpeed = 0.f;
-		break;
-	case MonsterDamageType::Explosion:
-		m_moveSpeed = 0.f;
-		break;
-	case MonsterDamageType::Zizizik:
-		m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
-		break;
-	}
+	//switch (params.damageType)
+	//{
+	//case MonsterDamageType::Bullet:
+	//	m_moveSpeed = 0.f;
+	//	break;
+	//case MonsterDamageType::Explosion:
+	//	m_moveSpeed = 0.f;
+	//	break;
+	//case MonsterDamageType::Zizizik:
+	//	m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
+	//	break;
+	//}
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
@@ -148,9 +148,6 @@ void Spider::OnDamage(DamageParameters& params)
 	transform->forward = forward;
 
 	params.force = Vec3::zero();
-	/*m_animator->PlayWalk();
-	m_hasTargetCoord = false;*/
-
 }
 
 void Spider::OnDead(bool& dead, DamageParameters& params)
@@ -227,13 +224,13 @@ void Spider::MoveToTarget()
 		SetTargetCoord(targetCoord);
 	}
 
-	if (distance > 10.f)
-	{
-		m_hasTargetCoord = false;
-		Vec3 velocity = forward * m_moveSpeed;
-		velocity.y = m_body->velocity.y;
-		m_body->velocity = velocity;
-	}
+	//if (distance > 10.f)
+	//{
+	//	m_hasTargetCoord = false;
+	//	Vec3 velocity = forward * m_moveSpeed;
+	//	velocity.y = m_body->velocity.y;
+	//	m_body->velocity = velocity;
+	//}
 }
 
 void Spider::SetTargetCoord(Vec3 xzCoord)
@@ -271,9 +268,11 @@ void Spider::JumpCheck()
 	RaycastHit hit1;
 	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(5.0f));
 
+
+
 	m_jumptime += Time::FixedDeltaTime();
 
-	if (m_jumptime > 3.f)
+	if (m_jumptime > 1.5f)
 	{
 		switch (jumpingtype)
 		{
@@ -351,7 +350,7 @@ void Spider::AttackToPlayer()
 	mosterToPlayerDir.Normalize();
 
 	RaycastHit hit;
-	PhysicsRay ray(transform->position, mosterToPlayerDir, sqrtf(0.1f));
+	PhysicsRay ray(transform->position, mosterToPlayerDir, sqrtf(0.5f));
 
 	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body))
 	{

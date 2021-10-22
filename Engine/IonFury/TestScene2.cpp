@@ -69,6 +69,23 @@ void TestScene2::OnLoad(Scene* beforeScene)
 		collider->friction = 1.0f;
 	}
 
+	//{   // Create ground
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(0, 10, 0);
+	//	obj->transform->scale = Vec3(100, 1, 100);
+
+	//	auto renderer = obj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+	//	auto body = obj->AddComponent<Rigidbody>();
+	//	body->isKinematic = true;
+
+	//	auto collider = obj->AddComponent<BoxCollider>();
+	//	collider->friction = 1.0f;
+	//}
+
+
 	{   // Create obstacle
 		auto obj = CreateGameObject();
 		obj->transform->position = Vec3(0, -2, -3);
@@ -182,8 +199,8 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//		auto obj = CreateGameObject();
 	//		obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
 	//		obj->transform->eulerAngle = Vec3(0, 90, 0);
-	//		obj->AddComponent<Drone>();
-	//		//obj->AddComponent<Spider>();
+	//		//obj->AddComponent<Drone>();
+	//		obj->AddComponent<Spider>();
 	//	}
 	//}
 	 
