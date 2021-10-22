@@ -89,7 +89,11 @@ BOOL DlgMonsterTool::OnInitDialog()
 	m_EventTypeComboBox.AddString(_T("Skull"));
 	m_EventTypeComboBox.AddString(_T("Warmech"));
 	m_EventTypeComboBox.AddString(_T("Wendigo"));
-	m_EventTypeComboBox.AddString(_T("Door"));
+
+	m_EventTypeComboBox.AddString(_T("ObjectAutoDoor"));
+	m_EventTypeComboBox.AddString(_T("ObjectManualDoor"));
+	m_EventTypeComboBox.AddString(_T("ObjectCardScreen"));
+	m_EventTypeComboBox.AddString(_T("ObjectButton"));
 	
 	m_EventTypeComboBox.SetCurSel(-1);
 

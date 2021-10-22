@@ -1,0 +1,94 @@
+{
+	"HandleObjects" : null,
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.5,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : null,
+	"TriggerEvents" : 
+	[
+		[
+			{
+				"Name" : "Trigger_0",
+				"PositionX" : -3.3194475173950195,
+				"PositionY" : 0.6414191722869873,
+				"PositionZ" : -5.0043578147888184,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 3,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 1
+			},
+			{
+				"EventType" : 11,
+				"Name" : "Event_0",
+				"PositionX" : -3.514122486114502,
+				"PositionY" : 0.6414191722869873,
+				"PositionZ" : -7.4779400825500488,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.1499999761581421,
+				"ScaleY" : 1.6499999761581421,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 12,
+				"Name" : "Event_1",
+				"PositionX" : -5.1866297721862793,
+				"PositionY" : 0.30472460389137268,
+				"PositionZ" : -10.260970115661621,
+				"RotationX" : 26.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.1499999761581421,
+				"ScaleY" : 1.2000000476837158,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 13,
+				"Name" : "Event_2",
+				"PositionX" : -3.883544921875,
+				"PositionY" : -0.11441010236740112,
+				"PositionZ" : -12.058402061462402,
+				"RotationX" : -34.0,
+				"RotationY" : 112.0,
+				"RotationZ" : 100.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 14,
+				"Name" : "Event_3",
+				"PositionX" : -3.4959101676940918,
+				"PositionY" : 0.072297960519790649,
+				"PositionZ" : -13.83512020111084,
+				"RotationX" : -139.0,
+				"RotationY" : -93.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			}
+		]
+	]
+}

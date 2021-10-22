@@ -229,8 +229,8 @@ BOOL DlgObjectTool::OnInitDialog()
 		m_TypeComboBox.AddString(_T("ItemHealthPack"));
 
 		m_TypeComboBox.AddString(_T("ItemArmor"));
-		//m_TypeComboBox.AddString(_T("ItemCardKey"));
-		//m_TypeComboBox.AddString(_T("Mouse"));
+		m_TypeComboBox.AddString(_T("ItemCardKey"));
+		m_TypeComboBox.AddString(_T("ObjectRat"));
 
 		m_TypeComboBox.AddString(_T("Player"));
 	}

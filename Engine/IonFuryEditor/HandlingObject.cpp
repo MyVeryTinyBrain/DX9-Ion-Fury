@@ -10,7 +10,9 @@
 #include <ItemSMGAmmo.h>
 #include <ItemHealthPack.h>
 #include <ItemArmor.h>
-// Ä«µåÅ°, Áã
+#include <ItemCardKey.h>
+#include <ObjectRat.h>
+
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -110,6 +112,10 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 	
 	else if (Type == (L"ItemArmor"))
 		m_ChildObject->AddComponent<ItemArmor>();
+	else if (Type == (L"ItemCardKey"))
+		m_ChildObject->AddComponent<ItemCardKey>();
+	else if (Type == (L"ObjectRat"))
+		m_ChildObject->AddComponent<ObjectRat>();
 
 
 	else if (Type == (L"Player"))
