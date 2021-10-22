@@ -27,7 +27,7 @@ IClonable* TestScene::Clone()
 
 void TestScene::OnLoad(Scene* beforeScene)
 {
-    TotalLoad::Load(L"../Data/Total/Map0.txt");
+    TotalLoad::Load(L"../Data/Total/Map00.txt");
 
     {
         auto skyboxObj = CreateGameObject();
@@ -41,10 +41,18 @@ void TestScene::OnLoad(Scene* beforeScene)
         skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
     }
 
+	if (Player::GetInstance() == nullptr)
     {   // Create test player
         auto obj = CreateGameObject();
         auto controller = obj->AddComponent<Player>();
         obj->transform->position = Vec3(0, 1, 0);
+    }
+
+    {   
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(0, -0.5f + 0.6f, 4.2f);
+        obj->transform->scale = Vec3(2.5f, 4.5f, 1);
+        obj->AddComponent<ObjectAutoDoor>();
     }
 
     //{

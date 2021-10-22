@@ -44,8 +44,8 @@ void Item::Update()
 	}
 
 	auto collider = Physics::OverlapSphere(
-		transform->position,
 		m_triggerRadius,
+		transform->position,
 		(1 << (int)PhysicsLayers::Player),
 		PhysicsQueryType::Collider
 	);

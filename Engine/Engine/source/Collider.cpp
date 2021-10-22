@@ -52,6 +52,11 @@ void Collider::OnWake()
 		return;
 
 	ApplyFlags();
+
+	if (rigidbody)
+	{
+		rigidbody->SetRigidbodySleep(false);
+	}
 }
 
 void Collider::OnSleep()
