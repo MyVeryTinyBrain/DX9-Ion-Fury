@@ -1,0 +1,81 @@
+{
+	"HandleObjects" : null,
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.5,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : null,
+	"TriggerEvents" : 
+	[
+		[
+			{
+				"Name" : "Trigger_0",
+				"PositionX" : -2.401453971862793,
+				"PositionY" : 0.0,
+				"PositionZ" : -3.0,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 0,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 1
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_0",
+				"PositionX" : -5.7001485824584961,
+				"PositionY" : 0.0,
+				"PositionZ" : -3.0,
+				"RotationX" : 169.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 2.1500000953674316,
+				"ScaleY" : 2.2999999523162842,
+				"ScaleZ" : 1.7000000476837158
+			},
+			{
+				"EventType" : 2,
+				"Name" : "Event_1",
+				"PositionX" : -4.7406425476074219,
+				"PositionY" : -0.054046232253313065,
+				"PositionZ" : -5.9476337432861328,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 2,
+				"Name" : "Event_2",
+				"PositionX" : -5.7042660713195801,
+				"PositionY" : -0.054046232253313065,
+				"PositionZ" : -7.1810183525085449,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 2.0,
+				"ScaleY" : 2.0,
+				"ScaleZ" : 1.0
+			}
+		]
+	]
+}

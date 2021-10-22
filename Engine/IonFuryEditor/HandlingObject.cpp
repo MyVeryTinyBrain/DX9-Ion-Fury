@@ -13,6 +13,8 @@
 #include <ItemCardKey.h>
 #include <ObjectRat.h>
 
+#include <Skull.h>
+
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -97,6 +99,7 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 
 	if (Type == (L"ItemBowAmmo"))
 		m_ChildObject->AddComponent<ItemBowAmmo>();
+		//m_ChildObject->AddComponent<Skull>();
 	else if (Type == (L"ItemChaingunAmmo"))
 		m_ChildObject->AddComponent<ItemChaingunAmmo>();
 	else if (Type == (L"ItemLauncherAmmo"))

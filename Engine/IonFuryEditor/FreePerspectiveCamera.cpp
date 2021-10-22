@@ -135,9 +135,8 @@ Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
 
 	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Sphere, BuiltInBlackTexture, true);
 
-	Obj->transform->scale = Vec3(0.5f, 0.5f, 0.5f); //Vec3(0.5f, 0.5f, 0.5f);
+	Event->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
-	Event->RemoveFamilyTransFromChildObj();
 
 	Event->CreateComponentObject();
 
