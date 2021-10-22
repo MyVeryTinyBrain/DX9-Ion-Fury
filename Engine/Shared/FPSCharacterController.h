@@ -17,6 +17,8 @@ class FPSCharacterController : public Component
 
 	void OnCollisionExit(const CollisionExit& collision);
 
+	void OnCollisionStay(const CollisionStay& collision);
+
 public:
 
 	Rigidbody* GetRigidbody() const;
@@ -51,10 +53,14 @@ private:
 
 	float m_speed = 5.0f;
 
-	float m_jumpSpeed = 6.0f;
+	float m_jumpSpeed = 4.0f;
 
 	bool m_hasGround = false;
 
 	Vec3 m_moveDirection;
+
+	float m_footstepDelay = 0.15f;
+
+	float m_footstepCounter = m_footstepDelay;
 };
 

@@ -4,7 +4,7 @@ class Trigger : public Component
 {
 public:
 
-	enum class Method { Touch, Button, Manual, Max, None };
+	enum class Method { Touch, Button, CardKey, Manual, Max, None };
 
 private:
 
@@ -25,6 +25,8 @@ public:
 	void Use();
 
 	const std::vector<Ref<Component>>& GetConnections() const;
+
+	Method GetMethod() const;
 
 private:
 

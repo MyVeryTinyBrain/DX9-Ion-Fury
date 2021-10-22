@@ -3,6 +3,7 @@
 #include "FPSCamera.h"
 #include "PhysicsLayers.h"
 #include "FPSOrthoCamera.h"
+#include "SoundMgr.h"
 
 void FPSCharacterController::Awake()
 {
@@ -20,6 +21,7 @@ void FPSCharacterController::Awake()
     m_collider->layerIndex = (uint8_t)PhysicsLayers::Player;
     m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &FPSCharacterController::OnCollisionEnter);
     m_collider->OnCollisionExit += Function<void(const CollisionExit&)>(this, &FPSCharacterController::OnCollisionExit);
+    m_collider->OnCollisionStay += Function<void(const CollisionStay&)>(this, &FPSCharacterController::OnCollisionStay);
 
     m_cameraObj = CreateGameObjectToChild(m_subObj->transform);
     m_camera = m_cameraObj->AddComponent<FPSCamera>();
@@ -29,12 +31,15 @@ void FPSCharacterController::Awake()
 
 void FPSCharacterController::FixedUpdate()
 {
-    PhysicsRay ray;
-    ray.point = m_collider->transform->position;
-    ray.direction = Vec3::down();
-    ray.distance = m_collider->halfHeight + m_collider->radius * sqrtf(2.5f);
-    m_hasGround = Physics::RaycastTest(ray, 0xFFFFFFFF, PhysicsQueryType::All, m_body);
-    
+    if (m_hasGround)
+    {
+		PhysicsRay ray;
+		ray.point = m_collider->transform->position;
+		ray.direction = Vec3::down();
+        ray.distance = m_collider->halfHeight + m_collider->radius + 0.1f;
+		m_hasGround = Physics::RaycastTest(ray, 1 << (uint8_t)PhysicsLayers::Terrain, PhysicsQueryType::All, m_body);
+    }
+
     if (Input::GetKey(Key::Space))
     {
         if (m_hasGround)
@@ -46,6 +51,11 @@ void FPSCharacterController::FixedUpdate()
             transform->position += Vec3::up() * 0.05f;
             m_body->ApplyBodyTransformFromGameObject();
             m_hasGround = false;
+
+            int soundIndex = rand() % 3;
+            wchar_t buffer[256];
+            swprintf_s(buffer, L"../SharedResource/Sound/footstep/jump%d.ogg", soundIndex);
+            SoundMgr::Play(buffer, CHANNELID::PLAYER_FOOTSTEP_JUMP);
         }
     }
 
@@ -79,18 +89,30 @@ void FPSCharacterController::FixedUpdate()
         PhysicsRay ray;
         ray.point = m_collider->transform->position;
         ray.direction = Vec3::down();
-        ray.distance = m_collider->halfHeight + m_collider->radius * sqrtf(2.5f);
+        ray.distance = FLT_MAX;
         RaycastHit hit;
-        Physics::Raycast(hit, ray, 0xFFFFFFFF, PhysicsQueryType::All, m_body);
+        Physics::Raycast(hit, ray, 1 << (uint8_t)PhysicsLayers::Terrain, PhysicsQueryType::Collider);
 
         float speedFactor = 1.0f;
-        if (Input::GetKey(Key::LCtrl) && m_hasGround)
+        if (m_hasGround && Input::GetKey(Key::LCtrl))
         {
             speedFactor = 0.35f;
         }
-        else if (Input::GetKey(Key::LShift))
+        else if (m_hasGround && Input::GetKey(Key::LShift))
         {
             speedFactor = 1.65f;
+        }
+
+        m_footstepCounter -= Time::DeltaTime() * speedFactor;
+
+        if (m_footstepCounter <= 0 && m_hasGround)
+        {
+            int soundIndex = rand() % 3;
+            wchar_t buffer[256];
+            swprintf_s(buffer, L"../SharedResource/Sound/footstep/run%d.ogg", soundIndex);
+            SoundMgr::Play(buffer, CHANNELID::PLAYER_FOOTSTEP);
+
+            m_footstepCounter = m_footstepDelay;
         }
 
         Vec3 velocity;
@@ -110,6 +132,8 @@ void FPSCharacterController::FixedUpdate()
     }
 
     m_moveDirection = Vec3::zero();
+
+    m_hasGround = false;
 }
 
 void FPSCharacterController::Update()
@@ -126,11 +150,15 @@ void FPSCharacterController::Update()
     if (m_moveDirection.sqrMagnitude() > 0)
         m_camera->fpsOrthoCamera->SetWalkingState(true);
 
-    if (Input::GetKey(Key::LCtrl))
+    if (m_hasGround && Input::GetKey(Key::LCtrl))
     {
         m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(0.35f);
     }
-    else if (Input::GetKey(Key::LShift))
+    else if (Input::GetKeyUp(Key::LCtrl))
+    {
+        m_body->AddForce(Vec3::up() * 0.1f, ForceMode::Force);
+    }
+    else if (m_hasGround && Input::GetKey(Key::LShift))
     {
         m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(1.65f);
     }
@@ -145,14 +173,34 @@ void FPSCharacterController::OnDestroy()
 {
     m_collider->OnCollisionEnter -= Function<void(const CollisionEnter&)>(this, &FPSCharacterController::OnCollisionEnter);
     m_collider->OnCollisionExit -= Function<void(const CollisionExit&)>(this, &FPSCharacterController::OnCollisionExit);
+    m_collider->OnCollisionStay -= Function<void(const CollisionStay&)>(this, &FPSCharacterController::OnCollisionStay);
 }
 
 void FPSCharacterController::OnCollisionEnter(const CollisionEnter& collision)
 {
+    float angle = Vec3::Angle(Vec3::up(), collision.GetContact(0).normal);
+
+    if (angle < 45 && fabsf(collision.GetContact(0).impulse.y) > 4.0f)
+    {
+        int soundIndex = rand() % 3;
+        wchar_t buffer[256];
+        swprintf_s(buffer, L"../SharedResource/Sound/footstep/land%d.ogg", soundIndex);
+        SoundMgr::Play(buffer, CHANNELID::PLAYER_FOOTSTEP_LAND);
+    }
 }
 
 void FPSCharacterController::OnCollisionExit(const CollisionExit& collision)
 {
+}
+
+void FPSCharacterController::OnCollisionStay(const CollisionStay& collision)
+{
+    float angle = Vec3::Angle(Vec3::up(), collision.GetContact(0).normal);
+
+    if (angle < 45)
+    {
+        m_hasGround = true;
+    }
 }
 
 Rigidbody* FPSCharacterController::GetRigidbody() const

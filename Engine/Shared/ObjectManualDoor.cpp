@@ -5,5 +5,5 @@ void ObjectManualDoor::Awake()
 {
 	ObjectAutoDoor::Awake();
 
-	autoOpen = false;
+	m_autoOpen = false;
 }

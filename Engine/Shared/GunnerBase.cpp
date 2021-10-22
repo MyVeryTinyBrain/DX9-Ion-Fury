@@ -70,7 +70,7 @@ void GunnerBase::Update()
 
     if (!m_holdPosition)
     {
-        if (m_behavior == BehaviorType::WalkToPlayerDirection || m_behavior == BehaviorType::WalkToRandomCoord)
+        if (/*m_behavior == BehaviorType::WalkToPlayerDirection ||*/ m_behavior == BehaviorType::WalkToRandomCoord)
         {
             Vec3 temp;
             if (Abs(angleToPlayer) < 30 &&
@@ -102,7 +102,8 @@ void GunnerBase::Update()
                 }
                 else
                 {
-                    SetBehavior(BehaviorType::WalkToRandomCoord);
+                    BehaviorType behaviorType = (BehaviorType)(rand() % unsigned int(BehaviorType::Max));
+                    SetBehavior(behaviorType);
                 }
             }
             else

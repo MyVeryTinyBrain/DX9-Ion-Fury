@@ -183,6 +183,31 @@ void Player::SetHP(unsigned int hp)
 	m_hp = hp;
 }
 
+void Player::SetArmor(unsigned int armor)
+{
+	if (armor < 0)
+	{
+		armor = 0;
+	}
+
+	if (armor > 100)
+	{
+		armor = 100;
+	}
+
+	m_armor = armor;
+}
+
+void Player::SetCardKey(bool cardKey)
+{
+	if (!m_cardKey && cardKey)
+	{
+		m_controller->fpsCamera->fpsOrthoCamera->UI->ShowBlueScreenEffect();
+	}
+
+	m_cardKey = cardKey;
+}
+
 int Player::GetHP() const
 {
 	return m_hp;
@@ -191,6 +216,11 @@ int Player::GetHP() const
 int Player::GetArmor() const
 {
 	return m_armor;
+}
+
+bool Player::GetCardKey() const
+{
+	return m_cardKey;
 }
 
 void Player::AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count, bool effect)

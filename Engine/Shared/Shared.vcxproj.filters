@@ -393,6 +393,18 @@
     <ClInclude Include="ObjectManualDoor.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectRatAnimator.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectRat.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCardKey.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectCardScreen.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -675,6 +687,18 @@
       <Filter>Monster\Spider</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManualDoor.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectRatAnimator.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectRat.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemCardKey.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectCardScreen.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
