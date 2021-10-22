@@ -251,6 +251,8 @@ void DlgMapTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ScaleSlider, m_SliderControlScaleX);
 	DDX_Control(pDX, IDC_ScaleSlider2, m_SliderControlScaleY);
 	DDX_Control(pDX, IDC_ScaleSlider3, m_SliderControlScaleZ);
+	DDX_Control(pDX, IDC_RADIO3, m_ButtonGeometry);
+	DDX_Control(pDX, IDC_RADIO4, m_ButtonAlphaTest);
 }
 
 
@@ -291,6 +293,12 @@ void DlgMapTool::ReturnCollisionExistenceSelect(Pickable* pick)
 	m_ColliderExistence.SetCheck(pick->GetCollisionExistence());
 }
 
+void DlgMapTool::ReturnGeometryOrAlphaTest(Pickable* pick)
+{
+	CString MaterialType = pick->GetMaterialType();
+	SetCheckedButton(MaterialType);
+}
+
 void DlgMapTool::UpdateUVScale(Pickable* pick)
 {
 	float x = pick->GetUserMesh()->uvScale.x;
@@ -318,6 +326,32 @@ void DlgMapTool::NumToEdit(CEdit& edit, float num)
 {
 	wstring str = std::to_wstring(num);
 	edit.SetWindowTextW(str.c_str());
+}
+
+CString DlgMapTool::GetCheckedButton()
+{
+	CString MaterialType = L"";
+
+	int Geometry = m_ButtonGeometry.GetCheck();
+	int AlphaTest = m_ButtonAlphaTest.GetCheck();
+
+	if (Geometry)
+		MaterialType = L"Geometry";
+	else if (AlphaTest)
+		MaterialType = L"AlphaTest";
+
+	return MaterialType;
+}
+
+void DlgMapTool::SetCheckedButton(CString MaterialType)
+{
+	m_ButtonGeometry.SetCheck(0);
+	m_ButtonAlphaTest.SetCheck(0);
+
+	if (MaterialType == L"Geometry")
+		m_ButtonGeometry.SetCheck(1);
+	else if(MaterialType == L"AlphaTest")
+		m_ButtonAlphaTest.SetCheck(1);
 }
 
 Vec2 DlgMapTool::GetToolUVScale()
@@ -450,6 +484,9 @@ void DlgMapTool::OnBnClickedApply()
 		pick->SetCollisionExistence(m_ColliderExistence.GetCheck());
 
 		SetPickableObject(trans->GetGameObject());
+
+		//////////////////////////////////////////////////////////////////////
+		pick->SetMaterialTypeAs(GetCheckedButton());
 	}
 
 	//SetPickableObject(trans->GetGameObject());
@@ -501,6 +538,7 @@ void DlgMapTool::OnBnClickedSave()
 				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
 				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
 				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
+				MapValue["MaterialType"] = ToString(MapObject->GetMaterialType().GetString());
 
 				Root[i] = MapValue;
 			}
@@ -544,6 +582,7 @@ void DlgMapTool::OnBnClickedLoad()
 				wstring Name = ToWString(MapValue["Name"].asString());
 				wstring Tag = ToWString(MapValue["Tag"].asString());
 				wstring TexturePath = ToWString(MapValue["TexturePath"].asString());
+
 				int temp = MapValue["MeshType"].asInt();
 				COMBOBOX MeshType = (COMBOBOX)temp;
 			
@@ -553,6 +592,9 @@ void DlgMapTool::OnBnClickedLoad()
 				
 				Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
 				bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+
+				wstring MaterialType = ToWString(MapValue["MaterialType"].asString());
+
 				//==
 				GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
 				pObj->name = Name;
@@ -560,6 +602,7 @@ void DlgMapTool::OnBnClickedLoad()
 				Pickable* pick = pObj->AddComponent<Pickable>();
 				pick->PushInVector(Type::Map);
 				pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
+				pick->SetMaterialTypeAs(MaterialType.c_str());
 
 				pObj->transform->position = Pos;
 				pObj->transform->scale = Scale;
@@ -655,6 +698,10 @@ void DlgMapTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 void DlgMapTool::ClickAddButton()
 {
+	CString MaterialType = GetCheckedButton();
+	if (MaterialType == L"")
+		return;
+
 	CMainFrame* pMainFrame = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
 	CIonFuryEditorView* pView = dynamic_cast<CIonFuryEditorView*>(pMainFrame->GetActiveView());
 
@@ -672,6 +719,8 @@ void DlgMapTool::ClickAddButton()
 		m_objectTag.GetString(),
 		m_objectName.GetString(),
 		TexturePath.GetString());
+	pick->SetMaterialTypeAs(MaterialType);
+
 
 	SetPickableObject(pick->GetGameObject());
 	SelectObject();

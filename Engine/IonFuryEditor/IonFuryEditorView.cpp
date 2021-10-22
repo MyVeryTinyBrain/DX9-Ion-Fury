@@ -227,12 +227,23 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-	Pickable* pick = nullptr;
-	Gizmo* giz = nullptr;
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+
+	if (trans == nullptr)
+		return;
+
+	Pickable* pick = trans->GetGameObject()->GetComponent<Pickable>();
+	if (pick == nullptr)
+		return;
+
+	if (pick->GetType() != Type::Map)
+		return;
+
 	switch (nChar)
 	{
 	case 46:		//delete키
-		giz = EditorManager::GetInstance()->GetGizmo();
 		giz->DeleteAttachedObject();
 		giz->Detach();
 		giz->enable = false;
@@ -325,6 +336,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgMapTool.UpdateUVScale(pick);
 			m_dlgMapTool.ReturnComboBoxSelect(pick);
 			m_dlgMapTool.ReturnCollisionExistenceSelect(pick);
+			m_dlgMapTool.ReturnGeometryOrAlphaTest(pick);
 
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
@@ -582,6 +594,7 @@ void CIonFuryEditorView::OnFileSaveAs()
 				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
 				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
 				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
+				MapValue["MaterialType"] = ToString(MapObject->GetMaterialType().GetString());
 
 				MapObjects[i] = MapValue;
 			}
@@ -779,6 +792,8 @@ void CIonFuryEditorView::OnFileOpen()
 
 					Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
 					bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+
+					wstring MaterialType = ToWString(MapValue["MaterialType"].asString());
 					//==
 					GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
 					pObj->name = Name;
@@ -786,6 +801,7 @@ void CIonFuryEditorView::OnFileOpen()
 					Pickable* pick = pObj->AddComponent<Pickable>();
 					pick->PushInVector(Type::Map);
 					pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
+					pick->SetMaterialTypeAs(MaterialType.c_str());
 
 					pObj->transform->position = Pos;
 					pObj->transform->scale = Scale;

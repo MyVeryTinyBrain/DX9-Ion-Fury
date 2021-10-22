@@ -16,6 +16,8 @@
 #include <atlconv.h>
 //#include "../json/json.h"
 
+#define ScaleRate 5;
+
 // DlgMonsterTool 대화 상자
 
 IMPLEMENT_DYNAMIC(DlgMonsterTool, CDialog)
@@ -134,15 +136,15 @@ BOOL DlgMonsterTool::OnInitDialog()
 
 	{	//ScaleSlider 설정
 		m_SliderScaleX.SetRange(0, 100);
-		m_SliderScaleX.SetPos(20);
+		m_SliderScaleX.SetPos(5);
 		m_SliderScaleX.SetLineSize(10);
 
 		m_SliderScaleY.SetRange(0, 100);
-		m_SliderScaleY.SetPos(20);
+		m_SliderScaleY.SetPos(5);
 		m_SliderScaleY.SetLineSize(10);
 
 		m_SliderScaleZ.SetRange(0, 100);
-		m_SliderScaleZ.SetPos(20);
+		m_SliderScaleZ.SetPos(5);
 		m_SliderScaleZ.SetLineSize(10);
 	}
 
@@ -492,9 +494,9 @@ void DlgMonsterTool::AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 
 
 void DlgMonsterTool::SetScaleScrollToDefault(Pickable* picked)
 {
-	m_SliderScaleX.SetPos(20);
-	m_SliderScaleY.SetPos(20);
-	m_SliderScaleZ.SetPos(20);
+	m_SliderScaleX.SetPos(5);
+	m_SliderScaleY.SetPos(5);
+	m_SliderScaleZ.SetPos(5);
 
 	if (picked == nullptr || picked->GetType() == Type::Map)
 		return;
@@ -525,9 +527,9 @@ void DlgMonsterTool::SetScaleScrollToPicked(Pickable* picked)
 	Transform* ParentTransform = picked->GetGameObject()->GetTransform();
 	Vec3 Scale = ParentTransform->scale;
 
-	float ScaleX = Scale.x * 20.f;
-	float ScaleY = Scale.y * 20.f;
-	float ScaleZ = Scale.z * 20.f;
+	float ScaleX = Scale.x * 5.f;
+	float ScaleY = Scale.y * 5.f;
+	float ScaleZ = Scale.z * 5.f;
 
 	m_SliderScaleX.SetPos((int)ScaleX);
 	m_SliderScaleY.SetPos((int)ScaleY);
@@ -699,9 +701,9 @@ void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	if (picked->GetType() == Type::Map)
 		return;
 
-	float ScaleX = float(m_SliderScaleX.GetPos() / 20.f);
-	float ScaleY = float(m_SliderScaleY.GetPos() / 20.f);
-	float ScaleZ = float(m_SliderScaleZ.GetPos() / 20.f);
+	float ScaleX = float(m_SliderScaleX.GetPos() / 5.f);
+	float ScaleY = float(m_SliderScaleY.GetPos() / 5.f);
+	float ScaleZ = float(m_SliderScaleZ.GetPos() / 5.f);
 	giz->GetSelectedObject()->transform->SetScale(Vec3(ScaleX, ScaleY, ScaleZ));
 	
 	if (picked->GetType() == Type::EventObject)
