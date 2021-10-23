@@ -1862,11 +1862,11 @@
 			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
-			"PositionX" : 65.899993896484375,
-			"PositionY" : -0.39999997615814209,
-			"PositionZ" : 39.299995422363281,
-			"RotationX" : -0.0,
-			"RotationY" : -179.99998474121094,
+			"PositionX" : 65.899978637695312,
+			"PositionY" : -0.39999991655349731,
+			"PositionZ" : 39.29998779296875,
+			"RotationX" : 0.0,
+			"RotationY" : -179.99996948242188,
 			"RotationZ" : 0.0,
 			"ScaleX" : 1.0,
 			"ScaleY" : 1.0,
@@ -1919,13 +1919,13 @@
 			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
-			"PositionX" : 69.400001525878906,
-			"PositionY" : -3.9000000953674316,
-			"PositionZ" : 39.299999237060547,
+			"PositionX" : 69.899993896484375,
+			"PositionY" : -3.8999998569488525,
+			"PositionZ" : 39.299995422363281,
 			"RotationX" : 90.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0,
-			"ScaleX" : 6.0,
+			"ScaleX" : 7.0,
 			"ScaleY" : 6.0,
 			"ScaleZ" : 4.0,
 			"Tag" : "",
@@ -1976,18 +1976,18 @@
 			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
-			"PositionX" : 72.899993896484375,
-			"PositionY" : -1.8999998569488525,
-			"PositionZ" : 39.299995422363281,
+			"PositionX" : 72.900001525878906,
+			"PositionY" : -1.8999999761581421,
+			"PositionZ" : 41.799999237060547,
 			"RotationX" : 0.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0,
 			"ScaleX" : 1.0,
 			"ScaleY" : 4.0,
-			"ScaleZ" : 6.0,
+			"ScaleZ" : 1.0,
 			"Tag" : "",
 			"TexturePath" : "../SharedResource/Texture/map/32.png",
-			"UVScaleX" : 4.0,
+			"UVScaleX" : 0.25,
 			"UVScaleY" : 1.0
 		},
 		{
@@ -2179,6 +2179,44 @@
 			"TexturePath" : "../SharedResource/Texture/map/12.png",
 			"UVScaleX" : 1.0,
 			"UVScaleY" : 8.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : 72.400001525878906,
+			"PositionY" : -0.40000000596046448,
+			"PositionZ" : 39.299999237060547,
+			"RotationX" : 0.0,
+			"RotationY" : 90.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 4.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/32-1.png",
+			"UVScaleX" : 2.0,
+			"UVScaleY" : 0.5
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 72.900001525878906,
+			"PositionY" : -1.8999999761581421,
+			"PositionZ" : 36.799999237060547,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 4.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/32.png",
+			"UVScaleX" : 0.25,
+			"UVScaleY" : 1.0
 		}
 	],
 	"TriggerEvents" : 
@@ -2197,7 +2235,7 @@
 				"ScaleZ" : 2.6500000953674316,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 2,
@@ -2331,7 +2369,7 @@
 				"ScaleZ" : 0.20000000298023224,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 14,
@@ -2374,7 +2412,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 12,
@@ -2482,7 +2520,7 @@
 				"ScaleZ" : 0.34999999403953552,
 				"TriggerMethod" : 3,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 13,
@@ -2629,7 +2667,7 @@
 				"ScaleZ" : 9.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 5,
@@ -2682,66 +2720,14 @@
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
 				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_34",
-				"PositionX" : -6.4091019630432129,
-				"PositionY" : -3.4281790256500244,
-				"PositionZ" : 27.196998596191406,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_35",
-				"PositionX" : -9.2409162521362305,
-				"PositionY" : -3.5145668983459473,
-				"PositionZ" : 27.341791152954102,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_36",
-				"PositionX" : -9.2409162521362305,
-				"PositionY" : -3.6311280727386475,
-				"PositionZ" : 26.116231918334961,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_37",
-				"PositionX" : -6.6111207008361816,
-				"PositionY" : -3.4774792194366455,
-				"PositionZ" : 25.961217880249023,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
 			}
 		],
 		[
 			{
 				"Name" : "BossEntrance_Trigger",
-				"PositionX" : 36.799983978271484,
-				"PositionY" : -2.6389601230621338,
-				"PositionZ" : 36.887008666992188,
+				"PositionX" : 36.799980163574219,
+				"PositionY" : -2.6389598846435547,
+				"PositionZ" : 36.887004852294922,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -2750,7 +2736,7 @@
 				"ScaleZ" : 0.64999997615814209,
 				"TriggerMethod" : 3,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 13,
@@ -2806,7 +2792,7 @@
 				"ScaleZ" : 5.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			}
 		],
 		[
@@ -2823,33 +2809,7 @@
 				"ScaleZ" : 1.7999999523162842,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 9
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_38",
-				"PositionX" : -17.516410827636719,
-				"PositionY" : -7.103672981262207,
-				"PositionZ" : 15.522823333740234,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_39",
-				"PositionX" : -17.520561218261719,
-				"PositionY" : -7.1600532531738281,
-				"PositionZ" : 17.669145584106445,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 7,
@@ -2905,7 +2865,7 @@
 				"ScaleZ" : 0.80000001192092896,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 9
+				"TriggerToolAutoNum" : 10
 			},
 			{
 				"EventType" : 14,
@@ -2931,6 +2891,36 @@
 				"RotationZ" : 0.0,
 				"ScaleX" : 4.8000001907348633,
 				"ScaleY" : 3.4000000953674316,
+				"ScaleZ" : 1.0
+			}
+		],
+		[
+			{
+				"Name" : "Trigger_9",
+				"PositionX" : 71.999992370605469,
+				"PositionY" : -4.0999994277954102,
+				"PositionZ" : 39.299995422363281,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 2,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 10
+			},
+			{
+				"EventType" : 12,
+				"Name" : "Event_46",
+				"PositionX" : 72.567207336425781,
+				"PositionY" : -2.2562904357910156,
+				"PositionZ" : 39.299983978271484,
+				"RotationX" : 0.0,
+				"RotationY" : 89.999984741210938,
+				"RotationZ" : 0.0,
+				"ScaleX" : 4.8000001907348633,
+				"ScaleY" : 3.2000000476837158,
 				"ScaleZ" : 1.0
 			}
 		]

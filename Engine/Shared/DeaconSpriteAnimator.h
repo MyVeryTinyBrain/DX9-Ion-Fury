@@ -33,15 +33,11 @@ public:
 
 	void PlayDie();
 
-	void PlayIdle();
-
 	void PlayDamage();
 
 	void PlaySmoke();
 
 	bool IsPlayingMove() const;
-	
-	bool IsPlayingIdle() const;
 
 	bool IsPlayingShoot() const;
 
@@ -52,8 +48,6 @@ public:
 	bool IsPlayingDamage() const;
 
 	SpriteAnimation* GetMove() const;
-
-	SpriteAnimation* GetIdle() const;
 
 	SpriteAnimation* GetShoot() const;
 
@@ -80,7 +74,7 @@ private:
 
 	SpriteAnimation* m_dead;	//¡◊¿ª∂ß
 
-	SpriteAnimation* m_Idle;	//¿Ã∆Â∆Æ
+	SpriteAnimation* m_smoke;	//¿Ã∆Â∆Æ
 
 	SpriteAnimation* m_damage;	//¿Ã∆Â∆Æ
 
@@ -88,17 +82,8 @@ private:
 
 	SpriteAnimation* m_flyeffect;
 
-
 public:
 
-public:
-
-	Delegate<void()> OnPlayedFly;
-
-	Delegate<void()> OnPlayedLand;
-
-	Delegate<void()> OnPlayedAttack;
-
-	Delegate<void()> OnPlayedDie;
+	Delegate<void()> OnDeadAnimated;
 };
 
