@@ -14,6 +14,10 @@ class MutantPoison : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
+private:
+	void ShootToPlayer();
+
+	Vec3 GetXZDirection(const Vec3& point) const;
 
 private:
 	MutantSpriteAnimator* m_animator = nullptr;
@@ -28,7 +32,7 @@ private:
 
 	Material* m_material = nullptr;
 
-	float m_radius = 0.5f;
+	float m_radius = 0.1f;
 
 	float m_selfDestroyCounter = 3.0f;
 
