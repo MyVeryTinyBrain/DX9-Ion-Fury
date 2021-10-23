@@ -124,6 +124,11 @@ void Trigger::ActiveAllGameObjects()
 
 void Trigger::Use()
 {
+	if (m_used && m_once)
+	{
+		return;
+	}
+
 	bool valid = true;
 
 	switch (m_method)
@@ -136,14 +141,14 @@ void Trigger::Use()
 			break;
 	}
 
-	if (!valid)
+	if (valid)
 	{
 		m_used = true;
+
+		ActiveAllGameObjects();
+
+		OnTrigger();
 	}
-
-	ActiveAllGameObjects();
-
-	OnTrigger();
 
 	for (auto& comp : m_connected)
 	{
