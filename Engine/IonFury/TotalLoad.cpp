@@ -159,6 +159,59 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 
 	switch (data.type)
 	{
+<<<<<<< HEAD
+=======
+		case EventType::ObjectAutoDoor:
+			comp = obj->AddComponent<ObjectAutoDoor>();
+			break;
+		case EventType::ObjectManualDoor:
+			comp = obj->AddComponent<ObjectManualDoor>();
+			break;
+		case EventType::ObjectButton:
+			comp = obj->AddComponent<ObjectButton>();
+			break;
+		case EventType::ObjectCardScreen:
+			comp = obj->AddComponent<ObjectCardScreen>();
+			break;
+
+			/*
+			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo,
+	ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
+	EventObjectEnd };	//추후 몬스터가 정해지면 수정
+			*/
+
+		case EventType::Mutant:
+			comp = obj->AddComponent<Mutant>();
+			break;
+		case EventType::BasicMutant:
+			comp = obj->AddComponent<BasicMutant>();
+			break;
+		case EventType::CultistArcher:
+			comp = obj->AddComponent<CultistArcher>();
+			break;
+		case EventType::CultistGunner:
+			comp = obj->AddComponent<CultistGunner>();
+			break;
+		case EventType::Deacon:
+			comp = obj->AddComponent<Deacon>();
+			break;
+		case EventType::Drone:
+			comp = obj->AddComponent<Drone>();
+			break;
+		case EventType::Liberator:
+			comp = obj->AddComponent<Liberator>();
+			break;
+		case EventType::Spider:
+			comp = obj->AddComponent<Spider>();
+			break;
+		case EventType::Skull:
+			comp = obj->AddComponent<Skull>();
+			break;
+		case EventType::Warmech:
+			comp = obj->AddComponent<Warmech>();
+			break;
+
+>>>>>>> main
 		default:
 			obj->Destroy();
 			break;
