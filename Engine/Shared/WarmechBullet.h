@@ -14,7 +14,6 @@ class WarmechBullet : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
-	void OnCollisionEnter(const CollisionEnter& collider);
 
 private:
 
@@ -42,8 +41,7 @@ private:
 
 	Vec3 forward;
 
-	BoxCollider* m_collider = nullptr;
+	bool m_hitCheck = false;
 
-	GameObject* m_colliderObj = nullptr;
 };
 

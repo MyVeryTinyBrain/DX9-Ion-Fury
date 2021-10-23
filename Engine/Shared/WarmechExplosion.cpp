@@ -19,10 +19,6 @@ void WarmechExplosion::Awake()
 	m_renderer->freezeX = false;
 	m_renderer->freezeZ = false;
 
-	m_colliderObj = CreateGameObjectToChild(gameObject->transform);
-	m_collider = m_colliderObj->AddComponent<BoxCollider>();
-	m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &WarmechExplosion::OnCollisionEnter);
-
 	m_quad = UserMesh::CreateUnmanaged<QuadUserMesh>();
 	m_renderer->userMesh = m_quad;
 
@@ -44,20 +40,4 @@ void WarmechExplosion::OnDestroy()
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
 
-	if (m_collider)
-	{
-		m_collider->OnCollisionEnter -= Function<void(const CollisionEnter&)>(this, &WarmechExplosion::OnCollisionEnter);
-
-		m_collider->Destroy();
-
-		m_collider = nullptr;
-	}
-}
-
-void WarmechExplosion::OnCollisionEnter(const CollisionEnter& collider)
-{
-	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
-	{
-		Player::GetInstance()->TakeDamage(1);
-	}
 }

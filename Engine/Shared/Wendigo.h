@@ -78,5 +78,7 @@ private:
 	float m_PatternTime = 0;
 
 	bool m_hasAttack = false;
+
+	float m_swingcount = 0.f;
 };
 

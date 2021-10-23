@@ -62,4 +62,6 @@ private:
 
 	bool m_damageToPlayer = false;
 
+	float m_movingTime = 0.f;
+
 };

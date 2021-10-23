@@ -72,13 +72,13 @@ void Wendigo::Update()
 		return;
 	}
 
-	//Jump();
+	Jump();
 
 	AttackToPlayer();
 
 	m_PatternTime += Time::DeltaTime();
 
-	if (m_PatternTime > 1.f)
+	if (m_PatternTime > 2.f)
 	{
 		actionType = (ActionType)(rand() % unsigned int(ActionType::Max));
 		SetAction(actionType);
@@ -87,10 +87,12 @@ void Wendigo::Update()
 
 	if (m_animator->IsPlayingIdle() && m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 	{
+		m_swingcount = 0.f;
 		m_animator->PlayWalk();
 	}
 	else if (m_animator->IsPlayingWalk() && m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
 	{
+		m_swingcount = 0.f;
 		m_animator->PlayIdle();
 	}
 
@@ -278,7 +280,7 @@ void Wendigo::JumpCheck()
 	mosterToPlayerDir.Normalize();
 
 	RaycastHit hit1;
-	PhysicsRay ray1(transform->position + Vec3::down(), mosterToPlayerDir, sqrtf(20.0f));
+	PhysicsRay ray1(transform->position + Vec3::down(), mosterToPlayerDir, sqrtf(2.0f));
 
 	m_jumptime += Time::FixedDeltaTime();
 
@@ -335,18 +337,28 @@ void Wendigo::TerrainCheck()
 
 void Wendigo::AttackToPlayer()
 {
+	if (m_swingcount > 0.f)
+	{
+		return;
+	}
+
 	float distanceToPlayer = Vec3::Distance(transform->position, Player::GetInstance()->transform->position);
 
 	float angle = AngleToPlayer();
 	 
+	
+
 	if (distanceToPlayer < 2.f && Abs(angle) < 45.f && m_animator->IsPlayingSwing())
 	{
 		cout << "attack" << endl;
-
-		//Player::GetInstance()->TakeDamage(1);
+		++m_swingcount;
+		//m_swingcount += Time::DeltaTime();
+		Player::GetInstance()->TakeDamage(1);
 
 		m_hasAttack = false;
 	}
+	//else
+	//	m_swingcount = 0.f;
 }
 
 void Wendigo::SetAction(ActionType type)

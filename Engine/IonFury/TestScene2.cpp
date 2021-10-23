@@ -7,6 +7,8 @@
 #include "Warmech.h"
 #include "ObjectVent.h"
 #include "Wendigo.h"
+#include "TotalLoad.h"
+
 
 IClonable* TestScene2::Clone()
 {
@@ -15,6 +17,7 @@ IClonable* TestScene2::Clone()
 
 void TestScene2::OnLoad(Scene* beforeScene)
 {
+	TotalLoad::Load(L"../Data/Total/jihyunmap.txt");
 
 	{
 		auto skyboxObj = CreateGameObject();
@@ -46,28 +49,28 @@ void TestScene2::OnLoad(Scene* beforeScene)
 		auto controller = obj->AddComponent<Player>();
 	}
 
-	{    // Create Object
-	    auto obj = CreateGameObject();
-	    obj->transform->position = Vec3(0, -1.7f, 3);
-	    obj->transform->scale = Vec3(2, 1, 1);
-	    obj->AddComponent<ObjectVent>();
-	}
+	//{    // Create Object
+	//    auto obj = CreateGameObject();
+	//    obj->transform->position = Vec3(0, -1.7f, 3);
+	//    obj->transform->scale = Vec3(2, 1, 1);
+	//    obj->AddComponent<ObjectVent>();
+	//}
 
-	{   // Create ground
-		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0, -3, 0);
-		obj->transform->scale = Vec3(100, 1, 100);
+	//{   // Create ground
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(0, -3, 0);
+	//	obj->transform->scale = Vec3(100, 1, 100);
 
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+	//	auto renderer = obj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
-		auto body = obj->AddComponent<Rigidbody>();
-		body->isKinematic = true;
+	//	auto body = obj->AddComponent<Rigidbody>();
+	//	body->isKinematic = true;
 
-		auto collider = obj->AddComponent<BoxCollider>();
-		collider->friction = 1.0f;
-	}
+	//	auto collider = obj->AddComponent<BoxCollider>();
+	//	collider->friction = 1.0f;
+	//}
 
 	//{   // Create ground
 	//	auto obj = CreateGameObject();
@@ -86,21 +89,21 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//}
 
 
-	{   // Create obstacle
-		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0, -2, -3);
-		obj->transform->scale = Vec3(15, 1, 1);
+	//{   // Create obstacle
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(0, -2, -3);
+	//	obj->transform->scale = Vec3(15, 1, 1);
 
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+	//	auto renderer = obj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
-		auto body = obj->AddComponent<Rigidbody>();
-		body->isKinematic = true;
+	//	auto body = obj->AddComponent<Rigidbody>();
+	//	body->isKinematic = true;
 
-		auto collider = obj->AddComponent<BoxCollider>();
-		collider->friction = 1.0f;
-	}
+	//	auto collider = obj->AddComponent<BoxCollider>();
+	//	collider->friction = 1.0f;
+	//}
 
 	//{   // Create triangle
 	//    auto obj = CreateGameObject();
@@ -199,16 +202,16 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//		auto obj = CreateGameObject();
 	//		obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
 	//		obj->transform->eulerAngle = Vec3(0, 90, 0);
-	//		//obj->AddComponent<Drone>();
-	//		obj->AddComponent<Spider>();
+	//		obj->AddComponent<Drone>();
+	//		//obj->AddComponent<Spider>();
 	//	}
 	//}
-	 
-	{
-	    auto obj = CreateGameObject();
-	    obj->transform->position = Vec3(0, 2, -10);
-	    obj->AddComponent<Wendigo>();
-	}
+	// 
+	//{
+	//    auto obj = CreateGameObject();
+	//    obj->transform->position = Vec3(0, 2, -10);
+	//    obj->AddComponent<Wendigo>();
+	//}
 
 }
 

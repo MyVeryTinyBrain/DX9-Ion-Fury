@@ -26,9 +26,6 @@ void WarmechBullet::Awake()
 	m_renderer->freezeZ = true;
 	m_renderer->material = m_material;
 
-	//m_colliderObj = CreateGameObjectToChild(gameObject->transform);
-	//m_collider = m_colliderObj->AddComponent<SphereCollider>();
-	//m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &WarmechBullet::OnCollisionEnter);
 
 	m_quad = UserMesh::CreateUnmanaged<QuadUserMesh>();
 	m_renderer->userMesh = m_quad;
@@ -46,6 +43,10 @@ void WarmechBullet::Awake()
 
 void WarmechBullet::FixedUpdate()
 {
+	if (m_hitCheck)
+		return;
+
+
 	Collider* collider = Physics::OverlapSphere(
 		m_radius,
 		transform->position,
@@ -61,6 +62,8 @@ void WarmechBullet::FixedUpdate()
 		else if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
 		{
 			Player::GetInstance()->TakeDamage(1);
+
+			m_hitCheck = true;
 		}
 	}
 }
@@ -103,22 +106,5 @@ void WarmechBullet::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
-
-	if (m_collider)
-	{
-		m_collider->OnCollisionEnter -= Function<void(const CollisionEnter&)>(this, &WarmechBullet::OnCollisionEnter);
-
-		m_collider->Destroy();
-
-		m_collider = nullptr;
-	}
-
 }
 
-void WarmechBullet::OnCollisionEnter(const CollisionEnter& collider)
-{
-	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
-	{
-		Player::GetInstance()->TakeDamage(1);
-	}
-}

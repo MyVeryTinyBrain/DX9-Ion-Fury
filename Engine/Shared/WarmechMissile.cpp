@@ -61,6 +61,28 @@ void WarmechMissile::Awake()
 	//}
 }
 
+void WarmechMissile::FixedUpdate()
+{
+	if (m_hitCheck)
+		return;
+
+	Collider* collider = Physics::OverlapSphere(
+		m_radius,
+		transform->position,
+		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
+		PhysicsQueryType::Collider);
+
+	if (collider)
+	{
+		 if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+		{
+			Player::GetInstance()->TakeDamage(1);
+
+			m_hitCheck = true;
+		}
+	}
+}
+
 void WarmechMissile::Update()
 {
 
@@ -146,8 +168,6 @@ void WarmechMissile::OnCollisionEnter(const CollisionEnter& collider)
 	}
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
 	{
-		Player::GetInstance()->TakeDamage(1);
-
 		Explosion();
 
 		gameObject->Destroy();
