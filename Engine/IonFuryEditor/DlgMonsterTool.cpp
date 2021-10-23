@@ -16,8 +16,6 @@
 #include <atlconv.h>
 //#include "../json/json.h"
 
-#define ScaleRate 5;
-
 // DlgMonsterTool 대화 상자
 
 IMPLEMENT_DYNAMIC(DlgMonsterTool, CDialog)
@@ -136,15 +134,15 @@ BOOL DlgMonsterTool::OnInitDialog()
 
 	{	//ScaleSlider 설정
 		m_SliderScaleX.SetRange(0, 100);
-		m_SliderScaleX.SetPos(5);
+		m_SliderScaleX.SetPos(20);
 		m_SliderScaleX.SetLineSize(10);
 
 		m_SliderScaleY.SetRange(0, 100);
-		m_SliderScaleY.SetPos(5);
+		m_SliderScaleY.SetPos(20);
 		m_SliderScaleY.SetLineSize(10);
 
 		m_SliderScaleZ.SetRange(0, 100);
-		m_SliderScaleZ.SetPos(5);
+		m_SliderScaleZ.SetPos(20);
 		m_SliderScaleZ.SetLineSize(10);
 	}
 
@@ -492,11 +490,21 @@ void DlgMonsterTool::AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 
 	++m_EventCnt;
 }
 
+void DlgMonsterTool::StatusWhileMouseMove(Pickable* picked)
+{
+	UpdateData(TRUE);
+	Transform* trans = picked->GetGameObject()->GetTransform();
+	m_PosX = trans->position.x;
+	m_PosY = trans->position.y;
+	m_PosZ = trans->position.z;
+	UpdateData(FALSE);
+}
+
 void DlgMonsterTool::SetScaleScrollToDefault(Pickable* picked)
 {
-	m_SliderScaleX.SetPos(5);
-	m_SliderScaleY.SetPos(5);
-	m_SliderScaleZ.SetPos(5);
+	m_SliderScaleX.SetPos(20);
+	m_SliderScaleY.SetPos(20);
+	m_SliderScaleZ.SetPos(20);
 
 	if (picked == nullptr || picked->GetType() == Type::Map)
 		return;
@@ -527,9 +535,9 @@ void DlgMonsterTool::SetScaleScrollToPicked(Pickable* picked)
 	Transform* ParentTransform = picked->GetGameObject()->GetTransform();
 	Vec3 Scale = ParentTransform->scale;
 
-	float ScaleX = Scale.x * 5.f;
-	float ScaleY = Scale.y * 5.f;
-	float ScaleZ = Scale.z * 5.f;
+	float ScaleX = Scale.x * 20.f;
+	float ScaleY = Scale.y * 20.f;
+	float ScaleZ = Scale.z * 20.f;
 
 	m_SliderScaleX.SetPos((int)ScaleX);
 	m_SliderScaleY.SetPos((int)ScaleY);
@@ -701,9 +709,9 @@ void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	if (picked->GetType() == Type::Map)
 		return;
 
-	float ScaleX = float(m_SliderScaleX.GetPos() / 5.f);
-	float ScaleY = float(m_SliderScaleY.GetPos() / 5.f);
-	float ScaleZ = float(m_SliderScaleZ.GetPos() / 5.f);
+	float ScaleX = float(m_SliderScaleX.GetPos() / 20.f);
+	float ScaleY = float(m_SliderScaleY.GetPos() / 20.f);
+	float ScaleZ = float(m_SliderScaleZ.GetPos() / 20.f);
 	giz->GetSelectedObject()->transform->SetScale(Vec3(ScaleX, ScaleY, ScaleZ));
 	
 	if (picked->GetType() == Type::EventObject)
@@ -1006,6 +1014,8 @@ void DlgMonsterTool::OnBnClickedPositionApplyButton()
 	//오류방지턱
 
 	trans->position = Vec3(m_PosX, m_PosY, m_PosZ);
+
+	UpdateData(FALSE);
 }
 
 
@@ -1030,6 +1040,12 @@ void DlgMonsterTool::OnBnClickedScaleApplyButton()
 	trans->scale = Vec3(m_ScaleX, m_ScaleY, m_ScaleZ);
 	if (Picked->GetType() == Type::EventObject)
 		Picked->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
+
+	m_SliderScaleX.SetPos((int)(m_ScaleX * 20));
+	m_SliderScaleY.SetPos((int)(m_ScaleY * 20));
+	m_SliderScaleZ.SetPos((int)(m_ScaleZ * 20));
+
+	UpdateData(FALSE);
 }
 
 
@@ -1052,4 +1068,8 @@ void DlgMonsterTool::OnBnClickedRotationApplyButton()
 	//오류방지턱
 
 	trans->eulerAngle = Vec3(m_RotX, m_RotY, m_RotZ);
+
+	m_SliderRotationX.SetPos((int)(m_RotX + 180));
+	m_SliderRotationY.SetPos((int)(m_RotY + 180));
+	m_SliderRotationZ.SetPos((int)(m_RotZ + 180));
 }

@@ -438,6 +438,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			return;
 
 		Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+		GameObject* pickObj = nullptr;
 
 		// 1.Obj에 대해
 		if (picked)
@@ -447,9 +448,13 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			switch (type)
 			{
 			case Type::Map:
-				auto pickObj = trans->GetGameObject();
+				pickObj = trans->GetGameObject();
 				m_dlgMapTool.SetPickableObject(pickObj);
 				m_dlgMapTool.SelectObject();
+				break;
+			case Type::EventObject:
+			case Type::Trigger:
+				m_dlgMonsterTool.StatusWhileMouseMove(picked);
 				break;
 			}
 		}
