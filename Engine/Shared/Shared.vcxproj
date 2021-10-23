@@ -80,10 +80,12 @@
     <ClInclude Include="ObjectAutoDoor.h" />
     <ClInclude Include="ObjectButton.h" />
     <ClInclude Include="ObjectCardScreen.h" />
+    <ClInclude Include="Objectelevator.h" />
     <ClInclude Include="ObjectManualDoor.h" />
     <ClInclude Include="ObjectRat.h" />
     <ClInclude Include="ObjectRatAnimator.h" />
     <ClInclude Include="ObjectStair.h" />
+    <ClInclude Include="ObjectVent.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
@@ -184,10 +186,12 @@
     <ClCompile Include="ObjectAutoDoor.cpp" />
     <ClCompile Include="ObjectButton.cpp" />
     <ClCompile Include="ObjectCardScreen.cpp" />
+    <ClCompile Include="Objectelevator.cpp" />
     <ClCompile Include="ObjectManualDoor.cpp" />
     <ClCompile Include="ObjectRat.cpp" />
     <ClCompile Include="ObjectRatAnimator.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
+    <ClCompile Include="ObjectVent.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />
