@@ -21,7 +21,7 @@ unsigned int CultistArcher::GetAttackCount()
 
 float CultistArcher::GetDamagedRevengeAttackWaitTime()
 {
-    return 0.0f;
+    return 0.5f;
 }
 
 float CultistArcher::GetBreakTime()

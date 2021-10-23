@@ -225,6 +225,8 @@ void Scene::StepFixedUpdate()
 void Scene::StepUpdate()
 {
 	m_componentExecutioner->ExecuteUpdate();
+
+	OnUpdate();
 }
 
 void Scene::StepBeginRender()

@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "PhysicsLayers.h"
 #include "Player.h"
+#include "SoundMgr.h"
 
 void Item::Awake()
 {
@@ -59,6 +60,7 @@ void Item::Update()
 		if (destroy)
 		{
 			gameObject->Destroy();
+			SoundMgr::Play(L"../SharedResource/Sound/item/get.ogg", CHANNELID::ITEM);
 		}
 	}
 

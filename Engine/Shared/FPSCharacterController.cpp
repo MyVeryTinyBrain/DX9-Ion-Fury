@@ -103,7 +103,7 @@ void FPSCharacterController::FixedUpdate()
             speedFactor = 1.65f;
         }
 
-        m_footstepCounter -= Time::DeltaTime() * speedFactor;
+        m_footstepCounter -= Time::FixedDeltaTime() * speedFactor;
 
         if (m_footstepCounter <= 0 && m_hasGround)
         {
@@ -150,7 +150,7 @@ void FPSCharacterController::Update()
     if (m_moveDirection.sqrMagnitude() > 0)
         m_camera->fpsOrthoCamera->SetWalkingState(true);
 
-    if (m_hasGround && Input::GetKey(Key::LCtrl))
+    if (Input::GetKey(Key::LCtrl))
     {
         m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(0.35f);
     }
@@ -158,7 +158,7 @@ void FPSCharacterController::Update()
     {
         m_body->AddForce(Vec3::up() * 0.1f, ForceMode::Force);
     }
-    else if (m_hasGround && Input::GetKey(Key::LShift))
+    else if (Input::GetKey(Key::LShift))
     {
         m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(1.65f);
     }

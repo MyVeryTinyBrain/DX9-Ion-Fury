@@ -821,7 +821,7 @@
 			"UVScaleY" : 1.0
 		},
 		{
-			"ColliderExistence" : true,
+			"ColliderExistence" : false,
 			"MeshType" : 1,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -839,7 +839,7 @@
 			"UVScaleY" : 1.0
 		},
 		{
-			"ColliderExistence" : true,
+			"ColliderExistence" : false,
 			"MeshType" : 1,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,

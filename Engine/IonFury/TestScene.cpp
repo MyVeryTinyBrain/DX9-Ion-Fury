@@ -54,65 +54,6 @@ void TestScene::OnLoad(Scene* beforeScene)
         obj->transform->position = Vec3(0, 1, 0);
     }
 
-    if (1)
-    {
-        auto obj = CreateGameObject();
-        auto controller = obj->AddComponent<ObjectRat>();
-        obj->transform->position = Vec3(12.8f, 0, 19.5f);
-    }
-
-    if (1)
-    {
-        auto obj = CreateGameObject();
-        auto controller = obj->AddComponent<ObjectRat>();
-        obj->transform->position = Vec3(6, 0, 24);
-    }
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, -0.5f + 0.6f, 3.0f);
-        obj->AddComponent<ItemCardKey>();
-    }
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(0, -0.5f + 0.6f, 2.0f);
-        obj->AddComponent<ItemArmor>();
-    }
-
-    auto doorObj = CreateGameObject();
-    doorObj->transform->position = Vec3(0, -0.5f + 0.6f, 4.2f);
-    doorObj->transform->scale = Vec3(2.5f, 4.5f, 1);
-    auto door = doorObj->AddComponent<ObjectManualDoor>();
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(2, -0.5f, 3.0f);
-        obj->transform->localEulerAngle = Vec3(0, -90, 0);
-        obj->transform->localScale = Vec3(1, 2, 1);
-
-        auto trigger = obj->AddComponent<Trigger>();
-        trigger->SetMethod(Trigger::Method::Button);
-
-        auto button = obj->AddComponent<ObjectButton>();
-        trigger->AddSubordinationComponent(button);
-        trigger->AddSubordinationComponent(door);
-    }
-
-    {
-        auto obj = CreateGameObject();
-        obj->transform->position = Vec3(2, -0.5f, 0.0f);
-        obj->transform->localEulerAngle = Vec3(0, -90, 0);
-        obj->transform->localScale = Vec3(1, 2, 1);
-
-        auto trigger = obj->AddComponent<Trigger>();
-        trigger->SetMethod(Trigger::Method::CardKey);
-
-        auto cardScreen = obj->AddComponent<ObjectCardScreen>();
-        trigger->AddSubordinationComponent(cardScreen);
-        trigger->AddSubordinationComponent(door);
-    }
-
     //{
     //    auto parent = CreateGameObject();
     //    parent->transform->position = Vec3(0, -2, 2);

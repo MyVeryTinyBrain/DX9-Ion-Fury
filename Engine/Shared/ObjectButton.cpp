@@ -1,6 +1,7 @@
 #include "shared_stdafx.h"
 #include "ObjectButton.h"
 #include "Cube.h"
+#include "SoundMgr.h"
 
 void ObjectButton::Awake()
 {
@@ -42,4 +43,6 @@ void ObjectButton::Update()
 void ObjectButton::OnUse(bool valid)
 {
 	m_cube->forward->SetTexture(0, m_pressTexture);
+
+	SoundMgr::Play(L"../SharedResource/Sound/input/button.ogg", CHANNELID::OBJECT_INPUT);
 }
