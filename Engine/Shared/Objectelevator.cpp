@@ -78,11 +78,14 @@ void Objectelevator::Update()
 	if (Input::GetKey(Key::G))
 	{
 		opendoor = true;
+		closedoor = false;
 	}
 
 	if (Input::GetKey(Key::F))
 	{
 		opendoor = false;
+		closedoor = true;
+
 	}
 
 	ElevatorDoorControl();
@@ -126,21 +129,24 @@ void Objectelevator::ElevatorDoorControl()
 		m_leftdoor->transform->localPosition += Vec3(0.1f, 0, 0) * Time::DeltaTime();
 		m_rightdoor->transform->localPosition -= Vec3(0.1f, 0, 0) * Time::DeltaTime();
 	
-		if (leftfirstlocalpositon.x == m_leftdoor->transform->localPosition.x)
+		cout <<  m_leftdoor->transform->localPosition.x << endl;
+
+
+		if (m_leftdoor->transform->localPosition.x >= 0.6f)
 		{
-			GoDownElevator = false;
-			return;
+			opendoor = false;
+			closedoor = true;
 		}
 	}
 
-	if (!opendoor) //´ÝÈ÷´Â°Å
+	if (closedoor) //´ÝÈ÷´Â°Å
 	{
-		m_rightdoor->transform->localPosition -= Vec3(0.1f, 0, 0) * Time::DeltaTime();
-		m_leftdoor->transform->localPosition += Vec3(0.1f, 0, 0) * Time::DeltaTime();
+		m_leftdoor->transform->localPosition -= Vec3(0.1f, 0, 0) * Time::DeltaTime();
+		m_rightdoor->transform->localPosition += Vec3(0.1f, 0, 0) * Time::DeltaTime();
 
-		if (Abs(leftfirstlocalpositon.x - m_leftdoor->transform->localPosition.x) > 1.f)
+		if (m_leftdoor->transform->localPosition.x <= 0.25f)
 		{
-			GoUpElevator = false;
+			closedoor = false;
 			return;
 		}
 	}

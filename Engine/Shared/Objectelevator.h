@@ -60,6 +60,8 @@ private:
 	int m_Floor = 0;
 
 	bool opendoor = false;
+	bool closedoor = false;
+
 
 	Vec3  leftfirstlocalpositon;
 	Vec3  rightfirstlocalpositon;
