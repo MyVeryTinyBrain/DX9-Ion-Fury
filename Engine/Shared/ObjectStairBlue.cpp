@@ -1,8 +1,8 @@
 #include "shared_stdafx.h"
-#include "ObjectStair.h"
+#include "ObjectStairBlue.h"
 #include "Cube.h"
 
-void ObjectStair::Awake()
+void ObjectStairBlue::Awake()
 {
 	//{
 	//	auto debugRendererObj = CreateGameObjectToChild(transform);
@@ -31,38 +31,58 @@ void ObjectStair::Awake()
 	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInRightTriangleUserMesh);
 	//}
 
+	auto SetTexture = [&](Cube* cube)
+	{
+		cube->top->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/map/16.png"));
+		cube->back->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/map/16.png"));
+		cube->forward->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/map/20.png"));
+		cube->left->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/map/20.png"));
+		cube->right->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/map/20.png"));
+		cube->bottom->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/map/20.png"));
+	};
+
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		obj->AddComponent<Cube>();
+		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, -0.4f, 0);
 		obj->transform->localScale = Vec3(1, 0.2f, 1);
+
+		SetTexture(cube);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		obj->AddComponent<Cube>();
+		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, -0.2f, 0.1f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.8f);
+
+		SetTexture(cube);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		obj->AddComponent<Cube>();
+		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.0f, 0.2f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.6f);
+
+		SetTexture(cube);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		obj->AddComponent<Cube>();
+		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.2f, 0.3f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.4f);
+
+		SetTexture(cube);
 	}
 
 	{
 		auto obj = CreateGameObjectToChild(transform);
-		obj->AddComponent<Cube>();
+		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.4f, 0.4f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.2f);
+
+		SetTexture(cube);
 	}
 }

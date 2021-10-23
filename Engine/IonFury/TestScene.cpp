@@ -15,7 +15,6 @@
 #include "ItemRevolverAmmo.h"
 #include "ItemShotgunAmmo.h"
 #include "ItemSMGAmmo.h"
-#include "ObjectStair.h"
 #include "Cube.h"
 #include "Skull.h"
 #include <ObjectRat.h>
@@ -26,6 +25,13 @@
 #include <ObjectAutoDoor.h>
 #include <ObjectManualDoor.h>
 
+#include <ObjectStairBlue.h>
+#include <ObjectStairConcrete.h>
+#include <ObjectStairWood.h>
+#include <ObjectCarRed.h>
+#include <ObjectCarBlue.h>
+#include <ObjectCarBlack.h>
+
 IClonable* TestScene::Clone()
 {
     return new TestScene;
@@ -34,6 +40,38 @@ IClonable* TestScene::Clone()
 void TestScene::OnLoad(Scene* beforeScene)
 {
     TotalLoad::Load(L"../Data/Total/Map11.txt");
+
+    //-12.6666, 46.6479
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-12, 0, 45);
+        obj->AddComponent<ObjectStairBlue>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-10, 0, 45);
+        obj->AddComponent<ObjectStairConcrete>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-8, 0, 45);
+        obj->AddComponent<ObjectStairWood>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-12, 0, 40);
+        obj->AddComponent<ObjectCarRed>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-10, 0, 40);
+        obj->AddComponent<ObjectCarBlue>();
+    }
+    {
+        auto obj = CreateGameObject();
+        obj->transform->position = Vec3(-8, 0, 40);
+        obj->AddComponent<ObjectCarBlack>();
+    }
 
     {
         auto skyboxObj = CreateGameObject();
