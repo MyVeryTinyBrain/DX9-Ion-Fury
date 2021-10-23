@@ -405,6 +405,12 @@
     <ClInclude Include="ObjectCardScreen.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectVent.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Objectelevator.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -699,6 +705,12 @@
       <Filter>Item</Filter>
     </ClCompile>
     <ClCompile Include="ObjectCardScreen.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectVent.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Objectelevator.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>

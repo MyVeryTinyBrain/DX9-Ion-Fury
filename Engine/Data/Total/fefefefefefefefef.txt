@@ -1,0 +1,92 @@
+{
+	"HandleObjects" : 
+	[
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 2.2000000476837158,
+			"ChildScaleZ" : 1.9500000476837158,
+			"ComponentType" : "ItemCardKey",
+			"Name" : "Object_0",
+			"PivotScale" : 1.0,
+			"PositionX" : -9.2411336898803711,
+			"PositionY" : 0.0,
+			"PositionZ" : -4.3002853393554688,
+			"RotationX" : 90.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		}
+	],
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.5,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : 
+	[
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : -2.0961732864379883,
+			"PositionY" : 0.0,
+			"PositionZ" : -3.0,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/10.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		}
+	],
+	"TriggerEvents" : 
+	[
+		[
+			{
+				"Name" : "Trigger_0",
+				"PositionX" : -4.6203527450561523,
+				"PositionY" : 0.0,
+				"PositionZ" : -3.0,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0,
+				"TriggerMethod" : 3,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 1
+			},
+			{
+				"EventType" : 1,
+				"Name" : "Event_0",
+				"PositionX" : -5.8830804824829102,
+				"PositionY" : 0.0,
+				"PositionZ" : -3.0,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 2.2000000476837158,
+				"ScaleY" : 2.5999999046325684,
+				"ScaleZ" : 1.0
+			}
+		]
+	]
+}

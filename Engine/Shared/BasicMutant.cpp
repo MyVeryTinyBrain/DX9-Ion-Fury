@@ -11,15 +11,16 @@ void BasicMutant::Awake()
 	Monster::Awake();
 
 	m_hp = 15;
-	m_moveSpeed = 3.0f;
-	m_body->mass = 4.0f;
+	m_moveSpeed = 2.0f;
+	m_body->mass = 3.0f;
 	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->sleepThresholder = 0.5f;
+	m_body->useGravity = true;
 
-	m_rendererObj->transform->localPosition = Vec3(0, -0.8f, 0);
+	//m_rendererObj->transform->localPosition = Vec3(0, -0.8f, 0);
 
 
-	m_attackCount = 2;
+	m_attackCount = 10;
 	m_rendererObj->transform->scale = Vec3::one() * 5.0f;
 
 
@@ -39,6 +40,11 @@ void BasicMutant::FixedUpdate()
 	if (Time::FixedTimeScale() == 0)
 		return;
 
+	if (m_animator->GetCurrentAnimation() == m_animator->GetAttack())
+	{
+		ColliderCheck();
+	}
+
 	if (m_isDead)
 	{
 		return;
@@ -49,7 +55,6 @@ void BasicMutant::FixedUpdate()
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
-
 
 }
 
@@ -62,36 +67,35 @@ void BasicMutant::Update()
 	if (Time::TimeScale() == 0)
 		return;
 
-	createdt += Time::DeltaTime();
+
 	if (create)
 	{
 		m_moveSpeed = 0.f;
-		m_animator->PlayCreate();
-		if (createdt > 0.9f)
+		m_hasTargetCoord = false;
+		m_animator->SetDefaultAnimation(m_animator->GetCreate());
+		//m_animator->PlayCreate();
+		create = false;
+
+		//transform->position = Vec3()
+	}
+	else if (!create)
+	{
+		chageanimation += Time::DeltaTime();
+
+		if (chageanimation > 2.1f)
 		{
-			create = false;
+			if (m_hp > 10)
+				m_moveSpeed = 2.0f;
+			m_hasTargetCoord = true;
+			m_animator->SetDefaultAnimation(m_animator->GetWalk());
+
 		}
 	}
-	
+
+
 	MoveToTarget();
 
-	makePoisonDt += Time::DeltaTime();
-	if (m_isDead)
-	{
-		// 바디의 속도가 매우 작다면
-		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
-		if (m_body && m_body->IsRigidbodySleep())
-		{
-			m_body->Destroy();
-			m_collider->Destroy();
-			m_body = nullptr;
-			m_collider = nullptr;
-		}
-		return;
-	}
-
-
-	if (m_hp < 10)
+	if (m_hp < 8)
 	{
 		m_moveSpeed = 8.f;
 		Attack();
@@ -122,12 +126,15 @@ Collider* BasicMutant::InitializeCollider(GameObject* colliderObj)
 {
 	{
 		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCyilinderUserMesh);
+		renderer->transform->localPosition = Vec3(0, -0.4f, 0);
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
 		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
 		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 	}
 
-	colliderObj->transform->localScale = Vec3::one() * 1.5f;
+	colliderObj->transform->scale = Vec3(0.7f, 1.1f, 0.7f);
+	//colliderObj->transform->localPosition = Vec3(0.f, 5.f, 0.f);
+
 	return colliderObj->AddComponent<SphereCollider>();
 }
 
@@ -166,6 +173,7 @@ void BasicMutant::OnDamage(DamageParameters& params)
 void BasicMutant::OnDead(bool& dead, DamageParameters& params)
 {
 	//m_body->useGravity = true;
+	m_moveSpeed = 0;
 	int dieIndex = rand() % (int)BasicMutantSpriteAnimator::DIE_BasicMutant::MAX;
 
 
@@ -187,14 +195,14 @@ void BasicMutant::MoveToTarget()
 	if (!m_hasTargetCoord)
 		return;
 
-	const Vec3& spiderPos = transform->position;
-	Vec3 forward = m_targetCoord - spiderPos;
+	const Vec3& MutantrPos = transform->position;
+	Vec3 forward = m_targetCoord - MutantrPos;
 	forward.y = 0;
 	forward.Normalize();
 	transform->forward = forward;
 
-	Vec3 xzSpiderPos = Vec3(spiderPos.x, 0, spiderPos.z);
-	float distance = Vec3::Distance(xzSpiderPos, m_targetCoord);
+	Vec3 xzMutantPos = Vec3(MutantrPos.x, 0, MutantrPos.z);
+	float distance = Vec3::Distance(xzMutantPos, m_targetCoord);
 
 	if (distance > 2.1f)
 	{
@@ -208,35 +216,40 @@ void BasicMutant::MoveToTarget()
 			if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Terrain && angle > 85 && angle < 95)
 			{
 				m_hasTargetCoord = false;
+				m_animator->IsPlayingWalk();
 				return;
 			}
 			else if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Monster)
 			{
 				m_hasTargetCoord = false;
+				m_animator->IsPlayingWalk();
 				return;
 			}
 		}
 
 
 		Vec3 acceleration = forward * m_moveSpeed;
-		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.1f));
-		velocity.y = -m_body->velocity.y;
+		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
+		velocity.y = m_body->velocity.y;
 		m_body->velocity = velocity;
 
 
-		if (Vec3::Distance(xzSpiderPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 0.5f)
+		if (Vec3::Distance(xzMutantPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 0.5f)
 		{
 			m_hasTargetCoord = false;
+			m_animator->IsPlayingWalk();
 			return;
 		}
 
 		m_beforeCoord = transform->position;
 		m_beforeCoord.y = 0;
+		m_animator->IsPlayingWalk();
 
 	}
 	else
 	{
 		m_hasTargetCoord = false;
+		m_animator->IsPlayingWalk();
 	}
 }
 
@@ -245,25 +258,52 @@ void BasicMutant::SetTargetCoord(Vec3 xzCoord)
 	m_hasTargetCoord = true;
 	m_targetCoord = xzCoord;
 	m_targetCoord.y = 0;
+
+	Vec3 forward = xzCoord - transform->position;
+	forward.y = 0;
+	forward.Normalize();
+	transform->forward = forward;
 }
 
 void BasicMutant::Attack()
 {
 	if (m_attackCount > 0)
 	{
-		--m_attackCount;
 		m_animator->PlayAttack();
-		ShootToPlayer();
+		--m_attackCount;
 	}
-
 }
 void BasicMutant::ShootToPlayer()
 {
 	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayer.Normalize();
 	Player::GetInstance()->TakeDamage(1);
+	transform->position += Vec3(0.f,0.f,0.7f);
+	//SetAttack = false;
+	m_animator->IsPlayingWalk();
 }
 
 void BasicMutant::OnDeadAnimated()
 {
+}
+
+void BasicMutant::ColliderCheck()
+{
+	Collider* collider = Physics::OverlapSphere(
+		0.6f,
+		transform->position,
+		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
+		PhysicsQueryType::Collider);
+
+
+	if (collider)
+	{
+		if (collider->layerIndex == (uint8_t)PhysicsLayers::Terrain)
+		{
+		}
+		else if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+		{
+			ShootToPlayer();
+		}
+	}
 }

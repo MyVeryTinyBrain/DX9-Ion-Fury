@@ -54,6 +54,9 @@ public:
 	void EmptyAfterLoad();
 	Pickable* AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method, bool TriggerOnce);
 	void AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, EventType type);
+
+public:
+	void StatusWhileMouseMove(Pickable* picked); //View에서 호출할 함수
 public:
 	int m_TriggerCnt = 0;
 	int m_EventCnt = 0;
