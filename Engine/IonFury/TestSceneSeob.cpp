@@ -28,7 +28,7 @@ void TestSceneSeob::OnLoad(Scene* beforeScene)
 		auto controller = obj->AddComponent<Player>();
 	}
 
-	TotalLoad::Load(L"../Data/Total/TestMap.txt");
+	TotalLoad::Load(L"../Data/Total/1022testmap.txt");
 }
 
 void TestSceneSeob::OnUnload(Scene* nextScene)

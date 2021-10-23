@@ -14,6 +14,8 @@ class GunnerBase : public Monster
 
 	OverrideComponentFunction(OnDestroy);
 
+	OverrideComponentFunction(OnWake);
+
 	virtual Collider* InitializeCollider(GameObject* colliderObj) override;
 
 	virtual void OnDamage(DamageParameters& params) override;

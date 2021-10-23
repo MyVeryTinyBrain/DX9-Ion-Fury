@@ -89,7 +89,6 @@ void Skull::OnDestroy()
     m_animator->OnPlayedFly -= Function<void()>(this, &Skull::OnPlayedFly);
     m_animator->OnPlayedLand -= Function<void()>(this, &Skull::OnPlayedLand);
     m_animator->OnPlayedAttack -= Function<void()>(this, &Skull::OnPlayedAttack);
-    m_animator->OnPlayedDie -= Function<void()>(this, &Skull::OnPlayedDie);
 
     if (m_colliderDebugMesh)
     {

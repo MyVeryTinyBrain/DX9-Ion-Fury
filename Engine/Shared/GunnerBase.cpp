@@ -102,7 +102,8 @@ void GunnerBase::Update()
                 }
                 else
                 {
-                    SetBehavior(BehaviorType::WalkToRandomCoord);
+                    BehaviorType behaviorType = (BehaviorType)(rand() % unsigned int(BehaviorType::Max));
+                    SetBehavior(behaviorType);
                 }
             }
             else
@@ -165,6 +166,16 @@ void GunnerBase::OnDestroy()
 
     if (Time::TimeScale() == 0)
         return;
+}
+
+void GunnerBase::OnWake()
+{
+    Monster::OnWake();
+
+    if (Player::GetInstance())
+    {
+        SetBehavior(BehaviorType::Attack);
+    }
 }
 
 Collider* GunnerBase::InitializeCollider(GameObject* colliderObj)
@@ -410,10 +421,11 @@ void GunnerBase::SetBehavior(BehaviorType type)
             break;
         case BehaviorType::WalkToRandomCoord:
             {
-                float randomRadian = (rand() % 360) * Deg2Rad;
+                const Vec3& monsterPos = transform->position;
+                float randomRadian = float(rand() % 360) * Deg2Rad;
                 float randomDistance = (rand() % 15) + 2.1f + 0.1f;
                 Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
-                SetTargetCoord(targetCoord);
+                SetTargetCoord(monsterPos + targetCoord);
             }
             break;
         case BehaviorType::WalkToPlayerDirection:

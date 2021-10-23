@@ -106,7 +106,7 @@ void DroneSpriteAnimator::Awake()
 	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/18.png");
 	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/19.png");
 	m_explosion->AddTexture(L"../SharedResource/Texture/drone_explosion/20.png");
-	m_explosion->interval = 0.05f;
+	m_explosion->interval = 0.1f;
 	m_explosion->isLoop = true;
 
 	m_smoke = new SpriteAnimation;

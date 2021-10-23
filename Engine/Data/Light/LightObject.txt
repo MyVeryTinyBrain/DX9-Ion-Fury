@@ -1,17 +1,35 @@
 [
 	{
 		"AmbinentFactor" : 0.0,
-		"ColorA" : 0.0,
+		"ColorA" : 1.0,
 		"ColorB" : 1.0,
 		"ColorG" : 1.0,
 		"ColorR" : 1.0,
-		"EulerAngleX" : 90.0,
-		"EulerAngleY" : 0.0,
-		"EulerAngleZ" : -39.0,
+		"EulerAngleX" : 65.999946594238281,
+		"EulerAngleY" : 180.0,
+		"EulerAngleZ" : 180.0,
 		"Name" : "Directional",
-		"PosX" : 0.0,
-		"PosY" : 19.737699508666992,
-		"PosZ" : -3.0,
+		"PosX" : -5.3824248313903809,
+		"PosY" : 0.0,
+		"PosZ" : -7.5528874397277832,
 		"Tag" : "Directional"
+	},
+	{
+		"AmbinentFactor" : 0.0,
+		"ColorA" : 1.0,
+		"ColorB" : 1.0,
+		"ColorG" : 1.0,
+		"ColorR" : 1.0,
+		"EulerAngleX" : -66.9998779296875,
+		"EulerAngleY" : 172.99996948242188,
+		"EulerAngleZ" : -137.99990844726562,
+		"InsideAngleRatio" : 0.5,
+		"Name" : "test2",
+		"OutsideAngle" : 90.0,
+		"PosX" : -5.652522087097168,
+		"PosY" : -2.3328084945678711,
+		"PosZ" : -2.6684672832489014,
+		"Range" : 30.0,
+		"Tag" : "Spot"
 	}
 ]

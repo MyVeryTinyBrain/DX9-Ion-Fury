@@ -47,9 +47,8 @@ void MutantPoison::FixedUpdate()
 	Collider* collider = Physics::OverlapSphere(
 		m_radius,
 		transform->position,
-		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
+		(1 << (PxU32)PhysicsLayers::Terrain || 1 << (PxU32)PhysicsLayers::Player),
 		PhysicsQueryType::Collider);
-
 
 	if (collider)
 	{
@@ -57,10 +56,9 @@ void MutantPoison::FixedUpdate()
 		{
 			gameObject->Destroy();
 		}
-		if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+		else if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
 		{
-			ShootToPlayer();
-			gameObject->Destroy();
+
 		}
 	}
 }
@@ -89,7 +87,7 @@ void MutantPoison::Update()
 
 	m_selfDestroyCounter -= Time::DeltaTime();
 
-	if (m_selfDestroyCounter <= 0)
+	if (m_selfDestroyCounter < 0)
 	{
 		gameObject->Destroy();
 	}
@@ -110,23 +108,3 @@ void MutantPoison::OnDestroy()
 		return;
 }
 
-void MutantPoison::ShootToPlayer()
-{
-	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
-	mosterToPlayer.Normalize();
-	Player::GetInstance()->TakeDamage(1);
-}
-
-Vec3 MutantPoison::GetXZDirection(const Vec3& point) const
-{
-	Vec3 posxz = transform->position;
-	posxz.y = 0;
-
-	Vec3 targetxz = point;
-	targetxz.y = 0;
-
-	Vec3 rel = targetxz - posxz;
-	Vec3 dir = rel.normalized();
-
-	return dir;
-}

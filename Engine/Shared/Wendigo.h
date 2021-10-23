@@ -6,11 +6,15 @@ class WendigoSpriteAnimator;
 
 class Wendigo : public Monster
 {
+	enum class Behavior { MoveToPlayer, Jump, Swing, WalkToRandomCoord,  RandomMax, Idle,  None };
+
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(FixedUpdate);
 
 	OverrideComponentFunction(Update);
+
+	OverrideComponentFunction(LateUpdate);
 
 	OverrideComponentFunction(OnDestroy);
 
@@ -20,7 +24,37 @@ class Wendigo : public Monster
 
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
-	void OnCollisionEnter(const CollisionEnter& collider);
+	void OnPlayedJump();
+
+	void OnPlayedSwing();
+
+	void OnPlayedAttack();
+
+	void OnPlayedDie();
+
+private:
+
+	void SetBehavior(Behavior value);
+
+	void BehaviorUpdate();
+
+	void OnIdle();
+
+	void Idle();
+
+	void OnMoveToPlayer();
+
+	void MoveToPlayer();
+
+	void OnJump();
+
+	void OnSwing();
+
+	void OnWalkToRandomCoord();
+
+	void Swing();
+
+	void WalkToRandomCoord();
 
 private:
 
@@ -32,16 +66,18 @@ private:
 
 	void JumpCheck();
 
-	void TerrainCheck();
-
 private:
 
 
-	enum class ActionType { Idle, WalkToPlayerDirection, Swing, Jump, Max };
+	enum class ActionType { Idle, WalkToRandomCoord, WalkToPlayerDirection, Swing, Jump, Max };
 
 	enum class AttackType { Swing, Jump, Max };
 
 	void SetAction(ActionType type);
+
+	void AttackToPlayer();
+
+	void Attack();
 
 private:
 
@@ -57,9 +93,13 @@ private:
 
 	Vec3 m_beforeCoord;
 
+	float m_breakTime = 0.f;
+
 	unsigned int m_attackCount = 0;
 
 	ActionType actionType = ActionType::Max;
+
+	bool m_attacking = false;
 
 	bool m_hasJump = false;
 
@@ -69,11 +109,18 @@ private:
 
 	float m_jumptime = 0.f;
 
+	float m_deadTime = 0.f;
+
 	AttackType attackType = AttackType::Max;
 
-	Vec3 m_forward;
+	bool m_initialdir = true;
 
-	float m_PatternTime = 0;
+	Vec3 forward;
 
+	Behavior m_behavior = Behavior::None;
+
+	float m_idleAccumulate = 0.0f;
+
+	float m_moveToPlayerAccumulate = 0.0f;
 };
 
