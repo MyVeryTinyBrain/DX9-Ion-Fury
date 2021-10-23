@@ -232,7 +232,13 @@ BOOL DlgObjectTool::OnInitDialog()
 		m_TypeComboBox.AddString(_T("ItemCardKey"));
 		m_TypeComboBox.AddString(_T("ObjectRat"));
 
+		m_TypeComboBox.AddString(_T("ObjectStairBlue"));
+		m_TypeComboBox.AddString(_T("ObjectStairConcrete"));
+		m_TypeComboBox.AddString(_T("ObjectStairWood"));
 
+		m_TypeComboBox.AddString(_T("ObjectCarRed"));
+		m_TypeComboBox.AddString(_T("ObjectCarBlue"));
+		m_TypeComboBox.AddString(_T("ObjectCarBlack"));
 
 		m_TypeComboBox.AddString(_T("Player"));
 	}

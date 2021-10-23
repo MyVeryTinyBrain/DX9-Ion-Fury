@@ -1,0 +1,109 @@
+{
+	"HandleObjects" : 
+	[
+		{
+			"ChildScaleX" : 2.4500000476837158,
+			"ChildScaleY" : 1.8999999761581421,
+			"ChildScaleZ" : 1.9500000476837158,
+			"ComponentType" : "ObjectStairWood",
+			"Name" : "Object_0",
+			"PivotScale" : 0.5,
+			"PositionX" : -1.6526771783828735,
+			"PositionY" : 0.0,
+			"PositionZ" : -3.0,
+			"RotationX" : 0.0,
+			"RotationY" : -76.0,
+			"RotationZ" : 69.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ObjectStairBlue",
+			"Name" : "Object_1",
+			"PivotScale" : 1.0,
+			"PositionX" : -4.4453258514404297,
+			"PositionY" : -0.37671762704849243,
+			"PositionZ" : -3.5356521606445312,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ObjectStairConcrete",
+			"Name" : "Object_2",
+			"PivotScale" : 1.0,
+			"PositionX" : -5.9939002990722656,
+			"PositionY" : -0.37671762704849243,
+			"PositionZ" : -3.8507137298583984,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 2.25,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ObjectCarRed",
+			"Name" : "Object_3",
+			"PivotScale" : 1.0,
+			"PositionX" : -7.2736353874206543,
+			"PositionY" : -0.37671759724617004,
+			"PositionZ" : -4.1110782623291016,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 3.5999999046325684,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ObjectCarBlue",
+			"Name" : "Object_4",
+			"PivotScale" : 1.0,
+			"PositionX" : -8.3194866180419922,
+			"PositionY" : -0.37671759724617004,
+			"PositionZ" : -4.3238601684570312,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 3.4000000953674316,
+			"ComponentType" : "ObjectCarBlack",
+			"Name" : "Object_5",
+			"PivotScale" : 1.0,
+			"PositionX" : -9.1484222412109375,
+			"PositionY" : -0.37671759724617004,
+			"PositionZ" : -4.4925098419189453,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		}
+	],
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.5,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : null,
+	"TriggerEvents" : null
+}
