@@ -27,6 +27,10 @@ public:
 
 	TriggerMethod GetMethod() const;
 
+protected:
+
+	virtual void OnUse() {}
+
 private:
 
 	UserMeshRenderer* m_debugRenderer = nullptr;

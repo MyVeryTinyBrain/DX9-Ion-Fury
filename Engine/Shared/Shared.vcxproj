@@ -25,6 +25,7 @@
     <ClInclude Include="BasicMutantSpriteAnimator.h" />
     <ClInclude Include="BillboardEffect.h" />
     <ClInclude Include="BloodEffect.h" />
+    <ClInclude Include="BossTrigger.h" />
     <ClInclude Include="Bow.h" />
     <ClInclude Include="BowAnimator.h" />
     <ClInclude Include="BowStringAnimator.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="Mutant.h" />
     <ClInclude Include="MutantPoison.h" />
     <ClInclude Include="MutantSpriteAnimator.h" />
+    <ClInclude Include="Names.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
@@ -109,6 +111,7 @@
     <ClInclude Include="SpiderSpriteAnimator.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteAnimator.h" />
+    <ClInclude Include="Tags.h" />
     <ClInclude Include="TrailRenderer.h" />
     <ClInclude Include="TriangleStair.h" />
     <ClInclude Include="Trigger.h" />
@@ -132,6 +135,7 @@
     <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
     <ClCompile Include="BillboardEffect.cpp" />
     <ClCompile Include="BloodEffect.cpp" />
+    <ClCompile Include="BossTrigger.cpp" />
     <ClCompile Include="Bow.cpp" />
     <ClCompile Include="BowAnimator.cpp" />
     <ClCompile Include="BowStringAnimator.cpp" />

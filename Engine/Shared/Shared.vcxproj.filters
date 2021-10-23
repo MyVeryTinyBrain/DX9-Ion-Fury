@@ -411,6 +411,15 @@
     <ClInclude Include="Objectelevator.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="BossTrigger.h">
+      <Filter>Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="Tags.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Names.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -712,6 +721,9 @@
     </ClCompile>
     <ClCompile Include="Objectelevator.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BossTrigger.cpp">
+      <Filter>Trigger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
