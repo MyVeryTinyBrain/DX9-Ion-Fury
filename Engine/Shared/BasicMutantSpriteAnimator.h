@@ -52,9 +52,6 @@ public:
 
 	SpriteAnimation* GetCreate() const;
 
-	SpriteAnimation* GetAttack() const;
-
-
 
 private:
 

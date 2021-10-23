@@ -5,7 +5,11 @@
 #include <fstream>
 #include <atlconv.h>
 
-#include "Trigger.h"
+#include <Trigger.h>
+#include <BossTrigger.h>
+
+#include <Tags.h>
+#include <Names.h>
 
 // Objects
 #include "ItemBowAmmo.h"
@@ -157,7 +161,17 @@ Trigger* TotalLoad::CreateTrigger(const TriggerData& data)
 	obj->transform->eulerAngle = data.sd.eulerAngle;
 	obj->transform->scale = data.sd.scale;
 
-	Trigger* trigger = obj->AddComponent<Trigger>();
+	Trigger* trigger = nullptr;
+
+	if (obj->name != NAME_BOSS_TRIGGER)
+	{
+		trigger = obj->AddComponent<Trigger>();
+	}
+	else
+	{
+		trigger = obj->AddComponent<BossTrigger>();
+	}
+
 	TriggerMethod method = (TriggerMethod)data.method;
 
 	trigger->SetMethod(method);
@@ -179,9 +193,11 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 	switch ((EventType)data.type)
 	{
 		case EventType::ObjectAutoDoor:
+			obj->tag = TAG_DOOR;
 			comp = obj->AddComponent<ObjectAutoDoor>();
 			break;
 		case EventType::ObjectManualDoor:
+			obj->tag = TAG_DOOR;
 			comp = obj->AddComponent<ObjectManualDoor>();
 			break;
 		case EventType::ObjectButton:
