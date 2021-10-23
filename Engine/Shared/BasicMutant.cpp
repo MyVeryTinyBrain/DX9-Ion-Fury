@@ -288,8 +288,8 @@ void BasicMutant::OnDeadAnimated()
 void BasicMutant::ColliderCheck()
 {
 	Collider* collider = Physics::OverlapSphere(
-		0.6f, 
 		transform->position,
+		0.6f,
 		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
 		PhysicsQueryType::Collider);
 
