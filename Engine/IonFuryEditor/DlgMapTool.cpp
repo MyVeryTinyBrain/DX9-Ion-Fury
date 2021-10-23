@@ -411,6 +411,7 @@ BOOL DlgMapTool::OnInitDialog()
 	NumToEdit(m_UVScaleY, 1.f);
 
 	m_ColliderExistence.SetCheck(true);
+	m_ButtonGeometry.SetCheck(true);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -765,4 +766,6 @@ void DlgMapTool::OnBnClickedCopyButton()
 	pObj->transform->position = Pos;
 	pObj->transform->scale = Scale;
 	pObj->transform->eulerAngle = EulerAngle;
+
+	giz->Attach(pObj->transform);
 }
