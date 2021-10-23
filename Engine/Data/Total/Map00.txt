@@ -206,6 +206,7 @@
 	[
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -224,6 +225,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -242,6 +244,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 4.0,
@@ -260,6 +263,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -4.0,
@@ -278,6 +282,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -296,6 +301,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -314,6 +320,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -2.5999999046325684,
@@ -332,6 +339,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 2.5999996662139893,
@@ -350,6 +358,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -368,6 +377,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 2.25,
@@ -386,6 +396,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 1.1000000238418579,
@@ -404,6 +415,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -1.0999999046325684,
@@ -422,6 +434,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 2.0999999046325684,
@@ -440,6 +453,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 3.3499999046325684,
@@ -458,6 +472,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -476,6 +491,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 3.5,
@@ -494,6 +510,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.1077003479003906,
@@ -512,6 +529,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 8.5999984741210938,
@@ -530,6 +548,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.5999994277954102,
@@ -548,6 +567,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -566,6 +586,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 16.599998474121094,
@@ -584,6 +605,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -602,6 +624,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -620,6 +643,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.75,
@@ -638,6 +662,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 20.099998474121094,
@@ -656,6 +681,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 20.099996566772461,
@@ -674,6 +700,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 20.099998474121094,
@@ -692,6 +719,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 5.0999994277954102,
@@ -710,6 +738,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 5.0999994277954102,
@@ -728,6 +757,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 5.0999999046325684,
@@ -746,6 +776,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 22.600000381469727,
@@ -764,6 +795,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 22.600000381469727,
@@ -782,6 +814,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 25.19999885559082,
@@ -800,6 +833,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -818,6 +852,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 2.5999999046325684,
@@ -836,6 +871,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 2.5999999046325684,
@@ -854,6 +890,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 8.0500001907348633,
@@ -872,6 +909,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 17.149999618530273,
@@ -890,6 +928,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -908,6 +947,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -926,6 +966,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 4,
 			"Name" : "",
 			"PositionX" : 12.59999942779541,
@@ -944,6 +985,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 1,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -962,6 +1004,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 1,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -980,6 +1023,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -998,6 +1042,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 22.200000762939453,
@@ -1016,6 +1061,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 2.9999995231628418,
@@ -1034,6 +1080,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.59999942779541,
@@ -1052,6 +1099,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.399999618530273,
@@ -1070,6 +1118,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 5,
 			"Name" : "",
 			"PositionX" : -8.1000003814697266,
@@ -1088,6 +1137,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : -0.59999996423721313,
@@ -1106,6 +1156,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : -2.0999999046325684,
@@ -1124,6 +1175,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 13.199999809265137,
@@ -1142,6 +1194,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 16.69999885559082,
@@ -1160,6 +1213,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 9.6999988555908203,
@@ -1178,6 +1232,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 13.19999885559082,
@@ -1196,6 +1251,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 6,
 			"Name" : "",
 			"PositionX" : 13.199997901916504,
@@ -1214,6 +1270,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -8.0999994277954102,
@@ -1232,6 +1289,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 5,
 			"Name" : "",
 			"PositionX" : -20.599998474121094,
@@ -1250,6 +1308,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -33.099987030029297,
@@ -1268,6 +1327,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -1.7999999523162842,
@@ -1286,6 +1346,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -3.5999999046325684,
@@ -1304,6 +1365,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -3.0999996662139893,
@@ -1322,6 +1384,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -3.5999999046325684,
@@ -1340,6 +1403,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -12.600000381469727,
@@ -1358,6 +1422,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -25.099998474121094,
@@ -1376,6 +1441,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -24.999998092651367,
@@ -1394,6 +1460,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -8.1000003814697266,
@@ -1412,6 +1479,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -37.5,
@@ -1430,6 +1498,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 27.299999237060547,
@@ -1448,6 +1517,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 31.899997711181641,
@@ -1466,6 +1536,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.899993896484375,
@@ -1484,6 +1555,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.899997711181641,
@@ -1502,6 +1574,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.899990081787109,
@@ -1520,6 +1593,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 25.899999618530273,
@@ -1538,6 +1612,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 25.100000381469727,
@@ -1556,6 +1631,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.900001525878906,
@@ -1574,6 +1650,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.899997711181641,
@@ -1592,6 +1669,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 35.900001525878906,
@@ -1610,6 +1688,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 16.564296722412109,
@@ -1628,6 +1707,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.6999979019165039,
@@ -1646,6 +1726,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 6.3896350860595703,
@@ -1664,6 +1745,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 51.400001525878906,
@@ -1682,6 +1764,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 51.400001525878906,
@@ -1700,6 +1783,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 51.399997711181641,
@@ -1718,6 +1802,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 26.200000762939453,
@@ -1736,6 +1821,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 65.899993896484375,
@@ -1754,6 +1840,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 65.899993896484375,
@@ -1772,6 +1859,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 65.899993896484375,
@@ -1787,6 +1875,25 @@
 			"TexturePath" : "../SharedResource/Texture/map/16.png",
 			"UVScaleX" : 1.0,
 			"UVScaleY" : 0.33000001311302185
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "AlphaTest",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : -11.859786987304688,
+			"PositionY" : -3.0422885417938232,
+			"PositionZ" : 42.720958709716797,
+			"RotationX" : 0.0,
+			"RotationY" : -35.999996185302734,
+			"RotationZ" : 0.0,
+			"ScaleX" : 2.0,
+			"ScaleY" : 2.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/46.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
 		}
 	],
 	"TriggerEvents" : 
