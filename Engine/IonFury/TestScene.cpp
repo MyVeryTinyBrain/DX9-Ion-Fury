@@ -33,7 +33,7 @@ IClonable* TestScene::Clone()
 
 void TestScene::OnLoad(Scene* beforeScene)
 {
-    TotalLoad::Load(L"../Data/Total/Map00.txt");
+    TotalLoad::Load(L"../Data/Total/Map11.txt");
 
     {
         auto skyboxObj = CreateGameObject();
