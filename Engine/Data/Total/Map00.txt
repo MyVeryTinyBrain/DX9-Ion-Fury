@@ -2720,66 +2720,14 @@
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
 				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_34",
-				"PositionX" : -6.4091019630432129,
-				"PositionY" : -3.4281790256500244,
-				"PositionZ" : 27.196998596191406,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_35",
-				"PositionX" : -9.2409162521362305,
-				"PositionY" : -3.5145668983459473,
-				"PositionZ" : 27.341791152954102,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_36",
-				"PositionX" : -9.2409162521362305,
-				"PositionY" : -3.6311280727386475,
-				"PositionZ" : 26.116231918334961,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_37",
-				"PositionX" : -6.6111207008361816,
-				"PositionY" : -3.4774792194366455,
-				"PositionZ" : 25.961217880249023,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
 			}
 		],
 		[
 			{
 				"Name" : "BossEntrance_Trigger",
-				"PositionX" : 36.799983978271484,
-				"PositionY" : -2.6389601230621338,
-				"PositionZ" : 36.887008666992188,
+				"PositionX" : 36.799980163574219,
+				"PositionY" : -2.6389598846435547,
+				"PositionZ" : 36.887004852294922,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -2862,32 +2810,6 @@
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
 				"TriggerToolAutoNum" : 10
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_38",
-				"PositionX" : -17.516410827636719,
-				"PositionY" : -7.103672981262207,
-				"PositionZ" : 15.522823333740234,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 0,
-				"Name" : "Event_39",
-				"PositionX" : -17.520561218261719,
-				"PositionY" : -7.1600532531738281,
-				"PositionZ" : 17.669145584106445,
-				"RotationX" : 0.0,
-				"RotationY" : 0.0,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
 			},
 			{
 				"EventType" : 7,

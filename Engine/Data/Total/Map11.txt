@@ -1,0 +1,39 @@
+{
+	"HandleObjects" : 
+	[
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "Player",
+			"Name" : "Object_0",
+			"PivotScale" : 1.0,
+			"PositionX" : 0.0,
+			"PositionY" : -0.29999998211860657,
+			"PositionZ" : -5.0999994277954102,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		}
+	],
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.5,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : null,
+	"TriggerEvents" : null
+}
