@@ -45,6 +45,7 @@
     <ClInclude Include="DroneExplosion.h" />
     <ClInclude Include="DroneSmoke.h" />
     <ClInclude Include="DroneSpriteAnimator.h" />
+    <ClInclude Include="EditorEnum.h" />
     <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="FPSCharacterController.h" />
     <ClInclude Include="FPSOrthoCamera.h" />
@@ -57,6 +58,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemArmor.h" />
     <ClInclude Include="ItemBowAmmo.h" />
+    <ClInclude Include="ItemCardKey.h" />
     <ClInclude Include="ItemChaingunAmmo.h" />
     <ClInclude Include="ItemHealthPack.h" />
     <ClInclude Include="ItemLauncherAmmo.h" />
@@ -77,9 +79,11 @@
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
     <ClInclude Include="ObjectButton.h" />
-    <ClInclude Include="Objectelevator.h" />
+    <ClInclude Include="ObjectCardScreen.h" />
+    <ClInclude Include="ObjectManualDoor.h" />
+    <ClInclude Include="ObjectRat.h" />
+    <ClInclude Include="ObjectRatAnimator.h" />
     <ClInclude Include="ObjectStair.h" />
-    <ClInclude Include="ObjectVent.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
@@ -158,6 +162,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemArmor.cpp" />
     <ClCompile Include="ItemBowAmmo.cpp" />
+    <ClCompile Include="ItemCardKey.cpp" />
     <ClCompile Include="ItemChaingunAmmo.cpp" />
     <ClCompile Include="ItemHealthPack.cpp" />
     <ClCompile Include="ItemLauncherAmmo.cpp" />
@@ -178,9 +183,11 @@
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />
     <ClCompile Include="ObjectButton.cpp" />
-    <ClCompile Include="Objectelevator.cpp" />
+    <ClCompile Include="ObjectCardScreen.cpp" />
+    <ClCompile Include="ObjectManualDoor.cpp" />
+    <ClCompile Include="ObjectRat.cpp" />
+    <ClCompile Include="ObjectRatAnimator.cpp" />
     <ClCompile Include="ObjectStair.cpp" />
-    <ClCompile Include="ObjectVent.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />

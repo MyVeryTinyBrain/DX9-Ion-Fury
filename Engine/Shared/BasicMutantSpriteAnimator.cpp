@@ -185,11 +185,6 @@ SpriteAnimation* BasicMutantSpriteAnimator::GetCreate() const
     return m_create;
 }
 
-SpriteAnimation* BasicMutantSpriteAnimator::GetAttack() const
-{
-    return m_Attack;
-}
-
 
 
 void BasicMutantSpriteAnimator::ChangeUVDirection()

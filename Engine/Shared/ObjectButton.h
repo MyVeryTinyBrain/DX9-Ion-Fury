@@ -3,13 +3,13 @@
 #include "IDontDeactive.h"
 #include "IUsable.h"
 
-class ObjectButton : public Component, public IUsable, IDontDeactive
+class ObjectButton : public Component, public IUsable, public IDontDeactive
 {
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Update);
 
-	virtual void OnUse() override;
+	virtual void OnUse(bool valid) override;
 
 	GameObject* m_root = nullptr;
 

@@ -77,8 +77,6 @@ private:
 
 	float m_angle = 0.f;
 
-	float destroypoisondt;
-
 public:
 
 	Delegate<void()> OnDeadAnimated;

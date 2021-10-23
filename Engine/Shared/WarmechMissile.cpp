@@ -96,7 +96,7 @@ void WarmechMissile::Update()
 
 		Vec3 velocity = Quat::AxisAngle(right, -22.5f) * forward * m_moveSpeed;
 
-		transform->position += velocity * Time::DeltaTime() * 2.5f;
+		transform->position += velocity * 0.03f;
 	}
 
 	Rebound();

@@ -30,7 +30,7 @@ void Spider::FixedUpdate()
 {
 	Monster::FixedUpdate();
 
-	
+	m_animator->SetAngle(AngleToPlayerWithSign());
 
 	if (Time::FixedTimeScale() == 0)
 		return;
@@ -40,25 +40,23 @@ void Spider::FixedUpdate()
 		return;
 	}
 
-	if (!m_hasTargetCoord)
-	{
-		Vec3 targetCoord = Player::GetInstance()->transform->position;
-		SetTargetCoord(targetCoord);
-	}
-
-
 	MoveToTarget();
 
 
 	JumpCheck();
 
+
+
+	if (!m_hasTargetCoord)
+	{
+		Vec3 targetCoord = Player::GetInstance()->transform->position;
+		SetTargetCoord(targetCoord);
+	}
 }
 
 void Spider::Update()
 {
 	Monster::Update();
-
-	m_animator->SetAngle(AngleToPlayerWithSign());
 
 	if (Time::TimeScale() == 0)
 		return;
@@ -86,7 +84,6 @@ void Spider::Update()
 		jumpingtype = (JumpType)(rand() % unsigned int(JumpType::MAX));
 		m_PatternTime = 0.f;
 	}
-
 }
 
 void Spider::OnDestroy()
@@ -109,15 +106,27 @@ Collider* Spider::InitializeCollider(GameObject* colliderObj)
 	//}
 	m_sphereCollider = colliderObj->AddComponent<SphereCollider>();
 	m_sphereCollider->transform->localScale = Vec3::one() * 1.25f;
-	m_sphereCollider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &Spider::OnCollisionEnter);
+
 
 	return m_sphereCollider;
 }
 
 void Spider::OnDamage(DamageParameters& params)
 {
-	
 	m_hasTargetCoord = false;
+
+	switch (params.damageType)
+	{
+	case MonsterDamageType::Bullet:
+		m_moveSpeed = 0.f;
+		break;
+	case MonsterDamageType::Explosion:
+		m_moveSpeed = 0.f;
+		break;
+	case MonsterDamageType::Zizizik:
+		m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
+		break;
+	}
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
@@ -127,8 +136,8 @@ void Spider::OnDamage(DamageParameters& params)
 	}
 
 	const Vec3& playerPos = Player::GetInstance()->transform->position;
-	const Vec3& spiderPos = transform->position;
-	Vec3 forward = playerPos - spiderPos;
+	const Vec3& gunnerPos = transform->position;
+	Vec3 forward = playerPos - gunnerPos;
 	forward.y = 0;
 	forward.Normalize();
 	transform->forward = forward;
@@ -150,14 +159,6 @@ void Spider::OnDead(bool& dead, DamageParameters& params)
 	}
 
 	m_animator->PlayDie((SpiderSpriteAnimator::DIE_SPIDER)dieIndex);
-}
-
-void Spider::OnCollisionEnter(const CollisionEnter& collider)
-{
-	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
-	{
-		Player::GetInstance()->TakeDamage(1);
-	}
 }
 
 void Spider::MoveToTarget()
@@ -209,7 +210,6 @@ void Spider::MoveToTarget()
 		m_beforeCoord = transform->position;
 		m_beforeCoord.y = 0;
 
-
 	}
 	else
 	{
@@ -217,6 +217,8 @@ void Spider::MoveToTarget()
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
 		SetTargetCoord(targetCoord);
 	}
+
+
 }
 
 void Spider::SetTargetCoord(Vec3 xzCoord)
@@ -252,13 +254,11 @@ void Spider::JumpCheck()
 	mosterToPlayerDir.Normalize();
 
 	RaycastHit hit1;
-	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(5.0f));
-
-
+	PhysicsRay ray1(transform->position, mosterToPlayerDir, sqrtf(20.0f));
 
 	m_jumptime += Time::FixedDeltaTime();
 
-	if (m_jumptime > 1.5f)
+	if (m_jumptime > 3.f)
 	{
 		switch (jumpingtype)
 		{
@@ -316,6 +316,8 @@ void Spider::Jump()
 
 		m_animator->SetDefaultAnimation(m_animator->GetJump(), true);
 
+		AttackToPlayer();
+
 		if (transform->position.y > m_jumpY + 1.f)
 		{
 			if(jumpingtype == JumpType::WEB)
@@ -324,6 +326,23 @@ void Spider::Jump()
 			m_animator->SetDefaultAnimation(m_animator->GetWalk(), true);
 		}
 	}
+}
 
+void Spider::AttackToPlayer()
+{
+	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
+	mosterToPlayerDir.y = 0;
+	mosterToPlayerDir.Normalize();
+
+	RaycastHit hit;
+	PhysicsRay ray(transform->position, mosterToPlayerDir, sqrtf(0.1f));
+
+	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body))
+	{
+		if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+		{
+			Player::GetInstance()->TakeDamage(1);
+		}
+	}
 }
 

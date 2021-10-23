@@ -42,6 +42,8 @@ public:
 	void SetRotationScrollToDefault(Pickable* picked = nullptr);
 	void SetScaleScrollToPicked(Pickable* picked);
 	void SetRotationScrollToPicked(Pickable* picked);
+
+	void SetEditStatusFromGiz(Vec3 Pos, Vec3 Scale, Vec3 EulerAngle);
 public:
 	void SaveToJsonFormat(const Json::Value& json, string path);
 	Json::Value LoadFromJsonFormat(string path);
@@ -62,6 +64,7 @@ public:
 	CButton m_TouchButtonManual1;
 	CButton m_TouchButtonManual2;
 	CButton m_TouchButtonManual3;
+	CButton m_TouchButtonManual4;
 	
 	CComboBox m_EventTypeComboBox;
 	
@@ -75,6 +78,16 @@ public:
 
 	CString m_ChangingName;
 	CButton m_TriggerOnce;
+
+	float m_PosX;
+	float m_PosY;
+	float m_PosZ;
+	float m_ScaleX;
+	float m_ScaleY;
+	float m_ScaleZ;
+	float m_RotX;
+	float m_RotY;
+	float m_RotZ;
 public:
 	afx_msg void ClickRemoveTrigger();
 	afx_msg void ClickAddTrigger();
@@ -91,4 +104,7 @@ public:
 	afx_msg void OnBnClickedResetRotation();
 	afx_msg void OnBnClickedSaveButton();
 	afx_msg void OnBnClickedLoadButton();
+	afx_msg void OnBnClickedPositionApplyButton();
+	afx_msg void OnBnClickedScaleApplyButton();
+	afx_msg void OnBnClickedRotationApplyButton();
 };

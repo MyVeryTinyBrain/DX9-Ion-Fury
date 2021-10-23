@@ -4,6 +4,6 @@ class IUsable
 {
 public:
 
-	virtual void OnUse() = 0;
+	virtual void OnUse(bool valid) = 0;
 };
 
