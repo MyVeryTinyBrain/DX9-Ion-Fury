@@ -150,7 +150,7 @@ void Objectelevator::ElevatorDoorControl()
 	}
 }
 
-void Objectelevator::OnUse()
+void Objectelevator::OnUse(bool valid)
 {
 }
 

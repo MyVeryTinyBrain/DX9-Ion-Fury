@@ -3,7 +3,7 @@
 #include "IDontDeactive.h"
 #include "IUsable.h"
 
-class Objectelevator :  public Component, public IUsable, IDontDeactive
+class Objectelevator :  public Component, public IUsable, public IDontDeactive
 {
 	OverrideComponentFunction(Awake);
 
@@ -66,9 +66,7 @@ private:
 	Vec3  leftfirstlocalpositon;
 	Vec3  rightfirstlocalpositon;
 
-
-public:
 	// IUsable을(를) 통해 상속됨
-	virtual void OnUse() override;
+	virtual void OnUse(bool valid) override;
 };
 
