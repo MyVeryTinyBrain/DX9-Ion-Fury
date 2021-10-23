@@ -114,4 +114,5 @@ public:
 	CSliderCtrl m_SliderControlScaleZ;
 	CButton m_ButtonGeometry;
 	CButton m_ButtonAlphaTest;
+	afx_msg void OnBnClickedCopyButton();
 };
