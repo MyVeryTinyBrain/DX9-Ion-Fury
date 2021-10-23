@@ -119,6 +119,8 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 	else if (Type == (L"ObjectRat"))
 		m_ChildObject->AddComponent<ObjectRat>();
 
+	//////////////////////////////////////////////////////////////////////////////////////////
+
 
 	else if (Type == (L"Player"))
 		MakePlayerCapsule();

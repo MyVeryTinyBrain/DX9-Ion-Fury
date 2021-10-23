@@ -232,6 +232,8 @@ BOOL DlgObjectTool::OnInitDialog()
 		m_TypeComboBox.AddString(_T("ItemCardKey"));
 		m_TypeComboBox.AddString(_T("ObjectRat"));
 
+
+
 		m_TypeComboBox.AddString(_T("Player"));
 	}
 
