@@ -1,7 +1,6 @@
 #include "shared_stdafx.h"
 #include "SMGAnimator.h"
 #include "SpriteAnimation.h"
-#include "SoundMgr.h"
 
 void SMGAnimator::Awake()
 {
@@ -106,8 +105,6 @@ void SMGAnimator::PlayFire()
 void SMGAnimator::PlayReload()
 {
 	PlayAnimation(m_reload);
-
-	SoundMgr::Play(L"../SharedResource/Sound/smg/smg_clip_in.ogg", CHANNELID::PLAYER_WEAPON_RELOAD);
 }
 
 void SMGAnimator::PlayPutin()

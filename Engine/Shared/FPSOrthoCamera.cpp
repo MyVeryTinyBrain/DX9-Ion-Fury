@@ -108,5 +108,4 @@ void FPSOrthoCamera::UpdateUI()
 	m_ui->SetAmmo1(weapon->GetTotalAmmo1());
 	m_ui->SetHP(Player::GetInstance()->HP);
 	m_ui->SetArmor(Player::GetInstance()->Armor);
-	m_ui->SetCardKey(Player::GetInstance()->cardKey);
 }

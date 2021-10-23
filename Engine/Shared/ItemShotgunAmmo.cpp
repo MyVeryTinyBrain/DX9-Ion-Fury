@@ -7,7 +7,7 @@ wstring ItemShotgunAmmo::InitTextureLocalPath() const
     return L"../SharedResource/Texture/item/ammo_shotgun.png";
 }
 
-void ItemShotgunAmmo::OnTrigger(Player* player, bool& destroy)
+void ItemShotgunAmmo::OnTrigger(Player* player)
 {
     player->AddAmmo(WeaponTypes::Launcher, AmmoTypes::Shotgun, 6);
 }

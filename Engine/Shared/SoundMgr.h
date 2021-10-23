@@ -3,78 +3,45 @@ struct FMOD_SOUND;
 struct FMOD_CHANNEL;
 struct FMOD_SYSTEM;
 
-enum CHANNELID 
-{ 
-	BGM, 
-	PLAYER_FOOTSTEP,
-	PLAYER_FOOTSTEP_JUMP,
-	PLAYER_FOOTSTEP_LAND,
-	PLAYER_WEAPON_FIRE0,
-	PLAYER_WEAPON_FIRE1,
-	PLAYER_WEAPON_FIRE2,
-	PLAYER_WEAPON_FIRE3,
-	PLAYER_WEAPON_FIRE4,
-	PLAYER_WEAPON_FIRE5,
-	PLAYER_WEAPON_FIRE6,
-	PLAYER_WEAPON_FIRE7,
-	PLAYER_WEAPON_FIRE8,
-	PLAYER_WEAPON_FIRE9,
-	PLAYER_WEAPON_FIRE10,
-	PLAYER_WEAPON_FIRE11,
-	PLAYER_WEAPON_FIRE12,
-	PLAYER_WEAPON_FIRE13,
-	PLAYER_WEAPON_FIRE14,
-	PLAYER_WEAPON_RELOAD, 
-	PLAYER_WEAPON_SUBCHANNEL,
-	PLAYER_PROJECTILE,
-	PLAYER_EXPLOSION,
-	ITEM,
-	OBJECT_INPUT,
-	OBJECT,
-	MAXCHANNEL 
-};
-
-class SoundMgr
+class CSoundMgr
 {
 public:
-	static SoundMgr* Get_Instance()
+	static CSoundMgr* Get_Instance()
 	{
-		if (nullptr == g_pInstance)
-			g_pInstance = new SoundMgr;
+		if (nullptr == m_pInstance)
+			m_pInstance = new CSoundMgr;
 
-		return g_pInstance;
+		return m_pInstance;
 	}
 	static void Destroy_Instance()
 	{
-		if (g_pInstance)
+		if (m_pInstance)
 		{
-			delete g_pInstance;
-			g_pInstance = nullptr;
+			delete m_pInstance;
+			m_pInstance = nullptr;
 		}
 	}
-
+public:
+	enum CHANNELID { BGM, PLAYER, MONSTER, EFFECT, UI, MAXCHANNEL };
 private:
-	SoundMgr();
-	~SoundMgr();
+	CSoundMgr();
+	~CSoundMgr();
 
 public:
 	void Initialize();
 
 	void Release();
 public:
-	static void Play(const wchar_t* pSoundKey, CHANNELID eID, bool loop = false);
-	static void PlayContinue(const wchar_t* pSoundKey, CHANNELID eID);
-	static void PlayBGM(const wchar_t* pSoundKey);
-	static void StopSound(CHANNELID eID);
-	static void StopAll();
-	static bool IsPlaying(CHANNELID eID);
-	static bool IsPlaying(const wchar_t* pSoundKey, CHANNELID eID);
+	void Play(const wchar_t* pSoundKey, CHANNELID eID);
+	void PlayBGM(const wchar_t* pSoundKey);
+	void StopSound(CHANNELID eID);
+	void StopAll();
 
 private:
 	void LoadSoundFile();
 
 private:
-	static SoundMgr* g_pInstance;
+	static CSoundMgr* m_pInstance;
 	// 사운드 리소스 정보를 갖는 객체 
 	std::map<wstring, FMOD_SOUND*> m_mapSound;
 	// FMOD_CHANNEL : 재생하고 있는 사운드를 관리할 객체 

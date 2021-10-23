@@ -52,8 +52,6 @@ class Monster : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
-	OverrideComponentFunction(OnWake);
-
 protected:
 
 	virtual Collider* InitializeCollider(GameObject* colliderObj) = 0;

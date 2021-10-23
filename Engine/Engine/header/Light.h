@@ -70,6 +70,6 @@ protected:
 
 	unsigned int m_lightIndex = 0;
 
-	float m_ambientFactor = 0.5f;
+	float m_ambientFactor = 0.0f;
 };
 

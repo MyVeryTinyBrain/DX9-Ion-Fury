@@ -51,23 +51,15 @@ public:
 
 	void SetHP(unsigned int hp);
 
-	void SetArmor(unsigned int armor);
-
-	void SetCardKey(bool cardKey);
-
 	int GetHP() const;
 
 	int GetArmor() const;
-
-	bool GetCardKey() const;
 
 	void AddAmmo(WeaponTypes weapon, AmmoTypes ammo, unsigned int count, bool effect = true);
 
 	__declspec(property(get = GetHP, put = SetHP)) int HP;
 
 	__declspec(property(get = GetArmor, put = SetArmor)) int Armor;
-
-	__declspec(property(get = GetCardKey, put = SetCardKey)) bool cardKey;
 
 private:
 
@@ -80,7 +72,5 @@ private:
 	float m_rigidCounter = 0;
 
 	Vec3 m_damagedVelocity = Vec3::zero();
-
-	bool m_cardKey = false;
 };
 

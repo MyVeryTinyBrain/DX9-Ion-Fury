@@ -227,23 +227,12 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-
-	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
-	Transform* trans = giz->GetSelectedObject();
-
-	if (trans == nullptr)
-		return;
-
-	Pickable* pick = trans->GetGameObject()->GetComponent<Pickable>();
-	if (pick == nullptr)
-		return;
-
-	if (pick->GetType() != Type::Map)
-		return;
-
+	Pickable* pick = nullptr;
+	Gizmo* giz = nullptr;
 	switch (nChar)
 	{
 	case 46:		//delete키
+		giz = EditorManager::GetInstance()->GetGizmo();
 		giz->DeleteAttachedObject();
 		giz->Detach();
 		giz->enable = false;
@@ -269,21 +258,13 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
-	cout << "view눌림" << endl;
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	//========================================================================
-	//giz->Click();
-	//if (giz->HasSelect())
-	//{
-	//	cout << "giz찍힘 Pick입구컷" << endl;
-	//	return;
-	//}
+	giz->Click();
 	if (giz->PickHandle())
-	{
-		cout << "giz찍힘 Pick입구컷" << endl;
-		return;
-	}
+		return;						
+	//기즈모를 가장 우선적으로 선택하도록한 어거지코드!! 문제터지면 삭제
 	//========================================================================
 
 	float PickableDistance = 90000.f;
@@ -326,7 +307,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			return;
 
 		Type PickType = pick->GetType();
-		Transform* trans = giz->GetSelectedObject();
 
 		switch (PickType)
 		{
@@ -336,14 +316,12 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgMapTool.UpdateUVScale(pick);
 			m_dlgMapTool.ReturnComboBoxSelect(pick);
 			m_dlgMapTool.ReturnCollisionExistenceSelect(pick);
-			m_dlgMapTool.ReturnGeometryOrAlphaTest(pick);
 
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
 		case Type::Trigger:
 			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
 			m_dlgMonsterTool.OnLbnSelChangeTrigger();
-			m_dlgMonsterTool.SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 			break;
 		case Type::EventObject:
 			int TriggerIndex = -1;
@@ -356,7 +334,6 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			//rotScale원래대로
 			m_dlgMonsterTool.SetRotationScrollToPicked(pick);
 			m_dlgMonsterTool.SetScaleScrollToPicked(pick);
-			m_dlgMonsterTool.SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 			break;
 		}
 		return;
@@ -594,7 +571,6 @@ void CIonFuryEditorView::OnFileSaveAs()
 				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
 				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
 				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
-				MapValue["MaterialType"] = ToString(MapObject->GetMaterialType().GetString());
 
 				MapObjects[i] = MapValue;
 			}
@@ -792,8 +768,6 @@ void CIonFuryEditorView::OnFileOpen()
 
 					Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
 					bool ColliderExistence = MapValue["ColliderExistence"].asBool();
-
-					wstring MaterialType = ToWString(MapValue["MaterialType"].asString());
 					//==
 					GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
 					pObj->name = Name;
@@ -801,7 +775,6 @@ void CIonFuryEditorView::OnFileOpen()
 					Pickable* pick = pObj->AddComponent<Pickable>();
 					pick->PushInVector(Type::Map);
 					pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
-					pick->SetMaterialTypeAs(MaterialType.c_str());
 
 					pObj->transform->position = Pos;
 					pObj->transform->scale = Scale;

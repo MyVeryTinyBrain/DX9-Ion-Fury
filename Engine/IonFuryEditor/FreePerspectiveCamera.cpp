@@ -17,13 +17,13 @@ void FreePerspectiveCamera::Update()
 	float acceleration = Input::GetKey(Key::LShift) ? m_accelerateFactor : 1.0f;
 
 	if (Input::GetKey(Key::Left))
-		pos += -transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+		pos += -transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime() * 3;
 	if (Input::GetKey(Key::Right))
-		pos += transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+		pos += transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime() * 3;
 	if (Input::GetKey(Key::Up))
-		pos += transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+		pos += transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime() * 3;
 	if (Input::GetKey(Key::Down))
-		pos += -transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+		pos += -transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime() * 3;
 
 	//if (Input::GetKeyDown(Key::O))
 	//	EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
@@ -135,7 +135,7 @@ Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
 
 	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Sphere, BuiltInBlackTexture, true);
 
-	Event->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
+	Obj->transform->scale = Vec3(1.f, 1.f, 1.f); //Vec3(0.5f, 0.5f, 0.5f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
 
 	Event->CreateComponentObject();

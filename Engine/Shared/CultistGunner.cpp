@@ -15,7 +15,7 @@ unsigned int CultistGunner::GetAttackCount()
 
 float CultistGunner::GetDamagedRevengeAttackWaitTime()
 {
-    return 0.35f;
+    return 0.05f;
 }
 
 float CultistGunner::GetBreakTime()

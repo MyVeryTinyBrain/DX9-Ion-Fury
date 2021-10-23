@@ -92,6 +92,14 @@ void DeaconSpriteAnimator::Awake()
 	m_flyeffect->interval = 0.1f;
 	m_flyeffect->isLoop = true;
 
+	m_Idle = new SpriteAnimation;
+	m_Idle->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_front0.png");
+	m_Idle->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_front0.png");
+	m_Idle->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_front0.png");
+	m_Idle->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_front0.png");
+	m_Idle->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_front0.png");
+	m_Idle->interval = 0.1f;
+
 
 	SetDefaultAnimation(m_move[(unsigned int)DIR_DECACONE::FRONT]); //디폴트 애니메이션
 	//SetDefaultAnimation(m_Attack); //디폴트 애니메이션
@@ -160,6 +168,8 @@ void DeaconSpriteAnimator::OnDestroy()
 		SafeDelete(m_move[i]);
 	}
 
+	SafeDelete(m_Idle);
+
 	SafeDelete(m_Attack);
 
 	SafeDelete(m_dead);
@@ -175,7 +185,7 @@ void DeaconSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 		if (current == m_dead)
 		{
 			SetDefaultAnimation(nullptr);
-			OnDeadAnimated();
+			//OnDeadAnimated();
 		}
 	}
 }
@@ -223,6 +233,12 @@ void DeaconSpriteAnimator::PlayDie()
 	ResetUVDirection();
 }
 
+void DeaconSpriteAnimator::PlayIdle()
+{
+	PlayAnimation(m_Idle, true);
+	ResetUVDirection();
+}
+
 void DeaconSpriteAnimator::PlayDamage()
 {
 	PlayAnimation(m_damage, true);
@@ -245,6 +261,11 @@ bool DeaconSpriteAnimator::IsPlayingMove() const
 		}
 	}
 	return false;
+}
+
+bool DeaconSpriteAnimator::IsPlayingIdle() const
+{
+	return currentAnimation == m_Idle;
 }
 
 bool DeaconSpriteAnimator::IsPlayingShoot() const
@@ -273,6 +294,11 @@ SpriteAnimation* DeaconSpriteAnimator::GetMove() const
 	return m_move[(unsigned int)DIR_DECACONE::FRONT];
 }
 
+SpriteAnimation* DeaconSpriteAnimator::GetIdle() const
+{
+	return m_Idle;
+}
+
 SpriteAnimation* DeaconSpriteAnimator::GetShoot() const
 {
 	return m_Attack;
@@ -295,11 +321,11 @@ SpriteAnimation* DeaconSpriteAnimator::GetDamage() const
 
 void DeaconSpriteAnimator::ChangeUVDirection()
 {
-	float direction = m_angle > 0 ? -1.0f : +1.0f;
-	GetRenderer()->userMesh->uvScale = Vec2(direction, 1.0f);
+//	float direction = m_angle > 0 ? -1.0f : +1.0f;
+	//GetRenderer()->userMesh->uvScale = Vec2(direction, 1.0f);
 }
 
 void DeaconSpriteAnimator::ResetUVDirection()
 {
-	GetRenderer()->userMesh->uvScale = Vec2(1.0f, 1.0f);
+	//GetRenderer()->userMesh->uvScale = Vec2(1.0f, 1.0f);
 }

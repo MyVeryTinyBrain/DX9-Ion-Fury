@@ -1,25 +1,10 @@
 #pragma once
 
-#include "IUsable.h"
-#include "IDontDeactive.h"
-
-class ObjectAutoDoor : public Component, public IUsable, public IDontDeactive
+class ObjectAutoDoor : public Component
 {
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Update);
-
-	virtual void OnUse(bool valid) override;
-
-public:
-
-	void Toggle();
-
-	void Open();
-
-	void Close();
-
-	void SetAutoOpen(bool value);
 
 protected:
 
@@ -37,12 +22,8 @@ protected:
 
 	Vec3 m_targetLocalPosition = Vec3::zero();
 
-protected:
+public:
 
-	bool m_autoOpen = true;
-
-private:
-
-	bool m_state = false;
+	bool autoOpen = true;
 };
 

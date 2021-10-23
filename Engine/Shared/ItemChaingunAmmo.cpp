@@ -7,7 +7,7 @@ wstring ItemChaingunAmmo::InitTextureLocalPath() const
     return L"../SharedResource/Texture/item/ammo_chaingun.png";
 }
 
-void ItemChaingunAmmo::OnTrigger(Player* player, bool& destroy)
+void ItemChaingunAmmo::OnTrigger(Player* player)
 {
     player->AddAmmo(WeaponTypes::Chaingun, AmmoTypes::Chaingun, 50);
 }

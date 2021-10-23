@@ -50,8 +50,8 @@ const Vec3& SkullBall::GetVelocity() const
 Collider* SkullBall::TriggerCheck()
 {
 	Collider* collider = Physics::OverlapSphere(
-		m_triggerRadius,
 		transform->position,
+		m_triggerRadius,
 		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
 		PhysicsQueryType::Collider);
 

@@ -110,6 +110,9 @@
     <ClInclude Include="DlgMonsterTool.h">
       <Filter>Dlg</Filter>
     </ClInclude>
+    <ClInclude Include="EditorEnum.h">
+      <Filter>EditorCore</Filter>
+    </ClInclude>
     <ClInclude Include="HandlingObject.h">
       <Filter>EditorCore</Filter>
     </ClInclude>

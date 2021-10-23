@@ -23,9 +23,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	PhysicsInitialize::Initialize();
 
-	SoundMgr::Get_Instance()->Initialize();
+	CSoundMgr::Get_Instance()->Initialize();
 
-	SceneManager::ChangeScene(new TestScene);
+	SceneManager::ChangeScene(new TestScene3);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)
@@ -41,7 +41,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	world.Release();
 
-	SoundMgr::Destroy_Instance();
+	CSoundMgr::Destroy_Instance();
 
 	return (int)msg.wParam;
 }

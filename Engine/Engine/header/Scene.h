@@ -28,8 +28,6 @@ protected:
 
 	virtual void OnUnload(Scene* nextScene) = 0;
 
-	virtual void OnUpdate() {};
-
 public:
 
 	class GameObject* CreateGameObject(const tag_t& tag = L"");

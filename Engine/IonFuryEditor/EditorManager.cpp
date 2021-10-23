@@ -32,7 +32,7 @@ void EditorManager::Awake()
 
 	{	
 		// 자연광을 설정합니다.
-		//Light::SetGlobalAmbientLight(Color::white() * 0.7f);
+		Light::SetGlobalAmbientLight(Color::white() * 0.7f);
 
 		auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
 

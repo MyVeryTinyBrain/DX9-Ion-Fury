@@ -90,7 +90,5 @@ private:
 
 	QuadUserMesh* m_leftHandQuad = nullptr;
 
-	int m_lastChannelIndex = 0;
-
 };
 

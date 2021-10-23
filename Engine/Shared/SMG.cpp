@@ -10,7 +10,6 @@
 #include "Monster.h"
 #include "PhysicsLayers.h"
 #include "BulletProof.h"
-#include "SoundMgr.h"
 
 void SMG::Awake()
 {
@@ -155,8 +154,6 @@ void SMG::OnAttackInput(InputType inputType)
 			recoilFactor = 1.80f;
 		}
 
-		int fireCount = 0;
-
 		if (m_leftHandObj->activeInTree &&
 			m_leftAmmo > 0)
 		{
@@ -174,8 +171,6 @@ void SMG::OnAttackInput(InputType inputType)
 			AttackOnce(angleRange);
 
 			--m_leftAmmo;
-
-			++fireCount;
 		}
 
 		if(m_rightAmmo > 0)
@@ -187,42 +182,6 @@ void SMG::OnAttackInput(InputType inputType)
 			AttackOnce(0);
 
 			--m_rightAmmo;
-
-			++fireCount;
-		}
-
-		wstring soundPath = L"";
-		if (fireCount == 1)
-		{
-			soundPath = L"../SharedResource/Sound/smg/smg_fire.mp3";
-		}
-		else if (fireCount == 2)
-		{
-			soundPath = L"../SharedResource/Sound/smg/smg_burst.mp3";
-		}
-
-		if (fireCount > 0)
-		{
-			int channelIndex = m_lastChannelIndex;
-
-			if (channelIndex == 0)
-			{
-				SoundMgr::Play(soundPath.c_str(), CHANNELID::PLAYER_WEAPON_FIRE0);
-			}
-			else if (channelIndex == 1)
-			{
-				SoundMgr::Play(soundPath.c_str(), CHANNELID::PLAYER_WEAPON_FIRE1);
-			}
-			else if (channelIndex == 2)
-			{
-				SoundMgr::Play(soundPath.c_str(), CHANNELID::PLAYER_WEAPON_FIRE2);
-			}
-
-			++m_lastChannelIndex;
-			if (m_lastChannelIndex > 2)
-			{
-				m_lastChannelIndex = 0;
-			}
 		}
 
 		float randomAngle = float(rand() % 140 - 70) + 90.0f;

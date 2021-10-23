@@ -32,6 +32,8 @@ private:
 
 	void OnDeadAnimated();
 
+	void ColliderCheck();
+
 private:
 
 	UserMeshBillboardRenderer* m_renderer = nullptr;
@@ -51,5 +53,18 @@ private:
 	bool create = true;
 
 	float createdt = 0.f;
+
+	float chageanimation = 0.f;
+
+	bool SetAttack = true;
+
+	bool SetIdle = false;
+
+	bool  check = true;
+
+	float idledt = 0.f;
+
+	bool attack = false;
+
 };
 

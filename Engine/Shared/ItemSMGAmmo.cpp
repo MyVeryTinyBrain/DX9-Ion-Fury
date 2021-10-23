@@ -7,7 +7,7 @@ wstring ItemSMGAmmo::InitTextureLocalPath() const
     return L"../SharedResource/Texture/item/ammo_smg.png";
 }
 
-void ItemSMGAmmo::OnTrigger(Player* player, bool& destroy)
+void ItemSMGAmmo::OnTrigger(Player* player)
 {
     player->AddAmmo(WeaponTypes::SMG, AmmoTypes::SMG, 20);
 }

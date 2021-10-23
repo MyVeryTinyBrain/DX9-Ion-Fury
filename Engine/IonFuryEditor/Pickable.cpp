@@ -17,12 +17,7 @@
 #include <Warmech.h>
 #include <Wendigo.h>
 
-#include <ObjectAutoDoor.h>
-#include <ObjectManualDoor.h>
-#include <ObjectCardScreen.h>
-#include <ObjectButton.h>
-
-#include <ObjectStair.h>
+#include <ItemBowAmmo.h>
 
 
 std::vector<Pickable*> Pickable::g_PickableVec;
@@ -148,7 +143,7 @@ Pickable* Pickable::Pick(float& Distance)
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
 			giz->enable = true;
-
+			
 			Vec3 Between = rayPoint - HitPoint;
 			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.z * Between.z));
 			if (Distance >= BetweenDistance)
@@ -183,21 +178,7 @@ void Pickable::PushInEventVector(Pickable* Event)
 	m_EventVec.push_back(Event);
 }
 
-void Pickable::SetMaterialTypeAs(CString MaterialType)
-{
-	if (MaterialType == L"Geometry")
-	{
-		m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInGeometryMaterial));
-		m_MaterialType = L"Geometry";
-	}
-	else if (MaterialType == L"AlphaTest")
-	{
-		m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInAlphaTestMaterial));
-		m_MaterialType = L"AlphaTest";
-	}
-}
-
-void Pickable::SetNoLightTransparentMaterial()
+void Pickable::SetMaterial()
 {
 	m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInNolightTransparentMaterial));
 }
@@ -326,19 +307,9 @@ void Pickable::SetComponentToPickable(EventType type)
 	case EventType::Wendigo:
 		m_ComponentObject->AddComponent<Wendigo>();
 		break;
-
-	case EventType::ObjectAutoDoor:
-		m_ComponentObject->AddComponent<ObjectAutoDoor>();
-		break;
-	case EventType::ObjectManualDoor:
-		m_ComponentObject->AddComponent<ObjectManualDoor>();
-		break;
-	case EventType::ObjectCardScreen:
-		m_ComponentObject->AddComponent<ObjectCardScreen>();
-		break;
-	case EventType::ObjectButton:
-		m_ComponentObject->AddComponent<ObjectButton>();
-		break;
+	//case EventType::Door:
+	//	m_ChildObject->AddComponent<ObjectAutoDoor>();
+	//	break;
 	}
 }
 
@@ -354,16 +325,4 @@ void Pickable::CreateComponentObject()
 	m_ComponentObject = CreateGameObject();
 	m_ComponentObject->transform->parent = GetGameObject()->transform;
 	m_ComponentObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
-}
-
-void Pickable::SetOverSeeBlackMaterial()
-{
-	MaterialParameters param;
-	param.renderQueue = RenderQueue::GeometryLast;
-	param.zRead = false;
-	param.zWrite = false;
-	param.useLight = false;
-
-	m_Material = Material::CreateUnmanaged(param);
-	m_Renderer->material = m_Material;//////////////////////
 }

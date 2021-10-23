@@ -7,7 +7,6 @@
 
 #include "Trigger.h"
 
-// Objects
 #include "ItemBowAmmo.h"
 #include "ItemChaingunAmmo.h"
 #include "ItemLauncherAmmo.h"
@@ -16,32 +15,7 @@
 #include "ItemBowAmmo.h"
 #include "ItemSMGAmmo.h"
 #include "ItemHealthPack.h"
-#include <ItemArmor.h>
-#include <ItemCardKey.h>
-#include <ObjectRat.h>
 #include "ObjectStair.h"
-#include <Player.h>
-
-#include <EditorEnum.h>
-
-// Events
-#include <ObjectAutoDoor.h>
-#include <ObjectManualDoor.h>
-#include <ObjectButton.h>
-#include <ObjectCardScreen.h>
-
-#include <Drone.h>
-#include <BasicMutant.h>
-#include <Mutant.h>
-#include <MutantPoison.h>
-#include <Deacon.h>
-#include <Drone.h>
-#include <Spider.h>
-#include <Skull.h>
-#include <Warmech.h>
-#include <CultistArcher.h>
-#include <CultistGunner.h>
-#include <Liberator.h>
 
 HRESULT TotalLoad::Load(const wstring& wstrFilePath)
 {
@@ -136,14 +110,8 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ItemSMGAmmo>();
 	else if (ComponentType == (L"ItemHealthPack"))
 		pObj->AddComponent<ItemHealthPack>();
-	else if (ComponentType == (L"ItemArmor"))
-		pObj->AddComponent<ItemArmor>();
-	else if (ComponentType == (L"ItemCardKey"))
-		pObj->AddComponent<ItemCardKey>();
-	else if (ComponentType == (L"ObjectRat"))
-		pObj->AddComponent<ObjectRat>();
-	else if (ComponentType == (L"Player"))
-		pObj->AddComponent<Player>();
+	else if (ComponentType == (L"ObjectStair"))
+		pObj->AddComponent<ObjectStair>();
 	else
 		pObj->Destroy();
 }
@@ -158,7 +126,20 @@ Trigger* TotalLoad::CreateTrigger(const TriggerData& data)
 	obj->transform->scale = data.sd.scale;
 
 	Trigger* trigger = obj->AddComponent<Trigger>();
-	TriggerMethod method = (TriggerMethod)data.method;
+	Trigger::Method method = Trigger::Method::None;
+
+	switch (data.method)
+	{
+		case 0:
+			method = Trigger::Method::Touch;
+			break;
+		case 1:
+			method = Trigger::Method::Button;
+			break;
+		case 2:
+			method = Trigger::Method::Manual;
+			break;
+	}
 
 	trigger->SetMethod(method);
 	trigger->SetTriggerOnce(data.once);
@@ -176,58 +157,8 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 
 	Component* comp = nullptr;
 
-	switch ((EventType)data.type)
+	switch (data.type)
 	{
-		case EventType::ObjectAutoDoor:
-			comp = obj->AddComponent<ObjectAutoDoor>();
-			break;
-		case EventType::ObjectManualDoor:
-			comp = obj->AddComponent<ObjectManualDoor>();
-			break;
-		case EventType::ObjectButton:
-			comp = obj->AddComponent<ObjectButton>();
-			break;
-		case EventType::ObjectCardScreen:
-			comp = obj->AddComponent<ObjectCardScreen>();
-			break;
-
-			/*
-			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo, 
-	ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
-	EventObjectEnd };	//추후 몬스터가 정해지면 수정
-			*/
-
-		case EventType::Mutant:
-			comp = obj->AddComponent<Mutant>();
-			break;
-		case EventType::BasicMutant:
-			comp = obj->AddComponent<BasicMutant>();
-			break;
-		case EventType::CultistArcher:
-			comp = obj->AddComponent<CultistArcher>();
-			break;
-		case EventType::CultistGunner:
-			comp = obj->AddComponent<CultistGunner>();
-			break;
-		case EventType::Deacon:
-			comp = obj->AddComponent<Deacon>();
-			break;
-		case EventType::Drone:
-			comp = obj->AddComponent<Drone>();
-			break;
-		case EventType::Liberator:
-			comp = obj->AddComponent<Liberator>();
-			break;
-		case EventType::Spider:
-			comp = obj->AddComponent<Spider>();
-			break;
-		case EventType::Skull:
-			comp = obj->AddComponent<Skull>();
-			break;
-		case EventType::Warmech:
-			comp = obj->AddComponent<Warmech>();
-			break;
-
 		default:
 			obj->Destroy();
 			break;

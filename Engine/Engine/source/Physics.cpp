@@ -97,34 +97,34 @@ std::vector<Collider*> Physics::OverlapColliderAll(Collider* collider, PxU32 lay
     return PhysicsQuery::OverlapColliderAll(collider, layerMask, queryType, maxHit);
 }
 
-bool Physics::OverlapSphereTest(float radius, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+bool Physics::OverlapSphereTest(const Vec3& point, float radius, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
     return PhysicsQuery::OverlapSphereTest(radius, point, layerMask, queryType, ignoreBody);
 }
 
-Collider* Physics::OverlapSphere(float radius, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+Collider* Physics::OverlapSphere(const Vec3& point, float radius, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
     return PhysicsQuery::OverlapSphere(radius, point, layerMask, queryType, ignoreBody);
 }
 
-std::vector<Collider*> Physics::OverlapSphereAll(float radius, const Vec3& point, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+std::vector<Collider*> Physics::OverlapSphereAll(const Vec3& point, float radius, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
 {
     return PhysicsQuery::OverlapSphereAll(radius, point, layerMask, queryType, maxHit, ignoreBody);
 }
 
-bool Physics::OverlapBoxTest(const Vec3& extents, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+bool Physics::OverlapBoxTest(const Vec3& point, const Vec3& extents, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
-    return PhysicsQuery::OverlapBoxTest(extents, point, rotation, layerMask, queryType, ignoreBody);
+    return PhysicsQuery::OverlapBoxTest(point, extents, rotation, layerMask, queryType, ignoreBody);
 }
 
-Collider* Physics::OverlapBox(const Vec3& extents, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
+Collider* Physics::OverlapBox(const Vec3& point, const Vec3& extents, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)
 {
-    return PhysicsQuery::OverlapBox(extents, point, rotation, layerMask, queryType, ignoreBody);
+    return PhysicsQuery::OverlapBox(point, extents, rotation, layerMask, queryType, ignoreBody);
 }
 
-std::vector<Collider*> Physics::OverlapBoxAll(const Vec3& extents, const Vec3& point, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
+std::vector<Collider*> Physics::OverlapBoxAll(const Vec3& point, const Vec3& extents, const Quat& rotation, PxU32 layerMask, PhysicsQueryType queryType, unsigned int maxHit, Rigidbody* ignoreBody)
 {
-    return PhysicsQuery::OverlapBoxAll(extents, point, rotation, layerMask, queryType, maxHit, ignoreBody);
+    return PhysicsQuery::OverlapBoxAll(point, extents, rotation, layerMask, queryType, maxHit, ignoreBody);
 }
 
 bool Physics::SweepGeometryTest(PxGeometryHolder geometry, const Vec3& point, const Quat& rotation, const Vec3& direction, float distance, PxU32 layerMask, PhysicsQueryType queryType, Rigidbody* ignoreBody)

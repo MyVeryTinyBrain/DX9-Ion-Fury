@@ -11,7 +11,6 @@
 #include "PhysicsLayers.h"
 #include "BulletProof.h"
 #include "Monster.h"
-#include "SoundMgr.h"
 
 void Chaingun::Awake()
 {
@@ -72,11 +71,6 @@ void Chaingun::OnDestroy()
 	m_gunAnimator->OnRotatedBarrel -= Function<void()>(this, &Chaingun::OnRotateBarrel);
 }
 
-void Chaingun::OnSleep()
-{
-	Weapon::OnSleep();
-}
-
 void Chaingun::OnChanged()
 {
 	m_gunAnimator->speed = 0;
@@ -91,8 +85,6 @@ void Chaingun::OnChanged()
 void Chaingun::OnPutIn()
 {
 	m_hasAttackInput = false;
-
-	SoundMgr::StopSound(CHANNELID::PLAYER_WEAPON_SUBCHANNEL);
 }
 
 void Chaingun::OnAttackInput(InputType inputType)
@@ -102,48 +94,15 @@ void Chaingun::OnAttackInput(InputType inputType)
 
 void Chaingun::OnSubInput(InputType inputType)
 {
-	if (!enable)
-	{
-		return;
-	}
-
-	float beforeSpeed = m_gunAnimator->speed;
-
 	if (inputType == InputType::KeyPressing)
 	{
 		m_gunAnimator->speed += Time::DeltaTime() * m_spinFactor;
 		m_gunAnimator->speed = Clamp(m_gunAnimator->speed, 0, m_maxSpinSpeed);
-
-		if (m_gunAnimator->speed < 1.0f)
-		{
-			if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/chaingun/start.ogg", CHANNELID::PLAYER_WEAPON_SUBCHANNEL))
-			{
-				SoundMgr::Play(L"../SharedResource/Sound/chaingun/start.ogg", CHANNELID::PLAYER_WEAPON_SUBCHANNEL);
-			}
-		}
 	}
 	else
 	{
 		m_gunAnimator->speed -= Time::DeltaTime() * m_spinFactor;
 		m_gunAnimator->speed = Clamp(m_gunAnimator->speed, 0, m_maxSpinSpeed);
-	}
-
-	float curSpeed = m_gunAnimator->speed;
-
-	if (m_gunAnimator->speed > m_spinFactor * 1.2f)
-	{
-		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/chaingun/spin.ogg", CHANNELID::PLAYER_WEAPON_SUBCHANNEL))
-		{
-			SoundMgr::Play(L"../SharedResource/Sound/chaingun/spin.ogg", CHANNELID::PLAYER_WEAPON_SUBCHANNEL, true);
-		}
-	}
-	else if(curSpeed <= beforeSpeed)
-	{
-		if (SoundMgr::IsPlaying(L"../SharedResource/Sound/chaingun/spin.ogg", CHANNELID::PLAYER_WEAPON_SUBCHANNEL) ||
-			SoundMgr::IsPlaying(L"../SharedResource/Sound/chaingun/start.ogg", CHANNELID::PLAYER_WEAPON_SUBCHANNEL))
-		{
-			SoundMgr::Play(L"../SharedResource/Sound/chaingun/stop.ogg", CHANNELID::PLAYER_WEAPON_SUBCHANNEL);
-		}
 	}
 }
 
@@ -222,22 +181,6 @@ void Chaingun::OnRotateBarrel()
 		--m_ammo;
 
 		m_bodyChildObj->transform->localPosition = Vec2::Direction(float(rand() % 360)) * 0.005f;
-
-		{
-			int soundIndex = rand() % 4;
-			wchar_t buffer[256];
-			swprintf_s(buffer, L"../SharedResource/Sound/chaingun/fire_%d.ogg", soundIndex);
-
-			int channelIndex = m_lastChannelIndex;
-
-			SoundMgr::Play(buffer, CHANNELID(CHANNELID::PLAYER_WEAPON_FIRE0 + channelIndex));
-
-			++m_lastChannelIndex;
-			if (m_lastChannelIndex >= 15)
-			{
-				m_lastChannelIndex = 0;
-			}
-		}
 	}
 }
 

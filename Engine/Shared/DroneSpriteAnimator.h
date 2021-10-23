@@ -82,6 +82,7 @@ private:
 
 	SpriteAnimation* m_smoke;
 
+
 	float m_angle = 0.f;
 };
 

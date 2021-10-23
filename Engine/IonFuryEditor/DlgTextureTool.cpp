@@ -53,11 +53,11 @@ BOOL DlgTextureTool::OnInitDialog()
 		TCITEM item;
 		item.mask = TCIF_TEXT;
 		//tab 이름 자유롭게 설정. 설정 했다면 밑에 있는 define값에 경로 수정해줘요.
-		item.pszText = L"Filter1";
+		item.pszText = L"obj";
 		m_TabControl.InsertItem(0, &item);
-		item.pszText = L"Filter2";
+		item.pszText = L"npc";
 		m_TabControl.InsertItem(1, &item);
-		item.pszText = L"Filter3";
+		item.pszText = L"sans";
 		m_TabControl.InsertItem(2, &item);
 
 		item.pszText = L"DragAndDrop";			//드래그 드롭 써서 이미지 호출하고 싶다면 4번탭을 사용
@@ -186,12 +186,6 @@ void DlgTextureTool::SetTextureToPicked()
 {
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 	Transform* Selected = giz->GetSelectedObject();
-
-	if (Selected == nullptr)
-		return;
-
-	if (Selected->GetGameObject()->GetComponent<HandlingObject>())
-		return;
 
 	if (Selected->GetGameObject()->GetComponent<Pickable>())
 		giz->ChangeTextureAttachedObject(m_texturePath);

@@ -1,0 +1,20 @@
+[
+	{
+		"ColliderExistence" : true,
+		"MeshType" : 0,
+		"Name" : "ground",
+		"PositionX" : 0.13030914962291718,
+		"PositionY" : -1.278408408164978,
+		"PositionZ" : -2.9999997615814209,
+		"RotationX" : 0.0,
+		"RotationY" : 0.0,
+		"RotationZ" : 0.0,
+		"ScaleX" : 9.0,
+		"ScaleY" : 0.0,
+		"ScaleZ" : 11.699999809265137,
+		"Tag" : "ground",
+		"TexturePath" : "../SharedResource/Texture/sans/Dev.png",
+		"UVScaleX" : 1.0,
+		"UVScaleY" : 1.0
+	}
+]

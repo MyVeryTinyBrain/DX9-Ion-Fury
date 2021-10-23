@@ -48,7 +48,6 @@ void Gizmo::Update()
 	if (Input::GetKeyDown(Key::LeftMouse))
 	{
 		PickHandle();
-		cout << "giz³»ºÎ ÀâÈû" << endl;
 	}
 	else if (HasSelect() && Input::GetKey(Key::LeftMouse))
 	{
@@ -229,7 +228,7 @@ void Gizmo::ResetGizmoTransform()
 
 void Gizmo::Handling()
 {
-	float gap = 0.1f;
+	float gap = 0.2f;
 
 	Vec3 dragCoord = CalcGizmoHandlingCoord();
 	Vec3 delta = dragCoord - m_selectCoord;

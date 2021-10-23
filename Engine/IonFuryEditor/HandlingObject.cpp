@@ -9,12 +9,7 @@
 #include <ItemShotgunAmmo.h>
 #include <ItemSMGAmmo.h>
 #include <ItemHealthPack.h>
-#include <ItemArmor.h>
-#include <ItemCardKey.h>
-#include <ObjectRat.h>
-
-#include <Skull.h>
-
+#include <ObjectStair.h>
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -111,15 +106,10 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 		m_ChildObject->AddComponent<ItemSMGAmmo>();
 	else if (Type == (L"ItemHealthPack"))
 		m_ChildObject->AddComponent<ItemHealthPack>();
-	
-	else if (Type == (L"ItemArmor"))
-		m_ChildObject->AddComponent<ItemArmor>();
-	else if (Type == (L"ItemCardKey"))
-		m_ChildObject->AddComponent<ItemCardKey>();
-	else if (Type == (L"ObjectRat"))
-		m_ChildObject->AddComponent<ObjectRat>();
-
-
+	else if (Type == (L"ItemHealthPack"))
+		m_ChildObject->AddComponent<ItemHealthPack>();
+	else if (Type == (L"ObjectStair"))
+		m_ChildObject->AddComponent<ObjectStair>();
 	else if (Type == (L"Player"))
 		MakePlayerCapsule();
 }

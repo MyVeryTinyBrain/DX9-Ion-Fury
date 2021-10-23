@@ -46,18 +46,6 @@ void PlayerUI::Awake()
 	m_armorObj->transform->localScale = Vec2::one() * 0.05f;
 	m_armorNumbers = m_armorObj->AddComponent<Numbers>();
 
-	// Cardkey
-	m_cardKeyObj = CreateGameObjectToChild(transform);
-	m_cardKeyObj->transform->localPosition = Vec2(-0.83f, -0.34f);
-	m_cardKeyObj->transform->localScale = Vec2::one() * 0.1f;
-	m_cardKeyRenderer = m_cardKeyObj->AddComponent<UserMeshRenderer>();
-	m_cardKeyRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
-	m_cardKeyRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
-	m_cardKeyRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
-	m_cardKeyRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
-	m_cardKeyRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/item/card.png"));
-	m_cardKeyObj->activeSelf = false;
-
 	// Ammo0 Numbers
 	m_ammoObj0 = CreateGameObjectToChild(transform);
 	m_ammoObj0->transform->localPosition = Vec2(0.69f, -0.45f);
@@ -279,9 +267,4 @@ void PlayerUI::SetAmmo1Type(AmmoTypes type)
 		m_ammoObj1->activeSelf = true;
 		m_ammoTypeObj1->activeSelf = true;
 	}
-}
-
-void PlayerUI::SetCardKey(bool value)
-{
-	m_cardKeyObj->activeSelf = value;
 }

@@ -12,7 +12,7 @@ protected:
 
 	virtual wstring InitTextureLocalPath() const = 0;
 
-	virtual void OnTrigger(class Player* player, bool& destroy) = 0;
+	virtual void OnTrigger(class Player* player) = 0;
 
 private:
 

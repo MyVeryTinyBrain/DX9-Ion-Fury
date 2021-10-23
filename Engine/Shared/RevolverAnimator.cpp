@@ -1,7 +1,6 @@
 #include "shared_stdafx.h"
 #include "RevolverAnimator.h"
 #include "SpriteAnimation.h"
-#include "SoundMgr.h"
 
 void RevolverAnimator::Awake()
 {
@@ -68,7 +67,7 @@ void RevolverAnimator::Awake()
 
 	m_reloadingPullout = new SpriteAnimation;
 	m_reloadingPullout->AddTexture(L"../SharedResource/Texture/revolver/revolver9.png");
-	m_reloadingPullout->interval = 0.3f;
+	m_reloadingPullout->interval = 0.4f;
 
 	m_endReload = new SpriteAnimation;
 	m_endReload->AddTexture(L"../SharedResource/Texture/revolver/revolver9.png");
@@ -127,8 +126,6 @@ void RevolverAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteA
 		else if (current == m_reloadingPullout)
 		{
 			*next = m_endReload;
-
-			SoundMgr::Play(L"../SharedResource/Sound/revolver/reload.ogg", CHANNELID::PLAYER_WEAPON_RELOAD);
 		}
 	}
 }
@@ -145,28 +142,16 @@ void RevolverAnimator::PlayIdle()
 void RevolverAnimator::PlayShoot()
 {
 	PlayAnimation(m_shoot);
-
-	int soundIndex = rand() % 3;
-	wchar_t buffer[256];
-	swprintf_s(buffer, L"../SharedResource/Sound/revolver/shot_00%d.ogg", soundIndex);
-	SoundMgr::Play(buffer, CHANNELID::PLAYER_WEAPON_FIRE0);
 }
 
 void RevolverAnimator::PlayFastShoot()
 {
 	PlayAnimation(m_fastShoot);
-
-	int soundIndex = rand() % 3;
-	wchar_t buffer[256];
-	swprintf_s(buffer, L"../SharedResource/Sound/revolver/shot_00%d.ogg", soundIndex);
-	SoundMgr::Play(buffer, CHANNELID::PLAYER_WEAPON_FIRE0);
 }
 
 void RevolverAnimator::PlayReload()
 {
 	PlayAnimation(m_beginReload);
-
-	SoundMgr::Play(L"../SharedResource/Sound/revolver/chain.ogg", CHANNELID::PLAYER_WEAPON_RELOAD);
 }
 
 bool RevolverAnimator::IsPlayingIdle() const

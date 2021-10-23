@@ -54,10 +54,6 @@ private:
 
 	OverrideComponentFunction(OnDestroy);
 
-	OverrideComponentFunction(OnWake);
-
-	OverrideComponentFunction(OnSleep);
-
 public:
 
 	bool UseGravity() const;

@@ -4,16 +4,15 @@
 #include "PhysicsLayers.h"
 #include "IUsable.h"
 #include "ObjectButton.h"
-#include "Player.h"
 
 void Trigger::Awake()
 {
-//#ifdef _DEBUG
-//	m_debugRenderer = gameObject->AddComponent<UserMeshRenderer>();
-//	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-//	m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-//	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-//#endif
+#ifdef _DEBUG
+	m_debugRenderer = gameObject->AddComponent<UserMeshRenderer>();
+	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
+	m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+#endif
 
 	// 버튼 테스트
 	//auto button = gameObject->AddComponent<ObjectButton>();
@@ -27,18 +26,21 @@ void Trigger::Update()
 		return;
 	}
 
-	if (m_method == TriggerMethod::Touch)
+	if (m_method == Method::Touch)
 	{
 		Collider* collider = Physics::OverlapBox(
-			transform->scale,
 			transform->position,
+			transform->scale,
 			transform->rotation,
 			1 << (uint8_t)PhysicsLayers::Player,
 			PhysicsQueryType::Collider);
 
 		if (collider)
 		{
+			ActiveAllGameObjects();
 			Use();
+			OnTrigger();
+			m_used = true;
 		}
 	}
 }
@@ -48,7 +50,7 @@ void Trigger::SetTriggerOnce(bool value)
 	m_once = value;
 }
 
-void Trigger::SetMethod(TriggerMethod value)
+void Trigger::SetMethod(Method value)
 {
 	if (value == m_method)
 	{
@@ -57,31 +59,29 @@ void Trigger::SetMethod(TriggerMethod value)
 
 	m_method = value;
 
-	if (value == TriggerMethod::Button || value == TriggerMethod::CardCheck)
+	if (value == Method::Button)
 	{
 		if (!m_body)
 		{
 			m_body = gameObject->AddComponent<Rigidbody>();
+			m_body->isKinematic = true;
 		}
 
 		if (!m_trigger)
 		{
 			m_trigger = gameObject->AddComponent<BoxCollider>();
+			m_trigger->isTrigger = true;
+			m_trigger->layerIndex = (uint8_t)PhysicsLayers::InputTrigger;
 		}
 
 		if (m_body)
 		{
 			m_body->enable = true;
-
-			m_body->isKinematic = true;
 		}
 
 		if (m_trigger)
 		{
 			m_trigger->enable = true;
-
-			m_trigger->isTrigger = true;
-			m_trigger->layerIndex = (uint8_t)PhysicsLayers::InputTrigger;
 		}
 	}
 	else
@@ -101,10 +101,11 @@ void Trigger::AddSubordinationComponent(Component* value)
 {
 	IDontDeactive* includedInterface = dynamic_cast<IDontDeactive*>(value);
 
-	if (!includedInterface && value)
-	{
-		value->gameObject->activeSelf = false;
-	}
+	// 사용시 주석 해제
+	//if (!includedInterface && value)
+	//{
+	//	value->gameObject->activeSelf = false;
+	//}
 
 	m_connected.push_back(value);
 }
@@ -124,27 +125,6 @@ void Trigger::ActiveAllGameObjects()
 
 void Trigger::Use()
 {
-	bool valid = true;
-
-	switch (m_method)
-	{
-		case TriggerMethod::CardCheck:
-			{
-				valid = Player::GetInstance()->cardKey;
-				Player::GetInstance()->cardKey = false;
-			}
-			break;
-	}
-
-	if (!valid)
-	{
-		m_used = true;
-	}
-
-	ActiveAllGameObjects();
-
-	OnTrigger();
-
 	for (auto& comp : m_connected)
 	{
 		if (comp.IsNull())
@@ -155,7 +135,7 @@ void Trigger::Use()
 		IUsable* usable = dynamic_cast<IUsable*>(comp.GetPointer());
 		if (usable)
 		{
-			usable->OnUse(valid);
+			usable->OnUse();
 		}
 	}
 }
@@ -163,9 +143,4 @@ void Trigger::Use()
 const std::vector<Ref<Component>>& Trigger::GetConnections() const
 {
 	return m_connected;
-}
-
-TriggerMethod Trigger::GetMethod() const
-{
-	return m_method;
 }

@@ -10,19 +10,19 @@ namespace fs = std::filesystem;
 
 #include <atlconv.h>
 
-SoundMgr* SoundMgr::g_pInstance = nullptr;
-SoundMgr::SoundMgr()
+CSoundMgr* CSoundMgr::m_pInstance = nullptr;
+CSoundMgr::CSoundMgr()
 {
 	m_pSystem = nullptr;
 }
 
 
-SoundMgr::~SoundMgr()
+CSoundMgr::~CSoundMgr()
 {
 	Release();
 }
 
-void SoundMgr::Initialize()
+void CSoundMgr::Initialize()
 {
 	FMOD_System_Create(&m_pSystem, FMOD_VERSION);
 
@@ -31,7 +31,7 @@ void SoundMgr::Initialize()
 
 	LoadSoundFile();
 }
-void SoundMgr::Release()
+void CSoundMgr::Release()
 {
 	for (auto& Mypair : m_mapSound)
 	{
@@ -48,135 +48,55 @@ void SoundMgr::Release()
 	}
 }
 
-void SoundMgr::Play(const wchar_t* pSoundKey, CHANNELID eID, bool loop)
+void CSoundMgr::Play(const wchar_t* pSoundKey, CHANNELID eID)
 {
-	auto& i = *g_pInstance;
-
 	std::map<wstring, FMOD_SOUND*>::iterator iter;
 
-	iter = std::find_if(i.m_mapSound.begin(), i.m_mapSound.end(), [&](auto& iter)
+	iter = std::find_if(m_mapSound.begin(), m_mapSound.end(), [&](auto& iter)
 		{
 			return iter.first == pSoundKey;
 		});
 
-	if (iter == i.m_mapSound.end())
-		return;
-
-	FMOD_Channel_Stop(i.m_pChannelArr[eID]);
-
-	FMOD_BOOL bPlay = FALSE;
-	if (FMOD_Channel_IsPlaying(i.m_pChannelArr[eID], &bPlay))
-	{
-		FMOD_System_PlaySound(i.m_pSystem, iter->second, NULL, FALSE, &i.m_pChannelArr[eID]);
-	}
-	FMOD_Channel_SetMode(i.m_pChannelArr[eID], loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
-	FMOD_System_Update(i.m_pSystem);
-}
-
-void SoundMgr::PlayContinue(const wchar_t* pSoundKey, CHANNELID eID)
-{
-	auto& i = *g_pInstance;
-
-	std::map<wstring, FMOD_SOUND*>::iterator iter;
-
-	iter = std::find_if(i.m_mapSound.begin(), i.m_mapSound.end(), [&](auto& iter)
-		{
-			return iter.first == pSoundKey;
-		});
-
-	if (iter == i.m_mapSound.end())
+	if (iter == m_mapSound.end())
 		return;
 
 	FMOD_BOOL bPlay = FALSE;
-	if (FMOD_Channel_IsPlaying(i.m_pChannelArr[eID], &bPlay))
+	if (FMOD_Channel_IsPlaying(m_pChannelArr[eID], &bPlay))
 	{
-		FMOD_System_PlaySound(i.m_pSystem, iter->second, NULL, FALSE, &i.m_pChannelArr[eID]);
+		FMOD_System_PlaySound(m_pSystem, iter->second, NULL, FALSE, &m_pChannelArr[eID]);
 	}
-	FMOD_System_Update(i.m_pSystem);
+	FMOD_System_Update(m_pSystem);
 }
 
-void SoundMgr::PlayBGM(const wchar_t* pSoundKey)
+void CSoundMgr::PlayBGM(const wchar_t* pSoundKey)
 {
-	auto& i = *g_pInstance;
-
 	std::map<wstring, FMOD_SOUND*>::iterator iter;
 
-	iter = std::find_if(i.m_mapSound.begin(), i.m_mapSound.end(), [&](auto& iter)
+	iter = std::find_if(m_mapSound.begin(), m_mapSound.end(), [&](auto& iter)
 		{
 			return iter.first == pSoundKey;
 		});
 
-	if (iter == i.m_mapSound.end())
+	if (iter == m_mapSound.end())
 		return;
 
-	FMOD_System_PlaySound(i.m_pSystem, iter->second, NULL, FALSE, &i.m_pChannelArr[BGM]);
-	FMOD_Channel_SetMode(i.m_pChannelArr[BGM], FMOD_LOOP_NORMAL);
-	FMOD_System_Update(i.m_pSystem);
+	FMOD_System_PlaySound(m_pSystem, iter->second, NULL, FALSE, &m_pChannelArr[BGM]);
+	FMOD_Channel_SetMode(m_pChannelArr[BGM], FMOD_LOOP_NORMAL);
+	FMOD_System_Update(m_pSystem);
 }
 
-void SoundMgr::StopSound(CHANNELID eID)
+void CSoundMgr::StopSound(CHANNELID eID)
 {
-	auto& i = *g_pInstance;
-
-	FMOD_Channel_Stop(i.m_pChannelArr[eID]);
-	FMOD_Channel_SetMode(i.m_pChannelArr[eID], FMOD_LOOP_OFF);
-	FMOD_System_Update(i.m_pSystem);
+	FMOD_Channel_Stop(m_pChannelArr[eID]);
 }
 
-void SoundMgr::StopAll()
+void CSoundMgr::StopAll()
 {
-	auto& inst = *g_pInstance;
-
 	for (int i = 0; i < MAXCHANNEL; ++i)
-		FMOD_Channel_Stop(inst.m_pChannelArr[i]);
+		FMOD_Channel_Stop(m_pChannelArr[i]);
 }
 
-bool SoundMgr::IsPlaying(CHANNELID eID)
-{
-	auto& i = *g_pInstance;
-
-	FMOD_BOOL bPlay = FALSE;
-	FMOD_Channel_IsPlaying(i.m_pChannelArr[eID], &bPlay);
-
-	return bPlay;
-}
-
-bool SoundMgr::IsPlaying(const wchar_t* pSoundKey, CHANNELID eID)
-{
-	auto& i = *g_pInstance;
-
-	std::map<wstring, FMOD_SOUND*>::iterator iter;
-
-	iter = std::find_if(i.m_mapSound.begin(), i.m_mapSound.end(), [&](auto& iter)
-		{
-			return iter.first == pSoundKey;
-		});
-
-	if (iter == i.m_mapSound.end())
-		return false;
-
-	FMOD_BOOL bPlay = FALSE;
-	FMOD_Channel_IsPlaying(i.m_pChannelArr[eID], &bPlay);
-
-	if (!bPlay)
-	{
-		return false;
-	}
-
-	FMOD_SOUND* current = nullptr;
-	FMOD_Channel_GetCurrentSound(i.m_pChannelArr[eID], &current);
-
-	if (current == iter->second)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void SoundMgr::LoadSoundFile()
+void CSoundMgr::LoadSoundFile()
 {
 	std::vector<std::wstring> filePathes;
 	fs::path begin = L"../SharedResource/Sound/";
