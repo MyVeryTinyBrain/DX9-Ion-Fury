@@ -12,4 +12,13 @@ void ObjectCarRed::Awake()
 	m_cube->right->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/car/red/side.png"));
 	m_cube->top->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/car/red/top.png"));
 	m_cube->bottom->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/car/red/top.png"));
+
+	{
+		auto colliderObj = CreateGameObjectToChild(transform);
+		auto body = colliderObj->AddComponent<Rigidbody>();
+		auto collider = colliderObj->AddComponent<BoxCollider>();
+		body->isKinematic = true;
+		collider->friction = 1.0f;
+		collider->restitution = 1.0f;
+	}
 }
