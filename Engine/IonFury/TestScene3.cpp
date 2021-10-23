@@ -44,7 +44,7 @@ void TestScene3::OnLoad(Scene* beforeScene)
 		light->ambientFactor = 0.6f;
 	}
 	//AddMap();
-	//AddMonster();
+	AddMonster();
 	//  MapLoad::LoadMap(L"../Data/Map/testmap.txt");
 
 
@@ -176,12 +176,12 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
-	for (int i = 0; i < 4; ++i)
-	{
-		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(i * 5, 0, 0);
-		obj->AddComponent<Deacon>();
-	}
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(i * 5, 0, 0);
+	//	obj->AddComponent<Deacon>();
+	//}
 
 
 
@@ -205,14 +205,14 @@ void TestScene3::AddMonster()
 	//{
 	//// //¹ÂÅÏÆ®
 		//auto obj = CreateGameObject();
-		//obj->transform->position = Vec3(0, 0, -17);
+		//obj->transform->position = Vec3(0, 0, 3);
 		//obj->AddComponent<Mutant>();
 	//}
 
 		//º£ÀÌÁ÷ ¹ÂÅÏÆ®
-		//auto obj = CreateGameObject();
-		//obj->transform->position = Vec3(0, 0, -15);
-		//obj->AddComponent<BasicMutant>();
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(0,1, 3);
+		obj->AddComponent<BasicMutant>();
 
 	//{
 	//	auto obj = CreateGameObject();

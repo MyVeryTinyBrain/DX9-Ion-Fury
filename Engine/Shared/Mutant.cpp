@@ -76,7 +76,7 @@ void Mutant::Update()
 	{
 		chageanimation += Time::DeltaTime();
 
-		if (chageanimation > 2.f)
+		if (chageanimation > 2.1f)
 		{
 			m_hasTargetCoord = true;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk());
@@ -190,6 +190,7 @@ void Mutant::OnDamage(DamageParameters& params)
 
 void Mutant::OnDead(bool& dead, DamageParameters& params)
 {
+	m_moveSpeed = 0;
 	//m_body->useGravity = true;
 	m_hasTargetCoord = false;
 	m_attackCount = 0;

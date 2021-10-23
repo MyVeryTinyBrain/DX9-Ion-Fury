@@ -82,12 +82,13 @@ void BasicMutant::Update()
 	{
 		chageanimation += Time::DeltaTime();
 
-		if (chageanimation > 2.f)
+		if (chageanimation > 2.1f)
 		{
+			if (m_hp > 10)
+				m_moveSpeed = 2.0f;
 			m_hasTargetCoord = true;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk());
-			//if (m_hp > 10)
-			//	m_moveSpeed = 2.0f;
+
 		}
 	}
 
@@ -172,6 +173,7 @@ void BasicMutant::OnDamage(DamageParameters& params)
 void BasicMutant::OnDead(bool& dead, DamageParameters& params)
 {
 	//m_body->useGravity = true;
+	m_moveSpeed = 0;
 	int dieIndex = rand() % (int)BasicMutantSpriteAnimator::DIE_BasicMutant::MAX;
 
 
@@ -288,8 +290,8 @@ void BasicMutant::OnDeadAnimated()
 void BasicMutant::ColliderCheck()
 {
 	Collider* collider = Physics::OverlapSphere(
-		transform->position,
 		0.6f,
+		transform->position,
 		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
 		PhysicsQueryType::Collider);
 
