@@ -1815,7 +1815,7 @@
 			"ScaleY" : 30.0,
 			"ScaleZ" : 20.0,
 			"Tag" : "",
-			"TexturePath" : "../SharedResource/Texture/map/39.png",
+			"TexturePath" : "../SharedResource/Texture/map/69.png",
 			"UVScaleX" : 4.0,
 			"UVScaleY" : 6.0
 		},
@@ -2217,6 +2217,25 @@
 			"TexturePath" : "../SharedResource/Texture/map/32.png",
 			"UVScaleX" : 0.25,
 			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "Copied",
+			"PositionX" : -22.600000381469727,
+			"PositionY" : -7.0,
+			"PositionZ" : 10.0,
+			"RotationX" : -0.0,
+			"RotationY" : -180.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 40.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/69.png",
+			"UVScaleX" : 8.0,
+			"UVScaleY" : 4.0
 		}
 	],
 	"TriggerEvents" : 
