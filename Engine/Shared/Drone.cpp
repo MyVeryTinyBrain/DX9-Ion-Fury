@@ -42,6 +42,8 @@ void Drone::FixedUpdate()
 		return;
 	}
 
+	DistanceCheck();
+
 	if (!m_hasTargetCoord)
 	{
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
@@ -269,7 +271,11 @@ void Drone::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
-		//ShootToPlayer();
+		
+		if (m_damageToPlayer)
+		{
+			ShootToPlayer();
+		}
 	}
 
 }
@@ -288,6 +294,7 @@ void Drone::ShootToPlayer()
 	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayer.Normalize();
 	Player::GetInstance()->TakeDamage(1);
+	m_damageToPlayer = false;
 }
 
 void Drone::DistanceCheck()
@@ -304,11 +311,15 @@ void Drone::DistanceCheck()
 
 	if (distance > 2.1f)
 	{
-		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
+		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(10.0f));
 		RaycastHit hit;
 
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
+		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider, m_body))
 		{
+			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+			{
+				m_damageToPlayer = true;
+			}
 		}
 	}
 }
