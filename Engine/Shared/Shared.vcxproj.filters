@@ -91,6 +91,12 @@
     <Filter Include="Monster\Wendigo">
       <UniqueIdentifier>{a51331a1-19ff-4fbd-985f-8d8f92a751a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Car">
+      <UniqueIdentifier>{1509902c-4893-4a22-9453-c48b040d431d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Stair">
+      <UniqueIdentifier>{e1ef01be-a64d-4c86-a1ab-c95f0b3aa70c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -197,9 +203,6 @@
     </ClInclude>
     <ClInclude Include="Numbers.h">
       <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectStair.h">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="OrthoEffect.h">
       <Filter>Effect</Filter>
@@ -420,6 +423,24 @@
     <ClInclude Include="Names.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectCarRed.h">
+      <Filter>Object\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectCarBlue.h">
+      <Filter>Object\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectCarBlack.h">
+      <Filter>Object\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectStairBlue.h">
+      <Filter>Object\Stair</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectStairWood.h">
+      <Filter>Object\Stair</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectStairConcrete.h">
+      <Filter>Object\Stair</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -520,9 +541,6 @@
     </ClCompile>
     <ClCompile Include="Numbers.cpp">
       <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectStair.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="OrthoEffect.cpp">
       <Filter>Effect</Filter>
@@ -724,6 +742,24 @@
     </ClCompile>
     <ClCompile Include="BossTrigger.cpp">
       <Filter>Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectCarRed.cpp">
+      <Filter>Object\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectCarBlue.cpp">
+      <Filter>Object\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectCarBlack.cpp">
+      <Filter>Object\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectStairBlue.cpp">
+      <Filter>Object\Stair</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectStairWood.cpp">
+      <Filter>Object\Stair</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectStairConcrete.cpp">
+      <Filter>Object\Stair</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

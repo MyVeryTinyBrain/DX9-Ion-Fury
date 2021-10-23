@@ -121,7 +121,7 @@ void ObjectRat::Update()
     RaycastHit hit;
     if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider))
     {
-        if (Vec3::Distance(hit.point, transform->position) < m_radius * 2.0f)
+        if (Vec3::Distance(hit.point, transform->position))
         {
             transform->position = hit.point + Vec3::up() * m_radius;
         }
