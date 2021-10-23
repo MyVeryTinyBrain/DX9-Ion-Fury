@@ -9,8 +9,8 @@
 			"Name" : "Object_0",
 			"PivotScale" : 1.0,
 			"PositionX" : 0.0,
-			"PositionY" : -0.99999994039535522,
-			"PositionZ" : -2.1999998092651367,
+			"PositionY" : -0.99999988079071045,
+			"PositionZ" : -2.1999995708465576,
 			"RotationX" : 0.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0
@@ -206,6 +206,7 @@
 	[
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -224,6 +225,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -242,6 +244,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 4.0,
@@ -260,6 +263,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -4.0,
@@ -278,6 +282,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -296,6 +301,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -314,6 +320,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -2.5999999046325684,
@@ -332,6 +339,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 2.5999996662139893,
@@ -350,6 +358,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -368,6 +377,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 2.25,
@@ -386,6 +396,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 1.1000000238418579,
@@ -404,6 +415,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -1.0999999046325684,
@@ -422,6 +434,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 2.0999999046325684,
@@ -440,6 +453,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 3.3499999046325684,
@@ -458,6 +472,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -476,6 +491,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 3.5,
@@ -494,6 +510,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.1077003479003906,
@@ -512,6 +529,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 8.5999984741210938,
@@ -530,6 +548,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.5999994277954102,
@@ -548,6 +567,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -566,6 +586,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 16.599998474121094,
@@ -584,6 +605,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -602,6 +624,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -620,6 +643,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.75,
@@ -638,6 +662,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 20.099998474121094,
@@ -656,6 +681,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 20.099996566772461,
@@ -674,6 +700,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 20.099998474121094,
@@ -692,6 +719,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 5.0999994277954102,
@@ -710,6 +738,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 5.0999994277954102,
@@ -728,6 +757,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 5.0999999046325684,
@@ -746,6 +776,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 22.600000381469727,
@@ -764,6 +795,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 22.600000381469727,
@@ -782,6 +814,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 25.19999885559082,
@@ -800,6 +833,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 0.0,
@@ -818,6 +852,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 2.5999999046325684,
@@ -836,6 +871,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 2.5999999046325684,
@@ -854,6 +890,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 8.0500001907348633,
@@ -872,6 +909,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 17.149999618530273,
@@ -890,6 +928,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -908,6 +947,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -926,6 +966,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 4,
 			"Name" : "",
 			"PositionX" : 12.59999942779541,
@@ -944,6 +985,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 1,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -962,6 +1004,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 1,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -980,6 +1023,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.600000381469727,
@@ -998,6 +1042,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 22.200000762939453,
@@ -1016,6 +1061,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 2.9999995231628418,
@@ -1034,6 +1080,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.59999942779541,
@@ -1052,6 +1099,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 12.399999618530273,
@@ -1070,6 +1118,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 5,
 			"Name" : "",
 			"PositionX" : -8.1000003814697266,
@@ -1088,6 +1137,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : -0.59999996423721313,
@@ -1106,6 +1156,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : -2.0999999046325684,
@@ -1124,6 +1175,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 13.199999809265137,
@@ -1142,6 +1194,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 16.69999885559082,
@@ -1160,6 +1213,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 9.6999988555908203,
@@ -1178,6 +1232,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 13.19999885559082,
@@ -1196,6 +1251,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 6,
 			"Name" : "",
 			"PositionX" : 13.199997901916504,
@@ -1214,6 +1270,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -8.0999994277954102,
@@ -1232,6 +1289,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 5,
 			"Name" : "",
 			"PositionX" : -20.599998474121094,
@@ -1250,6 +1308,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -33.099987030029297,
@@ -1268,6 +1327,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -1.7999999523162842,
@@ -1286,6 +1346,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -3.5999999046325684,
@@ -1304,6 +1365,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -3.0999996662139893,
@@ -1322,6 +1384,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -3.5999999046325684,
@@ -1340,6 +1403,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -12.600000381469727,
@@ -1358,6 +1422,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -25.099998474121094,
@@ -1376,6 +1441,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -24.999998092651367,
@@ -1394,6 +1460,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -8.1000003814697266,
@@ -1412,6 +1479,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : -37.5,
@@ -1430,6 +1498,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 27.299999237060547,
@@ -1448,6 +1517,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 31.899997711181641,
@@ -1466,6 +1536,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.899993896484375,
@@ -1484,14 +1555,15 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
-			"PositionX" : 36.899997711181641,
+			"PositionX" : 36.899993896484375,
 			"PositionY" : -1.8999998569488525,
-			"PositionZ" : 42.299995422363281,
+			"PositionZ" : 42.299991607666016,
 			"RotationX" : 0.0,
-			"RotationY" : 179.99998474121094,
-			"RotationZ" : -0.0,
+			"RotationY" : 179.99996948242188,
+			"RotationZ" : 0.0,
 			"ScaleX" : 1.0,
 			"ScaleY" : 4.0,
 			"ScaleZ" : 2.0,
@@ -1502,14 +1574,15 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.899990081787109,
-			"PositionY" : -0.39999988675117493,
-			"PositionZ" : 39.29998779296875,
+			"PositionY" : -0.39999997615814209,
+			"PositionZ" : 39.299972534179688,
 			"RotationX" : 0.0,
-			"RotationY" : 179.99998474121094,
-			"RotationZ" : -0.0,
+			"RotationY" : 179.99995422363281,
+			"RotationZ" : 0.0,
 			"ScaleX" : 1.0,
 			"ScaleY" : 1.0,
 			"ScaleZ" : 4.0,
@@ -1520,6 +1593,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 25.899999618530273,
@@ -1538,6 +1612,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 25.100000381469727,
@@ -1556,6 +1631,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.900001525878906,
@@ -1574,6 +1650,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 36.899997711181641,
@@ -1592,11 +1669,12 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
-			"PositionX" : 35.900001525878906,
-			"PositionY" : -3.8499999046325684,
-			"PositionZ" : 39.299999237060547,
+			"PositionX" : 35.899990081787109,
+			"PositionY" : -3.8841927051544189,
+			"PositionZ" : 39.29998779296875,
 			"RotationX" : 90.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0,
@@ -1610,6 +1688,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 16.564296722412109,
@@ -1628,6 +1707,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 9.6999979019165039,
@@ -1646,6 +1726,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
 			"PositionX" : 6.3896350860595703,
@@ -1664,11 +1745,12 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 2,
 			"Name" : "",
-			"PositionX" : 51.400001525878906,
-			"PositionY" : -3.9000000953674316,
-			"PositionZ" : 39.299999237060547,
+			"PositionX" : 51.399993896484375,
+			"PositionY" : -3.8999998569488525,
+			"PositionZ" : 39.299991607666016,
 			"RotationX" : 90.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0,
@@ -1682,6 +1764,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 51.400001525878906,
@@ -1700,6 +1783,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 51.399997711181641,
@@ -1718,6 +1802,7 @@
 		},
 		{
 			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 26.200000762939453,
@@ -1736,6 +1821,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 65.899993896484375,
@@ -1754,6 +1840,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 65.899993896484375,
@@ -1772,6 +1859,7 @@
 		},
 		{
 			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
 			"PositionX" : 65.899993896484375,
@@ -1787,6 +1875,310 @@
 			"TexturePath" : "../SharedResource/Texture/map/16.png",
 			"UVScaleX" : 1.0,
 			"UVScaleY" : 0.33000001311302185
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "AlphaTest",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : -11.859786033630371,
+			"PositionY" : -3.0422883033752441,
+			"PositionZ" : 42.720954895019531,
+			"RotationX" : 0.0,
+			"RotationY" : -35.999988555908203,
+			"RotationZ" : 0.0,
+			"ScaleX" : 2.0,
+			"ScaleY" : 2.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/46.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : 65.900001525878906,
+			"PositionY" : -3.9000000953674316,
+			"PositionZ" : 39.299999237060547,
+			"RotationX" : 90.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 4.0,
+			"ScaleZ" : 4.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/22.png",
+			"UVScaleX" : 0.33300000429153442,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : 69.400001525878906,
+			"PositionY" : -3.9000000953674316,
+			"PositionZ" : 39.299999237060547,
+			"RotationX" : 90.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 6.0,
+			"ScaleY" : 6.0,
+			"ScaleZ" : 4.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/22.png",
+			"UVScaleX" : 2.0,
+			"UVScaleY" : 2.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 69.399993896484375,
+			"PositionY" : -1.8999998569488525,
+			"PositionZ" : 42.799995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 6.0,
+			"ScaleY" : 4.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/32.png",
+			"UVScaleX" : 4.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 69.399993896484375,
+			"PositionY" : -1.8999998569488525,
+			"PositionZ" : 35.799995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 6.0,
+			"ScaleY" : 4.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/32.png",
+			"UVScaleX" : 4.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 72.899993896484375,
+			"PositionY" : -1.8999998569488525,
+			"PositionZ" : 39.299995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 4.0,
+			"ScaleZ" : 6.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/32.png",
+			"UVScaleX" : 4.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 36.899997711181641,
+			"PositionY" : 1.3999998569488525,
+			"PositionZ" : 39.299995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : 179.99998474121094,
+			"RotationZ" : -0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 2.5999999046325684,
+			"ScaleZ" : 6.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/16.png",
+			"UVScaleX" : 2.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 5,
+			"Name" : "",
+			"PositionX" : 36.900001525878906,
+			"PositionY" : 1.3999999761581421,
+			"PositionZ" : 42.799999237060547,
+			"RotationX" : 0.0,
+			"RotationY" : 90.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 2.5999999046325684,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/16.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 5,
+			"Name" : "",
+			"PositionX" : 36.900001525878906,
+			"PositionY" : 1.3999999761581421,
+			"PositionZ" : 35.799999237060547,
+			"RotationX" : 0.0,
+			"RotationY" : -90.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 2.5999999046325684,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/16.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : 65.899993896484375,
+			"PositionY" : 1.3999998569488525,
+			"PositionZ" : 39.299995422363281,
+			"RotationX" : -0.0,
+			"RotationY" : -179.99998474121094,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 2.5999999046325684,
+			"ScaleZ" : 6.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/16.png",
+			"UVScaleX" : 2.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 5,
+			"Name" : "",
+			"PositionX" : 65.899986267089844,
+			"PositionY" : 1.3999998569488525,
+			"PositionZ" : 42.799995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : 89.999977111816406,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 2.5999999046325684,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/16.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 5,
+			"Name" : "",
+			"PositionX" : 65.899986267089844,
+			"PositionY" : 1.399999737739563,
+			"PositionZ" : 35.799995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : -89.999977111816406,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 2.5999999046325684,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/16.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : 69.400001525878906,
+			"PositionY" : 0.10000000149011612,
+			"PositionZ" : 39.299999237060547,
+			"RotationX" : -90.0,
+			"RotationY" : -0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 6.0,
+			"ScaleY" : 6.0,
+			"ScaleZ" : 4.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/3-2.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : 37.900001525878906,
+			"PositionY" : -3.8509900569915771,
+			"PositionZ" : 38.972999572753906,
+			"RotationX" : 90.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/12.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 30.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : 64.799995422363281,
+			"PositionY" : -3.8794753551483154,
+			"PositionZ" : 39.399997711181641,
+			"RotationX" : 90.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/12.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 30.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "",
+			"PositionX" : 66.899993896484375,
+			"PositionY" : -3.8889298439025879,
+			"PositionZ" : 39.499996185302734,
+			"RotationX" : 90.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 8.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/12.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 8.0
 		}
 	],
 	"TriggerEvents" : 
@@ -1805,7 +2197,7 @@
 				"ScaleZ" : 2.6500000953674316,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 7
+				"TriggerToolAutoNum" : 9
 			},
 			{
 				"EventType" : 2,
@@ -1939,7 +2331,7 @@
 				"ScaleZ" : 0.20000000298023224,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 7
+				"TriggerToolAutoNum" : 9
 			},
 			{
 				"EventType" : 14,
@@ -1982,7 +2374,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 7
+				"TriggerToolAutoNum" : 9
 			},
 			{
 				"EventType" : 12,
@@ -2090,7 +2482,7 @@
 				"ScaleZ" : 0.34999999403953552,
 				"TriggerMethod" : 3,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 7
+				"TriggerToolAutoNum" : 9
 			},
 			{
 				"EventType" : 13,
@@ -2134,11 +2526,11 @@
 			{
 				"EventType" : 6,
 				"Name" : "Event_21",
-				"PositionX" : 14.307180404663086,
-				"PositionY" : -2.232912540435791,
-				"PositionZ" : 39.502647399902344,
-				"RotationX" : -0.0,
-				"RotationY" : -179.99998474121094,
+				"PositionX" : 14.30717945098877,
+				"PositionY" : -2.3855016231536865,
+				"PositionZ" : 39.502643585205078,
+				"RotationX" : 0.0,
+				"RotationY" : -179.99996948242188,
 				"RotationZ" : 0.0,
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
@@ -2147,11 +2539,11 @@
 			{
 				"EventType" : 6,
 				"Name" : "Event_22",
-				"PositionX" : 12.618681907653809,
-				"PositionY" : -2.4162771701812744,
-				"PositionZ" : 39.299613952636719,
-				"RotationX" : -0.0,
-				"RotationY" : -179.99998474121094,
+				"PositionX" : 12.618680953979492,
+				"PositionY" : -2.4798324108123779,
+				"PositionZ" : 39.299610137939453,
+				"RotationX" : 0.0,
+				"RotationY" : -179.99996948242188,
 				"RotationZ" : 0.0,
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
@@ -2226,18 +2618,18 @@
 		[
 			{
 				"Name" : "Trigger_4",
-				"PositionX" : 0.019621489569544792,
-				"PositionY" : -2.24971604347229,
-				"PositionZ" : 39.435207366943359,
+				"PositionX" : 0.019621487706899643,
+				"PositionY" : -2.2497158050537109,
+				"PositionZ" : 39.452949523925781,
 				"RotationX" : 0.0,
-				"RotationY" : 46.999992370605469,
+				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
 				"ScaleX" : 5.0,
 				"ScaleY" : 3.5,
-				"ScaleZ" : 5.0,
+				"ScaleZ" : 9.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 7
+				"TriggerToolAutoNum" : 9
 			},
 			{
 				"EventType" : 5,
@@ -2290,14 +2682,66 @@
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
 				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_34",
+				"PositionX" : -6.4091019630432129,
+				"PositionY" : -3.4281790256500244,
+				"PositionZ" : 27.196998596191406,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_35",
+				"PositionX" : -9.2409162521362305,
+				"PositionY" : -3.5145668983459473,
+				"PositionZ" : 27.341791152954102,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_36",
+				"PositionX" : -9.2409162521362305,
+				"PositionY" : -3.6311280727386475,
+				"PositionZ" : 26.116231918334961,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_37",
+				"PositionX" : -6.6111207008361816,
+				"PositionY" : -3.4774792194366455,
+				"PositionZ" : 25.961217880249023,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
 			}
 		],
 		[
 			{
 				"Name" : "BossEntrance_Trigger",
-				"PositionX" : 36.799991607666016,
-				"PositionY" : -2.638960599899292,
-				"PositionZ" : 36.887016296386719,
+				"PositionX" : 36.799983978271484,
+				"PositionY" : -2.6389601230621338,
+				"PositionZ" : 36.887008666992188,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -2306,7 +2750,7 @@
 				"ScaleZ" : 0.64999997615814209,
 				"TriggerMethod" : 3,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 7
+				"TriggerToolAutoNum" : 9
 			},
 			{
 				"EventType" : 13,
@@ -2323,7 +2767,7 @@
 			},
 			{
 				"EventType" : 12,
-				"Name" : "BossEntrance_Door",
+				"Name" : "BossEntranceDoor",
 				"PositionX" : 36.899990081787109,
 				"PositionY" : -2.3625245094299316,
 				"PositionZ" : 39.29998779296875,
@@ -2333,14 +2777,27 @@
 				"ScaleX" : 4.8000001907348633,
 				"ScaleY" : 3.1500000953674316,
 				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 9,
+				"Name" : "Event_43",
+				"PositionX" : 54.937351226806641,
+				"PositionY" : -1.8768532276153564,
+				"PositionZ" : 38.470279693603516,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
 			}
 		],
 		[
 			{
-				"Name" : "Boss_Trigger",
-				"PositionX" : 38.232135772705078,
-				"PositionY" : -2.9189412593841553,
-				"PositionZ" : 39.4058837890625,
+				"Name" : "BossTrigger",
+				"PositionX" : 38.232131958007812,
+				"PositionY" : -2.6592791080474854,
+				"PositionZ" : 39.405879974365234,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -2349,7 +2806,132 @@
 				"ScaleZ" : 5.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 7
+				"TriggerToolAutoNum" : 9
+			}
+		],
+		[
+			{
+				"Name" : "Trigger_7",
+				"PositionX" : -8.3138904571533203,
+				"PositionY" : -4.1948647499084473,
+				"PositionZ" : 23.349159240722656,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 10.800000190734863,
+				"ScaleY" : 5.0,
+				"ScaleZ" : 1.7999999523162842,
+				"TriggerMethod" : 0,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 9
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_38",
+				"PositionX" : -17.516410827636719,
+				"PositionY" : -7.103672981262207,
+				"PositionZ" : 15.522823333740234,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 0,
+				"Name" : "Event_39",
+				"PositionX" : -17.520561218261719,
+				"PositionY" : -7.1600532531738281,
+				"PositionZ" : 17.669145584106445,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 7,
+				"Name" : "Event_40",
+				"PositionX" : -16.381368637084961,
+				"PositionY" : -7.3267836570739746,
+				"PositionZ" : 15.411056518554688,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 7,
+				"Name" : "Event_41",
+				"PositionX" : -16.090301513671875,
+				"PositionY" : -6.9074263572692871,
+				"PositionZ" : 17.683744430541992,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 7,
+				"Name" : "Event_42",
+				"PositionX" : -18.733423233032227,
+				"PositionY" : -6.7629189491271973,
+				"PositionZ" : 16.428747177124023,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			}
+		],
+		[
+			{
+				"Name" : "Trigger_8",
+				"PositionX" : 65.399986267089844,
+				"PositionY" : -2.6999995708465576,
+				"PositionZ" : 36.699993133544922,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 0.20000000298023224,
+				"ScaleY" : 0.80000001192092896,
+				"ScaleZ" : 0.80000001192092896,
+				"TriggerMethod" : 1,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 9
+			},
+			{
+				"EventType" : 14,
+				"Name" : "Event_44",
+				"PositionX" : 65.413894653320312,
+				"PositionY" : -2.6921851634979248,
+				"PositionZ" : 36.699989318847656,
+				"RotationX" : 0.0,
+				"RotationY" : -89.999977111816406,
+				"RotationZ" : 0.0,
+				"ScaleX" : 0.60000002384185791,
+				"ScaleY" : 0.60000002384185791,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 12,
+				"Name" : "ExitDoor",
+				"PositionX" : 65.534088134765625,
+				"PositionY" : -2.2822647094726562,
+				"PositionZ" : 39.299983978271484,
+				"RotationX" : 0.0,
+				"RotationY" : 89.999946594238281,
+				"RotationZ" : 0.0,
+				"ScaleX" : 4.8000001907348633,
+				"ScaleY" : 3.4000000953674316,
+				"ScaleZ" : 1.0
 			}
 		]
 	]

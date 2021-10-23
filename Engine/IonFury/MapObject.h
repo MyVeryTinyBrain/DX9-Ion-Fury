@@ -6,7 +6,7 @@ class MapObject : public Component
 
 public:
 
-	void InitializeMapObject(const wstring& textureLocalPath, const Vec2& uvScale, int iMeshType, bool hasCollider);
+	void InitializeMapObject(const wstring& textureLocalPath, const wstring& materialType, const Vec2& uvScale, int iMeshType, bool hasCollider);
 
 private:
 

@@ -28,7 +28,7 @@ private:
 
 	void Attack();
 
-	void ShootToPlayer();
+	//void ShootToPlayer();
 
 private:
 
@@ -47,5 +47,13 @@ private:
 	float makePoisonDt = 0.f;
 
 	bool create = true;
+
+	float newmakepoisondt = 0.f;
+
+	float destroypoisondt = 0.f;
+
+	float chageanimation = 0.f;
+
+	bool Setcollider = false;
 };
 

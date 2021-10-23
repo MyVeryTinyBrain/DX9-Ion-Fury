@@ -192,7 +192,7 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 			break;
 
 			/*
-			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo, 
+			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo,
 	ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
 	EventObjectEnd };	//추후 몬스터가 정해지면 수정
 			*/
@@ -256,6 +256,7 @@ HRESULT TotalLoad::LoadFromMapData(const Json::Value& json)
 
 		Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
 		bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+		wstring materialType = ToWString(MapValue["MaterialType"].asString());
 
 		GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
 		pObj->name = Name;
@@ -265,7 +266,7 @@ HRESULT TotalLoad::LoadFromMapData(const Json::Value& json)
 		pObj->transform->eulerAngle = EulerAngle;
 
 		MapObject* compMapObj = pObj->AddComponent<MapObject>();
-		compMapObj->InitializeMapObject(TexturePath, UVScale, iMeshType, ColliderExistence);
+		compMapObj->InitializeMapObject(TexturePath, materialType, UVScale, iMeshType, ColliderExistence);
 	}
 
 	return S_OK;
