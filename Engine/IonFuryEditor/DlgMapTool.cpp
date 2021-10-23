@@ -267,6 +267,7 @@ BEGIN_MESSAGE_MAP(DlgMapTool, CDialog)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_RotSlider, &DlgMapTool::OnNMCustomdrawRotslider)
 	ON_WM_HSCROLL()
 	ON_BN_CLICKED(IDC_BUTTON6, &DlgMapTool::ClickAddButton)
+	ON_BN_CLICKED(IDC_BUTTON7, &DlgMapTool::OnBnClickedCopyButton)
 END_MESSAGE_MAP()
 
 
@@ -727,4 +728,41 @@ void DlgMapTool::ClickAddButton()
 	UpdateUVScale(pick);
 	ReturnComboBoxSelect(pick);
 	ReturnCollisionExistenceSelect(pick);
+}
+
+
+void DlgMapTool::OnBnClickedCopyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject();
+	pObj->name = L"Copied";
+
+	Pickable* NewPickable = pObj->AddComponent<Pickable>();
+	NewPickable->PushInVector(Type::Map);
+
+	Vec3 Pos = trans->position;
+	Vec3 Scale = trans->scale;
+	Vec3 EulerAngle = trans->eulerAngle;
+
+	Vec2 UVScale = Picked->GetUserMesh()->uvScale;
+	COMBOBOX MeshType = Picked->GetMeshType();
+	wstring TexturePath = Picked->GetRenderer()->GetTexture(0)->GetLocalPath();
+	bool ColliderExistence = Picked->GetCollisionExistence();
+	wstring MaterialType = Picked->GetMaterialType().GetString();
+
+	NewPickable->Settings(UVScale, MeshType, TexturePath, ColliderExistence);
+	NewPickable->SetMaterialTypeAs(MaterialType.c_str());
+
+	pObj->transform->position = Pos;
+	pObj->transform->scale = Scale;
+	pObj->transform->eulerAngle = EulerAngle;
 }
