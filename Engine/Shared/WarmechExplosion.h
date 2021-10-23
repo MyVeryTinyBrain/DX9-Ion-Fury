@@ -10,6 +10,8 @@ class WarmechExplosion : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
+	void OnCollisionEnter(const CollisionEnter& collider);
+
 private:
 	WarmechSpriteAnimator* m_animator = nullptr;
 
@@ -18,5 +20,9 @@ private:
 	Material* m_material = nullptr;
 
 	float m_animationTime = 0.f;
+
+	BoxCollider* m_collider = nullptr;
+
+	GameObject* m_colliderObj = nullptr;
 };
 

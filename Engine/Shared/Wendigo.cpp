@@ -72,7 +72,9 @@ void Wendigo::Update()
 		return;
 	}
 
-	Jump();
+	//Jump();
+
+	AttackToPlayer();
 
 	m_PatternTime += Time::DeltaTime();
 
@@ -82,6 +84,16 @@ void Wendigo::Update()
 		SetAction(actionType);
 		m_PatternTime = 0.f;
 	}
+
+	if (m_animator->IsPlayingIdle() && m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
+	{
+		m_animator->PlayWalk();
+	}
+	else if (m_animator->IsPlayingWalk() && m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
+	{
+		m_animator->PlayIdle();
+	}
+
 
 }
 
@@ -261,7 +273,6 @@ void Wendigo::JumpCheck()
 	if (!m_animator->IsPlayingWalk())
 		return;
 
-
 	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayerDir.y = 0;
 	mosterToPlayerDir.Normalize();
@@ -279,6 +290,7 @@ void Wendigo::JumpCheck()
 			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
 			break;
 		case Wendigo::AttackType::Swing:
+			m_hasAttack = true;
 			break;
 		}
 		m_jumptime = 0.f;
@@ -318,6 +330,22 @@ void Wendigo::TerrainCheck()
 	if (Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body))
 	{
 		m_hasJump = true;
+	}
+}
+
+void Wendigo::AttackToPlayer()
+{
+	float distanceToPlayer = Vec3::Distance(transform->position, Player::GetInstance()->transform->position);
+
+	float angle = AngleToPlayer();
+	 
+	if (distanceToPlayer < 2.f && Abs(angle) < 45.f && m_animator->IsPlayingSwing())
+	{
+		cout << "attack" << endl;
+
+		Player::GetInstance()->TakeDamage(1);
+
+		m_hasAttack = false;
 	}
 }
 

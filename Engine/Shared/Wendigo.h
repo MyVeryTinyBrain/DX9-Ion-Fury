@@ -34,6 +34,8 @@ private:
 
 	void TerrainCheck();
 
+	void AttackToPlayer();
+
 private:
 
 
@@ -75,5 +77,6 @@ private:
 
 	float m_PatternTime = 0;
 
+	bool m_hasAttack = false;
 };
 

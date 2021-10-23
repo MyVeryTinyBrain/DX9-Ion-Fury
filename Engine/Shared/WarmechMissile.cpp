@@ -114,6 +114,22 @@ void WarmechMissile::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
+
+	if (m_collider)
+	{
+		m_collider->OnCollisionEnter -= Function<void(const CollisionEnter&)>(this, &WarmechMissile::OnCollisionEnter);
+
+		m_collider->Destroy();
+
+		m_collider = nullptr;
+	}
+
+	if (m_body)
+	{
+		m_body->Destroy();
+
+		m_body = nullptr;
+	}
 }
 
 void WarmechMissile::OnCollisionEnter(const CollisionEnter& collider)
@@ -130,6 +146,8 @@ void WarmechMissile::OnCollisionEnter(const CollisionEnter& collider)
 	}
 	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
 	{
+		Player::GetInstance()->TakeDamage(1);
+
 		Explosion();
 
 		gameObject->Destroy();

@@ -50,6 +50,8 @@ public:
 
 	bool IsPlayingJump() const;
 
+	bool IsPlayingSwing() const;
+
 	bool IsPlayingAttack() const;
 
 	bool IsPlayingDie() const;

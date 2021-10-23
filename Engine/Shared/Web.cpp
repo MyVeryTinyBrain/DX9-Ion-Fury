@@ -29,6 +29,18 @@ void Web::Awake()
 	m_renderer->freezeZ = true;
 	m_renderer->material = m_material;
 
+	m_colliderObj = CreateGameObjectToChild(gameObject->transform);
+	m_collider = m_colliderObj->AddComponent<BoxCollider>();
+	m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &Web::OnCollisionEnter);
+
+
+	//auto colliderDebugRenderer = CreateGameObjectToChild(m_colliderObj->transform);
+	////colliderDebugRenderer->transform->localPosition = Vec3(0.01f, 0.01f, 0);
+	//auto m_colliderDebugRenderer = colliderDebugRenderer->AddComponent<UserMeshRenderer>();
+	//m_colliderDebugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+	//m_colliderDebugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
+	//m_colliderDebugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+
 	m_quad = UserMesh::CreateUnmanaged<QuadUserMesh>();
 	m_renderer->userMesh = m_quad;
 
@@ -60,7 +72,7 @@ void Web::Update()
 		m_animator->Pause();
 	}
 
-	AttackToPlayer();
+	//AttackToPlayer();
 
 }
 
@@ -74,25 +86,28 @@ void Web::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
-}
 
-void Web::AttackToPlayer()
-{
-
-	Vec3 webToPlayerDir = Player::GetInstance()->transform->position - transform->position;
-	webToPlayerDir.y = 0;
-	webToPlayerDir.Normalize();
-
-	RaycastHit hit;
-	PhysicsRay ray(transform->position, webToPlayerDir, sqrtf(0.1f));
-
-	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body))
+	if (m_collider)
 	{
-		if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
-		{
-			Player::GetInstance()->TakeDamage(1);
-		}
+		m_collider->OnCollisionEnter -= Function<void(const CollisionEnter&)>(this, &Web::OnCollisionEnter);
+
+		m_collider->Destroy();
+
+		m_collider = nullptr;
 	}
 
+	if (m_body)
+	{
+		m_body->Destroy();
+
+		m_body = nullptr;
+	}
 }
 
+void Web::OnCollisionEnter(const CollisionEnter& collider)
+{
+	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
+	{
+		Player::GetInstance()->TakeDamage(1);
+	}
+}

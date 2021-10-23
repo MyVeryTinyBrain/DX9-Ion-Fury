@@ -14,6 +14,8 @@ class WarmechBullet : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
+	void OnCollisionEnter(const CollisionEnter& collider);
+
 private:
 
 	WarmechSpriteAnimator* m_animator = nullptr;
@@ -28,14 +30,20 @@ private:
 
 	Material* m_material = nullptr;
 
+	Rigidbody* m_body = nullptr;
+
 	float m_radius = 0.5f;
 
-	float m_selfDestroyCounter = 3.0f;
+	float m_selfDestroyCounter = 5.0f;
 
 	UserMeshRenderer* m_debugRenderer = nullptr;
 
 	bool m_initialdir = true;
 
 	Vec3 forward;
+
+	SphereCollider* m_collider = nullptr;
+
+	GameObject* m_colliderObj = nullptr;
 };
 
