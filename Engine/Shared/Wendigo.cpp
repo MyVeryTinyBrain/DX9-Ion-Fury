@@ -343,7 +343,7 @@ void Wendigo::AttackToPlayer()
 	{
 		cout << "attack" << endl;
 
-		Player::GetInstance()->TakeDamage(1);
+		//Player::GetInstance()->TakeDamage(1);
 
 		m_hasAttack = false;
 	}

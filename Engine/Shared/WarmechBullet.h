@@ -42,7 +42,7 @@ private:
 
 	Vec3 forward;
 
-	SphereCollider* m_collider = nullptr;
+	BoxCollider* m_collider = nullptr;
 
 	GameObject* m_colliderObj = nullptr;
 };

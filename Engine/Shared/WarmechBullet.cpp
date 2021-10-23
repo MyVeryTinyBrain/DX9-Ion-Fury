@@ -26,9 +26,9 @@ void WarmechBullet::Awake()
 	m_renderer->freezeZ = true;
 	m_renderer->material = m_material;
 
-	m_colliderObj = CreateGameObjectToChild(gameObject->transform);
-	m_collider = m_colliderObj->AddComponent<SphereCollider>();
-	m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &WarmechBullet::OnCollisionEnter);
+	//m_colliderObj = CreateGameObjectToChild(gameObject->transform);
+	//m_collider = m_colliderObj->AddComponent<SphereCollider>();
+	//m_collider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &WarmechBullet::OnCollisionEnter);
 
 	m_quad = UserMesh::CreateUnmanaged<QuadUserMesh>();
 	m_renderer->userMesh = m_quad;
@@ -36,11 +36,11 @@ void WarmechBullet::Awake()
 	m_animator = m_rendererObj->AddComponent<WarmechSpriteAnimator>();
 
 	{	// For debug
-		auto debugRendererObj = CreateGameObjectToChild(m_collider->transform);
-		m_debugRenderer = debugRendererObj->AddComponent<UserMeshRenderer>();
-		m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		m_debugRenderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+		//auto debugRendererObj = CreateGameObjectToChild(m_collider->transform);
+		//m_debugRenderer = debugRendererObj->AddComponent<UserMeshRenderer>();
+		//m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+		//m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+		//m_debugRenderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 	}
 }
 
@@ -49,7 +49,7 @@ void WarmechBullet::FixedUpdate()
 	Collider* collider = Physics::OverlapSphere(
 		m_radius,
 		transform->position,
-		(1 << (PxU32)PhysicsLayers::Terrain || 1 << (PxU32)PhysicsLayers::Player),
+		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
 		PhysicsQueryType::Collider);
 
 	if (collider)
@@ -60,7 +60,7 @@ void WarmechBullet::FixedUpdate()
 		}
 		else if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
 		{
-
+			Player::GetInstance()->TakeDamage(1);
 		}
 	}
 }
