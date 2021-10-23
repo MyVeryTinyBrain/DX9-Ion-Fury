@@ -87,6 +87,7 @@ void MutantSpriteAnimator::LateUpdate()
 {
 
     SpriteAnimator::LateUpdate();
+
 }
 
 void MutantSpriteAnimator::OnDestroy()
