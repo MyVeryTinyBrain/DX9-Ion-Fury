@@ -192,7 +192,7 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 			break;
 
 			/*
-			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo, 
+			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo,
 	ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
 	EventObjectEnd };	//추후 몬스터가 정해지면 수정
 			*/
