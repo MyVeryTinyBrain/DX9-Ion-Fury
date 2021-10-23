@@ -22,6 +22,7 @@ void Wendigo::Awake()
 
 	m_renderer = CreateRenderer();
 
+
 	m_animator = m_renderer->gameObject->AddComponent<WendigoSpriteAnimator>();
 }
 
@@ -41,10 +42,9 @@ void Wendigo::FixedUpdate()
 
 	MoveToTarget();
 
-
 	JumpCheck();
 
-	//TerrainCheck();
+	TerrainCheck();
 
 	if (!m_hasTargetCoord)
 	{
@@ -74,8 +74,6 @@ void Wendigo::Update()
 
 	Jump();
 
-	Attack();
-
 	m_PatternTime += Time::DeltaTime();
 
 	if (m_PatternTime > 1.f)
@@ -84,18 +82,6 @@ void Wendigo::Update()
 		SetAction(actionType);
 		m_PatternTime = 0.f;
 	}
-
-	if (m_playerHit)
-	{
-		Player::GetInstance()->TakeDamage(1);
-		transform->position += Player::GetInstance()->transform->forward * Time::DeltaTime() * 2.f;
-		m_playerHit = false;
-	}
-}
-
-void Wendigo::LateUpdate()
-{
-	Monster::LateUpdate();
 
 }
 
@@ -118,6 +104,7 @@ Collider* Wendigo::InitializeCollider(GameObject* colliderObj)
 	}
 	m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
 	m_capsuleCollider->transform->scale = Vec3::one() * 1.3f;
+	m_capsuleCollider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &Wendigo::OnCollisionEnter);
 
 	return m_capsuleCollider;
 }
@@ -153,6 +140,16 @@ void Wendigo::OnDead(bool& dead, DamageParameters& params)
 	m_attackCount = 0;
 
 	m_animator->PlayDie();
+}
+
+void Wendigo::OnCollisionEnter(const CollisionEnter& collider)
+{
+
+	if (collider.fromCollider->layerIndex == (uint8_t)PhysicsLayers::Player)
+	{
+		Player::GetInstance()->TakeDamage(1);
+	}
+
 }
 
 void Wendigo::MoveToTarget()
@@ -210,8 +207,6 @@ void Wendigo::MoveToTarget()
 	else
 	{
 		m_hasTargetCoord = false;
-		//Vec3 targetCoord = Player::GetInstance()->transform->position;
-		//SetTargetCoord(targetCoord);
 	}
 
 }
@@ -230,8 +225,8 @@ void Wendigo::SetTargetCoord(Vec3 xzCoord)
 
 void Wendigo::Jump()
 {
-	if (m_animator->IsPlayingWalk())
-		return;
+	//if (m_animator->IsPlayingWalk())
+	//	return;
 
 	if (m_hasJump)		// มกวม
 	{
@@ -254,17 +249,9 @@ void Wendigo::Jump()
 
 		transform->position += velocity * Time::DeltaTime() * 2.5f;
 
-		//m_animator->SetDefaultAnimation(m_animator->GetAttack(WendigoSpriteAnimator::ATTACK_WENDIGO::Jump), true);
-
-		AttackToPlayer();
-
-	
-
 		if (transform->position.y > m_jumpY + 1.0f)
 		{
 			m_hasJump = false;
-			//m_animator->PlayWalk();
-			
 		}
 	}
 }
@@ -292,7 +279,6 @@ void Wendigo::JumpCheck()
 			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
 			break;
 		case Wendigo::AttackType::Swing:
-			//m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
 			break;
 		}
 		m_jumptime = 0.f;
@@ -321,17 +307,12 @@ void Wendigo::JumpCheck()
 void Wendigo::TerrainCheck()
 {
 
-	//if (m_animator->IsPlayingJump())
-	//{
-	//	return;
-	//}
-
 	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayerDir.y = 0;
 	mosterToPlayerDir.Normalize();
 
 	RaycastHit hit1;
-	PhysicsRay ray1(transform->position + Vec3::down(), mosterToPlayerDir, sqrtf(2.0f));
+	PhysicsRay ray1(transform->position + Vec3::down(), transform->forward, sqrtf(2.0f));
 
 
 	if (Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body))
@@ -344,21 +325,12 @@ void Wendigo::SetAction(ActionType type)
 {
 	m_hasTargetCoord = false;
 	m_attackCount = 0;
-	m_breakTime = 0.35f;
 
 	switch (type)
 	{
 	case ActionType::Idle:
 	{
 		actionType = (ActionType)(rand() % unsigned int(ActionType::Max));
-	}
-	break;
-	case ActionType::WalkToRandomCoord:
-	{
-		//float randomRadian = (rand() % 360) * Deg2Rad;
-		//float randomDistance = (rand() % 15) + 2.1f + 0.1f;
-		//Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
-		//SetTargetCoord(targetCoord);
 	}
 	break;
 	case ActionType::WalkToPlayerDirection:
@@ -385,33 +357,4 @@ void Wendigo::SetAction(ActionType type)
 	}
 	break;
 	}
-}
-
-void Wendigo::AttackToPlayer()
-{
-	if ((!m_animator->IsPlayingAttack()) | m_playerHit)
-	{
-		return;
-	}
-
-	Vec3 mosterToPlayerDir = Player::GetInstance()->transform->position - transform->position;
-	mosterToPlayerDir.y = 0;
-	mosterToPlayerDir.Normalize();
-
-	RaycastHit hit;
-	PhysicsRay ray(transform->position + Vec3::down(), mosterToPlayerDir, sqrtf(0.33f));
-
-	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body))
-	{
-		if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
-		{
-			m_playerHit = true;
-	
-		}
-	}
-}
-
-void Wendigo::Attack()
-{
-
 }

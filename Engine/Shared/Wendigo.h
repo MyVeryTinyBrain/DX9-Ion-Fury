@@ -6,15 +6,11 @@ class WendigoSpriteAnimator;
 
 class Wendigo : public Monster
 {
-	enum class Behavior { MoveToPlayer, Jump, Swing, WalkToRandomCoord, RandomMax, Idle, None };
-
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(FixedUpdate);
 
 	OverrideComponentFunction(Update);
-
-	OverrideComponentFunction(LateUpdate);
 
 	OverrideComponentFunction(OnDestroy);
 
@@ -24,6 +20,7 @@ class Wendigo : public Monster
 
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
+	void OnCollisionEnter(const CollisionEnter& collider);
 
 private:
 
@@ -40,15 +37,11 @@ private:
 private:
 
 
-	enum class ActionType { Idle, WalkToRandomCoord, WalkToPlayerDirection, Swing, Jump, Max };
+	enum class ActionType { Idle, WalkToPlayerDirection, Swing, Jump, Max };
 
 	enum class AttackType { Swing, Jump, Max };
 
 	void SetAction(ActionType type);
-
-	void AttackToPlayer();
-
-	void Attack();
 
 private:
 
@@ -63,8 +56,6 @@ private:
 	Vec3 m_targetCoord;
 
 	Vec3 m_beforeCoord;
-
-	float m_breakTime = 0.f;
 
 	unsigned int m_attackCount = 0;
 
@@ -84,8 +75,5 @@ private:
 
 	float m_PatternTime = 0;
 
-	bool m_playerHit = false;
-
-	float m_hitTime = 0.f;
 };
 

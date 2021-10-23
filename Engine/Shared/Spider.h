@@ -20,6 +20,8 @@ class Spider : public Monster
 
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
+	void OnCollisionEnter(const CollisionEnter& collider);
+
 private:
 
 	void MoveToTarget();
@@ -31,8 +33,6 @@ private:
 	void JumpCheck();
 
 	void Jump();
-
-	void AttackToPlayer();
 
 private:
 
@@ -69,7 +69,5 @@ private:
 	float m_PatternTime = 0;
 
 	JumpType jumpingtype = (JumpType)0;
-
-	bool m_playerHit = false;
 };
 

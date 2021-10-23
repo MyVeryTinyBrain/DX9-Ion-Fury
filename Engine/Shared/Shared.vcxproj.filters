@@ -387,6 +387,9 @@
     <ClInclude Include="Web.h">
       <Filter>Monster\Spider</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectVent.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -667,6 +670,9 @@
     </ClCompile>
     <ClCompile Include="Web.cpp">
       <Filter>Monster\Spider</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectVent.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
