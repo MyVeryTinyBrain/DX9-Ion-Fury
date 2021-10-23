@@ -70,14 +70,11 @@ void Hands::SetActiveWeapon(int weaponIndex)
 		weaponIndex = 0;
 	}
 
-	m_weapons[weaponIndex]->OnPutIn();
+	m_weapons[m_activeWeaponIndex]->OnPutIn();
 
 	for (int i = 0; i < (int)WeaponTypes::Max; ++i)
 	{
 		m_weaponObjects[i]->activeSelf = false;
-		m_weapons[i]->OnAttackInput(Weapon::InputType::Nothing);
-		m_weapons[i]->OnSubInput(Weapon::InputType::Nothing);
-		m_weapons[i]->OnReloadInput(Weapon::InputType::Nothing);
 	}
 
 	m_weaponObjects[weaponIndex]->activeSelf = true;

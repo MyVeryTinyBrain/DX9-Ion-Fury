@@ -7,7 +7,7 @@ wstring ItemBowAmmo::InitTextureLocalPath() const
     return L"../SharedResource/Texture/item/ammo_arrow.png";
 }
 
-void ItemBowAmmo::OnTrigger(Player* player)
+void ItemBowAmmo::OnTrigger(Player* player, bool& destroy)
 {
     player->AddAmmo(WeaponTypes::Bow, AmmoTypes::Arrow, 5);
 }

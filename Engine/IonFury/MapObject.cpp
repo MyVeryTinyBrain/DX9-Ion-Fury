@@ -10,10 +10,20 @@ void MapObject::OnDestroy()
 	}
 }
 
-void MapObject::InitializeMapObject(const wstring& textureLocalPath, const Vec2& uvScale, int iMeshType, bool hasCollider)
+void MapObject::InitializeMapObject(const wstring& textureLocalPath, const wstring& materialType, const Vec2& uvScale, int iMeshType, bool hasCollider)
 {
 	m_renderer = gameObject->AddComponent<UserMeshRenderer>();
-	m_renderer->material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
+
+	wstring localMaterialPath = BuiltInGeometryMaterial;
+	if (materialType == L"Geometry")
+	{
+		localMaterialPath = BuiltInGeometryMaterial;
+	}
+	else if (materialType == L"AlphaTest")
+	{
+		localMaterialPath = BuiltInAlphaTestMaterial;
+	}
+	m_renderer->material = Resource::FindAs<Material>(localMaterialPath);
 
 	m_renderer->SetTexture(0, Resource::FindAs<Texture>(textureLocalPath));
 
@@ -96,12 +106,12 @@ void MapObject::InitializeMapObject(const wstring& textureLocalPath, const Vec2&
 					colliderObj->transform->localPosition = Vec3(0, 0, -0.005f);
 					colliderObj->transform->localScale = Vec3(1, 1, 0.01f);
 					m_collider = colliderObj->AddComponent<BoxCollider>();
-					{
-						auto debugRenderer = colliderObj->AddComponent<UserMeshRenderer>();
-						debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
-						debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-						debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-					}
+					//{
+					//	auto debugRenderer = colliderObj->AddComponent<UserMeshRenderer>();
+					//	debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
+					//	debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+					//	debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+					//}
 				}
 				break;
 			case Sphere:

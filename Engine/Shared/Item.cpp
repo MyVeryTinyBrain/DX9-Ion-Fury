@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "PhysicsLayers.h"
 #include "Player.h"
+#include "SoundMgr.h"
 
 void Item::Awake()
 {
@@ -44,16 +45,23 @@ void Item::Update()
 	}
 
 	auto collider = Physics::OverlapSphere(
-		transform->position,
 		m_triggerRadius,
+		transform->position,
 		(1 << (int)PhysicsLayers::Player),
 		PhysicsQueryType::Collider
 	);
 
 	if (collider)
 	{
-		OnTrigger(Player::GetInstance());
-		gameObject->Destroy();
+		bool destroy = true;
+
+		OnTrigger(Player::GetInstance(), destroy);
+		
+		if (destroy)
+		{
+			gameObject->Destroy();
+			SoundMgr::Play(L"../SharedResource/Sound/item/get.ogg", CHANNELID::ITEM);
+		}
 	}
 
 	if (m_debugRenderer)
