@@ -1,6 +1,6 @@
 #pragma once
 
-class ObjectStair : public Component
+class ObjectStairBlue : public Component
 {
 	OverrideComponentFunction(Awake);
 };
