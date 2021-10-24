@@ -160,6 +160,12 @@ void Warmech::OnDamage(DamageParameters& params)
 	m_attackCount = 5;
 	m_breakTime = 0.35f;
 
+	int soundIndex = rand() % 1;
+	wchar_t buffer[256];
+	swprintf_s(buffer, L"../SharedResource/Sound/warmech/mech_hit%d.ogg", soundIndex);
+	SoundMgr::Play(buffer, CHANNELID::WARMECH);
+
+
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
 		{
@@ -187,7 +193,10 @@ void Warmech::OnDamage(DamageParameters& params)
 
 void Warmech::OnDead(bool& dead, DamageParameters& params)
 {
-
+	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/warmech/mech_death.ogg", CHANNELID::WARMECH))
+	{
+		SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_death.ogg", CHANNELID::WARMECH);
+	}
 	Explosion();
 
 	gameObject->Destroy();
@@ -283,7 +292,7 @@ void Warmech::Attack()
 
 	if (m_attackCount > 0)
 	{
-		
+
 
 		switch (actionType)
 		{
@@ -292,8 +301,13 @@ void Warmech::Attack()
 			--m_attackCount;
 			m_bodyAnimator->PlayShoot();
 
+			if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/warmech/mech_mgun.ogg", CHANNELID::WARMECH))
+			{
+				SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_mgun.ogg", CHANNELID::WARMECH);
+			}
+
 			auto obj = CreateGameObject();
-			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f , transform->position.z) + (-transform->right);
+			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f, transform->position.z) + (-transform->right);
 			obj->AddComponent<WarmechBullet>();
 		}
 		break;
@@ -301,6 +315,11 @@ void Warmech::Attack()
 		{
 			--m_attackCount;
 			m_bodyAnimator->PlayMissile();
+
+			if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/warmech/mech_grenadelaunch.ogg", CHANNELID::WARMECH))
+			{
+				SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_grenadelaunch.ogg", CHANNELID::WARMECH);
+			}
 
 			auto obj = CreateGameObject();
 			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f, transform->position.z) + transform->right;
@@ -339,10 +358,10 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 		//	SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_step2.ogg", CHANNELID::WARMECH);
 		////}
 
-			int soundIndex = rand() % 1;
-			wchar_t buffer[256];
-			swprintf_s(buffer, L"../SharedResource/Sound/warmech/mech_step%d.ogg", soundIndex);
-			SoundMgr::Play(buffer, CHANNELID::WARMECH);
+		int soundIndex = rand() % 1;
+		wchar_t buffer[256];
+		swprintf_s(buffer, L"../SharedResource/Sound/warmech/mech_step%d.ogg", soundIndex);
+		SoundMgr::Play(buffer, CHANNELID::WARMECH);
 
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
@@ -361,7 +380,7 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	}
 	break;
 	case ActionType::Bullet:
-	{		
+	{
 		if (m_bodyAnimator->IsPlayingMissile())
 			return;
 		m_attackCount = 10;

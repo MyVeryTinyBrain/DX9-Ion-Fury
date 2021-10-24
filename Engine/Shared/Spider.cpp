@@ -117,10 +117,6 @@ void Spider::OnDamage(DamageParameters& params)
 	m_hasTargetCoord = false;
 
 
-	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/spider/wendigo_hit2.ogg", CHANNELID::SPIDER))
-	{
-		SoundMgr::Play(L"../SharedResource/Sound/spider/wendigo_hit2.ogg", CHANNELID::SPIDER);
-	}
 
 	switch (params.damageType)
 	{
@@ -133,6 +129,11 @@ void Spider::OnDamage(DamageParameters& params)
 	case MonsterDamageType::Zizizik:
 		m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
 		break;
+	}
+		SoundMgr::StopSound(CHANNELID::SPIDER);
+	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/spider/mechsect_hurt1.ogg", CHANNELID::SPIDER))
+	{
+		SoundMgr::Play(L"../SharedResource/Sound/spider/mechsect_hurt1.ogg", CHANNELID::SPIDER);
 	}
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)

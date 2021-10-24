@@ -152,6 +152,13 @@ void Drone::Moving(MovingType type)
 		Vec3 playerPos = Player::GetInstance()->transform->position;
 		float distance = Vec3::Distance(xzdronePos, playerPos);
 
+		//SoundMgr::StopSound(CHANNELID::DRONE);
+		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/drone/drone_active.ogg", CHANNELID::DRONE))
+		{
+			SoundMgr::Play(L"../SharedResource/Sound/drone/drone_active.ogg", CHANNELID::DRONE);
+		}
+
+
 		if (distance > 8.f)
 			m_distance = true;
 		else
@@ -204,16 +211,11 @@ void Drone::Moving(MovingType type)
 
 		m_deltatime += Time::DeltaTime();
 
-		//const Vec3& dronePos = transform->position;
-		//Vec3 playerPos = Player::GetInstance()->transform->position;
-		//Vec3 monsterToPlayer = playerPos - dronePos;
-		//monsterToPlayer.Normalize();
-		//transform->forward = monsterToPlayer;
-		////float distanceP = Vec3::Distance(playerPos, dronePos);
-
-		//Vec3 velocity = monsterToPlayer * m_moveSpeed;
-		//velocity.y = 0;
-		//m_body->velocity = velocity;
+		//SoundMgr::StopSound(CHANNELID::DRONE);
+		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/drone/drone_active.ogg", CHANNELID::DRONE))
+		{
+			SoundMgr::Play(L"../SharedResource/Sound/drone/drone_active.ogg", CHANNELID::DRONE);
+		}
 
 		if (m_deltatime < 3.f)
 		{
@@ -276,7 +278,6 @@ void Drone::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
-
 		if (m_damageToPlayer)
 		{
 			ShootToPlayer();
@@ -300,6 +301,12 @@ void Drone::ShootToPlayer()
 	mosterToPlayer.Normalize();
 	Player::GetInstance()->TakeDamage(1);
 	m_damageToPlayer = false;
+
+	//SoundMgr::StopSound(CHANNELID::DRONE);
+//if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DRONE))
+//{
+	//SoundMgr::Play(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DRONE);
+	//		}
 }
 
 void Drone::DistanceCheck()
