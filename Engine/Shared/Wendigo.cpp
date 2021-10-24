@@ -5,6 +5,7 @@
 #include "PhysicsLayers.h"
 #include "BloodEffect.h"
 #include "WarmechHit.h"
+#include "SoundMgr.h"
 
 void Wendigo::Awake()
 {
@@ -127,6 +128,11 @@ void Wendigo::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
 
+	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/wendigo/wendigo_hit2.ogg", CHANNELID::WENDIGO))
+	{
+		SoundMgr::Play(L"../SharedResource/Sound/wendigo/wendigo_hit2.ogg", CHANNELID::WENDIGO);
+	}
+
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
 		GameObject* bloodEffectObj = CreateGameObject();
@@ -152,6 +158,11 @@ void Wendigo::OnDead(bool& dead, DamageParameters& params)
 {
 	m_hasTargetCoord = false;
 	m_attackCount = 0;
+
+	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/wendigo/wendigo_die.ogg", CHANNELID::WENDIGO))
+	{
+		SoundMgr::Play(L"../SharedResource/Sound/wendigo/wendigo_die.ogg", CHANNELID::WENDIGO);
+	}
 
 	m_animator->PlayDie();
 }
@@ -253,6 +264,11 @@ void Wendigo::Jump()
 		m_forward.y = 0;
 		m_forward.Normalize();
 		transform->forward = m_forward;
+
+		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/wendigo/wendigo_jump.ogg", CHANNELID::WENDIGO))
+		{
+			SoundMgr::Play(L"../SharedResource/Sound/wendigo/wendigo_jump.ogg", CHANNELID::WENDIGO);
+		}
 
 		Vec3 right = Vec3(transform->right.x, 0, transform->right.z);
 
@@ -370,11 +386,20 @@ void Wendigo::SetAction(ActionType type)
 	{
 	case ActionType::Idle:
 	{
+		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/wendigo/roar_1.ogg", CHANNELID::WENDIGO))
+		{
+			SoundMgr::Play(L"../SharedResource/Sound/wendigo/roar_1.ogg", CHANNELID::WENDIGO);
+		}
 		actionType = (ActionType)(rand() % unsigned int(ActionType::Max));
 	}
 	break;
 	case ActionType::WalkToPlayerDirection:
 	{
+		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/wendigo/wendigo_breathe.ogg", CHANNELID::WENDIGO))
+		{
+			SoundMgr::Play(L"../SharedResource/Sound/wendigo/wendigo_breathe.ogg", CHANNELID::WENDIGO);
+		}
+
 		const Vec3& monsterPos = transform->position;
 		const Vec3& playerPos = Player::GetInstance()->transform->position;
 		Vec3 relative = playerPos - monsterPos;
@@ -385,6 +410,10 @@ void Wendigo::SetAction(ActionType type)
 	break;
 	case ActionType::Swing:
 	{
+		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/wendigo/wendigo_swipe1.ogg", CHANNELID::WENDIGO))
+		{
+			SoundMgr::Play(L"../SharedResource/Sound/wendigo/wendigo_swipe1.ogg", CHANNELID::WENDIGO);
+		}
 		m_attackCount = 2;
 		attackType = AttackType::Swing;
 		m_animator->PlaySwing();
