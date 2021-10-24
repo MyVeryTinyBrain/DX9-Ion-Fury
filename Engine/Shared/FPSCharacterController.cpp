@@ -36,7 +36,7 @@ void FPSCharacterController::FixedUpdate()
 		PhysicsRay ray;
 		ray.point = m_collider->transform->position;
 		ray.direction = Vec3::down();
-        ray.distance = m_collider->halfHeight + m_collider->radius + 0.1f;
+        ray.distance = m_collider->halfHeight + m_collider->radius * 2.0f;
 		m_hasGround = Physics::RaycastTest(ray, 1 << (uint8_t)PhysicsLayers::Terrain, PhysicsQueryType::All, m_body);
     }
 
@@ -138,6 +138,9 @@ void FPSCharacterController::FixedUpdate()
 
 void FPSCharacterController::Update()
 {
+    if (Input::GetKey(Key::Space))
+        m_body->SetRigidbodySleep(false);
+
     if (Input::GetKey(Key::A))
         m_moveDirection.x = -1;
     if (Input::GetKey(Key::D))
@@ -180,7 +183,7 @@ void FPSCharacterController::OnCollisionEnter(const CollisionEnter& collision)
 {
     float angle = Vec3::Angle(Vec3::up(), collision.GetContact(0).normal);
 
-    if (angle < 45 && fabsf(collision.GetContact(0).impulse.y) > 4.0f)
+    if (angle < 49.9f && fabsf(collision.GetContact(0).impulse.y) > 4.0f)
     {
         int soundIndex = rand() % 3;
         wchar_t buffer[256];
@@ -197,7 +200,7 @@ void FPSCharacterController::OnCollisionStay(const CollisionStay& collision)
 {
     float angle = Vec3::Angle(Vec3::up(), collision.GetContact(0).normal);
 
-    if (angle < 45)
+    if (angle < 49.9f)
     {
         m_hasGround = true;
     }

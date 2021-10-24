@@ -15,7 +15,6 @@
 #include "ItemRevolverAmmo.h"
 #include "ItemShotgunAmmo.h"
 #include "ItemSMGAmmo.h"
-#include "ObjectStair.h"
 #include "Cube.h"
 #include "Skull.h"
 #include <ObjectRat.h>
@@ -25,6 +24,13 @@
 #include <ObjectCardScreen.h>
 #include <ObjectAutoDoor.h>
 #include <ObjectManualDoor.h>
+
+#include <ObjectStairBlue.h>
+#include <ObjectStairConcrete.h>
+#include <ObjectStairWood.h>
+#include <ObjectCarRed.h>
+#include <ObjectCarBlue.h>
+#include <ObjectCarBlack.h>
 
 IClonable* TestScene::Clone()
 {

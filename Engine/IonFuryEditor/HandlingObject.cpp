@@ -2,6 +2,7 @@
 #include "HandlingObject.h"
 #include "EditorManager.h"
 #include "Gizmo.h"
+
 #include <ItemBowAmmo.h>
 #include <ItemChaingunAmmo.h>
 #include <ItemLauncherAmmo.h>
@@ -9,11 +10,19 @@
 #include <ItemShotgunAmmo.h>
 #include <ItemSMGAmmo.h>
 #include <ItemHealthPack.h>
+
 #include <ItemArmor.h>
 #include <ItemCardKey.h>
 #include <ObjectRat.h>
 
-#include <Skull.h>
+#include <ObjectStairBlue.h>
+#include <ObjectStairConcrete.h>
+#include <ObjectStairWood.h>
+#include <ObjectCarRed.h>
+#include <ObjectCarBlue.h>
+#include <ObjectCarBlack.h>
+
+#include <ObjectMiniGame.h>
 
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
@@ -119,6 +128,22 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 	else if (Type == (L"ObjectRat"))
 		m_ChildObject->AddComponent<ObjectRat>();
 
+	else if (Type == (L"ObjectStairBlue"))
+		m_ChildObject->AddComponent<ObjectStairBlue>();
+	else if (Type == (L"ObjectStairConcrete"))
+		m_ChildObject->AddComponent<ObjectStairConcrete>();
+	else if (Type == (L"ObjectStairWood"))
+		m_ChildObject->AddComponent<ObjectStairWood>();
+
+	else if (Type == (L"ObjectCarRed"))
+		m_ChildObject->AddComponent<ObjectCarRed>();
+	else if (Type == (L"ObjectCarBlue"))
+		m_ChildObject->AddComponent<ObjectCarBlue>();
+	else if (Type == (L"ObjectCarBlack"))
+		m_ChildObject->AddComponent<ObjectCarBlack>();
+
+	else if (Type == (L"MiniGameTest"))
+		m_ChildObject->AddComponent<ObjectMiniGame>();
 
 	else if (Type == (L"Player"))
 		MakePlayerCapsule();

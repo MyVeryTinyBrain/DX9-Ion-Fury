@@ -22,7 +22,12 @@
 #include <ObjectCardScreen.h>
 #include <ObjectButton.h>
 
-#include <ObjectStair.h>
+#include <ObjectStairBlue.h>
+#include <ObjectStairConcrete.h>
+#include <ObjectStairWood.h>
+#include <ObjectCarRed.h>
+#include <ObjectCarBlue.h>
+#include <ObjectCarBlack.h>
 
 
 std::vector<Pickable*> Pickable::g_PickableVec;
