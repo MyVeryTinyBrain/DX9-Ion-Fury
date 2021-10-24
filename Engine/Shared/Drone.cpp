@@ -42,6 +42,8 @@ void Drone::FixedUpdate()
 		return;
 	}
 
+	DistanceCheck();
+
 	if (!m_hasTargetCoord)
 	{
 		Vec3 targetCoord = Player::GetInstance()->transform->position;
@@ -70,6 +72,7 @@ void Drone::Update()
 
 		return;
 	}
+
 
 	Moving(movingtype);
 
@@ -155,7 +158,9 @@ void Drone::Moving(MovingType type)
 
 		if (m_distance)
 		{
+
 			m_animator->SetDefaultAnimation(m_animator->GetIdle(), true);
+
 			Vec3 targetCoord = Player::GetInstance()->transform->position;
 			SetTargetCoord(targetCoord);
 
@@ -192,6 +197,7 @@ void Drone::Moving(MovingType type)
 	break;
 	case Drone::MovingType::leftRight:
 	{
+
 		transform->up = Vec3(0, 1, 0);
 		transform->right = Vec3::Cross(transform->up, transform->forward);
 		transform->right.Normalize();
@@ -202,32 +208,25 @@ void Drone::Moving(MovingType type)
 		Vec3 playerPos = Player::GetInstance()->transform->position;
 		float distanceP = Vec3::Distance(playerPos, dronePos);
 
-		if (distanceP < 15.1f)
+		if (m_deltatime < 3.f)
 		{
-			if (m_deltatime < 3.f)
-			{
-				transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
-				m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-				m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
-			}
-			else
-			{
-				transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
-				m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
-				m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
-				if (m_deltatime > 6.f)
-				{
-					m_deltatime = 0.f;
-					//movingtype = (MovingType)3;
-					movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
-				}
-			}
+			transform->position += transform->right * m_moveSpeed * Time::DeltaTime();
+			m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
+			m_animator->GetRenderer()->userMesh->uvScale = Vec2(1.f, 1.0f);
 		}
 		else
 		{
-			//movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
-			movingtype = Drone::MovingType::Trace;
+			transform->position += transform->right * m_moveSpeed * -Time::DeltaTime();
+			m_animator->SetDefaultAnimation(m_animator->GetMove(), true);
+			m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
+			if (m_deltatime > 6.f)
+			{
+				m_deltatime = 0.f;
+				movingtype = MovingType::Trace;
+
+			}
 		}
+
 	}
 	break;
 	case Drone::MovingType::Attack:
@@ -269,7 +268,11 @@ void Drone::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
-		//ShootToPlayer();
+
+		if (m_damageToPlayer)
+		{
+			ShootToPlayer();
+		}
 	}
 
 }
@@ -288,6 +291,7 @@ void Drone::ShootToPlayer()
 	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
 	mosterToPlayer.Normalize();
 	Player::GetInstance()->TakeDamage(1);
+	m_damageToPlayer = false;
 }
 
 void Drone::DistanceCheck()
@@ -304,11 +308,15 @@ void Drone::DistanceCheck()
 
 	if (distance > 2.1f)
 	{
-		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(2.0f));
+		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(10.0f));
 		RaycastHit hit;
 
-		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster), PhysicsQueryType::Collider, m_body))
+		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider, m_body))
 		{
+			if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+			{
+				m_damageToPlayer = true;
+			}
 		}
 	}
 }

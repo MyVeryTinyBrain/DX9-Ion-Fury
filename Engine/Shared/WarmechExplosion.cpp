@@ -1,7 +1,8 @@
 #include "shared_stdafx.h"
 #include "WarmechExplosion.h"
 #include "WarmechSpriteAnimator.h"
-
+#include "PhysicsLayers.h"
+#include "Player.h"
 
 void WarmechExplosion::Awake()
 {
@@ -38,4 +39,5 @@ void WarmechExplosion::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
+
 }

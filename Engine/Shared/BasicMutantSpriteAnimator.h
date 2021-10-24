@@ -52,6 +52,9 @@ public:
 
 	SpriteAnimation* GetCreate() const;
 
+	SpriteAnimation* GetAttack() const;
+
+
 
 private:
 
@@ -75,5 +78,8 @@ private:
 public:
 
 	Delegate<void()> OnDeadAnimated;
+
+	Delegate<void()> OnCreateAnumated;
+
 };
 

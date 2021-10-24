@@ -9,7 +9,7 @@ void GunnerBase::Awake()
 {
     Monster::Awake();
 
-    m_hp = 10;
+    m_hp = 15;
     m_moveSpeed = 3.0f;
 
     m_body->mass = 4.0f;

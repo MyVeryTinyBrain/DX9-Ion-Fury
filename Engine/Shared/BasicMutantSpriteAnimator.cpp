@@ -14,7 +14,7 @@ void BasicMutantSpriteAnimator::Awake()
     m_create->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Create4.png");
     m_create->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Create5.png");
     m_create->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Create6.png");
-    m_create->interval = 0.3f;
+    m_create->interval = 0.25f;
 
     m_die[(unsigned int)DIE_BasicMutant::DIE_HEADSHOT] = new SpriteAnimation;
     m_die[(unsigned int)DIE_BasicMutant::DIE_HEADSHOT]->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_HeadShot0.png");
@@ -56,7 +56,7 @@ void BasicMutantSpriteAnimator::Awake()
     m_Attack->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Attack6.png");
     m_Attack->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Attack7.png");
     m_Attack->AddTexture(L"../SharedResource/Texture/BasicMutant/BasicMutant_Attack8.png");
-    m_Attack->interval = 0.1f;
+    m_Attack->interval = 0.07f;
     m_Attack->isLoop = true;
 
     SetDefaultAnimation(m_walk);
@@ -117,8 +117,6 @@ void BasicMutantSpriteAnimator::PlayCreate()
 {
     PlayAnimation(m_create, true);
     ResetUVDirection();
-
-    SetDefaultAnimation(m_walk);
 }
 
 void BasicMutantSpriteAnimator::PlayWalk()
@@ -183,6 +181,11 @@ SpriteAnimation* BasicMutantSpriteAnimator::GetWalk() const
 SpriteAnimation* BasicMutantSpriteAnimator::GetCreate() const
 {
     return m_create;
+}
+
+SpriteAnimation* BasicMutantSpriteAnimator::GetAttack() const
+{
+    return m_Attack;
 }
 
 

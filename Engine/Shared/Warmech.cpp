@@ -13,7 +13,7 @@ void Warmech::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 50;
+	m_hp = 250;
 	m_moveSpeed = 3.0f;
 
 	m_body->mass = 8.f;
@@ -313,7 +313,6 @@ void Warmech::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
-		ShootToPlayer();
 	}
 	else
 		m_attacking = false;
@@ -366,10 +365,4 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	}
 	break;
 	}
-}
-void Warmech::ShootToPlayer()
-{
-	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
-	mosterToPlayer.Normalize();
-	Player::GetInstance()->TakeDamage(1);
 }
