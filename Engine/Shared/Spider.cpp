@@ -5,6 +5,7 @@
 #include "PhysicsLayers.h"
 #include "Web.h"
 #include "BloodEffect.h"
+#include "SoundMgr.h"
 
 void Spider::Awake()
 {
@@ -124,6 +125,12 @@ void Spider::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
 
+
+	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/spider/wendigo_hit2.ogg", CHANNELID::SPIDER))
+	{
+		SoundMgr::Play(L"../SharedResource/Sound/spider/wendigo_hit2.ogg", CHANNELID::SPIDER);
+	}
+
 	switch (params.damageType)
 	{
 	case MonsterDamageType::Zizizik:
@@ -153,6 +160,11 @@ void Spider::OnDead(bool& dead, DamageParameters& params)
 	m_hasTargetCoord = false;
 	m_attackCount = 0;
 	
+	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/spider/sect_deathSpiral.ogg", CHANNELID::SPIDER))
+	{
+		SoundMgr::Play(L"../SharedResource/Sound/spider/sect_deathSpiral.ogg", CHANNELID::SPIDER);
+	}
+
 	int dieIndex = rand() % (int)SpiderSpriteAnimator::DIE_SPIDER::MAX;
 
 
