@@ -35,7 +35,7 @@ enum CHANNELID
 	OBJECT_INPUT,
 	OBJECT,
 
-	//¼º¿¬Ãß°¡
+
 	DEACONATTACK,
 	DEACONMOVE,
 	DEACONHIT,
@@ -50,6 +50,11 @@ enum CHANNELID
 	MUTATNTDEAD,
 
 
+
+	DRONE,
+	SPIDER,
+	WARMECH,
+	WENDIGO,
 
 	MAXCHANNEL 
 };
@@ -95,11 +100,11 @@ private:
 
 private:
 	static SoundMgr* g_pInstance;
-	// »ç¿îµå ¸®¼Ò½º Á¤º¸¸¦ °®´Â °´Ã¼ 
+	// ì‚¬ìš´ë“œ ë¦¬ì†ŒìŠ¤ ì •ë³´ë¥¼ ê°–ëŠ” ê°ì²´ 
 	std::map<wstring, FMOD_SOUND*> m_mapSound;
-	// FMOD_CHANNEL : Àç»ýÇÏ°í ÀÖ´Â »ç¿îµå¸¦ °ü¸®ÇÒ °´Ã¼ 
+	// FMOD_CHANNEL : ìž¬ìƒí•˜ê³  ìžˆëŠ” ì‚¬ìš´ë“œë¥¼ ê´€ë¦¬í•  ê°ì²´ 
 	FMOD_CHANNEL* m_pChannelArr[MAXCHANNEL];
-	// »ç¿îµå ,Ã¤³Î °´Ã¼ ¹× ÀåÄ¡¸¦ °ü¸®ÇÏ´Â °´Ã¼ 
+	// ì‚¬ìš´ë“œ ,ì±„ë„ ê°ì²´ ë° ìž¥ì¹˜ë¥¼ ê´€ë¦¬í•˜ëŠ” ê°ì²´ 
 	FMOD_SYSTEM* m_pSystem;
 };
 
