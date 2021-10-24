@@ -72,6 +72,9 @@
     <ClInclude Include="LauncherGranade.h" />
     <ClInclude Include="Liberator.h" />
     <ClInclude Include="LiberatorAnimator.h" />
+    <ClInclude Include="MiniGame01.h" />
+    <ClInclude Include="MiniGameCamera01.h" />
+    <ClInclude Include="MiniGameUI01.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Mutant.h" />
     <ClInclude Include="MutantPoison.h" />
@@ -80,6 +83,7 @@
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
+    <ClInclude Include="ObjectMiniGame.h" />
     <ClInclude Include="ObjectStairConcrete.h" />
     <ClInclude Include="ObjectButton.h" />
     <ClInclude Include="ObjectCarBlack.h" />
@@ -186,6 +190,9 @@
     <ClCompile Include="LauncherGranade.cpp" />
     <ClCompile Include="Liberator.cpp" />
     <ClCompile Include="LiberatorAnimator.cpp" />
+    <ClCompile Include="MiniGame01.cpp" />
+    <ClCompile Include="MiniGameCamera01.cpp" />
+    <ClCompile Include="MiniGameUI01.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Mutant.cpp" />
     <ClCompile Include="MutantPoison.cpp" />
@@ -193,6 +200,7 @@
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />
+    <ClCompile Include="ObjectMiniGame.cpp" />
     <ClCompile Include="ObjectStairConcrete.cpp" />
     <ClCompile Include="ObjectButton.cpp" />
     <ClCompile Include="ObjectCarBlack.cpp" />
