@@ -97,6 +97,9 @@
     <Filter Include="Object\Stair">
       <UniqueIdentifier>{e1ef01be-a64d-4c86-a1ab-c95f0b3aa70c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MiniGame">
+      <UniqueIdentifier>{817ff13a-4a8a-47a7-a112-dd6ee4819a42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -441,6 +444,18 @@
     <ClInclude Include="ObjectStairConcrete.h">
       <Filter>Object\Stair</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectMiniGame.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGame01.h">
+      <Filter>MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGameCamera01.h">
+      <Filter>MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGameUI01.h">
+      <Filter>MiniGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -760,6 +775,18 @@
     </ClCompile>
     <ClCompile Include="ObjectStairConcrete.cpp">
       <Filter>Object\Stair</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectMiniGame.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGame01.cpp">
+      <Filter>MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGameCamera01.cpp">
+      <Filter>MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGameUI01.cpp">
+      <Filter>MiniGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

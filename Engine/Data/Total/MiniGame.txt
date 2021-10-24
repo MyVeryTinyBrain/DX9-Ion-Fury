@@ -1,0 +1,60 @@
+{
+	"HandleObjects" : 
+	[
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "MiniGameTest",
+			"Name" : "Object_0",
+			"PivotScale" : 0.55000001192092896,
+			"PositionX" : -3.4855074882507324,
+			"PositionY" : -0.7390637993812561,
+			"PositionZ" : -2.9999995231628418,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		}
+	],
+	"Lights" : 
+	[
+		{
+			"AmbinentFactor" : 0.5,
+			"ColorA" : 1.0,
+			"ColorB" : 1.0,
+			"ColorG" : 1.0,
+			"ColorR" : 1.0,
+			"EulerAngleX" : 0.0,
+			"EulerAngleY" : 0.0,
+			"EulerAngleZ" : 0.0,
+			"Name" : "Directional",
+			"PosX" : 0.0,
+			"PosY" : 0.0,
+			"PosZ" : -3.0,
+			"Tag" : "Directional"
+		}
+	],
+	"MapObjects" : 
+	[
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "",
+			"PositionX" : -2.1062898635864258,
+			"PositionY" : -1.7331289052963257,
+			"PositionZ" : -2.9999997615814209,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 20.0,
+			"ScaleY" : 1.0,
+			"ScaleZ" : 20.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/64.png",
+			"UVScaleX" : 10.0,
+			"UVScaleY" : 10.0
+		}
+	],
+	"TriggerEvents" : null
+}
