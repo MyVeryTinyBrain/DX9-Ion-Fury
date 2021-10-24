@@ -29,6 +29,8 @@
 #include <ObjectCarBlue.h>
 #include <ObjectCarBlack.h>
 
+#include <ObjectMiniGame.h>
+
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
@@ -343,6 +345,10 @@ void Pickable::SetComponentToPickable(EventType type)
 		break;
 	case EventType::ObjectButton:
 		m_ComponentObject->AddComponent<ObjectButton>();
+		break;
+
+	case EventType::ObjectMiniGame:
+		m_ComponentObject->AddComponent<ObjectMiniGame>();
 		break;
 	}
 }

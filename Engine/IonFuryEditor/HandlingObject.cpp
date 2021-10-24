@@ -22,8 +22,6 @@
 #include <ObjectCarBlue.h>
 #include <ObjectCarBlack.h>
 
-#include <ObjectMiniGame.h>
-
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -141,9 +139,6 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 		m_ChildObject->AddComponent<ObjectCarBlue>();
 	else if (Type == (L"ObjectCarBlack"))
 		m_ChildObject->AddComponent<ObjectCarBlack>();
-
-	else if (Type == (L"MiniGameTest"))
-		m_ChildObject->AddComponent<ObjectMiniGame>();
 
 	else if (Type == (L"Player"))
 		MakePlayerCapsule();

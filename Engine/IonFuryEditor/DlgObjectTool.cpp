@@ -240,8 +240,6 @@ BOOL DlgObjectTool::OnInitDialog()
 		m_TypeComboBox.AddString(_T("ObjectCarBlue"));
 		m_TypeComboBox.AddString(_T("ObjectCarBlack"));
 
-		m_TypeComboBox.AddString(_T("MiniGameTest"));
-
 		m_TypeComboBox.AddString(_T("Player"));
 	}
 

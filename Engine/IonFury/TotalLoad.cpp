@@ -31,6 +31,8 @@
 #include <ObjectCarRed.h>
 #include <Player.h>
 
+#include <ObjectMiniGame.h>
+
 #include <EditorEnum.h>
 
 // Events
@@ -165,6 +167,10 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ObjectCarBlue>();
 	else if (ComponentType == (L"ObjectCarRed"))
 		pObj->AddComponent<ObjectCarRed>();
+
+	else if (ComponentType == (L"ObjectMiniGame"))
+		pObj->AddComponent<ObjectMiniGame>();
+
 	else
 		pObj->Destroy();
 }
