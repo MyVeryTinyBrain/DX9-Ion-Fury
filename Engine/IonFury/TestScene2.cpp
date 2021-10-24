@@ -17,7 +17,8 @@ IClonable* TestScene2::Clone()
 
 void TestScene2::OnLoad(Scene* beforeScene)
 {
-	TotalLoad::Load(L"../Data/Total/jihyunmap.txt");
+	//TotalLoad::Load(L"../Data/Total/jihyunmap.txt");
+	TotalLoad::Load(L"../Data/Total/Map11.txt");
 
 	{
 		auto skyboxObj = CreateGameObject();
@@ -189,22 +190,22 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//    auto collider = obj->AddComponent<BoxCollider>();
 	//}
 
-	{
-	    auto obj = CreateGameObject();
-	    obj->transform->position = Vec3(0, 2, -5);
-	    obj->AddComponent<Warmech>();
-	}
+	//{
+	//    auto obj = CreateGameObject();
+	//    obj->transform->position = Vec3(0, 2, -5);
+	//    obj->AddComponent<Warmech>();
+	//}
 
 	//for (int i = 0; i < 5; ++i)
 	//{
 	//	for (int j = 0; j < 5; ++j)
-	//	{
-	//		auto obj = CreateGameObject();
-	//		obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
-	//		obj->transform->eulerAngle = Vec3(0, 90, 0);
-	//		obj->AddComponent<Drone>();
-	//		//obj->AddComponent<Spider>();
-	//	}
+		//{
+		//	auto obj = CreateGameObject();
+		//	obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
+		//	obj->transform->eulerAngle = Vec3(0, 90, 0);
+		//	//obj->AddComponent<Drone>();
+		//	obj->AddComponent<Spider>();
+		//}
 	//}
 
 	//{
