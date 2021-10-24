@@ -23,7 +23,12 @@
 #include <ItemArmor.h>
 #include <ItemCardKey.h>
 #include <ObjectRat.h>
-#include "ObjectStair.h"
+#include <ObjectStairBlue.h>
+#include <ObjectStairConcrete.h>
+#include <ObjectStairWood.h>
+#include <ObjectCarBlack.h>
+#include <ObjectCarBlue.h>
+#include <ObjectCarRed.h>
 #include <Player.h>
 
 #include <EditorEnum.h>
@@ -148,6 +153,18 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ObjectRat>();
 	else if (ComponentType == (L"Player"))
 		pObj->AddComponent<Player>();
+	else if (ComponentType == (L"ObjectStairBlue"))
+		pObj->AddComponent<ObjectStairBlue>();
+	else if (ComponentType == (L"ObjectStairConcrete"))
+		pObj->AddComponent<ObjectStairConcrete>();
+	else if (ComponentType == (L"ObjectStairWood"))
+		pObj->AddComponent<ObjectStairWood>();
+	else if (ComponentType == (L"ObjectCarBlack"))
+		pObj->AddComponent<ObjectCarBlack>();
+	else if (ComponentType == (L"ObjectCarBlue"))
+		pObj->AddComponent<ObjectCarBlue>();
+	else if (ComponentType == (L"ObjectCarRed"))
+		pObj->AddComponent<ObjectCarRed>();
 	else
 		pObj->Destroy();
 }

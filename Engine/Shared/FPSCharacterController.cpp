@@ -36,7 +36,7 @@ void FPSCharacterController::FixedUpdate()
 		PhysicsRay ray;
 		ray.point = m_collider->transform->position;
 		ray.direction = Vec3::down();
-        ray.distance = m_collider->halfHeight + m_collider->radius + 0.1f;
+        ray.distance = m_collider->halfHeight + m_collider->radius * 2.0f;
 		m_hasGround = Physics::RaycastTest(ray, 1 << (uint8_t)PhysicsLayers::Terrain, PhysicsQueryType::All, m_body);
     }
 
