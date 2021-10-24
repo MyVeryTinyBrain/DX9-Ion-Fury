@@ -6,6 +6,7 @@
 #include "DroneExplosion.h"
 #include "DroneSmoke.h"
 #include "BloodEffect.h"
+#include "SoundMgr.h"
 
 void Drone::Awake()
 {
@@ -197,16 +198,22 @@ void Drone::Moving(MovingType type)
 	break;
 	case Drone::MovingType::leftRight:
 	{
-
 		transform->up = Vec3(0, 1, 0);
 		transform->right = Vec3::Cross(transform->up, transform->forward);
 		transform->right.Normalize();
 
 		m_deltatime += Time::DeltaTime();
 
-		const Vec3& dronePos = transform->position;
-		Vec3 playerPos = Player::GetInstance()->transform->position;
-		float distanceP = Vec3::Distance(playerPos, dronePos);
+		//const Vec3& dronePos = transform->position;
+		//Vec3 playerPos = Player::GetInstance()->transform->position;
+		//Vec3 monsterToPlayer = playerPos - dronePos;
+		//monsterToPlayer.Normalize();
+		//transform->forward = monsterToPlayer;
+		////float distanceP = Vec3::Distance(playerPos, dronePos);
+
+		//Vec3 velocity = monsterToPlayer * m_moveSpeed;
+		//velocity.y = 0;
+		//m_body->velocity = velocity;
 
 		if (m_deltatime < 3.f)
 		{
@@ -221,6 +228,7 @@ void Drone::Moving(MovingType type)
 			m_animator->GetRenderer()->userMesh->uvScale = Vec2(-1.f, 1.0f);
 			if (m_deltatime > 6.f)
 			{
+				//movingtype = MovingType::Attack;
 				m_deltatime = 0.f;
 				movingtype = MovingType::Trace;
 

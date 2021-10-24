@@ -5,6 +5,7 @@
 #include "PhysicsLayers.h"
 #include "Web.h"
 #include "BloodEffect.h"
+#include "SoundMgr.h"
 
 void Spider::Awake()
 {
