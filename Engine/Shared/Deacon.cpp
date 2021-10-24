@@ -16,7 +16,7 @@ void Deacon::Awake()
 
   //  gameObject->transform->scale = Vec3::one() * 5.f;
 
-    m_hp = 20;
+    m_hp = 15;
     m_moveSpeed = 4.f;
 
     m_body->mass = 300.f;

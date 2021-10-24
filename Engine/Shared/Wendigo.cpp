@@ -10,7 +10,7 @@ void Wendigo::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 50;
+	m_hp = 200;
 	m_moveSpeed = 3.0f;
 
 	m_body->mass = 5.f;

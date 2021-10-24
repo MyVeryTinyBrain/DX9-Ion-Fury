@@ -136,12 +136,12 @@ void BasicMutant::OnDestroy()
 
 Collider* BasicMutant::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-	}
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	//}
 
 	m_CapsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
 	m_CapsuleCollider->transform->localScale = Vec3::one() * 0.8f;
