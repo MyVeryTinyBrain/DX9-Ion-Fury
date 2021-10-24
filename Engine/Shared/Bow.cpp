@@ -8,6 +8,7 @@
 #include "FPSCharacterController.h"
 #include "FPSCamera.h"
 #include "OrthoEffect.h"
+#include "AmmoBackup.h"
 
 void Bow::Awake()
 {
@@ -49,6 +50,13 @@ void Bow::Awake()
 	// 평면의 크기와 그에 따른 위치 조절
 	m_bodyObj->transform->localScale = Vec2(2, 2);
 	m_bodyObj->transform->localPosition = Vec2(-0.25f, 0.45f);
+
+	m_loadedAmmo = AmmoBackup::GetInstance()->backup->bowLoadedAmmo;
+	m_totalAmmo = AmmoBackup::GetInstance()->backup->bowTotalAmmo;
+}
+
+void Bow::Start()
+{
 }
 
 void Bow::Update()
@@ -71,6 +79,9 @@ void Bow::Update()
 
 	float ammoPercent = float(m_loadedAmmo) / float(m_ammoLoadMax);
 	SetScreen(int(ammoPercent * 5.0f));
+
+	AmmoBackup::GetInstance()->current->bowLoadedAmmo = m_loadedAmmo;
+	AmmoBackup::GetInstance()->current->bowTotalAmmo = m_totalAmmo;
 }
 
 void Bow::OnDestroy()

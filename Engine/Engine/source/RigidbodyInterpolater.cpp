@@ -75,6 +75,8 @@ Vec3 RigidbodyInterpolater::CalcInterpolatePosition() const
 	float accumulated = centralTime->GetFixedUpdateAccumulated() * centralTime->GetFixedUpdateTimeScale();
 	float percent = accumulated / centralTime->GetFixedUpdateInterval();
 
+	percent = Clamp(percent, 0, 1);
+
 	return Vec3::Lerp(m_beforePosition, m_backupPosition, percent);
 }
 
@@ -83,6 +85,8 @@ Quat RigidbodyInterpolater::CalcInterpolateRotation() const
 	auto centralTime = CentralTimeElement::GetInstance();
 	float accumulated = centralTime->GetFixedUpdateAccumulated() * centralTime->GetFixedUpdateTimeScale();
 	float percent = accumulated / centralTime->GetFixedUpdateInterval();
+
+	percent = Clamp(percent, 0, 1);
 
 	return Quat::SLerp(m_beforeRotation, m_backupRotation, percent);
 }

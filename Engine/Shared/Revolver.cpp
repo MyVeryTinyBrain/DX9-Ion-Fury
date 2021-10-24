@@ -11,6 +11,7 @@
 #include "RenderLayers.h"
 #include "OverlayRenderOrders.h"
 #include "BloodEffect.h"
+#include "AmmoBackup.h"
 
 void Revolver::Awake()
 {
@@ -37,6 +38,13 @@ void Revolver::Awake()
 	m_leftHandRenderer->material = Resource::FindAs<Material>(BuiltInLightOverlayMaterial);
 	m_leftHandRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
 	m_leftHandRenderer->overlayRenderOrder = int(OverlayRenderOrders::PlayerLeftHand);
+
+	m_loadedAmmo = AmmoBackup::GetInstance()->backup->revolverLoadedAmmo;
+	m_totalAmmo = AmmoBackup::GetInstance()->backup->revolverTotalAmmo;
+}
+
+void Revolver::Start()
+{
 }
 
 void Revolver::Update()
@@ -74,6 +82,9 @@ void Revolver::Update()
 	m_rightHandObj->transform->localEulerAngle = Vec3::Lerp(m_rightHandObj->transform->localEulerAngle, m_rightHandLocalEulerAngleTarget, Time::DeltaTime() * 10.0f);
 
 	m_leftHandObj->transform->localPosition = Vec2::Lerp(m_leftHandObj->transform->localPosition, m_leftHandLocalPositionTarget, Time::DeltaTime() * 30.0f);
+
+	AmmoBackup::GetInstance()->current->revolverLoadedAmmo = m_loadedAmmo;
+	AmmoBackup::GetInstance()->current->revolverTotalAmmo = m_totalAmmo;
 }
 
 void Revolver::OnDestroy()
@@ -120,7 +131,7 @@ void Revolver::OnAttackInput(InputType inputType)
 		m_animator->IsPlayingIdle() &&
 		m_loadedAmmo > 0)
 	{
-		if (Vec2::Distance(m_leftHandObj->transform->localPosition, m_leftHandShowLocalPosition) <= 0.1f)
+		if (Vec2::Distance(m_leftHandObj->transform->localPosition, m_leftHandShowLocalPosition) <= 0.2f)
 		{
 			m_animator->PlayFastShoot();
 		}
@@ -239,7 +250,7 @@ void Revolver::Attack()
 
 	float damageFactor = 1.0f;
 
-	if (Vec2::Distance(m_leftHandObj->transform->localPosition, m_leftHandShowLocalPosition) <= 0.1f)
+	if (Vec2::Distance(m_leftHandObj->transform->localPosition, m_leftHandShowLocalPosition) <= 0.2f)
 	{
 		float randomXAngle = float(rand() % m_rapidFireRecoilAngleRange - m_rapidFireRecoilAngleRange / 2);
 		float randomYAngle = float(rand() % m_rapidFireRecoilAngleRange - m_rapidFireRecoilAngleRange / 2);

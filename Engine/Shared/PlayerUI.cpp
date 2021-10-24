@@ -128,10 +128,10 @@ void PlayerUI::Awake()
 	m_screenEffectRenderer->enable = false;
 
 	// Fade effect
-	for (int i = 0; i < FADE_MAX; ++i)
+	for (int i = 0; i < FADE_STEP; ++i)
 	{
-		float percent = float(i) / float(FADE_MAX - 1);
-		m_fadeTexture[i] = Texture::CreateUnmanagedInDirectX(16, 16, Color(0, 0, 0, percent));
+		float percent = float(i) / float(FADE_STEP - 1);
+		m_fadeTexture[i] = Texture::CreateUnmanagedInDirectX(1, 1, Color(0, 0, 0, percent));
 	}
 
 	m_fadeImageObj = CreateGameObjectToChild(transform);
@@ -142,13 +142,18 @@ void PlayerUI::Awake()
 	m_fadeImageRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
 	m_fadeImageRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
 	m_fadeImageRenderer->overlayRenderOrder = (int)OverlayRenderOrders::Fade;
-	m_fadeImageRenderer->SetTexture(0, m_fadeTexture[0]);
+	m_fadeImageRenderer->SetTexture(0, m_fadeTexture[FADE_END]);
 
 	SetHP(100);
 	SetAmmo0(999);
 	SetAmmo1(999);
 	SetAmmo0Type(AmmoTypes::Shotgun);
 	SetAmmo1Type(AmmoTypes::Launcher);
+}
+
+void PlayerUI::Start()
+{
+	FadeOut(1.0f);
 }
 
 void PlayerUI::Update()
@@ -165,19 +170,21 @@ void PlayerUI::Update()
 
 void PlayerUI::LateUpdate()
 {
-	if (Input::GetKeyDown(Key::Up))
-		m_targetFadeAlpha = 1.0f;
-	if (Input::GetKeyDown(Key::Down))
-		m_targetFadeAlpha = 0.0f;
-
 	// Fade effect =====================================================================
 
 	// Fade Transition
+	const float maxDT = 1.0f / 10.0f;
+	float dt = Time::UnscaledDelteTime();
+	if (dt > maxDT)
+	{
+		dt = maxDT;
+	}
+
 	if (m_fadeAlpha != m_targetFadeAlpha)
 	{
 		if (m_fadeAlpha < m_targetFadeAlpha)
 		{
-			m_fadeAlpha += Time::DeltaTime() * m_fadeSpeed;
+			m_fadeAlpha += dt * m_fadeSpeed;
 
 			if (m_fadeAlpha >= m_targetFadeAlpha)
 			{
@@ -186,7 +193,7 @@ void PlayerUI::LateUpdate()
 		}
 		else
 		{
-			m_fadeAlpha -= Time::DeltaTime() * m_fadeSpeed;
+			m_fadeAlpha -= dt * m_fadeSpeed;
 		
 			if (m_fadeAlpha <= m_targetFadeAlpha)
 			{
@@ -215,7 +222,7 @@ void PlayerUI::LateUpdate()
 
 void PlayerUI::OnDestroy()
 {
-	for (int i = 0; i < FADE_MAX; ++i)
+	for (int i = 0; i < FADE_STEP; ++i)
 	{
 		if (m_fadeTexture[i])
 		{
@@ -363,4 +370,38 @@ void PlayerUI::SetAmmo1Type(AmmoTypes type)
 void PlayerUI::SetCardKey(bool value)
 {
 	m_cardKeyObj->activeSelf = value;
+}
+
+void PlayerUI::FadeIn(float time)
+{
+	m_targetFadeAlpha = 1.0f;
+
+	if (time <= 0)
+	{
+		time = 0.0001f;
+	}
+	m_fadeSpeed = 1.0f / time;
+}
+
+void PlayerUI::FadeOut(float time)
+{
+	m_targetFadeAlpha = 0.0f;
+
+	if (time <= 0)
+	{
+		time = 0.0001f;
+	}
+	m_fadeSpeed = 1.0f / time;
+}
+
+void PlayerUI::SetFadeAlpah(float value)
+{
+	value = Clamp(value, 0, 1);
+
+	m_fadeAlpha = value;
+}
+
+float PlayerUI::GetFadeAlpha() const
+{
+	return m_fadeAlpha;
 }

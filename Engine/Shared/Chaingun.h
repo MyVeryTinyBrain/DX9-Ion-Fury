@@ -6,6 +6,8 @@ class Chaingun : public Weapon
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(OnDestroy);
