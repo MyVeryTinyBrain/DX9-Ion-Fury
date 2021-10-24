@@ -462,6 +462,9 @@
     <ClInclude Include="IMonsterSpawn.h">
       <Filter>Monster</Filter>
     </ClInclude>
+    <ClInclude Include="NextSceneTrigger.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -799,6 +802,9 @@
     </ClCompile>
     <ClCompile Include="IMonsterSpawn.cpp">
       <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="NextSceneTrigger.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

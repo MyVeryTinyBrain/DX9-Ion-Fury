@@ -8,6 +8,7 @@
 #include "TestSceneSeob.h"
 
 #include "Map0.h"
+#include "Map1.h"
 
 #ifndef _AFX
 

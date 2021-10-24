@@ -82,6 +82,7 @@
     <ClInclude Include="MutantPoison.h" />
     <ClInclude Include="MutantSpriteAnimator.h" />
     <ClInclude Include="Names.h" />
+    <ClInclude Include="NextSceneTrigger.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Mutant.cpp" />
     <ClCompile Include="MutantPoison.cpp" />
     <ClCompile Include="MutantSpriteAnimator.cpp" />
+    <ClCompile Include="NextSceneTrigger.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />

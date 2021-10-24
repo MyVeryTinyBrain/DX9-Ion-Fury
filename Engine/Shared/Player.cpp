@@ -64,6 +64,11 @@ FPSOrthoCamera* Player::GetOrthoCamera() const
 	return m_controller->fpsCamera->fpsOrthoCamera;
 }
 
+PlayerUI* Player::GetUI() const
+{
+	return m_controller->fpsCamera->fpsOrthoCamera->UI;
+}
+
 void Player::AddHP(unsigned int hp, bool effect)
 {
 	m_hp += hp;
