@@ -6,6 +6,7 @@ struct FMOD_SYSTEM;
 enum CHANNELID 
 { 
 	BGM, 
+
 	PLAYER_FOOTSTEP,
 	PLAYER_FOOTSTEP_JUMP,
 	PLAYER_FOOTSTEP_LAND,
@@ -28,7 +29,9 @@ enum CHANNELID
 	PLAYER_WEAPON_SUBCHANNEL,
 	PLAYER_PROJECTILE,
 	PLAYER_EXPLOSION,
+
 	ITEM,
+
 	OBJECT_INPUT,
 	OBJECT,
 	DRONE,
@@ -79,11 +82,11 @@ private:
 
 private:
 	static SoundMgr* g_pInstance;
-	// »ç¿îµå ¸®¼Ò½º Á¤º¸¸¦ °®´Â °´Ã¼ 
+	// ì‚¬ìš´ë“œ ë¦¬ì†ŒìŠ¤ ì •ë³´ë¥¼ ê°–ëŠ” ê°ì²´ 
 	std::map<wstring, FMOD_SOUND*> m_mapSound;
-	// FMOD_CHANNEL : Àç»ýÇÏ°í ÀÖ´Â »ç¿îµå¸¦ °ü¸®ÇÒ °´Ã¼ 
+	// FMOD_CHANNEL : ìž¬ìƒí•˜ê³  ìžˆëŠ” ì‚¬ìš´ë“œë¥¼ ê´€ë¦¬í•  ê°ì²´ 
 	FMOD_CHANNEL* m_pChannelArr[MAXCHANNEL];
-	// »ç¿îµå ,Ã¤³Î °´Ã¼ ¹× ÀåÄ¡¸¦ °ü¸®ÇÏ´Â °´Ã¼ 
+	// ì‚¬ìš´ë“œ ,ì±„ë„ ê°ì²´ ë° ìž¥ì¹˜ë¥¼ ê´€ë¦¬í•˜ëŠ” ê°ì²´ 
 	FMOD_SYSTEM* m_pSystem;
 };
 
