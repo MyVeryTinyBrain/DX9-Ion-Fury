@@ -12,8 +12,11 @@ void ObjectStairBlue::Awake()
 	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
 	//}
 
+	auto root = CreateGameObjectToChild(transform);
+	root->transform->localScale = Vec3(2, 2, 2);
+
 	{
-		auto colliderObj = CreateGameObjectToChild(transform);
+		auto colliderObj = CreateGameObjectToChild(root->transform);
 		colliderObj->transform->localEulerAngle = Vec3(0, -90, 0);
 		auto body = colliderObj->AddComponent<Rigidbody>();
 		auto collider = colliderObj->AddComponent<RightTriangleCollider>();
@@ -42,7 +45,7 @@ void ObjectStairBlue::Awake()
 	};
 
 	{
-		auto obj = CreateGameObjectToChild(transform);
+		auto obj = CreateGameObjectToChild(root->transform);
 		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, -0.4f, 0);
 		obj->transform->localScale = Vec3(1, 0.2f, 1);
@@ -51,7 +54,7 @@ void ObjectStairBlue::Awake()
 	}
 
 	{
-		auto obj = CreateGameObjectToChild(transform);
+		auto obj = CreateGameObjectToChild(root->transform);
 		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, -0.2f, 0.1f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.8f);
@@ -60,7 +63,7 @@ void ObjectStairBlue::Awake()
 	}
 
 	{
-		auto obj = CreateGameObjectToChild(transform);
+		auto obj = CreateGameObjectToChild(root->transform);
 		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.0f, 0.2f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.6f);
@@ -69,7 +72,7 @@ void ObjectStairBlue::Awake()
 	}
 
 	{
-		auto obj = CreateGameObjectToChild(transform);
+		auto obj = CreateGameObjectToChild(root->transform);
 		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.2f, 0.3f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.4f);
@@ -78,7 +81,7 @@ void ObjectStairBlue::Awake()
 	}
 
 	{
-		auto obj = CreateGameObjectToChild(transform);
+		auto obj = CreateGameObjectToChild(root->transform);
 		auto cube = obj->AddComponent<Cube>();
 		obj->transform->localPosition = Vec3(0, 0.4f, 0.4f);
 		obj->transform->localScale = Vec3(1, 0.2f, 0.2f);

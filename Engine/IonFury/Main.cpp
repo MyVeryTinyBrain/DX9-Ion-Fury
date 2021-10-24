@@ -25,7 +25,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	SoundMgr::Get_Instance()->Initialize();
 
-	SceneManager::ChangeScene(new TestScene);
+	SceneManager::ChangeScene(new TestSceneSeob);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)
