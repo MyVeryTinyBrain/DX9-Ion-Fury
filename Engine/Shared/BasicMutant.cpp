@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "PhysicsLayers.h"
 #include "BloodEffect.h"
+#include "SoundMgr.h"
 
 void BasicMutant::Awake()
 {
@@ -73,6 +74,8 @@ void BasicMutant::Update()
 
 	if (create)
 	{
+		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_roam_3.ogg", CHANNELID::BASICMUTANTCREATE);
+
 		m_animator->PlayCreate();
 		createdt += Time::DeltaTime();
 		m_hasTargetCoord = false;
@@ -158,6 +161,8 @@ void BasicMutant::OnDamage(DamageParameters& params)
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
 	{
+		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_hit_2.ogg", CHANNELID::BASICMUTANTHIT);
+
 		GameObject* bloodEffectObj = CreateGameObject();
 		bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
 		bloodEffectObj->AddComponent<BloodEffect>();
@@ -259,6 +264,8 @@ void BasicMutant::Attack()
 
 	if (m_attackCount > 0)
 	{
+		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_swing_2.ogg", CHANNELID::BASICMUTANTATTACK);
+
 		m_animator->PlayAttack();
 		m_moveSpeed = 6.f;
 		damage = 1;
