@@ -40,6 +40,15 @@ void Spider::FixedUpdate()
 		return;
 	}
 
+	if (m_animator->IsPlayingDamage())
+	{
+		m_moveSpeed = 0;
+	}
+	else
+	{
+		m_moveSpeed = 2.0f;
+	}
+
 	MoveToTarget();
 
 
@@ -117,12 +126,6 @@ void Spider::OnDamage(DamageParameters& params)
 
 	switch (params.damageType)
 	{
-	case MonsterDamageType::Bullet:
-		m_moveSpeed = 0.f;
-		break;
-	case MonsterDamageType::Explosion:
-		m_moveSpeed = 0.f;
-		break;
 	case MonsterDamageType::Zizizik:
 		m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
 		break;

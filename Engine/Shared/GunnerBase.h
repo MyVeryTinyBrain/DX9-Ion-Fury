@@ -1,10 +1,11 @@
 #pragma once
 
-#include "monster.h"
+#include "Monster.h"
+#include "IMonsterSpawn.h"
 
 class GunnerBaseAnimator;
 
-class GunnerBase : public Monster
+class GunnerBase : public Monster, public IMonsterSpawn
 {
 	OverrideComponentFunction(Awake);
 
@@ -23,6 +24,8 @@ class GunnerBase : public Monster
 	virtual void OnDead(bool& dead, DamageParameters& params) override;
 
 	void OnDeadAnimated();
+
+	virtual void OnSpawn();
 
 protected:
 

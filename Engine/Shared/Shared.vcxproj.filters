@@ -456,6 +456,12 @@
     <ClInclude Include="MiniGameUI01.h">
       <Filter>MiniGame</Filter>
     </ClInclude>
+    <ClInclude Include="BossEnemySpawnTrigger.h">
+      <Filter>Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="IMonsterSpawn.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -787,6 +793,12 @@
     </ClCompile>
     <ClCompile Include="MiniGameUI01.cpp">
       <Filter>MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEnemySpawnTrigger.cpp">
+      <Filter>Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="IMonsterSpawn.cpp">
+      <Filter>Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

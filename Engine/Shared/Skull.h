@@ -4,7 +4,7 @@
 
 class Skull : public Monster
 {
-	enum class Behavior { MoveToPlayer, FlyToPlayer, ShootBall, FlyReplica, RandomMax, Idle, Landing, EndReplica, None };
+	enum class Behavior { MoveToPlayer, FlyToPlayer, ShootBall, FlyReplica, RandomMax, Idle, Landing, EndReplica, Dead, None };
 
 	OverrideComponentFunction(Awake);
 
