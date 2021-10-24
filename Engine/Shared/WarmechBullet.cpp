@@ -26,7 +26,6 @@ void WarmechBullet::Awake()
 	m_renderer->freezeZ = true;
 	m_renderer->material = m_material;
 
-	
 
 	m_quad = UserMesh::CreateUnmanaged<QuadUserMesh>();
 	m_renderer->userMesh = m_quad;
@@ -34,20 +33,24 @@ void WarmechBullet::Awake()
 	m_animator = m_rendererObj->AddComponent<WarmechSpriteAnimator>();
 
 	{	// For debug
-		auto debugRendererObj = CreateGameObjectToChild(transform);
-		m_debugRenderer = debugRendererObj->AddComponent<UserMeshRenderer>();
-		m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		m_debugRenderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+		//auto debugRendererObj = CreateGameObjectToChild(m_collider->transform);
+		//m_debugRenderer = debugRendererObj->AddComponent<UserMeshRenderer>();
+		//m_debugRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+		//m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+		//m_debugRenderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 	}
 }
 
 void WarmechBullet::FixedUpdate()
 {
+	if (m_hitCheck)
+		return;
+
+
 	Collider* collider = Physics::OverlapSphere(
 		m_radius,
 		transform->position,
-		(1 << (PxU32)PhysicsLayers::Terrain || 1 << (PxU32)PhysicsLayers::Player),
+		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
 		PhysicsQueryType::Collider);
 
 	if (collider)
@@ -58,7 +61,9 @@ void WarmechBullet::FixedUpdate()
 		}
 		else if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
 		{
+			Player::GetInstance()->TakeDamage(1);
 
+			m_hitCheck = true;
 		}
 	}
 }
@@ -66,13 +71,12 @@ void WarmechBullet::FixedUpdate()
 void WarmechBullet::Update()
 {
 
-	//m_animator->SetDefaultAnimation(m_animator->GetBullet(), true);
 	m_animator->SetDefaultAnimation(m_animator->GetSpriteAnimation(SPRITE_WARMECH::Bullet), true);
 
 
 	Vec3 warmechPos = transform->position;
-	Vec3 xzplayerPos = Vec3(Player::GetInstance()->transform->position.x, transform->position.y , Player::GetInstance()->transform->position.z);
-
+	//Vec3 xzplayerPos = Vec3(Player::GetInstance()->transform->position.x, transform->position.y , Player::GetInstance()->transform->position.z);
+	Vec3 xzplayerPos = Player::GetInstance()->transform->position + Vec3::up() * 0.5f;
 
 	if (m_initialdir)
 	{
@@ -103,3 +107,4 @@ void WarmechBullet::OnDestroy()
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
 }
+
