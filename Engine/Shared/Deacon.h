@@ -11,6 +11,8 @@ class Deacon : public Monster
 
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(FixedUpdate);
 
 	OverrideComponentFunction(Update);

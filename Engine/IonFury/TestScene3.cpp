@@ -24,12 +24,20 @@ void TestScene3::OnLoad(Scene* beforeScene)
 {
 	AddSkyBox();
 	//LightLoad::LightObjectLoadJson();
+
+
+
+
+	////¸Ê±ñ°Å 
 	TotalLoad::Load(L"../Data/Total/seongyeontest.txt");
 	{   // Create test player
 		auto obj = CreateGameObject();
 		obj->transform->position = Vec3(0, 15, 15);
 		auto controller = obj->AddComponent<Player>();
 	}
+
+
+
 
 	//{   // Create directional light
 	//	auto obj = CreateGameObject();
@@ -176,12 +184,12 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
-	//for (int i = 0; i < 4; ++i)
-	//{
-	//	auto obj = CreateGameObject();
-	//	obj->transform->position = Vec3(i * 5, 0, 0);
-	//	obj->AddComponent<Deacon>();
-	//}
+	for (int i = 0; i < 4; ++i)
+	{
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(i * 5, 0, 0);
+		obj->AddComponent<Deacon>();
+	}
 
 
 
@@ -219,9 +227,10 @@ void TestScene3::AddMonster()
 	//}
 
 	//{
-		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0, 0, -17);
-		obj->AddComponent<Mutant>();
+	////¹ÂÅÏÆ®
+		//auto obj = CreateGameObject();
+		//obj->transform->position = Vec3(0, 0, -17);
+		//obj->AddComponent<Mutant>();
 	//}
 
 	//{

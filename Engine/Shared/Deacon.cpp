@@ -39,9 +39,15 @@ void Deacon::Awake()
 
     m_defaultEmissive = Color::white();
 
-    SetBehavior(Behavior::MoveToPlayer);
 
    // m_rendererObj->transform->localScale 
+}
+
+void Deacon::Start()
+{
+    Monster::Start();
+
+    SetBehavior(Behavior::MoveToPlayer);
 }
 
 void Deacon::FixedUpdate()
@@ -305,6 +311,12 @@ void Deacon::Idle()
 
 void Deacon::OnMoveToPlayer()
 {
+
+    if (Time::DeltaTime() == 0)
+    {
+        return;
+    }
+
 
     Vec3 target = Player::GetInstance()->transform->position;
     float d = GetXZDistance(target);

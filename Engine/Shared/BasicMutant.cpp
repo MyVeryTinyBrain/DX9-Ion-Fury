@@ -85,14 +85,14 @@ void BasicMutant::Update()
 
 	else if (!create && m_animator->GetCurrentAnimation() == m_animator->GetWalk())
 	{
-		m_moveSpeed = 2.f;
+		m_moveSpeed = 1.f;
 	}
 
 	if (m_hp < 7)
 	{
 		if (hit)
 		{
-			m_moveSpeed = 2.f;
+			m_moveSpeed = 1.f;
 			pattern += Time::DeltaTime();
 			if (pattern > 1.5f)
 			{
@@ -136,12 +136,12 @@ void BasicMutant::OnDestroy()
 
 Collider* BasicMutant::InitializeCollider(GameObject* colliderObj)
 {
-	//{
-	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
-	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
-	//}
+	{
+		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	}
 
 	m_CapsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
 	m_CapsuleCollider->transform->localScale = Vec3::one() * 0.8f;
@@ -260,7 +260,7 @@ void BasicMutant::Attack()
 	if (m_attackCount > 0)
 	{
 		m_animator->PlayAttack();
-		m_moveSpeed = 10.f;
+		m_moveSpeed = 6.f;
 		damage = 1;
 		--m_attackCount;
 	}
@@ -306,7 +306,7 @@ void BasicMutant::ColliderCheck()
 
 void BasicMutant::AttackAfter()
 {
-	m_moveSpeed = 2.0f;
+	m_moveSpeed = 1.0f;
 	m_animator->PlayWalk();
 	//m_hasTargetCoord = true;
 	//m_animator->SetDefaultAnimation(m_animator->GetWalk());
