@@ -3,6 +3,7 @@
 #include "Tags.h"
 #include "Names.h"
 #include "ObjectAutoDoor.h"
+#include "BossEnemySpawnTrigger.h"
 
 void BossTrigger::Start()
 {
@@ -26,4 +27,6 @@ void BossTrigger::OnUse()
 	{
 		m_door->Close();
 	}
+
+	BossEnemySpawnTrigger::EnableAll();
 }

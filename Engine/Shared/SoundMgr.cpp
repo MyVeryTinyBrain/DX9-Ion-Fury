@@ -27,7 +27,7 @@ void SoundMgr::Initialize()
 	FMOD_System_Create(&m_pSystem, FMOD_VERSION);
 
 	// 1. 시스템 포인터, 2. 사용할 가상채널 수 , 초기화 방식) 
-	FMOD_System_Init(m_pSystem, 32, FMOD_INIT_NORMAL, NULL);
+	FMOD_System_Init(m_pSystem, 64, FMOD_INIT_NORMAL, NULL);
 
 	LoadSoundFile();
 }

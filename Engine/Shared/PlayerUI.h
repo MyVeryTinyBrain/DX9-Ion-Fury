@@ -10,6 +10,10 @@ class PlayerUI : public Component
 
 	OverrideComponentFunction(Update);
 
+	OverrideComponentFunction(LateUpdate);
+
+	OverrideComponentFunction(OnDestroy);
+
 public:
 
 	void ShowRedScreenEffect();
@@ -125,5 +129,21 @@ private:
 	Texture* m_greenScreenEffectTexture = nullptr;
 
 	Texture* m_blueScreenEffectTexture = nullptr;
+
+	// Fade effect
+
+	GameObject* m_fadeImageObj = nullptr;
+
+	UserMeshRenderer* m_fadeImageRenderer = nullptr;
+
+	enum { FADE_MAX = 64, FADE_BEGIN = 0, FADE_END = FADE_MAX - 1 };
+
+	Texture* m_fadeTexture[FADE_MAX] = {};
+
+	float m_fadeAlpha = 1.0f;
+	
+	float m_targetFadeAlpha = 0.0f;
+
+	float m_fadeSpeed = 1.0f;
 };
 

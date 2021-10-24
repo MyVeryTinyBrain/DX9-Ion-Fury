@@ -38,7 +38,7 @@ void DroneSpriteAnimator::Awake()
 	m_shoot[(unsigned int)DIR_DRONE::BACK]->interval = 0.1f;
 
 	m_move[(unsigned int)DIR_DRONE::FRONT] = new SpriteAnimation;
-	m_move[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_move_back.png");
+	m_move[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_move_front.png");
 	m_move[(unsigned int)DIR_DRONE::FRONT]->isLoop = true;
 
 	m_move[(unsigned int)DIR_DRONE::FRONT_DIAGONAL] = new SpriteAnimation;
@@ -126,54 +126,54 @@ void DroneSpriteAnimator::LateUpdate()
 	SpriteAnimator::LateUpdate();
 
 	
-	if (IsPlayingMove())
-	{
-		if (Abs(m_angle) < 22.5f + 45 * 0)
-		{
-			if (currentAnimation != m_move[(unsigned int)DIR_DRONE::FRONT])
-			{
-				PlayAnimation(m_move[(unsigned int)DIR_DRONE::FRONT], false, true);
-			}
+	//if (IsPlayingMove())
+	//{
+	//	if (Abs(m_angle) < 22.5f + 45 * 0)
+	//	{
+	//		if (currentAnimation != m_move[(unsigned int)DIR_DRONE::FRONT])
+	//		{
+	//			PlayAnimation(m_move[(unsigned int)DIR_DRONE::FRONT], false, true);
+	//		}
 
-			//ResetUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 1)
-		{
-			if (currentAnimation != m_move[(unsigned int)DIR_DRONE::FRONT_DIAGONAL])
-			{
-				PlayAnimation(m_move[(unsigned int)DIR_DRONE::FRONT_DIAGONAL], false, true);
-			}
+	//		//ResetUVDirection();
+	//	}
+	//	else if (Abs(m_angle) < 22.5f + 45 * 1)
+	//	{
+	//		if (currentAnimation != m_move[(unsigned int)DIR_DRONE::FRONT_DIAGONAL])
+	//		{
+	//			PlayAnimation(m_move[(unsigned int)DIR_DRONE::FRONT_DIAGONAL], false, true);
+	//		}
 
-			//ChangeUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 2)
-		{
-			if (currentAnimation != m_move[(unsigned int)DIR_DRONE::SIDE])
-			{
-				PlayAnimation(m_move[(unsigned int)DIR_DRONE::SIDE], false, true);
-			}
+	//		//ChangeUVDirection();
+	//	}
+	//	else if (Abs(m_angle) < 22.5f + 45 * 2)
+	//	{
+	//		if (currentAnimation != m_move[(unsigned int)DIR_DRONE::SIDE])
+	//		{
+	//			PlayAnimation(m_move[(unsigned int)DIR_DRONE::SIDE], false, true);
+	//		}
 
-			//ChangeUVDirection();
-		}
-		else if (Abs(m_angle) < 22.5f + 45 * 3)
-		{
-			if (currentAnimation != m_move[(unsigned int)DIR_DRONE::BACK_DIAGONAL])
-			{
-				PlayAnimation(m_move[(unsigned int)DIR_DRONE::BACK_DIAGONAL], false, true);
-			}
+	//		//ChangeUVDirection();
+	//	}
+	//	else if (Abs(m_angle) < 22.5f + 45 * 3)
+	//	{
+	//		if (currentAnimation != m_move[(unsigned int)DIR_DRONE::BACK_DIAGONAL])
+	//		{
+	//			PlayAnimation(m_move[(unsigned int)DIR_DRONE::BACK_DIAGONAL], false, true);
+	//		}
 
-			//ChangeUVDirection();
-		}
-		else
-		{
-			if (currentAnimation != m_move[(unsigned int)DIR_DRONE::BACK])
-			{
-				PlayAnimation(m_move[(unsigned int)DIR_DRONE::BACK], false, true);
-			}
+	//		//ChangeUVDirection();
+	//	}
+	//	else
+	//	{
+	//		if (currentAnimation != m_move[(unsigned int)DIR_DRONE::BACK])
+	//		{
+	//			PlayAnimation(m_move[(unsigned int)DIR_DRONE::BACK], false, true);
+	//		}
 
-			//ResetUVDirection();
-		}
-	}
+	//		//ResetUVDirection();
+	//	}
+	//}
 }
 void DroneSpriteAnimator::OnDestroy()
 {

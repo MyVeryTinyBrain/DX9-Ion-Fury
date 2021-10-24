@@ -127,6 +127,23 @@ void PlayerUI::Awake()
 	m_screenEffectRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIForeground;
 	m_screenEffectRenderer->enable = false;
 
+	// Fade effect
+	for (int i = 0; i < FADE_MAX; ++i)
+	{
+		float percent = float(i) / float(FADE_MAX - 1);
+		m_fadeTexture[i] = Texture::CreateUnmanagedInDirectX(16, 16, Color(0, 0, 0, percent));
+	}
+
+	m_fadeImageObj = CreateGameObjectToChild(transform);
+	m_fadeImageObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetOrthographicWidth(), 1);
+
+	m_fadeImageRenderer = m_fadeImageObj->AddComponent<UserMeshRenderer>();
+	m_fadeImageRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
+	m_fadeImageRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_fadeImageRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_fadeImageRenderer->overlayRenderOrder = (int)OverlayRenderOrders::Fade;
+	m_fadeImageRenderer->SetTexture(0, m_fadeTexture[0]);
+
 	SetHP(100);
 	SetAmmo0(999);
 	SetAmmo1(999);
@@ -143,6 +160,68 @@ void PlayerUI::Update()
 	else
 	{
 		m_screenEffectObj->transform->localScale += Vec2::one() * 0.8f * Time::DeltaTime();
+	}
+}
+
+void PlayerUI::LateUpdate()
+{
+	if (Input::GetKeyDown(Key::Up))
+		m_targetFadeAlpha = 1.0f;
+	if (Input::GetKeyDown(Key::Down))
+		m_targetFadeAlpha = 0.0f;
+
+	// Fade effect =====================================================================
+
+	// Fade Transition
+	if (m_fadeAlpha != m_targetFadeAlpha)
+	{
+		if (m_fadeAlpha < m_targetFadeAlpha)
+		{
+			m_fadeAlpha += Time::DeltaTime() * m_fadeSpeed;
+
+			if (m_fadeAlpha >= m_targetFadeAlpha)
+			{
+				m_fadeAlpha = m_targetFadeAlpha;
+			}
+		}
+		else
+		{
+			m_fadeAlpha -= Time::DeltaTime() * m_fadeSpeed;
+		
+			if (m_fadeAlpha <= m_targetFadeAlpha)
+			{
+				m_fadeAlpha = m_targetFadeAlpha;
+			}
+		}
+	}
+
+	// Fade texture change
+	float fFadeIndex = m_fadeAlpha * float(FADE_END);
+	int fadeIndex = int(fFadeIndex);
+
+	m_fadeImageRenderer->SetTexture(0, m_fadeTexture[fadeIndex]);
+
+	if (fadeIndex == 0)
+	{
+		m_fadeImageRenderer->enable = false;
+	}
+	else
+	{
+		m_fadeImageRenderer->enable = true;
+	}
+
+	// Fade effect =====================================================================
+}
+
+void PlayerUI::OnDestroy()
+{
+	for (int i = 0; i < FADE_MAX; ++i)
+	{
+		if (m_fadeTexture[i])
+		{
+			m_fadeTexture[i]->ReleaseUnmanaged();
+			m_fadeTexture[i] = nullptr;
+		}
 	}
 }
 

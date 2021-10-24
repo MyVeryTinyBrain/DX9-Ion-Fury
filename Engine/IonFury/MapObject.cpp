@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "MapObject.h"
 
+#include <filesystem>
+
+namespace fs = std::filesystem;
+
 void MapObject::OnDestroy()
 {
 	if (m_mesh)
@@ -13,6 +17,11 @@ void MapObject::OnDestroy()
 void MapObject::InitializeMapObject(const wstring& textureLocalPath, const wstring& materialType, const Vec2& uvScale, int iMeshType, bool hasCollider)
 {
 	m_renderer = gameObject->AddComponent<UserMeshRenderer>();
+
+	if (fs::path(textureLocalPath).filename() == L"NODRAW.png")
+	{
+		m_renderer->enable = false;
+	}
 
 	wstring localMaterialPath = BuiltInGeometryMaterial;
 	if (materialType == L"Geometry")
