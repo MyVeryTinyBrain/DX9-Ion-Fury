@@ -27,6 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	SceneManager::ChangeScene(new TestScene2);
 
+
 	MSG msg = {};
 	while (msg.message != WM_QUIT)
 	{
