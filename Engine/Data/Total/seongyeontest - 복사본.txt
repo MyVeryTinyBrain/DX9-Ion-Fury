@@ -3191,25 +3191,6 @@
 			"TexturePath" : "../SharedResource/Texture/map/46.png",
 			"UVScaleX" : 1.0,
 			"UVScaleY" : 1.0
-		},
-		{
-			"ColliderExistence" : false,
-			"MaterialType" : "Geometry",
-			"MeshType" : 0,
-			"Name" : "sda",
-			"PositionX" : -18.376338958740234,
-			"PositionY" : 1.3857301473617554,
-			"PositionZ" : 8.5606327056884766,
-			"RotationX" : 0.0,
-			"RotationY" : 0.0,
-			"RotationZ" : 0.0,
-			"ScaleX" : 1.0,
-			"ScaleY" : 1.0,
-			"ScaleZ" : 1.0,
-			"Tag" : "ui",
-			"TexturePath" : "../SharedResource/Texture/seongyeonfile/Tile87.png",
-			"UVScaleX" : 1.0,
-			"UVScaleY" : 1.0
 		}
 	],
 	"TriggerEvents" : 
