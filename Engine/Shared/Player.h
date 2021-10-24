@@ -6,6 +6,7 @@
 class FPSCharacterController;
 class FPSCamera;
 class FPSOrthoCamera;
+class PlayerUI;
 
 class Player : public Component
 {
@@ -26,6 +27,8 @@ public:
 	FPSCamera* GetFPSCamera() const;
 
 	FPSOrthoCamera* GetOrthoCamera() const;
+
+	PlayerUI* GetUI() const;
 
 	__declspec(property(get = GetController)) FPSCharacterController* controller;
 

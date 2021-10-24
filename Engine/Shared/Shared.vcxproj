@@ -25,6 +25,7 @@
     <ClInclude Include="BasicMutantSpriteAnimator.h" />
     <ClInclude Include="BillboardEffect.h" />
     <ClInclude Include="BloodEffect.h" />
+    <ClInclude Include="BossEnemySpawnTrigger.h" />
     <ClInclude Include="BossTrigger.h" />
     <ClInclude Include="Bow.h" />
     <ClInclude Include="BowAnimator.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="GunnerSpriteAnimator.h" />
     <ClInclude Include="Hands.h" />
     <ClInclude Include="IDontDeactive.h" />
+    <ClInclude Include="IMonsterSpawn.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemArmor.h" />
     <ClInclude Include="ItemBowAmmo.h" />
@@ -80,6 +82,7 @@
     <ClInclude Include="MutantPoison.h" />
     <ClInclude Include="MutantSpriteAnimator.h" />
     <ClInclude Include="Names.h" />
+    <ClInclude Include="NextSceneTrigger.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
@@ -144,6 +147,7 @@
     <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
     <ClCompile Include="BillboardEffect.cpp" />
     <ClCompile Include="BloodEffect.cpp" />
+    <ClCompile Include="BossEnemySpawnTrigger.cpp" />
     <ClCompile Include="BossTrigger.cpp" />
     <ClCompile Include="Bow.cpp" />
     <ClCompile Include="BowAnimator.cpp" />
@@ -174,6 +178,7 @@
     <ClCompile Include="GunnerSpriteAnimator.cpp" />
     <ClCompile Include="Hands.cpp" />
     <ClCompile Include="IDontDeactive.cpp" />
+    <ClCompile Include="IMonsterSpawn.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemArmor.cpp" />
     <ClCompile Include="ItemBowAmmo.cpp" />
@@ -197,6 +202,7 @@
     <ClCompile Include="Mutant.cpp" />
     <ClCompile Include="MutantPoison.cpp" />
     <ClCompile Include="MutantSpriteAnimator.cpp" />
+    <ClCompile Include="NextSceneTrigger.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />

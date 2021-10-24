@@ -247,6 +247,11 @@ void GunnerBase::OnDeadAnimated()
     //gameObject->Destroy();
 }
 
+void GunnerBase::OnSpawn()
+{
+    m_holdPosition = true;
+}
+
 bool GunnerBase::IsPlayerInSite(Vec3& playerCoord)
 {
     Vec3 playerHead = Player::GetInstance()->perspectiveCamera->transform->position;

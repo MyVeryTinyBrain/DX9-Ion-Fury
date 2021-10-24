@@ -127,6 +127,8 @@ void Skull::OnDamage(DamageParameters& params)
 
 void Skull::OnDead(bool& dead, DamageParameters& params)
 {
+    SetBehavior(Behavior::Dead);
+
     m_body->SetTranslationLockAxis(PhysicsAxis::All, false);
     m_body->useGravity = true;
 

@@ -24,4 +24,6 @@ enum class OverlayRenderOrders
 	EndOverlay,
 
 	Crosshair = 100000,
+
+	Fade,
 };

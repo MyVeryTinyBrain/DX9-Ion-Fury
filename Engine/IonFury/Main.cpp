@@ -7,6 +7,9 @@
 #include "TestScene3.h"
 #include "TestSceneSeob.h"
 
+#include "Map0.h"
+#include "Map1.h"
+
 #ifndef _AFX
 
 HINSTANCE hInst;
@@ -25,8 +28,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	SoundMgr::Get_Instance()->Initialize();
 
-
-	SceneManager::ChangeScene(new TestScene2);
+	SceneManager::ChangeScene(new Map0);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)
