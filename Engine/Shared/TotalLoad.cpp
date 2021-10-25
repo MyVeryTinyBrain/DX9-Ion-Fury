@@ -1,15 +1,17 @@
-#include "stdafx.h"
+#include "shared_stdafx.h"
 #include "TotalLoad.h"
 
 #include "MapObject.h"
 #include <fstream>
 #include <atlconv.h>
 
-#include <Trigger.h>
-#include <BossTrigger.h>
+#include "Trigger.h"
+#include "BossTrigger.h"
+#include "BossEnemySpawnTrigger.h"
+#include "NextSceneTrigger.h"
 
-#include <Tags.h>
-#include <Names.h>
+#include "Tags.h"
+#include "Names.h"
 
 // Objects
 #include "ItemBowAmmo.h"
@@ -20,6 +22,7 @@
 #include "ItemBowAmmo.h"
 #include "ItemSMGAmmo.h"
 #include "ItemHealthPack.h"
+<<<<<<< HEAD:Engine/IonFury/TotalLoad.cpp
 #include <ItemArmor.h>
 #include <ItemCardKey.h>
 #include <ObjectRat.h>
@@ -34,25 +37,39 @@
 #include <ObjectMiniGame.h>
 
 #include <EditorEnum.h>
+=======
+#include "ItemArmor.h"
+#include "ItemCardKey.h"
+#include "ObjectRat.h"
+#include "ObjectStairBlue.h"
+#include "ObjectStairConcrete.h"
+#include "ObjectStairWood.h"
+#include "ObjectCarBlack.h"
+#include "ObjectCarBlue.h"
+#include "ObjectCarRed.h"
+#include "Player.h"
+
+#include "EditorEnum.h"
+>>>>>>> client:Engine/Shared/TotalLoad.cpp
 
 // Events
-#include <ObjectAutoDoor.h>
-#include <ObjectManualDoor.h>
-#include <ObjectButton.h>
-#include <ObjectCardScreen.h>
+#include "ObjectAutoDoor.h"
+#include "ObjectManualDoor.h"
+#include "ObjectButton.h"
+#include "ObjectCardScreen.h"
 
-#include <Drone.h>
-#include <BasicMutant.h>
-#include <Mutant.h>
-#include <MutantPoison.h>
-#include <Deacon.h>
-#include <Drone.h>
-#include <Spider.h>
-#include <Skull.h>
-#include <Warmech.h>
-#include <CultistArcher.h>
-#include <CultistGunner.h>
-#include <Liberator.h>
+#include "Drone.h"
+#include "BasicMutant.h"
+#include "Mutant.h"
+#include "MutantPoison.h"
+#include "Deacon.h"
+#include "Drone.h"
+#include "Spider.h"
+#include "Skull.h"
+#include "Warmech.h"
+#include "CultistArcher.h"
+#include "CultistGunner.h"
+#include "Liberator.h"
 
 HRESULT TotalLoad::Load(const wstring& wstrFilePath)
 {
@@ -186,13 +203,22 @@ Trigger* TotalLoad::CreateTrigger(const TriggerData& data)
 
 	Trigger* trigger = nullptr;
 
-	if (obj->name != NAME_BOSS_TRIGGER)
+	if (obj->name == NAME_BOSS_TRIGGER)
 	{
-		trigger = obj->AddComponent<Trigger>();
+		trigger = obj->AddComponent<BossTrigger>();
+	}
+	else if (obj->name == NAME_BOSS_ENEMY_SPAWNTRIGGER)
+	{
+		trigger = obj->AddComponent<BossEnemySpawnTrigger>();
+		trigger->enable = false;
+	}
+	else if (obj->name == NAME_NEXTSCENE_TRIGGER)
+	{
+		trigger = obj->AddComponent<NextSceneTrigger>();
 	}
 	else
 	{
-		trigger = obj->AddComponent<BossTrigger>();
+		trigger = obj->AddComponent<Trigger>();
 	}
 
 	TriggerMethod method = (TriggerMethod)data.method;

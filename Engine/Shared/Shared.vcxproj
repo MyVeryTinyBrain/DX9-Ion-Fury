@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmmoBackup.h" />
     <ClInclude Include="AmmoTypes.h" />
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="BasicMutant.h" />
     <ClInclude Include="BasicMutantSpriteAnimator.h" />
     <ClInclude Include="BillboardEffect.h" />
     <ClInclude Include="BloodEffect.h" />
+    <ClInclude Include="BossEnemySpawnTrigger.h" />
     <ClInclude Include="BossTrigger.h" />
     <ClInclude Include="Bow.h" />
     <ClInclude Include="BowAnimator.h" />
@@ -56,6 +58,7 @@
     <ClInclude Include="GunnerSpriteAnimator.h" />
     <ClInclude Include="Hands.h" />
     <ClInclude Include="IDontDeactive.h" />
+    <ClInclude Include="IMonsterSpawn.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemArmor.h" />
     <ClInclude Include="ItemBowAmmo.h" />
@@ -72,6 +75,9 @@
     <ClInclude Include="LauncherGranade.h" />
     <ClInclude Include="Liberator.h" />
     <ClInclude Include="LiberatorAnimator.h" />
+    <ClInclude Include="LightLoad.h" />
+    <ClInclude Include="MapLoad.h" />
+    <ClInclude Include="MapObject.h" />
     <ClInclude Include="MiniGame01.h" />
     <ClInclude Include="MiniGameCamera01.h" />
     <ClInclude Include="MiniGameUI01.h" />
@@ -80,6 +86,7 @@
     <ClInclude Include="MutantPoison.h" />
     <ClInclude Include="MutantSpriteAnimator.h" />
     <ClInclude Include="Names.h" />
+    <ClInclude Include="NextSceneTrigger.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
@@ -106,6 +113,7 @@
     <ClInclude Include="RenderLayers.h" />
     <ClInclude Include="Revolver.h" />
     <ClInclude Include="RevolverAnimator.h" />
+    <ClInclude Include="SceneMap.h" />
     <ClInclude Include="shared_stdafx.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="SkullAnimator.h" />
@@ -121,6 +129,7 @@
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteAnimator.h" />
     <ClInclude Include="Tags.h" />
+    <ClInclude Include="TotalLoad.h" />
     <ClInclude Include="TrailRenderer.h" />
     <ClInclude Include="TriangleStair.h" />
     <ClInclude Include="Trigger.h" />
@@ -139,11 +148,13 @@
     <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AmmoBackup.cpp" />
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="BasicMutant.cpp" />
     <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
     <ClCompile Include="BillboardEffect.cpp" />
     <ClCompile Include="BloodEffect.cpp" />
+    <ClCompile Include="BossEnemySpawnTrigger.cpp" />
     <ClCompile Include="BossTrigger.cpp" />
     <ClCompile Include="Bow.cpp" />
     <ClCompile Include="BowAnimator.cpp" />
@@ -174,6 +185,7 @@
     <ClCompile Include="GunnerSpriteAnimator.cpp" />
     <ClCompile Include="Hands.cpp" />
     <ClCompile Include="IDontDeactive.cpp" />
+    <ClCompile Include="IMonsterSpawn.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemArmor.cpp" />
     <ClCompile Include="ItemBowAmmo.cpp" />
@@ -190,6 +202,9 @@
     <ClCompile Include="LauncherGranade.cpp" />
     <ClCompile Include="Liberator.cpp" />
     <ClCompile Include="LiberatorAnimator.cpp" />
+    <ClCompile Include="LightLoad.cpp" />
+    <ClCompile Include="MapLoad.cpp" />
+    <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="MiniGame01.cpp" />
     <ClCompile Include="MiniGameCamera01.cpp" />
     <ClCompile Include="MiniGameUI01.cpp" />
@@ -197,6 +212,7 @@
     <ClCompile Include="Mutant.cpp" />
     <ClCompile Include="MutantPoison.cpp" />
     <ClCompile Include="MutantSpriteAnimator.cpp" />
+    <ClCompile Include="NextSceneTrigger.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />
@@ -220,6 +236,7 @@
     <ClCompile Include="ObjectCarRed.cpp" />
     <ClCompile Include="Revolver.cpp" />
     <ClCompile Include="RevolverAnimator.cpp" />
+    <ClCompile Include="SceneMap.cpp" />
     <ClCompile Include="shared_stdafx.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="SkullAnimator.cpp" />
@@ -234,6 +251,7 @@
     <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteAnimator.cpp" />
+    <ClCompile Include="TotalLoad.cpp" />
     <ClCompile Include="TrailRenderer.cpp" />
     <ClCompile Include="TriangleStair.cpp" />
     <ClCompile Include="Trigger.cpp" />

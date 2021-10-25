@@ -57,12 +57,12 @@ void WendigoSpriteAnimator::Awake()
 
 
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump] = new SpriteAnimation;
-	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump0.png");
-	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump1.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump2.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump3.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump4.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump5.png");
+	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump1.png");
+	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_jump0.png");
 	m_attack[(unsigned int)ATTACK_WENDIGO::Jump]->interval = 0.1f;
 
 
@@ -82,8 +82,8 @@ void WendigoSpriteAnimator::Awake()
 	m_damage->AddTexture(L"../SharedResource/Texture/Wendigo/Wendigo_damage.png");
 	m_damage->isLoop = true;
 
-	//SetDefaultAnimation(m_walk[(unsigned int)DIR_WENDIGO::FRONT]);
-	SetDefaultAnimation(m_idle);
+	SetDefaultAnimation(m_walk[(unsigned int)DIR_WENDIGO::FRONT]);
+	//SetDefaultAnimation(m_idle);
 }
 
 void WendigoSpriteAnimator::LateUpdate()
@@ -234,6 +234,16 @@ bool WendigoSpriteAnimator::IsPlayingWalk() const
 		}
 	}
 	return false;
+}
+
+bool WendigoSpriteAnimator::IsPlayingJump() const
+{
+	return currentAnimation == m_attack[(unsigned int)ATTACK_WENDIGO::Jump];
+}
+
+bool WendigoSpriteAnimator::IsPlayingSwing() const
+{
+	return  currentAnimation == m_attack[(unsigned int)ATTACK_WENDIGO::Swing];
 }
 
 bool WendigoSpriteAnimator::IsPlayingAttack() const

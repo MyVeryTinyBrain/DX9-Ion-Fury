@@ -1,7 +1,8 @@
 #include "shared_stdafx.h"
 #include "WarmechExplosion.h"
 #include "WarmechSpriteAnimator.h"
-
+#include "PhysicsLayers.h"
+#include "Player.h"
 
 void WarmechExplosion::Awake()
 {
@@ -11,6 +12,7 @@ void WarmechExplosion::Awake()
 	MaterialParameters params;
 	params.alphaTest = true;
 	params.renderQueue = RenderQueue::AlphaTest;
+	params.useLight = false;
 	m_material = Material::CreateUnmanaged(params);
 
 	auto m_renderer = m_rendererObj->AddComponent<UserMeshBillboardRenderer>();
@@ -38,4 +40,5 @@ void WarmechExplosion::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
+
 }

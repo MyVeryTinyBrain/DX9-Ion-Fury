@@ -27,7 +27,7 @@ void SoundMgr::Initialize()
 	FMOD_System_Create(&m_pSystem, FMOD_VERSION);
 
 	// 1. 시스템 포인터, 2. 사용할 가상채널 수 , 초기화 방식) 
-	FMOD_System_Init(m_pSystem, 32, FMOD_INIT_NORMAL, NULL);
+	FMOD_System_Init(m_pSystem, 64, FMOD_INIT_NORMAL, NULL);
 
 	LoadSoundFile();
 }
@@ -92,6 +92,13 @@ void SoundMgr::PlayContinue(const wchar_t* pSoundKey, CHANNELID eID)
 	{
 		FMOD_System_PlaySound(i.m_pSystem, iter->second, NULL, FALSE, &i.m_pChannelArr[eID]);
 	}
+	FMOD_System_Update(i.m_pSystem);
+}
+
+void SoundMgr::SetVolume(float volume, CHANNELID eID)
+{
+	auto& i = *g_pInstance;
+	FMOD_Channel_SetVolume(i.m_pChannelArr[eID], volume);
 	FMOD_System_Update(i.m_pSystem);
 }
 

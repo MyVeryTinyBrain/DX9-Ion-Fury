@@ -12,9 +12,7 @@ class Web : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
-private:
-
-	void AttackToPlayer();
+	void OnCollisionEnter(const CollisionEnter& collider);
 
 private:
 
@@ -31,5 +29,9 @@ private:
 	QuadUserMesh* m_quad = nullptr;
 
 	Material* m_material = nullptr;
+
+	BoxCollider* m_collider = nullptr;
+
+	GameObject* m_colliderObj = nullptr;
 };
 

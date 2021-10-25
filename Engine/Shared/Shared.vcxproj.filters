@@ -100,6 +100,12 @@
     <Filter Include="MiniGame">
       <UniqueIdentifier>{817ff13a-4a8a-47a7-a112-dd6ee4819a42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneMap">
+      <UniqueIdentifier>{4b7084f4-2677-4d54-b512-c48fee3b3d96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loader">
+      <UniqueIdentifier>{299b1fad-9c84-423b-bd7e-8d4a90f1ffd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -456,6 +462,33 @@
     <ClInclude Include="MiniGameUI01.h">
       <Filter>MiniGame</Filter>
     </ClInclude>
+    <ClInclude Include="BossEnemySpawnTrigger.h">
+      <Filter>Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="IMonsterSpawn.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="NextSceneTrigger.h">
+      <Filter>Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMap.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="LightLoad.h">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoad.h">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="TotalLoad.h">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoBackup.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -787,6 +820,33 @@
     </ClCompile>
     <ClCompile Include="MiniGameUI01.cpp">
       <Filter>MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEnemySpawnTrigger.cpp">
+      <Filter>Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="IMonsterSpawn.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="NextSceneTrigger.cpp">
+      <Filter>Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMap.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
+    <ClCompile Include="LightLoad.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLoad.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="TotalLoad.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="AmmoBackup.cpp">
+      <Filter>Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

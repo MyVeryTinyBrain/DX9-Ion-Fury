@@ -60,4 +60,8 @@ private:
 
 	MovingType movingtype = (MovingType)0;
 
+	bool m_damageToPlayer = false;
+
+	float m_movingTime = 0.f;
+
 };

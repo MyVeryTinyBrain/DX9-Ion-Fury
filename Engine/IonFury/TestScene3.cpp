@@ -10,6 +10,10 @@
 #include "Mutant.h"
 #include "BasicMutant.h"
 #include "Skull.h"
+#include "ObjectButton.h"
+#include "Objectelevator.h"
+#include "TotalLoad.h"
+#include "LightLoad.h"
 
 IClonable* TestScene3::Clone()
 {
@@ -19,8 +23,36 @@ IClonable* TestScene3::Clone()
 void TestScene3::OnLoad(Scene* beforeScene)
 {
 	AddSkyBox();
-	AddMonster();
-	AddMap();
+	//LightLoad::LightObjectLoadJson();
+
+
+
+
+	//////¸Ê±ñ°Å 
+	TotalLoad::Load(L"../Data/Total/seongyeontest.txt");
+	{   // Create test player
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(0, 15, 15);
+		auto controller = obj->AddComponent<Player>();
+	}
+
+
+
+
+	//{   // Create directional light
+	//	auto obj = CreateGameObject();
+
+	//	auto renderer = obj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+	//	obj->transform->position = Vec3(0, 5, 0);
+	//	obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+	//	auto light = obj->AddComponent<DirectionalLight>();
+	//	light->ambientFactor = 0.6f;
+	//}
+	//AddMap();
+	//AddMonster();
 	//  MapLoad::LoadMap(L"../Data/Map/testmap.txt");
 
 
@@ -107,6 +139,27 @@ void TestScene3::OnLoad(Scene* beforeScene)
 	//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/object/trashcan0.png"));
 	//}
 
+	//{
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(-10.f, 0.f, 0.f);
+	//	auto texture = obj->AddComponent<ObjectButton>();
+	//	auto renderer = obj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	//}
+
+	{
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(0.f, 0.1f, 24.f);
+		obj->transform->localScale = Vec3(5.f, 6.f, 0.1f);
+		obj->transform->localEulerAngle = Vec3(-90.f, 0.0f, 0.f);
+		auto texture = obj->AddComponent<Objectelevator>();
+		auto renderer = obj->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+
+		auto collider = obj->AddComponent<BoxCollider>();
+		collider->friction = 3.0f;
+		collider->restitution = 3.0f;
+	}
 
 }
 
@@ -131,33 +184,55 @@ void TestScene3::AddSkyBox()
 
 void TestScene3::AddMonster()
 {
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	auto obj = CreateGameObject();
+	//	obj->transform->position = Vec3(i * 5, 0, 0);
+	//	obj->AddComponent<Deacon>();
+	//}
 
-	  {
-	  auto obj = CreateGameObject();
-      obj->transform->position = Vec3(-0, 0, -0);
-	  obj->transform->eulerAngle = Vec3(0, 0, 0);
-      obj->AddComponent<Skull>();
-  }
+	//auto obj = CreateGameObject();
+	//obj->transform->position = Vec3(0, 0, 0);
+	//obj->AddComponent<Deacon>();
+
+	// {
+	// auto obj = CreateGameObject();
+ //    obj->transform->position = Vec3(-0, 0, -0);
+	// obj->transform->eulerAngle = Vec3(0, 0, 0);
+ //    obj->AddComponent<Skull>();
+ //}
 // 
 	//for (int i = 0; i < 4; ++i)
 	//{
 
 	//	auto obj = CreateGameObject();
-	//	obj->transform->position = Vec3(i , 1, 0); //+ Vec3(-10, 0, -10);
+	//	obj->transform->eulerAngle = Vec3(0, 0, 0);
+	//	//obj->transform->position = Vec3(i , 1, 0); //+ Vec3(-10, 0, -10);
 	//	obj->AddComponent<Deacon>();
 
 	//}
 	//for (int i = 0; i < 15; ++i)
 	//{
+	//// //¹ÂÅÏÆ®
 		//auto obj = CreateGameObject();
-		//obj->transform->position = Vec3(i * 2, 0, 0);
+		//obj->transform->position = Vec3(0, 0, 3);
 		//obj->AddComponent<Mutant>();
 	//}
 
+
+	//for (int i = 0; i < 15; ++i)
 	//{
-	//	auto obj = CreateGameObject();
-	//	obj->transform->position = Vec3(0, 0, -17);
-	//	obj->AddComponent<Mutant>();
+		////º£ÀÌÁ÷ ¹ÂÅÏÆ®
+		//auto obj = CreateGameObject();
+		//obj->transform->position = Vec3(0, 0, -15);
+		//obj->AddComponent<BasicMutant>();
+	//}
+
+	//{
+	////¹ÂÅÏÆ®
+		//auto obj = CreateGameObject();
+		//obj->transform->position = Vec3(0, 0, -17);
+		//obj->AddComponent<Mutant>();
 	//}
 
 	//{
@@ -194,6 +269,23 @@ void TestScene3::AddMap()
 	{   // Create ground
 		auto obj = CreateGameObject();
 		obj->transform->position = Vec3(0, -3, 0);
+		obj->transform->scale = Vec3(1000, 1, 1000);
+
+		auto renderer = obj->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+
+		auto body = obj->AddComponent<Rigidbody>();
+		body->isKinematic = true;
+
+		auto collider = obj->AddComponent<BoxCollider>();
+		collider->friction = 1.0f;
+		collider->restitution = 1.0f;
+	}
+
+	{   // Create ground
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(0, 30, 0);
 		obj->transform->scale = Vec3(1000, 1, 1000);
 
 		auto renderer = obj->AddComponent<UserMeshRenderer>();

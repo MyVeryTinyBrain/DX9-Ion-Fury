@@ -32,6 +32,10 @@ private:
 
 	void OnDeadAnimated();
 
+	void ColliderCheck();
+
+	void AttackAfter();
+
 private:
 
 	UserMeshBillboardRenderer* m_renderer = nullptr;
@@ -51,5 +55,30 @@ private:
 	bool create = true;
 
 	float createdt = 0.f;
+
+	float chageanimation = 0.f;
+
+	bool SetAttack = true;
+
+	bool SetIdle = false;
+
+	bool  check = true;
+
+	float idledt = 0.f;
+
+	bool attack = false;
+
+	int damage = 1;
+
+	float pattern = 0.f;
+
+	bool hit = false;
+
+	CapsuleCollider* m_CapsuleCollider = nullptr;
+
+	float notPlayAttack = 0.f;
+
+	bool hitdamage = false;;
+
 };
 

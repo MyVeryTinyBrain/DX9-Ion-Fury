@@ -6,6 +6,8 @@ class WarmechMissile : public Component
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(FixedUpdate);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(OnDestroy);
@@ -53,5 +55,8 @@ private:
 
 	float m_reboudcount = 1.f;
 
+	bool m_hitCheck = false;
+
+	float m_radius = 0.5f;
 };
 

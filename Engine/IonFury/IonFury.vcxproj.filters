@@ -13,23 +13,17 @@
     <ClCompile Include="TestScene2.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="LightLoad.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
     <ClCompile Include="TestScene3.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="MapLoad.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="TotalLoad.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
     <ClCompile Include="TestSceneSeob.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Map0.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Map1.cpp">
+      <Filter>SceneMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,23 +48,17 @@
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="LightLoad.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
     <ClInclude Include="TestScene3.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="MapLoad.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="TotalLoad.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
     <ClInclude Include="TestSceneSeob.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Map0.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Map1.h">
+      <Filter>SceneMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,8 +76,8 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{9ad150aa-2c96-4258-b22d-361ad658c3df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Loader">
-      <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    <Filter Include="SceneMap">
+      <UniqueIdentifier>{bf717b3f-ab87-4994-bb80-e96d96ebc621}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

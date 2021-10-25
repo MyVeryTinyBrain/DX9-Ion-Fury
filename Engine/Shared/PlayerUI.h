@@ -8,7 +8,13 @@ class PlayerUI : public Component
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(Update);
+
+	OverrideComponentFunction(LateUpdate);
+
+	OverrideComponentFunction(OnDestroy);
 
 public:
 
@@ -39,6 +45,14 @@ public:
 	void SetAmmo1Type(AmmoTypes type);
 
 	void SetCardKey(bool value);
+
+	void FadeIn(float time = 0.5f);
+
+	void FadeOut(float time = 0.5f);
+
+	void SetFadeAlpah(float value);
+
+	float GetFadeAlpha() const;
 
 private:
 
@@ -125,5 +139,21 @@ private:
 	Texture* m_greenScreenEffectTexture = nullptr;
 
 	Texture* m_blueScreenEffectTexture = nullptr;
+
+	// Fade effect
+
+	GameObject* m_fadeImageObj = nullptr;
+
+	UserMeshRenderer* m_fadeImageRenderer = nullptr;
+
+	enum { FADE_STEP = 64, FADE_BEGIN = 0, FADE_END = FADE_STEP - 1 };
+
+	Texture* m_fadeTexture[FADE_STEP] = {};
+
+	float m_fadeAlpha = 1.0f;
+	
+	float m_targetFadeAlpha = 1.0f;
+
+	float m_fadeSpeed = 1.0f;
 };
 

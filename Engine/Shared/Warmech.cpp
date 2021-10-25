@@ -8,12 +8,13 @@
 #include "WarmechMissile.h"
 #include "WarmechHit.h"
 #include "WarmechExplosion.h"
+#include "SoundMgr.h"
 
 void Warmech::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 50;
+	m_hp = 250;
 	m_moveSpeed = 3.0f;
 
 	m_body->mass = 8.f;
@@ -313,7 +314,6 @@ void Warmech::Attack()
 		forward.Normalize();
 		transform->forward = forward;
 
-		ShootToPlayer();
 	}
 	else
 		m_attacking = false;
@@ -334,6 +334,16 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	break;
 	case ActionType::WalkToRandomCoord:
 	{
+		////if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/warmech/mech_step2.ogg", CHANNELID::WARMECH))
+		////{
+		//	SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_step2.ogg", CHANNELID::WARMECH);
+		////}
+
+			int soundIndex = rand() % 1;
+			wchar_t buffer[256];
+			swprintf_s(buffer, L"../SharedResource/Sound/warmech/mech_step%d.ogg", soundIndex);
+			SoundMgr::Play(buffer, CHANNELID::WARMECH);
+
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
 		Vec3 targetCoord = Vec3(cosf(randomRadian), 0, sinf(randomRadian)) * randomDistance;
@@ -366,10 +376,4 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	}
 	break;
 	}
-}
-void Warmech::ShootToPlayer()
-{
-	Vec3 mosterToPlayer = Player::GetInstance()->transform->position - transform->position;
-	mosterToPlayer.Normalize();
-	Player::GetInstance()->TakeDamage(1);
 }

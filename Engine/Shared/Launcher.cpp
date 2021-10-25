@@ -11,6 +11,7 @@
 #include "Monster.h"
 #include "OrthoEffect.h"
 #include "LauncherGranade.h"
+#include "AmmoBackup.h"
 
 void Launcher::Awake()
 {
@@ -34,6 +35,16 @@ void Launcher::Awake()
 	m_rightHandObj->transform->localPosition = m_rightHandLocalPosition;
 
 	m_currentAmmo = &m_shotgunAmmo;
+
+	m_shotgunAmmo.loadedAmmo = AmmoBackup::GetInstance()->backup->shotgunLoadedAmmo;
+	m_shotgunAmmo.totalAmmo = AmmoBackup::GetInstance()->backup->shotgunTotalAmmo;
+
+	m_launcherAmmo.loadedAmmo = AmmoBackup::GetInstance()->backup->launcherLoadedAmmo;
+	m_launcherAmmo.totalAmmo = AmmoBackup::GetInstance()->backup->launcherTotalAmmo;
+}
+
+void Launcher::Start()
+{
 }
 
 void Launcher::Update()
@@ -55,6 +66,12 @@ void Launcher::Update()
 	{
 		m_rightHandObj->transform->localPosition = m_rightHandLocalPosition;
 	}
+
+	AmmoBackup::GetInstance()->current->shotgunLoadedAmmo = m_shotgunAmmo.loadedAmmo;
+	AmmoBackup::GetInstance()->current->shotgunTotalAmmo = m_shotgunAmmo.totalAmmo;
+
+	AmmoBackup::GetInstance()->current->launcherLoadedAmmo = m_launcherAmmo.loadedAmmo;
+	AmmoBackup::GetInstance()->current->launcherTotalAmmo = m_launcherAmmo.totalAmmo;
 }
 
 void Launcher::OnDestroy()

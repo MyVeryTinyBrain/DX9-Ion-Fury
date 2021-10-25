@@ -48,6 +48,10 @@ public:
 
 	bool IsPlayingWalk() const;
 
+	bool IsPlayingJump() const;
+
+	bool IsPlayingSwing() const;
+
 	bool IsPlayingAttack() const;
 
 	bool IsPlayingDie() const;

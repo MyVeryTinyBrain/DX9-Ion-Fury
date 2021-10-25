@@ -36,6 +36,7 @@ void WarmechMissile::Awake()
 	MaterialParameters params;
 	params.alphaTest = true;
 	params.renderQueue = RenderQueue::AlphaTest;
+	params.useLight = false;
 	m_material = Material::CreateUnmanaged(params);
 
 	auto m_rendererObj = CreateGameObjectToChild(transform);
@@ -59,6 +60,28 @@ void WarmechMissile::Awake()
 	//	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
 	//	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 	//}
+}
+
+void WarmechMissile::FixedUpdate()
+{
+	if (m_hitCheck)
+		return;
+
+	Collider* collider = Physics::OverlapSphere(
+		m_radius,
+		transform->position,
+		(1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player),
+		PhysicsQueryType::Collider);
+
+	if (collider)
+	{
+		 if (collider->layerIndex == (uint8_t)PhysicsLayers::Player)
+		{
+			Player::GetInstance()->TakeDamage(1);
+
+			m_hitCheck = true;
+		}
+	}
 }
 
 void WarmechMissile::Update()
@@ -114,6 +137,22 @@ void WarmechMissile::OnDestroy()
 {
 	m_material->ReleaseUnmanaged();
 	m_quad->ReleaseUnmanaged();
+
+	if (m_collider)
+	{
+		m_collider->OnCollisionEnter -= Function<void(const CollisionEnter&)>(this, &WarmechMissile::OnCollisionEnter);
+
+		m_collider->Destroy();
+
+		m_collider = nullptr;
+	}
+
+	if (m_body)
+	{
+		m_body->Destroy();
+
+		m_body = nullptr;
+	}
 }
 
 void WarmechMissile::OnCollisionEnter(const CollisionEnter& collider)

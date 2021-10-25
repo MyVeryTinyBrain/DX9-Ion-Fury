@@ -97,6 +97,7 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,6 +113,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,6 +129,7 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -142,6 +145,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,10 +156,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="LightLoad.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="MapLoad.h" />
-    <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Map0.h" />
+    <ClInclude Include="Map1.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -163,19 +166,16 @@
     <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TestScene3.h" />
     <ClInclude Include="TestSceneSeob.h" />
-    <ClInclude Include="TotalLoad.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LightLoad.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MapLoad.cpp" />
-    <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="Map0.cpp" />
+    <ClCompile Include="Map1.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TestScene3.cpp" />
     <ClCompile Include="TestSceneSeob.cpp" />
-    <ClCompile Include="TotalLoad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="IonFury.rc" />
