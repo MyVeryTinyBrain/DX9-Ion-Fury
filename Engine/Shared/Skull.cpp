@@ -57,6 +57,11 @@ void Skull::Update()
 
     if (isDead)
     {
+        if (m_animator->currentAnimation && !m_animator->IsPlayingDie())
+        {
+            m_animator->PlayDie();
+        }
+
         return;
     }
 

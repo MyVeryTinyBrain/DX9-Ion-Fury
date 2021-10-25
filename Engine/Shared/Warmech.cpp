@@ -293,7 +293,7 @@ void Warmech::Attack()
 
 	if (m_attackCount > 0)
 	{
-
+		cout << "ac: " << m_attackCount << endl;
 
 		switch (actionType)
 		{
@@ -390,11 +390,12 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 		m_attackCount = 10;
 		m_attacking = true;
 	}
+	break;
 	case ActionType::Missile:
 	{
 		if (m_bodyAnimator->IsPlayingShoot())
 			return;
-		m_attackCount = 1;
+		m_attackCount = 5;
 		m_attacking = true;
 	}
 	break;

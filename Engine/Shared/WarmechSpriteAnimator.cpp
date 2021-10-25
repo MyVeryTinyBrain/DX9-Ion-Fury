@@ -71,7 +71,7 @@ void WarmechSpriteAnimator::Awake()
 	m_shoot->AddTexture(L"../SharedResource/Texture/warmech/warmech_shot0.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/warmech/warmech_shot1.png");
 	m_shoot->AddTexture(L"../SharedResource/Texture/warmech/warmech_shot2.png");
-	m_shoot->interval = 0.05f;
+	m_shoot->interval = 0.02f;
 
 	m_missile = new SpriteAnimation;
 	m_missile->AddTexture(L"../SharedResource/Texture/warmech/warmech_missile0.png");

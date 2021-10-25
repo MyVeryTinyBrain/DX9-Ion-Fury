@@ -10,7 +10,7 @@ void WarmechBullet::Awake()
 	auto trailObj = CreateGameObjectToChild(transform);
 	WarmechTrail* trail = trailObj->AddComponent<WarmechTrail>();
 
-	m_moveSpeed = 7.0f;
+	m_moveSpeed = 15.0f;
 
 	MaterialParameters params;
 	params.alphaTest = true;

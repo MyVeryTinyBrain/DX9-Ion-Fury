@@ -12,7 +12,7 @@ void WarmechMissile::Awake()
 	auto trailObj = CreateGameObjectToChild(transform);
 	GranadeTrail* trail = trailObj->AddComponent<GranadeTrail>();
 
-	m_moveSpeed = 3.0f;
+	m_moveSpeed = 5.0f;
 
 	m_body = gameObject->AddComponent<Rigidbody>();
 

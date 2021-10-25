@@ -30,6 +30,10 @@ void Deacon::Awake()
     m_rendererObj->transform->localPosition = Vec3(0, -2.f, 0);
 
     m_renderer = CreateRenderer();
+    UserMeshBillboardRenderer* billboard = (UserMeshBillboardRenderer*)m_renderer;
+    billboard->freezeX = false;
+    billboard->freezeY = false;
+    billboard->freezeZ = false;
 
     m_animator = m_renderer->gameObject->AddComponent<DeaconSpriteAnimator>();
 
@@ -130,7 +134,7 @@ void Deacon::OnDamage(DamageParameters& params)
 {
     if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
     {
-        SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_hit_1.ogg", CHANNELID::DEACONHIT);
+        SoundMgr::PlayContinue(L"../SharedResource/Sound/zombie/zombie_hit_1.ogg", CHANNELID::DEACONHIT);
 
         GameObject* bloodEffectObj = CreateGameObject();
         bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
@@ -140,7 +144,7 @@ void Deacon::OnDamage(DamageParameters& params)
 
 void Deacon::OnDead(bool& dead, DamageParameters& params)
 {
-    SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_helpme_1.ogg", CHANNELID::DEACONDEAD);
+    SoundMgr::PlayContinue(L"../SharedResource/Sound/zombie/zombie_helpme_1.ogg", CHANNELID::DEACONDEAD);
 
     notcreatflyeffect = true;
     m_animator->PlayDie();
@@ -329,7 +333,7 @@ void Deacon::OnMoveToPlayer()
 
     Vec3 target = Player::GetInstance()->transform->position;
     float d = GetXZDistance(target);
-    SoundMgr::Play(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
+    SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
     if (d < 2)
     {
         SetBehavior(Behavior::ShootBall);
@@ -393,7 +397,7 @@ void Deacon::MoveToPlayer()
 
         if (distance < 1.f)
         {
-            SoundMgr::Play(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
+            SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
         }
     }
 
@@ -424,7 +428,7 @@ void Deacon::MoveToPlayer()
 
     if (d < 2.f)
     {
-        SoundMgr::Play(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
+        SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
     }
 
     else if (m_moveToPlayerAccumulate > 1.f)
@@ -571,7 +575,7 @@ void Deacon::ShootBall()
 
     if (m_shootWait > 0)
     {
-        SoundMgr::Play(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DEACONATTACK);
+        SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DEACONATTACK);
         m_shootWait -= Time::DeltaTime();
         return;
     }

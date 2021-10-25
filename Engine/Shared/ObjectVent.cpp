@@ -33,6 +33,7 @@ void ObjectVent::Awake()
 		colliderObj->transform->localPosition = Vec3(0, 5.5f, 0);
 		colliderObj->transform->localScale = Vec3(1, 10, 1);
 
+		if (Time::DeltaTime() == 0)
 		{
 			auto debugRendererObj = CreateGameObjectToChild(colliderObj->transform);
 			auto renderer = debugRendererObj->AddComponent<UserMeshRenderer>();
