@@ -5,12 +5,12 @@
 			"ChildScaleX" : 1.0,
 			"ChildScaleY" : 1.0,
 			"ChildScaleZ" : 1.0,
-			"ComponentType" : "MiniGameTest",
-			"Name" : "Object_0",
+			"ComponentType" : "ObjectMiniGame",
+			"Name" : ";",
 			"PivotScale" : 0.55000001192092896,
-			"PositionX" : -3.4855074882507324,
-			"PositionY" : -0.7390637993812561,
-			"PositionZ" : -2.9999995231628418,
+			"PositionX" : -1.277840256690979,
+			"PositionY" : -0.3667052686214447,
+			"PositionZ" : -2.6305131912231445,
 			"RotationX" : 0.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0
@@ -28,9 +28,9 @@
 			"EulerAngleY" : 0.0,
 			"EulerAngleZ" : 0.0,
 			"Name" : "Directional",
-			"PosX" : 0.0,
+			"PosX" : 0.17758284509181976,
 			"PosY" : 0.0,
-			"PosZ" : -3.0,
+			"PosZ" : -2.9999997615814209,
 			"Tag" : "Directional"
 		}
 	],
@@ -41,8 +41,8 @@
 			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
-			"PositionX" : -2.1062898635864258,
-			"PositionY" : -1.7331289052963257,
+			"PositionX" : -1.9002300500869751,
+			"PositionY" : -1.4366613626480103,
 			"PositionZ" : -2.9999997615814209,
 			"RotationX" : 0.0,
 			"RotationY" : 0.0,
@@ -51,9 +51,9 @@
 			"ScaleY" : 1.0,
 			"ScaleZ" : 20.0,
 			"Tag" : "",
-			"TexturePath" : "../SharedResource/Texture/map/64.png",
-			"UVScaleX" : 10.0,
-			"UVScaleY" : 10.0
+			"TexturePath" : "../SharedResource/Texture/map/10.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
 		}
 	],
 	"TriggerEvents" : null
