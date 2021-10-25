@@ -489,6 +489,9 @@
     <ClInclude Include="AmmoBackup.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectGarbageBag.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -847,6 +850,9 @@
     </ClCompile>
     <ClCompile Include="AmmoBackup.cpp">
       <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectGarbageBag.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,5 +9,5 @@ wstring ItemChaingunAmmo::InitTextureLocalPath() const
 
 void ItemChaingunAmmo::OnTrigger(Player* player, bool& destroy)
 {
-    player->AddAmmo(WeaponTypes::Chaingun, AmmoTypes::Chaingun, 50);
+    player->AddAmmo(WeaponTypes::Chaingun, AmmoTypes::Chaingun, 35);
 }
