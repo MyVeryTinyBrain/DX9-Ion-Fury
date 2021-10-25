@@ -4,6 +4,8 @@ class SkullBall : public Component
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(LateUpdate);
 
 public:

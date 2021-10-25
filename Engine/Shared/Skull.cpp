@@ -7,6 +7,9 @@
 #include "SkullBall.h"
 #include "SkullReplica.h"
 #include "BillboardEffect.h"
+#include "SoundMgr.h"
+
+int Skull::g_hurtSoundIndex = 0;
 
 void Skull::Awake()
 {
@@ -14,7 +17,7 @@ void Skull::Awake()
 
     gameObject->transform->scale = Vec3::one() * 1.5f;
 
-    m_hp = 300.0f;
+    m_hp = 400.0f;
     m_moveSpeed = 3.0f;
 
     m_body->mass = 10.0f;
@@ -34,6 +37,18 @@ void Skull::Awake()
     m_defaultEmissive = Color::white();
 
     SetBehavior(Behavior::Idle);
+}
+
+void Skull::Start()
+{
+    Monster::Start();
+
+    if (Time::TimeScale() == 0)
+    {
+        return;
+    }
+
+    SoundMgr::PlayBGM(L"../SharedResource/Sound/music/skull.mp3");
 }
 
 void Skull::FixedUpdate()
@@ -128,6 +143,15 @@ void Skull::OnDamage(DamageParameters& params)
         bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
         bloodEffectObj->AddComponent<BloodEffect>();
     }
+
+    wchar_t buffer[256];
+    swprintf_s(buffer, L"../SharedResource/Sound/skull/hurt/%d.ogg", g_hurtSoundIndex++);
+    if (g_hurtSoundIndex >= HURT_SOUND_MAX)
+    {
+        g_hurtSoundIndex = 0;
+    }
+
+    SoundMgr::PlayContinue(buffer, CHANNELID::SKULL);
 }
 
 void Skull::OnDead(bool& dead, DamageParameters& params)
@@ -138,6 +162,8 @@ void Skull::OnDead(bool& dead, DamageParameters& params)
     m_body->useGravity = true;
 
     m_animator->PlayDie();
+
+    SoundMgr::Play(L"../SharedResource/Sound/skull/death/0.ogg", CHANNELID::SKULL);
 }
 
 void Skull::OnPlayedFly()

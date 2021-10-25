@@ -82,6 +82,11 @@ void ObjectAutoDoor::Update()
 
 	if (m_autoOpen)
 	{
+		if (!Player::GetInstance())
+		{
+			return;
+		}
+
 		Vec3 player = Player::GetInstance()->transform->position;
 		Vec3 pos = transform->position;
 
