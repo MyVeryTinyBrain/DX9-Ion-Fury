@@ -1,8 +1,15 @@
 ﻿#include "stdafx.h"
 #include "Main.h"
 #include "PhysicsInitialize.h"
+#include <SoundMgr.h>
 #include "TestScene.h"
 #include "TestScene2.h"
+#include "TestScene3.h"
+#include "TestSceneSeob.h"
+
+#include <AmmoBackup.h>
+#include "Map0.h"
+#include "Map1.h"
 
 #ifndef _AFX
 
@@ -17,9 +24,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	world.InitializeWithShowWindow(hInstance, 1280, 720, true, L"Ion Fury", WndProc);
+
 	PhysicsInitialize::Initialize();
 
-	SceneManager::ChangeScene(new TestScene);
+	SoundMgr::Get_Instance()->Initialize();
+
+	AmmoBackup::GetInstance()->current->revolverLoadedAmmo = 6;
+	AmmoBackup::GetInstance()->current->revolverTotalAmmo = 120;
+	AmmoBackup::GetInstance()->Backup();
+
+	SceneManager::ChangeScene(new Map0);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)
@@ -34,6 +48,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	world.Release();
+
+	SoundMgr::Destroy_Instance();
 
 	return (int)msg.wParam;
 }

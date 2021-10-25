@@ -23,6 +23,11 @@ public:
 	int GetHandlingVectorIndex();
 public:
 	static void ClearVector();
+<<<<<<< HEAD
+=======
+public:
+	void MakePlayerCapsule();
+>>>>>>> client
 private:
 	GameObject*			m_PivotObject = nullptr;
 	GameObject*			m_ChildObject = nullptr;

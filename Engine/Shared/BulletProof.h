@@ -11,7 +11,7 @@ class BulletProof : public Component
 
 public:
 
-	void InitializeBulletProof(const Vec3& point, const Vec3& normal);
+	void InitializeBulletProof(const Vec3& point, const Vec3& normal, Transform* parent = nullptr);
 
 private:
 

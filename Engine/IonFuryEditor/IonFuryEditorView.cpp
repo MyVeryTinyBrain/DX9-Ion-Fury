@@ -61,6 +61,7 @@ CIonFuryEditorView::CIonFuryEditorView() noexcept
 
 CIonFuryEditorView::~CIonFuryEditorView()
 {
+	engine.Release();
 }
 
 BOOL CIonFuryEditorView::PreCreateWindow(CREATESTRUCT& cs)
@@ -226,12 +227,23 @@ void CIonFuryEditorView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 
 	auto camera = EditorManager::GetInstance()->GetPerspectiveCamera();
-	Pickable* pick = nullptr;
-	Gizmo* giz = nullptr;
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+
+	if (trans == nullptr)
+		return;
+
+	Pickable* pick = trans->GetGameObject()->GetComponent<Pickable>();
+	if (pick == nullptr)
+		return;
+
+	if (pick->GetType() != Type::Map)
+		return;
+
 	switch (nChar)
 	{
 	case 46:		//delete키
-		giz = EditorManager::GetInstance()->GetGizmo();
 		giz->DeleteAttachedObject();
 		giz->Detach();
 		giz->enable = false;
@@ -257,13 +269,21 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
+	cout << "view눌림" << endl;
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
 	//========================================================================
-	giz->Click();
+	//giz->Click();
+	//if (giz->HasSelect())
+	//{
+	//	cout << "giz찍힘 Pick입구컷" << endl;
+	//	return;
+	//}
 	if (giz->PickHandle())
-		return;						
-	//기즈모를 가장 우선적으로 선택하도록한 어거지코드!! 문제터지면 삭제
+	{
+		cout << "giz찍힘 Pick입구컷" << endl;
+		return;
+	}
 	//========================================================================
 
 	float PickableDistance = 90000.f;
@@ -306,6 +326,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			return;
 
 		Type PickType = pick->GetType();
+		Transform* trans = giz->GetSelectedObject();
 
 		switch (PickType)
 		{
@@ -315,12 +336,17 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_dlgMapTool.UpdateUVScale(pick);
 			m_dlgMapTool.ReturnComboBoxSelect(pick);
 			m_dlgMapTool.ReturnCollisionExistenceSelect(pick);
+<<<<<<< HEAD
+=======
+			m_dlgMapTool.ReturnGeometryOrAlphaTest(pick);
+>>>>>>> client
 
 			m_dlgMonsterTool.TriggerListBoxPick(-1); //mapObject를 picking한거면 trigger목록의 selection을 해제한다.
 			break;
 		case Type::Trigger:
 			m_dlgMonsterTool.TriggerListBoxPick(pick->GetTriggerVectorIndex());
 			m_dlgMonsterTool.OnLbnSelChangeTrigger();
+			m_dlgMonsterTool.SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 			break;
 		case Type::EventObject:
 			int TriggerIndex = -1;
@@ -333,6 +359,7 @@ void CIonFuryEditorView::OnLButtonDown(UINT nFlags, CPoint point)
 			//rotScale원래대로
 			m_dlgMonsterTool.SetRotationScrollToPicked(pick);
 			m_dlgMonsterTool.SetScaleScrollToPicked(pick);
+			m_dlgMonsterTool.SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 			break;
 		}
 		return;
@@ -414,6 +441,7 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			return;
 
 		Pickable* picked = trans->GetGameObject()->GetComponent<Pickable>();
+		GameObject* pickObj = nullptr;
 
 		// 1.Obj에 대해
 		if (picked)
@@ -423,9 +451,19 @@ void CIonFuryEditorView::OnMouseMove(UINT nFlags, CPoint point)
 			switch (type)
 			{
 			case Type::Map:
+<<<<<<< HEAD
 				auto pickObj = trans->GetGameObject();
 				m_dlgMapTool.SetPickableObject(pickObj);
 				m_dlgMapTool.SelectObject();
+=======
+				pickObj = trans->GetGameObject();
+				m_dlgMapTool.SetPickableObject(pickObj);
+				m_dlgMapTool.SelectObject();
+				break;
+			case Type::EventObject:
+			case Type::Trigger:
+				m_dlgMonsterTool.StatusWhileMouseMove(picked);
+>>>>>>> client
 				break;
 			}
 		}
@@ -570,6 +608,10 @@ void CIonFuryEditorView::OnFileSaveAs()
 				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
 				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
 				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
+<<<<<<< HEAD
+=======
+				MapValue["MaterialType"] = ToString(MapObject->GetMaterialType().GetString());
+>>>>>>> client
 
 				MapObjects[i] = MapValue;
 			}
@@ -598,6 +640,10 @@ void CIonFuryEditorView::OnFileSaveAs()
 					TriggerValue["RotationY"] = TriggerObject->GetGameObject()->transform->eulerAngle.y;
 					TriggerValue["RotationZ"] = TriggerObject->GetGameObject()->transform->eulerAngle.z;
 					TriggerValue["TriggerMethod"] = (int)TriggerObject->GetTriggerMethod();
+<<<<<<< HEAD
+=======
+					TriggerValue["TriggerOnce"] = TriggerObject->GetTriggerOnce();
+>>>>>>> client
 					TriggerValue["TriggerToolAutoNum"] = m_dlgMonsterTool.m_TriggerCnt; //m_TriggerCnt;
 
 					TriggerEvent[0] = TriggerValue;
@@ -766,6 +812,11 @@ void CIonFuryEditorView::OnFileOpen()
 
 					Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
 					bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+<<<<<<< HEAD
+=======
+
+					wstring MaterialType = ToWString(MapValue["MaterialType"].asString());
+>>>>>>> client
 					//==
 					GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
 					pObj->name = Name;
@@ -773,6 +824,10 @@ void CIonFuryEditorView::OnFileOpen()
 					Pickable* pick = pObj->AddComponent<Pickable>();
 					pick->PushInVector(Type::Map);
 					pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
+<<<<<<< HEAD
+=======
+					pick->SetMaterialTypeAs(MaterialType.c_str());
+>>>>>>> client
 
 					pObj->transform->position = Pos;
 					pObj->transform->scale = Scale;
@@ -798,8 +853,14 @@ void CIonFuryEditorView::OnFileOpen()
 					Vec3 EulerAngle = Vec3(TriggerValue["RotationX"].asFloat(), TriggerValue["RotationY"].asFloat(), TriggerValue["RotationZ"].asFloat());
 					int temp = TriggerValue["TriggerMethod"].asInt();
 					TriggerMethod method = (TriggerMethod)temp;
+<<<<<<< HEAD
 
 					Pickable* TriggerObject = m_dlgMonsterTool.AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method);	//트리거 로딩
+=======
+					bool TriggerOnce = TriggerValue["TriggerOnce"].asBool();
+
+					Pickable* TriggerObject = m_dlgMonsterTool.AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method, TriggerOnce);	//트리거 로딩
+>>>>>>> client
 					m_dlgMonsterTool.m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();									//트리거 이름 자동완성 번호 셋팅
 
 

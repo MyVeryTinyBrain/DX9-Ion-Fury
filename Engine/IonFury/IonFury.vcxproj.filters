@@ -1,38 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Drone.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneExplosion.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneSmoke.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneSpriteAnimator.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="Gunner.cpp">
-      <Filter>Monster\Gunner</Filter>
-    </ClCompile>
-    <ClCompile Include="GunnerSpriteAnimator.cpp">
-      <Filter>Monster\Gunner</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="Spider.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
-    <ClCompile Include="SpiderSpriteAnimator.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Web.cpp">
-      <Filter>Monster\Spider</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
@@ -40,68 +13,20 @@
     <ClCompile Include="TestScene2.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="DeaconSpriteAnimator.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="Deacon.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechSpriteAnimator.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="Warmech.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="LightLoad.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
     <ClCompile Include="TestScene3.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="MapLoad.cpp">
-      <Filter>Loader</Filter>
+    <ClCompile Include="TestSceneSeob.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Loader</Filter>
+    <ClCompile Include="Map0.cpp">
+      <Filter>SceneMap</Filter>
     </ClCompile>
-    <ClCompile Include="DeaconflyEffect.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechBullet.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechExplosion.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechHit.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechMissile.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechTrail.cpp">
-      <Filter>Monster\Warmech</Filter>
+    <ClCompile Include="Map1.cpp">
+      <Filter>SceneMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Drone.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneExplosion.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneSmoke.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneSpriteAnimator.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="Gunner.h">
-      <Filter>Monster\Gunner</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerSpriteAnimator.h">
-      <Filter>Monster\Gunner</Filter>
-    </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Default</Filter>
     </ClInclude>
@@ -111,20 +36,11 @@
     <ClInclude Include="Resource.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Spider.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="SpiderSpriteAnimator.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Web.h">
-      <Filter>Monster\Spider</Filter>
     </ClInclude>
     <ClInclude Include="TestScene2.h">
       <Filter>Scene</Filter>
@@ -132,47 +48,17 @@
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="DeaconSpriteAnimator.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="Deacon.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="Warmech.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechSpriteAnimator.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="LightLoad.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
     <ClInclude Include="TestScene3.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="MapLoad.h">
-      <Filter>Loader</Filter>
+    <ClInclude Include="TestSceneSeob.h">
+      <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Loader</Filter>
+    <ClInclude Include="Map0.h">
+      <Filter>SceneMap</Filter>
     </ClInclude>
-    <ClInclude Include="DeaconflyEffect.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechBullet.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechExplosion.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechHit.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechMissile.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechTrail.h">
-      <Filter>Monster\Warmech</Filter>
+    <ClInclude Include="Map1.h">
+      <Filter>SceneMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,32 +70,14 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Monster">
-      <UniqueIdentifier>{1b8100b6-93f2-40eb-8767-472518a9dc9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Drone">
-      <UniqueIdentifier>{49a8b4a5-1355-4987-aa5f-34be7d907343}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Default">
       <UniqueIdentifier>{7e4f66b0-fe7a-45af-a42a-f09ccac37ad1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Gunner">
-      <UniqueIdentifier>{1b7d2333-9e45-4a83-af15-df870ea25789}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Spider">
-      <UniqueIdentifier>{61140836-3f23-4a7d-b54b-a4ea99b416b1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{9ad150aa-2c96-4258-b22d-361ad658c3df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Monster\Deacon">
-      <UniqueIdentifier>{09c9aea7-78e2-4bd4-9a43-62f748871dde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Warmech">
-      <UniqueIdentifier>{79b22bc4-b8b7-445e-9640-0f3d339ba063}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loader">
-      <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    <Filter Include="SceneMap">
+      <UniqueIdentifier>{bf717b3f-ab87-4994-bb80-e96d96ebc621}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

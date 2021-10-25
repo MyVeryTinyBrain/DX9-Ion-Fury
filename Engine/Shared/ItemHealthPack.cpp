@@ -7,7 +7,13 @@ wstring ItemHealthPack::InitTextureLocalPath() const
 	return L"../SharedResource/Texture/item/healthpack.png";
 }
 
-void ItemHealthPack::OnTrigger(Player* player)
+void ItemHealthPack::OnTrigger(Player* player, bool& destroy)
 {
-	player->AddHP(5);
+	if (player->HP >= 100)
+	{
+		destroy = false;
+		return;
+	}
+
+	player->AddHP(20);
 }

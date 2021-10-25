@@ -6,6 +6,8 @@ class SMG : public Weapon
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(LateUpdate);
@@ -89,6 +91,8 @@ private:
 	class SMGAnimator* m_leftHandAnimator = nullptr;
 
 	QuadUserMesh* m_leftHandQuad = nullptr;
+
+	int m_lastChannelIndex = 0;
 
 };
 

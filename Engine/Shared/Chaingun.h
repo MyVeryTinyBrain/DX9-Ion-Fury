@@ -6,9 +6,13 @@ class Chaingun : public Weapon
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(OnDestroy);
+
+	OverrideComponentFunction(OnSleep);
 
 	virtual void OnChanged() override;
 
@@ -68,7 +72,7 @@ private:
 
 	class ChaingunAmmopartAnimator* m_ammoAnimator = nullptr;
 
-	float m_maxSpinSpeed = 20.0f;
+	float m_maxSpinSpeed = 10.0f;
 
 	float m_spinFactor = 5.0f;
 
@@ -77,5 +81,7 @@ private:
 	int m_angleRange = 10;
 
 	int m_ammo = 999;
+
+	int m_lastChannelIndex = 0;
 };
 

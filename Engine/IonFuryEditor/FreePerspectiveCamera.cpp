@@ -16,27 +16,18 @@ void FreePerspectiveCamera::Update()
 
 	float acceleration = Input::GetKey(Key::LShift) ? m_accelerateFactor : 1.0f;
 
-	if (Input::GetKey(Key::A))
-		pos += -transform->right * m_linearSpeed * acceleration * Time::DeltaTime();
-	if (Input::GetKey(Key::D))
-		pos += transform->right * m_linearSpeed * acceleration * Time::DeltaTime();
-	if (Input::GetKey(Key::W))
-		pos += transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
-	if (Input::GetKey(Key::S))
-		pos += -transform->forward * m_linearSpeed * acceleration * Time::DeltaTime();
+	if (Input::GetKey(Key::Left))
+		pos += -transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+	if (Input::GetKey(Key::Right))
+		pos += transform->right * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+	if (Input::GetKey(Key::Up))
+		pos += transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
+	if (Input::GetKey(Key::Down))
+		pos += -transform->forward * m_linearSpeed * acceleration * Time::UnscaledDelteTime();
 
 	//if (Input::GetKeyDown(Key::O))
 	//	EditorManager::GetInstance()->GetGizmo()->DeleteAttachedObject();
 
-
-	if (Input::GetKey(Key::Left))
-		ang.y -= m_angularSpeed * Time::DeltaTime();
-	if (Input::GetKey(Key::Right))
-		ang.y += m_angularSpeed * Time::DeltaTime();
-	if (Input::GetKey(Key::Up))
-		ang.x -= m_angularSpeed * Time::DeltaTime();
-	if (Input::GetKey(Key::Down))
-		ang.x += m_angularSpeed * Time::DeltaTime();
 	ang.z = 0;
 
 	// angle lock
@@ -142,10 +133,12 @@ Pickable* FreePerspectiveCamera::Add_EventObject(Pickable* Trigger, int cnt)
 	Pickable* Event = Obj->AddComponent<Pickable>();
 	Trigger->PushInEventVector(Event);
 
-	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Cube, L"../SharedResource/Texture/object/Event.png", true);
+	Event->Settings(Vec2(1.f, 1.f), COMBOBOX::Sphere, BuiltInBlackTexture, true);
 
-	Obj->transform->scale = Vec3(1.f, 1.f, 1.f);
+	Event->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
 	Obj->transform->SetEulerAngle(Vec3(0.f, 0.f, 0.f));
+
+	Event->CreateComponentObject();
 
 	return Event;
 }

@@ -52,6 +52,8 @@ class Monster : public Component
 
 	OverrideComponentFunction(OnDestroy);
 
+	OverrideComponentFunction(OnWake);
+
 protected:
 
 	virtual Collider* InitializeCollider(GameObject* colliderObj) = 0;
@@ -80,13 +82,17 @@ public:
 
 	void SetMoveSpeed(float value);
 
+	bool IsDead() const;
+
 	__declspec(property(get = GetHP, put = SetHP)) float hp;
 
 	__declspec(property(get = GetMoveSpeed, put = SetMoveSpeed)) float moveSpeed;
 
+	__declspec(property(get = IsDead)) bool isDead;
+
 private:
 
-	void DamageEffectProcessing();
+	void LightMateriaProcessing();
 
 protected:
 
@@ -123,6 +129,8 @@ protected:
 	bool m_isDead = false;
 
 	Color m_defaultEmissive = Color::black();
+
+	Color m_defaultLightColor = Color::white();
 
 };
 

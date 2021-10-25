@@ -61,9 +61,13 @@ private:
 
 	SpriteAnimation* m_pullPump[(int)Skin::Max];
 
-	SpriteAnimation* m_reload[(int)Skin::Max];
+	SpriteAnimation* m_beginReload[(int)Skin::Max];
 
-	SpriteAnimation* m_SkinChange[(int)Skin::Max];
+	SpriteAnimation* m_endReload[(int)Skin::Max];
+
+	SpriteAnimation* m_beginSkinChange[(int)Skin::Max];
+
+	SpriteAnimation* m_endSkinChange[(int)Skin::Max];
 
 public:
 

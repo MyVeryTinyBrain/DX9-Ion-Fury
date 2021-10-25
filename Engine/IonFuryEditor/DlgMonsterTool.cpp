@@ -23,6 +23,15 @@ IMPLEMENT_DYNAMIC(DlgMonsterTool, CDialog)
 DlgMonsterTool::DlgMonsterTool(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DlgMonsterTool, pParent)
 	, m_ChangingName(_T(""))
+	, m_PosX(0)
+	, m_PosY(0)
+	, m_PosZ(0)
+	, m_ScaleX(0)
+	, m_ScaleY(0)
+	, m_RotX(0)
+	, m_RotY(0)
+	, m_RotZ(0)
+	, m_ScaleZ(0)
 {
 
 }
@@ -36,6 +45,7 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_TriggerListBox);
 	DDX_Control(pDX, IDC_LIST2, m_EventListBox);
+	DDX_Control(pDX, IDC_RADIO1, m_TouchButtonManual4);
 	DDX_Control(pDX, IDC_RADIO2, m_TouchButtonManual1);
 	DDX_Control(pDX, IDC_RADIO3, m_TouchButtonManual2);
 	DDX_Control(pDX, IDC_RADIO4, m_TouchButtonManual3);
@@ -47,6 +57,16 @@ void DlgMonsterTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER4, m_SliderRotationY);
 	DDX_Control(pDX, IDC_SLIDER7, m_SliderRotationZ);
 	DDX_Text(pDX, IDC_EDIT1, m_ChangingName);
+	DDX_Control(pDX, IDC_CHECK1, m_TriggerOnce);
+	DDX_Text(pDX, IDC_EDIT2, m_PosX);
+	DDX_Text(pDX, IDC_EDIT3, m_PosY);
+	DDX_Text(pDX, IDC_EDIT4, m_PosZ);
+	DDX_Text(pDX, IDC_EDIT5, m_ScaleX);
+	DDX_Text(pDX, IDC_EDIT6, m_ScaleY);
+	DDX_Text(pDX, IDC_EDIT7, m_ScaleZ);
+	DDX_Text(pDX, IDC_EDIT8, m_RotX);
+	DDX_Text(pDX, IDC_EDIT9, m_RotY);
+	DDX_Text(pDX, IDC_EDIT10, m_RotZ);
 }
 
 
@@ -66,6 +86,9 @@ BEGIN_MESSAGE_MAP(DlgMonsterTool, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON10, &DlgMonsterTool::OnBnClickedResetRotation)
 	ON_BN_CLICKED(IDC_BUTTON11, &DlgMonsterTool::OnBnClickedSaveButton)
 	ON_BN_CLICKED(IDC_BUTTON12, &DlgMonsterTool::OnBnClickedLoadButton)
+	ON_BN_CLICKED(IDC_BUTTON6, &DlgMonsterTool::OnBnClickedPositionApplyButton)
+	ON_BN_CLICKED(IDC_BUTTON7, &DlgMonsterTool::OnBnClickedScaleApplyButton)
+	ON_BN_CLICKED(IDC_BUTTON20, &DlgMonsterTool::OnBnClickedRotationApplyButton)
 END_MESSAGE_MAP()
 
 
@@ -76,14 +99,23 @@ BOOL DlgMonsterTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_EventTypeComboBox.AddString(_T("Monster0"));
-	m_EventTypeComboBox.AddString(_T("Monster1"));
-	m_EventTypeComboBox.AddString(_T("Monster2"));
-	m_EventTypeComboBox.AddString(_T("Monster3"));
-	m_EventTypeComboBox.AddString(_T("Door1"));
-	m_EventTypeComboBox.AddString(_T("Door2"));
-	m_EventTypeComboBox.AddString(_T("Door3"));
+	m_EventTypeComboBox.AddString(_T("Basic Mutant"));
+	m_EventTypeComboBox.AddString(_T("Mutant"));
+	m_EventTypeComboBox.AddString(_T("Cultist Archer"));
+	m_EventTypeComboBox.AddString(_T("Greater Gunner"));
+	m_EventTypeComboBox.AddString(_T("Deacon"));
+	m_EventTypeComboBox.AddString(_T("Drone"));
+	m_EventTypeComboBox.AddString(_T("Liberator"));
+	m_EventTypeComboBox.AddString(_T("Spider"));
+	m_EventTypeComboBox.AddString(_T("Skull"));
+	m_EventTypeComboBox.AddString(_T("Warmech"));
+	m_EventTypeComboBox.AddString(_T("Wendigo"));
 
+	m_EventTypeComboBox.AddString(_T("ObjectAutoDoor"));
+	m_EventTypeComboBox.AddString(_T("ObjectManualDoor"));
+	m_EventTypeComboBox.AddString(_T("ObjectCardScreen"));
+	m_EventTypeComboBox.AddString(_T("ObjectButton"));
+	
 	m_EventTypeComboBox.SetCurSel(-1);
 
 	{	//RotSlider 설정
@@ -131,6 +163,7 @@ int DlgMonsterTool::GetCheckedButton()
 	int Touch = m_TouchButtonManual1.GetCheck();
 	int Button = m_TouchButtonManual2.GetCheck();
 	int Manual = m_TouchButtonManual3.GetCheck();
+	int CardCheck = m_TouchButtonManual4.GetCheck();
 
 	if (Touch)
 		TouchButtonManual = (int)(TriggerMethod::Touch);
@@ -138,6 +171,8 @@ int DlgMonsterTool::GetCheckedButton()
 		TouchButtonManual = (int)(TriggerMethod::Button);
 	else if (Manual)
 		TouchButtonManual = (int)(TriggerMethod::Manual);
+	else if (CardCheck)
+		TouchButtonManual = (int)(TriggerMethod::CardCheck);
 
 	return TouchButtonManual;
 }
@@ -148,6 +183,7 @@ void DlgMonsterTool::SetCheckedButton(TriggerMethod Select)
 	m_TouchButtonManual1.SetCheck(0);
 	m_TouchButtonManual2.SetCheck(0);
 	m_TouchButtonManual3.SetCheck(0);
+	m_TouchButtonManual4.SetCheck(0);
 
 	switch (Select)
 	{
@@ -159,6 +195,9 @@ void DlgMonsterTool::SetCheckedButton(TriggerMethod Select)
 		break;
 	case TriggerMethod::Manual:
 		m_TouchButtonManual3.SetCheck(1);
+		break;
+	case TriggerMethod::CardCheck:
+		m_TouchButtonManual4.SetCheck(1);
 		break;
 	}
 }
@@ -172,11 +211,18 @@ void DlgMonsterTool::ClickAddTrigger()
 	if (TouchButtonManual == (int)(TriggerMethod::End))	//Touch Button Manual 정하지 않았다면 취소
 		return;
 
+	bool TriggerOnce = m_TriggerOnce.GetCheck();
+
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
+<<<<<<< HEAD
 	Trigger->SetMaterial();
+=======
+	Trigger->SetNoLightTransparentMaterial();
+>>>>>>> client
 	Trigger->SetTriggerMethod((TriggerMethod)TouchButtonManual);
-
+	Trigger->SetTriggerOnce(TriggerOnce);
+	
 	wstring name = Trigger->GetGameObject()->name;
 	m_TriggerListBox.AddString(name.c_str());
 
@@ -231,6 +277,7 @@ void DlgMonsterTool::OnLbnSelChangeTrigger()
 	giz->Attach(pick->GetTransform());
 
 	SetCheckedButton(pick->GetTriggerMethod());
+	m_TriggerOnce.SetCheck(pick->GetTriggerOnce());
 
 	//몬스터상자 비우기. 추후 확인
 	for (int i = m_EventListBox.GetCount(); i > 0; --i)
@@ -249,6 +296,9 @@ void DlgMonsterTool::OnLbnSelChangeTrigger()
 	//ScaleRot picked값으로 scroll 변경
 	SetScaleScrollToPicked(pick);
 	SetRotationScrollToPicked(pick);
+
+	Transform* trans = giz->GetSelectedObject();
+	SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 }
 
 
@@ -265,13 +315,15 @@ void DlgMonsterTool::ClickAddEvent()
 	if (evtType == -1)
 		return;
 
-
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
 
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	Pickable* EventObject = cam->Add_EventObject(trigger, m_EventCnt);
 	EventType check = (EventType)m_EventTypeComboBox.GetCurSel();
 	EventObject->SetEventType(check);
+	EventObject->SetComponentToPickable(check);
+	EventObject->SetOverSeeBlackMaterial();
+
 
 	++m_EventCnt;
 
@@ -390,19 +442,24 @@ void DlgMonsterTool::EmptyAfterLoad()
 	giz->enable = false;
 }
 
-Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method)
+Pickable* DlgMonsterTool::AddTriggerLoadingStyle(wstring name, Vec3 Pos, Vec3 Scale, Vec3 Euler, TriggerMethod method, bool TriggerOnce)
 {
 	FreePerspectiveCamera* cam = EditorManager::GetInstance()->GetPerspectiveCamera();
 	
 	Pickable* Trigger = cam->Add_TriggerObject(m_TriggerCnt);
 	Transform* trans = Trigger->GetGameObject()->GetTransform();
 
+<<<<<<< HEAD
 	Trigger->SetMaterial();
+=======
+	Trigger->SetNoLightTransparentMaterial();
+>>>>>>> client
 	trans->GetGameObject()->name = name;
 	trans->SetPosition(Pos);
 	trans->SetScale(Scale);
 	trans->SetEulerAngle(Euler);
 	Trigger->SetTriggerMethod(method);
+	Trigger->SetTriggerOnce(TriggerOnce);
 
 	m_TriggerListBox.AddString(name.c_str());
 
@@ -427,13 +484,28 @@ void DlgMonsterTool::AddEventLoadingStyle(Pickable* Trigger, wstring name, Vec3 
 	Transform* trans = EventObject->GetGameObject()->GetTransform();
 	trans->GetGameObject()->name = name;
 	trans->SetPosition(Pos);
+	//trans->SetScale(Scale);
+	//trans->SetEulerAngle(Euler);
+	EventObject->SetEventType(type);
+	EventObject->SetComponentToPickable(type);
 	trans->SetScale(Scale);
 	trans->SetEulerAngle(Euler);
-	EventObject->SetEventType(type);
+	EventObject->GetChildObject()->transform->scale = Vec3(0.5, 0.5f, 0.5f);
+	EventObject->SetOverSeeBlackMaterial();
 
 	m_EventListBox.AddString(name.c_str());
 
 	++m_EventCnt;
+}
+
+void DlgMonsterTool::StatusWhileMouseMove(Pickable* picked)
+{
+	UpdateData(TRUE);
+	Transform* trans = picked->GetGameObject()->GetTransform();
+	m_PosX = trans->position.x;
+	m_PosY = trans->position.y;
+	m_PosZ = trans->position.z;
+	UpdateData(FALSE);
 }
 
 void DlgMonsterTool::SetScaleScrollToDefault(Pickable* picked)
@@ -447,6 +519,7 @@ void DlgMonsterTool::SetScaleScrollToDefault(Pickable* picked)
 	
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 	giz->GetSelectedObject()->transform->SetScale(Vec3(1.f, 1.f, 1.f));
+	giz->GetSelectedObject()->GetGameObject()->GetComponent<Pickable>()->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
 }
 
 void DlgMonsterTool::SetRotationScrollToDefault(Pickable* picked)
@@ -495,6 +568,34 @@ void DlgMonsterTool::SetRotationScrollToPicked(Pickable* picked)
 	m_SliderRotationX.SetPos((int)RotationX);
 	m_SliderRotationY.SetPos((int)RotationY);
 	m_SliderRotationZ.SetPos((int)RotationZ);
+}
+
+void DlgMonsterTool::SetEditStatusFromGiz(Vec3 Pos, Vec3 Scale, Vec3 EulerAngle)
+{
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	m_PosX = Pos.x;
+	m_PosY = Pos.y;
+	m_PosZ = Pos.z;
+	m_ScaleX = Scale.x;
+	m_ScaleY = Scale.y;
+	m_ScaleZ = Scale.z;
+	m_RotX = EulerAngle.x;
+	m_RotY = EulerAngle.y;
+	m_RotZ = EulerAngle.z;
+
+	UpdateData(FALSE);
 }
 
 void DlgMonsterTool::SaveToJsonFormat(const Json::Value& json, string path)
@@ -566,6 +667,9 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	if (EventSelect == -1)
 		return;
 
+	if (TriggerSelect >= Pickable::g_TriggerVec.size())/////////////////////////1022추가
+		return;
+
 	Pickable* trigger = Pickable::g_TriggerVec[TriggerSelect];
 
 	std::vector<Pickable*> EventVec = trigger->GetEventVec();
@@ -579,7 +683,9 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	m_EventTypeComboBox.SetCurSel(check2);
 
 	TriggerMethod method = trigger->GetTriggerMethod();
+	bool TriggerOnce = trigger->GetTriggerOnce();
 	SetCheckedButton(method);
+	m_TriggerOnce.SetCheck(TriggerOnce);
 
 	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
 
@@ -588,6 +694,9 @@ void DlgMonsterTool::OnLbnSelChangeEvent()
 	//ScaleRot picked값으로 scroll 변경
 	SetScaleScrollToPicked(Event);
 	SetRotationScrollToPicked(Event);
+
+	Transform* trans = giz->GetSelectedObject();
+	SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 }
 
 
@@ -612,12 +721,20 @@ void DlgMonsterTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	float ScaleY = float(m_SliderScaleY.GetPos() / 20.f);
 	float ScaleZ = float(m_SliderScaleZ.GetPos() / 20.f);
 	giz->GetSelectedObject()->transform->SetScale(Vec3(ScaleX, ScaleY, ScaleZ));
+	
+	if (picked->GetType() == Type::EventObject)
+	{
+		picked->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
+	}
+	
 
 	float RotateX = float(m_SliderRotationX.GetPos() - 180);
 	float RotateY = float(m_SliderRotationY.GetPos() - 180);
 	float RotateZ = float(m_SliderRotationZ.GetPos() - 180);
-	giz->GetSelectedObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
+	picked->GetGameObject()->transform->SetEulerAngle(Vec3(RotateX, RotateY, RotateZ));
 
+
+	SetEditStatusFromGiz(trans->position, trans->scale, trans->eulerAngle);
 	UpdateData(FALSE);
 
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
@@ -630,9 +747,13 @@ void DlgMonsterTool::OnClickedTriggerMethodApply()
 	int TriggerIndex = m_TriggerListBox.GetCurSel();
 	if (TriggerIndex == -1)
 		return;
-	
+	bool TriggerOnce = m_TriggerOnce.GetCheck();
+
+
 	Pickable* Trigger = Pickable::g_TriggerVec[TriggerIndex];
 	Trigger->SetTriggerMethod((TriggerMethod)GetCheckedButton());
+
+	Trigger->SetTriggerOnce(TriggerOnce);
 	
 }
 
@@ -784,6 +905,7 @@ void DlgMonsterTool::OnBnClickedSaveButton()
 				TriggerValue["RotationY"] = TriggerObject->GetGameObject()->transform->eulerAngle.y;
 				TriggerValue["RotationZ"] = TriggerObject->GetGameObject()->transform->eulerAngle.z;
 				TriggerValue["TriggerMethod"] = (int)TriggerObject->GetTriggerMethod();
+				TriggerValue["TriggerOnce"] = TriggerObject->GetTriggerOnce();
 				TriggerValue["TriggerToolAutoNum"] = m_TriggerCnt;
 
 				Trigger[0] = TriggerValue;
@@ -854,9 +976,10 @@ void DlgMonsterTool::OnBnClickedLoadButton()
 			Vec3 EulerAngle = Vec3(TriggerValue["RotationX"].asFloat(), TriggerValue["RotationY"].asFloat(), TriggerValue["RotationZ"].asFloat());
 			int temp = TriggerValue["TriggerMethod"].asInt();
 			TriggerMethod method = (TriggerMethod)temp;
+			bool TriggerOnce = TriggerValue["TriggerOnce"].asBool();
 
-			Pickable* TriggerObject = AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method);	//트리거 로딩
-			m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();								//트리거 이름 자동완성 번호 셋팅
+			Pickable* TriggerObject = AddTriggerLoadingStyle(Name, Pos, Scale, EulerAngle, method, TriggerOnce);	//트리거 로딩
+			m_TriggerCnt = TriggerValue["TriggerToolAutoNum"].asInt();												//트리거 이름 자동완성 번호 셋팅
 
 
 			int TriggerSize = Trigger.size();
@@ -877,4 +1000,84 @@ void DlgMonsterTool::OnBnClickedLoadButton()
 
 		EmptyAfterLoad();
 	}
+}
+
+
+void DlgMonsterTool::OnBnClickedPositionApplyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	trans->position = Vec3(m_PosX, m_PosY, m_PosZ);
+
+	UpdateData(FALSE);
+}
+
+
+void DlgMonsterTool::OnBnClickedScaleApplyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	trans->scale = Vec3(m_ScaleX, m_ScaleY, m_ScaleZ);
+	if (Picked->GetType() == Type::EventObject)
+		Picked->GetChildObject()->transform->scale = Vec3(0.5f, 0.5f, 0.5f);
+
+	m_SliderScaleX.SetPos((int)(m_ScaleX * 20));
+	m_SliderScaleY.SetPos((int)(m_ScaleY * 20));
+	m_SliderScaleZ.SetPos((int)(m_ScaleZ * 20));
+
+	UpdateData(FALSE);
+}
+
+
+void DlgMonsterTool::OnBnClickedRotationApplyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	auto trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	if (Picked->GetType() == Type::Map)
+		return;
+	//오류방지턱
+
+	trans->eulerAngle = Vec3(m_RotX, m_RotY, m_RotZ);
+
+	m_SliderRotationX.SetPos((int)(m_RotX + 180));
+	m_SliderRotationY.SetPos((int)(m_RotY + 180));
+	m_SliderRotationZ.SetPos((int)(m_RotZ + 180));
 }

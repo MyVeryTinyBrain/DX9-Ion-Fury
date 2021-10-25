@@ -44,6 +44,10 @@ public:
 	void ResetScroll();
 	void ReturnComboBoxSelect(Pickable* pick);
 	void ReturnCollisionExistenceSelect(Pickable* pick);
+<<<<<<< HEAD
+=======
+	void ReturnGeometryOrAlphaTest(Pickable* pick);
+>>>>>>> client
 
 	void UpdateUVScale(Pickable* pick);
 
@@ -53,6 +57,12 @@ public:
 	void NumToEdit(CEdit& edit, float num);
 
 public:
+<<<<<<< HEAD
+=======
+	CString GetCheckedButton();
+	void SetCheckedButton(CString MaterialType);
+public:
+>>>>>>> client
 	Vec2 GetToolUVScale();
 public:
 	CComboBox m_comboBox;
@@ -108,4 +118,10 @@ public:
 	CSliderCtrl m_SliderControlScaleX;
 	CSliderCtrl m_SliderControlScaleY;
 	CSliderCtrl m_SliderControlScaleZ;
+<<<<<<< HEAD
+=======
+	CButton m_ButtonGeometry;
+	CButton m_ButtonAlphaTest;
+	afx_msg void OnBnClickedCopyButton();
+>>>>>>> client
 };

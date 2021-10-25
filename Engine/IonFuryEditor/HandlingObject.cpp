@@ -2,6 +2,10 @@
 #include "HandlingObject.h"
 #include "EditorManager.h"
 #include "Gizmo.h"
+<<<<<<< HEAD
+=======
+
+>>>>>>> client
 #include <ItemBowAmmo.h>
 #include <ItemChaingunAmmo.h>
 #include <ItemLauncherAmmo.h>
@@ -9,7 +13,24 @@
 #include <ItemShotgunAmmo.h>
 #include <ItemSMGAmmo.h>
 #include <ItemHealthPack.h>
+<<<<<<< HEAD
 #include <ObjectStair.h>
+=======
+
+#include <ItemArmor.h>
+#include <ItemCardKey.h>
+#include <ObjectRat.h>
+
+#include <ObjectStairBlue.h>
+#include <ObjectStairConcrete.h>
+#include <ObjectStairWood.h>
+#include <ObjectCarRed.h>
+#include <ObjectCarBlue.h>
+#include <ObjectCarBlack.h>
+
+#include <ObjectMiniGame.h>
+
+>>>>>>> client
 
 std::vector<HandlingObject*> HandlingObject::g_HandlingVec;
 
@@ -106,10 +127,40 @@ void HandlingObject::AddComponentToChildObject(CString Type)
 		m_ChildObject->AddComponent<ItemSMGAmmo>();
 	else if (Type == (L"ItemHealthPack"))
 		m_ChildObject->AddComponent<ItemHealthPack>();
+<<<<<<< HEAD
 	else if (Type == (L"ItemHealthPack"))
 		m_ChildObject->AddComponent<ItemHealthPack>();
 	else if (Type == (L"ObjectStair"))
 		m_ChildObject->AddComponent<ObjectStair>();
+=======
+	
+	else if (Type == (L"ItemArmor"))
+		m_ChildObject->AddComponent<ItemArmor>();
+	else if (Type == (L"ItemCardKey"))
+		m_ChildObject->AddComponent<ItemCardKey>();
+	else if (Type == (L"ObjectRat"))
+		m_ChildObject->AddComponent<ObjectRat>();
+
+	else if (Type == (L"ObjectStairBlue"))
+		m_ChildObject->AddComponent<ObjectStairBlue>();
+	else if (Type == (L"ObjectStairConcrete"))
+		m_ChildObject->AddComponent<ObjectStairConcrete>();
+	else if (Type == (L"ObjectStairWood"))
+		m_ChildObject->AddComponent<ObjectStairWood>();
+
+	else if (Type == (L"ObjectCarRed"))
+		m_ChildObject->AddComponent<ObjectCarRed>();
+	else if (Type == (L"ObjectCarBlue"))
+		m_ChildObject->AddComponent<ObjectCarBlue>();
+	else if (Type == (L"ObjectCarBlack"))
+		m_ChildObject->AddComponent<ObjectCarBlack>();
+
+	else if (Type == (L"MiniGameTest"))
+		m_ChildObject->AddComponent<ObjectMiniGame>();
+
+	else if (Type == (L"Player"))
+		MakePlayerCapsule();
+>>>>>>> client
 }
 
 void HandlingObject::RemoveChildObjectAndComponent()
@@ -175,3 +226,17 @@ void HandlingObject::ClearVector()
 
 	Size = g_HandlingVec.size();
 }
+<<<<<<< HEAD
+=======
+
+void HandlingObject::MakePlayerCapsule()
+{
+	UserMeshRenderer* renderer = m_ChildObject->AddComponent<UserMeshRenderer>();
+	UserMesh* mesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+	renderer->userMesh = mesh;
+
+	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInBlueTexture));
+
+	m_ChildObject->transform->parent = GetGameObject()->transform;
+}
+>>>>>>> client

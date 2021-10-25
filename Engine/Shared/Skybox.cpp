@@ -7,6 +7,7 @@ void Skybox::Awake()
 {
 	auto cubeObj = CreateGameObjectToChild(transform);
 	m_cube = cubeObj->AddComponent<Cube>();
+
 	m_cube->SetMaterials(Resource::FindAs<Material>(BuiltInSkyboxBackgroundMaterial));
 	m_cube->SetRenderLayers((int)RenderLayers::Generic);
 

@@ -10,6 +10,8 @@
 #include "Monster.h"
 #include "PhysicsLayers.h"
 #include "BulletProof.h"
+#include "SoundMgr.h"
+#include "AmmoBackup.h"
 
 void SMG::Awake()
 {
@@ -54,6 +56,14 @@ void SMG::Awake()
 
 	// 왼쪽 손은 처음에 비활성화입니다.
 	m_leftHandObj->activeSelf = false;
+
+	m_leftAmmo = AmmoBackup::GetInstance()->backup->smgLeftLoadedAmmo;
+	m_rightAmmo = AmmoBackup::GetInstance()->backup->smgRightLoadedAmmo;
+	m_totalAmmo = AmmoBackup::GetInstance()->backup->smgTotalAmmo;
+}
+
+void SMG::Start()
+{
 }
 
 void SMG::Update()
@@ -72,6 +82,10 @@ void SMG::Update()
 	{
 		TryReload();
 	}
+
+	AmmoBackup::GetInstance()->current->smgLeftLoadedAmmo = m_leftAmmo;
+	AmmoBackup::GetInstance()->current->smgRightLoadedAmmo = m_rightAmmo;
+	AmmoBackup::GetInstance()->current->smgTotalAmmo = m_totalAmmo;
 }
 
 void SMG::LateUpdate()
@@ -154,6 +168,8 @@ void SMG::OnAttackInput(InputType inputType)
 			recoilFactor = 1.80f;
 		}
 
+		int fireCount = 0;
+
 		if (m_leftHandObj->activeInTree &&
 			m_leftAmmo > 0)
 		{
@@ -171,6 +187,8 @@ void SMG::OnAttackInput(InputType inputType)
 			AttackOnce(angleRange);
 
 			--m_leftAmmo;
+
+			++fireCount;
 		}
 
 		if(m_rightAmmo > 0)
@@ -182,6 +200,42 @@ void SMG::OnAttackInput(InputType inputType)
 			AttackOnce(0);
 
 			--m_rightAmmo;
+
+			++fireCount;
+		}
+
+		wstring soundPath = L"";
+		if (fireCount == 1)
+		{
+			soundPath = L"../SharedResource/Sound/smg/smg_fire.mp3";
+		}
+		else if (fireCount == 2)
+		{
+			soundPath = L"../SharedResource/Sound/smg/smg_burst.mp3";
+		}
+
+		if (fireCount > 0)
+		{
+			int channelIndex = m_lastChannelIndex;
+
+			if (channelIndex == 0)
+			{
+				SoundMgr::Play(soundPath.c_str(), CHANNELID::PLAYER_WEAPON_FIRE0);
+			}
+			else if (channelIndex == 1)
+			{
+				SoundMgr::Play(soundPath.c_str(), CHANNELID::PLAYER_WEAPON_FIRE1);
+			}
+			else if (channelIndex == 2)
+			{
+				SoundMgr::Play(soundPath.c_str(), CHANNELID::PLAYER_WEAPON_FIRE2);
+			}
+
+			++m_lastChannelIndex;
+			if (m_lastChannelIndex > 2)
+			{
+				m_lastChannelIndex = 0;
+			}
 		}
 
 		float randomAngle = float(rand() % 140 - 70) + 90.0f;
@@ -364,7 +418,7 @@ void SMG::AttackOnce(int recoilAngleRange)
 		{
 			auto bulletProofObj = CreateGameObject();
 			auto bulletProof = bulletProofObj->AddComponent<BulletProof>();
-			bulletProof->InitializeBulletProof(hit.point, hit.normal);
+			bulletProof->InitializeBulletProof(hit.point, hit.normal, hit.collider->rigidbody->transform);
 		}
 		else if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Monster)
 		{
@@ -374,8 +428,8 @@ void SMG::AttackOnce(int recoilAngleRange)
 				DamageParameters params;
 				params.monsterHitCollider = hit.collider;
 				params.damageType = MonsterDamageType::Bullet;
-				params.damage = 2.5f;
-				params.force = ray.direction * 10;
+				params.damage = 1.85f;
+				params.force = ray.direction * 5;
 				params.includeDamageDirection = true;
 				params.damageDirection = ray.direction;
 				params.includeAttackBeginPoint = true;

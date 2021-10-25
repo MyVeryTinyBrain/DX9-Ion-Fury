@@ -6,6 +6,7 @@
 
 void PlayerUI::Awake()
 {
+	// Player face
 	m_playerFaceTexture[0] = Resource::FindAs<Texture>(L"../SharedResource/Texture/playerface/0.png");
 	m_playerFaceTexture[1] = Resource::FindAs<Texture>(L"../SharedResource/Texture/playerface/1.png");
 	m_playerFaceTexture[2] = Resource::FindAs<Texture>(L"../SharedResource/Texture/playerface/2.png");
@@ -20,35 +21,72 @@ void PlayerUI::Awake()
 	m_playerFaceRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
 	m_playerFaceRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
 
+	// HP Numbers
 	m_hpObj = CreateGameObjectToChild(transform);
 	m_hpObj->transform->localPosition = Vec2(-0.71f, -0.45f);
 	m_hpObj->transform->localScale = Vec2::one() * 0.05f;
 	m_hpNumbers = m_hpObj->AddComponent<Numbers>();
 
+	// Armor Image
+	m_armorImageObj = CreateGameObjectToChild(transform);
+	m_armorImageObj->transform->localPosition = Vec2(-0.54f, -0.44f);
+	m_armorImageObj->transform->localScale = Vec2::one() * 0.125f;
+
+	Texture* armorImageTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/armor.png");
+	m_armorImageRenderer = m_armorImageObj->AddComponent<UserMeshRenderer>();
+	m_armorImageRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
+	m_armorImageRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_armorImageRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_armorImageRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
+	m_armorImageRenderer->SetTexture(0, armorImageTexture);
+
+	// Armor Numbers
+	m_armorObj = CreateGameObjectToChild(transform);
+	m_armorObj->transform->localPosition = Vec2(-0.41f, -0.45f);
+	m_armorObj->transform->localScale = Vec2::one() * 0.05f;
+	m_armorNumbers = m_armorObj->AddComponent<Numbers>();
+
+	// Cardkey
+	m_cardKeyObj = CreateGameObjectToChild(transform);
+	m_cardKeyObj->transform->localPosition = Vec2(-0.83f, -0.34f);
+	m_cardKeyObj->transform->localScale = Vec2::one() * 0.1f;
+	m_cardKeyRenderer = m_cardKeyObj->AddComponent<UserMeshRenderer>();
+	m_cardKeyRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
+	m_cardKeyRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_cardKeyRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_cardKeyRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
+	m_cardKeyRenderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/item/card.png"));
+	m_cardKeyObj->activeSelf = false;
+
+	// Ammo0 Numbers
 	m_ammoObj0 = CreateGameObjectToChild(transform);
 	m_ammoObj0->transform->localPosition = Vec2(0.69f, -0.45f);
 	m_ammoObj0->transform->localScale = Vec2::one() * 0.05f;
 	m_ammoNumbers0 = m_ammoObj0->AddComponent<Numbers>();
 	m_ammoNumbers0->alignment = Numbers::Alignment::Right;
 
+	// Loaded Ammo0 Numbers
 	m_loadedAmmoObj0 = CreateGameObjectToChild(transform);
 	m_loadedAmmoObj0->transform->localPosition = Vec2(0.50f, -0.45f);
 	m_loadedAmmoObj0->transform->localScale = Vec2::one() * 0.05f;
 	m_loadedAmmoNumbers0 = m_loadedAmmoObj0->AddComponent<Numbers>();
 	m_loadedAmmoNumbers0->alignment = Numbers::Alignment::Right;
 
+	// Ammo1 Numbers
 	m_ammoObj1 = CreateGameObjectToChild(transform);
 	m_ammoObj1->transform->localPosition = Vec2(0.69f, -0.35f);
 	m_ammoObj1->transform->localScale = Vec2::one() * 0.05f;
 	m_ammoNumbers1 = m_ammoObj1->AddComponent<Numbers>();
 	m_ammoNumbers1->alignment = Numbers::Alignment::Right;
 
+	// Loaded Ammo1 Numbers
 	m_loadedAmmoObj1 = CreateGameObjectToChild(transform);
 	m_loadedAmmoObj1->transform->localPosition = Vec2(0.50f, -0.35f);
 	m_loadedAmmoObj1->transform->localScale = Vec2::one() * 0.05f;
 	m_loadedAmmoNumbers1 = m_loadedAmmoObj1->AddComponent<Numbers>();
 	m_loadedAmmoNumbers1->alignment = Numbers::Alignment::Right;
 
+	// Ammo0 type image
 	m_ammoTypeObj0 = CreateGameObjectToChild(transform);
 	m_ammoTypeObj0->transform->localPosition = Vec2(0.825f, -0.44f);
 	m_ammoTypeObj0->transform->localScale = Vec2::one() * 0.081f;
@@ -58,6 +96,7 @@ void PlayerUI::Awake()
 	m_ammoTypeRenderer0->renderLayerIndex = uint8_t(RenderLayers::Overlay);
 	m_ammoTypeRenderer0->overlayRenderOrder = (int)OverlayRenderOrders::UIPic;
 
+	// Ammo1 type image
 	m_ammoTypeObj1 = CreateGameObjectToChild(transform);
 	m_ammoTypeObj1->transform->localPosition = Vec2(0.825f, -0.34f);
 	m_ammoTypeObj1->transform->localScale = Vec2::one() * 0.081f;
@@ -74,6 +113,7 @@ void PlayerUI::Awake()
 	m_ammoTexture[(unsigned int)AmmoTypes::Chaingun] = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/ammo_chaingun.png");
 	m_ammoTexture[(unsigned int)AmmoTypes::Arrow] = Resource::FindAs<Texture>(L"../SharedResource/Texture/item/ammo_arrow.png");
 
+	// Screen Effect
 	m_redScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/red.png");;
 	m_greenScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/green.png");
 	m_blueScreenEffectTexture = Resource::FindAs<Texture>(L"../SharedResource/Texture/screeneffect/blue.png");
@@ -87,11 +127,33 @@ void PlayerUI::Awake()
 	m_screenEffectRenderer->overlayRenderOrder = (int)OverlayRenderOrders::UIForeground;
 	m_screenEffectRenderer->enable = false;
 
+	// Fade effect
+	for (int i = 0; i < FADE_STEP; ++i)
+	{
+		float percent = float(i) / float(FADE_STEP - 1);
+		m_fadeTexture[i] = Texture::CreateUnmanagedInDirectX(1, 1, Color(0, 0, 0, percent));
+	}
+
+	m_fadeImageObj = CreateGameObjectToChild(transform);
+	m_fadeImageObj->transform->localScale = Vec2(Camera::GetMainCamera()->GetOrthographicWidth(), 1);
+
+	m_fadeImageRenderer = m_fadeImageObj->AddComponent<UserMeshRenderer>();
+	m_fadeImageRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
+	m_fadeImageRenderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
+	m_fadeImageRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
+	m_fadeImageRenderer->overlayRenderOrder = (int)OverlayRenderOrders::Fade;
+	m_fadeImageRenderer->SetTexture(0, m_fadeTexture[FADE_END]);
+
 	SetHP(100);
 	SetAmmo0(999);
 	SetAmmo1(999);
 	SetAmmo0Type(AmmoTypes::Shotgun);
 	SetAmmo1Type(AmmoTypes::Launcher);
+}
+
+void PlayerUI::Start()
+{
+	FadeOut(1.0f);
 }
 
 void PlayerUI::Update()
@@ -103,6 +165,70 @@ void PlayerUI::Update()
 	else
 	{
 		m_screenEffectObj->transform->localScale += Vec2::one() * 0.8f * Time::DeltaTime();
+	}
+}
+
+void PlayerUI::LateUpdate()
+{
+	// Fade effect =====================================================================
+
+	// Fade Transition
+	const float maxDT = 1.0f / 10.0f;
+	float dt = Time::UnscaledDelteTime();
+	if (dt > maxDT)
+	{
+		dt = maxDT;
+	}
+
+	if (m_fadeAlpha != m_targetFadeAlpha)
+	{
+		if (m_fadeAlpha < m_targetFadeAlpha)
+		{
+			m_fadeAlpha += dt * m_fadeSpeed;
+
+			if (m_fadeAlpha >= m_targetFadeAlpha)
+			{
+				m_fadeAlpha = m_targetFadeAlpha;
+			}
+		}
+		else
+		{
+			m_fadeAlpha -= dt * m_fadeSpeed;
+		
+			if (m_fadeAlpha <= m_targetFadeAlpha)
+			{
+				m_fadeAlpha = m_targetFadeAlpha;
+			}
+		}
+	}
+
+	// Fade texture change
+	float fFadeIndex = m_fadeAlpha * float(FADE_END);
+	int fadeIndex = int(fFadeIndex);
+
+	m_fadeImageRenderer->SetTexture(0, m_fadeTexture[fadeIndex]);
+
+	if (fadeIndex == 0)
+	{
+		m_fadeImageRenderer->enable = false;
+	}
+	else
+	{
+		m_fadeImageRenderer->enable = true;
+	}
+
+	// Fade effect =====================================================================
+}
+
+void PlayerUI::OnDestroy()
+{
+	for (int i = 0; i < FADE_STEP; ++i)
+	{
+		if (m_fadeTexture[i])
+		{
+			m_fadeTexture[i]->ReleaseUnmanaged();
+			m_fadeTexture[i] = nullptr;
+		}
 	}
 }
 
@@ -152,6 +278,27 @@ void PlayerUI::SetHP(unsigned int value)
 	{
 		m_playerFaceRenderer->SetTexture(0, m_playerFaceTexture[3]);
 	}
+}
+
+void PlayerUI::SetArmor(unsigned int value)
+{
+	if (value > 100)
+	{
+		value = 100;
+	}
+
+	if (value == 0)
+	{
+		m_armorNumbers->gameObject->activeSelf = false;
+		m_armorImageRenderer->gameObject->activeSelf = false;
+	}
+	else
+	{
+		m_armorNumbers->gameObject->activeSelf = true;
+		m_armorImageRenderer->gameObject->activeSelf = true;
+	}
+
+	m_armorNumbers->number = value;
 }
 
 void PlayerUI::SetLoadedAmmo0State(bool value)
@@ -218,4 +365,43 @@ void PlayerUI::SetAmmo1Type(AmmoTypes type)
 		m_ammoObj1->activeSelf = true;
 		m_ammoTypeObj1->activeSelf = true;
 	}
+}
+
+void PlayerUI::SetCardKey(bool value)
+{
+	m_cardKeyObj->activeSelf = value;
+}
+
+void PlayerUI::FadeIn(float time)
+{
+	m_targetFadeAlpha = 1.0f;
+
+	if (time <= 0)
+	{
+		time = 0.0001f;
+	}
+	m_fadeSpeed = 1.0f / time;
+}
+
+void PlayerUI::FadeOut(float time)
+{
+	m_targetFadeAlpha = 0.0f;
+
+	if (time <= 0)
+	{
+		time = 0.0001f;
+	}
+	m_fadeSpeed = 1.0f / time;
+}
+
+void PlayerUI::SetFadeAlpah(float value)
+{
+	value = Clamp(value, 0, 1);
+
+	m_fadeAlpha = value;
+}
+
+float PlayerUI::GetFadeAlpha() const
+{
+	return m_fadeAlpha;
 }

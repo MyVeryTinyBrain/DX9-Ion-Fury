@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "PhysicsLayers.h"
 #include "Player.h"
+#include "SoundMgr.h"
 
 void Item::Awake()
 {
@@ -23,9 +24,10 @@ void Item::Awake()
 
 void Item::Start()
 {
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+	{
+		return;
+	}
 
 	PhysicsRay ray(transform->position, Vec3::down(), 50.0f);
 	RaycastHit hit;
@@ -37,21 +39,29 @@ void Item::Start()
 
 void Item::Update()
 {
-#ifdef _AFX
-	return;
-#endif
+	if (Time::TimeScale() == 0)
+	{
+		return;
+	}
 
 	auto collider = Physics::OverlapSphere(
-		transform->position,
 		m_triggerRadius,
+		transform->position,
 		(1 << (int)PhysicsLayers::Player),
 		PhysicsQueryType::Collider
 	);
 
 	if (collider)
 	{
-		OnTrigger(Player::GetInstance());
-		gameObject->Destroy();
+		bool destroy = true;
+
+		OnTrigger(Player::GetInstance(), destroy);
+		
+		if (destroy)
+		{
+			gameObject->Destroy();
+			SoundMgr::Play(L"../SharedResource/Sound/item/get.ogg", CHANNELID::ITEM);
+		}
 	}
 
 	if (m_debugRenderer)

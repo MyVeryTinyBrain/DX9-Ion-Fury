@@ -4,6 +4,34 @@
 #include "EditorManager.h"
 #include "EditorEnum.h"
 #include "HandlingObject.h"
+<<<<<<< HEAD
+=======
+
+#include <BasicMutant.h>
+#include <Mutant.h>
+#include <CultistArcher.h>
+#include <CultistGunner.h>
+#include <Deacon.h>
+#include <Drone.h>
+#include <Liberator.h>
+#include <Spider.h>
+#include <Skull.h>
+#include <Warmech.h>
+#include <Wendigo.h>
+
+#include <ObjectAutoDoor.h>
+#include <ObjectManualDoor.h>
+#include <ObjectCardScreen.h>
+#include <ObjectButton.h>
+
+#include <ObjectStairBlue.h>
+#include <ObjectStairConcrete.h>
+#include <ObjectStairWood.h>
+#include <ObjectCarRed.h>
+#include <ObjectCarBlue.h>
+#include <ObjectCarBlack.h>
+
+>>>>>>> client
 
 std::vector<Pickable*> Pickable::g_PickableVec;
 
@@ -50,6 +78,13 @@ void Pickable::OnDestroy()
 
 	DeleteMesh();
 	DeleteMaterial();
+<<<<<<< HEAD
+=======
+
+	m_ChildObject->Destroy(); //이게 맞나..?
+	if (m_ComponentObject)
+		m_ComponentObject->Destroy();
+>>>>>>> client
 }
 
 void Pickable::Settings(Vec2 UVScale, COMBOBOX comboBox, const wstring& localPathTexture, bool ColliderExistence)
@@ -124,7 +159,7 @@ Pickable* Pickable::Pick(float& Distance)
 		if (Renderer->Raycast(HitPoint, rayPoint, rayDir))
 		{
 			giz->enable = true;
-			
+
 			Vec3 Between = rayPoint - HitPoint;
 			float BetweenDistance = sqrtf((Between.x * Between.x) + (Between.y * Between.y) + (Between.z * Between.z));
 			if (Distance >= BetweenDistance)
@@ -159,7 +194,25 @@ void Pickable::PushInEventVector(Pickable* Event)
 	m_EventVec.push_back(Event);
 }
 
+<<<<<<< HEAD
 void Pickable::SetMaterial()
+=======
+void Pickable::SetMaterialTypeAs(CString MaterialType)
+{
+	if (MaterialType == L"Geometry")
+	{
+		m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInGeometryMaterial));
+		m_MaterialType = L"Geometry";
+	}
+	else if (MaterialType == L"AlphaTest")
+	{
+		m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInAlphaTestMaterial));
+		m_MaterialType = L"AlphaTest";
+	}
+}
+
+void Pickable::SetNoLightTransparentMaterial()
+>>>>>>> client
 {
 	m_Renderer->SetMaterial(Resource::FindAs<Material>(BuiltInNolightTransparentMaterial));
 }
@@ -247,4 +300,85 @@ void Pickable::RemoveEventObject(int idx)
 {
 	m_EventVec[idx]->Destroy();
 	m_EventVec.erase(m_EventVec.begin() + idx);
+}
+
+void Pickable::SetComponentToPickable(EventType type)
+{
+	m_EventType = type;
+
+	switch (m_EventType)
+	{
+	case EventType::BasicMutant:
+		m_ComponentObject->AddComponent<BasicMutant>();
+		break;
+	case EventType::Mutant:
+		m_ComponentObject->AddComponent<Mutant>();
+		break;
+	case EventType::CultistArcher:
+		m_ComponentObject->AddComponent<CultistArcher>();
+		break;
+	case EventType::CultistGunner:
+		m_ComponentObject->AddComponent<CultistGunner>();
+		break;
+	case EventType::Deacon:
+		m_ComponentObject->AddComponent<Deacon>();
+		break;
+	case EventType::Drone:
+		m_ComponentObject->AddComponent<Drone>();
+		break;
+	case EventType::Liberator:
+		m_ComponentObject->AddComponent<Liberator>();
+		break;
+	case EventType::Spider:
+		m_ComponentObject->AddComponent<Spider>();
+		break;
+	case EventType::Skull:
+		m_ComponentObject->AddComponent<Skull>();
+		break;
+	case EventType::Warmech:
+		m_ComponentObject->AddComponent<Warmech>();
+		break;
+	case EventType::Wendigo:
+		m_ComponentObject->AddComponent<Wendigo>();
+		break;
+
+	case EventType::ObjectAutoDoor:
+		m_ComponentObject->AddComponent<ObjectAutoDoor>();
+		break;
+	case EventType::ObjectManualDoor:
+		m_ComponentObject->AddComponent<ObjectManualDoor>();
+		break;
+	case EventType::ObjectCardScreen:
+		m_ComponentObject->AddComponent<ObjectCardScreen>();
+		break;
+	case EventType::ObjectButton:
+		m_ComponentObject->AddComponent<ObjectButton>();
+		break;
+	}
+}
+
+void Pickable::RemoveCompObjectAndComponent()
+{
+	m_EventType = EventType::EventObjectEnd;
+	m_ComponentObject->Destroy();
+	CreateComponentObject();
+}
+
+void Pickable::CreateComponentObject()
+{
+	m_ComponentObject = CreateGameObject();
+	m_ComponentObject->transform->parent = GetGameObject()->transform;
+	m_ComponentObject->transform->localPosition = Vec3(0.f, 0.f, 0.f);
+}
+
+void Pickable::SetOverSeeBlackMaterial()
+{
+	MaterialParameters param;
+	param.renderQueue = RenderQueue::GeometryLast;
+	param.zRead = false;
+	param.zWrite = false;
+	param.useLight = false;
+
+	m_Material = Material::CreateUnmanaged(param);
+	m_Renderer->material = m_Material;//////////////////////
 }

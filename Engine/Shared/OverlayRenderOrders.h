@@ -21,5 +21,9 @@ enum class OverlayRenderOrders
 	UIPic,
 	UIForeground,
 
-	Crosshair,
+	EndOverlay,
+
+	Crosshair = 100000,
+
+	Fade,
 };

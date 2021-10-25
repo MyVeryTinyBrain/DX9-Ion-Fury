@@ -217,6 +217,7 @@ string DlgObjectTool::ToString(const wstring& wstr)
 BOOL DlgObjectTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+<<<<<<< HEAD
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	{
@@ -270,6 +271,76 @@ void DlgObjectTool::OnBnClickedAddButton()
 	if (m_TypeComboBox.GetCurSel() == -1)
 		return;
 
+=======
+
+	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	{
+		m_TypeComboBox.AddString(_T("ItemBowAmmo"));
+		m_TypeComboBox.AddString(_T("ItemChaingunAmmo"));
+		m_TypeComboBox.AddString(_T("ItemLauncherAmmo"));
+		m_TypeComboBox.AddString(_T("ItemRevolverAmmo"));
+		m_TypeComboBox.AddString(_T("ItemShotgunAmmo"));
+		m_TypeComboBox.AddString(_T("ItemSMGAmmo"));
+		m_TypeComboBox.AddString(_T("ItemHealthPack"));
+
+		m_TypeComboBox.AddString(_T("ItemArmor"));
+		m_TypeComboBox.AddString(_T("ItemCardKey"));
+		m_TypeComboBox.AddString(_T("ObjectRat"));
+
+		m_TypeComboBox.AddString(_T("ObjectStairBlue"));
+		m_TypeComboBox.AddString(_T("ObjectStairConcrete"));
+		m_TypeComboBox.AddString(_T("ObjectStairWood"));
+
+		m_TypeComboBox.AddString(_T("ObjectCarRed"));
+		m_TypeComboBox.AddString(_T("ObjectCarBlue"));
+		m_TypeComboBox.AddString(_T("ObjectCarBlack"));
+
+		m_TypeComboBox.AddString(_T("MiniGameTest"));
+
+		m_TypeComboBox.AddString(_T("Player"));
+	}
+
+	{	//RotSlider 설정
+		m_SliderRotationX.SetRange(0, 360);
+		m_SliderRotationX.SetPos(180);
+		m_SliderRotationX.SetLineSize(10);
+
+		m_SliderRotationY.SetRange(0, 360);
+		m_SliderRotationY.SetPos(180);
+		m_SliderRotationY.SetLineSize(10);
+
+		m_SliderRotationZ.SetRange(0, 360);
+		m_SliderRotationZ.SetPos(180);
+		m_SliderRotationZ.SetLineSize(10);
+	}
+
+	{	//ScaleSlider 설정
+		m_SliderScaleX.SetRange(0, 100);
+		m_SliderScaleX.SetPos(20);
+		m_SliderScaleX.SetLineSize(10);
+
+		m_SliderScaleY.SetRange(0, 100);
+		m_SliderScaleY.SetPos(20);
+		m_SliderScaleY.SetLineSize(10);
+
+		m_SliderScaleZ.SetRange(0, 100);
+		m_SliderScaleZ.SetPos(20);
+		m_SliderScaleZ.SetLineSize(10);
+	}
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
+
+
+void DlgObjectTool::OnBnClickedAddButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	if (m_TypeComboBox.GetCurSel() == -1)
+		return;
+
+>>>>>>> client
 	HandlingObject* Obj = EditorManager::GetInstance()->GetPerspectiveCamera()->Add_HandlingObject(m_Cnt);
 	++m_Cnt;
 	
@@ -524,6 +595,7 @@ void DlgObjectTool::OnBnClickedSave()
 void DlgObjectTool::OnBnClickedLoad()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+<<<<<<< HEAD
 
 	CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
 
@@ -537,6 +609,21 @@ void DlgObjectTool::OnBnClickedLoad()
 
 	Dlg.m_ofn.lpstrInitialDir = szFilePath;
 
+=======
+
+	CFileDialog Dlg(TRUE, L"txt", L"*.txt", OFN_OVERWRITEPROMPT);
+
+	TCHAR szFilePath[MAX_PATH]{};
+
+	GetCurrentDirectory(MAX_PATH, szFilePath);
+
+	PathRemoveFileSpec(szFilePath);
+
+	lstrcat(szFilePath, L"\\Data\\Handling");
+
+	Dlg.m_ofn.lpstrInitialDir = szFilePath;
+
+>>>>>>> client
 	if (IDOK == Dlg.DoModal())
 	{
 		std::vector<HandlingObject*> HandlingVec = HandlingObject::g_HandlingVec;

@@ -251,6 +251,11 @@ void DlgMapTool::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ScaleSlider, m_SliderControlScaleX);
 	DDX_Control(pDX, IDC_ScaleSlider2, m_SliderControlScaleY);
 	DDX_Control(pDX, IDC_ScaleSlider3, m_SliderControlScaleZ);
+<<<<<<< HEAD
+=======
+	DDX_Control(pDX, IDC_RADIO3, m_ButtonGeometry);
+	DDX_Control(pDX, IDC_RADIO4, m_ButtonAlphaTest);
+>>>>>>> client
 }
 
 
@@ -265,6 +270,10 @@ BEGIN_MESSAGE_MAP(DlgMapTool, CDialog)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_RotSlider, &DlgMapTool::OnNMCustomdrawRotslider)
 	ON_WM_HSCROLL()
 	ON_BN_CLICKED(IDC_BUTTON6, &DlgMapTool::ClickAddButton)
+<<<<<<< HEAD
+=======
+	ON_BN_CLICKED(IDC_BUTTON7, &DlgMapTool::OnBnClickedCopyButton)
+>>>>>>> client
 END_MESSAGE_MAP()
 
 
@@ -291,6 +300,15 @@ void DlgMapTool::ReturnCollisionExistenceSelect(Pickable* pick)
 	m_ColliderExistence.SetCheck(pick->GetCollisionExistence());
 }
 
+<<<<<<< HEAD
+=======
+void DlgMapTool::ReturnGeometryOrAlphaTest(Pickable* pick)
+{
+	CString MaterialType = pick->GetMaterialType();
+	SetCheckedButton(MaterialType);
+}
+
+>>>>>>> client
 void DlgMapTool::UpdateUVScale(Pickable* pick)
 {
 	float x = pick->GetUserMesh()->uvScale.x;
@@ -320,6 +338,35 @@ void DlgMapTool::NumToEdit(CEdit& edit, float num)
 	edit.SetWindowTextW(str.c_str());
 }
 
+<<<<<<< HEAD
+=======
+CString DlgMapTool::GetCheckedButton()
+{
+	CString MaterialType = L"";
+
+	int Geometry = m_ButtonGeometry.GetCheck();
+	int AlphaTest = m_ButtonAlphaTest.GetCheck();
+
+	if (Geometry)
+		MaterialType = L"Geometry";
+	else if (AlphaTest)
+		MaterialType = L"AlphaTest";
+
+	return MaterialType;
+}
+
+void DlgMapTool::SetCheckedButton(CString MaterialType)
+{
+	m_ButtonGeometry.SetCheck(0);
+	m_ButtonAlphaTest.SetCheck(0);
+
+	if (MaterialType == L"Geometry")
+		m_ButtonGeometry.SetCheck(1);
+	else if(MaterialType == L"AlphaTest")
+		m_ButtonAlphaTest.SetCheck(1);
+}
+
+>>>>>>> client
 Vec2 DlgMapTool::GetToolUVScale()
 {
 	float x = EditToNum(m_UVScaleX);
@@ -376,6 +423,10 @@ BOOL DlgMapTool::OnInitDialog()
 	NumToEdit(m_UVScaleY, 1.f);
 
 	m_ColliderExistence.SetCheck(true);
+<<<<<<< HEAD
+=======
+	m_ButtonGeometry.SetCheck(true);
+>>>>>>> client
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -450,6 +501,12 @@ void DlgMapTool::OnBnClickedApply()
 		pick->SetCollisionExistence(m_ColliderExistence.GetCheck());
 
 		SetPickableObject(trans->GetGameObject());
+<<<<<<< HEAD
+=======
+
+		//////////////////////////////////////////////////////////////////////
+		pick->SetMaterialTypeAs(GetCheckedButton());
+>>>>>>> client
 	}
 
 	//SetPickableObject(trans->GetGameObject());
@@ -501,6 +558,10 @@ void DlgMapTool::OnBnClickedSave()
 				MapValue["UVScaleX"] = MapObject->GetUserMesh()->uvScale.x;
 				MapValue["UVScaleY"] = MapObject->GetUserMesh()->uvScale.y;
 				MapValue["ColliderExistence"] = MapObject->GetCollisionExistence();
+<<<<<<< HEAD
+=======
+				MapValue["MaterialType"] = ToString(MapObject->GetMaterialType().GetString());
+>>>>>>> client
 
 				Root[i] = MapValue;
 			}
@@ -544,6 +605,10 @@ void DlgMapTool::OnBnClickedLoad()
 				wstring Name = ToWString(MapValue["Name"].asString());
 				wstring Tag = ToWString(MapValue["Tag"].asString());
 				wstring TexturePath = ToWString(MapValue["TexturePath"].asString());
+<<<<<<< HEAD
+=======
+
+>>>>>>> client
 				int temp = MapValue["MeshType"].asInt();
 				COMBOBOX MeshType = (COMBOBOX)temp;
 			
@@ -553,6 +618,12 @@ void DlgMapTool::OnBnClickedLoad()
 				
 				Vec2 UVScale = Vec2(MapValue["UVScaleX"].asFloat(), MapValue["UVScaleY"].asFloat());
 				bool ColliderExistence = MapValue["ColliderExistence"].asBool();
+<<<<<<< HEAD
+=======
+
+				wstring MaterialType = ToWString(MapValue["MaterialType"].asString());
+
+>>>>>>> client
 				//==
 				GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject(Tag);
 				pObj->name = Name;
@@ -560,6 +631,10 @@ void DlgMapTool::OnBnClickedLoad()
 				Pickable* pick = pObj->AddComponent<Pickable>();
 				pick->PushInVector(Type::Map);
 				pick->Settings(UVScale, (COMBOBOX)MeshType, TexturePath, ColliderExistence);
+<<<<<<< HEAD
+=======
+				pick->SetMaterialTypeAs(MaterialType.c_str());
+>>>>>>> client
 
 				pObj->transform->position = Pos;
 				pObj->transform->scale = Scale;
@@ -655,6 +730,13 @@ void DlgMapTool::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 void DlgMapTool::ClickAddButton()
 {
+<<<<<<< HEAD
+=======
+	CString MaterialType = GetCheckedButton();
+	if (MaterialType == L"")
+		return;
+
+>>>>>>> client
 	CMainFrame* pMainFrame = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
 	CIonFuryEditorView* pView = dynamic_cast<CIonFuryEditorView*>(pMainFrame->GetActiveView());
 
@@ -672,6 +754,11 @@ void DlgMapTool::ClickAddButton()
 		m_objectTag.GetString(),
 		m_objectName.GetString(),
 		TexturePath.GetString());
+<<<<<<< HEAD
+=======
+	pick->SetMaterialTypeAs(MaterialType);
+
+>>>>>>> client
 
 	SetPickableObject(pick->GetGameObject());
 	SelectObject();
@@ -679,3 +766,45 @@ void DlgMapTool::ClickAddButton()
 	ReturnComboBoxSelect(pick);
 	ReturnCollisionExistenceSelect(pick);
 }
+<<<<<<< HEAD
+=======
+
+
+void DlgMapTool::OnBnClickedCopyButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	Gizmo* giz = EditorManager::GetInstance()->GetGizmo();
+	Transform* trans = giz->GetSelectedObject();
+	if (trans == nullptr)
+		return;
+
+	Pickable* Picked = trans->GetGameObject()->GetComponent<Pickable>();
+	if (Picked == nullptr)
+		return;
+
+	GameObject* pObj = SceneManager::GetInstance()->GetCurrentScene()->CreateGameObject();
+	pObj->name = L"Copied";
+
+	Pickable* NewPickable = pObj->AddComponent<Pickable>();
+	NewPickable->PushInVector(Type::Map);
+
+	Vec3 Pos = trans->position;
+	Vec3 Scale = trans->scale;
+	Vec3 EulerAngle = trans->eulerAngle;
+
+	Vec2 UVScale = Picked->GetUserMesh()->uvScale;
+	COMBOBOX MeshType = Picked->GetMeshType();
+	wstring TexturePath = Picked->GetRenderer()->GetTexture(0)->GetLocalPath();
+	bool ColliderExistence = Picked->GetCollisionExistence();
+	wstring MaterialType = Picked->GetMaterialType().GetString();
+
+	NewPickable->Settings(UVScale, MeshType, TexturePath, ColliderExistence);
+	NewPickable->SetMaterialTypeAs(MaterialType.c_str());
+
+	pObj->transform->position = Pos;
+	pObj->transform->scale = Scale;
+	pObj->transform->eulerAngle = EulerAngle;
+
+	giz->Attach(pObj->transform);
+}
+>>>>>>> client

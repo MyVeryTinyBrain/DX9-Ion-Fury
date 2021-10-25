@@ -19,10 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmmoBackup.h" />
     <ClInclude Include="AmmoTypes.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="BasicMutant.h" />
+    <ClInclude Include="BasicMutantSpriteAnimator.h" />
     <ClInclude Include="BillboardEffect.h" />
     <ClInclude Include="BloodEffect.h" />
+    <ClInclude Include="BossEnemySpawnTrigger.h" />
+    <ClInclude Include="BossTrigger.h" />
     <ClInclude Include="Bow.h" />
     <ClInclude Include="BowAnimator.h" />
     <ClInclude Include="BowStringAnimator.h" />
@@ -32,51 +37,125 @@
     <ClInclude Include="ChaingunAmmopartAnimator.h" />
     <ClInclude Include="ChaingunGunpartAnimator.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="CultistArcher.h" />
+    <ClInclude Include="CultistArcherAnimator.h" />
+    <ClInclude Include="CultistGunner.h" />
+    <ClInclude Include="CultistGunnerAnimator.h" />
+    <ClInclude Include="Deacon.h" />
+    <ClInclude Include="DeaconflyEffect.h" />
+    <ClInclude Include="DeaconSpriteAnimator.h" />
+    <ClInclude Include="Drone.h" />
+    <ClInclude Include="DroneExplosion.h" />
+    <ClInclude Include="DroneSmoke.h" />
+    <ClInclude Include="DroneSpriteAnimator.h" />
+    <ClInclude Include="EditorEnum.h" />
     <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="FPSCharacterController.h" />
     <ClInclude Include="FPSOrthoCamera.h" />
     <ClInclude Include="GranadeTrail.h" />
+    <ClInclude Include="GunnerBase.h" />
+    <ClInclude Include="GunnerBaseAnimator.h" />
+    <ClInclude Include="GunnerSpriteAnimator.h" />
     <ClInclude Include="Hands.h" />
+    <ClInclude Include="IDontDeactive.h" />
+    <ClInclude Include="IMonsterSpawn.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemArmor.h" />
     <ClInclude Include="ItemBowAmmo.h" />
+    <ClInclude Include="ItemCardKey.h" />
     <ClInclude Include="ItemChaingunAmmo.h" />
     <ClInclude Include="ItemHealthPack.h" />
     <ClInclude Include="ItemLauncherAmmo.h" />
     <ClInclude Include="ItemRevolverAmmo.h" />
     <ClInclude Include="ItemShotgunAmmo.h" />
     <ClInclude Include="ItemSMGAmmo.h" />
+    <ClInclude Include="IUsable.h" />
     <ClInclude Include="Launcher.h" />
     <ClInclude Include="LauncherAnimator.h" />
     <ClInclude Include="LauncherGranade.h" />
+    <ClInclude Include="Liberator.h" />
+    <ClInclude Include="LiberatorAnimator.h" />
+    <ClInclude Include="LightLoad.h" />
+    <ClInclude Include="MapLoad.h" />
+    <ClInclude Include="MapObject.h" />
+    <ClInclude Include="MiniGame01.h" />
+    <ClInclude Include="MiniGameCamera01.h" />
+    <ClInclude Include="MiniGameUI01.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Mutant.h" />
+    <ClInclude Include="MutantPoison.h" />
+    <ClInclude Include="MutantSpriteAnimator.h" />
+    <ClInclude Include="Names.h" />
+    <ClInclude Include="NextSceneTrigger.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
-    <ClInclude Include="ObjectStair.h" />
+    <ClInclude Include="ObjectAutoDoor.h" />
+    <ClInclude Include="ObjectMiniGame.h" />
+    <ClInclude Include="ObjectStairConcrete.h" />
+    <ClInclude Include="ObjectButton.h" />
+    <ClInclude Include="ObjectCarBlack.h" />
+    <ClInclude Include="ObjectCarBlue.h" />
+    <ClInclude Include="ObjectCardScreen.h" />
+    <ClInclude Include="Objectelevator.h" />
+    <ClInclude Include="ObjectManualDoor.h" />
+    <ClInclude Include="ObjectRat.h" />
+    <ClInclude Include="ObjectRatAnimator.h" />
+    <ClInclude Include="ObjectStairBlue.h" />
+    <ClInclude Include="ObjectVent.h" />
+    <ClInclude Include="ObjectStairWood.h" />
     <ClInclude Include="OrthoEffect.h" />
     <ClInclude Include="OverlayRenderOrders.h" />
     <ClInclude Include="PhysicsInitialize.h" />
     <ClInclude Include="PhysicsLayers.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerUI.h" />
+    <ClInclude Include="ObjectCarRed.h" />
     <ClInclude Include="RenderLayers.h" />
     <ClInclude Include="Revolver.h" />
     <ClInclude Include="RevolverAnimator.h" />
+    <ClInclude Include="SceneMap.h" />
     <ClInclude Include="shared_stdafx.h" />
+    <ClInclude Include="Skull.h" />
+    <ClInclude Include="SkullAnimator.h" />
+    <ClInclude Include="SkullBall.h" />
+    <ClInclude Include="SkullBallAnimator.h" />
+    <ClInclude Include="SkullReplica.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SMG.h" />
     <ClInclude Include="SMGAnimator.h" />
+    <ClInclude Include="SoundMgr.h" />
+    <ClInclude Include="Spider.h" />
+    <ClInclude Include="SpiderSpriteAnimator.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteAnimator.h" />
+    <ClInclude Include="Tags.h" />
+    <ClInclude Include="TotalLoad.h" />
     <ClInclude Include="TrailRenderer.h" />
     <ClInclude Include="TriangleStair.h" />
+    <ClInclude Include="Trigger.h" />
     <ClInclude Include="UserMixMesh.h" />
+    <ClInclude Include="Warmech.h" />
+    <ClInclude Include="WarmechBullet.h" />
+    <ClInclude Include="WarmechExplosion.h" />
+    <ClInclude Include="WarmechHit.h" />
+    <ClInclude Include="WarmechMissile.h" />
+    <ClInclude Include="WarmechSpriteAnimator.h" />
+    <ClInclude Include="WarmechTrail.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponTypes.h" />
+    <ClInclude Include="Web.h" />
+    <ClInclude Include="Wendigo.h" />
+    <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AmmoBackup.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="BasicMutant.cpp" />
+    <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
     <ClCompile Include="BillboardEffect.cpp" />
     <ClCompile Include="BloodEffect.cpp" />
+    <ClCompile Include="BossEnemySpawnTrigger.cpp" />
+    <ClCompile Include="BossTrigger.cpp" />
     <ClCompile Include="Bow.cpp" />
     <ClCompile Include="BowAnimator.cpp" />
     <ClCompile Include="BowStringAnimator.cpp" />
@@ -86,42 +165,108 @@
     <ClCompile Include="ChaingunAmmopartAnimator.cpp" />
     <ClCompile Include="ChaingunGunpartAnimator.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="CultistArcher.cpp" />
+    <ClCompile Include="CultistArcherAnimator.cpp" />
+    <ClCompile Include="CultistGunner.cpp" />
+    <ClCompile Include="CultistGunnerAnimator.cpp" />
+    <ClCompile Include="Deacon.cpp" />
+    <ClCompile Include="DeaconflyEffect.cpp" />
+    <ClCompile Include="DeaconSpriteAnimator.cpp" />
+    <ClCompile Include="Drone.cpp" />
+    <ClCompile Include="DroneExplosion.cpp" />
+    <ClCompile Include="DroneSmoke.cpp" />
+    <ClCompile Include="DroneSpriteAnimator.cpp" />
     <ClCompile Include="FPSCamera.cpp" />
     <ClCompile Include="FPSCharacterController.cpp" />
     <ClCompile Include="FPSOrthoCamera.cpp" />
     <ClCompile Include="GranadeTrail.cpp" />
+    <ClCompile Include="GunnerBase.cpp" />
+    <ClCompile Include="GunnerBaseAnimator.cpp" />
+    <ClCompile Include="GunnerSpriteAnimator.cpp" />
     <ClCompile Include="Hands.cpp" />
+    <ClCompile Include="IDontDeactive.cpp" />
+    <ClCompile Include="IMonsterSpawn.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemArmor.cpp" />
     <ClCompile Include="ItemBowAmmo.cpp" />
+    <ClCompile Include="ItemCardKey.cpp" />
     <ClCompile Include="ItemChaingunAmmo.cpp" />
     <ClCompile Include="ItemHealthPack.cpp" />
     <ClCompile Include="ItemLauncherAmmo.cpp" />
     <ClCompile Include="ItemRevolverAmmo.cpp" />
     <ClCompile Include="ItemShotgunAmmo.cpp" />
     <ClCompile Include="ItemSMGAmmo.cpp" />
+    <ClCompile Include="IUsable.cpp" />
     <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="LauncherAnimator.cpp" />
     <ClCompile Include="LauncherGranade.cpp" />
+    <ClCompile Include="Liberator.cpp" />
+    <ClCompile Include="LiberatorAnimator.cpp" />
+    <ClCompile Include="LightLoad.cpp" />
+    <ClCompile Include="MapLoad.cpp" />
+    <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="MiniGame01.cpp" />
+    <ClCompile Include="MiniGameCamera01.cpp" />
+    <ClCompile Include="MiniGameUI01.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Mutant.cpp" />
+    <ClCompile Include="MutantPoison.cpp" />
+    <ClCompile Include="MutantSpriteAnimator.cpp" />
+    <ClCompile Include="NextSceneTrigger.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
-    <ClCompile Include="ObjectStair.cpp" />
+    <ClCompile Include="ObjectAutoDoor.cpp" />
+    <ClCompile Include="ObjectMiniGame.cpp" />
+    <ClCompile Include="ObjectStairConcrete.cpp" />
+    <ClCompile Include="ObjectButton.cpp" />
+    <ClCompile Include="ObjectCarBlack.cpp" />
+    <ClCompile Include="ObjectCarBlue.cpp" />
+    <ClCompile Include="ObjectCardScreen.cpp" />
+    <ClCompile Include="Objectelevator.cpp" />
+    <ClCompile Include="ObjectManualDoor.cpp" />
+    <ClCompile Include="ObjectRat.cpp" />
+    <ClCompile Include="ObjectRatAnimator.cpp" />
+    <ClCompile Include="ObjectStairBlue.cpp" />
+    <ClCompile Include="ObjectVent.cpp" />
+    <ClCompile Include="ObjectStairWood.cpp" />
     <ClCompile Include="OrthoEffect.cpp" />
     <ClCompile Include="PhysicsInitialize.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerUI.cpp" />
+    <ClCompile Include="ObjectCarRed.cpp" />
     <ClCompile Include="Revolver.cpp" />
     <ClCompile Include="RevolverAnimator.cpp" />
+    <ClCompile Include="SceneMap.cpp" />
     <ClCompile Include="shared_stdafx.cpp" />
+    <ClCompile Include="Skull.cpp" />
+    <ClCompile Include="SkullAnimator.cpp" />
+    <ClCompile Include="SkullBall.cpp" />
+    <ClCompile Include="SkullBallAnimator.cpp" />
+    <ClCompile Include="SkullReplica.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SMG.cpp" />
     <ClCompile Include="SMGAnimator.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
+    <ClCompile Include="Spider.cpp" />
+    <ClCompile Include="SpiderSpriteAnimator.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteAnimator.cpp" />
+    <ClCompile Include="TotalLoad.cpp" />
     <ClCompile Include="TrailRenderer.cpp" />
     <ClCompile Include="TriangleStair.cpp" />
+    <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="UserMixMesh.cpp" />
+    <ClCompile Include="Warmech.cpp" />
+    <ClCompile Include="WarmechBullet.cpp" />
+    <ClCompile Include="WarmechExplosion.cpp" />
+    <ClCompile Include="WarmechHit.cpp" />
+    <ClCompile Include="WarmechMissile.cpp" />
+    <ClCompile Include="WarmechSpriteAnimator.cpp" />
+    <ClCompile Include="WarmechTrail.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Web.cpp" />
+    <ClCompile Include="Wendigo.cpp" />
+    <ClCompile Include="WendigoSpriteAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -188,23 +333,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;..\Physx4.1\lib\DebugX86</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;..\FMod\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;..\Physx4.1\lib\DebugX86;..\FMod\lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;..\Physx4.1\lib\ReleaseX32</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;..\FMod\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;..\Physx4.1\lib\ReleaseX32;..\FMod\lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;..\Physx4.1\lib\DebugX64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;..\FMod\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;..\Physx4.1\lib\DebugX64;..\FMod\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;..\Physx4.1\lib\ReleaseX64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Physx4.1\include;..\Engine\header;..\FMod\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;..\Physx4.1\lib\ReleaseX64;..\FMod\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -212,8 +357,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -229,8 +375,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -246,8 +393,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -263,8 +411,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>shared_stdafx.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
