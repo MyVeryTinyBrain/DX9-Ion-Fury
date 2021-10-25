@@ -58,6 +58,7 @@ void ObjectGarbageBag::OnCollisionEnter(const CollisionEnter& collision)
 
 Collider* ObjectGarbageBag::InitializeCollider(GameObject* colliderObj)
 {
+    if(Time::DeltaTime() == 0)
     {
         auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
         renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);

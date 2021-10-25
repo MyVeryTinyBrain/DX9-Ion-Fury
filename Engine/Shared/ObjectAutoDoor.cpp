@@ -117,6 +117,10 @@ void ObjectAutoDoor::OnUse(bool valid)
 	}
 }
 
+void ObjectAutoDoor::OnDisable()
+{
+}
+
 void ObjectAutoDoor::Toggle()
 {
 	if (!m_state)

@@ -41,6 +41,7 @@ void Bow::Awake()
 	m_screenRenderer->material = Resource::FindAs<Material>(BuiltInOverlayMaterial);
 	m_screenRenderer->renderLayerIndex = uint8_t(RenderLayers::Overlay);
 	m_screenRenderer->overlayRenderOrder = int(OverlayRenderOrders::PlayerWeaponOverlay2);
+	m_screenRenderer->enable = false;
 
 	// 애니메이터 부착
 	m_bowAnimator = m_bowObj->AddComponent<BowAnimator>();

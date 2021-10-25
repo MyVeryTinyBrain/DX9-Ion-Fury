@@ -25,6 +25,12 @@
     <ClCompile Include="Map1.cpp">
       <Filter>SceneMap</Filter>
     </ClCompile>
+    <ClCompile Include="Map3.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Map2.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -58,6 +64,12 @@
       <Filter>SceneMap</Filter>
     </ClInclude>
     <ClInclude Include="Map1.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Map2.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Map3.h">
       <Filter>SceneMap</Filter>
     </ClInclude>
   </ItemGroup>

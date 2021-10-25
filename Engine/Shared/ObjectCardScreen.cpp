@@ -56,3 +56,7 @@ void ObjectCardScreen::OnUse(bool valid)
 		SoundMgr::Play(L"../SharedResource/Sound/input/keycard_locked.ogg", CHANNELID::OBJECT_INPUT);
 	}
 }
+
+void ObjectCardScreen::OnDisable()
+{
+}

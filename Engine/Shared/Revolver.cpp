@@ -274,7 +274,7 @@ void Revolver::Attack()
 				DamageParameters params;
 				params.monsterHitCollider = hit.collider;
 				params.damageType = MonsterDamageType::Bullet;
-				params.damage = 5.0f * damageFactor * 100;
+				params.damage = 5.0f * damageFactor;
 				params.force = ray.direction * 10;
 				params.includeDamageDirection = true;
 				params.damageDirection = ray.direction;

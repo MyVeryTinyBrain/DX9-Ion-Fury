@@ -2141,9 +2141,9 @@
 			"MaterialType" : "Geometry",
 			"MeshType" : 0,
 			"Name" : "",
-			"PositionX" : 26.200000762939453,
-			"PositionY" : -1.3999999761581421,
-			"PositionZ" : 54.5,
+			"PositionX" : 24.719211578369141,
+			"PositionY" : -1.3999998569488525,
+			"PositionZ" : 54.499996185302734,
 			"RotationX" : 0.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0,
@@ -2914,6 +2914,177 @@
 			"TexturePath" : "../SharedResource/Texture/map/42.png",
 			"UVScaleX" : 1.0,
 			"UVScaleY" : 16.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "Copied",
+			"PositionX" : 16.399997711181641,
+			"PositionY" : 4.0999994277954102,
+			"PositionZ" : 43.299995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 40.0,
+			"ScaleY" : 8.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/NODRAW.png",
+			"UVScaleX" : 4.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "Copied",
+			"PositionX" : 31.899997711181641,
+			"PositionY" : 4.0999994277954102,
+			"PositionZ" : 35.299995422363281,
+			"RotationX" : 0.0,
+			"RotationY" : 179.99998474121094,
+			"RotationZ" : -0.0,
+			"ScaleX" : 11.0,
+			"ScaleY" : 8.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/NODRAW.png",
+			"UVScaleX" : 4.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : true,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "Copied",
+			"PositionX" : 25.899997711181641,
+			"PositionY" : -1.8999998569488525,
+			"PositionZ" : 39.299995422363281,
+			"RotationX" : -0.0,
+			"RotationY" : -179.99998474121094,
+			"RotationZ" : 0.0,
+			"ScaleX" : 1.0,
+			"ScaleY" : 4.0,
+			"ScaleZ" : 8.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/16.png",
+			"UVScaleX" : 1.0,
+			"UVScaleY" : 1.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "Copied",
+			"PositionX" : 31.398681640625,
+			"PositionY" : -1.819911003112793,
+			"PositionZ" : 24.485044479370117,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 10.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 20.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/69.png",
+			"UVScaleX" : 4.0,
+			"UVScaleY" : 6.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "Copied",
+			"PositionX" : 55.591094970703125,
+			"PositionY" : -1.819909930229187,
+			"PositionZ" : 12.214871406555176,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 30.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 20.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/69.png",
+			"UVScaleX" : 12.0,
+			"UVScaleY" : 6.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "Copied",
+			"PositionX" : 55.591087341308594,
+			"PositionY" : -1.8199096918106079,
+			"PositionZ" : 68.180755615234375,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 30.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 20.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/69.png",
+			"UVScaleX" : 12.0,
+			"UVScaleY" : 6.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "Copied",
+			"PositionX" : 85.698211669921875,
+			"PositionY" : -1.8199098110198975,
+			"PositionZ" : 50.463291168212891,
+			"RotationX" : 0.0,
+			"RotationY" : 89.999977111816406,
+			"RotationZ" : 0.0,
+			"ScaleX" : 30.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 20.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/69.png",
+			"UVScaleX" : 12.0,
+			"UVScaleY" : 6.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 0,
+			"Name" : "Copied",
+			"PositionX" : 89.629173278808594,
+			"PositionY" : -1.8199096918106079,
+			"PositionZ" : 16.988412857055664,
+			"RotationX" : 0.0,
+			"RotationY" : 89.999961853027344,
+			"RotationZ" : 0.0,
+			"ScaleX" : 30.0,
+			"ScaleY" : 30.0,
+			"ScaleZ" : 20.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/69.png",
+			"UVScaleX" : 12.0,
+			"UVScaleY" : 6.0
+		},
+		{
+			"ColliderExistence" : false,
+			"MaterialType" : "Geometry",
+			"MeshType" : 2,
+			"Name" : "Copied",
+			"PositionX" : 76.285102844238281,
+			"PositionY" : -4.6399798393249512,
+			"PositionZ" : 39.299999237060547,
+			"RotationX" : 90.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0,
+			"ScaleX" : 100.0,
+			"ScaleY" : 200.0,
+			"ScaleZ" : 1.0,
+			"Tag" : "",
+			"TexturePath" : "../SharedResource/Texture/map/22.png",
+			"UVScaleX" : 6.0,
+			"UVScaleY" : 6.0
 		}
 	],
 	"TriggerEvents" : 
@@ -2932,7 +3103,7 @@
 				"ScaleZ" : 2.6500000953674316,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 2,
@@ -3066,7 +3237,7 @@
 				"ScaleZ" : 0.20000000298023224,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 14,
@@ -3109,7 +3280,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 12,
@@ -3217,7 +3388,7 @@
 				"ScaleZ" : 0.34999999403953552,
 				"TriggerMethod" : 3,
 				"TriggerOnce" : true,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 13,
@@ -3348,6 +3519,19 @@
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
 				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 17,
+				"Name" : "Event_45",
+				"PositionX" : -10.315801620483398,
+				"PositionY" : -3.3806445598602295,
+				"PositionZ" : 42.457080841064453,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
 			}
 		],
 		[
@@ -3364,7 +3548,7 @@
 				"ScaleZ" : 9.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 5,
@@ -3459,7 +3643,7 @@
 				"ScaleZ" : 0.64999997615814209,
 				"TriggerMethod" : 3,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 13,
@@ -3515,7 +3699,7 @@
 				"ScaleZ" : 5.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			}
 		],
 		[
@@ -3532,7 +3716,7 @@
 				"ScaleZ" : 1.7999999523162842,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 7,
@@ -3614,7 +3798,7 @@
 				"ScaleZ" : 0.80000001192092896,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 14,
@@ -3657,7 +3841,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 2,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
 			},
 			{
 				"EventType" : 12,
@@ -3687,7 +3871,63 @@
 				"ScaleZ" : 7.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 11
+				"TriggerToolAutoNum" : 12
+			}
+		],
+		[
+			{
+				"Name" : "Trigger_11",
+				"PositionX" : 25.279037475585938,
+				"PositionY" : -2.8815910816192627,
+				"PositionZ" : 36.308010101318359,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 0.34999999403953552,
+				"ScaleY" : 0.75,
+				"ScaleZ" : 0.75,
+				"TriggerMethod" : 1,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 12
+			},
+			{
+				"EventType" : 14,
+				"Name" : "Event_46",
+				"PositionX" : 25.347747802734375,
+				"PositionY" : -2.9209544658660889,
+				"PositionZ" : 36.292648315429688,
+				"RotationX" : 0.0,
+				"RotationY" : -90.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 0.60000002384185791,
+				"ScaleY" : 0.64999997615814209,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 16,
+				"Name" : "Event_47",
+				"PositionX" : 23.69999885559082,
+				"PositionY" : -4.2439827919006348,
+				"PositionZ" : 39.399997711181641,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 2.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 2.0
+			},
+			{
+				"EventType" : 16,
+				"Name" : "Event_48",
+				"PositionX" : 27.999996185302734,
+				"PositionY" : -4.0999994277954102,
+				"PositionZ" : 39.299991607666016,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 2.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 2.0
 			}
 		]
 	]
