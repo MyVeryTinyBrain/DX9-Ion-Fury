@@ -209,7 +209,7 @@ void Mutant::OnDead(bool& dead, DamageParameters& params)
 
 	if (params.damageType == MonsterDamageType::Explosion)
 	{
-		dieIndex = (int)MonsterDamageType::Explosion;
+		dieIndex = (int)MutantSpriteAnimator::DIE_MUTANT::DIE_EXPLOSION;
 	}
 
 	m_animator->PlayDie((MutantSpriteAnimator::DIE_MUTANT)dieIndex);

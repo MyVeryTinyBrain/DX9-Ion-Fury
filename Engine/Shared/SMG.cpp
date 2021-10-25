@@ -11,6 +11,7 @@
 #include "PhysicsLayers.h"
 #include "BulletProof.h"
 #include "SoundMgr.h"
+#include "AmmoBackup.h"
 
 void SMG::Awake()
 {
@@ -55,6 +56,14 @@ void SMG::Awake()
 
 	// 왼쪽 손은 처음에 비활성화입니다.
 	m_leftHandObj->activeSelf = false;
+
+	m_leftAmmo = AmmoBackup::GetInstance()->backup->smgLeftLoadedAmmo;
+	m_rightAmmo = AmmoBackup::GetInstance()->backup->smgRightLoadedAmmo;
+	m_totalAmmo = AmmoBackup::GetInstance()->backup->smgTotalAmmo;
+}
+
+void SMG::Start()
+{
 }
 
 void SMG::Update()
@@ -73,6 +82,10 @@ void SMG::Update()
 	{
 		TryReload();
 	}
+
+	AmmoBackup::GetInstance()->current->smgLeftLoadedAmmo = m_leftAmmo;
+	AmmoBackup::GetInstance()->current->smgRightLoadedAmmo = m_rightAmmo;
+	AmmoBackup::GetInstance()->current->smgTotalAmmo = m_totalAmmo;
 }
 
 void SMG::LateUpdate()

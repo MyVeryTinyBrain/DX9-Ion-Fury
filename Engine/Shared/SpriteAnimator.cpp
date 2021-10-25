@@ -2,6 +2,22 @@
 #include "SpriteAnimator.h"
 #include "SpriteAnimation.h"
 
+void SpriteAnimator::Awake()
+{
+	if (!m_renderer)
+	{
+		auto renderer = gameObject->GetComponent<UserMeshRenderer>();
+		SetRenderer(renderer);
+	}
+
+	if (m_renderer && m_default != nullptr)
+	{
+		Texture* firstTexture = nullptr;
+		m_default->IndexOf(0, &firstTexture);
+		m_renderer->SetTexture(0, firstTexture);
+	}
+}
+
 void SpriteAnimator::Start()
 {
 	if (!m_renderer)

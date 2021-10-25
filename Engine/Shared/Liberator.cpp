@@ -2,6 +2,7 @@
 #include "Liberator.h"
 #include "LiberatorAnimator.h"
 #include "Player.h"
+#include "SoundMgr.h"
 
 GunnerBaseAnimator* Liberator::InitAnimator(GameObject* rendererObject)
 {
@@ -35,4 +36,13 @@ void Liberator::ShootToPlayer()
     {
         Player::GetInstance()->TakeDamage(1);
     }
+
+    wchar_t buffer[256];
+    swprintf_s(buffer, L"../SharedResource/Sound/gunner/fire/gun/%d.ogg", g_gunSoundIndex++);
+    if (g_gunSoundIndex >= GUN_SOUND_MAX)
+    {
+        g_gunSoundIndex = 0;
+    }
+
+    SoundMgr::Play(buffer, CHANNELID::GUNNER_GUN_FIRE0);
 }

@@ -6,6 +6,8 @@ class Revolver : public Weapon
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(OnDestroy);
@@ -72,7 +74,7 @@ private:
 
 	const Vec2 m_leftHandShowLocalPosition = Vec2(0.6f, -0.1f);
 
-	const int m_rapidFireRecoilAngleRange = 40;
+	const int m_rapidFireRecoilAngleRange = 20;
 
 	int m_totalAmmo = 100;
 

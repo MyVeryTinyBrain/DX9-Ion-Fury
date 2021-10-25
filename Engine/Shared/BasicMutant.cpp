@@ -116,14 +116,14 @@ void BasicMutant::Update()
 
 	MoveToTarget();
 
-	if (m_animator->IsPlayingAttack())
-	{
-		m_defaultEmissive = Color::white();
-	}
-	else
-	{
-		m_defaultEmissive = Color::black();
-	}
+	//if (m_animator->IsPlayingAttack())
+	//{
+	//	m_defaultEmissive = Color::white();
+	//}
+	//else
+	//{
+	//	m_defaultEmissive = Color::black();
+	//}
 
 }
 
@@ -178,7 +178,7 @@ void BasicMutant::OnDead(bool& dead, DamageParameters& params)
 
 	if (params.damageType == MonsterDamageType::Explosion)
 	{
-		dieIndex = (int)MonsterDamageType::Explosion;
+		dieIndex = (int)BasicMutantSpriteAnimator::DIE_BasicMutant::DIE_EXPLOSION;
 	}
 
 	m_animator->PlayDie((BasicMutantSpriteAnimator::DIE_BasicMutant)dieIndex);

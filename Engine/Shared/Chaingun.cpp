@@ -12,6 +12,7 @@
 #include "BulletProof.h"
 #include "Monster.h"
 #include "SoundMgr.h"
+#include "AmmoBackup.h"
 
 void Chaingun::Awake()
 {
@@ -56,6 +57,12 @@ void Chaingun::Awake()
 	// 평면의 크기와 그에 따른 위치 조절
 	m_bodyObj->transform->localScale = Vec2(2, 2);
 	m_bodyObj->transform->localPosition = Vec2(-0.25f, 0.4f);
+
+	m_ammo = AmmoBackup::GetInstance()->backup->chaingunTotalAmmo;
+}
+
+void Chaingun::Start()
+{
 }
 
 void Chaingun::Update()
@@ -63,6 +70,8 @@ void Chaingun::Update()
 	Weapon::Update();
 
 	RepositionBody();
+
+	AmmoBackup::GetInstance()->current->chaingunTotalAmmo = m_ammo;
 }
 
 void Chaingun::OnDestroy()
