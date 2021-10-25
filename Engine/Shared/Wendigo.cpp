@@ -110,13 +110,13 @@ void Wendigo::OnDestroy()
 
 Collider* Wendigo::InitializeCollider(GameObject* colliderObj)
 {
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCapsuleUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 
-	}
+	//}
 	m_capsuleCollider = colliderObj->AddComponent<CapsuleCollider>();
 	m_capsuleCollider->transform->scale = Vec3::one() * 1.3f;
 	m_capsuleCollider->OnCollisionEnter += Function<void(const CollisionEnter&)>(this, &Wendigo::OnCollisionEnter);
