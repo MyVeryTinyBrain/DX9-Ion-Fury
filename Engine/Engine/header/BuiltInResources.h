@@ -30,6 +30,7 @@
 #define BuiltInPriorityMaterial						L"../BuiltIn/PriorityGeometryMaterial.material"
 #define BuiltInNolightPriorityMaterial				L"../BuiltIn/NolightPriorityGeometryMaterial.material"
 #define BuiltInGeometryMaterial						L"../BuiltIn/GeometryMaterial.material"
+#define BuiltInCulloffGeometryMaterial				L"../BuiltIn/CulloffGeometryMaterial.material"
 #define BuiltInNolightGeometryMaterial				L"../BuiltIn/NolightGeometryMaterial.material"
 #define BuiltInNolightNoCullGeometryMaterial		L"../BuiltIn/NolightNoCullGeometryMaterial.material"
 #define BuiltInGeometryLastMaterial					L"../BuiltIn/GeometryLastMaterial.material"

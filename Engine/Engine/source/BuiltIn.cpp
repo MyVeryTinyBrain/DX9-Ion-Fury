@@ -100,6 +100,11 @@ void BuiltIn::MakeMaterialResources()
     }
     {
         MaterialParameters params;
+        params.cullMode = CullMode::None;
+        Material::Create(params, BuiltInCulloffGeometryMaterial, true);
+    }
+    {
+        MaterialParameters params;
         params.useLight = false;
         Material::Create(params, BuiltInNolightGeometryMaterial, true);
     }
