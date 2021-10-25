@@ -3182,6 +3182,32 @@
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
 				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 3,
+				"Name" : "Event_46",
+				"PositionX" : 8.992924690246582,
+				"PositionY" : -2.8881721496582031,
+				"PositionZ" : 22.944583892822266,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 3,
+				"Name" : "Event_47",
+				"PositionX" : 18.098085403442383,
+				"PositionY" : -2.8595986366271973,
+				"PositionZ" : 31.670309066772461,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
 			}
 		],
 		[
