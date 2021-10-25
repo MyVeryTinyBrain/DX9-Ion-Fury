@@ -59,7 +59,7 @@ void BasicMutantSpriteAnimator::Awake()
     m_Attack->interval = 0.07f;
     m_Attack->isLoop = true;
 
-    SetDefaultAnimation(m_walk);
+    SetDefaultAnimation(m_create);
 }
 
 void BasicMutantSpriteAnimator::LateUpdate()

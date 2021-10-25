@@ -12,7 +12,8 @@ void Mutant::Awake()
 
 	Monster::Awake();
 	m_moveSpeed = 0.f;
-	m_hp = 20;
+	m_hp = 1000;
+	m_Attackhp = 600;
 	m_body->mass = 10.f;
 	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->sleepThresholder = 0.5f;
@@ -22,7 +23,6 @@ void Mutant::Awake()
 
 	m_attackCount = 5;
 	m_rendererObj->transform->scale = Vec3::one() * 5.0f;
-
 
 
 	m_renderer = CreateRenderer();
@@ -75,14 +75,16 @@ void Mutant::Update()
 		return;
 	}
 
-	m_animator->SetAngle(AngleToPlayerWithSign());
+
+
+	//m_animator->SetAngle(AngleToPlayerWithSign());
 	if (create)
 	{
 		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_roam_1.ogg", CHANNELID::MUTANTCREATE);
 
 		m_moveSpeed = 0.f;
 		m_hasTargetCoord = false;
-		m_animator->SetDefaultAnimation(m_animator->GetCreate());
+		//m_animator->SetDefaultAnimation(m_animator->GetCreate());
 		//m_animator->PlayCreate();
 		create = false;
 
@@ -90,12 +92,13 @@ void Mutant::Update()
 	}
 	else if (!create)
 	{
+		//m_animator->SetDefaultAnimation(m_animator->GetWalk());
 		chageanimation += Time::DeltaTime();
 
 		if (chageanimation > 2.1f)
 		{
-			m_hasTargetCoord = true;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk());
+			m_hasTargetCoord = true;
 			if (m_hp >= 10)
 				m_moveSpeed = 2.0f;
 		}
@@ -107,21 +110,22 @@ void Mutant::Update()
 	makePoisonDt += Time::DeltaTime();
 
 
-	if (m_hp < 10)
+	if (m_hp < m_Attackhp)
 	{
-		m_moveSpeed = 4.0f;
-		Attack();
+	
+		if(!noAttack)
+			Attack();
 		newmakepoisondt += Time::DeltaTime();
 
-		if (newmakepoisondt > 1.5f)
+		if (newmakepoisondt > 3.f)
 		{
+			m_moveSpeed = 0.f;
 			m_attackCount = 7;
-			Attack();
+			//Attack();
 			newmakepoisondt = 0;
 		}
-		//			makePoisonDt = 0;
-			//	}
-
+		if(m_animator->GetCurrentAnimation() != m_animator->GetAttack())
+			m_moveSpeed = 4.0f;
 	}
 
 	if (m_animator->IsPlayingShoot())
@@ -228,7 +232,7 @@ void Mutant::MoveToTarget()
 	Vec3 xzMutantPos = Vec3(MutantrPos.x, 0, MutantrPos.z);
 	float distance = Vec3::Distance(xzMutantPos, m_targetCoord);
 
-	if (distance > 1.1f)
+	if (distance > 2.1f)
 	{
         PhysicsRay ray(transform->position, forward.normalized(), sqrtf(1.0f));
         RaycastHit hit;
@@ -239,6 +243,7 @@ void Mutant::MoveToTarget()
 
 			if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Terrain && angle > 85 && angle < 95)
 			{
+				noAttack = true;
 				m_hasTargetCoord = false;
 				m_animator->IsPlayingWalk();
 				return;
@@ -251,11 +256,14 @@ void Mutant::MoveToTarget()
 			}
 		}
 
-
-		Vec3 acceleration = forward * m_moveSpeed;
-		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
-		velocity.y = m_body->velocity.y;
-		m_body->velocity = velocity;
+		if (m_animator->GetCurrentAnimation() != m_animator->GetAttack())
+		{
+			Vec3 acceleration = forward * m_moveSpeed;
+			Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
+			velocity.y = m_body->velocity.y;
+			m_body->velocity = velocity;
+			noAttack = false;
+		}
 
 
 		if (Vec3::Distance(xzMutantPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 0.5f)
@@ -268,6 +276,7 @@ void Mutant::MoveToTarget()
 		m_beforeCoord = transform->position;
 		m_beforeCoord.y = 0;
 		m_animator->IsPlayingWalk();
+
 
 	}
 	else
@@ -291,8 +300,11 @@ void Mutant::SetTargetCoord(Vec3 xzCoord)
 
 void Mutant::Attack()
 {
+	//m_moveSpeed = 0.f;
 	if (m_attackCount > 0)
 	{
+		m_moveSpeed = 0;
+
 		SoundMgr::Play(L"../SharedResource/Sound/zombie/MutantAttack.ogg", CHANNELID::MUTANTATTACK);
 
 		--m_attackCount;
@@ -300,6 +312,11 @@ void Mutant::Attack()
 		auto obj = CreateGameObject();
 		obj->transform->position = transform->position + Vec3(0.f, 0.7f, 0.f) /*+ (-transform->right)*/;
 		obj->AddComponent<MutantPoison>();
+		m_moveSpeed = 0.f;
+	}
+	if (m_attackCount < 0 && m_animator->GetCurrentAnimation() == m_animator->GetAttack())
+	{
+		m_moveSpeed = 0;
 	}
 
 }
