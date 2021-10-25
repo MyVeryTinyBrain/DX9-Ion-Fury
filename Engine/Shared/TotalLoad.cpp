@@ -22,22 +22,6 @@
 #include "ItemBowAmmo.h"
 #include "ItemSMGAmmo.h"
 #include "ItemHealthPack.h"
-<<<<<<< HEAD:Engine/IonFury/TotalLoad.cpp
-#include <ItemArmor.h>
-#include <ItemCardKey.h>
-#include <ObjectRat.h>
-#include <ObjectStairBlue.h>
-#include <ObjectStairConcrete.h>
-#include <ObjectStairWood.h>
-#include <ObjectCarBlack.h>
-#include <ObjectCarBlue.h>
-#include <ObjectCarRed.h>
-#include <Player.h>
-
-#include <ObjectMiniGame.h>
-
-#include <EditorEnum.h>
-=======
 #include "ItemArmor.h"
 #include "ItemCardKey.h"
 #include "ObjectRat.h"
@@ -50,7 +34,6 @@
 #include "Player.h"
 
 #include "EditorEnum.h"
->>>>>>> client:Engine/Shared/TotalLoad.cpp
 
 // Events
 #include "ObjectAutoDoor.h"
@@ -184,10 +167,6 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ObjectCarBlue>();
 	else if (ComponentType == (L"ObjectCarRed"))
 		pObj->AddComponent<ObjectCarRed>();
-
-	else if (ComponentType == (L"ObjectMiniGame"))
-		pObj->AddComponent<ObjectMiniGame>();
-
 	else
 		pObj->Destroy();
 }
@@ -241,61 +220,61 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 
 	switch ((EventType)data.type)
 	{
-		case EventType::ObjectAutoDoor:
-			obj->tag = TAG_DOOR;
-			comp = obj->AddComponent<ObjectAutoDoor>();
-			break;
-		case EventType::ObjectManualDoor:
-			obj->tag = TAG_DOOR;
-			comp = obj->AddComponent<ObjectManualDoor>();
-			break;
-		case EventType::ObjectButton:
-			comp = obj->AddComponent<ObjectButton>();
-			break;
-		case EventType::ObjectCardScreen:
-			comp = obj->AddComponent<ObjectCardScreen>();
-			break;
+	case EventType::ObjectAutoDoor:
+		obj->tag = TAG_DOOR;
+		comp = obj->AddComponent<ObjectAutoDoor>();
+		break;
+	case EventType::ObjectManualDoor:
+		obj->tag = TAG_DOOR;
+		comp = obj->AddComponent<ObjectManualDoor>();
+		break;
+	case EventType::ObjectButton:
+		comp = obj->AddComponent<ObjectButton>();
+		break;
+	case EventType::ObjectCardScreen:
+		comp = obj->AddComponent<ObjectCardScreen>();
+		break;
 
-			/*
-			enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo,
-	ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
-	EventObjectEnd };	//추후 몬스터가 정해지면 수정
-			*/
+		/*
+		enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo,
+ObjectAutoDoor, ObjectManualDoor, ObjectCardScreen, ObjectButton,
+EventObjectEnd };	//추후 몬스터가 정해지면 수정
+		*/
 
-		case EventType::Mutant:
-			comp = obj->AddComponent<Mutant>();
-			break;
-		case EventType::BasicMutant:
-			comp = obj->AddComponent<BasicMutant>();
-			break;
-		case EventType::CultistArcher:
-			comp = obj->AddComponent<CultistArcher>();
-			break;
-		case EventType::CultistGunner:
-			comp = obj->AddComponent<CultistGunner>();
-			break;
-		case EventType::Deacon:
-			comp = obj->AddComponent<Deacon>();
-			break;
-		case EventType::Drone:
-			comp = obj->AddComponent<Drone>();
-			break;
-		case EventType::Liberator:
-			comp = obj->AddComponent<Liberator>();
-			break;
-		case EventType::Spider:
-			comp = obj->AddComponent<Spider>();
-			break;
-		case EventType::Skull:
-			comp = obj->AddComponent<Skull>();
-			break;
-		case EventType::Warmech:
-			comp = obj->AddComponent<Warmech>();
-			break;
+	case EventType::Mutant:
+		comp = obj->AddComponent<Mutant>();
+		break;
+	case EventType::BasicMutant:
+		comp = obj->AddComponent<BasicMutant>();
+		break;
+	case EventType::CultistArcher:
+		comp = obj->AddComponent<CultistArcher>();
+		break;
+	case EventType::CultistGunner:
+		comp = obj->AddComponent<CultistGunner>();
+		break;
+	case EventType::Deacon:
+		comp = obj->AddComponent<Deacon>();
+		break;
+	case EventType::Drone:
+		comp = obj->AddComponent<Drone>();
+		break;
+	case EventType::Liberator:
+		comp = obj->AddComponent<Liberator>();
+		break;
+	case EventType::Spider:
+		comp = obj->AddComponent<Spider>();
+		break;
+	case EventType::Skull:
+		comp = obj->AddComponent<Skull>();
+		break;
+	case EventType::Warmech:
+		comp = obj->AddComponent<Warmech>();
+		break;
 
-		default:
-			obj->Destroy();
-			break;
+	default:
+		obj->Destroy();
+		break;
 	}
 
 	return comp;
