@@ -95,6 +95,13 @@ void SoundMgr::PlayContinue(const wchar_t* pSoundKey, CHANNELID eID)
 	FMOD_System_Update(i.m_pSystem);
 }
 
+void SoundMgr::SetVolume(float volume, CHANNELID eID)
+{
+	auto& i = *g_pInstance;
+	FMOD_Channel_SetVolume(i.m_pChannelArr[eID], volume);
+	FMOD_System_Update(i.m_pSystem);
+}
+
 void SoundMgr::PlayBGM(const wchar_t* pSoundKey)
 {
 	auto& i = *g_pInstance;

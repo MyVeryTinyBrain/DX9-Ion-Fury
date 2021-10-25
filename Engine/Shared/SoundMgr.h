@@ -94,6 +94,7 @@ public:
 public:
 	static void Play(const wchar_t* pSoundKey, CHANNELID eID, bool loop = false);
 	static void PlayContinue(const wchar_t* pSoundKey, CHANNELID eID);
+	static void SetVolume(float volume, CHANNELID eID);
 	static void PlayBGM(const wchar_t* pSoundKey);
 	static void StopSound(CHANNELID eID);
 	static void StopAll();
