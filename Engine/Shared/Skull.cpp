@@ -17,7 +17,7 @@ void Skull::Awake()
 
     gameObject->transform->scale = Vec3::one() * 1.5f;
 
-    m_hp = 400.0f;
+    m_hp = 500.0f;
     m_moveSpeed = 3.0f;
 
     m_body->mass = 10.0f;
