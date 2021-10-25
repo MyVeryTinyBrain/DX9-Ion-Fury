@@ -214,6 +214,11 @@ SpriteAnimation* MutantSpriteAnimator::GetCreate() const
     return m_create;
 }
 
+SpriteAnimation* MutantSpriteAnimator::GetAttack() const
+{
+    return m_shoot;
+}
+
 SpriteAnimation* MutantSpriteAnimator::GetMutantPoison() const
 {
     return m_MutantPoison;

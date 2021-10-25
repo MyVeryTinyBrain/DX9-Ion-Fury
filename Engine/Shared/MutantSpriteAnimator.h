@@ -54,6 +54,9 @@ public:
 
 	SpriteAnimation* GetCreate() const;
 
+	SpriteAnimation* GetAttack() const;
+
+
 	SpriteAnimation* GetMutantPoison() const;
 
 

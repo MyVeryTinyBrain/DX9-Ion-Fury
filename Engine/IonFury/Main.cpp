@@ -29,11 +29,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	SoundMgr::Get_Instance()->Initialize();
 
-	AmmoBackup::GetInstance()->current->revolverLoadedAmmo = 6;
-	AmmoBackup::GetInstance()->current->revolverTotalAmmo = 120;
+	AmmoBackup::GetInstance()->current->revolverLoadedAmmo = 100;
+	//AmmoBackup::GetInstance()->current->revolverTotalAmmo = 900;
+	//AmmoBackup::GetInstance()->current->shotgunTotalAmmo = 900;
+	//AmmoBackup::GetInstance()->current->launcherLoadedAmmo = 900;
+	//AmmoBackup::GetInstance()->current->chaingunTotalAmmo = 900;
+
+	
 	AmmoBackup::GetInstance()->Backup();
 
-	SceneManager::ChangeScene(new Map0);
+	SceneManager::ChangeScene(new TestScene3);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)

@@ -1,6 +1,7 @@
 #include "shared_stdafx.h"
 #include "DeaconSpriteAnimator.h"
 #include "SpriteAnimation.h"
+#include "SoundMgr.h"
 
 void DeaconSpriteAnimator::Awake()
 {
