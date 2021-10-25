@@ -90,6 +90,7 @@
     <ClInclude Include="Number.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="ObjectAutoDoor.h" />
+    <ClInclude Include="ObjectGarbageBag.h" />
     <ClInclude Include="ObjectMiniGame.h" />
     <ClInclude Include="ObjectStairConcrete.h" />
     <ClInclude Include="ObjectButton.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Numbers.cpp" />
     <ClCompile Include="ObjectAutoDoor.cpp" />
+    <ClCompile Include="ObjectGarbageBag.cpp" />
     <ClCompile Include="ObjectMiniGame.cpp" />
     <ClCompile Include="ObjectStairConcrete.cpp" />
     <ClCompile Include="ObjectButton.cpp" />

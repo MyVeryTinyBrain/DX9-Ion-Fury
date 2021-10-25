@@ -8,6 +8,10 @@ class Item : public Component
 
 	OverrideComponentFunction(Update);
 
+public:
+
+	void ResetHeight();
+
 protected:
 
 	virtual wstring InitTextureLocalPath() const = 0;

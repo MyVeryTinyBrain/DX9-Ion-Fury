@@ -8,8 +8,12 @@ class ObjectVent : public Component
 
 private:
 
-	GameObject* m_target = nullptr;
+	GameObject* m_root = nullptr;
 
+	GameObject* m_fanObj = nullptr;
+	
+	BoxCollider* m_forceTrigger = nullptr;
 
+	bool m_spin = true;
 };
 
