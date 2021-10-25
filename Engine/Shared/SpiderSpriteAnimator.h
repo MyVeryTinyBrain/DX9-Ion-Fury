@@ -38,8 +38,6 @@ public:
 
 	void PlayDie(DIE_SPIDER type);
 
-	void PlayWeb();
-
 	bool IsPlayingIdle() const;
 
 	bool IsPlayingWalk() const;
@@ -50,9 +48,6 @@ public:
 
 	bool IsPlayingDie() const;
 
-	bool IsPlayingWeb() const;
-
-	SpriteAnimation* GetWeb() const;
 
 	SpriteAnimation* GetJump() const;
 
@@ -61,6 +56,7 @@ public:
 	SpriteAnimation* GetDamage() const;
 
 	SpriteAnimation* GetWalk() const;
+
 private:
 
 	void ChangeUVDirection();
@@ -78,8 +74,6 @@ private:
 	SpriteAnimation* m_damage;
 
 	SpriteAnimation* m_die[(unsigned int)DIE_SPIDER::MAX];
-
-	SpriteAnimation* m_web;
 
 	float m_angle = 0.f;
 

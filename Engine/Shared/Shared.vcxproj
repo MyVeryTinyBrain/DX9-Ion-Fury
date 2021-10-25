@@ -138,6 +138,7 @@
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponTypes.h" />
     <ClInclude Include="Web.h" />
+    <ClInclude Include="WebSpriteAnimator.h" />
     <ClInclude Include="Wendigo.h" />
     <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
@@ -253,6 +254,7 @@
     <ClCompile Include="WarmechTrail.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Web.cpp" />
+    <ClCompile Include="WebSpriteAnimator.cpp" />
     <ClCompile Include="Wendigo.cpp" />
     <ClCompile Include="WendigoSpriteAnimator.cpp" />
   </ItemGroup>

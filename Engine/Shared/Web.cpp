@@ -1,7 +1,7 @@
 #include "shared_stdafx.h"
 #include "Web.h"
 #include "Player.h"
-#include "SpiderSpriteAnimator.h"
+#include "WebSpriteAnimator.h"
 #include "PhysicsLayers.h"
 
 void Web::Awake()
@@ -45,7 +45,7 @@ void Web::Awake()
 	m_renderer->userMesh = m_quad;
 
 
-	m_animator = m_rendererObj->AddComponent<SpiderSpriteAnimator>();
+	m_animator = m_rendererObj->AddComponent<WebSpriteAnimator>();
 
 }
 

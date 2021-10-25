@@ -88,7 +88,6 @@ void SpiderSpriteAnimator::Awake()
 	m_jump[(unsigned int)DIR_SPIDER::BACK]->AddTexture(L"../SharedResource/Texture/spider/Spider_jump_back1.png");
 	m_jump[(unsigned int)DIR_SPIDER::BACK]->interval = 0.3f;
 	
-
 	m_damage = new SpriteAnimation;
 	m_damage->AddTexture(L"../SharedResource/Texture/spider/Spider_zizizik.png");
 
@@ -111,13 +110,6 @@ void SpiderSpriteAnimator::Awake()
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->AddTexture(L"../SharedResource/Texture/spider/Spider_hit3.png");
 	m_die[(unsigned int)DIE_SPIDER::DIE_GENERIC]->interval = 0.1f;
 	
-
-	m_web = new SpriteAnimation;
-	m_web->AddTexture(L"../SharedResource/Texture/spider/Web0.png");
-	m_web->AddTexture(L"../SharedResource/Texture/spider/Web1.png");
-	m_web->AddTexture(L"../SharedResource/Texture/spider/Web2.png");
-	m_web->interval = 0.15f;
-	m_web->isLoop = true;
 
 
 	SetDefaultAnimation(m_walk[(unsigned int)DIR_SPIDER::FRONT]);
@@ -237,12 +229,12 @@ void SpiderSpriteAnimator::OnDestroy()
 	for (int i = 0; i < (int)DIR_SPIDER::MAX; ++i)
 		SafeDelete(m_jump[i]);
 
+
 	SafeDelete(m_damage);
 
 	for (int i = 0; i < (int)DIE_SPIDER::MAX; ++i)
 		SafeDelete(m_die[i]);
 
-	SafeDelete(m_web);
 
 }
 
@@ -256,10 +248,12 @@ void SpiderSpriteAnimator::OnAnimationEnd(const SpriteAnimation* current)
 			OnDeadAnimated();
 		}
 	}
+
 }
 
 void SpiderSpriteAnimator::OnAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
 {
+
 }
 
 void SpiderSpriteAnimator::OnDefaultAnimationChange(const SpriteAnimation* current, SpriteAnimation** next)
@@ -300,11 +294,6 @@ void SpiderSpriteAnimator::PlayDamage()
 void SpiderSpriteAnimator::PlayDie(DIE_SPIDER type)
 {
 	PlayAnimation(m_die[(unsigned int)type]);
-}
-
-void SpiderSpriteAnimator::PlayWeb()
-{
-	PlayAnimation(m_web, true);
 }
 
 bool SpiderSpriteAnimator::IsPlayingIdle() const
@@ -354,15 +343,6 @@ bool SpiderSpriteAnimator::IsPlayingDie() const
 	return false;
 }
 
-bool SpiderSpriteAnimator::IsPlayingWeb() const
-{
-	return  currentAnimation == m_web;
-}
-
-SpriteAnimation* SpiderSpriteAnimator::GetWeb() const
-{
-	return m_web;
-}
 
 SpriteAnimation* SpiderSpriteAnimator::GetJump() const
 {

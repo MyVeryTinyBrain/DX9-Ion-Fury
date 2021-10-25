@@ -110,6 +110,7 @@ void Warmech::Update()
 	if (m_bodyAnimator->IsPlayingIdle() && m_body->velocity.magnitude() >= m_moveSpeed * 0.5f)
 	{
 		m_legAnimator->PlayWalk();
+
 	}
 	else if (m_legAnimator->IsPlayingWalk() && m_body->velocity.magnitude() < m_moveSpeed * 0.5f)
 	{
@@ -353,15 +354,11 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	break;
 	case ActionType::WalkToRandomCoord:
 	{
-		////if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/warmech/mech_step2.ogg", CHANNELID::WARMECH))
-		////{
-		//	SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_step2.ogg", CHANNELID::WARMECH);
-		////}
-
+	
 		int soundIndex = rand() % 1;
 		wchar_t buffer[256];
 		swprintf_s(buffer, L"../SharedResource/Sound/warmech/mech_step%d.ogg", soundIndex);
-		SoundMgr::Play(buffer, CHANNELID::WARMECH);
+		SoundMgr::Play(buffer, CHANNELID::WARMECH_WALK);
 
 		float randomRadian = (rand() % 360) * Deg2Rad;
 		float randomDistance = (rand() % 15) + 2.1f + 0.1f;
@@ -371,6 +368,13 @@ void Warmech::SetAction(ActionType type, AttackType attacktype)
 	break;
 	case ActionType::WalkToPlayerDirection:
 	{
+
+		int soundIndex = rand() % 1;
+		wchar_t buffer[256];
+		swprintf_s(buffer, L"../SharedResource/Sound/warmech/mech_step%d.ogg", soundIndex);
+		SoundMgr::Play(buffer, CHANNELID::WARMECH_WALK);
+
+
 		const Vec3& monsterPos = transform->position;
 		const Vec3& playerPos = Player::GetInstance()->transform->position;
 		Vec3 relative = playerPos - monsterPos;

@@ -17,7 +17,7 @@ IClonable* TestScene2::Clone()
 
 void TestScene2::OnLoad(Scene* beforeScene)
 {
-	TotalLoad::Load(L"../Data/Total/jihyunmap.txt");
+	//TotalLoad::Load(L"../Data/Total/jihyunmap.txt");
 
 	{
 		auto skyboxObj = CreateGameObject();
@@ -72,21 +72,21 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//	collider->friction = 1.0f;
 	//}
 
-	//{   // Create ground
-	//	auto obj = CreateGameObject();
-	//	obj->transform->position = Vec3(0, -3, 0);
-	//	obj->transform->scale = Vec3(100, 1, 100);
+	{   // Create ground
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(0, -3, 0);
+		obj->transform->scale = Vec3(100, 1, 100);
 
-	//	auto renderer = obj->AddComponent<UserMeshRenderer>();
-	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
-	//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+		auto renderer = obj->AddComponent<UserMeshRenderer>();
+		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
+		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
-	//	auto body = obj->AddComponent<Rigidbody>();
-	//	body->isKinematic = true;
+		auto body = obj->AddComponent<Rigidbody>();
+		body->isKinematic = true;
 
-	//	auto collider = obj->AddComponent<BoxCollider>();
-	//	collider->friction = 1.0f;
-	//}
+		auto collider = obj->AddComponent<BoxCollider>();
+		collider->friction = 1.0f;
+	}
 
 
 	//{   // Create obstacle
@@ -206,6 +206,12 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//		//obj->AddComponent<Spider>();
 	//	}
 	//}
+
+	{
+    auto obj = CreateGameObject();
+    obj->transform->position = Vec3(0, 2, -10);
+    obj->AddComponent<Drone>();
+}
 
 	//{
 	//    auto obj = CreateGameObject();

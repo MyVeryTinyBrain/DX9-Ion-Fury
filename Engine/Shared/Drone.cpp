@@ -243,6 +243,12 @@ void Drone::Moving(MovingType type)
 	{
 		m_attackCount = 10;
 
+		SoundMgr::StopSound(CHANNELID::DRONE);
+		if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DRONE_SHOOT))
+		{
+			SoundMgr::Play(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DRONE_SHOOT);
+		}
+
 		//movingtype = (MovingType)4;
 		movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
 	}
@@ -268,6 +274,7 @@ void Drone::SetTargetCoord(Vec3 xzCoord)
 
 void Drone::Attack()
 {
+
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
@@ -302,11 +309,7 @@ void Drone::ShootToPlayer()
 	Player::GetInstance()->TakeDamage(1);
 	m_damageToPlayer = false;
 
-	//SoundMgr::StopSound(CHANNELID::DRONE);
-//if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DRONE))
-//{
-	//SoundMgr::Play(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DRONE);
-	//		}
+
 }
 
 void Drone::DistanceCheck()
@@ -314,16 +317,16 @@ void Drone::DistanceCheck()
 	const Vec3& dronePos = transform->position;
 	Vec3 xzdronePos = Vec3(dronePos.x, 0, dronePos.z);
 
-	Vec3 forward = m_targetCoord - dronePos;
-	forward.y = 0;
-	forward.Normalize();
-	transform->forward = forward;
+	Vec3 monsterToPlayer = Player::GetInstance()->transform->position - dronePos;
+	//forward.y = 0;
+	monsterToPlayer.Normalize();
+	transform->forward = monsterToPlayer;
 
 	float distance = Vec3::Distance(xzdronePos, m_targetCoord);
 
 	if (distance > 2.1f)
 	{
-		PhysicsRay ray(transform->position, forward.normalized(), sqrtf(10.0f));
+		PhysicsRay ray(transform->position, monsterToPlayer, FLT_MAX);
 		RaycastHit hit;
 
 		if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider, m_body))

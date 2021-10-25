@@ -465,6 +465,9 @@
     <ClInclude Include="NextSceneTrigger.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="WebSpriteAnimator.h">
+      <Filter>Monster\Spider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -805,6 +808,9 @@
     </ClCompile>
     <ClCompile Include="NextSceneTrigger.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="WebSpriteAnimator.cpp">
+      <Filter>Monster\Spider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

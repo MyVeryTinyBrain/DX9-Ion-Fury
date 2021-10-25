@@ -166,15 +166,7 @@ void Spider::OnDead(bool& dead, DamageParameters& params)
 		SoundMgr::Play(L"../SharedResource/Sound/spider/sect_deathSpiral.ogg", CHANNELID::SPIDER);
 	}
 
-	int dieIndex = rand() % (int)SpiderSpriteAnimator::DIE_SPIDER::MAX;
-
-
-	if (params.damageType == MonsterDamageType::Explosion)
-	{
-		dieIndex = (int)MonsterDamageType::Explosion;
-	}
-
-	m_animator->PlayDie((SpiderSpriteAnimator::DIE_SPIDER)dieIndex);
+	m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT);
 }
 
 void Spider::MoveToTarget()
@@ -246,6 +238,9 @@ void Spider::SetTargetCoord(Vec3 xzCoord)
 
 void Spider::Attack()
 {
+	if (m_animator->IsPlayingDamage() | m_animator->IsPlayingDie())
+		return;
+
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
@@ -282,6 +277,8 @@ void Spider::JumpCheck()
 			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
 			break;
 		case Spider::JumpType::WEB:
+			if (m_animator->IsPlayingDamage() | m_animator->IsPlayingDie())
+				return;
 			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
 			break;
 		}
