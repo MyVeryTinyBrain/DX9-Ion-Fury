@@ -7,6 +7,8 @@ class SpriteAnimation;
 
 class SpriteAnimator abstract : public Component
 {
+	OverrideComponentFunction(Awake);
+
 	OverrideComponentFunction(Start);
 
 	OverrideComponentFunction(AnimationUpdate);

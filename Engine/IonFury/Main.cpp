@@ -7,6 +7,7 @@
 #include "TestScene3.h"
 #include "TestSceneSeob.h"
 
+#include <AmmoBackup.h>
 #include "Map0.h"
 #include "Map1.h"
 
@@ -27,6 +28,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	PhysicsInitialize::Initialize();
 
 	SoundMgr::Get_Instance()->Initialize();
+
+	AmmoBackup::GetInstance()->current->revolverLoadedAmmo = 6;
+	AmmoBackup::GetInstance()->current->revolverTotalAmmo = 120;
+	AmmoBackup::GetInstance()->Backup();
 
 	SceneManager::ChangeScene(new Map0);
 

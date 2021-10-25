@@ -4,6 +4,13 @@
 #include "Player.h"
 #include "PhysicsLayers.h"
 #include "BloodEffect.h"
+#include "SoundMgr.h"
+
+int GunnerBase::g_hurtSoundIndex = 0;
+
+int GunnerBase::g_deathSoundIndex = 0;
+
+int GunnerBase::g_gunSoundIndex = 0;
 
 void GunnerBase::Awake()
 {
@@ -172,6 +179,9 @@ void GunnerBase::OnWake()
 {
     Monster::OnWake();
 
+    if (Time::TimeScale() == 0)
+        return;
+
     if (Player::GetInstance())
     {
         SetBehavior(BehaviorType::Attack);
@@ -222,6 +232,15 @@ void GunnerBase::OnDamage(DamageParameters& params)
     forward.y = 0;
     forward.Normalize();
     transform->forward = forward;
+
+    wchar_t buffer[256];
+    swprintf_s(buffer, L"../SharedResource/Sound/gunner/hurt/%d.ogg", g_hurtSoundIndex++);
+    if (g_hurtSoundIndex >= HURT_SOUND_MAX)
+    {
+        g_hurtSoundIndex = 0;
+    }
+
+    SoundMgr::PlayContinue(buffer, CHANNELID::GUNNER_HURT);
 }
 
 void GunnerBase::OnDead(bool& dead, DamageParameters& params)
@@ -240,6 +259,15 @@ void GunnerBase::OnDead(bool& dead, DamageParameters& params)
     }
 
     m_animator->PlayDie((GunnerBaseAnimator::DIE)dieIndex);
+
+    wchar_t buffer[256];
+    swprintf_s(buffer, L"../SharedResource/Sound/gunner/death/%d.ogg", g_deathSoundIndex++);
+    if (g_deathSoundIndex >= DEATH_SOUND_MAX)
+    {
+        g_deathSoundIndex = 0;
+    }
+
+    SoundMgr::Play(buffer, CHANNELID::GUNNER_DEATH);
 }
 
 void GunnerBase::OnDeadAnimated()
@@ -254,6 +282,16 @@ void GunnerBase::OnSpawn()
 
 bool GunnerBase::IsPlayerInSite(Vec3& playerCoord)
 {
+    if (!Player::GetInstance())
+    {
+        return false;
+    }
+
+    if (!Player::GetInstance()->perspectiveCamera)
+    {
+        return false;
+    }
+
     Vec3 playerHead = Player::GetInstance()->perspectiveCamera->transform->position;
     Vec3 monsterHead = transform->position + Vec3::up() * 0.5f;
 

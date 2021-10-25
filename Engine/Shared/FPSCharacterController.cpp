@@ -42,7 +42,10 @@ void FPSCharacterController::FixedUpdate()
 
     if (Input::GetKey(Key::Space))
     {
-        if (m_hasGround)
+        PhysicsRay ray(m_collider->transform->position, Vec3::up(), 1.2f);
+        bool hit = Physics::RaycastTest(ray, 1 << (uint8_t)PhysicsLayers::Terrain, PhysicsQueryType::Collider);
+
+        if (m_hasGround && !hit)
         {
             Vec3 velocity = m_body->velocity;
             velocity.y = m_jumpSpeed;
@@ -62,11 +65,16 @@ void FPSCharacterController::FixedUpdate()
     float beforeHalfHeight = m_collider->halfHeight;
     if (Input::GetKey(Key::LCtrl))
     {
-        m_collider->halfHeight = 0.001f;
+        m_collider->halfHeight = m_crouchHalfHeight;
     }
-    else
+    else if(m_collider->halfHeight != 0.5f)
     {
-        m_collider->halfHeight = 0.5f;
+        PhysicsRay ray(m_collider->transform->position, Vec3::up(), 1.2f);
+        bool hit = Physics::RaycastTest(ray, 1 << (uint8_t)PhysicsLayers::Terrain, PhysicsQueryType::Collider);
+        if (!hit)
+        {
+            m_collider->halfHeight = m_standHalfHeight;
+        }
     }
     if (beforeHalfHeight != m_collider->halfHeight)
     {
@@ -94,7 +102,7 @@ void FPSCharacterController::FixedUpdate()
         Physics::Raycast(hit, ray, 1 << (uint8_t)PhysicsLayers::Terrain, PhysicsQueryType::Collider);
 
         float speedFactor = 1.0f;
-        if (m_hasGround && Input::GetKey(Key::LCtrl))
+        if (m_hasGround && m_collider->halfHeight != m_standHalfHeight)
         {
             speedFactor = 0.35f;
         }
@@ -138,6 +146,17 @@ void FPSCharacterController::FixedUpdate()
 
 void FPSCharacterController::Update()
 {
+    if (Input::GetKeyDown(Key::NumAdd))
+    {
+        Time::SetTimeScale(3.0f);
+        Time::SetFixedTimeScale(3.0f);
+    }
+    if (Input::GetKeyDown(Key::NumSubtract))
+    {
+        Time::SetTimeScale(1.0f);
+        Time::SetFixedTimeScale(1.0f);
+    }
+
     if (Input::GetKey(Key::Space))
         m_body->SetRigidbodySleep(false);
 
@@ -153,7 +172,7 @@ void FPSCharacterController::Update()
     if (m_moveDirection.sqrMagnitude() > 0)
         m_camera->fpsOrthoCamera->SetWalkingState(true);
 
-    if (Input::GetKey(Key::LCtrl))
+    if (m_collider->halfHeight != m_standHalfHeight)
     {
         m_camera->fpsOrthoCamera->SetElaptionAccumulateScale(0.35f);
     }

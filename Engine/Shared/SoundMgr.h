@@ -30,10 +30,18 @@ enum CHANNELID
 	PLAYER_PROJECTILE,
 	PLAYER_EXPLOSION,
 
+	PLAYER_SPEECH,
+
 	ITEM,
 
 	OBJECT_INPUT,
 	OBJECT,
+
+	GUNNER_HURT,
+	GUNNER_DEATH,
+	GUNNER_GUN_FIRE0,
+	GUNNER_GUN_FIRE1,
+	GUNNER_BOW_FIRE,
 
 	DEACONATTACK,
 	DEACONMOVE,
@@ -88,6 +96,7 @@ public:
 public:
 	static void Play(const wchar_t* pSoundKey, CHANNELID eID, bool loop = false);
 	static void PlayContinue(const wchar_t* pSoundKey, CHANNELID eID);
+	static void SetVolume(float volume, CHANNELID eID);
 	static void PlayBGM(const wchar_t* pSoundKey);
 	static void StopSound(CHANNELID eID);
 	static void StopAll();
