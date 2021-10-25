@@ -7,6 +7,9 @@ void DeaconflyEffect::Awake()
 	auto m_rendereObj = CreateGameObjectToChild(transform);
 	m_rendereObj->transform->scale = Vec3::one() * m_scail;
 
+	m_rendereObj->transform->localPosition = Vec3(0, -3, 0);
+
+
 	MaterialParameters params;
 	params.alphaTest = true;
 	params.renderQueue = RenderQueue::AlphaTest;
@@ -28,15 +31,13 @@ void DeaconflyEffect::Update()
 	m_animationTime += Time::DeltaTime();
 	scailminusTime += Time::DeltaTime();
 
-	if (scailminusTime > 0.1f)
+	if (scailminusTime > 0.05f)
 	{
-		m_scail -= 0.5f;
-		scailminusTime = 0;
+		gameObject->Destroy();
 	}
 	if (m_animationTime < 0.5f)
 		m_animator->SetDefaultAnimation(m_animator->GetSmoke(), true);
-	else if(m_scail <= 0.f)
-		gameObject->Destroy();
+
 }
 
 void DeaconflyEffect::OnDestroy()
