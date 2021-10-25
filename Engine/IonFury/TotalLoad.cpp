@@ -7,6 +7,7 @@
 
 #include <Trigger.h>
 #include <BossTrigger.h>
+#include <BossEnemySpawnTrigger.h>
 
 #include <Tags.h>
 #include <Names.h>
@@ -180,13 +181,18 @@ Trigger* TotalLoad::CreateTrigger(const TriggerData& data)
 
 	Trigger* trigger = nullptr;
 
-	if (obj->name != NAME_BOSS_TRIGGER)
+	if (obj->name == NAME_BOSS_TRIGGER)
 	{
-		trigger = obj->AddComponent<Trigger>();
+		trigger = obj->AddComponent<BossTrigger>();
+	}
+	else if (obj->name == NAME_BOSS_ENEMY_SPAWNTRIGGER)
+	{
+		trigger = obj->AddComponent<BossEnemySpawnTrigger>();
+		trigger->enable = false;
 	}
 	else
 	{
-		trigger = obj->AddComponent<BossTrigger>();
+		trigger = obj->AddComponent<Trigger>();
 	}
 
 	TriggerMethod method = (TriggerMethod)data.method;

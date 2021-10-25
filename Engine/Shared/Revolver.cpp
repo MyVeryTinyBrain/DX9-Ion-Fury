@@ -237,11 +237,14 @@ void Revolver::Attack()
 	ray.distance = FLT_MAX;
 	ray.point = Player::GetInstance()->perspectiveCamera->transform->position;
 
+	float damageFactor = 1.0f;
+
 	if (Vec2::Distance(m_leftHandObj->transform->localPosition, m_leftHandShowLocalPosition) <= 0.1f)
 	{
 		float randomXAngle = float(rand() % m_rapidFireRecoilAngleRange - m_rapidFireRecoilAngleRange / 2);
 		float randomYAngle = float(rand() % m_rapidFireRecoilAngleRange - m_rapidFireRecoilAngleRange / 2);
 		ray.direction = Player::GetInstance()->perspectiveCamera->transform->rotation * Quat::FromEuler(randomXAngle, randomYAngle, 0) * Vec3::forawrd();
+		damageFactor = 1.5f;
 	}
 
 	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Monster)))
@@ -260,7 +263,7 @@ void Revolver::Attack()
 				DamageParameters params;
 				params.monsterHitCollider = hit.collider;
 				params.damageType = MonsterDamageType::Bullet;
-				params.damage = 5.0f;
+				params.damage = 5.0f * damageFactor;
 				params.force = ray.direction * 10;
 				params.includeDamageDirection = true;
 				params.damageDirection = ray.direction;

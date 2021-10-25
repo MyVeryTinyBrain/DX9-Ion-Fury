@@ -7,6 +7,7 @@
 #include "PhysicsLayers.h"
 #include "DeaconflyEffect.h"
 #include "BillboardEffect.h"
+#include "SoundMgr.h"
 
 
 
@@ -61,6 +62,14 @@ void Deacon::FixedUpdate()
 void Deacon::Update()
 {
     Monster::Update();
+    if (Time::TimeScale() == 0)
+        return;
+
+    if (isDead)
+    {
+        return;
+    }
+
 
     float angleToPlayer = AngleToPlayerWithSign();
 
@@ -69,14 +78,6 @@ void Deacon::Update()
     if (!m_isDead && m_animator->GetCurrentAnimation() != m_animator->GetShoot() || !notcreatflyeffect)
     {
         MakeFlyEffect();
-    }
-
-    if (Time::TimeScale() == 0)
-        return;
-
-    if (isDead)
-    {
-        return;
     }
 
     BehaviorUpdate();
@@ -125,6 +126,8 @@ void Deacon::OnDamage(DamageParameters& params)
 {
     if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
     {
+        SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_hit_1.ogg", CHANNELID::DEACONHIT);
+
         GameObject* bloodEffectObj = CreateGameObject();
         bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
         bloodEffectObj->AddComponent<BloodEffect>();
@@ -133,6 +136,8 @@ void Deacon::OnDamage(DamageParameters& params)
 
 void Deacon::OnDead(bool& dead, DamageParameters& params)
 {
+    SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_helpme_1.ogg", CHANNELID::DEACONDEAD);
+
     notcreatflyeffect = true;
     m_animator->PlayDie();
     m_body->useGravity = true;
@@ -318,6 +323,8 @@ void Deacon::OnMoveToPlayer()
     }
 
 
+    SoundMgr::Play(L"../SharedResource/Sound/drone/drone_active.ogg", CHANNELID::DEACONMOVE);
+
     Vec3 target = Player::GetInstance()->transform->position;
     float d = GetXZDistance(target);
     if (d < 4)
@@ -333,6 +340,8 @@ void Deacon::OnMoveToPlayer()
 
 void Deacon::MoveToPlayer()
 {
+
+
     float d = GetXZDistance(Player::GetInstance()->transform->position);
     Vec3 dir = GetXZDirection(Player::GetInstance()->transform->position);
 
@@ -526,6 +535,7 @@ void Deacon::ShootBall()
 
     if (m_shootWait > 0)
     {
+        SoundMgr::Play(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DEACONATTACK);
         m_shootWait -= Time::DeltaTime();
         return;
     }

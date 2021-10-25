@@ -12,6 +12,7 @@ void WarmechExplosion::Awake()
 	MaterialParameters params;
 	params.alphaTest = true;
 	params.renderQueue = RenderQueue::AlphaTest;
+	params.useLight = false;
 	m_material = Material::CreateUnmanaged(params);
 
 	auto m_renderer = m_rendererObj->AddComponent<UserMeshBillboardRenderer>();

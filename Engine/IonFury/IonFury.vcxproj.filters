@@ -31,6 +31,15 @@
     <ClCompile Include="TestSceneSeob.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SceneMap.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Map0.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Map1.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -72,6 +81,15 @@
     <ClInclude Include="TestSceneSeob.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SceneMap.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Map0.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Map1.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -90,6 +108,9 @@
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{f3ca4fd0-bf3e-44b7-a9ee-e2e03757e991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneMap">
+      <UniqueIdentifier>{bf717b3f-ab87-4994-bb80-e96d96ebc621}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

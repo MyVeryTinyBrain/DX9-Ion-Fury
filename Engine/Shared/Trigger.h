@@ -31,7 +31,7 @@ protected:
 
 	virtual void OnUse() {}
 
-private:
+protected:
 
 	UserMeshRenderer* m_debugRenderer = nullptr;
 

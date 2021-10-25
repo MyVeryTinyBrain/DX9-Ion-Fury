@@ -5,6 +5,7 @@
 #include "PhysicsLayers.h"
 #include "BloodEffect.h"
 #include "MutantPoison.h"
+#include "SoundMgr.h"
 
 void Mutant::Awake()
 {
@@ -56,14 +57,29 @@ void Mutant::Update()
 {
 	Monster::Update();
 
-	m_animator->SetAngle(AngleToPlayerWithSign());
-
 	if (Time::TimeScale() == 0)
 		return;
 
+	if (m_isDead)
+	{
+		m_moveSpeed = 0;
+		// 바디의 속도가 매우 작다면
+		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
+		if (m_body && m_body->IsRigidbodySleep())
+		{
+			m_body->Destroy();
+			m_collider->Destroy();
+			m_body = nullptr;
+			m_collider = nullptr;
+		}
+		return;
+	}
 
+	m_animator->SetAngle(AngleToPlayerWithSign());
 	if (create)
 	{
+		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_roam_1.ogg", CHANNELID::MUTANTCREATE);
+
 		m_moveSpeed = 0.f;
 		m_hasTargetCoord = false;
 		m_animator->SetDefaultAnimation(m_animator->GetCreate());
@@ -89,20 +105,6 @@ void Mutant::Update()
 	MoveToTarget();
 
 	makePoisonDt += Time::DeltaTime();
-	if (m_isDead)
-	{
-		m_moveSpeed = 0;
-		// 바디의 속도가 매우 작다면
-		// 바디와 콜라이더 "컴포넌트" 만 삭제합니다.
-		if (m_body && m_body->IsRigidbodySleep())
-		{
-			m_body->Destroy();
-			m_collider->Destroy();
-			m_body = nullptr;
-			m_collider = nullptr;
-		}
-		return;
-	}
 
 
 	if (m_hp < 10)
@@ -161,6 +163,8 @@ Collider* Mutant::InitializeCollider(GameObject* colliderObj)
 void Mutant::OnDamage(DamageParameters& params)
 {
 	m_hasTargetCoord = false;
+	SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_hit_1.ogg", CHANNELID::MUTANTHIT);
+
 
 	//switch (params.damageType)
 	//{
@@ -192,6 +196,8 @@ void Mutant::OnDamage(DamageParameters& params)
 
 void Mutant::OnDead(bool& dead, DamageParameters& params)
 {
+	SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_dead_1.ogg", CHANNELID::MUTATNTDEAD);
+
 	m_moveSpeed = 0;
 	//m_body->useGravity = true;
 	m_hasTargetCoord = false;
@@ -287,6 +293,7 @@ void Mutant::Attack()
 {
 	if (m_attackCount > 0)
 	{
+		SoundMgr::Play(L"../SharedResource/Sound/zombie/MutantAttack.ogg", CHANNELID::MUTANTATTACK);
 
 		--m_attackCount;
 		m_animator->PlayShoot();
