@@ -105,5 +105,9 @@ private:
 	float createEffect = 0.f;
 
 	bool notcreatflyeffect= false;
+
+	float flysound = 0.f;
+
+	bool Attacktrue = false;
 };
 

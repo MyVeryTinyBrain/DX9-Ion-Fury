@@ -55,5 +55,9 @@ private:
 	float chageanimation = 0.f;
 
 	bool Setcollider = false;
+
+	int m_Attackhp = 0;
+
+	bool noAttack = true;
 };
 

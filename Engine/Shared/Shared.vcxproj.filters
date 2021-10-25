@@ -489,8 +489,13 @@
     <ClInclude Include="AmmoBackup.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+
     <ClInclude Include="WebSpriteAnimator.h">
       <Filter>Monster\Spider</Filter>
+
+    <ClInclude Include="ObjectGarbageBag.h">
+      <Filter>Object</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -851,8 +856,13 @@
     <ClCompile Include="AmmoBackup.cpp">
       <Filter>Weapon</Filter>
     </ClCompile>
+
     <ClCompile Include="WebSpriteAnimator.cpp">
       <Filter>Monster\Spider</Filter>
+
+    <ClCompile Include="ObjectGarbageBag.cpp">
+      <Filter>Object</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

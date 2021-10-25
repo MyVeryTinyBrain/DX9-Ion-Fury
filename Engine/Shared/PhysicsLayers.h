@@ -11,4 +11,6 @@ enum class PhysicsLayers
 	Projectile = 4,
 
 	InputTrigger = 5,
+
+	Forcer = 6,
 };

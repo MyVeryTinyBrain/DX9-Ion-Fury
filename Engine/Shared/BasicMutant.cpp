@@ -11,7 +11,8 @@ void BasicMutant::Awake()
 
 	Monster::Awake();
 
-	m_hp = 15;
+	m_hp = 1000; //15
+	AttackHp = 700; //7
 	m_moveSpeed = 0;
 	m_body->mass = 5.f;
 	m_body->interpolate = Interpolate::Extrapolate;
@@ -52,7 +53,7 @@ void BasicMutant::FixedUpdate()
 	}
 
 
-	if (!hit && m_animator->GetCurrentAnimation() == m_animator->GetAttack())
+	if (!hittt && m_animator->GetCurrentAnimation() == m_animator->GetAttack())
 	{
 		ColliderCheck();
 	}
@@ -76,13 +77,13 @@ void BasicMutant::Update()
 	{
 		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_roam_3.ogg", CHANNELID::BASICMUTANTCREATE);
 
-		m_animator->PlayCreate();
 		createdt += Time::DeltaTime();
 		m_hasTargetCoord = false;
-		if (createdt > 3.f)
+		if (createdt >= 3.f)
 		{
 			create = false;
 			createdt = 0;
+			m_animator->SetDefaultAnimation(m_animator->GetWalk());
 		}
 	}
 
@@ -91,19 +92,20 @@ void BasicMutant::Update()
 		m_moveSpeed = 1.f;
 	}
 
-	if (m_hp < 7)
+	if (m_hp < AttackHp)
 	{
-		if (hit)
+		if (hittt)
 		{
+			//m_animator->PlayWalk();
 			m_moveSpeed = 1.f;
 			pattern += Time::DeltaTime();
 			if (pattern > 1.5f)
 			{
 				pattern = 0;
-				hit = false;
+				hittt = false;
 			}
 		}
-		else if (!hit)
+		else if (!hittt)
 		{
 			createdt += Time::DeltaTime();
 			if (createdt > 0.5f)
@@ -112,6 +114,8 @@ void BasicMutant::Update()
 				createdt = 0;
 			}
 		}
+		else 
+			m_animator->PlayWalk();
 	}
 
 	MoveToTarget();
@@ -214,6 +218,7 @@ void BasicMutant::MoveToTarget()
 
 			if (hit.collider->layerIndex == (PxU32)PhysicsLayers::Terrain && angle > 85 && angle < 95)
 			{
+				hittt = true;
 				m_hasTargetCoord = false;
 				return;
 			}
@@ -229,6 +234,7 @@ void BasicMutant::MoveToTarget()
 		Vec3 velocity = ToSlopeVelocity(acceleration, sqrtf(2.0f));
 		velocity.y = m_body->velocity.y;
 		m_body->velocity = velocity;
+		noAttack = false;
 
 
 		if (Vec3::Distance(xzMutantPos, m_beforeCoord) <= m_moveSpeed * Time::FixedDeltaTime() * 0.5f)
@@ -279,7 +285,7 @@ void BasicMutant::ShootToPlayer()
 	Player::GetInstance()->TakeDamage(damage);
 	--damage;
 	m_animator->PlayWalk();
-	hit = true;
+	hittt = true;
 	hitdamage = false;
 	if (damage <= 0)
 		return;

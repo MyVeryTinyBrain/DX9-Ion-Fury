@@ -32,6 +32,8 @@ public:
 
 	PlayerUI* GetUI() const;
 
+	Rigidbody* GetRigidbody() const;
+
 	__declspec(property(get = GetController)) FPSCharacterController* controller;
 
 	__declspec(property(get = GetPerspectiveCamera)) Camera* perspectiveCamera;
@@ -41,6 +43,8 @@ public:
 	__declspec(property(get = GetOrthoCamera)) FPSOrthoCamera* orthoCamera;
 
 	__declspec(property(get = GetUI)) PlayerUI* UI;
+
+	__declspec(property(get = GetRigidbody)) Rigidbody* rigidbody;
 
 public:
 

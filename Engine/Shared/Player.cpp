@@ -113,6 +113,16 @@ PlayerUI* Player::GetUI() const
 	return m_controller->fpsCamera->fpsOrthoCamera->UI;
 }
 
+Rigidbody* Player::GetRigidbody() const
+{
+	if (!m_controller)
+	{
+		return nullptr;
+	}
+
+	return m_controller->rigidbody;
+}
+
 void Player::AddHP(unsigned int hp, bool effect)
 {
 	int beforeHP = m_hp;

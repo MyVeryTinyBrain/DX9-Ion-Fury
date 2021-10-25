@@ -40,9 +40,9 @@ private:
 	static HRESULT LoadFromMapData(const Json::Value& json);
 
 	static HRESULT LoadFromTriggerEventData(const Json::Value& json);
-	 
+
 	static HRESULT LoadFromLightData(const Json::Value& json);
-	 
+
 	static HRESULT LoadFromHandleObjectData(const Json::Value& json);
 
 private:

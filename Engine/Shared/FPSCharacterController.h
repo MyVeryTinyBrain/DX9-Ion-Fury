@@ -37,6 +37,10 @@ public:
 
 	__declspec(property(get = GetCamera)) Camera* camera;
 
+public:
+
+	void SetTempMoveVelocityFactor(float value);
+
 private:
 
 	Rigidbody* m_body = nullptr;

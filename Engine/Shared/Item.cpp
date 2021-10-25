@@ -29,12 +29,7 @@ void Item::Start()
 		return;
 	}
 
-	PhysicsRay ray(transform->position, Vec3::down(), 50.0f);
-	RaycastHit hit;
-	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider))
-	{
-		transform->position = hit.point + Vec3::up() * m_triggerRadius;
-	}
+	ResetHeight();
 }
 
 void Item::Update()
@@ -67,5 +62,15 @@ void Item::Update()
 	if (m_debugRenderer)
 	{
 		m_debugRenderer->transform->scale = Vec3::one() * m_triggerRadius * 2.0f;
+	}
+}
+
+void Item::ResetHeight()
+{
+	PhysicsRay ray(transform->position, Vec3::down(), 50.0f);
+	RaycastHit hit;
+	if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider))
+	{
+		transform->position = hit.point + Vec3::up() * m_triggerRadius;
 	}
 }
