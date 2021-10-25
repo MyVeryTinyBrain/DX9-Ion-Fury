@@ -31,6 +31,7 @@
 #include "ObjectCarBlack.h"
 #include "ObjectCarBlue.h"
 #include "ObjectCarRed.h"
+#include "ObjectVent.h"
 #include "Player.h"
 
 #include "EditorEnum.h"
@@ -53,6 +54,8 @@
 #include "CultistArcher.h"
 #include "CultistGunner.h"
 #include "Liberator.h"
+#include "Wendigo.h"
+#include "ObjectGarbageBag.h"
 
 HRESULT TotalLoad::Load(const wstring& wstrFilePath)
 {
@@ -270,6 +273,9 @@ EventObjectEnd };	//추후 몬스터가 정해지면 수정
 		break;
 	case EventType::Warmech:
 		comp = obj->AddComponent<Warmech>();
+		break;
+	case EventType::Wendigo:
+		comp = obj->AddComponent<Wendigo>();
 		break;
 
 	default:
