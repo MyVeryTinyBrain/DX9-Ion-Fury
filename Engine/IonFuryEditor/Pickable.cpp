@@ -350,6 +350,8 @@ void Pickable::SetComponentToPickable(EventType type)
 	case EventType::ObjectMiniGame:
 		m_ComponentObject->AddComponent<ObjectMiniGame>();
 		break;
+
+
 	}
 }
 
