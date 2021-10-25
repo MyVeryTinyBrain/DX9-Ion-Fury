@@ -223,7 +223,7 @@ std::vector<Collider*> PhysicsQuery::OverlapGeometryAll(PxGeometryHolder geometr
 
     PxTransform pose;
     pose.p = ToPxVec3(point);
-    pose.q = PxQuat(PxIdentity);
+    pose.q = ToPxQuat(rotation);
 
     PhysicsQueryFilterCallback filterCallback(layerMask, queryType, false, ignoreBody);
 

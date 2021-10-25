@@ -18,6 +18,8 @@ class Player : public Component
 
 	OverrideComponentFunction(FixedUpdate);
 
+	OverrideComponentFunction(OnDestroy);
+
 public:
 
 	FPSCharacterController* GetController() const;
@@ -30,6 +32,8 @@ public:
 
 	PlayerUI* GetUI() const;
 
+	Rigidbody* GetRigidbody() const;
+
 	__declspec(property(get = GetController)) FPSCharacterController* controller;
 
 	__declspec(property(get = GetPerspectiveCamera)) Camera* perspectiveCamera;
@@ -37,6 +41,10 @@ public:
 	__declspec(property(get = GetFPSCamera)) FPSCamera* fpsCamera;
 
 	__declspec(property(get = GetOrthoCamera)) FPSOrthoCamera* orthoCamera;
+
+	__declspec(property(get = GetUI)) PlayerUI* UI;
+
+	__declspec(property(get = GetRigidbody)) Rigidbody* rigidbody;
 
 public:
 
@@ -85,5 +93,13 @@ private:
 	Vec3 m_damagedVelocity = Vec3::zero();
 
 	bool m_cardKey = false;
+
+	enum { HURT_SOUND_MAX = 12, KILL_SOUND_MAX = 7, ITEM_SOUND_MAX = 3 };
+
+	int m_hurtSoundIndex = 0;
+
+	int m_killSoundIndex = 0;
+
+	int m_itemSoundIndex = 0;
 };
 

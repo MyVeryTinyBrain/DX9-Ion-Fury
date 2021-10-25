@@ -37,6 +37,10 @@ public:
 
 	__declspec(property(get = GetCamera)) Camera* camera;
 
+public:
+
+	void SetTempMoveVelocityFactor(float value);
+
 private:
 
 	Rigidbody* m_body = nullptr;
@@ -62,5 +66,9 @@ private:
 	float m_footstepDelay = 0.4f;
 
 	float m_footstepCounter = m_footstepDelay;
+
+	float m_standHalfHeight = 0.5f;
+
+	float m_crouchHalfHeight = 0.0001f;
 };
 

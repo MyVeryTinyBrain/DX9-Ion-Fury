@@ -1,7 +1,12 @@
-#include "stdafx.h"
+#include "shared_stdafx.h"
 #include "SceneMap.h"
 #include "TotalLoad.h"
-#include <Skybox.h>
+#include "Skybox.h"
+
+void SceneMap::LoadNextScene()
+{
+    SceneManager::ChangeScene(GetNextScene());
+}
 
 void SceneMap::OnLoad(Scene* beforeScene)
 {

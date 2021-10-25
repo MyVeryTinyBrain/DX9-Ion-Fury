@@ -2,6 +2,10 @@
 
 class SceneMap : public Scene
 {
+public:
+
+	void LoadNextScene();
+
 protected:
 
 	virtual wstring GetMapLocalPath() const = 0;
