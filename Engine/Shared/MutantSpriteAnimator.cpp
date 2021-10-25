@@ -80,7 +80,7 @@ void MutantSpriteAnimator::Awake()
     m_MutantPoison->AddTexture(L"../SharedResource/Texture/Mutant/shoot9.png");
     m_MutantPoison->interval = 0.1f;
 
-    SetDefaultAnimation(m_walk);
+    SetDefaultAnimation(m_create);
 }
 
 void MutantSpriteAnimator::LateUpdate()

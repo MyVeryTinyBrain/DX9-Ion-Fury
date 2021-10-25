@@ -76,13 +76,13 @@ void BasicMutant::Update()
 	{
 		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_roam_3.ogg", CHANNELID::BASICMUTANTCREATE);
 
-		m_animator->PlayCreate();
 		createdt += Time::DeltaTime();
 		m_hasTargetCoord = false;
-		if (createdt > 3.f)
+		if (createdt >= 3.f)
 		{
 			create = false;
 			createdt = 0;
+			m_animator->SetDefaultAnimation(m_animator->GetWalk());
 		}
 	}
 

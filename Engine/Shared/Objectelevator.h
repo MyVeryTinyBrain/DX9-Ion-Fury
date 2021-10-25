@@ -37,9 +37,9 @@ private:
 
 	GameObject* m_root = nullptr;
 
-	GameObject* rootleft = nullptr;
+	GameObject* Upbutton = nullptr;
 
-	GameObject* rootright = nullptr;
+	GameObject* Downbutton = nullptr;
 
 	GameObject* m_leftdoor = nullptr;
 

@@ -75,14 +75,14 @@ void Mutant::Update()
 		return;
 	}
 
-	m_animator->SetAngle(AngleToPlayerWithSign());
+	//m_animator->SetAngle(AngleToPlayerWithSign());
 	if (create)
 	{
 		SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_roam_1.ogg", CHANNELID::MUTANTCREATE);
 
 		m_moveSpeed = 0.f;
 		m_hasTargetCoord = false;
-		m_animator->SetDefaultAnimation(m_animator->GetCreate());
+		//m_animator->SetDefaultAnimation(m_animator->GetCreate());
 		//m_animator->PlayCreate();
 		create = false;
 
@@ -90,12 +90,13 @@ void Mutant::Update()
 	}
 	else if (!create)
 	{
+		//m_animator->SetDefaultAnimation(m_animator->GetWalk());
 		chageanimation += Time::DeltaTime();
 
 		if (chageanimation > 2.1f)
 		{
-			m_hasTargetCoord = true;
 			m_animator->SetDefaultAnimation(m_animator->GetWalk());
+			m_hasTargetCoord = true;
 			if (m_hp >= 10)
 				m_moveSpeed = 2.0f;
 		}

@@ -149,16 +149,16 @@ void TestScene3::OnLoad(Scene* beforeScene)
 
 	{
 		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0.f, 0.1f, 24.f);
+		/*obj->transform->position = Vec3(0.f, 0.1f, 24.f);
 		obj->transform->localScale = Vec3(5.f, 6.f, 0.1f);
-		obj->transform->localEulerAngle = Vec3(-90.f, 0.0f, 0.f);
+		obj->transform->localEulerAngle = Vec3(-90.f, 0.0f, 0.f);*/
 		auto texture = obj->AddComponent<Objectelevator>();
 		auto renderer = obj->AddComponent<UserMeshRenderer>();
 		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInQuadUserMesh);
 
-		auto collider = obj->AddComponent<BoxCollider>();
-		collider->friction = 3.0f;
-		collider->restitution = 3.0f;
+		//auto collider = obj->AddComponent<BoxCollider>();
+		//collider->friction = 3.0f;
+		//collider->restitution = 3.0f;
 	}
 
 }
@@ -215,7 +215,7 @@ void TestScene3::AddMonster()
 	//{
 	//// //¹ÂÅÏÆ®
 		//auto obj = CreateGameObject();
-		//obj->transform->position = Vec3(0, 0, 3);
+		//obj->transform->position = Vec3(0, 0, -15);
 		//obj->AddComponent<Mutant>();
 	//}
 
@@ -223,9 +223,9 @@ void TestScene3::AddMonster()
 	//for (int i = 0; i < 15; ++i)
 	//{
 		////º£ÀÌÁ÷ ¹ÂÅÏÆ®
-		//auto obj = CreateGameObject();
-		//obj->transform->position = Vec3(0, 0, -15);
-		//obj->AddComponent<BasicMutant>();
+		auto obj = CreateGameObject();
+		obj->transform->position = Vec3(0, 0, -15);
+		obj->AddComponent<BasicMutant>();
 	//}
 
 	//{
