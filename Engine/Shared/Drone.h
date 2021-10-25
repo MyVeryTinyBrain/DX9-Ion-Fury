@@ -66,4 +66,6 @@ private:
 
 	MovingType Premovingtype = MovingType::Max;
 
+	float m_attackTimer = 0;
+
 };

@@ -295,7 +295,6 @@ void Drone::Attack()
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
-
 		
 		m_animator->SetDefaultAnimation(m_animator->GetShoot(), true);
 		Vec3 forward = Player::GetInstance()->transform->position - transform->position;
@@ -310,7 +309,6 @@ void Drone::Attack()
 
 		//movingtype = (MovingType)(rand() % unsigned int(Drone::MovingType::Max));
 	}
-
 }
 
 void Drone::Explosion()
@@ -324,6 +322,12 @@ void Drone::Explosion()
 
 void Drone::ShootToPlayer()
 {
+	if (m_attackTimer > 0)
+	{
+		return;
+	}
+
+	m_attackTimer = 0.5f + float(rand() % 100) * 0.01f;
 	
 	const Vec3& dronePos = transform->position;
 	Vec3 xzdronePos = Vec3(dronePos.x, 0, dronePos.z);
