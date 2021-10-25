@@ -15,7 +15,7 @@ void DroneSpriteAnimator::Awake()
 	m_shoot[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_shoot_front0.png");
 	m_shoot[(unsigned int)DIR_DRONE::FRONT]->AddTexture(L"../SharedResource/Texture/Drone/Drone_shoot_front1.png");
 	m_shoot[(unsigned int)DIR_DRONE::FRONT]->interval = 0.1f;
-	m_shoot[(unsigned int)DIR_DRONE::FRONT]->isLoop = true;
+	//m_shoot[(unsigned int)DIR_DRONE::FRONT]->isLoop = true;
 
 	m_shoot[(unsigned int)DIR_DRONE::FRONT_DIAGONAL] = new SpriteAnimation;
 	m_shoot[(unsigned int)DIR_DRONE::FRONT_DIAGONAL]->AddTexture(L"../SharedResource/Texture/Drone/Drone_shoot_front_diagonal0.png");

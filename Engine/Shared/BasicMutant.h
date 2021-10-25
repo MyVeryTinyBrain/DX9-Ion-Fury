@@ -72,7 +72,7 @@ private:
 
 	float pattern = 0.f;
 
-	bool hit = false;
+	bool hittt = false;
 
 	CapsuleCollider* m_CapsuleCollider = nullptr;
 
@@ -80,5 +80,8 @@ private:
 
 	bool hitdamage = false;;
 
+	int AttackHp = 0;
+
+	bool noAttack = false;
 };
 

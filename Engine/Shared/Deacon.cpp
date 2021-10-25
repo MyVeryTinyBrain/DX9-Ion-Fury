@@ -30,6 +30,10 @@ void Deacon::Awake()
     m_rendererObj->transform->localPosition = Vec3(0, -2.f, 0);
 
     m_renderer = CreateRenderer();
+    UserMeshBillboardRenderer* billboard = (UserMeshBillboardRenderer*)m_renderer;
+    billboard->freezeX = false;
+    billboard->freezeY = false;
+    billboard->freezeZ = false;
 
     m_animator = m_renderer->gameObject->AddComponent<DeaconSpriteAnimator>();
 
@@ -80,6 +84,10 @@ void Deacon::Update()
         MakeFlyEffect();
     }
 
+
+    if (Attacktrue)
+        m_animator->PlayMove(DeaconSpriteAnimator::DIR_DECACONE::FRONT);
+
     BehaviorUpdate();
 }
 
@@ -126,7 +134,7 @@ void Deacon::OnDamage(DamageParameters& params)
 {
     if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
     {
-        SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_hit_1.ogg", CHANNELID::DEACONHIT);
+        SoundMgr::PlayContinue(L"../SharedResource/Sound/zombie/zombie_hit_1.ogg", CHANNELID::DEACONHIT);
 
         GameObject* bloodEffectObj = CreateGameObject();
         bloodEffectObj->transform->position = params.monsterHitWorldPoint - params.damageDirection * 0.01f;
@@ -136,7 +144,7 @@ void Deacon::OnDamage(DamageParameters& params)
 
 void Deacon::OnDead(bool& dead, DamageParameters& params)
 {
-    SoundMgr::Play(L"../SharedResource/Sound/zombie/zombie_helpme_1.ogg", CHANNELID::DEACONDEAD);
+    SoundMgr::PlayContinue(L"../SharedResource/Sound/zombie/zombie_helpme_1.ogg", CHANNELID::DEACONDEAD);
 
     notcreatflyeffect = true;
     m_animator->PlayDie();
@@ -206,9 +214,10 @@ bool Deacon::WallTest(const Vec3& direction) const
     else
     {
         float angle = Vec3::Angle(hit.normal, Vec3::up());
-        bool isWall = angle > 30 && angle < 55;
+        bool isWall = angle > 30 && angle < 85;
         return isWall;
     }
+
 
     return false;
 }
@@ -322,12 +331,10 @@ void Deacon::OnMoveToPlayer()
         return;
     }
 
-
-    SoundMgr::Play(L"../SharedResource/Sound/drone/drone_active.ogg", CHANNELID::DEACONMOVE);
-
     Vec3 target = Player::GetInstance()->transform->position;
     float d = GetXZDistance(target);
-    if (d < 4)
+    SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
+    if (d < 2)
     {
         SetBehavior(Behavior::ShootBall);
         return;
@@ -348,6 +355,23 @@ void Deacon::MoveToPlayer()
     float x = transform->position.x;
     float y = transform->position.y;
     float z = transform->position.z;
+
+    { //벽충돌확인
+        PhysicsRay ray(transform->position + Vec3::down() * 0.5f * 1.5f, dir, 2.0f);
+        RaycastHit hit;
+        bool result =
+            Physics::Raycast(
+                hit,
+                ray,
+                (1 << (PxU32)PhysicsLayers::Terrain),
+                PhysicsQueryType::Collider);
+
+        if (result)
+        {
+            Attacktrue = false;
+        }
+
+    }
 
     {
         Vec3 dronePos = transform->position;
@@ -370,8 +394,14 @@ void Deacon::MoveToPlayer()
             velocity.y = 0;
             m_body->velocity = velocity;
         }
+
+        if (distance < 1.f)
+        {
+            SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
+        }
     }
 
+   
     if (m_body->velocity.magnitude() > m_moveSpeed * 0.5f)
     {
         m_animator->PlayDefaultAnimation ();
@@ -394,6 +424,13 @@ void Deacon::MoveToPlayer()
         SetBehavior(Behavior::ShootBall);
         return;
     }
+
+
+    if (d < 2.f)
+    {
+        SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
+    }
+
     else if (m_moveToPlayerAccumulate > 1.f)
     {
         SetBehavior(Behavior::Idle);
@@ -432,9 +469,12 @@ void Deacon::MoveToPlayer()
 
         if (result)
         {
+            Attacktrue = true;
             y = MathEx::Lerp(y, hit.point.y + 3.0f, Time::DeltaTime() * 1.5f);
         }
     }
+    
+    Attacktrue = false;
 
     transform->position = Vec3(x, y, z);
 
@@ -535,7 +575,7 @@ void Deacon::ShootBall()
 
     if (m_shootWait > 0)
     {
-        SoundMgr::Play(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DEACONATTACK);
+        SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DEACONATTACK);
         m_shootWait -= Time::DeltaTime();
         return;
     }

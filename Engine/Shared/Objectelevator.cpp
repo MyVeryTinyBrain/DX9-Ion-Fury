@@ -2,9 +2,11 @@
 #include "Objectelevator.h"
 #include "Player.h"
 #include "ObjectButton.h"
+#include "Trigger.h"
 
 void Objectelevator::Awake()
 {
+
 	{
 		auto debugRendererObj = CreateGameObjectToChild(transform);
 		auto renderer = debugRendererObj->AddComponent<UserMeshRenderer>();
@@ -75,18 +77,18 @@ void Objectelevator::Awake()
 
 void Objectelevator::Update()
 {
-	if (Input::GetKey(Key::G))
-	{
-		opendoor = true;
-		closedoor = false;
-	}
+	//if (Input::GetKey(Key::G))
+	//{
+	//	opendoor = true;
+	//	closedoor = false;
+	//}
 
-	if (Input::GetKey(Key::F))
-	{
-		opendoor = false;
-		closedoor = true;
+	//if (Input::GetKey(Key::F))
+	//{
+	//	opendoor = false;
+	//	closedoor = true;
 
-	}
+	//}
 
 	ElevatorDoorControl();
 }

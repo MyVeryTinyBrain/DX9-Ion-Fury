@@ -80,7 +80,7 @@ void MutantSpriteAnimator::Awake()
     m_MutantPoison->AddTexture(L"../SharedResource/Texture/Mutant/shoot9.png");
     m_MutantPoison->interval = 0.1f;
 
-    SetDefaultAnimation(m_walk);
+    SetDefaultAnimation(m_create);
 }
 
 void MutantSpriteAnimator::LateUpdate()
@@ -212,6 +212,11 @@ SpriteAnimation* MutantSpriteAnimator::GetWalk() const
 SpriteAnimation* MutantSpriteAnimator::GetCreate() const
 {
     return m_create;
+}
+
+SpriteAnimation* MutantSpriteAnimator::GetAttack() const
+{
+    return m_shoot;
 }
 
 SpriteAnimation* MutantSpriteAnimator::GetMutantPoison() const

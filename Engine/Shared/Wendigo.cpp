@@ -366,7 +366,7 @@ void Wendigo::AttackToPlayer()
 
 	if (distanceToPlayer < 2.f && Abs(angle) < 45.f && m_animator->IsPlayingSwing())
 	{
-		cout << "attack" << endl;
+		
 		++m_swingcount;
 		//m_swingcount += Time::DeltaTime();
 		Player::GetInstance()->TakeDamage(1);

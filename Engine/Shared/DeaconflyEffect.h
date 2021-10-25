@@ -19,7 +19,7 @@ private:
 
 	float m_animationTime = 0.f;
 
-	float m_scail = 3.f;
+	float m_scail = 1.f;
 
 	float scailminusTime = 0.f;
 };

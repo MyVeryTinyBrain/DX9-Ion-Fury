@@ -14,6 +14,8 @@ void Player::Awake()
 	g_instance = this;
 
 	m_controller = gameObject->AddComponent<FPSCharacterController>();
+
+	m_cardKey = true;
 }
 
 void Player::Update()
