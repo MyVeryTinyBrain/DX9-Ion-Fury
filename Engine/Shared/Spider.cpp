@@ -126,16 +126,17 @@ void Spider::OnDamage(DamageParameters& params)
 	m_hasTargetCoord = false;
 
 
-	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/spider/wendigo_hit2.ogg", CHANNELID::SPIDER))
-	{
-		SoundMgr::Play(L"../SharedResource/Sound/spider/wendigo_hit2.ogg", CHANNELID::SPIDER);
-	}
 
 	switch (params.damageType)
 	{
 	case MonsterDamageType::Zizizik:
 		m_animator->SetDefaultAnimation(m_animator->GetDamage(), true);
 		break;
+	}
+		SoundMgr::StopSound(CHANNELID::SPIDER);
+	if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/spider/mechsect_hurt1.ogg", CHANNELID::SPIDER))
+	{
+		SoundMgr::Play(L"../SharedResource/Sound/spider/mechsect_hurt1.ogg", CHANNELID::SPIDER);
 	}
 
 	if (params.includeMonsterHitWorldPoint && params.includeDamageDirection)
@@ -165,15 +166,7 @@ void Spider::OnDead(bool& dead, DamageParameters& params)
 		SoundMgr::Play(L"../SharedResource/Sound/spider/sect_deathSpiral.ogg", CHANNELID::SPIDER);
 	}
 
-	int dieIndex = rand() % (int)SpiderSpriteAnimator::DIE_SPIDER::MAX;
-
-
-	if (params.damageType == MonsterDamageType::Explosion)
-	{
-		dieIndex = (int)MonsterDamageType::Explosion;
-	}
-
-	m_animator->PlayDie((SpiderSpriteAnimator::DIE_SPIDER)dieIndex);
+	m_animator->PlayDie(SpiderSpriteAnimator::DIE_SPIDER::DIE_HEADSHOT);
 }
 
 void Spider::MoveToTarget()
@@ -245,6 +238,9 @@ void Spider::SetTargetCoord(Vec3 xzCoord)
 
 void Spider::Attack()
 {
+	if (m_animator->IsPlayingDamage() | m_animator->IsPlayingDie())
+		return;
+
 	if (m_attackCount > 0)
 	{
 		--m_attackCount;
@@ -281,6 +277,8 @@ void Spider::JumpCheck()
 			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player) | (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::All, m_body);
 			break;
 		case Spider::JumpType::WEB:
+			if (m_animator->IsPlayingDamage() | m_animator->IsPlayingDie())
+				return;
 			m_hasJump = Physics::Raycast(hit1, ray1, (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::All, m_body);
 			break;
 		}

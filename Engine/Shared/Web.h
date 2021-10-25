@@ -1,6 +1,6 @@
 #pragma once
 
-class SpiderSpriteAnimator;
+class WebSpriteAnimator;
 
 class Web : public Component
 {
@@ -16,7 +16,7 @@ class Web : public Component
 
 private:
 
-	SpiderSpriteAnimator* m_animator = nullptr;
+	WebSpriteAnimator* m_animator = nullptr;
 
 	Rigidbody* m_body = nullptr;
 
@@ -33,5 +33,7 @@ private:
 	BoxCollider* m_collider = nullptr;
 
 	GameObject* m_colliderObj = nullptr;
+
+	float m_deadtime = 0.f;
 };
 

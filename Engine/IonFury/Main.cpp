@@ -38,7 +38,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	
 	AmmoBackup::GetInstance()->Backup();
 
+
 	SceneManager::ChangeScene(new TestScene3);
+
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)
