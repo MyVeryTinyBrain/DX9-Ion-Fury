@@ -221,18 +221,19 @@ bool Deacon::WallTest(const Vec3& direction) const
 void Deacon::MakeFlyEffect()
 {
 
-    createEffect += Time::DeltaTime();
+    //createEffect += Time::DeltaTime();
 
-    if (createEffect > 0.2f)
-    {
-        auto obj = CreateGameObject();
-        float depth = (9.81f - Clamp(m_body->velocity.magnitude(), 0, 9.81f)) / 9.81f + 0.01f;
 
-        obj->transform->position = m_renderer->transform->position - m_renderer->transform->forward * depth * 0.01f;
-        obj->transform->scale = m_renderer->transform->scale;
-        auto effect  = obj->AddComponent<DeaconflyEffect>();
-        createEffect = 0;
-    }
+    //if (createEffect > 0.1f)
+    //{
+    //    auto obj = CreateGameObject();
+    //    float depth = (9.81f - Clamp(m_body->velocity.magnitude(), 0, 9.81f)) / 9.81f + 0.01f;
+
+    //    obj->transform->position = m_renderer->transform->position - m_renderer->transform->forward * depth * 0.01f;
+    //    obj->transform->scale = m_renderer->transform->scale;
+    //    auto effect  = obj->AddComponent<DeaconflyEffect>();
+    //    createEffect = 0;
+    //}
 }
 
 void Deacon::SetBehavior(Behavior value)
@@ -301,7 +302,7 @@ void Deacon::OnIdle()
 {
     m_idleAccumulate = 0.0f;
 
-    m_animator->PlayIdle ();
+    m_animator->PlayMove(DeaconSpriteAnimator::DIR_DECACONE::FRONT);
 }
 
 void Deacon::Idle()
@@ -326,7 +327,8 @@ void Deacon::OnMoveToPlayer()
     {
         return;
     }
-
+    m_animator->PlayMove(DeaconSpriteAnimator::DIR_DECACONE::FRONT);
+    
     Vec3 target = Player::GetInstance()->transform->position;
     float d = GetXZDistance(target);
     SoundMgr::Play(L"../SharedResource/Sound/drone/Deaconfly.ogg", CHANNELID::DEACONMOVE);
@@ -404,7 +406,7 @@ void Deacon::MoveToPlayer()
     }
     else
     {
-        m_animator->PlayIdle();
+        m_animator->PlayMove(DeaconSpriteAnimator::DIR_DECACONE::FRONT);
     }
 
     if (d < 4.0f && dir < Vec3(0,3,0))
@@ -571,7 +573,7 @@ void Deacon::ShootBall()
 
     if (m_shootWait > 0)
     {
-        SoundMgr::Play(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DEACONATTACK);
+        SoundMgr::PlayContinue(L"../SharedResource/Sound/drone/laser.ogg", CHANNELID::DEACONATTACK);
         m_shootWait -= Time::DeltaTime();
         return;
     }

@@ -86,12 +86,7 @@ void DeaconSpriteAnimator::Awake()
 
 	m_flyeffect = new SpriteAnimation;
 	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly0.png");
-	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly1.png");
-	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly2.png");
-	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly3.png");
-	m_flyeffect->AddTexture(L"../SharedResource/Texture/Deacon/Effect/fly4.png");
 	m_flyeffect->interval = 0.1f;
-	m_flyeffect->isLoop = true;
 
 	m_Idle = new SpriteAnimation;
 	m_Idle->AddTexture(L"../SharedResource/Texture/Deacon/Deacon_move_front0.png");
