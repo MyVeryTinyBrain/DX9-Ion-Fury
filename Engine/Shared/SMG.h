@@ -6,6 +6,8 @@ class SMG : public Weapon
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(Update);
 
 	OverrideComponentFunction(LateUpdate);

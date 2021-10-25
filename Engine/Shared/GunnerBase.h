@@ -93,5 +93,15 @@ protected:
 	BehaviorType m_behavior = BehaviorType::Idle;
 
 	bool m_holdPosition = false;
+
+protected:
+
+	enum { HURT_SOUND_MAX = 3, DEATH_SOUND_MAX = 2, GUN_SOUND_MAX = 7 };
+
+	static int g_hurtSoundIndex;
+
+	static int g_deathSoundIndex;
+
+	static int g_gunSoundIndex;
 };
 

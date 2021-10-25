@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "shared_stdafx.h"
 #include "MapLoad.h"
 #include "MapObject.h"
 
