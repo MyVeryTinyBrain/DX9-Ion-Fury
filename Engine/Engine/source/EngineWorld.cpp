@@ -29,9 +29,9 @@ HRESULT EngineWorld::InitializeWithShowWindow(HINSTANCE hInst, int width, int he
 
 	PhysicsDevice::GetInstance()->Initialize();
 
-	BuiltIn::MakeBuiltInResources();
+	//BuiltIn::MakeBuiltInResources();
 
-	SharedResourceLoader::LoadSharedResources();
+	//SharedResourceLoader::LoadSharedResources();
 
 	m_initialized = true;
 
