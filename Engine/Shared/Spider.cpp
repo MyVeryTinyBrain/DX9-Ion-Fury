@@ -113,13 +113,13 @@ void Spider::OnDestroy()
 Collider* Spider::InitializeCollider(GameObject* colliderObj)
 {
 
-	{
-		auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
-		renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
+	//{
+	//	auto renderer = colliderObj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+	//	renderer->material = Resource::FindAs<Material>(BuiltInNolightTransparentMaterial);
 
-	}
+	//}
 	m_sphereCollider = colliderObj->AddComponent<SphereCollider>();
 	m_sphereCollider->transform->localScale = Vec3::one() * 1.25f;
 
