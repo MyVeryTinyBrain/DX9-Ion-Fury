@@ -31,23 +31,23 @@ void TestScene2::OnLoad(Scene* beforeScene)
 		skybox->SetBottomTexture(L"../SharedResource/Texture/skybox_cloudy/bottom.png");
 	}
 
-	{   // Create directional light
-		auto obj = CreateGameObject();
+	//{   // Create directional light
+	//	auto obj = CreateGameObject();
 
-		auto renderer = obj->AddComponent<UserMeshRenderer>();
-		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
+	//	auto renderer = obj->AddComponent<UserMeshRenderer>();
+	//	renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInSphereUserMesh);
+	//	renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/Dev.png"));
 
-		obj->transform->position = Vec3(0, 5, 0);
-		obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
-		auto light = obj->AddComponent<DirectionalLight>();
-		light->ambientFactor = 0.5f;
-	}
+	//	obj->transform->position = Vec3(0, 5, 0);
+	//	obj->transform->forward = Quat::FromEuler(25, 0, 45) * Vec3::down();
+	//	auto light = obj->AddComponent<DirectionalLight>();
+	//	light->ambientFactor = 0.5f;
+	//}
 
-	{   // Create test player
-		auto obj = CreateGameObject();
-		auto controller = obj->AddComponent<Player>();
-	}
+	//{   // Create test player
+	//	auto obj = CreateGameObject();
+	//	auto controller = obj->AddComponent<Player>();
+	//}
 
 	//{    // Create Object
 	//    auto obj = CreateGameObject();

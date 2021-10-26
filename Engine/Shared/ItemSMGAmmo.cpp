@@ -9,5 +9,5 @@ wstring ItemSMGAmmo::InitTextureLocalPath() const
 
 void ItemSMGAmmo::OnTrigger(Player* player, bool& destroy)
 {
-    player->AddAmmo(WeaponTypes::SMG, AmmoTypes::SMG, 20);
+    player->AddAmmo(WeaponTypes::SMG, AmmoTypes::SMG, 40);
 }

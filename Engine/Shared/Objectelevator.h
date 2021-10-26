@@ -9,6 +9,8 @@ class Objectelevator :  public Component, public IUsable, public IDontDeactive
 
 	OverrideComponentFunction(Update);
 
+	virtual void OnDisable() override;
+
 public:
 
 	void SetGoUpElevator();
@@ -49,11 +51,11 @@ private:
 
 	GameObject* m_B1button = nullptr;
 
-	GameObject* m_1Floorbutton = nullptr;
+	bool m_1Floor= true;
 
-	GameObject* m_2Floorbutton = nullptr;
+	bool m_2Floor = false;
 
-	bool GoUpElevator = false;
+	bool MoveElevator = false;
 
 	bool GoDownElevator = false;
 
@@ -63,8 +65,12 @@ private:
 	bool closedoor = false;
 
 
+
+
+
 	Vec3  leftfirstlocalpositon;
 	Vec3  rightfirstlocalpositon;
+	float closedt = 0.f;
 
 	// IUsable을(를) 통해 상속됨
 	virtual void OnUse(bool valid) override;

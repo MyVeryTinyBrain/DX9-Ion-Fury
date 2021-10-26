@@ -11,6 +11,8 @@ class ObjectCardScreen : public Component, public IUsable, public IDontDeactive
 
 	virtual void OnUse(bool valid) override;
 
+	virtual void OnDisable() override;
+
 private:
 
 	GameObject* m_root = nullptr;

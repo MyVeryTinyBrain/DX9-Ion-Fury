@@ -9,7 +9,7 @@ void SkullReplica::Awake()
 {
     Monster::Awake();
 
-	m_hp = 13;
+	m_hp = 10;
 
     m_body->useGravity = false;
     m_body->isKinematic = true;

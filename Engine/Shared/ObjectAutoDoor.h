@@ -11,6 +11,8 @@ class ObjectAutoDoor : public Component, public IUsable, public IDontDeactive
 
 	virtual void OnUse(bool valid) override;
 
+	virtual void OnDisable() override;
+
 public:
 
 	void Toggle();

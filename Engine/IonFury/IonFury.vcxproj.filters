@@ -25,6 +25,18 @@
     <ClCompile Include="Map1.cpp">
       <Filter>SceneMap</Filter>
     </ClCompile>
+    <ClCompile Include="Map3.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Map2.cpp">
+      <Filter>SceneMap</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainSceneComponent.cpp">
+      <Filter>MainScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -60,6 +72,18 @@
     <ClInclude Include="Map1.h">
       <Filter>SceneMap</Filter>
     </ClInclude>
+    <ClInclude Include="Map2.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Map3.h">
+      <Filter>SceneMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainSceneComponent.h">
+      <Filter>MainScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="IonFury.ico">
@@ -78,6 +102,9 @@
     </Filter>
     <Filter Include="SceneMap">
       <UniqueIdentifier>{bf717b3f-ab87-4994-bb80-e96d96ebc621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainScene">
+      <UniqueIdentifier>{5e89fea1-b818-467c-bc3c-374f5e60ff4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

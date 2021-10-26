@@ -28,8 +28,6 @@ void SoundMgr::Initialize()
 
 	// 1. 시스템 포인터, 2. 사용할 가상채널 수 , 초기화 방식) 
 	FMOD_System_Init(m_pSystem, 64, FMOD_INIT_NORMAL, NULL);
-
-	LoadSoundFile();
 }
 void SoundMgr::Release()
 {
@@ -102,7 +100,7 @@ void SoundMgr::SetVolume(float volume, CHANNELID eID)
 	FMOD_System_Update(i.m_pSystem);
 }
 
-void SoundMgr::PlayBGM(const wchar_t* pSoundKey)
+void SoundMgr::PlayBGM(const wchar_t* pSoundKey, float volume)
 {
 	auto& i = *g_pInstance;
 
@@ -116,7 +114,9 @@ void SoundMgr::PlayBGM(const wchar_t* pSoundKey)
 	if (iter == i.m_mapSound.end())
 		return;
 
+	FMOD_Channel_Stop(i.m_pChannelArr[BGM]);
 	FMOD_System_PlaySound(i.m_pSystem, iter->second, NULL, FALSE, &i.m_pChannelArr[BGM]);
+	FMOD_Channel_SetVolume(i.m_pChannelArr[BGM], volume);
 	FMOD_Channel_SetMode(i.m_pChannelArr[BGM], FMOD_LOOP_NORMAL);
 	FMOD_System_Update(i.m_pSystem);
 }
@@ -216,11 +216,15 @@ void SoundMgr::LoadSoundFile()
 
 		FMOD_SOUND* pSound = nullptr;
 
-		FMOD_RESULT eRes = FMOD_System_CreateSound(m_pSystem, strPath.c_str(), FMOD_CREATESAMPLE, 0, &pSound);
+		FMOD_RESULT eRes = FMOD_System_CreateSound(m_pSystem, strPath.c_str(), FMOD_CREATECOMPRESSEDSAMPLE, 0, &pSound);
 
 		if (eRes == FMOD_OK)
 		{
 			m_mapSound.emplace(wstrPath, pSound);
+		}
+		else
+		{
+			int test = 0;
 		}
 	}
 

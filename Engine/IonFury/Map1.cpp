@@ -1,5 +1,15 @@
 #include "stdafx.h"
 #include "Map1.h"
+#include "Map2.h"
+#include <SoundMgr.h>
+#include "MainScene.h"
+
+void Map1::OnLoad(Scene* beforeScene)
+{
+    SceneMap::OnLoad(beforeScene);
+
+    SoundMgr::PlayBGM(L"../SharedResource/Sound/music/map3.mp3");
+}
 
 wstring Map1::GetMapLocalPath() const
 {
@@ -8,7 +18,7 @@ wstring Map1::GetMapLocalPath() const
 
 Scene* Map1::GetNextScene() const
 {
-    return nullptr;
+    return new MainScene;
 }
 
 IClonable* Map1::Clone()

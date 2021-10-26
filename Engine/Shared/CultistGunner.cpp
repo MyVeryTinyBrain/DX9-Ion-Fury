@@ -44,5 +44,6 @@ void CultistGunner::ShootToPlayer()
         g_gunSoundIndex = 0;
     }
 
-    SoundMgr::Play(buffer, CHANNELID::GUNNER_GUN_FIRE0);
+    SoundMgr::Play(buffer, CHANNELID::GUNNER_GUN_FIRE1);
+    SoundMgr::SetVolume(0.5f, CHANNELID::GUNNER_GUN_FIRE1);
 }

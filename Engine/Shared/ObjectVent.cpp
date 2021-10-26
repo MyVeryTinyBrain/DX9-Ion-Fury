@@ -30,8 +30,8 @@ void ObjectVent::Awake()
 
 	{
 		auto colliderObj = CreateGameObjectToChild(m_root->transform);
-		colliderObj->transform->localPosition = Vec3(0, 5.5f, 0);
-		colliderObj->transform->localScale = Vec3(1, 10, 1);
+		colliderObj->transform->localPosition = Vec3(0, 2.5f, 0);
+		colliderObj->transform->localScale = Vec3(1, 5, 1);
 
 		if (Time::DeltaTime() == 0)
 		{
@@ -94,4 +94,17 @@ void ObjectVent::Update()
 		//Player::GetInstance()->transform->position -= transform->forward * Time::DeltaTime() * 10.0f;
 		Player::GetInstance()->rigidbody->AddForce(transform->up * 10, ForceMode::Force);
 	}
+}
+
+void ObjectVent::OnUse(bool valid)
+{
+	if (valid)
+	{
+		m_spin = true;
+	}
+}
+
+void ObjectVent::OnDisable()
+{
+	m_spin = false;
 }
