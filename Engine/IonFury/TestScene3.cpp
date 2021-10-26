@@ -30,7 +30,7 @@ void TestScene3::OnLoad(Scene* beforeScene)
 
 	//////¸Ê±ñ°Å 
 	//TotalLoad::Load(L"../Data/Total/seongyeontest.txt");
-	TotalLoad::Load(L"../Data/Total/seongyeontest.txt");
+	TotalLoad::Load(L"../Data/Total/seongyeontest1111.txt");
 	{   // Create test player
 		auto obj = CreateGameObject();
 		obj->transform->position = Vec3(0, 3, -0);

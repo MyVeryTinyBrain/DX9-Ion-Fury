@@ -12,7 +12,8 @@ void Objectelevator::Awake()
 		auto debugRendererObj = CreateGameObjectToChild(transform);
 		auto renderer = debugRendererObj->AddComponent<UserMeshRenderer>();
 		renderer->material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/seongyeonfile/Tile34.png"));
+
 		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
 	}
 
@@ -37,7 +38,8 @@ void Objectelevator::Awake()
 		auto renderer = m_leftdoor->AddComponent<UserMeshRenderer>();
 		//renderer->material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
 		renderer->material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
+		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/seongyeonfile/Tile32.png"));
+
 		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
 	}
 
@@ -60,7 +62,8 @@ void Objectelevator::Awake()
 		auto renderer = m_rightdoor->AddComponent<UserMeshRenderer>();
 		//renderer->material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
 		renderer->material = Resource::FindAs<Material>(BuiltInGeometryMaterial);
-		renderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentBlueTexture));
+		renderer->SetTexture(0, Resource::FindAs<Texture>(L"../SharedResource/Texture/seongyeonfile/Tile32.png"));
+
 		renderer->userMesh = Resource::FindAs<UserMesh>(BuiltInCubeUserMesh);
 	}
 
