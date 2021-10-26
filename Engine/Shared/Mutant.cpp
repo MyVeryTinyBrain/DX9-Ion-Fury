@@ -28,7 +28,7 @@ void Mutant::Awake()
 	m_renderer = CreateRenderer();
 	m_renderer->freezeX = true;
 	m_renderer->freezeZ = true;
-	m_renderer->transform->localPosition = Vec3(0, 0.47f, 0);
+	m_renderer->transform->localPosition = Vec3(0, 0.45f, 0);
 
 	m_animator = m_renderer->gameObject->AddComponent<MutantSpriteAnimator>();
 

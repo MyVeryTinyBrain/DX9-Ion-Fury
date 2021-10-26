@@ -13,7 +13,7 @@ void BossEnemySpawnTrigger::Awake()
 
 	g_triggers.push_back(this);
 
-	m_spawnTimer = m_spawnDelay + float(rand() % 20);
+	m_spawnTimer = m_spawnDelay + float(rand() % 15);
 }
 
 void BossEnemySpawnTrigger::Update()
@@ -28,7 +28,7 @@ void BossEnemySpawnTrigger::Update()
 
 	if (m_spawnTimer <= 0)
 	{
-		m_spawnTimer = m_spawnDelay + float(rand() % 15);
+		m_spawnTimer = m_spawnDelay + float(rand() % 17);
 
 		Component* comp = m_connected.front().GetPointer();
 
