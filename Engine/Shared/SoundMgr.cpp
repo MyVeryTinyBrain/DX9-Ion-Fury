@@ -28,8 +28,6 @@ void SoundMgr::Initialize()
 
 	// 1. 시스템 포인터, 2. 사용할 가상채널 수 , 초기화 방식) 
 	FMOD_System_Init(m_pSystem, 64, FMOD_INIT_NORMAL, NULL);
-
-	LoadSoundFile();
 }
 void SoundMgr::Release()
 {
@@ -218,11 +216,15 @@ void SoundMgr::LoadSoundFile()
 
 		FMOD_SOUND* pSound = nullptr;
 
-		FMOD_RESULT eRes = FMOD_System_CreateSound(m_pSystem, strPath.c_str(), FMOD_CREATESAMPLE, 0, &pSound);
+		FMOD_RESULT eRes = FMOD_System_CreateSound(m_pSystem, strPath.c_str(), FMOD_CREATECOMPRESSEDSAMPLE, 0, &pSound);
 
 		if (eRes == FMOD_OK)
 		{
 			m_mapSound.emplace(wstrPath, pSound);
+		}
+		else
+		{
+			int test = 0;
 		}
 	}
 
