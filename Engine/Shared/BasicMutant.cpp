@@ -160,6 +160,12 @@ Collider* BasicMutant::InitializeCollider(GameObject* colliderObj)
 
 void BasicMutant::OnDamage(DamageParameters& params)
 {
+	if (create)
+	{
+		create = false;
+		m_animator->PlayWalk();
+	}
+
 	hitdamage = true;
 	m_hasTargetCoord = false;
 
