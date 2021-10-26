@@ -4,6 +4,7 @@
 #include "SkullBallAnimator.h"
 #include "PhysicsLayers.h"
 #include "Player.h"
+#include "SoundMgr.h"
 
 void SkullBall::Awake()
 {
@@ -23,6 +24,12 @@ void SkullBall::Awake()
 	//	m_debugRenderer->material = Resource::FindAs<Material>(BuiltInTransparentMaterial);
 	//	m_debugRenderer->SetTexture(0, Resource::FindAs<Texture>(BuiltInTransparentGreenTexture));
 	//}
+}
+
+void SkullBall::Start()
+{
+	SoundMgr::Play(L"../SharedResource/Sound/skull/attack/0.ogg", CHANNELID::SKULL_BALL_CREATION);
+	SoundMgr::SetVolume(0.5f, CHANNELID::SKULL_BALL_CREATION);
 }
 
 void SkullBall::LateUpdate()
@@ -77,6 +84,9 @@ void SkullBall::OnTrigger(Collider* collider)
 	MakeExplosionEffect();
 
 	gameObject->Destroy();
+
+	SoundMgr::Play(L"../SharedResource/Sound/skull/explosion/0.ogg", CHANNELID::SKULL_BALL_EXPLOSION);
+	SoundMgr::SetVolume(0.5f, CHANNELID::SKULL_BALL_EXPLOSION);
 }
 
 void SkullBall::MakeExplosionEffect()

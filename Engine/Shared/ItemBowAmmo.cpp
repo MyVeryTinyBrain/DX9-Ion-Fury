@@ -9,5 +9,5 @@ wstring ItemBowAmmo::InitTextureLocalPath() const
 
 void ItemBowAmmo::OnTrigger(Player* player, bool& destroy)
 {
-    player->AddAmmo(WeaponTypes::Bow, AmmoTypes::Arrow, 5);
+    player->AddAmmo(WeaponTypes::Bow, AmmoTypes::Arrow, 10);
 }

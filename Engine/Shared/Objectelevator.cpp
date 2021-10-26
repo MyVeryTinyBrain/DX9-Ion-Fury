@@ -97,6 +97,10 @@ void Objectelevator::Update()
 	ElevatorDoorControl();
 }
 
+void Objectelevator::OnDisable()
+{
+}
+
 void Objectelevator::SetGoUpElevator()
 {
 	MoveElevator = true;

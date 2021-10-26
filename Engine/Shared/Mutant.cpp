@@ -12,8 +12,8 @@ void Mutant::Awake()
 
 	Monster::Awake();
 	m_moveSpeed = 0.f;
-	m_hp = 1000;
-	m_Attackhp = 600;
+	m_hp = 10;
+	m_Attackhp = 5;
 	m_body->mass = 10.f;
 	m_body->interpolate = Interpolate::Extrapolate;
 	m_body->sleepThresholder = 0.5f;
@@ -28,6 +28,7 @@ void Mutant::Awake()
 	m_renderer = CreateRenderer();
 	m_renderer->freezeX = true;
 	m_renderer->freezeZ = true;
+	m_renderer->transform->localPosition = Vec3(0, 0.47f, 0);
 
 	m_animator = m_renderer->gameObject->AddComponent<MutantSpriteAnimator>();
 
@@ -100,7 +101,7 @@ void Mutant::Update()
 			m_animator->SetDefaultAnimation(m_animator->GetWalk());
 			m_hasTargetCoord = true;
 			if (m_hp >= 10)
-				m_moveSpeed = 2.0f;
+				m_moveSpeed = 1.0f;
 		}
 	}
 

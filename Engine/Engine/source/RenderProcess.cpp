@@ -77,6 +77,7 @@ void RenderProcess::Process()
 	{
 		IDirect3DSurface9* mainRenderTarget = nullptr;
 		device->GetRenderTarget(0, &mainRenderTarget);
+		IDirect3DSurface9* newRenderSurface = nullptr;
 
 		Camera* camera = Camera::GetCamera(i);
 
@@ -95,6 +96,8 @@ void RenderProcess::Process()
 			res = device->SetRenderTarget(0, renderSurface);
 
 			device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, GraphicDevice::GetInstance()->GetBackgroundColor(), 1.0f, 0);
+
+			newRenderSurface = renderSurface;
 		}
 		else if (camera->overlapMode)
 		{
@@ -121,7 +124,7 @@ void RenderProcess::Process()
 
 		device->EndScene();
 
-		if (!camera->renderTexture.IsNull())
+		if (!newRenderSurface)
 		{
 			// 렌더 텍스쳐가 있던 경우에는 다시 메인 렌더 타겟으로 되돌립니다.
 

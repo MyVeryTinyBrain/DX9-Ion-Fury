@@ -9,5 +9,5 @@ wstring ItemRevolverAmmo::InitTextureLocalPath() const
 
 void ItemRevolverAmmo::OnTrigger(Player* player, bool& destroy)
 {
-    player->AddAmmo(WeaponTypes::Revolver, AmmoTypes::Revolver, 6);
+    player->AddAmmo(WeaponTypes::Revolver, AmmoTypes::Revolver, 18);
 }

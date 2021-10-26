@@ -8,6 +8,8 @@ class Skull : public Monster
 
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(FixedUpdate);
 
 	OverrideComponentFunction(Update);
@@ -109,5 +111,11 @@ private:
 	float m_replicaLocalDistance = 0.0f;
 
 	Ref<class SkullReplica> m_replicas[REPLICA_MAX];
+
+private:
+
+	enum { HURT_SOUND_MAX = 2 };
+
+	static int g_hurtSoundIndex;
 };
 

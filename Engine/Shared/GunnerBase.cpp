@@ -300,7 +300,12 @@ bool GunnerBase::IsPlayerInSite(Vec3& playerCoord)
 
     PhysicsRay ray(monsterHead, mosterToPlayer, FLT_MAX);
     RaycastHit hit;
-    Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider);
+    bool result = Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain) | (1 << (PxU32)PhysicsLayers::Player), PhysicsQueryType::Collider);
+
+    if (!result)
+    {
+        return false;
+    }
 
     if (hit.collider->layerIndex == (uint8_t)PhysicsLayers::Player)
     {

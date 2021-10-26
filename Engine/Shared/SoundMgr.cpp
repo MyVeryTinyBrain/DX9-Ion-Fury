@@ -102,7 +102,7 @@ void SoundMgr::SetVolume(float volume, CHANNELID eID)
 	FMOD_System_Update(i.m_pSystem);
 }
 
-void SoundMgr::PlayBGM(const wchar_t* pSoundKey)
+void SoundMgr::PlayBGM(const wchar_t* pSoundKey, float volume)
 {
 	auto& i = *g_pInstance;
 
@@ -116,7 +116,9 @@ void SoundMgr::PlayBGM(const wchar_t* pSoundKey)
 	if (iter == i.m_mapSound.end())
 		return;
 
+	FMOD_Channel_Stop(i.m_pChannelArr[BGM]);
 	FMOD_System_PlaySound(i.m_pSystem, iter->second, NULL, FALSE, &i.m_pChannelArr[BGM]);
+	FMOD_Channel_SetVolume(i.m_pChannelArr[BGM], volume);
 	FMOD_Channel_SetMode(i.m_pChannelArr[BGM], FMOD_LOOP_NORMAL);
 	FMOD_System_Update(i.m_pSystem);
 }

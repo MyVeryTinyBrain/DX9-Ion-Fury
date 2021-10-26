@@ -14,6 +14,8 @@ public:
 
 	virtual void OnUse(bool valid) override;
 
+	virtual void OnDisable() override;
+
 	void Activate();
 
 private:

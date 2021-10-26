@@ -9,6 +9,8 @@ class Objectelevator :  public Component, public IUsable, public IDontDeactive
 
 	OverrideComponentFunction(Update);
 
+	virtual void OnDisable() override;
+
 public:
 
 	void SetGoUpElevator();

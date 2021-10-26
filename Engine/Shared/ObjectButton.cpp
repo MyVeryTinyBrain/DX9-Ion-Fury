@@ -46,3 +46,7 @@ void ObjectButton::OnUse(bool valid)
 
 	SoundMgr::Play(L"../SharedResource/Sound/input/button.ogg", CHANNELID::OBJECT_INPUT);
 }
+
+void ObjectButton::OnDisable()
+{
+}

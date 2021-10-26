@@ -59,6 +59,10 @@ void ObjectMiniGame::OnUse(bool valid)
 	}
 }
 
+void ObjectMiniGame::OnDisable()
+{
+}
+
 void ObjectMiniGame::Activate()
 {
 	m_MiniGame = CreateGameObject();

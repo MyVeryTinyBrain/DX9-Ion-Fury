@@ -44,7 +44,7 @@ private:
 
 	UserMeshRenderer* m_renderer = nullptr;
 
-	int m_damage = 30;
+	int m_damage = 20;
 
 	float m_selfDestroyCounter = 10.0f;
 

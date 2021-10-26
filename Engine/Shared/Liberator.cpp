@@ -45,4 +45,5 @@ void Liberator::ShootToPlayer()
     }
 
     SoundMgr::Play(buffer, CHANNELID::GUNNER_GUN_FIRE0);
+    SoundMgr::SetVolume(0.5f, CHANNELID::GUNNER_GUN_FIRE0);
 }

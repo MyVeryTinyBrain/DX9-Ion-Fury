@@ -13,7 +13,7 @@ void BossEnemySpawnTrigger::Awake()
 
 	g_triggers.push_back(this);
 
-	m_spawnTimer = m_spawnDelay + float(rand() % 15);
+	m_spawnTimer = m_spawnDelay + float(rand() % 20);
 }
 
 void BossEnemySpawnTrigger::Update()

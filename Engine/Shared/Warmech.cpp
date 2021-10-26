@@ -52,6 +52,18 @@ void Warmech::Awake()
 	}
 }
 
+void Warmech::Start()
+{
+	Monster::Start();
+
+	if (Time::TimeScale() == 0)
+	{
+		return;
+	}
+
+	SoundMgr::PlayBGM(L"../SharedResource/Sound/music/warmech.mp3");
+}
+
 void Warmech::FixedUpdate()
 {
 	Monster::FixedUpdate();
@@ -317,10 +329,7 @@ void Warmech::Attack()
 			--m_attackCount;
 			m_bodyAnimator->PlayMissile();
 
-			if (!SoundMgr::IsPlaying(L"../SharedResource/Sound/warmech/mech_grenadelaunch.ogg", CHANNELID::WARMECH))
-			{
-				SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_grenadelaunch.ogg", CHANNELID::WARMECH);
-			}
+			SoundMgr::Play(L"../SharedResource/Sound/warmech/mech_grenadelaunch.ogg", CHANNELID::WARMECH);
 
 			auto obj = CreateGameObject();
 			obj->transform->position = Vec3(transform->position.x, transform->position.y + 0.45f, transform->position.z) + transform->right;

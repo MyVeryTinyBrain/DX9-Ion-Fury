@@ -25,6 +25,8 @@ struct AmmoBackupData
 	int bowLoadedAmmo = 0;
 
 	int bowTotalAmmo = 0;
+
+	int weaponIndex = 0;
 };
 
 class AmmoBackup

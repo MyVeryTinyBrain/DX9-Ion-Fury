@@ -11,8 +11,8 @@ void BasicMutant::Awake()
 
 	Monster::Awake();
 
-	m_hp = 1000; //15
-	AttackHp = 700; //7
+	m_hp = 15; //15
+	AttackHp = 7; //7
 	m_moveSpeed = 0;
 	m_body->mass = 5.f;
 	m_body->interpolate = Interpolate::Extrapolate;
