@@ -4,6 +4,7 @@
 #include "ObjectButton.h"
 #include "Trigger.h"
 
+
 void Objectelevator::Awake()
 {
 
@@ -16,7 +17,7 @@ void Objectelevator::Awake()
 	}
 
 
-	m_root = CreateGameObjectToChild(transform);
+	m_root = this->GetGameObject();
 
 	{
 		auto body = m_root->AddComponent<Rigidbody>();
@@ -29,8 +30,8 @@ void Objectelevator::Awake()
 
 	m_leftdoor = CreateGameObjectToChild(m_root->transform);
 	m_leftdoor->transform->localScale = Vec3(0.5f, 0.7f, 0.1f);
-	m_leftdoor->transform->localEulerAngle = Vec3(90.f, 0.0f, 0.f);
-	m_leftdoor->transform->localPosition = Vec3(0.25f, 0.5f, 4.5f);
+	m_leftdoor->transform->localEulerAngle = Vec3(-90.f, 0.0f, 0.f);
+	m_leftdoor->transform->localPosition = Vec3(0.25f, 0.5f, 20.5f);
 	leftfirstlocalpositon = m_leftdoor->transform->localPosition;
 	{
 		auto renderer = m_leftdoor->AddComponent<UserMeshRenderer>();
@@ -52,7 +53,8 @@ void Objectelevator::Awake()
 	m_rightdoor = CreateGameObjectToChild(m_root->transform);
 	m_rightdoor->transform->localScale = Vec3(0.5f, 0.7f, 0.1f);
 	m_rightdoor->transform->localEulerAngle = Vec3(90.f, 0.0f, 0.f);
-	m_rightdoor->transform->localPosition = Vec3(-0.25f, 0.5f, 4.5f);// ÁÂ¿ì /z y  //-0.33
+	m_rightdoor->transform->localPosition = Vec3(-0.25f, 0.5f, 20.5f);// ÁÂ¿ì /z y  //-0.33
+
 	rightfirstlocalpositon = m_rightdoor->transform->localPosition;
 	{
 		auto renderer = m_rightdoor->AddComponent<UserMeshRenderer>();
@@ -77,11 +79,13 @@ void Objectelevator::Awake()
 
 void Objectelevator::Update()
 {
-	//if (Input::GetKey(Key::G))
-	//{
-	//	opendoor = true;
-	//	closedoor = false;
-	//}
+	if (Input::GetKey(Key::G))
+	{
+		opendoor = true;
+		closedoor = false;
+	}
+
+	Vec3 PlayerPos = Player::GetInstance()->transform->position; //		Vec3 targetCoord = Player::GetInstance()->transform->position;
 
 	//if (Input::GetKey(Key::F))
 	//{
@@ -99,18 +103,16 @@ void Objectelevator::OnDisable()
 
 void Objectelevator::SetGoUpElevator()
 {
-	GoUpElevator = true;
-	GoDownElevator = false;
+	MoveElevator = true;
 }
 
 void Objectelevator::SetGoDownElevator()
 {
-	GoUpElevator = false;
-	GoDownElevator = true;
+	MoveElevator = false;
 }
 bool Objectelevator::GetUpElevator()
 {
-	return GoUpElevator;
+	return MoveElevator;
 }
 bool Objectelevator::GetDownElevator()
 {
@@ -135,15 +137,16 @@ void Objectelevator::ElevatorDoorControl()
 		m_leftdoor->transform->localPosition += Vec3(0.1f, 0, 0) * Time::DeltaTime();
 		m_rightdoor->transform->localPosition -= Vec3(0.1f, 0, 0) * Time::DeltaTime();
 
-
+			closedt += Time::DeltaTime(); 
 		if (m_leftdoor->transform->localPosition.x >= 0.6f)
 		{
 			opendoor = false;
-			closedoor = true;
+			if(closedt>2.f)
+				closedoor = true;
 		}
 	}
 
-	if (closedoor) //´ÝÈ÷´Â°Å
+	if (closedoor)//´ÝÈ÷´Â°Å
 	{
 		m_leftdoor->transform->localPosition -= Vec3(0.1f, 0, 0) * Time::DeltaTime();
 		m_rightdoor->transform->localPosition += Vec3(0.1f, 0, 0) * Time::DeltaTime();
@@ -151,7 +154,40 @@ void Objectelevator::ElevatorDoorControl()
 		if (m_leftdoor->transform->localPosition.x <= 0.25f)
 		{
 			closedoor = false;
-			return;
+			if (m_2Floor)
+				return;
+			MoveElevator = true;
+		}
+	}
+
+	if (MoveElevator && m_1Floor) //¿Ã¶ó°¡´Â°Å 
+	{
+		cout << transform->position.y << endl;
+		if (transform->position.y <= 9.6f)
+		{
+			transform->position += Vec3(0, 1.2f, 0) * Time::DeltaTime();
+		}
+		else
+		{
+			opendoor = true;
+			MoveElevator = false;
+			m_1Floor = false;
+			m_2Floor = true;
+		}
+	}
+
+	if (MoveElevator && m_2Floor)
+	{
+		if (transform->position.y >= 0.f)
+		{
+			transform->position -= Vec3(0, 1.2f, 0) * Time::DeltaTime();
+
+		}
+		else
+		{
+			MoveElevator = false;
+			m_1Floor = true;
+			m_2Floor = false;
 		}
 	}
 }
