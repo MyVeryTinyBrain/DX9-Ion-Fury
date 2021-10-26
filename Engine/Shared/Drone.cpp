@@ -192,11 +192,12 @@ void Drone::Moving(MovingType type)
 
 			if (m_deltatime < 1.5f)
 			{
-				if (distanceY < 10.1f)
+				if (distanceY < 6.1f)
 					transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
 			}
 			else
 			{
+			
 				transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
 
 				if (m_deltatime > 3.f)
