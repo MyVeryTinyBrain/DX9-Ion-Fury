@@ -305,8 +305,6 @@ void Warmech::Attack()
 
 	if (m_attackCount > 0)
 	{
-		cout << "ac: " << m_attackCount << endl;
-
 		switch (actionType)
 		{
 		case Warmech::ActionType::Bullet:
