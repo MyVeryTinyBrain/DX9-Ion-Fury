@@ -26,4 +26,9 @@ enum class OverlayRenderOrders
 	Crosshair = 100000,
 
 	Fade,
+
+	// Main Scene
+	Logo,
+	PressAnyKey,
+	LogoFade,
 };

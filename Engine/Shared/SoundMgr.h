@@ -107,7 +107,7 @@ public:
 	static bool IsPlaying(CHANNELID eID);
 	static bool IsPlaying(const wchar_t* pSoundKey, CHANNELID eID);
 
-private:
+public:
 	void LoadSoundFile();
 
 private:
