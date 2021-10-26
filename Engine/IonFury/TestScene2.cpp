@@ -202,8 +202,8 @@ void TestScene2::OnLoad(Scene* beforeScene)
 	//		auto obj = CreateGameObject();
 	//		obj->transform->position = Vec3(i * 4, 2, j * 4) + Vec3(-10, 0, -10);
 	//		obj->transform->eulerAngle = Vec3(0, 90, 0);
-	//		obj->AddComponent<Drone>();
-	//		//obj->AddComponent<Spider>();
+	//		//obj->AddComponent<Drone>();
+	//		obj->AddComponent<Spider>();
 	//	}
 	//}
 //
