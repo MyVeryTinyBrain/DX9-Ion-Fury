@@ -13,7 +13,7 @@ void Drone::Awake()
 	Monster::Awake();
 
 	m_hp = 10;
-	m_moveSpeed = 4.0f;
+	m_moveSpeed = 2.0f;
 
 	m_body->mass = 1.f;
 	m_body->interpolate = Interpolate::Extrapolate;

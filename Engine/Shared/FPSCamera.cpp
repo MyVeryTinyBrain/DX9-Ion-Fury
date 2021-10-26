@@ -18,7 +18,7 @@ void FPSCamera::Awake()
 	MoveMouseToCenter();
 
 	// 난 이 감도가 편함.
-	//m_sensitivity = 0.15f;
+	m_sensitivity = 0.15f;
 }
 
 void FPSCamera::Update()

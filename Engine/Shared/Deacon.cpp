@@ -18,7 +18,7 @@ void Deacon::Awake()
   //  gameObject->transform->scale = Vec3::one() * 5.f;
 
     m_hp = 15;
-    m_moveSpeed = 4.f;
+    m_moveSpeed = 2.f;
 
     m_body->mass = 300.f;
     m_body->interpolate = Interpolate::Extrapolate;

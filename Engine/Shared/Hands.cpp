@@ -7,6 +7,8 @@
 #include "Chaingun.h"
 #include "Bow.h"
 
+#include "AmmoBackup.h"
+
 void Hands::Awake()
 {
 	m_handsObject = CreateGameObjectToChild(transform);
@@ -21,7 +23,7 @@ void Hands::Awake()
 
 void Hands::Start()
 {
-	SetActiveWeapon(0);
+	SetActiveWeapon(AmmoBackup::GetInstance()->backup->weaponIndex);
 }
 
 void Hands::Update()
@@ -29,6 +31,8 @@ void Hands::Update()
 	ChangeWeapon();
 
 	InputToActiveWeapon();
+
+	AmmoBackup::GetInstance()->current->weaponIndex = m_activeWeaponIndex;
 }
 
 void Hands::LateUpdate()

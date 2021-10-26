@@ -68,11 +68,11 @@ private:
 
 	int m_totalAmmo = 300;
 
-	int m_ammoLoadMax = 30;
+	int m_ammoLoadMax = 20;
 
-	int m_leftAmmo = 30;
+	int m_leftAmmo = 20;
 
-	int m_rightAmmo = 30;
+	int m_rightAmmo = 20;
 
 	GameObject* m_hansParentObj = nullptr;
 

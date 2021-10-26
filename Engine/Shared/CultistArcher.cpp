@@ -52,4 +52,5 @@ void CultistArcher::ShootToPlayer()
     arrow->SetTargetToPlayer();
 
     SoundMgr::Play(L"../SharedResource/Sound/gunner/fire/bow/0.ogg", CHANNELID::GUNNER_BOW_FIRE);
+    SoundMgr::SetVolume(0.5f, CHANNELID::GUNNER_BOW_FIRE);
 }

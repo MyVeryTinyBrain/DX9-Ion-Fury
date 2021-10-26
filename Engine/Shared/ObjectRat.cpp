@@ -117,15 +117,15 @@ void ObjectRat::Update()
         m_animator->PlayWalk();
     }
 
-    PhysicsRay ray(transform->position + Vec3::up() * m_radius, Vec3::down(), 50.0f);
-    RaycastHit hit;
-    if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider))
-    {
-        if (Vec3::Distance(hit.point, transform->position) < m_radius)
-        {
-            transform->position = hit.point + Vec3::up() * m_radius;
-        }
-    }
+    //PhysicsRay ray(transform->position + Vec3::up() * m_radius, Vec3::down(), 50.0f);
+    //RaycastHit hit;
+    //if (Physics::Raycast(hit, ray, (1 << (PxU32)PhysicsLayers::Terrain), PhysicsQueryType::Collider))
+    //{
+    //    if (Vec3::Distance(hit.point, transform->position) < m_radius)
+    //    {
+    //        transform->position = hit.point + Vec3::up() * m_radius;
+    //    }
+    //}
 }
 
 void ObjectRat::OnDestroy()

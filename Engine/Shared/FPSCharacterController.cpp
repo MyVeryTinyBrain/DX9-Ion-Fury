@@ -55,7 +55,7 @@ void FPSCharacterController::FixedUpdate()
             m_body->ApplyBodyTransformFromGameObject();
             m_hasGround = false;
 
-            int soundIndex = rand() % 3;
+            int soundIndex = rand() % 5;
             wchar_t buffer[256];
             swprintf_s(buffer, L"../SharedResource/Sound/footstep/jump%d.ogg", soundIndex);
             SoundMgr::Play(buffer, CHANNELID::PLAYER_FOOTSTEP_JUMP);

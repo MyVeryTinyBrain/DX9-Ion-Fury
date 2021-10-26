@@ -1,10 +1,17 @@
 #pragma once
 
-class ObjectVent : public Component
+#include "IUsable.h"
+#include "IDontDeactive.h"
+
+class ObjectVent : public Component, public IUsable, public IDontDeactive
 {
 	OverrideComponentFunction(Awake);
 
 	OverrideComponentFunction(Update);
+
+	virtual void OnUse(bool valid) override;
+
+	virtual void OnDisable() override;
 
 private:
 

@@ -33,8 +33,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AmmoBackup::GetInstance()->current->revolverTotalAmmo = 120;
 	AmmoBackup::GetInstance()->Backup();
 
-
-	SceneManager::ChangeScene(new TestScene2);
+	SceneManager::ChangeScene(new Map0);
 
 	MSG msg = {};
 	while (msg.message != WM_QUIT)

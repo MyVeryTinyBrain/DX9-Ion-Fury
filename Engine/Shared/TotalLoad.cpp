@@ -170,6 +170,8 @@ void TotalLoad::EnchantComponent(GameObject* pObj, const wstring& ComponentType)
 		pObj->AddComponent<ObjectCarBlue>();
 	else if (ComponentType == (L"ObjectCarRed"))
 		pObj->AddComponent<ObjectCarRed>();
+	else if (ComponentType == (L"ObjectVent"))
+		pObj->AddComponent<ObjectVent>();
 	else
 		pObj->Destroy();
 }
@@ -237,6 +239,12 @@ Component* TotalLoad::CreateEventObject(const EventObjectData& data)
 	case EventType::ObjectCardScreen:
 		comp = obj->AddComponent<ObjectCardScreen>();
 		break;
+	case EventType::ObjectVent:
+		comp = obj->AddComponent<ObjectVent>();
+		break;
+	case EventType::ObjectGarbageBag:
+		comp = obj->AddComponent<ObjectGarbageBag>();
+		break;
 
 		/*
 		enum class EventType { BasicMutant, Mutant, PoisonMutant, CultistArcher, CultistGunner, Deacon, Drone, Liberator, Spider, Skull, Warmech, Wendigo,
@@ -281,6 +289,15 @@ EventObjectEnd };	//추후 몬스터가 정해지면 수정
 	default:
 		obj->Destroy();
 		break;
+	}
+
+	if (comp)
+	{
+		IUsable* usable = dynamic_cast<IUsable*>(comp);
+		if (usable)
+		{
+			usable->OnDisable();
+		}
 	}
 
 	return comp;
