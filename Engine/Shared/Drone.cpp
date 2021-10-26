@@ -12,7 +12,7 @@ void Drone::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 10;
+	m_hp = 5;
 	m_moveSpeed = 2.0f;
 
 	m_body->mass = 1.f;
