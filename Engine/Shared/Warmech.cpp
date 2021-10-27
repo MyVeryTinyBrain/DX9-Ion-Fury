@@ -14,7 +14,7 @@ void Warmech::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 250;
+	m_hp = 300;
 	m_moveSpeed = 3.0f;
 
 	m_body->mass = 8.f;

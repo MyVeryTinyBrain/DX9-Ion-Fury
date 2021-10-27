@@ -2,14 +2,8 @@
 #include "Main.h"
 #include "PhysicsInitialize.h"
 #include <SoundMgr.h>
-#include "TestScene.h"
-#include "TestScene2.h"
-#include "TestScene3.h"
-#include "TestSceneSeob.h"
 
 #include <AmmoBackup.h>
-#include "Map0.h"
-#include "Map1.h"
 
 #include "MainScene.h"
 
@@ -25,7 +19,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	world.InitializeWithShowWindow(hInstance, 1280, 720, true, L"Ion Fury", WndProc);
+	world.InitializeWithShowWindow(hInstance, 1920, 1080, false, L"Ion Fury", WndProc);
 
 	PhysicsInitialize::Initialize();
 

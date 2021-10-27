@@ -2,8 +2,10 @@
 #include "MainSceneComponent.h"
 #include <RenderLayers.h>
 #include <OverlayRenderOrders.h>
-#include "Map0.h"
 #include <SoundMgr.h>
+
+#include "Map0.h"
+#include "Map1.h"
 
 bool MainSceneComponent::g_loaded = false;
 
@@ -108,7 +110,7 @@ void MainSceneComponent::Update()
 	{
 		m_pressAnyKeyRenderer->enable = true;
 
-		if (Input::GetKeyDown(Key::Space))
+		if (Input::GetKeyDown(Key::Return))
 		{
 			m_readyToChangeScene = true;
 			FadeIn();

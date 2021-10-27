@@ -8,6 +8,8 @@ class Wendigo : public Monster
 {
 	OverrideComponentFunction(Awake);
 
+	OverrideComponentFunction(Start);
+
 	OverrideComponentFunction(FixedUpdate);
 
 	OverrideComponentFunction(Update);

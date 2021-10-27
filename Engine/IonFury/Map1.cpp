@@ -2,23 +2,22 @@
 #include "Map1.h"
 #include "Map2.h"
 #include <SoundMgr.h>
-#include "MainScene.h"
 
 void Map1::OnLoad(Scene* beforeScene)
 {
     SceneMap::OnLoad(beforeScene);
 
-    SoundMgr::PlayBGM(L"../SharedResource/Sound/music/map3.mp3");
+    SoundMgr::PlayBGM(L"../SharedResource/Sound/music/map1.mp3");
 }
 
 wstring Map1::GetMapLocalPath() const
 {
-    return L"../Data/Total/Map11.txt";
+    return L"../Data/Total/jihyunmap.txt";
 }
 
 Scene* Map1::GetNextScene() const
 {
-    return new MainScene;
+    return new Map2;
 }
 
 IClonable* Map1::Clone()

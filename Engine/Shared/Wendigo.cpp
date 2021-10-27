@@ -11,7 +11,7 @@ void Wendigo::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 200;
+	m_hp = 300;
 	m_moveSpeed = 3.0f;
 
 	m_body->mass = 5.f;
@@ -25,6 +25,18 @@ void Wendigo::Awake()
 
 
 	m_animator = m_renderer->gameObject->AddComponent<WendigoSpriteAnimator>();
+}
+
+void Wendigo::Start()
+{
+	Monster::Start();
+
+	if (Time::DeltaTime() == 0)
+	{
+		return;
+	}
+
+	SoundMgr::PlayBGM(L"../SharedResource/Sound/music/wendigo.mp3");
 }
 
 void Wendigo::FixedUpdate()
@@ -418,12 +430,12 @@ void Wendigo::SetAction(ActionType type)
 		attackType = AttackType::Swing;
 		m_animator->PlaySwing();
 	}
+	break;
 	case ActionType::Jump:
 	{
 		m_attackCount = 2;
-		m_animator->IsPlayingJump();
+		m_animator->PlayJump();
 		attackType = AttackType::Jump;
 	}
-	break;
 	}
 }

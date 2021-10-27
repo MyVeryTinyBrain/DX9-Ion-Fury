@@ -162,7 +162,6 @@
     <ClInclude Include="Map0.h" />
     <ClInclude Include="Map1.h" />
     <ClInclude Include="Map2.h" />
-    <ClInclude Include="Map3.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -178,7 +177,6 @@
     <ClCompile Include="Map0.cpp" />
     <ClCompile Include="Map1.cpp" />
     <ClCompile Include="Map2.cpp" />
-    <ClCompile Include="Map3.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
