@@ -2,7 +2,6 @@
 #include "Map1.h"
 #include "Map2.h"
 #include <SoundMgr.h>
-#include "MainScene.h"
 
 void Map1::OnLoad(Scene* beforeScene)
 {
@@ -13,12 +12,12 @@ void Map1::OnLoad(Scene* beforeScene)
 
 wstring Map1::GetMapLocalPath() const
 {
-    return L"../Data/Total/Map11.txt";
+    return L"../Data/Total/jihyunmap.txt";
 }
 
 Scene* Map1::GetNextScene() const
 {
-    return new MainScene;
+    return new Map2;
 }
 
 IClonable* Map1::Clone()

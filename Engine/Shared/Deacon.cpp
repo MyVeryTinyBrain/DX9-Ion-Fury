@@ -17,7 +17,7 @@ void Deacon::Awake()
 
   //  gameObject->transform->scale = Vec3::one() * 5.f;
 
-    m_hp = 15;
+    m_hp = 5;
     m_moveSpeed = 2.f;
 
     m_body->mass = 300.f;
@@ -145,6 +145,8 @@ void Deacon::OnDamage(DamageParameters& params)
 void Deacon::OnDead(bool& dead, DamageParameters& params)
 {
     SoundMgr::PlayContinue(L"../SharedResource/Sound/zombie/zombie_helpme_1.ogg", CHANNELID::DEACONDEAD);
+
+    m_colliderObj->transform->localScale = Vec3::one() * 0.65f;
 
     notcreatflyeffect = true;
     m_animator->PlayDie();

@@ -826,6 +826,146 @@
 			"RotationX" : 0.0,
 			"RotationY" : 0.0,
 			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemSMGAmmo",
+			"Name" : "Object_0",
+			"PivotScale" : 0.25,
+			"PositionX" : -52.078765869140625,
+			"PositionY" : -3.6598527431488037,
+			"PositionZ" : 56.900981903076172,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemArmor",
+			"Name" : "Object_1",
+			"PivotScale" : 0.44999998807907104,
+			"PositionX" : -63.980934143066406,
+			"PositionY" : -3.5195217132568359,
+			"PositionZ" : 57.765625,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemRevolverAmmo",
+			"Name" : "Object_2",
+			"PivotScale" : 0.40000000596046448,
+			"PositionX" : -64.932212829589844,
+			"PositionY" : -3.5339488983154297,
+			"PositionZ" : 25.252946853637695,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemBowAmmo",
+			"Name" : "Object_3",
+			"PivotScale" : 0.44999998807907104,
+			"PositionX" : -32.076808929443359,
+			"PositionY" : 0.49323281645774841,
+			"PositionZ" : 44.744132995605469,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemHealthPack",
+			"Name" : "Object_0",
+			"PivotScale" : 0.34999999403953552,
+			"PositionX" : -30.705385208129883,
+			"PositionY" : 0.59811300039291382,
+			"PositionZ" : 44.657459259033203,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemArmor",
+			"Name" : "Object_1",
+			"PivotScale" : 0.34999999403953552,
+			"PositionX" : -31.954559326171875,
+			"PositionY" : 0.51522058248519897,
+			"PositionZ" : 43.695819854736328,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemArmor",
+			"Name" : "Object_2",
+			"PivotScale" : 0.40000000596046448,
+			"PositionX" : -30.650238037109375,
+			"PositionY" : 0.53556835651397705,
+			"PositionZ" : 43.748699188232422,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemArmor",
+			"Name" : "Object_3",
+			"PivotScale" : 0.40000000596046448,
+			"PositionX" : -29.33403205871582,
+			"PositionY" : 0.53348135948181152,
+			"PositionZ" : 43.821811676025391,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemArmor",
+			"Name" : "Object_4",
+			"PivotScale" : 1.0,
+			"PositionX" : -66.239097595214844,
+			"PositionY" : -2.6724069118499756,
+			"PositionZ" : 50.502685546875,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
+		},
+		{
+			"ChildScaleX" : 1.0,
+			"ChildScaleY" : 1.0,
+			"ChildScaleZ" : 1.0,
+			"ComponentType" : "ItemHealthPack",
+			"Name" : "Object_5",
+			"PivotScale" : 0.34999999403953552,
+			"PositionX" : -66.499534606933594,
+			"PositionY" : -3.6328682899475098,
+			"PositionZ" : 52.691696166992188,
+			"RotationX" : 0.0,
+			"RotationY" : 0.0,
+			"RotationZ" : 0.0
 		}
 	],
 	"Lights" : 
@@ -3886,7 +4026,7 @@
 				"ScaleZ" : 0.20000000298023224,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 12,
@@ -3994,7 +4134,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 2,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 12,
@@ -4024,7 +4164,7 @@
 				"ScaleZ" : 0.40000000596046448,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 14,
@@ -4548,7 +4688,7 @@
 				"ScaleZ" : 0.69999998807907104,
 				"TriggerMethod" : 3,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 13,
@@ -4588,6 +4728,19 @@
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
 				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 17,
+				"Name" : "Event_96",
+				"PositionX" : -33.889430999755859,
+				"PositionY" : 0.1906542032957077,
+				"PositionZ" : 43.749595642089844,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
 			}
 		],
 		[
@@ -4604,7 +4757,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 6,
@@ -4803,7 +4956,7 @@
 				"ScaleZ" : 6.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 3,
@@ -4924,7 +5077,7 @@
 				"ScaleZ" : 8.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 12,
@@ -4967,7 +5120,7 @@
 				"ScaleZ" : 0.75,
 				"TriggerMethod" : 1,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 14,
@@ -5010,7 +5163,7 @@
 				"ScaleZ" : 35.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			}
 		],
 		[
@@ -5027,7 +5180,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 2,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 12,
@@ -5057,7 +5210,7 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 2,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 6,
@@ -5075,9 +5228,9 @@
 			{
 				"EventType" : 6,
 				"Name" : "Event_47",
-				"PositionX" : -57.743282318115234,
-				"PositionY" : 1.7924345731735229,
-				"PositionZ" : 22.324012756347656,
+				"PositionX" : -56.052314758300781,
+				"PositionY" : 1.7924344539642334,
+				"PositionZ" : 22.324010848999023,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -5088,9 +5241,9 @@
 			{
 				"EventType" : 3,
 				"Name" : "Event_48",
-				"PositionX" : -63.191734313964844,
-				"PositionY" : 1.7980812788009644,
-				"PositionZ" : 22.410427093505859,
+				"PositionX" : -60.291526794433594,
+				"PositionY" : 1.7980811595916748,
+				"PositionZ" : 22.410425186157227,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -5101,9 +5254,9 @@
 			{
 				"EventType" : 2,
 				"Name" : "Event_49",
-				"PositionX" : -68.698089599609375,
-				"PositionY" : 1.7125149965286255,
-				"PositionZ" : 22.147659301757812,
+				"PositionX" : -63.251823425292969,
+				"PositionY" : 1.7125146389007568,
+				"PositionZ" : 22.147653579711914,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -5114,9 +5267,9 @@
 			{
 				"EventType" : 2,
 				"Name" : "Event_62",
-				"PositionX" : -71.912094116210938,
-				"PositionY" : 1.7215859889984131,
-				"PositionZ" : 22.553070068359375,
+				"PositionX" : -66.841484069824219,
+				"PositionY" : 1.7215856313705444,
+				"PositionZ" : 22.553064346313477,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -5127,9 +5280,35 @@
 			{
 				"EventType" : 6,
 				"Name" : "Event_63",
-				"PositionX" : -77.932777404785156,
-				"PositionY" : 1.6076622009277344,
-				"PositionZ" : 22.241203308105469,
+				"PositionX" : -69.797637939453125,
+				"PositionY" : 1.6076618432998657,
+				"PositionZ" : 22.24119758605957,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 6,
+				"Name" : "Event_89",
+				"PositionX" : -73.38677978515625,
+				"PositionY" : 1.8461287021636963,
+				"PositionZ" : 22.383882522583008,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 6,
+				"Name" : "Event_90",
+				"PositionX" : -77.806571960449219,
+				"PositionY" : 1.7999802827835083,
+				"PositionZ" : 22.701356887817383,
 				"RotationX" : 0.0,
 				"RotationY" : 0.0,
 				"RotationZ" : 0.0,
@@ -5152,40 +5331,14 @@
 				"ScaleZ" : 1.0,
 				"TriggerMethod" : 2,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
 			},
 			{
 				"EventType" : 6,
 				"Name" : "Event_50",
-				"PositionX" : -51.930614471435547,
-				"PositionY" : 1.9249533414840698,
-				"PositionZ" : 61.435840606689453,
-				"RotationX" : -0.0,
-				"RotationY" : -179.99998474121094,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 2,
-				"Name" : "Event_51",
-				"PositionX" : -56.407188415527344,
-				"PositionY" : 2.1288068294525146,
-				"PositionZ" : 61.38970947265625,
-				"RotationX" : -0.0,
-				"RotationY" : -179.99998474121094,
-				"RotationZ" : 0.0,
-				"ScaleX" : 1.0,
-				"ScaleY" : 1.0,
-				"ScaleZ" : 1.0
-			},
-			{
-				"EventType" : 2,
-				"Name" : "Event_52",
-				"PositionX" : -61.385181427001953,
-				"PositionY" : 1.7786906957626343,
-				"PositionZ" : 61.874912261962891,
+				"PositionX" : -51.021709442138672,
+				"PositionY" : 1.9249532222747803,
+				"PositionZ" : 61.435836791992188,
 				"RotationX" : 0.0,
 				"RotationY" : -179.99996948242188,
 				"RotationZ" : 0.0,
@@ -5194,13 +5347,39 @@
 				"ScaleZ" : 1.0
 			},
 			{
+				"EventType" : 2,
+				"Name" : "Event_51",
+				"PositionX" : -54.059600830078125,
+				"PositionY" : 2.1288065910339355,
+				"PositionZ" : 61.389705657958984,
+				"RotationX" : 0.0,
+				"RotationY" : -179.99996948242188,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 2,
+				"Name" : "Event_52",
+				"PositionX" : -57.733936309814453,
+				"PositionY" : 1.7786905765533447,
+				"PositionZ" : 61.874908447265625,
+				"RotationX" : 0.0,
+				"RotationY" : -179.99995422363281,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
 				"EventType" : 6,
 				"Name" : "Event_53",
-				"PositionX" : -66.306838989257812,
-				"PositionY" : 1.7780259847640991,
-				"PositionZ" : 61.570003509521484,
-				"RotationX" : -0.0,
-				"RotationY" : -179.99998474121094,
+				"PositionX" : -62.100090026855469,
+				"PositionY" : 1.7780258655548096,
+				"PositionZ" : 61.569999694824219,
+				"RotationX" : 0.0,
+				"RotationY" : -179.99996948242188,
 				"RotationZ" : 0.0,
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
@@ -5209,11 +5388,11 @@
 			{
 				"EventType" : 2,
 				"Name" : "Event_64",
-				"PositionX" : -71.47259521484375,
-				"PositionY" : 2.0824358463287354,
-				"PositionZ" : 61.153087615966797,
-				"RotationX" : 0.0,
-				"RotationY" : 180.0,
+				"PositionX" : -66.19207763671875,
+				"PositionY" : 2.0824356079101562,
+				"PositionZ" : 61.153083801269531,
+				"RotationX" : -0.0,
+				"RotationY" : -179.99998474121094,
 				"RotationZ" : 0.0,
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
@@ -5222,11 +5401,37 @@
 			{
 				"EventType" : 6,
 				"Name" : "Event_65",
-				"PositionX" : -77.1373291015625,
-				"PositionY" : 2.2991375923156738,
-				"PositionZ" : 61.230247497558594,
-				"RotationX" : 0.0,
-				"RotationY" : 180.0,
+				"PositionX" : -70.362052917480469,
+				"PositionY" : 2.2991371154785156,
+				"PositionZ" : 61.230239868164062,
+				"RotationX" : -0.0,
+				"RotationY" : -179.99998474121094,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 6,
+				"Name" : "Event_91",
+				"PositionX" : -73.682456970214844,
+				"PositionY" : 2.3283567428588867,
+				"PositionZ" : 60.8629150390625,
+				"RotationX" : -0.0,
+				"RotationY" : -179.99998474121094,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 6,
+				"Name" : "Event_92",
+				"PositionX" : -77.934967041015625,
+				"PositionY" : 2.5129630565643311,
+				"PositionZ" : 61.367927551269531,
+				"RotationX" : -0.0,
+				"RotationY" : -179.99998474121094,
 				"RotationZ" : 0.0,
 				"ScaleX" : 1.0,
 				"ScaleY" : 1.0,
@@ -5247,7 +5452,63 @@
 				"ScaleZ" : 9.0,
 				"TriggerMethod" : 0,
 				"TriggerOnce" : false,
-				"TriggerToolAutoNum" : 14
+				"TriggerToolAutoNum" : 15
+			}
+		],
+		[
+			{
+				"Name" : "BossEnemySpawnTrigger",
+				"PositionX" : -79.837364196777344,
+				"PositionY" : -1.8160222768783569,
+				"PositionZ" : 41.790107727050781,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 5.0,
+				"TriggerMethod" : 2,
+				"TriggerOnce" : false,
+				"TriggerToolAutoNum" : 15
+			},
+			{
+				"EventType" : 7,
+				"Name" : "Event_93",
+				"PositionX" : -79.560699462890625,
+				"PositionY" : -3.8392674922943115,
+				"PositionZ" : 37.23699951171875,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 7,
+				"Name" : "Event_94",
+				"PositionX" : -64.950553894042969,
+				"PositionY" : -3.7326867580413818,
+				"PositionZ" : 53.079990386962891,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
+			},
+			{
+				"EventType" : 7,
+				"Name" : "Event_95",
+				"PositionX" : -63.454368591308594,
+				"PositionY" : -3.8023104667663574,
+				"PositionZ" : 30.490432739257812,
+				"RotationX" : 0.0,
+				"RotationY" : 0.0,
+				"RotationZ" : 0.0,
+				"ScaleX" : 1.0,
+				"ScaleY" : 1.0,
+				"ScaleZ" : 1.0
 			}
 		]
 	]

@@ -49,7 +49,7 @@ private:
 	using OverlayRenderVector = std::vector<Renderer*>;
 
 	// 반투명하지 않은 렌더링에 사용되는 렌더 대상들입니다.
-	RenderTargetMap m_renderTargets[unsigned int(RenderQueue::Max)];
+	RenderTargetMap m_renderTargets[int(RenderQueue::Max)];
 
 	// 반투명한 렌더링에 사용되는 렌더 대상들입니다.
 	TransparentRenderVector m_transparentRenderTargets;

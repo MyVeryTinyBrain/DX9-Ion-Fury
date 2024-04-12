@@ -1,869 +1,258 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="UserMixMesh">
-      <UniqueIdentifier>{5b8a21e5-419d-482c-99fa-03272dbdc6f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect">
-      <UniqueIdentifier>{1bf09b99-b0b6-4d3f-9e80-73691644e995}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Weapon">
-      <UniqueIdentifier>{b874a7e3-ebd8-4e1e-b6fa-3005fe51017e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player">
-      <UniqueIdentifier>{7555a118-bcb4-4c69-be85-6acf78fb5b46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Initlialize">
-      <UniqueIdentifier>{6331fed6-eb6c-4b34-8090-24302518156a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item">
-      <UniqueIdentifier>{881ec5f6-494d-4c8c-950d-7e195c3a7fb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster">
-      <UniqueIdentifier>{65574b5a-b926-4597-9b94-a10d0b4c80b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UI">
-      <UniqueIdentifier>{d0b2f833-6d2e-499d-b426-ba61e7549c94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{833c5302-ca1e-4954-8a01-dcc1d68b2e7a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Default">
-      <UniqueIdentifier>{29e4b8c9-5802-4dec-9a3b-ec9546d6a93b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Skybox">
-      <UniqueIdentifier>{d9a28f87-b245-490e-9cf6-c2ee30177b9a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{db41070f-f989-4215-add4-ae463f678d28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TrailRenderer">
-      <UniqueIdentifier>{06247398-5b55-4716-8d4c-e1ecbf815bc0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Trigger">
-      <UniqueIdentifier>{7b05d5f5-67ca-4892-bf3c-5c9545582199}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sound">
-      <UniqueIdentifier>{01d85ffe-e386-476f-b88e-729b92f3cda6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Mutant">
-      <UniqueIdentifier>{96f05bc9-2740-45d7-a5d4-4812f0831695}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\CultistArcher">
-      <UniqueIdentifier>{f4dc2176-0932-4592-bfce-26caf44dcafb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\CultistGunner">
-      <UniqueIdentifier>{76d84587-e005-422b-a8b7-c3349392c5d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Deacon">
-      <UniqueIdentifier>{9f5e9892-a347-4bb9-857c-073fcd592939}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Drone">
-      <UniqueIdentifier>{b73daccc-5c46-4807-8806-cf73c879c1b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\GunnerBase">
-      <UniqueIdentifier>{662ed809-76e5-48b8-b82d-541c132b706b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Liberator">
-      <UniqueIdentifier>{fbeedca2-0235-41ba-986a-8e6ad9640164}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Skull">
-      <UniqueIdentifier>{7d2a93fd-3818-4b2b-a038-862e627453ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Spider">
-      <UniqueIdentifier>{38b1f2ad-b0f9-41a1-bbaf-2bdf5c4c96d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Warmech">
-      <UniqueIdentifier>{691e5722-86fd-45a5-8689-3e25e54d97a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Monster\Wendigo">
-      <UniqueIdentifier>{a51331a1-19ff-4fbd-985f-8d8f92a751a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Car">
-      <UniqueIdentifier>{1509902c-4893-4a22-9453-c48b040d431d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Stair">
-      <UniqueIdentifier>{e1ef01be-a64d-4c86-a1ab-c95f0b3aa70c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MiniGame">
-      <UniqueIdentifier>{817ff13a-4a8a-47a7-a112-dd6ee4819a42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneMap">
-      <UniqueIdentifier>{4b7084f4-2677-4d54-b512-c48fee3b3d96}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loader">
-      <UniqueIdentifier>{299b1fad-9c84-423b-bd7e-8d4a90f1ffd3}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="AmmoBackup.cpp" />
+    <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="BasicMutant.cpp" />
+    <ClCompile Include="BasicMutantSpriteAnimator.cpp" />
+    <ClCompile Include="BillboardEffect.cpp" />
+    <ClCompile Include="BloodEffect.cpp" />
+    <ClCompile Include="BossEnemySpawnTrigger.cpp" />
+    <ClCompile Include="BossTrigger.cpp" />
+    <ClCompile Include="Bow.cpp" />
+    <ClCompile Include="BowAnimator.cpp" />
+    <ClCompile Include="BowStringAnimator.cpp" />
+    <ClCompile Include="BulletProof.cpp" />
+    <ClCompile Include="BulletTrail.cpp" />
+    <ClCompile Include="Chaingun.cpp" />
+    <ClCompile Include="ChaingunAmmopartAnimator.cpp" />
+    <ClCompile Include="ChaingunGunpartAnimator.cpp" />
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="CultistArcher.cpp" />
+    <ClCompile Include="CultistArcherAnimator.cpp" />
+    <ClCompile Include="CultistGunner.cpp" />
+    <ClCompile Include="CultistGunnerAnimator.cpp" />
+    <ClCompile Include="Deacon.cpp" />
+    <ClCompile Include="DeaconflyEffect.cpp" />
+    <ClCompile Include="DeaconSpriteAnimator.cpp" />
+    <ClCompile Include="Drone.cpp" />
+    <ClCompile Include="DroneExplosion.cpp" />
+    <ClCompile Include="DroneSmoke.cpp" />
+    <ClCompile Include="DroneSpriteAnimator.cpp" />
+    <ClCompile Include="FPSCamera.cpp" />
+    <ClCompile Include="FPSCharacterController.cpp" />
+    <ClCompile Include="FPSOrthoCamera.cpp" />
+    <ClCompile Include="GranadeTrail.cpp" />
+    <ClCompile Include="GunnerBase.cpp" />
+    <ClCompile Include="GunnerBaseAnimator.cpp" />
+    <ClCompile Include="GunnerSpriteAnimator.cpp" />
+    <ClCompile Include="Hands.cpp" />
+    <ClCompile Include="IDontDeactive.cpp" />
+    <ClCompile Include="IMonsterSpawn.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemArmor.cpp" />
+    <ClCompile Include="ItemBowAmmo.cpp" />
+    <ClCompile Include="ItemCardKey.cpp" />
+    <ClCompile Include="ItemChaingunAmmo.cpp" />
+    <ClCompile Include="ItemHealthPack.cpp" />
+    <ClCompile Include="ItemLauncherAmmo.cpp" />
+    <ClCompile Include="ItemRevolverAmmo.cpp" />
+    <ClCompile Include="ItemShotgunAmmo.cpp" />
+    <ClCompile Include="ItemSMGAmmo.cpp" />
+    <ClCompile Include="IUsable.cpp" />
+    <ClCompile Include="Launcher.cpp" />
+    <ClCompile Include="LauncherAnimator.cpp" />
+    <ClCompile Include="LauncherGranade.cpp" />
+    <ClCompile Include="Liberator.cpp" />
+    <ClCompile Include="LiberatorAnimator.cpp" />
+    <ClCompile Include="LightLoad.cpp" />
+    <ClCompile Include="MapLoad.cpp" />
+    <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="MiniGame01.cpp" />
+    <ClCompile Include="MiniGameCamera01.cpp" />
+    <ClCompile Include="MiniGameUI01.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Mutant.cpp" />
+    <ClCompile Include="MutantPoison.cpp" />
+    <ClCompile Include="MutantSpriteAnimator.cpp" />
+    <ClCompile Include="NextSceneTrigger.cpp" />
+    <ClCompile Include="Number.cpp" />
+    <ClCompile Include="Numbers.cpp" />
+    <ClCompile Include="ObjectAutoDoor.cpp" />
+    <ClCompile Include="ObjectGarbageBag.cpp" />
+    <ClCompile Include="ObjectMiniGame.cpp" />
+    <ClCompile Include="ObjectStairConcrete.cpp" />
+    <ClCompile Include="ObjectButton.cpp" />
+    <ClCompile Include="ObjectCarBlack.cpp" />
+    <ClCompile Include="ObjectCarBlue.cpp" />
+    <ClCompile Include="ObjectCardScreen.cpp" />
+    <ClCompile Include="Objectelevator.cpp" />
+    <ClCompile Include="ObjectManualDoor.cpp" />
+    <ClCompile Include="ObjectRat.cpp" />
+    <ClCompile Include="ObjectRatAnimator.cpp" />
+    <ClCompile Include="ObjectStairBlue.cpp" />
+    <ClCompile Include="ObjectVent.cpp" />
+    <ClCompile Include="ObjectStairWood.cpp" />
+    <ClCompile Include="OrthoEffect.cpp" />
+    <ClCompile Include="PhysicsInitialize.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerUI.cpp" />
+    <ClCompile Include="ObjectCarRed.cpp" />
+    <ClCompile Include="Revolver.cpp" />
+    <ClCompile Include="RevolverAnimator.cpp" />
+    <ClCompile Include="SceneMap.cpp" />
+    <ClCompile Include="shared_stdafx.cpp" />
+    <ClCompile Include="Skull.cpp" />
+    <ClCompile Include="SkullAnimator.cpp" />
+    <ClCompile Include="SkullBall.cpp" />
+    <ClCompile Include="SkullBallAnimator.cpp" />
+    <ClCompile Include="SkullReplica.cpp" />
+    <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="SMG.cpp" />
+    <ClCompile Include="SMGAnimator.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
+    <ClCompile Include="Spider.cpp" />
+    <ClCompile Include="SpiderSpriteAnimator.cpp" />
+    <ClCompile Include="SpriteAnimation.cpp" />
+    <ClCompile Include="SpriteAnimator.cpp" />
+    <ClCompile Include="TotalLoad.cpp" />
+    <ClCompile Include="TrailRenderer.cpp" />
+    <ClCompile Include="TriangleStair.cpp" />
+    <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="UserMixMesh.cpp" />
+    <ClCompile Include="Warmech.cpp" />
+    <ClCompile Include="WarmechBullet.cpp" />
+    <ClCompile Include="WarmechExplosion.cpp" />
+    <ClCompile Include="WarmechHit.cpp" />
+    <ClCompile Include="WarmechMissile.cpp" />
+    <ClCompile Include="WarmechSpriteAnimator.cpp" />
+    <ClCompile Include="WarmechTrail.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Web.cpp" />
+    <ClCompile Include="WebSpriteAnimator.cpp" />
+    <ClCompile Include="Wendigo.cpp" />
+    <ClCompile Include="WendigoSpriteAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cube.h">
-      <Filter>UserMixMesh</Filter>
-    </ClInclude>
-    <ClInclude Include="UserMixMesh.h">
-      <Filter>UserMixMesh</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleStair.h">
-      <Filter>UserMixMesh</Filter>
-    </ClInclude>
-    <ClInclude Include="WeaponTypes.h">
-      <Filter>Initlialize</Filter>
-    </ClInclude>
-    <ClInclude Include="AmmoTypes.h">
-      <Filter>Initlialize</Filter>
-    </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="BillboardEffect.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="BloodEffect.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Bow.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="BowAnimator.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="BowStringAnimator.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletProof.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletTrail.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Chaingun.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="ChaingunAmmopartAnimator.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="ChaingunGunpartAnimator.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCamera.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCharacterController.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSOrthoCamera.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="GranadeTrail.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="Hands.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemBowAmmo.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemChaingunAmmo.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemHealthPack.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemLauncherAmmo.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemRevolverAmmo.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemShotgunAmmo.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemSMGAmmo.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Launcher.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="LauncherAnimator.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="LauncherGranade.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="Number.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Numbers.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="OrthoEffect.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="OverlayRenderOrders.h">
-      <Filter>Initlialize</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsInitialize.h">
-      <Filter>Initlialize</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsLayers.h">
-      <Filter>Initlialize</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerUI.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderLayers.h">
-      <Filter>Initlialize</Filter>
-    </ClInclude>
-    <ClInclude Include="Revolver.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="RevolverAnimator.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="shared_stdafx.h">
-      <Filter>Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>Skybox</Filter>
-    </ClInclude>
-    <ClInclude Include="SMG.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="SMGAnimator.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimation.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimator.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="TrailRenderer.h">
-      <Filter>TrailRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectAutoDoor.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="IDontDeactive.h">
-      <Filter>Trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="Trigger.h">
-      <Filter>Trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="IUsable.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectButton.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemArmor.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundMgr.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicMutant.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicMutantSpriteAnimator.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistArcher.h">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistArcherAnimator.h">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistGunner.h">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClInclude>
-    <ClInclude Include="CultistGunnerAnimator.h">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClInclude>
-    <ClInclude Include="Deacon.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="DeaconflyEffect.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="DeaconSpriteAnimator.h">
-      <Filter>Monster\Deacon</Filter>
-    </ClInclude>
-    <ClInclude Include="Drone.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneExplosion.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneSmoke.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="DroneSpriteAnimator.h">
-      <Filter>Monster\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerBase.h">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerBaseAnimator.h">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="GunnerSpriteAnimator.h">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Liberator.h">
-      <Filter>Monster\Liberator</Filter>
-    </ClInclude>
-    <ClInclude Include="LiberatorAnimator.h">
-      <Filter>Monster\Liberator</Filter>
-    </ClInclude>
-    <ClInclude Include="Mutant.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="MutantPoison.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="MutantSpriteAnimator.h">
-      <Filter>Monster\Mutant</Filter>
-    </ClInclude>
-    <ClInclude Include="Skull.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullAnimator.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullBall.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullBallAnimator.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="SkullReplica.h">
-      <Filter>Monster\Skull</Filter>
-    </ClInclude>
-    <ClInclude Include="Spider.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="SpiderSpriteAnimator.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="Warmech.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechBullet.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechExplosion.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechHit.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechMissile.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechSpriteAnimator.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="WarmechTrail.h">
-      <Filter>Monster\Warmech</Filter>
-    </ClInclude>
-    <ClInclude Include="Wendigo.h">
-      <Filter>Monster\Wendigo</Filter>
-    </ClInclude>
-    <ClInclude Include="WendigoSpriteAnimator.h">
-      <Filter>Monster\Wendigo</Filter>
-    </ClInclude>
-    <ClInclude Include="Web.h">
-      <Filter>Monster\Spider</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorEnum.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManualDoor.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectRatAnimator.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectRat.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemCardKey.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectCardScreen.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectVent.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Objectelevator.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="BossTrigger.h">
-      <Filter>Trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="Tags.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Names.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectCarRed.h">
-      <Filter>Object\Car</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectCarBlue.h">
-      <Filter>Object\Car</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectCarBlack.h">
-      <Filter>Object\Car</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectStairBlue.h">
-      <Filter>Object\Stair</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectStairWood.h">
-      <Filter>Object\Stair</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectStairConcrete.h">
-      <Filter>Object\Stair</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectMiniGame.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGame01.h">
-      <Filter>MiniGame</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGameCamera01.h">
-      <Filter>MiniGame</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGameUI01.h">
-      <Filter>MiniGame</Filter>
-    </ClInclude>
-    <ClInclude Include="BossEnemySpawnTrigger.h">
-      <Filter>Trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="IMonsterSpawn.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="NextSceneTrigger.h">
-      <Filter>Trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneMap.h">
-      <Filter>SceneMap</Filter>
-    </ClInclude>
-    <ClInclude Include="LightLoad.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapLoad.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="TotalLoad.h">
-      <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="AmmoBackup.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-
-    <ClInclude Include="WebSpriteAnimator.h">
-      <Filter>Monster\Spider</Filter>
-
-    <ClInclude Include="ObjectGarbageBag.h">
-      <Filter>Object</Filter>
-
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Cube.cpp">
-      <Filter>UserMixMesh</Filter>
-    </ClCompile>
-    <ClCompile Include="UserMixMesh.cpp">
-      <Filter>UserMixMesh</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleStair.cpp">
-      <Filter>UserMixMesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Arrow.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="BillboardEffect.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="BloodEffect.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Bow.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="BowAnimator.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="BowStringAnimator.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletProof.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletTrail.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Chaingun.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="ChaingunAmmopartAnimator.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="ChaingunGunpartAnimator.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCamera.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCharacterController.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSOrthoCamera.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="GranadeTrail.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="Hands.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemBowAmmo.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemChaingunAmmo.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemHealthPack.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemLauncherAmmo.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemRevolverAmmo.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemShotgunAmmo.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemSMGAmmo.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Launcher.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="LauncherAnimator.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="LauncherGranade.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="Number.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Numbers.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="OrthoEffect.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsInitialize.cpp">
-      <Filter>Initlialize</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerUI.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Revolver.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="RevolverAnimator.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="shared_stdafx.cpp">
-      <Filter>Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Skybox.cpp">
-      <Filter>Skybox</Filter>
-    </ClCompile>
-    <ClCompile Include="SMG.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="SMGAnimator.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteAnimation.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteAnimator.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="TrailRenderer.cpp">
-      <Filter>TrailRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectAutoDoor.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="IDontDeactive.cpp">
-      <Filter>Trigger</Filter>
-    </ClCompile>
-    <ClCompile Include="Trigger.cpp">
-      <Filter>Trigger</Filter>
-    </ClCompile>
-    <ClCompile Include="IUsable.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectButton.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemArmor.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundMgr.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicMutant.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicMutantSpriteAnimator.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistArcher.cpp">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistArcherAnimator.cpp">
-      <Filter>Monster\CultistArcher</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistGunner.cpp">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClCompile>
-    <ClCompile Include="CultistGunnerAnimator.cpp">
-      <Filter>Monster\CultistGunner</Filter>
-    </ClCompile>
-    <ClCompile Include="Deacon.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="DeaconflyEffect.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="DeaconSpriteAnimator.cpp">
-      <Filter>Monster\Deacon</Filter>
-    </ClCompile>
-    <ClCompile Include="Drone.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneExplosion.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneSmoke.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="DroneSpriteAnimator.cpp">
-      <Filter>Monster\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="GunnerBase.cpp">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClCompile>
-    <ClCompile Include="GunnerBaseAnimator.cpp">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClCompile>
-    <ClCompile Include="GunnerSpriteAnimator.cpp">
-      <Filter>Monster\GunnerBase</Filter>
-    </ClCompile>
-    <ClCompile Include="Liberator.cpp">
-      <Filter>Monster\Liberator</Filter>
-    </ClCompile>
-    <ClCompile Include="LiberatorAnimator.cpp">
-      <Filter>Monster\Liberator</Filter>
-    </ClCompile>
-    <ClCompile Include="Mutant.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="MutantPoison.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="MutantSpriteAnimator.cpp">
-      <Filter>Monster\Mutant</Filter>
-    </ClCompile>
-    <ClCompile Include="Skull.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullAnimator.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullBall.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullBallAnimator.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="SkullReplica.cpp">
-      <Filter>Monster\Skull</Filter>
-    </ClCompile>
-    <ClCompile Include="Spider.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
-    <ClCompile Include="SpiderSpriteAnimator.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
-    <ClCompile Include="Warmech.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechBullet.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechExplosion.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechHit.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechMissile.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechSpriteAnimator.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="WarmechTrail.cpp">
-      <Filter>Monster\Warmech</Filter>
-    </ClCompile>
-    <ClCompile Include="Wendigo.cpp">
-      <Filter>Monster\Wendigo</Filter>
-    </ClCompile>
-    <ClCompile Include="WendigoSpriteAnimator.cpp">
-      <Filter>Monster\Wendigo</Filter>
-    </ClCompile>
-    <ClCompile Include="Web.cpp">
-      <Filter>Monster\Spider</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManualDoor.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectRatAnimator.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectRat.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemCardKey.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectCardScreen.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectVent.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Objectelevator.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="BossTrigger.cpp">
-      <Filter>Trigger</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectCarRed.cpp">
-      <Filter>Object\Car</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectCarBlue.cpp">
-      <Filter>Object\Car</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectCarBlack.cpp">
-      <Filter>Object\Car</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectStairBlue.cpp">
-      <Filter>Object\Stair</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectStairWood.cpp">
-      <Filter>Object\Stair</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectStairConcrete.cpp">
-      <Filter>Object\Stair</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectMiniGame.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGame01.cpp">
-      <Filter>MiniGame</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGameCamera01.cpp">
-      <Filter>MiniGame</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGameUI01.cpp">
-      <Filter>MiniGame</Filter>
-    </ClCompile>
-    <ClCompile Include="BossEnemySpawnTrigger.cpp">
-      <Filter>Trigger</Filter>
-    </ClCompile>
-    <ClCompile Include="IMonsterSpawn.cpp">
-      <Filter>Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="NextSceneTrigger.cpp">
-      <Filter>Trigger</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMap.cpp">
-      <Filter>SceneMap</Filter>
-    </ClCompile>
-    <ClCompile Include="LightLoad.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapLoad.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="TotalLoad.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="AmmoBackup.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-
-    <ClCompile Include="WebSpriteAnimator.cpp">
-      <Filter>Monster\Spider</Filter>
-
-    <ClCompile Include="ObjectGarbageBag.cpp">
-      <Filter>Object</Filter>
-
-    </ClCompile>
+    <ClInclude Include="AmmoBackup.h" />
+    <ClInclude Include="AmmoTypes.h" />
+    <ClInclude Include="Arrow.h" />
+    <ClInclude Include="BasicMutant.h" />
+    <ClInclude Include="BasicMutantSpriteAnimator.h" />
+    <ClInclude Include="BillboardEffect.h" />
+    <ClInclude Include="BloodEffect.h" />
+    <ClInclude Include="BossEnemySpawnTrigger.h" />
+    <ClInclude Include="BossTrigger.h" />
+    <ClInclude Include="Bow.h" />
+    <ClInclude Include="BowAnimator.h" />
+    <ClInclude Include="BowStringAnimator.h" />
+    <ClInclude Include="BulletProof.h" />
+    <ClInclude Include="BulletTrail.h" />
+    <ClInclude Include="Chaingun.h" />
+    <ClInclude Include="ChaingunAmmopartAnimator.h" />
+    <ClInclude Include="ChaingunGunpartAnimator.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="CultistArcher.h" />
+    <ClInclude Include="CultistArcherAnimator.h" />
+    <ClInclude Include="CultistGunner.h" />
+    <ClInclude Include="CultistGunnerAnimator.h" />
+    <ClInclude Include="Deacon.h" />
+    <ClInclude Include="DeaconflyEffect.h" />
+    <ClInclude Include="DeaconSpriteAnimator.h" />
+    <ClInclude Include="Drone.h" />
+    <ClInclude Include="DroneExplosion.h" />
+    <ClInclude Include="DroneSmoke.h" />
+    <ClInclude Include="DroneSpriteAnimator.h" />
+    <ClInclude Include="EditorEnum.h" />
+    <ClInclude Include="FPSCamera.h" />
+    <ClInclude Include="FPSCharacterController.h" />
+    <ClInclude Include="FPSOrthoCamera.h" />
+    <ClInclude Include="GranadeTrail.h" />
+    <ClInclude Include="GunnerBase.h" />
+    <ClInclude Include="GunnerBaseAnimator.h" />
+    <ClInclude Include="GunnerSpriteAnimator.h" />
+    <ClInclude Include="Hands.h" />
+    <ClInclude Include="IDontDeactive.h" />
+    <ClInclude Include="IMonsterSpawn.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemArmor.h" />
+    <ClInclude Include="ItemBowAmmo.h" />
+    <ClInclude Include="ItemCardKey.h" />
+    <ClInclude Include="ItemChaingunAmmo.h" />
+    <ClInclude Include="ItemHealthPack.h" />
+    <ClInclude Include="ItemLauncherAmmo.h" />
+    <ClInclude Include="ItemRevolverAmmo.h" />
+    <ClInclude Include="ItemShotgunAmmo.h" />
+    <ClInclude Include="ItemSMGAmmo.h" />
+    <ClInclude Include="IUsable.h" />
+    <ClInclude Include="Launcher.h" />
+    <ClInclude Include="LauncherAnimator.h" />
+    <ClInclude Include="LauncherGranade.h" />
+    <ClInclude Include="Liberator.h" />
+    <ClInclude Include="LiberatorAnimator.h" />
+    <ClInclude Include="LightLoad.h" />
+    <ClInclude Include="MapLoad.h" />
+    <ClInclude Include="MapObject.h" />
+    <ClInclude Include="MiniGame01.h" />
+    <ClInclude Include="MiniGameCamera01.h" />
+    <ClInclude Include="MiniGameUI01.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="Mutant.h" />
+    <ClInclude Include="MutantPoison.h" />
+    <ClInclude Include="MutantSpriteAnimator.h" />
+    <ClInclude Include="Names.h" />
+    <ClInclude Include="NextSceneTrigger.h" />
+    <ClInclude Include="Number.h" />
+    <ClInclude Include="Numbers.h" />
+    <ClInclude Include="ObjectAutoDoor.h" />
+    <ClInclude Include="ObjectGarbageBag.h" />
+    <ClInclude Include="ObjectMiniGame.h" />
+    <ClInclude Include="ObjectStairConcrete.h" />
+    <ClInclude Include="ObjectButton.h" />
+    <ClInclude Include="ObjectCarBlack.h" />
+    <ClInclude Include="ObjectCarBlue.h" />
+    <ClInclude Include="ObjectCardScreen.h" />
+    <ClInclude Include="Objectelevator.h" />
+    <ClInclude Include="ObjectManualDoor.h" />
+    <ClInclude Include="ObjectRat.h" />
+    <ClInclude Include="ObjectRatAnimator.h" />
+    <ClInclude Include="ObjectStairBlue.h" />
+    <ClInclude Include="ObjectVent.h" />
+    <ClInclude Include="ObjectStairWood.h" />
+    <ClInclude Include="OrthoEffect.h" />
+    <ClInclude Include="OverlayRenderOrders.h" />
+    <ClInclude Include="PhysicsInitialize.h" />
+    <ClInclude Include="PhysicsLayers.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerUI.h" />
+    <ClInclude Include="ObjectCarRed.h" />
+    <ClInclude Include="RenderLayers.h" />
+    <ClInclude Include="Revolver.h" />
+    <ClInclude Include="RevolverAnimator.h" />
+    <ClInclude Include="SceneMap.h" />
+    <ClInclude Include="shared_stdafx.h" />
+    <ClInclude Include="Skull.h" />
+    <ClInclude Include="SkullAnimator.h" />
+    <ClInclude Include="SkullBall.h" />
+    <ClInclude Include="SkullBallAnimator.h" />
+    <ClInclude Include="SkullReplica.h" />
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="SMG.h" />
+    <ClInclude Include="SMGAnimator.h" />
+    <ClInclude Include="SoundMgr.h" />
+    <ClInclude Include="Spider.h" />
+    <ClInclude Include="SpiderSpriteAnimator.h" />
+    <ClInclude Include="SpriteAnimation.h" />
+    <ClInclude Include="SpriteAnimator.h" />
+    <ClInclude Include="Tags.h" />
+    <ClInclude Include="TotalLoad.h" />
+    <ClInclude Include="TrailRenderer.h" />
+    <ClInclude Include="TriangleStair.h" />
+    <ClInclude Include="Trigger.h" />
+    <ClInclude Include="UserMixMesh.h" />
+    <ClInclude Include="Warmech.h" />
+    <ClInclude Include="WarmechBullet.h" />
+    <ClInclude Include="WarmechExplosion.h" />
+    <ClInclude Include="WarmechHit.h" />
+    <ClInclude Include="WarmechMissile.h" />
+    <ClInclude Include="WarmechSpriteAnimator.h" />
+    <ClInclude Include="WarmechTrail.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponTypes.h" />
+    <ClInclude Include="Web.h" />
+    <ClInclude Include="WebSpriteAnimator.h" />
+    <ClInclude Include="Wendigo.h" />
+    <ClInclude Include="WendigoSpriteAnimator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

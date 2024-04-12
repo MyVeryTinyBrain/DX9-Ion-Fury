@@ -33,7 +33,7 @@ void TestScene3::OnLoad(Scene* beforeScene)
 	TotalLoad::Load(L"../Data/Total/seongyeontest.txt");
 	{   // Create test player
 		auto obj = CreateGameObject();
-		obj->transform->position = Vec3(0, 3, 0);
+		obj->transform->position = Vec3(0, 3, -0);
 		auto controller = obj->AddComponent<Player>();
 	}
 
@@ -151,7 +151,7 @@ void TestScene3::OnLoad(Scene* beforeScene)
 	{
 		auto obj = CreateGameObject();
 		obj->transform->position = Vec3(0.f, 0.1f, 24.f);
-		obj->transform->localScale = Vec3(5.f, 6.f, 0.1f);
+		obj->transform->localScale = Vec3(5.f, 6.f, 0.5f);
 		obj->transform->localEulerAngle = Vec3(-90.f, 0.0f, 0.f);
 		auto texture = obj->AddComponent<Objectelevator>();
 		auto renderer = obj->AddComponent<UserMeshRenderer>();

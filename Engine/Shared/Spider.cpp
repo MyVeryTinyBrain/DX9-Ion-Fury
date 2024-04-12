@@ -73,12 +73,16 @@ void Spider::Update()
 
 	if (m_isDead)
 	{
-		if (m_body)
+		deadTime += Time::DeltaTime();
+
+		if (m_body && (deadTime > 1.f))
 		{
 			m_body->Destroy();
-			m_collider->Destroy();
 			m_body = nullptr;
+			m_collider->Destroy();
 			m_collider = nullptr;
+
+
 		}
 		return;
 	}
@@ -102,6 +106,8 @@ void Spider::OnDestroy()
 
 	if (Time::TimeScale() == 0)
 		return;
+
+
 }
 
 Collider* Spider::InitializeCollider(GameObject* colliderObj)

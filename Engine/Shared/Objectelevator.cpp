@@ -31,7 +31,7 @@ void Objectelevator::Awake()
 	m_leftdoor = CreateGameObjectToChild(m_root->transform);
 	m_leftdoor->transform->localScale = Vec3(0.5f, 0.7f, 0.1f);
 	m_leftdoor->transform->localEulerAngle = Vec3(-90.f, 0.0f, 0.f);
-	m_leftdoor->transform->localPosition = Vec3(0.25f, 0.5f, 20.5f);
+	m_leftdoor->transform->localPosition = Vec3(0.25f, 0.5f, 3.5f);
 	leftfirstlocalpositon = m_leftdoor->transform->localPosition;
 	{
 		auto renderer = m_leftdoor->AddComponent<UserMeshRenderer>();
@@ -53,7 +53,7 @@ void Objectelevator::Awake()
 	m_rightdoor = CreateGameObjectToChild(m_root->transform);
 	m_rightdoor->transform->localScale = Vec3(0.5f, 0.7f, 0.1f);
 	m_rightdoor->transform->localEulerAngle = Vec3(90.f, 0.0f, 0.f);
-	m_rightdoor->transform->localPosition = Vec3(-0.25f, 0.5f, 20.5f);// аб©Л /z y  //-0.33
+	m_rightdoor->transform->localPosition = Vec3(-0.25f, 0.5f, 3.5f);// аб©Л /z y  //-0.33
 
 	rightfirstlocalpositon = m_rightdoor->transform->localPosition;
 	{

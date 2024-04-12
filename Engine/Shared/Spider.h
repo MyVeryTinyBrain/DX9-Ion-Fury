@@ -69,5 +69,7 @@ private:
 	float m_PatternTime = 0;
 
 	JumpType jumpingtype = (JumpType)0;
+
+	float deadTime = 0.f;
 };
 

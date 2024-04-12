@@ -12,7 +12,7 @@ void Drone::Awake()
 {
 	Monster::Awake();
 
-	m_hp = 10;
+	m_hp = 5;
 	m_moveSpeed = 2.0f;
 
 	m_body->mass = 1.f;
@@ -192,11 +192,12 @@ void Drone::Moving(MovingType type)
 
 			if (m_deltatime < 1.5f)
 			{
-				if (distanceY < 10.1f)
+				if (distanceY < 6.1f)
 					transform->position += transform->up * m_moveSpeed * Time::DeltaTime();
 			}
 			else
 			{
+			
 				transform->position += transform->up * m_moveSpeed * -Time::DeltaTime();
 
 				if (m_deltatime > 3.f)
