@@ -1,5 +1,6 @@
 ## Build
-https://github.com/MyVeryTinyBrain/DX9-Ion-Fury/releases/tag/Build
+https://github.com/MyVeryTinyBrain/DX9-Ion-Fury/releases/tag/Build  
+실행 파일: `Release/IonFury.exe`
 
 ## How to play
 초기 화면: `Space`를 눌러 게임 시작  
